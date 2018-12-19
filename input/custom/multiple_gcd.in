@@ -1,0 +1,18 @@
+v = [15, 6, 30, 300, 90, 99];
+n = 6;
+gcd = v[0];
+i=1;
+while (i<n)
+{
+    a=gcd;
+    b=v[i];
+    while (b)
+    {
+        r=a%b;
+        a=b;
+        b=r;
+    }
+    gcd=a;
+    i = i+1;
+}
+print(gcd);

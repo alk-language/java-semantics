@@ -1,0 +1,6 @@
+s = { 2, 4, 6, 7 };
+z = s.topFront();
+n = s.size();
+s2 = s.pushBack(99);
+a = s2[3];
+s.insert(2, 22);
