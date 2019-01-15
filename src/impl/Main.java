@@ -32,10 +32,10 @@ public class Main {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             alkParser parser = new alkParser(tokens);
 
-            testExpression(parser.expression());
-            //ParseTree tree = parser.main();
-            //VisitorBaseImpl alkVisitor = new VisitorBaseImpl();
-            //alkVisitor.visit(tree);
+            //testExpression(parser.expression());
+            ParseTree tree = parser.main();
+            VisitorBaseImpl alkVisitor = new VisitorBaseImpl();
+            alkVisitor.visit(tree);
 
         } catch (IOException e)
         {

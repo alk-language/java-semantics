@@ -44,6 +44,7 @@ EMPTY : 'empty';
 END : 'end';
 FIRST : 'first';
 INSERT : 'insert';
+PRINT : 'print';
 POPBACK : 'popBack';
 POPFRONT : 'popFront';
 PUSHBACK : 'pushBack';

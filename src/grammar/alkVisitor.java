@@ -19,19 +19,11 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMain(alkParser.MainContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToInstruction}
-	 * labeled alternative in {@link alkParser#statement_sequence}.
+	 * Visit a parse tree produced by {@link alkParser#statement_sequence}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitToInstruction(alkParser.ToInstructionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code InstructionSeq}
-	 * labeled alternative in {@link alkParser#statement_sequence}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInstructionSeq(alkParser.InstructionSeqContext ctx);
+	T visitStatement_sequence(alkParser.Statement_sequenceContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToF}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -82,12 +74,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFailure(alkParser.FailureContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToAssign}
+	 * Visit a parse tree produced by the {@code ToAssignmentStmt}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitToAssign(alkParser.ToAssignContext ctx);
+	T visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ID}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -151,42 +143,89 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitChoose(alkParser.ChooseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#increase_decrease}.
+	 * Visit a parse tree produced by the {@code PlusPlusStmt}
+	 * labeled alternative in {@link alkParser#increase_decrease}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIncrease_decrease(alkParser.Increase_decreaseContext ctx);
+	T visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#assignment}.
+	 * Visit a parse tree produced by the {@code StmtPlusPlus}
+	 * labeled alternative in {@link alkParser#increase_decrease}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignment(alkParser.AssignmentContext ctx);
+	T visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code While}
+	 * Visit a parse tree produced by the {@code MinusMinusStmt}
+	 * labeled alternative in {@link alkParser#increase_decrease}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StmtMinusMinus}
+	 * labeled alternative in {@link alkParser#increase_decrease}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PlusPlusModStmt}
+	 * labeled alternative in {@link alkParser#increase_decrease}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlusPlusModStmt(alkParser.PlusPlusModStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MinusMinusModStmt}
+	 * labeled alternative in {@link alkParser#increase_decrease}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMinusMinusModStmt(alkParser.MinusMinusModStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AssignmentStmt}
+	 * labeled alternative in {@link alkParser#assignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignmentStmt(alkParser.AssignmentStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WhileStructure}
 	 * labeled alternative in {@link alkParser#while_struct}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWhile(alkParser.WhileContext ctx);
+	T visitWhileStructure(alkParser.WhileStructureContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#do_while_struct}.
+	 * Visit a parse tree produced by the {@code DoWhileStructure}
+	 * labeled alternative in {@link alkParser#do_while_struct}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDo_while_struct(alkParser.Do_while_structContext ctx);
+	T visitDoWhileStructure(alkParser.DoWhileStructureContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#if_struct}.
+	 * Visit a parse tree produced by the {@code IfStructure}
+	 * labeled alternative in {@link alkParser#if_struct}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIf_struct(alkParser.If_structContext ctx);
+	T visitIfStructure(alkParser.IfStructureContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#for_struct}.
+	 * Visit a parse tree produced by the {@code ForStructure}
+	 * labeled alternative in {@link alkParser#for_struct}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFor_struct(alkParser.For_structContext ctx);
+	T visitForStructure(alkParser.ForStructureContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForStart}
+	 * labeled alternative in {@link alkParser#start_assignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForStart(alkParser.ForStartContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#forall_struct}.
 	 * @param ctx the parse tree
@@ -218,47 +257,68 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSet_atom(alkParser.Set_atomContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#expression}.
+	 * Visit a parse tree produced by the {@code ConditionalExpression}
+	 * labeled alternative in {@link alkParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(alkParser.ExpressionContext ctx);
+	T visitConditionalExpression(alkParser.ConditionalExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#logical_or_expression}.
+	 * Visit a parse tree produced by the {@code LogicalOrExpression}
+	 * labeled alternative in {@link alkParser#logical_or_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLogical_or_expression(alkParser.Logical_or_expressionContext ctx);
+	T visitLogicalOrExpression(alkParser.LogicalOrExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#logical_and_expression}.
+	 * Visit a parse tree produced by the {@code LogicalAndExpression}
+	 * labeled alternative in {@link alkParser#logical_and_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLogical_and_expression(alkParser.Logical_and_expressionContext ctx);
+	T visitLogicalAndExpression(alkParser.LogicalAndExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#in_expression}.
+	 * Visit a parse tree produced by the {@code InExpression}
+	 * labeled alternative in {@link alkParser#in_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIn_expression(alkParser.In_expressionContext ctx);
+	T visitInExpression(alkParser.InExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#equality_expression}.
+	 * Visit a parse tree produced by the {@code EqualityExpression}
+	 * labeled alternative in {@link alkParser#equality_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEquality_expression(alkParser.Equality_expressionContext ctx);
+	T visitEqualityExpression(alkParser.EqualityExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#relational_expression}.
+	 * Visit a parse tree produced by the {@code RelationalExpression}
+	 * labeled alternative in {@link alkParser#relational_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRelational_expression(alkParser.Relational_expressionContext ctx);
+	T visitRelationalExpression(alkParser.RelationalExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#shift_expression}.
+	 * Visit a parse tree produced by the {@code BitwiseOrExpression}
+	 * labeled alternative in {@link alkParser#bitwise_or}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitShift_expression(alkParser.Shift_expressionContext ctx);
+	T visitBitwiseOrExpression(alkParser.BitwiseOrExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BitwiseAndExpression}
+	 * labeled alternative in {@link alkParser#bitwise_and}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBitwiseAndExpression(alkParser.BitwiseAndExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ShiftExpression}
+	 * labeled alternative in {@link alkParser#shift_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShiftExpression(alkParser.ShiftExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AdditiveExpression}
 	 * labeled alternative in {@link alkParser#additive_expression}.
@@ -267,29 +327,68 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAdditiveExpression(alkParser.AdditiveExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#multiplicative_expression}.
+	 * Visit a parse tree produced by the {@code MultiplicativeExpression}
+	 * labeled alternative in {@link alkParser#multiplicative_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultiplicative_expression(alkParser.Multiplicative_expressionContext ctx);
+	T visitMultiplicativeExpression(alkParser.MultiplicativeExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#unary_expression}.
+	 * Visit a parse tree produced by the {@code PrefixExpression}
+	 * labeled alternative in {@link alkParser#unary_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnary_expression(alkParser.Unary_expressionContext ctx);
+	T visitPrefixExpression(alkParser.PrefixExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#postfix_expression}.
+	 * Visit a parse tree produced by the {@code UnaryExpression}
+	 * labeled alternative in {@link alkParser#unary_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPostfix_expression(alkParser.Postfix_expressionContext ctx);
+	T visitUnaryExpression(alkParser.UnaryExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#factor}.
+	 * Visit a parse tree produced by the {@code ToPostfixExpression}
+	 * labeled alternative in {@link alkParser#unary_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFactor(alkParser.FactorContext ctx);
+	T visitToPostfixExpression(alkParser.ToPostfixExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PostfixExpression}
+	 * labeled alternative in {@link alkParser#postfix_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostfixExpression(alkParser.PostfixExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FunctionCallFactor}
+	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallFactor(alkParser.FunctionCallFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RefNameFactor}
+	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRefNameFactor(alkParser.RefNameFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ValueFactor}
+	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValueFactor(alkParser.ValueFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParanthesesFactor}
+	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#value}.
 	 * @param ctx the parse tree
@@ -325,35 +424,74 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStringValue(alkParser.StringValueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#ref_name}.
+	 * Visit a parse tree produced by the {@code RefName}
+	 * labeled alternative in {@link alkParser#ref_name}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRef_name(alkParser.Ref_nameContext ctx);
+	T visitRefName(alkParser.RefNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#ref_name_chunk}.
+	 * Visit a parse tree produced by the {@code FunctionChunk}
+	 * labeled alternative in {@link alkParser#ref_name_chunk}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRef_name_chunk(alkParser.Ref_name_chunkContext ctx);
+	T visitFunctionChunk(alkParser.FunctionChunkContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#data_structure}.
+	 * Visit a parse tree produced by the {@code IDChunk}
+	 * labeled alternative in {@link alkParser#ref_name_chunk}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitData_structure(alkParser.Data_structureContext ctx);
+	T visitIDChunk(alkParser.IDChunkContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#interval}.
+	 * Visit a parse tree produced by the {@code ArrayValue}
+	 * labeled alternative in {@link alkParser#data_structure}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterval(alkParser.IntervalContext ctx);
+	T visitArrayValue(alkParser.ArrayValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListValue}
+	 * labeled alternative in {@link alkParser#data_structure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListValue(alkParser.ListValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SetValue}
+	 * labeled alternative in {@link alkParser#data_structure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetValue(alkParser.SetValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StructureValue}
+	 * labeled alternative in {@link alkParser#data_structure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructureValue(alkParser.StructureValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IntervalDefinition}
+	 * labeled alternative in {@link alkParser#interval}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#spec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSpec(alkParser.SpecContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArrayWithSpec}
+	 * labeled alternative in {@link alkParser#array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayWithSpec(alkParser.ArrayWithSpecContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayWithExpressions}
 	 * labeled alternative in {@link alkParser#array}.
@@ -368,13 +506,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArrayWithInterval(alkParser.ArrayWithIntervalContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ArrayWithSpec}
-	 * labeled alternative in {@link alkParser#array}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayWithSpec(alkParser.ArrayWithSpecContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#list}.
 	 * @param ctx the parse tree
@@ -406,11 +537,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_call(alkParser.Function_callContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#builtin_method}.
+	 * Visit a parse tree produced by the {@code BuiltinMethod}
+	 * labeled alternative in {@link alkParser#builtin_method}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBuiltin_method(alkParser.Builtin_methodContext ctx);
+	T visitBuiltinMethod(alkParser.BuiltinMethodContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#method_name}.
 	 * @param ctx the parse tree

@@ -1,16 +1,196 @@
 package impl;
 import grammar.*;
 import impl.env.Environment;
+import impl.exceptions.AlkException;
+import impl.exceptions.InterpretorException;
+import impl.types.alkBool.AlkBool;
+import impl.types.alkInt.AlkInt;
+import impl.types.AlkValue;
 import impl.visitors.AssignmentVisitor;
+import impl.visitors.ReferenceVisitor;
 import impl.visitors.expression.ExpressionVisitor;
-import impl.visitors.function.FunctionVisitor;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import static impl.constants.Constants.DEBUG;
+import static impl.exceptions.AlkException.*;
 
 public class VisitorBaseImpl extends alkBaseVisitor {
 
     private Environment env = new Environment();
 
+    @Override public Object visitAssignmentStmt(alkParser.AssignmentStmtContext ctx) {
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, (AlkValue) exprVisitor.visit(ctx.expression()));
+        return asgnVisitor.visit(ctx.ref_name());
+    }
+
+    @Override public Object visitBuiltinMethod(alkParser.BuiltinMethodContext ctx) {
+        if (ctx.expression().size()!=1)
+        {
+            AlkException e = new AlkException(ERR_PRINT_PARAM);
+            e.printException(ctx.start.getLine());
+            return null;
+        }
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        System.out.println(((AlkValue)exprVisitor.visit(ctx.expression(0))).toString());
+        return null;
+    }
+
+    @Override public Object visitDoWhileStructure(alkParser.DoWhileStructureContext ctx) {
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        AlkValue value;
+        do
+        {
+            visit(ctx.statement());
+            value = (AlkValue) exprVisitor.visit(ctx.expression());
+            if (!value.type.equals("Bool"))
+            {
+                AlkException e = new AlkException(ERR_DOWHILE_NOT_BOOL);
+                e.printException(ctx.start.getLine());
+                return null;
+            }
+        } while (((AlkBool)value).value);
+        return null;
+    }
+
+    @Override public Object visitWhileStructure(alkParser.WhileStructureContext ctx) {
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
+        if (!value.type.equals("Bool"))
+        {
+            AlkException e = new AlkException(ERR_WHILE_NOT_BOOL);
+            e.printException(ctx.start.getLine());
+            return null;
+        }
+        while (((AlkBool)value).value)
+        {
+            visit(ctx.statement());
+            value = (AlkValue) exprVisitor.visit(ctx.expression());
+            if (!value.type.equals("Bool"))
+            {
+                AlkException e = new AlkException(ERR_WHILE_NOT_BOOL);
+                e.printException(ctx.start.getLine());
+                return null;
+            }
+        }
+        return null;
+    }
+
+    @Override public Object visitIfStructure(alkParser.IfStructureContext ctx) {
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
+        if (!value.type.equals("Bool"))
+        {
+            AlkException e = new AlkException(ERR_IF_NOT_BOOL);
+            e.printException(ctx.start.getLine());
+            return null;
+        }
+        if (((AlkBool)value).value)
+            return visit(ctx.statement(0));
+        else
+        {
+            if (ctx.statement().size()>1)
+            {
+                return visit(ctx.statement(1));
+            }
+        }
+        return null;
+    }
 
 
+
+    @Override public Object visitForStructure(alkParser.ForStructureContext ctx) {
+        if (ctx.start_assignment()!=null)
+            visit(ctx.start_assignment());
+
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
+        if (!value.type.equals("Bool"))
+        {
+            AlkException e = new AlkException(ERR_FOR_NOT_BOOL);
+            e.printException(ctx.start.getLine());
+            return null;
+        }
+        while (((AlkBool)value).value)
+        {
+            visit(ctx.statement());
+
+            if (ctx.assignment()!=null)
+                visit(ctx.assignment());
+            else
+                visit(ctx.increase_decrease());
+
+            value = (AlkValue) exprVisitor.visit(ctx.expression());
+            if (!value.type.equals("Bool"))
+            {
+                AlkException e = new AlkException(ERR_FOR_NOT_BOOL);
+                e.printException(ctx.start.getLine());
+                return null;
+            }
+        }
+        return null;
+    }
+
+
+    @Override public Object visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx) {
+        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        try {
+            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1"))));
+            asgnVisitor.visit(ctx.ref_name());
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+        } catch (InterpretorException e) {
+            if (DEBUG)
+                e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
+
+
+
+    @Override public Object visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx) {
+        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        try {
+            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).subtract(new AlkInt(new BigInteger("1"))));
+            asgnVisitor.visit(ctx.ref_name());
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+        } catch (InterpretorException e) {
+            if (DEBUG)
+                e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
+
+
+
+    @Override public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
+        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        try {
+            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1"))));
+            asgnVisitor.visit(ctx.ref_name());
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+        } catch (InterpretorException e) {
+            if (DEBUG)
+                e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
+
+
+    @Override public Object visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx) {
+        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        try {
+            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).subtract(new AlkInt(new BigInteger("1"))));
+            asgnVisitor.visit(ctx.ref_name());
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+        } catch (InterpretorException e) {
+            if (DEBUG)
+                e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
 }

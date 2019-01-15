@@ -3,7 +3,7 @@ grammar expression;
 import terminal;
 
 
-//Set related expressions
+//Set related expressions   !! de introdus in expresii normale
 set_expression:
     set_atom ((UNION | INTERSECT | SUBSTRACT) set_atom)*
 ;
@@ -19,77 +19,77 @@ set_atom:
 
 expression
 :
-    logical_or_expression (QUESTION expression DPOINT expression)?
+    logical_or_expression (QUESTION expression DPOINT expression)?                                                      #ConditionalExpression
 ;
 
 logical_or_expression
 :
-    logical_and_expression (OR logical_and_expression)*
+    logical_and_expression (OR logical_and_expression)*                                                                 #LogicalOrExpression
 ;
 
 logical_and_expression
 :
-    in_expression (AND in_expression)*
+    in_expression (AND in_expression)*                                                                                  #LogicalAndExpression
 ;
 
 in_expression
 :
-    equality_expression (IN equality_expression)*
+    equality_expression (IN equality_expression)*                                                                       #InExpression
 ;
 
 equality_expression
 :
-    relational_expression ((ISEQUAL | NOTEQUAL) relational_expression)*
+    relational_expression ((ISEQUAL | NOTEQUAL) relational_expression)*                                                 #EqualityExpression
 ;
 
 relational_expression
 :
-    bitwise_or ((LOWER | GREATER | LOWEREQ | GREATEREQ) bitwise_or)*
+    bitwise_or ((LOWER | GREATER | LOWEREQ | GREATEREQ) bitwise_or)*                                                    #RelationalExpression
 ;
 
 bitwise_or
 :
-    bitwise_and ((VBAR|XOR) bitwise_and)*
+    bitwise_and ((VBAR|XOR) bitwise_and)*                                                                               #BitwiseOrExpression
 ;
 
 bitwise_and
 :
-    shift_expression (BITWISE_AND shift_expression)*
+    shift_expression (BITWISE_AND shift_expression)*                                                                    #BitwiseAndExpression
 ;
 
 shift_expression
 :
-    additive_expression ((LEFTSHIFT | RIGHTSHIFT) additive_expression)*
+    additive_expression ((LEFTSHIFT | RIGHTSHIFT) additive_expression)*                                                 #ShiftExpression
 ;
 
 additive_expression
 :
-    multiplicative_expression ((PLUS | MINUS | PLUSMOD | MINUSMOD) multiplicative_expression)*                            #AdditiveExpression
+    multiplicative_expression ((PLUS | MINUS | PLUSMOD | MINUSMOD) multiplicative_expression)*                          #AdditiveExpression
 ;
 
 multiplicative_expression
 :
-    unary_expression ((MUL | DIV | MOD) unary_expression)*
+    unary_expression ((MUL | DIV | MOD) unary_expression)*                                                              #MultiplicativeExpression
 ;
 
 unary_expression
 :
-    (PLUSPLUS | MINUSMINUS | PLUSPLUSMOD | MINUSMINUSMOD)  unary_expression
-    | (MUL | PLUS | MINUS | NOT) unary_expression
-    | postfix_expression
+    (PLUSPLUS | MINUSMINUS | PLUSPLUSMOD | MINUSMINUSMOD)  unary_expression                                             #PrefixExpression
+    | (MUL | PLUS | MINUS | NOT) unary_expression                                                                       #UnaryExpression
+    | postfix_expression                                                                                                #ToPostfixExpression
 ;
 
 postfix_expression
 :
-    factor (PLUSPLUS | MINUSMINUS)*
+    factor (PLUSPLUS | MINUSMINUS)*                                                                                     #PostfixExpression
 ;
 
 factor
 :
-    function_call
-    | ref_name
-    | value
-    | LPAR expression RPAR
+    function_call                                                                                                       #FunctionCallFactor
+    | ref_name                                                                                                          #RefNameFactor
+    | value                                                                                                             #ValueFactor
+    | LPAR expression RPAR                                                                                              #ParanthesesFactor
 ;
 
 value
@@ -110,29 +110,29 @@ scalar_value :
 //Reference name
 ref_name
 :
-    ref_name_chunk ((POINT|ARROW) ref_name_chunk)*
+    ref_name_chunk ((POINT|ARROW) ref_name_chunk)*                                                                      #RefName
 ;
 
 ref_name_chunk
 :
-    function_call (LBRA expression RBRA)*
-    | ID (LBRA expression RBRA)*
+    function_call (LBRA expression RBRA)*                                                                               #FunctionChunk
+    | ID (LBRA expression RBRA)*                                                                                        #IDChunk
 ;
 
 
 //Data structures
 data_structure
 :
-    array
-    | list
-    | set_expression
-    | structure
+    array                                                                                                               #ArrayValue
+    | list                                                                                                              #ListValue
+    | set_expression                                                                                                    #SetValue
+    | structure                                                                                                         #StructureValue
 ;
 
 
 //Interval
 interval:
-    expression POINT POINT expression
+    expression POINT POINT expression                                                                                   #IntervalDefinition
 ;
 
 //Spec
@@ -186,7 +186,7 @@ function_call
 
 builtin_method
 :
-    method_name LPAR (expression (COMMA expression)*)? RPAR
+    method_name LPAR (expression (COMMA expression)*)? RPAR                                                             #BuiltinMethod
 ;
 
 method_name :
@@ -195,6 +195,7 @@ method_name :
     | END
     | FIRST
     | INSERT
+    | PRINT
     | POPBACK
     | POPFRONT
     | PUSHBACK

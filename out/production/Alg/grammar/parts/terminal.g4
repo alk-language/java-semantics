@@ -34,6 +34,8 @@ FAILURE : 'failure';
 EMPTYSET : 'emptySet';
 EMPTYLIST : 'emptyList';
 
+XOR : 'xor';
+
 //Builtin Functions
 AT : 'at';
 BELONGSTO : 'belongsTo';
@@ -42,6 +44,7 @@ EMPTY : 'empty';
 END : 'end';
 FIRST : 'first';
 INSERT : 'insert';
+PRINT : 'print';
 POPBACK : 'popBack';
 POPFRONT : 'popFront';
 PUSHBACK : 'pushBack';

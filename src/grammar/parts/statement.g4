@@ -7,8 +7,8 @@ import expression;
 
 statement_sequence
 :
-    statement                                                      #ToInstruction
-    | statement statement_sequence                                  #InstructionSeq
+    statement
+    | statement statement_sequence
 ;
 
 statement //statement
@@ -22,8 +22,8 @@ statement //statement
     | SUCCESS SEMICOLON                                        #Success
     | FAILURE SEMICOLON                                        #Failure
 
-    | assignment SEMICOLON                                    #ToAssign
-    | increase_decrease SEMICOLON                               #ID
+    | assignment SEMICOLON                                    #ToAssignmentStmt
+    | increase_decrease SEMICOLON                             #ID
     | statement_block                                         #ToBlock
 
     | while_struct                                            #ToWhile
@@ -35,7 +35,7 @@ statement //statement
 
 statement_block
 :
-    LCB statement_sequence RCB                           #Block
+    LCB statement_sequence RCB                                                                                          #Block
 ;
 
 choose:
@@ -44,37 +44,41 @@ choose:
 
 increase_decrease
 :
-    PLUSPLUS ref_name
-    | ref_name PLUSPLUS
-    | MINUSMINUS ref_name
-    | ref_name MINUSMINUS
-    | PLUSPLUSMOD ref_name
-    | MINUSMINUSMOD ref_name
+    PLUSPLUS ref_name                                                                                                   #PlusPlusStmt
+    | ref_name PLUSPLUS                                                                                                 #StmtPlusPlus
+    | MINUSMINUS ref_name                                                                                               #MinusMinusStmt
+    | ref_name MINUSMINUS                                                                                               #StmtMinusMinus
+    | PLUSPLUSMOD ref_name                                                                                              #PlusPlusModStmt
+    | MINUSMINUSMOD ref_name                                                                                            #MinusMinusModStmt
 ;
 
 assignment
 :
-    ref_name ASSIGNMENT_OPERATOR expression
+    ref_name ASSIGNMENT_OPERATOR expression                                                                             #AssignmentStmt
 ;
 
 while_struct
 :
-    WHILE LPAR expression RPAR statement               #While
+    WHILE LPAR expression RPAR statement                                                                                #WhileStructure
 ;
 
 do_while_struct
 :
-    DO statement WHILE LPAR expression RPAR
+    DO statement WHILE LPAR expression RPAR                                                                             #DoWhileStructure
 ;
 
 if_struct
 :
-    IF LPAR expression RPAR statement (ELSE statement)?
+    IF LPAR expression RPAR statement (ELSE statement)?                                                                 #IfStructure
 ;
 
 for_struct
 :
-    FOR LPAR assignment? SEMICOLON expression SEMICOLON (assignment | increase_decrease) RPAR statement
+    FOR LPAR start_assignment? SEMICOLON expression SEMICOLON (assignment | increase_decrease) RPAR statement           #ForStructure
+;
+
+start_assignment:
+    assignment                                                                                                          #ForStart
 ;
 
 forall_struct

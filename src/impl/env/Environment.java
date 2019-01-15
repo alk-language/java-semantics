@@ -1,36 +1,31 @@
 package impl.env;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import impl.exceptions.AlkException;
+import impl.types.AlkValue;
+
 import java.util.HashMap;
+
+import static impl.exceptions.AlkException.ERR_NO_REF;
 
 public class Environment {
 
-    private HashMap<String, Object> variables = new HashMap<>();
+    private HashMap<String, AlkValue> variables = new HashMap<>();
 
-    public Object get(String str)
-    {
-        return variables.get(str);
+    public AlkValue lookup(String str) throws AlkException {
+        if (variables.containsKey(str))
+            return variables.get(str);
+        throw new AlkException(ERR_NO_REF);
     }
 
-    public boolean put(String id, Object value) // pentru variabile
+    public void update(String id, AlkValue value)
     {
         variables.put(id, value);
-        return true;
     }
 
-    public Integer put(String id, ArrayList indexes, Object value) // pentru liste, eventual multiple
+    public boolean has(String id)
     {
-        ArrayList ar = (ArrayList)variables.get(id);
-        for (int i=indexes.size()-1; i>=1; i--)
-            ar = (ArrayList)ar.get((Integer)indexes.get(i));
-        ar.set((Integer)indexes.get(0), value);
-        return 1;
-    }
-
-    public Object get(String id, Object index) // pentru liste
-    {
-        Object ar = variables.get(id);
-        return ((ArrayList)ar).get(((BigDecimal)index).intValue());
+        if (variables.containsKey(id))
+            return true;
+        return false;
     }
 }
