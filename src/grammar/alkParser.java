@@ -272,14 +272,26 @@ public class alkParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class ForContext extends StatementContext {
-		public For_structContext for_struct() {
-			return getRuleContext(For_structContext.class,0);
+	public static class ToDoWhileContext extends StatementContext {
+		public Do_while_structContext do_while_struct() {
+			return getRuleContext(Do_while_structContext.class,0);
 		}
-		public ForContext(StatementContext ctx) { copyFrom(ctx); }
+		public TerminalNode SEMICOLON() { return getToken(alkParser.SEMICOLON, 0); }
+		public ToDoWhileContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitFor(this);
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitToDoWhile(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ToForAllContext extends StatementContext {
+		public Forall_structContext forall_struct() {
+			return getRuleContext(Forall_structContext.class,0);
+		}
+		public ToForAllContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitToForAll(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -297,18 +309,6 @@ public class alkParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitToF(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class DoWhileContext extends StatementContext {
-		public Do_while_structContext do_while_struct() {
-			return getRuleContext(Do_while_structContext.class,0);
-		}
-		public TerminalNode SEMICOLON() { return getToken(alkParser.SEMICOLON, 0); }
-		public DoWhileContext(StatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitDoWhile(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -331,6 +331,18 @@ public class alkParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitChooseStm(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ToIncreaseDecreaseContext extends StatementContext {
+		public Increase_decreaseContext increase_decrease() {
+			return getRuleContext(Increase_decreaseContext.class,0);
+		}
+		public TerminalNode SEMICOLON() { return getToken(alkParser.SEMICOLON, 0); }
+		public ToIncreaseDecreaseContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitToIncreaseDecrease(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -357,26 +369,14 @@ public class alkParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class IDContext extends StatementContext {
-		public Increase_decreaseContext increase_decrease() {
-			return getRuleContext(Increase_decreaseContext.class,0);
+	public static class ToForContext extends StatementContext {
+		public For_structContext for_struct() {
+			return getRuleContext(For_structContext.class,0);
 		}
-		public TerminalNode SEMICOLON() { return getToken(alkParser.SEMICOLON, 0); }
-		public IDContext(StatementContext ctx) { copyFrom(ctx); }
+		public ToForContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitID(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ForAllContext extends StatementContext {
-		public Forall_structContext forall_struct() {
-			return getRuleContext(Forall_structContext.class,0);
-		}
-		public ForAllContext(StatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitForAll(this);
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitToFor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -526,7 +526,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 9:
-				_localctx = new IDContext(_localctx);
+				_localctx = new ToIncreaseDecreaseContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
 				setState(126);
@@ -552,7 +552,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 12:
-				_localctx = new DoWhileContext(_localctx);
+				_localctx = new ToDoWhileContext(_localctx);
 				enterOuterAlt(_localctx, 12);
 				{
 				setState(131);
@@ -570,7 +570,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 14:
-				_localctx = new ForContext(_localctx);
+				_localctx = new ToForContext(_localctx);
 				enterOuterAlt(_localctx, 14);
 				{
 				setState(135);
@@ -578,7 +578,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 15:
-				_localctx = new ForAllContext(_localctx);
+				_localctx = new ToForAllContext(_localctx);
 				enterOuterAlt(_localctx, 15);
 				{
 				setState(136);
@@ -1256,6 +1256,17 @@ public class alkParser extends Parser {
 	}
 
 	public static class Forall_structContext extends ParserRuleContext {
+		public Forall_structContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_forall_struct; }
+	 
+		public Forall_structContext() { }
+		public void copyFrom(Forall_structContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ForAllStructureContext extends Forall_structContext {
 		public TerminalNode FORALL() { return getToken(alkParser.FORALL, 0); }
 		public TerminalNode ID() { return getToken(alkParser.ID, 0); }
 		public TerminalNode IN() { return getToken(alkParser.IN, 0); }
@@ -1265,13 +1276,10 @@ public class alkParser extends Parser {
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
-		public Forall_structContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_forall_struct; }
+		public ForAllStructureContext(Forall_structContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitForall_struct(this);
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitForAllStructure(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1280,6 +1288,7 @@ public class alkParser extends Parser {
 		Forall_structContext _localctx = new Forall_structContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_forall_struct);
 		try {
+			_localctx = new ForAllStructureContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(207);
@@ -3370,6 +3379,17 @@ public class alkParser extends Parser {
 	}
 
 	public static class SpecContext extends ParserRuleContext {
+		public SpecContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_spec; }
+	 
+		public SpecContext() { }
+		public void copyFrom(SpecContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SpecDefinitionContext extends SpecContext {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -3379,13 +3399,10 @@ public class alkParser extends Parser {
 		public IntervalContext interval() {
 			return getRuleContext(IntervalContext.class,0);
 		}
-		public SpecContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_spec; }
+		public SpecDefinitionContext(SpecContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitSpec(this);
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitSpecDefinition(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3394,6 +3411,7 @@ public class alkParser extends Parser {
 		SpecContext _localctx = new SpecContext(_ctx, getState());
 		enterRule(_localctx, 74, RULE_spec);
 		try {
+			_localctx = new SpecDefinitionContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(411);
@@ -3559,10 +3577,37 @@ public class alkParser extends Parser {
 	}
 
 	public static class ListContext extends ParserRuleContext {
-		public TerminalNode EMPTYLIST() { return getToken(alkParser.EMPTYLIST, 0); }
-		public SpecContext spec() {
-			return getRuleContext(SpecContext.class,0);
+		public ListContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
+		@Override public int getRuleIndex() { return RULE_list; }
+	 
+		public ListContext() { }
+		public void copyFrom(ListContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class EmptyListContext extends ListContext {
+		public TerminalNode EMPTYLIST() { return getToken(alkParser.EMPTYLIST, 0); }
+		public EmptyListContext(ListContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitEmptyList(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ListWithIntervalContext extends ListContext {
+		public IntervalContext interval() {
+			return getRuleContext(IntervalContext.class,0);
+		}
+		public ListWithIntervalContext(ListContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitListWithInterval(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ListWithExpressionsContext extends ListContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
@@ -3573,16 +3618,21 @@ public class alkParser extends Parser {
 		public TerminalNode COMMA(int i) {
 			return getToken(alkParser.COMMA, i);
 		}
-		public IntervalContext interval() {
-			return getRuleContext(IntervalContext.class,0);
-		}
-		public ListContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_list; }
+		public ListWithExpressionsContext(ListContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitList(this);
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitListWithExpressions(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ListWithSpecContext extends ListContext {
+		public SpecContext spec() {
+			return getRuleContext(SpecContext.class,0);
+		}
+		public ListWithSpecContext(ListContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitListWithSpec(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3596,6 +3646,7 @@ public class alkParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,38,_ctx) ) {
 			case 1:
+				_localctx = new EmptyListContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(439);
@@ -3603,6 +3654,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new ListWithSpecContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(440);
@@ -3614,6 +3666,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new ListWithExpressionsContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(444);
@@ -3649,6 +3702,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new ListWithIntervalContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(456);
@@ -3773,11 +3827,53 @@ public class alkParser extends Parser {
 	}
 
 	public static class SetContext extends ParserRuleContext {
+		public SetContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_set; }
+	 
+		public SetContext() { }
+		public void copyFrom(SetContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SetWithIntervalContext extends SetContext {
+		public TerminalNode LCB() { return getToken(alkParser.LCB, 0); }
+		public IntervalContext interval() {
+			return getRuleContext(IntervalContext.class,0);
+		}
+		public TerminalNode RCB() { return getToken(alkParser.RCB, 0); }
+		public SetWithIntervalContext(SetContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitSetWithInterval(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class EmptySetContext extends SetContext {
 		public TerminalNode EMPTYSET() { return getToken(alkParser.EMPTYSET, 0); }
+		public EmptySetContext(SetContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitEmptySet(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SetWithSpecContext extends SetContext {
 		public TerminalNode LCB() { return getToken(alkParser.LCB, 0); }
 		public SpecContext spec() {
 			return getRuleContext(SpecContext.class,0);
 		}
+		public TerminalNode RCB() { return getToken(alkParser.RCB, 0); }
+		public SetWithSpecContext(SetContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitSetWithSpec(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SetWithExpressionsContext extends SetContext {
+		public TerminalNode LCB() { return getToken(alkParser.LCB, 0); }
 		public TerminalNode RCB() { return getToken(alkParser.RCB, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -3789,16 +3885,10 @@ public class alkParser extends Parser {
 		public TerminalNode COMMA(int i) {
 			return getToken(alkParser.COMMA, i);
 		}
-		public IntervalContext interval() {
-			return getRuleContext(IntervalContext.class,0);
-		}
-		public SetContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_set; }
+		public SetWithExpressionsContext(SetContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitSet(this);
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitSetWithExpressions(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3812,6 +3902,7 @@ public class alkParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,42,_ctx) ) {
 			case 1:
+				_localctx = new EmptySetContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(474);
@@ -3819,6 +3910,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new SetWithSpecContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(475);
@@ -3830,6 +3922,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new SetWithExpressionsContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(479);
@@ -3865,6 +3958,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new SetWithIntervalContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(491);

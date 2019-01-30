@@ -137,7 +137,7 @@ interval:
 
 //Spec
 spec:
-    expression VBAR ID IN interval
+    expression VBAR ID IN interval                                                                                      #SpecDefinition
 ;
 
 
@@ -151,10 +151,10 @@ array:
 
 //Lists
 list:
-    EMPTYLIST
-    | '<' spec '>'
-    | '<' (expression (COMMA expression)*)? '>'
-    | '<' interval '>'
+    EMPTYLIST                                                                                                           #EmptyList
+    | '<' spec '>'                                                                                                      #ListWithSpec
+    | '<' (expression (COMMA expression)*)? '>'                                                                         #ListWithExpressions
+    | '<' interval '>'                                                                                                  #ListWithInterval
 ;
 
 
@@ -170,10 +170,10 @@ component:
 
 //Sets
 set:
-    EMPTYSET
-    | LCB spec RCB
-    | LCB (expression (COMMA expression)*)? RCB
-    | LCB interval RCB
+    EMPTYSET                                                                                                            #EmptySet
+    | LCB spec RCB                                                                                                      #SetWithSpec
+    | LCB (expression (COMMA expression)*)? RCB                                                                         #SetWithExpressions
+    | LCB interval RCB                                                                                                  #SetWithInterval
 ;
 
 

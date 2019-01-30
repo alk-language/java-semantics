@@ -3,6 +3,7 @@ import grammar.*;
 import impl.env.Environment;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
+import impl.types.AlkIterableValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 import impl.types.AlkValue;
@@ -128,6 +129,27 @@ public class VisitorBaseImpl extends alkBaseVisitor {
                 e.printException(ctx.start.getLine());
                 return null;
             }
+        }
+        return null;
+    }
+
+
+
+    @Override public Object visitForAllStructure(alkParser.ForAllStructureContext ctx) {
+        String iterator = ctx.ID().toString();
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        AlkValue struct = (AlkValue) exprVisitor.visit(ctx.expression());
+        if (!struct.isIterable)
+        {
+            AlkException e = new AlkException(ERR_FORALL_ITERABLE_REQUIRED);
+            e.printException(ctx.start.getLine());
+            return null;
+        }
+        AlkIterableValue iterablestruct = (AlkIterableValue) struct;
+        for (AlkValue value : iterablestruct)
+        {
+            env.update(iterator, value);
+            visit(ctx.statement());
         }
         return null;
     }

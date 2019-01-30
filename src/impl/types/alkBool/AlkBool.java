@@ -37,6 +37,7 @@ public class AlkBool extends AlkValue {
         UnaryBoolHelper help = new UnaryBoolHelper(value);
         return help.not();
     }
+
     @Override
     public String toString() {
         if (value)

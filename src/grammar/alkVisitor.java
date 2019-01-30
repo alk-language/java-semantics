@@ -81,12 +81,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ID}
+	 * Visit a parse tree produced by the {@code ToIncreaseDecrease}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitID(alkParser.IDContext ctx);
+	T visitToIncreaseDecrease(alkParser.ToIncreaseDecreaseContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToBlock}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -102,12 +102,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToWhile(alkParser.ToWhileContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code DoWhile}
+	 * Visit a parse tree produced by the {@code ToDoWhile}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDoWhile(alkParser.DoWhileContext ctx);
+	T visitToDoWhile(alkParser.ToDoWhileContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToIf}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -116,19 +116,19 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToIf(alkParser.ToIfContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code For}
+	 * Visit a parse tree produced by the {@code ToFor}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFor(alkParser.ForContext ctx);
+	T visitToFor(alkParser.ToForContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ForAll}
+	 * Visit a parse tree produced by the {@code ToForAll}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForAll(alkParser.ForAllContext ctx);
+	T visitToForAll(alkParser.ToForAllContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Block}
 	 * labeled alternative in {@link alkParser#statement_block}.
@@ -227,11 +227,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForStart(alkParser.ForStartContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#forall_struct}.
+	 * Visit a parse tree produced by the {@code ForAllStructure}
+	 * labeled alternative in {@link alkParser#forall_struct}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForall_struct(alkParser.Forall_structContext ctx);
+	T visitForAllStructure(alkParser.ForAllStructureContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#function_decl}.
 	 * @param ctx the parse tree
@@ -480,11 +481,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#spec}.
+	 * Visit a parse tree produced by the {@code SpecDefinition}
+	 * labeled alternative in {@link alkParser#spec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSpec(alkParser.SpecContext ctx);
+	T visitSpecDefinition(alkParser.SpecDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayWithSpec}
 	 * labeled alternative in {@link alkParser#array}.
@@ -507,11 +509,33 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayWithInterval(alkParser.ArrayWithIntervalContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#list}.
+	 * Visit a parse tree produced by the {@code EmptyList}
+	 * labeled alternative in {@link alkParser#list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitList(alkParser.ListContext ctx);
+	T visitEmptyList(alkParser.EmptyListContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListWithSpec}
+	 * labeled alternative in {@link alkParser#list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListWithSpec(alkParser.ListWithSpecContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListWithExpressions}
+	 * labeled alternative in {@link alkParser#list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListWithExpressions(alkParser.ListWithExpressionsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListWithInterval}
+	 * labeled alternative in {@link alkParser#list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListWithInterval(alkParser.ListWithIntervalContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#structure}.
 	 * @param ctx the parse tree
@@ -525,11 +549,33 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitComponent(alkParser.ComponentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#set}.
+	 * Visit a parse tree produced by the {@code EmptySet}
+	 * labeled alternative in {@link alkParser#set}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSet(alkParser.SetContext ctx);
+	T visitEmptySet(alkParser.EmptySetContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SetWithSpec}
+	 * labeled alternative in {@link alkParser#set}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetWithSpec(alkParser.SetWithSpecContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SetWithExpressions}
+	 * labeled alternative in {@link alkParser#set}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetWithExpressions(alkParser.SetWithExpressionsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SetWithInterval}
+	 * labeled alternative in {@link alkParser#set}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetWithInterval(alkParser.SetWithIntervalContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#function_call}.
 	 * @param ctx the parse tree

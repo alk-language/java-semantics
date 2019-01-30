@@ -158,6 +158,10 @@ public class AlkException extends Exception {
     public final static String ERR_ARRAY = "The value of the operand must be an array so that its elements can be accessed.";
     public final static String ERR_ARRAY_OUT_OF_BOUNDS = "The position in the array is out of bounds.";
 
+
+    public final static String ERR_FORALL_ITERABLE_REQUIRED = "The forall structure must have an iterable value as right operand.";
+    public final static String ERR_SET_COMPARABLE = "The set can't be made on objects of different types or";
+
     public AlkException(String text)
     {
         super(text);

@@ -8,12 +8,29 @@ import static impl.exceptions.AlkException.*;
 import static impl.exceptions.InterpretorException.ERR_HAS;
 
 
-public abstract class AlkValue {
+public abstract class AlkValue implements Comparable<AlkValue> {
 
     // scalar_value - Int, Double, Bool, String
     // data_structure_value - Array, List, Structure, Set
     public String type;
     public boolean isDataStructure;
+    public boolean isIterable;
+
+    @Override public int compareTo(AlkValue operand) {
+        try {
+            if (((AlkBool)equal(operand)).value) return 0;
+            if (((AlkBool)lower(operand)).value) return -1;
+            return 1;
+        } catch (AlkException e) {
+            AlkException f = new AlkException(ERR_SET_COMPARABLE);
+            f.printException(0);
+            e.printException(0);
+            return 0;
+        }catch (InterpretorException e) {
+            e.printException(0);
+            return 0;
+        }
+    }
 
 
     @Override

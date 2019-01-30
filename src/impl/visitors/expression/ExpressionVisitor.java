@@ -9,7 +9,8 @@ import impl.types.alkInt.AlkInt;
 import impl.types.alkString.AlkString;
 import impl.types.AlkValue;
 import impl.visitors.ReferenceVisitor;
-import impl.visitors.structure.StructureVisitor;
+import impl.visitors.structure.ArrayVisitor;
+import impl.visitors.structure.ListVisitor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -376,8 +377,14 @@ public class ExpressionVisitor extends alkBaseVisitor {
     //Data Structures
 
     @Override public AlkValue visitArrayValue(alkParser.ArrayValueContext ctx) {
-        StructureVisitor structVisitator = new StructureVisitor(env);
+        ArrayVisitor structVisitator = new ArrayVisitor(env);
         return (AlkValue) structVisitator.visit(ctx.array());
+    }
+
+
+    @Override public AlkValue visitListValue(alkParser.ListValueContext ctx) {
+        ListVisitor structVisitator = new ListVisitor(env);
+        return (AlkValue) structVisitator.visit(ctx.list());
     }
 
 

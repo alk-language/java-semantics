@@ -2,20 +2,23 @@ package impl.types.alkArray;
 
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
+import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static impl.exceptions.AlkException.ERR_ARRAY_OUT_OF_BOUNDS;
 
-public class AlkArray extends AlkValue {
+public class AlkArray extends AlkIterableValue {
 
-    public ArrayList<AlkValue> array;
+    private ArrayList<AlkValue> array;
 
     public AlkArray() {
         type = "Array";
         isDataStructure = true;
+        isIterable = true;
         array = new ArrayList<>();;
     }
 
@@ -59,4 +62,8 @@ public class AlkArray extends AlkValue {
         return array.toString();
     }
 
+    @Override
+    public Iterator<AlkValue> iterator() {
+        return array.iterator();
+    }
 }

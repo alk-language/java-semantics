@@ -22,15 +22,15 @@ statement //statement
     | SUCCESS SEMICOLON                                        #Success
     | FAILURE SEMICOLON                                        #Failure
 
-    | assignment SEMICOLON                                    #ToAssignmentStmt
-    | increase_decrease SEMICOLON                             #ID
-    | statement_block                                         #ToBlock
+    | assignment SEMICOLON                                                                                              #ToAssignmentStmt
+    | increase_decrease SEMICOLON                                                                                       #ToIncreaseDecrease
+    | statement_block                                                                                                   #ToBlock
 
-    | while_struct                                            #ToWhile
-    | do_while_struct SEMICOLON                               #DoWhile
-    | if_struct                                               #ToIf
-    | for_struct                                              #For
-    | forall_struct                                           #ForAll
+    | while_struct                                                                                                      #ToWhile
+    | do_while_struct SEMICOLON                                                                                         #ToDoWhile
+    | if_struct                                                                                                         #ToIf
+    | for_struct                                                                                                        #ToFor
+    | forall_struct                                                                                                     #ToForAll
 ;
 
 statement_block
@@ -83,7 +83,7 @@ start_assignment:
 
 forall_struct
 :
-    FORALL ID IN expression statement
+    FORALL ID IN expression statement                                                                                   #ForAllStructure
 ;
 
 function_decl

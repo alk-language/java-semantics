@@ -28,4 +28,11 @@ public class Environment {
             return true;
         return false;
     }
+
+    public boolean remove(String id)
+    {
+        if (variables.containsKey(id))
+            return true;
+        return false;
+    }
 }
