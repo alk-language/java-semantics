@@ -4,3 +4,4 @@
 - de scos interpretorException (inlocuit cu erori default pe tipuri necunoscute) (in expresii cel putin)
 - erorile la compareTo in AlkValue (momentan apar la linia 0)
 - operatii din expresii cu structuri (== de exemplu)
+- operatii de tip %= /=
