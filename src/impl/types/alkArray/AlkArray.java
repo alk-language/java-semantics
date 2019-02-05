@@ -58,6 +58,13 @@ public class AlkArray extends AlkIterableValue {
     }
 
     @Override
+    public AlkValue clone() {
+        AlkArray copy = new AlkArray();
+        copy.array = (ArrayList<AlkValue>) array.clone();
+        return copy;
+    }
+
+    @Override
     public String toString() {
         return array.toString();
     }

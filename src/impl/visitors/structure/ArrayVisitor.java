@@ -1,25 +1,17 @@
 package impl.visitors.structure;
 
-import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import impl.Pair;
 import impl.env.Environment;
-import impl.exceptions.AlkException;
-import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkArray.AlkArray;
-import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 import impl.visitors.expression.ExpressionVisitor;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import static impl.exceptions.AlkException.ERR_LIMIT;
-import static impl.exceptions.AlkException.ERR_NOINT_INTERVAL;
-
-public class ArrayVisitor extends StructureVisitor {
+public class ArrayVisitor extends DataStructureVisitor {
 
     public ArrayVisitor(Environment env) {
         super(env);

@@ -3,18 +3,6 @@ grammar expression;
 import terminal;
 
 
-//Set related expressions   !! de introdus in expresii normale
-set_expression:
-    set_atom ((UNION | INTERSECT | SUBSTRACT) set_atom)*
-;
-
-set_atom:
-    ref_name
-    | set
-    | LPAR set_expression  RPAR
-;
-
-
 //Arithmetic expressions
 
 expression
@@ -44,7 +32,11 @@ equality_expression
 
 relational_expression
 :
-    bitwise_or ((LOWER | GREATER | LOWEREQ | GREATEREQ) bitwise_or)*                                                    #RelationalExpression
+    set_expression ((LOWER | GREATER | LOWEREQ | GREATEREQ) set_expression)*                                            #RelationalExpression
+;
+
+set_expression:
+    bitwise_or ((UNION | INTERSECT | SUBTRACT) bitwise_or)*                                                             #SetExpression
 ;
 
 bitwise_or
@@ -125,7 +117,7 @@ data_structure
 :
     array                                                                                                               #ArrayValue
     | list                                                                                                              #ListValue
-    | set_expression                                                                                                    #SetValue
+    | set                                                                                                               #SetValue
     | structure                                                                                                         #StructureValue
 ;
 
@@ -160,11 +152,11 @@ list:
 
 //Structures
 structure:
-    LCB (component)+ RCB
+    LCB (component)+ RCB                                                                                                #StructureWithComponents
 ;
 
 component:
-    ID ARROW expression
+    ID ARROW expression                                                                                                 #ComponentDefinition
 ;
 
 
@@ -205,7 +197,6 @@ method_name :
     | REMOVEAT
     | SINGLETONSET
     | SIZE
-    | TOPFRONT
     | TOPBACK
     | TOPFRONT
     | UPDATE

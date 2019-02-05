@@ -9,8 +9,11 @@ import impl.types.alkInt.AlkInt;
 import impl.types.alkString.AlkString;
 import impl.types.AlkValue;
 import impl.visitors.ReferenceVisitor;
+import impl.visitors.function.FunctionCallVisitor;
 import impl.visitors.structure.ArrayVisitor;
 import impl.visitors.structure.ListVisitor;
+import impl.visitors.structure.SetVisitor;
+import impl.visitors.structure.StructureVisitor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -134,22 +137,53 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     @Override public AlkValue visitRelationalExpression(alkParser.RelationalExpressionContext ctx) {
+        int size = ctx.set_expression().size();
+        AlkValue result = (AlkValue)visit(ctx.set_expression(0));
+        try {
+            for (int i = 1; i < size; i++) {
+                switch (ctx.getChild(i * 2 - 1).getText()) {
+                    case "<=":
+                        result = result.lowereq((AlkValue) visit(ctx.set_expression(i)));
+                        break;
+                    case "<":
+                        result = result.lower((AlkValue) visit(ctx.set_expression(i)));
+                        break;
+                    case ">=":
+                        result = result.greatereq((AlkValue) visit(ctx.set_expression(i)));
+                        break;
+                    case ">":
+                        result = result.greater((AlkValue) visit(ctx.set_expression(i)));
+                        break;
+                }
+            }
+        }
+        catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+            return result;
+        }
+        catch (InterpretorException e)
+        {
+            if (DEBUG)
+                e.printException(ctx.start.getLine());
+            return result;
+        }
+        return result;
+    }
+
+    @Override public AlkValue visitSetExpression(alkParser.SetExpressionContext ctx) {
         int size = ctx.bitwise_or().size();
         AlkValue result = (AlkValue)visit(ctx.bitwise_or(0));
         try {
             for (int i = 1; i < size; i++) {
                 switch (ctx.getChild(i * 2 - 1).getText()) {
-                    case "<=":
-                        result = result.lowereq((AlkValue) visit(ctx.bitwise_or(i)));
+                    case "U":
+                        result = result.union((AlkValue) visit(ctx.bitwise_or(i)));
                         break;
-                    case "<":
-                        result = result.lower((AlkValue) visit(ctx.bitwise_or(i)));
+                    case "^":
+                        result = result.intersect((AlkValue) visit(ctx.bitwise_or(i)));
                         break;
-                    case ">=":
-                        result = result.greatereq((AlkValue) visit(ctx.bitwise_or(i)));
-                        break;
-                    case ">":
-                        result = result.greater((AlkValue) visit(ctx.bitwise_or(i)));
+                    case "\\":
+                        result = result.setSubtract((AlkValue) visit(ctx.bitwise_or(i)));
                         break;
                 }
             }
@@ -307,6 +341,32 @@ public class ExpressionVisitor extends alkBaseVisitor {
         return result;
     }
 
+    @Override public AlkValue visitPrefixExpression(alkParser.PrefixExpressionContext ctx) {
+        AlkValue result = (AlkValue)visit(ctx.unary_expression());
+        try {
+            switch (ctx.getChild(0).getText()) {
+                case "++":
+                    result = result.plusplusleft();
+                    break;
+                case "--":
+                    result = result.minusminusleft();
+                    break;
+                case "++%":
+                    result = result.plusplusmod();
+                    break;
+                case "--%":
+                    result = result.minusminusmod();
+                    break;
+            }
+        }
+        catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+            return result;
+        }
+        return result;
+    }
+
+
 
     @Override public AlkValue visitUnaryExpression(alkParser.UnaryExpressionContext ctx) {
         AlkValue result = (AlkValue)visit(ctx.unary_expression());
@@ -342,14 +402,18 @@ public class ExpressionVisitor extends alkBaseVisitor {
 
     //Factor
 
+    @Override public Object visitFunctionCallFactor(alkParser.FunctionCallFactorContext ctx) {
+        FunctionCallVisitor functionVisitor = new FunctionCallVisitor(env);
+        return functionVisitor.visit(ctx.function_call());
+    }
+
     @Override public Object visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx) {
         return visit(ctx.expression());
     }
 
     @Override public Object visitRefNameFactor(alkParser.RefNameFactorContext ctx) {
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
-        AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
-        return value;
+        return refVisitor.visit(ctx.ref_name());
     }
 
 
@@ -388,5 +452,15 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
 
+    @Override public AlkValue visitSetValue(alkParser.SetValueContext ctx) {
+        SetVisitor structVisitator = new SetVisitor(env);
+        return (AlkValue) structVisitator.visit(ctx.set());
+    }
+
+
+    @Override public AlkValue visitStructureValue(alkParser.StructureValueContext ctx) {
+        StructureVisitor structVisitator = new StructureVisitor(env);
+        return (AlkValue) structVisitator.visit(ctx.structure());
+    }
 
 }

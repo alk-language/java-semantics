@@ -3,7 +3,9 @@ package impl.types.alkInt;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
+import impl.types.alkBool.AlkBool;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class AlkInt extends AlkValue {
@@ -16,6 +18,17 @@ public class AlkInt extends AlkValue {
         this.value = value;
     }
 
+    public AlkInt(int value)
+    {
+        type = "Int";
+        this.value = BigInteger.valueOf(value);
+    }
+
+    public AlkValue plusplusleft() {
+        value = value.add(new BigInteger(String.valueOf(1)));
+        return this;
+    }
+
     public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
         EqualityIntHelper help = new EqualityIntHelper(value);
         return help.equal(operand);
@@ -25,22 +38,22 @@ public class AlkInt extends AlkValue {
         return help.notequal(operand);
     }
 
-    public AlkValue lowereq(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException {
         RelationalIntHelper help = new RelationalIntHelper(value);
         return help.lowereq(operand);
     }
 
-    public AlkValue lower(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
         RelationalIntHelper help = new RelationalIntHelper(value);
         return help.lower(operand);
     }
 
-    public AlkValue greatereq(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException {
         RelationalIntHelper help = new RelationalIntHelper(value);
         return help.greatereq(operand);
     }
 
-    public AlkValue greater(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException {
         RelationalIntHelper help = new RelationalIntHelper(value);
         return help.greater(operand);
     }
@@ -103,6 +116,11 @@ public class AlkInt extends AlkValue {
     public AlkValue negative() throws AlkException, InterpretorException {
         UnaryIntHelper help = new UnaryIntHelper(value);
         return help.negative();
+    }
+
+    @Override
+    public AlkValue clone() {
+        return new AlkInt(value);
     }
 
     @Override

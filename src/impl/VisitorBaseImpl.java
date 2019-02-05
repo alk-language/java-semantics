@@ -26,6 +26,15 @@ public class VisitorBaseImpl extends alkBaseVisitor {
         return asgnVisitor.visit(ctx.ref_name());
     }
 
+
+    @Override public Object visitMethodCall(alkParser.MethodCallContext ctx) {
+        ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
+        referenceVisitor.visit(ctx.ref_name());
+        referenceVisitor.visit(ctx.function_call().builtin_method()); // TODO de facut dupa ce se fac functiile non-builtin
+        return null;
+    }
+
+
     @Override public Object visitBuiltinMethod(alkParser.BuiltinMethodContext ctx) {
         if (ctx.expression().size()!=1)
         {
@@ -158,13 +167,10 @@ public class VisitorBaseImpl extends alkBaseVisitor {
     @Override public Object visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx) {
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
-            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1"))));
-            asgnVisitor.visit(ctx.ref_name());
+            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
+            value.plusplusleft();
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
-        } catch (InterpretorException e) {
-            if (DEBUG)
-                e.printException(ctx.start.getLine());
         }
         return null;
     }
@@ -174,13 +180,10 @@ public class VisitorBaseImpl extends alkBaseVisitor {
     @Override public Object visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx) {
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
-            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).subtract(new AlkInt(new BigInteger("1"))));
-            asgnVisitor.visit(ctx.ref_name());
+            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
+            value.minusminusleft();
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
-        } catch (InterpretorException e) {
-            if (DEBUG)
-                e.printException(ctx.start.getLine());
         }
         return null;
     }
@@ -190,7 +193,7 @@ public class VisitorBaseImpl extends alkBaseVisitor {
     @Override public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
-            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1"))));
+            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1")))); //TODO de modificat in functii proprii
             asgnVisitor.visit(ctx.ref_name());
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
@@ -212,6 +215,30 @@ public class VisitorBaseImpl extends alkBaseVisitor {
         } catch (InterpretorException e) {
             if (DEBUG)
                 e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
+
+
+    @Override public Object visitMinusMinusModStmt(alkParser.MinusMinusModStmtContext ctx) {
+        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        try {
+            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
+            value.minusminusmod();
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
+
+
+    @Override public Object visitPlusPlusModStmt(alkParser.PlusPlusModStmtContext ctx) {
+        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        try {
+            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
+            value.plusplusmod();
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
         }
         return null;
     }

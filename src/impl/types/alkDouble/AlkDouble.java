@@ -3,6 +3,7 @@ package impl.types.alkDouble;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
+import impl.types.alkBool.AlkBool;
 
 import java.math.BigDecimal;
 
@@ -26,22 +27,22 @@ public class AlkDouble extends AlkValue {
         return help.notequal(operand);
     }
 
-    public AlkValue lowereq(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException {
         RelationalDoubleHelper help = new RelationalDoubleHelper(value);
         return help.lowereq(operand);
     }
 
-    public AlkValue lower(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
         RelationalDoubleHelper help = new RelationalDoubleHelper(value);
         return help.lower(operand);
     }
 
-    public AlkValue greatereq(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException {
         RelationalDoubleHelper help = new RelationalDoubleHelper(value);
         return help.greatereq(operand);
     }
 
-    public AlkValue greater(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException {
         RelationalDoubleHelper help = new RelationalDoubleHelper(value);
         return help.greater(operand);
     }
@@ -85,6 +86,11 @@ public class AlkDouble extends AlkValue {
     public AlkValue negative() throws AlkException, InterpretorException {
         UnaryDoubleHelper help = new UnaryDoubleHelper(value);
         return help.negative();
+    }
+
+    @Override
+    public AlkValue clone() {
+        return new AlkDouble(value);
     }
 
     @Override

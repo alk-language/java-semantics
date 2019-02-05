@@ -67,7 +67,7 @@ ARROW : '->';
 //Set Operators
 UNION : 'U';
 INTERSECT : '^';
-SUBSTRACT : '\\';
+SUBTRACT : '\\';
 
 
 

@@ -1,0 +1,6 @@
+- specificatiile: un al treilea parametru nu ar trebui sa fie doar intervale
+- erorile pentru expresii
+- evaluarea referintelor (creem operatorii . si []) - facut, de schimbat in in asignare
+- de scos interpretorException (inlocuit cu erori default pe tipuri necunoscute) (in expresii cel putin)
+- erorile la compareTo in AlkValue (momentan apar la linia 0)
+- operatii din expresii cu structuri (== de exemplu)

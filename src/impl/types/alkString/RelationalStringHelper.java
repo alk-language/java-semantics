@@ -17,7 +17,7 @@ public class RelationalStringHelper {
         this.value = value;
     }
 
-    AlkValue lowereq(AlkValue operand) throws AlkException, InterpretorException {
+    AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException {
         if (operand.isDataStructure)
             throw new AlkException(ERR_LOWEREQ_DATA_STRUCTURE);
         switch (operand.type) {
@@ -50,7 +50,7 @@ public class RelationalStringHelper {
     }
 
 
-    AlkValue lower(AlkValue operand) throws AlkException, InterpretorException {
+    AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
         if (operand.isDataStructure)
             throw new AlkException(ERR_LOWEREQ_DATA_STRUCTURE);
         switch (operand.type) {
@@ -83,7 +83,7 @@ public class RelationalStringHelper {
     }
 
 
-    AlkValue greatereq(AlkValue operand) throws AlkException, InterpretorException {
+    AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException {
         if (operand.isDataStructure)
             throw new AlkException(ERR_GREATEREQ_DATA_STRUCTURE);
         switch (operand.type) {
@@ -116,7 +116,7 @@ public class RelationalStringHelper {
     }
 
 
-    AlkValue greater(AlkValue operand) throws AlkException, InterpretorException {
+    AlkBool greater(AlkValue operand) throws AlkException, InterpretorException {
         if (operand.isDataStructure)
             throw new AlkException(ERR_GREATER_DATA_STRUCTURE);
         switch (operand.type) {

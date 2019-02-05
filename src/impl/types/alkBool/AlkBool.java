@@ -39,6 +39,11 @@ public class AlkBool extends AlkValue {
     }
 
     @Override
+    public AlkValue clone() {
+        return new AlkBool(value);
+    }
+
+    @Override
     public String toString() {
         if (value)
             return "true";

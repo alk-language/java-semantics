@@ -33,7 +33,8 @@ public class AssignmentVisitor extends alkBaseVisitor {
 
         if (size==0)
         {
-            env.update(name, value);
+            AlkValue copy = value.clone();
+            env.update(name, copy);
             return null;
         }
 
@@ -81,7 +82,8 @@ public class AssignmentVisitor extends alkBaseVisitor {
             return null;
         }
         try {
-            ((AlkArray)ref).put(((AlkInt)idx).value.intValue(), value);
+            AlkValue copy = value.clone();
+            ((AlkArray)ref).put(((AlkInt)idx).value.intValue(), copy);
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
             return null;

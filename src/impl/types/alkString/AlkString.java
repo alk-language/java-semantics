@@ -3,6 +3,7 @@ package impl.types.alkString;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
+import impl.types.alkBool.AlkBool;
 
 public class AlkString extends AlkValue {
 
@@ -23,26 +24,31 @@ public class AlkString extends AlkValue {
     }
 
 
-    public AlkValue lowereq(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException {
         RelationalStringHelper help = new RelationalStringHelper(value);
         return help.lowereq(operand);
     }
 
 
-    public AlkValue lower(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
         RelationalStringHelper help = new RelationalStringHelper(value);
         return help.lower(operand);
     }
 
-    public AlkValue greatereq(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException {
         RelationalStringHelper help = new RelationalStringHelper(value);
         return help.greatereq(operand);
     }
 
 
-    public AlkValue greater(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException {
         RelationalStringHelper help = new RelationalStringHelper(value);
         return help.greater(operand);
+    }
+
+    @Override
+    public AlkValue clone() {
+        return new AlkString(value);
     }
 
     @Override

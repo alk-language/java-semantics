@@ -25,12 +25,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement_sequence(alkParser.Statement_sequenceContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToF}
+	 * Visit a parse tree produced by the {@code MethodCall}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitToF(alkParser.ToFContext ctx);
+	T visitMethodCall(alkParser.MethodCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToFun}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -246,18 +246,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParam(alkParser.ParamContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#set_expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSet_expression(alkParser.Set_expressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link alkParser#set_atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSet_atom(alkParser.Set_atomContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ConditionalExpression}
 	 * labeled alternative in {@link alkParser#expression}.
 	 * @param ctx the parse tree
@@ -299,6 +287,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRelationalExpression(alkParser.RelationalExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SetExpression}
+	 * labeled alternative in {@link alkParser#set_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetExpression(alkParser.SetExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BitwiseOrExpression}
 	 * labeled alternative in {@link alkParser#bitwise_or}.
@@ -537,17 +532,19 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitListWithInterval(alkParser.ListWithIntervalContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#structure}.
+	 * Visit a parse tree produced by the {@code StructureWithComponents}
+	 * labeled alternative in {@link alkParser#structure}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStructure(alkParser.StructureContext ctx);
+	T visitStructureWithComponents(alkParser.StructureWithComponentsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#component}.
+	 * Visit a parse tree produced by the {@code ComponentDefinition}
+	 * labeled alternative in {@link alkParser#component}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitComponent(alkParser.ComponentContext ctx);
+	T visitComponentDefinition(alkParser.ComponentDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code EmptySet}
 	 * labeled alternative in {@link alkParser#set}.

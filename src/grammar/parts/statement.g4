@@ -13,7 +13,7 @@ statement_sequence
 
 statement //statement
 :
-    ref_name (POINT|ARROW) function_call SEMICOLON                   #ToF
+    ref_name (POINT|ARROW) function_call SEMICOLON                                                                      #MethodCall
     | function_call SEMICOLON                                 #ToFun
     | function_decl                                           #TOFD
     | RETURN expression SEMICOLON                                 #Return
@@ -21,6 +21,8 @@ statement //statement
     | choose SEMICOLON                                         #ChooseStm
     | SUCCESS SEMICOLON                                        #Success
     | FAILURE SEMICOLON                                        #Failure
+
+    // de adaugat break, continue
 
     | assignment SEMICOLON                                                                                              #ToAssignmentStmt
     | increase_decrease SEMICOLON                                                                                       #ToIncreaseDecrease
