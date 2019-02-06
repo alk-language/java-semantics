@@ -3,6 +3,10 @@ package impl.types.alkBool;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
+import impl.types.alkArray.AlkArray;
+
+import static impl.exceptions.AlkException.ERR_EQUAL_SET;
+import static impl.exceptions.AlkException.ERR_LOWER_BOOL;
 
 public class AlkBool extends AlkValue {
 
@@ -31,6 +35,13 @@ public class AlkBool extends AlkValue {
     public AlkValue notequal(AlkValue operand) throws AlkException, InterpretorException {
         EqualityBoolHelper help = new EqualityBoolHelper(value);
         return help.notequal(operand);
+    }
+
+    @Override
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+        if (!operand.type.equals("Bool"))
+            throw new AlkException(ERR_LOWER_BOOL);
+        return new AlkBool(!value);
     }
 
     public AlkValue not() throws AlkException, InterpretorException {

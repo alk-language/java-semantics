@@ -1,8 +1,12 @@
 package impl.types.alkSet;
 
 import impl.exceptions.AlkException;
+import impl.exceptions.InterpretorException;
 import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
+import impl.types.alkArray.AlkArray;
+import impl.types.alkBool.AlkBool;
+import impl.types.alkInt.AlkInt;
 
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -12,17 +16,24 @@ import static impl.exceptions.AlkException.*;
 public class AlkSet extends AlkIterableValue {
 
     private TreeSet<AlkValue> set;
+    public String contains; //tipuri de date, seturile sunt omogene
 
     public AlkSet() {
         type = "Set";
         isDataStructure = true;
         isIterable = true;
         set = new TreeSet<>();
+        contains = null;
     }
 
-    public void insert(AlkValue value)
-    {
+    @Override public AlkValue insert(AlkValue value) throws AlkException {
+        if (contains == null)
+            contains = value.type;
+        else
+            if (!contains.equals(value.type))
+                throw new AlkException(ERR_NOT_HOMOGENEOUS);
         set.add(value);
+        return this;
     }
 
     @Override public AlkValue union(AlkValue operand) throws AlkException {
@@ -62,6 +73,36 @@ public class AlkSet extends AlkIterableValue {
     @Override
     public String toString() {
         return set.toString();
+    }
+
+    @Override
+    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+        if (!operand.type.equals("Set"))
+            throw new AlkException(ERR_EQUAL_SET);
+        AlkSet op = (AlkSet) operand;
+        return new AlkBool(set.toString().equals(op.toString()));
+    }
+
+    @Override
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+        if (!operand.type.equals("Set"))
+            throw new AlkException(ERR_LOWER_SET);
+        AlkSet op = (AlkSet) operand;
+        return new AlkBool(set.toString().compareTo(op.toString())<0);
+    }
+
+    @Override
+    public AlkSet remove(AlkValue value) throws AlkException {
+        if (!set.contains(value))
+            throw new AlkException(ERR_REMOVE_NO_SUCH_ELEMENT);
+        set.remove(value);
+        return this;
+    }
+
+    @Override
+    public AlkInt size()
+    {
+        return new AlkInt(set.size());
     }
 
     @Override

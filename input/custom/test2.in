@@ -1,0 +1,56 @@
+//Algoritmul de descompunere in factori primi
+a=28403536742130785760213;
+
+
+l = <>;
+for (i=2; i*i<=a; i++)
+{
+    if (a%i==0)
+    {
+        m=0;
+        while (a%i==0)
+        {
+            m++;
+            a = a/i;
+        }
+        l.pushBack({factor->i putere->m});
+    }
+}
+if (a>1)
+    l.pushBack({factor->a putere->1});
+print(l);
+
+
+
+//Algoritmul de interclasare
+a = <1, 5, 8, 10>;
+b = <2, 3, 7, 9, 12>;
+
+
+c = <>;
+i = a.first();
+j = b.first();
+while (i!=a.end() && j!=b.end())
+{
+    if (*i<*j)
+    {
+       c.pushBack(*i);
+       ++i;
+    }
+    else
+    {
+       c.pushBack(*j);
+       ++j;
+    }
+}
+while (i!=a.end())
+{
+    c.pushBack(*i);
+    ++i;
+}
+while (j!=b.end())
+{
+    c.pushBack(*j);
+    ++j;
+}
+print(c);

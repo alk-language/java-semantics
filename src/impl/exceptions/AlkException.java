@@ -17,6 +17,10 @@ public class AlkException extends Exception {
     public final static String ERR_EQUAL_DOUBLE = "A double value is not a valid operand in this equality (==) expression.";
     public final static String ERR_EQUAL_STRING = "A string value is not a valid operand in this equality (==) expression.";
     public final static String ERR_EQUAL_BOOL = "A bool value is not a valid operand in this equality (==) expression.";
+    public final static String ERR_EQUAL_ARR = "The array can be a value in an equality (==) expresion only if the second operand is an array.";
+    public final static String ERR_EQUAL_LIST = "The list can be a value in an equality (==) expresion only if the second operand is a list.";
+    public final static String ERR_EQUAL_SET = "The set can be a value in an equality (==) expresion only if the second operand is a set.";
+    public final static String ERR_EQUAL_STRUCT = "The structure can be a value in an equality (==) expresion only if the second operand is a structure.";
 
     public final static String ERR_NOTEQUAL_DATA_STRUCTURE = "A data structure value is not a valid operand in this equality (!=) expression.";
     public final static String ERR_NOTEQUAL_INT = "An int value is not a valid operand in this equality (!=) expression.";
@@ -34,7 +38,12 @@ public class AlkException extends Exception {
     public final static String ERR_LOWER_INT = "An int value is not a valid operand in this relational (<) expression.";
     public final static String ERR_LOWER_DOUBLE = "A double value is not a valid operand in this relational (<) expression.";
     public final static String ERR_LOWER_STRING = "A string value is not a valid operand in this relational (<) expression.";
-    public final static String ERR_LOWER_BOOL = "A bool value is not a valid operand in this relational (<) expression.";
+    public final static String ERR_LOWER_BOOL = "The bool can be a value in a relational (<) expresion only if the second operand is an bool.";
+    public final static String ERR_LOWER_ARR  = "The array can be a value in a relational (<) expresion only if the second operand is an array.";
+    public final static String ERR_LOWER_LIST  = "The list can be a value in a relational (<) expresion only if the second operand is an list.";
+    public final static String ERR_LOWER_SET = "The set can be a value in a relational (<) expresion only if the second operand is an set.";
+    public final static String ERR_LOWER_STRUCT = "The structure can be a value in a relational (<) expresion only if the second operand is an structure.";
+    public final static String ERR_LOWER_ITERATOR = "The iterator can be a value in a relational (<) expresion only if the second operand is an iterator.";
 
     public final static String ERR_GREATEREQ_DATA_STRUCTURE = "A data structure value is not a valid operand in this relational (>=) expression.";
     public final static String ERR_GREATEREQ_INT = "An int value is not a valid operand in this relational (>=) expression.";
@@ -185,7 +194,8 @@ public class AlkException extends Exception {
     public final static String ERR_ITERATOR_IS_END = "Iterator is at the end or invalid.";
 
     public final static String ERR_FORALL_ITERABLE_REQUIRED = "The forall structure must have an iterable value as right operand.";
-    public final static String ERR_SET_COMPARABLE = "The set can't be made on objects of different types or";
+
+    public final static String ERR_NOT_HOMOGENEOUS = "The set can't be made on objects of different types.";
 
     public final static String ERR_PARAM_NUMBER = "The number of parameters is invalid.";
     public final static String ERR_PARAM = "The parameters' types are invalid.";
@@ -211,6 +221,9 @@ public class AlkException extends Exception {
     public final static String ERR_PUSHBACK = "This type of value is not valid for the pushBack function.";
 
     public final static String ERR_PUSHFRONT = "This type of value is not valid for the pushFront function.";
+
+    public final static String ERR_REMOVE = "This type of value is not valid for the remove function.";
+    public final static String ERR_REMOVE_NO_SUCH_ELEMENT = "There is no such element to be removed from the set.";
 
     public final static String ERR_REMOVEALLEQTO = "This type of value is not valid for the removeAllEqTo function.";
 

@@ -37,7 +37,6 @@ public class EqualityIntHelper {
 
     private AlkBool equal(AlkInt operand)
     {
-
         return new AlkBool(value.compareTo(operand.value) == 0);
     }
 

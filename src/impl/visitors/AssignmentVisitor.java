@@ -16,7 +16,7 @@ public class AssignmentVisitor extends alkBaseVisitor {
     private Environment env;
     private AlkValue value;
 
-    public AssignmentVisitor(Environment env, AlkValue value) {
+    /*public AssignmentVisitor(Environment env, AlkValue value) {
         this.env = env; this.value=value;
     }
 
@@ -89,5 +89,5 @@ public class AssignmentVisitor extends alkBaseVisitor {
             return null;
         }
         return null;
-    }
+    }*/
 }

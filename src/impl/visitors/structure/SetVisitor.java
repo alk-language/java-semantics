@@ -3,6 +3,7 @@ package impl.visitors.structure;
 import grammar.alkParser;
 import impl.Pair;
 import impl.env.Environment;
+import impl.exceptions.AlkException;
 import impl.types.alkSet.AlkSet;
 import impl.types.AlkValue;
 import impl.types.alkInt.AlkInt;
@@ -23,7 +24,13 @@ public class SetVisitor extends DataStructureVisitor
         AlkSet set = new AlkSet();
         ExpressionVisitor expVisitor = new ExpressionVisitor(env);
         for (int i=0; i<size; i++)
-            set.insert((AlkValue) expVisitor.visit(ctx.expression(i)));
+            try {
+                set.insert((AlkValue) expVisitor.visit(ctx.expression(i)));
+            } catch (AlkException e)
+            {
+                e.printException(ctx.start.getLine());
+                return set;
+            }
         return set;
     }
 
@@ -36,7 +43,13 @@ public class SetVisitor extends DataStructureVisitor
         Pair limits = (Pair)visit(ctx.interval());
         AlkSet set = new AlkSet();
         for (BigInteger i = ((AlkInt) limits.x).value; i.compareTo(((AlkInt) limits.y).value) <= 0; i = i.add(new BigInteger("1")))
-            set.insert(new AlkInt(i));
+            try {
+                set.insert(new AlkInt(i));
+            } catch (AlkException e)
+            {
+                e.printException(ctx.start.getLine());
+                return set;
+            }
         return set;
     }
 
@@ -44,8 +57,14 @@ public class SetVisitor extends DataStructureVisitor
     public AlkValue visitSetWithSpec(alkParser.SetWithSpecContext ctx) {
         ArrayList set = (ArrayList) visit(ctx.spec());
         AlkSet returnable = new AlkSet();
-        for (Object value : set)
-            returnable.insert((AlkValue) value);
+        for (Object value : set) {
+            try {
+                returnable.insert((AlkValue) value);
+            } catch (AlkException e) {
+                e.printException(ctx.start.getLine());
+                return returnable;
+            }
+        }
         return returnable;
     }
 }

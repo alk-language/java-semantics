@@ -5,11 +5,14 @@ import impl.exceptions.InterpretorException;
 import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
+import impl.types.alkInt.AlkInt;
+import impl.types.alkStructure.AlkStructure;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static impl.exceptions.AlkException.ERR_ARRAY_OUT_OF_BOUNDS;
+import static impl.constants.Constants.MAX_ARRAY;
+import static impl.exceptions.AlkException.*;
 
 public class AlkArray extends AlkIterableValue {
 
@@ -26,18 +29,42 @@ public class AlkArray extends AlkIterableValue {
     {
         array.add(value);
     }
+
+    @Override
+    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+        if (!operand.type.equals("Array"))
+            throw new AlkException(ERR_EQUAL_ARR);
+        AlkArray op = (AlkArray) operand;
+        return new AlkBool(array.toString().equals(op.toString()));
+    }
+
+    @Override
+    public AlkBool lower(AlkValue operand) throws AlkException {
+        if (!operand.type.equals("Array"))
+            throw new AlkException(ERR_LOWER_ARR);
+        AlkArray op = (AlkArray) operand;
+        return new AlkBool(array.toString().compareTo(op.toString())<0);
+    }
+
     public AlkValue get(int index) throws AlkException {
-        if (index<0 || array.size()<=index)
-        {
+        if (index<0 || index>=MAX_ARRAY)
             throw new AlkException(ERR_ARRAY_OUT_OF_BOUNDS);
-        }
+        while (array.size()<=index)
+            array.add(new AlkInt(0));
         return array.get(index);
     }
+
+    @Override
+    public AlkValue size()
+    {
+        return new AlkInt(array.size());
+    }
+
     public void put(int index, AlkValue value) throws AlkException {
-        if (index<0 || array.size()<=index)
-        {
+        if (index<0 || index>=MAX_ARRAY)
             throw new AlkException(ERR_ARRAY_OUT_OF_BOUNDS);
-        }
+        while (array.size()<=index)
+            array.add(new AlkInt(0));
         array.set(index, value);
     }
 

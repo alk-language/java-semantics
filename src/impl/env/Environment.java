@@ -19,7 +19,8 @@ public class Environment {
 
     public void update(String id, AlkValue value)
     {
-        variables.put(id, value);
+        AlkValue copy = value.clone();
+        variables.put(id, copy);
     }
 
     public boolean has(String id)

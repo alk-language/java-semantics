@@ -13,7 +13,7 @@ import impl.visitors.expression.ExpressionVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static impl.constants.Constants.param_number;
+import static impl.constants.Constants.builtin_methods_name;
 import static impl.exceptions.AlkException.*;
 import static impl.exceptions.InterpretorException.ERR_PARAMS_UNDECLARED;
 
@@ -98,36 +98,38 @@ public class ReferenceVisitor extends alkBaseVisitor {
             ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
             params.add((AlkValue)expressionVisitor.visit(ctx.expression(i)));
         }
-        if (!param_number.containsKey(name))
+        if (!builtin_methods_name.contains(name)) // metodele vor fi considerate doar cele builtin momentan
         {
             InterpretorException e = new InterpretorException(ERR_PARAMS_UNDECLARED);
-            e.printException(ctx.start.getLine());
-            return new AlkBool(false);
-        }
-        if ((int)param_number.get(name)!=ctx.expression().size())
-        {
-            AlkException e = new AlkException(ERR_PARAM_NUMBER);
             e.printException(ctx.start.getLine());
             return new AlkBool(false);
         }
         try{
             switch (name)
             {
-                case "at": value = value.at(params.get(0)); break;
-                case "delete": value = value.delete(); break;
-                case "end": value = value.end(); break;
-                case "first": value = value.first(); break;
-                case "insert": value = value.insert(params.get(0), params.get(1)); break;
-                case "popBack": value = value.popBack(); break;
-                case "popFront": value = value.popFront(); break;
-                case "pushBack": value = value.pushBack(params.get(0)); break;
-                case "pushFront": value = value.pushFront(params.get(0)); break;
-                case "removeAllEqTo": value = value.removeAllEqTo(params.get(0)); break;
-                case "removeAt": value = value.removeAt(params.get(0)); break;
-                case "size": value = value.size(); break;
-                case "topBack": value = value.topBack(); break;
-                case "topFront": value = value.topFront(); break;
-                case "update": value = value.update(params.get(0), params.get(1)); break;
+                case "at": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.at(params.get(0)); break;
+                case "delete": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.delete(); break;
+                case "end": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.end(); break;
+                case "first": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.first(); break;
+                case "insert":
+                    if (params.size()==2)
+                        value = value.insert(params.get(0), params.get(1));
+                    else if (params.size()==1)
+                        value = value.insert(params.get(0));
+                    else
+                        throw new AlkException(ERR_PARAM_NUMBER);
+                    break;
+                case "popBack": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.popBack(); break;
+                case "popFront": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.popFront(); break;
+                case "pushBack": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.pushBack(params.get(0)); break;
+                case "pushFront": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.pushFront(params.get(0)); break;
+                case "remove": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.remove(params.get(0)); break;
+                case "removeAllEqTo": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.removeAllEqTo(params.get(0)); break;
+                case "removeAt": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.removeAt(params.get(0)); break;
+                case "size": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.size(); break;
+                case "topBack": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.topBack(); break;
+                case "topFront": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.topFront(); break;
+                case "update": if (params.size()!=2) throw new AlkException(ERR_PARAM_NUMBER); value = value.update(params.get(0), params.get(1)); break;
             }
         } catch (AlkException e)
         {

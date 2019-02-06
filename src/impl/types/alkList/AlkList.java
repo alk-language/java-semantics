@@ -1,15 +1,18 @@
 package impl.types.alkList;
 
 import impl.exceptions.AlkException;
+import impl.exceptions.InterpretorException;
 import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
+import impl.types.alkArray.AlkArray;
+import impl.types.alkBool.AlkBool;
 import impl.types.alkIterator.AlkIterator;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import static impl.exceptions.AlkException.ERR_LIST_EMPTY;
+import static impl.exceptions.AlkException.*;
 
 public class AlkList extends AlkIterableValue {
 
@@ -112,6 +115,22 @@ public class AlkList extends AlkIterableValue {
     @Override
     public String toString() {
         return list.toString();
+    }
+
+    @Override
+    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+        if (!operand.type.equals("List"))
+            throw new AlkException(ERR_EQUAL_LIST);
+        AlkList op = (AlkList) operand;
+        return new AlkBool(list.toString().equals(op.toString()));
+    }
+
+    @Override
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+        if (!operand.type.equals("List"))
+            throw new AlkException(ERR_LOWER_LIST);
+        AlkList op = (AlkList) operand;
+        return new AlkBool(list.toString().compareTo(op.toString())<0);
     }
 
     @Override

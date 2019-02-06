@@ -7,6 +7,7 @@ import impl.types.AlkIterableValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 import impl.types.AlkValue;
+import impl.visitors.AssignedVisitor;
 import impl.visitors.AssignmentVisitor;
 import impl.visitors.ReferenceVisitor;
 import impl.visitors.expression.ExpressionVisitor;
@@ -22,7 +23,7 @@ public class VisitorBaseImpl extends alkBaseVisitor {
 
     @Override public Object visitAssignmentStmt(alkParser.AssignmentStmtContext ctx) {
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, (AlkValue) exprVisitor.visit(ctx.expression()));
+        AssignedVisitor asgnVisitor = new AssignedVisitor(env, (AlkValue) exprVisitor.visit(ctx.expression()));
         return asgnVisitor.visit(ctx.ref_name());
     }
 
@@ -193,7 +194,7 @@ public class VisitorBaseImpl extends alkBaseVisitor {
     @Override public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
-            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1")))); //TODO de modificat in functii proprii
+            AssignedVisitor asgnVisitor = new AssignedVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1")))); //TODO de modificat in functii proprii
             asgnVisitor.visit(ctx.ref_name());
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
@@ -208,7 +209,7 @@ public class VisitorBaseImpl extends alkBaseVisitor {
     @Override public Object visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx) {
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
-            AssignmentVisitor asgnVisitor = new AssignmentVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).subtract(new AlkInt(new BigInteger("1"))));
+            AssignedVisitor asgnVisitor = new AssignedVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).subtract(new AlkInt(new BigInteger("1"))));
             asgnVisitor.visit(ctx.ref_name());
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());

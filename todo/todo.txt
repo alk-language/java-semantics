@@ -5,3 +5,4 @@
 - erorile la compareTo in AlkValue (momentan apar la linia 0)
 - operatii din expresii cu structuri (== de exemplu)
 - operatii de tip %= /=
+- de facut functii convertoare

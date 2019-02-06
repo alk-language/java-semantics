@@ -26,17 +26,25 @@ public class AlkIterator extends AlkValue {
         this.father = father;
     }
 
-    @Override public AlkValue equal(AlkValue operand) throws AlkException {
+    @Override public AlkValue notequal(AlkValue operand) throws AlkException {
         return new AlkBool(!((AlkBool)notequal(operand)).value);
     }
 
-    @Override public AlkValue notequal(AlkValue operand) throws AlkException {
+    @Override public AlkValue equal(AlkValue operand) throws AlkException {
         if (!(operand.type.equals("Iterator")))
             throw new AlkException(ERR_NOTEQUAL_ITERATOR);
         AlkIterator it = (AlkIterator) operand;
         if (it.value.nextIndex() == value.nextIndex())
-            return new AlkBool(false);
-        return new AlkBool(true);
+            return new AlkBool(true);
+        return new AlkBool(false);
+    }
+
+    @Override
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+        if (!(operand.type.equals("Iterator")))
+            throw new AlkException(ERR_LOWER_ITERATOR);
+        AlkIterator op = (AlkIterator) operand;
+        return new AlkBool(value.nextIndex()<op.value.nextIndex());
     }
 
     @Override public AlkValue add(AlkValue operand) throws AlkException {

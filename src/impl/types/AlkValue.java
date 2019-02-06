@@ -6,6 +6,7 @@ import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 
 import static impl.exceptions.AlkException.*;
+import static impl.exceptions.InterpretorException.ERR_COMPARABLE;
 import static impl.exceptions.InterpretorException.ERR_HAS;
 
 
@@ -30,7 +31,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
             if (((AlkBool)lower(operand)).value) return -1;
             return 1;
         } catch (AlkException e) {
-            AlkException f = new AlkException(ERR_SET_COMPARABLE);
+            InterpretorException f = new InterpretorException(ERR_COMPARABLE); // momentan nu apare eroarea asta, deoarece seturile sunt omogene
             f.printException(0);
             e.printException(0);
             return 0;
@@ -73,10 +74,8 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
 
 
     //Equality operators
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException
-    {
-        throw new AlkException(ERR_EQUAL);
-    }
+    public abstract AlkValue equal(AlkValue operand) throws AlkException, InterpretorException; // sunt abstracte pentru a le putea ordona
+
     public AlkValue notequal(AlkValue operand) throws AlkException, InterpretorException
     {
         throw new AlkException(ERR_NOTEQUAL);
@@ -88,10 +87,9 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
     {
         throw new AlkException(ERR_LOWEREQ);
     }
-    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException
-    {
-        throw new AlkException(ERR_LOWER);
-    }
+
+    public abstract AlkBool lower(AlkValue operand) throws AlkException, InterpretorException;// sunt abstracte pentru a le putea ordona
+
     public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException
     {
         throw new AlkException(ERR_GREATEREQ);
@@ -230,6 +228,10 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
         throw new AlkException(ERR_FIRST);
     }
 
+    public AlkValue insert(AlkValue value) throws AlkException {
+        throw new AlkException(ERR_INSERT);
+    }
+
     public AlkValue insert(AlkValue position, AlkValue value) throws AlkException {
         throw new AlkException(ERR_INSERT);
     }
@@ -248,6 +250,10 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
 
     public AlkValue pushFront(AlkValue value) throws AlkException {
         throw new AlkException(ERR_PUSHFRONT);
+    }
+
+    public AlkValue remove(AlkValue value) throws AlkException {
+        throw new AlkException(ERR_REMOVE);
     }
 
     public AlkValue removeAllEqTo(AlkValue value) throws AlkException {
