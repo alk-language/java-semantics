@@ -34,6 +34,8 @@ FAILURE : 'failure';
 EMPTYSET : 'emptySet';
 EMPTYLIST : 'emptyList';
 
+MODIFIES : 'modifies';
+
 XOR : 'xor';
 
 //Builtin Functions

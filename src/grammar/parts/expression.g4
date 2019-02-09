@@ -172,8 +172,8 @@ set:
 //Function
 function_call
 :
-    builtin_method
-    | ID LPAR (expression (COMMA expression)*)? RPAR
+    builtin_method                                                                                                      #ToBuiltinMethod
+    | ID LPAR (expression (COMMA expression)*)? RPAR                                                                    #DefinedFunctionCall
 ;
 
 builtin_method

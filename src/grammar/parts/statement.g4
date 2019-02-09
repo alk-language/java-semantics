@@ -13,9 +13,9 @@ statement_sequence
 
 statement //statement
 :
-    ref_name (POINT|ARROW) function_call SEMICOLON                                                                      #MethodCall
-    | function_call SEMICOLON                                 #ToFun
-    | function_decl                                           #TOFD
+    ref_name (POINT|ARROW) builtin_method SEMICOLON                                                                     #MethodCall
+    | function_call SEMICOLON                                                                                           #FunctionCall
+    | function_decl                                                                                                     #ToFunctionDecl
     | RETURN expression SEMICOLON                                 #Return
 
     | choose SEMICOLON                                         #ChooseStm
@@ -90,10 +90,10 @@ forall_struct
 
 function_decl
 :
-    ID LPAR (param (COMMA param)*)? RPAR statement
+    ID LPAR (param (COMMA param)*)? RPAR (MODIFIES ID (COMMA ID)*)?statement_block                                      #FunctionDecl
 ;
 
 param
 :
-    (OUT)? ID
+    (OUT)? ID                                                                                                           #ParamDefinition
 ;

@@ -1,5 +1,6 @@
 package impl;
 import grammar.*;
+import impl.env.AlkFunction;
 import impl.env.Environment;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
@@ -13,6 +14,7 @@ import impl.visitors.ReferenceVisitor;
 import impl.visitors.expression.ExpressionVisitor;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import static impl.constants.Constants.DEBUG;
 import static impl.exceptions.AlkException.*;
@@ -20,6 +22,30 @@ import static impl.exceptions.AlkException.*;
 public class VisitorBaseImpl extends alkBaseVisitor {
 
     private Environment env = new Environment();
+
+    @Override public Object visitFunctionDecl(alkParser.FunctionDeclContext ctx) {
+        String name = ctx.ID(0).getText();
+        ArrayList<Pair<String, Boolean> > params = new ArrayList<>();
+        ArrayList<String> modifies =  new ArrayList<>();
+        for (int i=0; i<ctx.param().size(); i++)
+        {
+            Pair <String, Boolean> pair = (Pair<String, Boolean>) visit(ctx.param(i));
+            params.add(pair);
+        }
+        for (int i=1; i<ctx.ID().size(); i++)
+            modifies.add(ctx.ID(i).getText());
+        try {
+            new AlkFunction(name, params, modifies, ctx.statement_block());
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
+
+    @Override public Object visitParamDefinition(alkParser.ParamDefinitionContext ctx) {
+        Pair<String, Boolean> pair = new Pair<>(ctx.ID().getText(), ctx.OUT()==null);
+        return pair;
+    }
 
     @Override public Object visitAssignmentStmt(alkParser.AssignmentStmtContext ctx) {
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
@@ -31,7 +57,7 @@ public class VisitorBaseImpl extends alkBaseVisitor {
     @Override public Object visitMethodCall(alkParser.MethodCallContext ctx) {
         ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
         referenceVisitor.visit(ctx.ref_name());
-        referenceVisitor.visit(ctx.function_call().builtin_method()); // TODO de facut dupa ce se fac functiile non-builtin
+        referenceVisitor.visit(ctx.builtin_method());
         return null;
     }
 

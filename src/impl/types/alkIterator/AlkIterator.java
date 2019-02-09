@@ -27,7 +27,7 @@ public class AlkIterator extends AlkValue {
     }
 
     @Override public AlkValue notequal(AlkValue operand) throws AlkException {
-        return new AlkBool(!((AlkBool)notequal(operand)).value);
+        return new AlkBool(!((AlkBool)equal(operand)).value);
     }
 
     @Override public AlkValue equal(AlkValue operand) throws AlkException {

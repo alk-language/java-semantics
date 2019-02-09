@@ -240,6 +240,10 @@ public class AlkException extends Exception {
 
     public final static String ERR_UPDATE = "This type of value is not valid for the update function.";
 
+
+    public final static String ERR_FUNCTION_REDEFINITION = "Another function with the same name and same number of parameters was already defined.";
+    public final static String ERR_FUNCTION_UNDEFINED = "No function with this name and this number of parameters is defined.";
+
     public AlkException(String text)
     {
         super(text);

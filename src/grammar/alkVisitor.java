@@ -32,19 +32,19 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethodCall(alkParser.MethodCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToFun}
+	 * Visit a parse tree produced by the {@code FunctionCall}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitToFun(alkParser.ToFunContext ctx);
+	T visitFunctionCall(alkParser.FunctionCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TOFD}
+	 * Visit a parse tree produced by the {@code ToFunctionDecl}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTOFD(alkParser.TOFDContext ctx);
+	T visitToFunctionDecl(alkParser.ToFunctionDeclContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Return}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -234,17 +234,19 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForAllStructure(alkParser.ForAllStructureContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#function_decl}.
+	 * Visit a parse tree produced by the {@code FunctionDecl}
+	 * labeled alternative in {@link alkParser#function_decl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_decl(alkParser.Function_declContext ctx);
+	T visitFunctionDecl(alkParser.FunctionDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#param}.
+	 * Visit a parse tree produced by the {@code ParamDefinition}
+	 * labeled alternative in {@link alkParser#param}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParam(alkParser.ParamContext ctx);
+	T visitParamDefinition(alkParser.ParamDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ConditionalExpression}
 	 * labeled alternative in {@link alkParser#expression}.
@@ -574,11 +576,19 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSetWithInterval(alkParser.SetWithIntervalContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#function_call}.
+	 * Visit a parse tree produced by the {@code ToBuiltinMethod}
+	 * labeled alternative in {@link alkParser#function_call}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_call(alkParser.Function_callContext ctx);
+	T visitToBuiltinMethod(alkParser.ToBuiltinMethodContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DefinedFunctionCall}
+	 * labeled alternative in {@link alkParser#function_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefinedFunctionCall(alkParser.DefinedFunctionCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BuiltinMethod}
 	 * labeled alternative in {@link alkParser#builtin_method}.
