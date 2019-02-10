@@ -21,7 +21,12 @@ import static impl.exceptions.AlkException.*;
 
 public class VisitorBaseImpl extends alkBaseVisitor {
 
-    private Environment env = new Environment();
+    private Environment env;
+
+    public VisitorBaseImpl (Environment env)
+    {
+        this.env=env;
+    }
 
     @Override public Object visitFunctionDecl(alkParser.FunctionDeclContext ctx) {
         String name = ctx.ID(0).getText();
@@ -43,7 +48,7 @@ public class VisitorBaseImpl extends alkBaseVisitor {
     }
 
     @Override public Object visitParamDefinition(alkParser.ParamDefinitionContext ctx) {
-        Pair<String, Boolean> pair = new Pair<>(ctx.ID().getText(), ctx.OUT()==null);
+        Pair<String, Boolean> pair = new Pair<>(ctx.ID().getText(), ctx.OUT()!=null);
         return pair;
     }
 
