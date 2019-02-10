@@ -8,5 +8,5 @@ import statement;
 
 main
 :
-    statement_sequence? EOF
+    statement_sequence? EOF                                                                                             #StartPoint
 ;

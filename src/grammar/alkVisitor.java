@@ -13,11 +13,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link alkParser#main}.
+	 * Visit a parse tree produced by the {@code StartPoint}
+	 * labeled alternative in {@link alkParser#main}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMain(alkParser.MainContext ctx);
+	T visitStartPoint(alkParser.StartPointContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#statement_sequence}.
 	 * @param ctx the parse tree
@@ -46,12 +47,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToFunctionDecl(alkParser.ToFunctionDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Return}
+	 * Visit a parse tree produced by the {@code ReturnStmt}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturn(alkParser.ReturnContext ctx);
+	T visitReturnStmt(alkParser.ReturnStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ChooseStm}
 	 * labeled alternative in {@link alkParser#statement}.

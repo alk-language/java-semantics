@@ -1,4 +1,41 @@
 package impl.types.alkNotAValue;
 
-public class AlkNotAValue {
+import impl.exceptions.AlkException;
+import impl.exceptions.InterpretorException;
+import impl.types.AlkValue;
+import impl.types.alkBool.AlkBool;
+
+
+public class AlkNotAValue extends AlkValue {
+
+    public static final String NO_RETURN = "No value was returned from a called function.";
+
+    private String msg;
+
+    public AlkNotAValue(String msg)
+    {
+        type = "NAN";
+        this.msg = msg;
+    }
+
+
+    @Override
+    public AlkValue clone() {
+        return new AlkNotAValue(msg);
+    }
+
+    @Override
+    public String toString() {
+        return msg;
+    }
+
+    @Override
+    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+        return this;
+    }
+
+    @Override
+    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+        return new AlkBool(false);
+    }
 }

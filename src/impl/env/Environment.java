@@ -18,13 +18,23 @@ public class Environment {
         throw new AlkException(ERR_NO_REF);
     }
 
+    public Integer getLocation(String str) throws AlkException {
+        if (variables.containsKey(str))
+            return variables.get(str);
+        throw new AlkException(ERR_NO_REF);
+    }
+
+    public void add(String id, Integer location)
+    {
+        variables.put(id, location);
+    }
+
     public void update(String id, AlkValue value)
     {
-        AlkValue copy = value.clone();
         if (variables.containsKey(id))
-            Store.set(variables.get(id), copy);
+            Store.set(variables.get(id), value);
         else
-            variables.put(id, Store.setNew(copy));
+            variables.put(id, Store.setNew(value));
     }
 
     public boolean has(String id)

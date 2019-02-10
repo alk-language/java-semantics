@@ -1,8 +1,15 @@
 - specificatiile: un al treilea parametru nu ar trebui sa fie doar intervale
 - erorile pentru expresii
-- evaluarea referintelor (creem operatorii . si []) - facut, de schimbat in in asignare
-- de scos interpretorException (inlocuit cu erori default pe tipuri necunoscute) (in expresii cel putin)
+- de scos interpretorException (inlocuit cu erori default pe tipuri necunoscute) (in expresii cel putin) ----- inca de gandit
 - erorile la compareTo in AlkValue (momentan apar la linia 0)
-- operatii din expresii cu structuri (== de exemplu)
+- de reimplementat <= < > >= == != cu ajutorul a doar doi operatori, < si ==
 - operatii de tip %= /=
 - de facut functii convertoare
+- de adaugat erori la unmodifiable values stanga
+- de adaugat eroare division by zero
+- de adaugat AlkNotAValue (la expresii)
+- la functii exista o ambiguitate : ref_name cu function call fara brackets == function_call ca si factor : rezolvarea ar fi eliminarea function_call factor ori refacerea referintelor pentru a intra doar metode
+deci fara functii in prima componenta
+- de choose/rand
+- break/continue
+- de iterat cu [] in liste

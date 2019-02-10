@@ -1,6 +1,8 @@
 package impl;
 
 import impl.env.Environment;
+import impl.visitors.MainVisitor;
+import impl.visitors.StmtVisitor;
 import impl.visitors.expression.ExpressionVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.CharStream;
@@ -8,7 +10,6 @@ import org.antlr.v4.runtime.tree.*;
 import grammar.*;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 public class Main {
 
@@ -34,7 +35,7 @@ public class Main {
 
             //testExpression(parser.expression());
             ParseTree tree = parser.main();
-            VisitorBaseImpl alkVisitor = new VisitorBaseImpl();
+            MainVisitor alkVisitor = new MainVisitor(new Environment());
             alkVisitor.visit(tree);
 
         } catch (IOException e)

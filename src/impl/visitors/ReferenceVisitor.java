@@ -9,6 +9,7 @@ import impl.types.alkBool.AlkBool;
 import impl.types.AlkValue;
 import impl.types.alkInt.AlkInt;
 import impl.visitors.expression.ExpressionVisitor;
+import impl.visitors.function.FunctionCallVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,10 @@ public class ReferenceVisitor extends alkBaseVisitor {
         //String name = ctx.function_call();
         try {
             if (value == null) // cazul in care suntem inca in primul chunk
-                return new AlkBool(false); // TODO de facut dupa ce se fac functiile
+            {
+                FunctionCallVisitor visitor = new FunctionCallVisitor(env);
+                value = (AlkValue) visitor.visit(ctx.function_call());
+            }
             else // cazul in care suntem intr-o componenta (. sau ->)
                 visit(ctx.function_call());
             for (int i=0; i<size; i++)

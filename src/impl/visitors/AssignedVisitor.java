@@ -12,8 +12,7 @@ import impl.types.alkInt.AlkInt;
 import impl.types.alkStructure.AlkStructure;
 import impl.visitors.expression.ExpressionVisitor;
 
-import static impl.exceptions.AlkException.ERR_BRACKET_TOOBIG;
-import static impl.exceptions.AlkException.ERR_NOINT_ARRAY;
+import static impl.exceptions.AlkException.*;
 
 public class AssignedVisitor extends alkBaseVisitor {
 
@@ -25,7 +24,7 @@ public class AssignedVisitor extends alkBaseVisitor {
 
     public AssignedVisitor(Environment env, AlkValue value) {
         this.env = env;
-        this.value=value;
+        this.value = value.clone();
     }
 
     @Override public Object visitRefName(alkParser.RefNameContext ctx) {
@@ -43,33 +42,36 @@ public class AssignedVisitor extends alkBaseVisitor {
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         String name = ctx.ID().toString();
         try {
-            if (dot_act + 1 == dot_size && size==0) {
-                if (dot_size==1) {
+            if (dot_act + 1 == dot_size && size==0) { // daca suntem la ultimul chunk si nu avem brackets
+                if (dot_size==1) { // daca aveam doar un nume de variabila
                     env.update(name, value);
-                    return null;
                 }
                 else
                 {
-                    AlkStructure struct = (AlkStructure) left_side;
+                    if (!left_side.type.equals("Structure"))
+                        throw new AlkException(ERR_STRUCT);
+                    AlkStructure struct = (AlkStructure) left_side; // este ultima componenta
                     struct.insert(new Pair<>(name, value));
                 }
                 return null;
             }
             if (left_side == null) // cazul in care suntem inca in primul chunk
             {
-                if (!env.has(name))
+                if (!env.has(name)) // nu este definita variabila
                 {
-                    if (size>0)
+                    if (size>0) // avem un tablou
                         env.update(name, new AlkArray());
-                    else
+                    else // avem o structura
                         env.update(name, new AlkStructure());
                 }
                 left_side = env.lookup(name);
             }
             else // cazul in care suntem intr-o componenta (. sau ->)
             {
+                if (!left_side.type.equals("Structure"))
+                    throw new AlkException(ERR_STRUCT);
                 AlkStructure struct = (AlkStructure) left_side;
-                if (!struct.has(name))
+                if (!struct.has(name)) // ins structura nu exista o componenta cu numele respectivv
                 {
                     if (size==0)
                         struct.insert(new Pair<>(name, new AlkStructure()));
@@ -84,29 +86,29 @@ public class AssignedVisitor extends alkBaseVisitor {
                 if (!idx.type.equals("Int"))
                     throw new AlkException(ERR_NOINT_ARRAY);
                 int place = ((AlkInt) idx).value.intValueExact();
+                if (!left_side.type.equals("Array"))
+                    throw new AlkException(ERR_ARRAY);
                 AlkArray array = (AlkArray) left_side;
-                if (((AlkInt)array.size()).value.intValue()>place)
+                if (((AlkInt)array.size()).value.intValue()>place) // arrayul este suficient de mare
+                {
+                    left_side = left_side.bracket(place);
+                }
+                else // trebuie marit
                 {
                     left_side.bracket(place);
-                }
-                else
-                {
-                    if (place>0)
-                        left_side.bracket(place-1);
                     array = (AlkArray) left_side;
-                    array.push(new AlkArray());
+                    array.put(place, new AlkArray());
                     left_side = array.bracket(place);
                 }
             }
-            if (dot_act + 1 == dot_size) {
+            if (dot_act + 1 == dot_size) { // suntem in ultimul chunk
                     AlkValue idx = (AlkValue) exprVisitor.visit(ctx.expression(size - 1));
                     if (!idx.type.equals("Int"))
                         throw new AlkException(ERR_NOINT_ARRAY);
                     int place = ((AlkInt) idx).value.intValueExact();
-                    if (place>0)
-                        left_side.bracket(place-1);
+                    left_side.bracket(place); // TODO de facut si accessul prin liste cu bracket
                     AlkArray array = (AlkArray) left_side;
-                    array.push(value);
+                    array.put(place, value);
             }
             else
             {
@@ -116,16 +118,17 @@ public class AssignedVisitor extends alkBaseVisitor {
                     if (!idx.type.equals("Int"))
                         throw new AlkException(ERR_NOINT_ARRAY);
                     int place = ((AlkInt) idx).value.intValueExact();
+                    if (!left_side.type.equals("Array"))
+                        throw new AlkException(ERR_ARRAY);
                     AlkArray array = (AlkArray) left_side;
                     if (((AlkInt)array.size()).value.intValue()>place)
                     {
-                        left_side.bracket(place);
+                        left_side = left_side.bracket(place);
                     }
                     else {
-                        if (place>0)
-                            left_side.bracket(place - 1);
+                        left_side.bracket(place);
                         array = (AlkArray) left_side;
-                        array.push(new AlkStructure());
+                        array.put(place, new AlkStructure());
                         left_side = array.bracket(place);
                     }
                 }

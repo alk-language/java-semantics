@@ -16,7 +16,7 @@ statement //statement
     ref_name (POINT|ARROW) builtin_method SEMICOLON                                                                     #MethodCall
     | function_call SEMICOLON                                                                                           #FunctionCall
     | function_decl                                                                                                     #ToFunctionDecl
-    | RETURN expression SEMICOLON                                 #Return
+    | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
 
     | choose SEMICOLON                                         #ChooseStm
     | SUCCESS SEMICOLON                                        #Success

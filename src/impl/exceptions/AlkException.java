@@ -139,6 +139,7 @@ public class AlkException extends Exception {
 
     public final static String ERR_MUL = "The values of the operands are not valid in this multiplying expression";
     public final static String ERR_DIV = "The values of the operands are not valid in this dividing expression";
+    public final static String ERR_DIV_ZERO = "It is impossible to divide by 0.";
     public final static String ERR_MOD = "The values of the operands are not valid in this dividing with a reminder expression";
 
 
@@ -178,6 +179,14 @@ public class AlkException extends Exception {
     public final static String ERR_DATASTRUCTURE_UNDEFINED = "The data structure in the left side must be initialized first.";
     public final static String ERR_NOINT_ARRAY = "The values of array's indexes must be integers.";
     public final static String ERR_ARRAY = "The value of the operand must be an array so that its elements can be accessed.";
+
+    public final static String ERR_PARAM_NOT_DEFINED = "The value of an input-output must be a modifiable value and it must be declared first.";
+    public final static String ERR_MULTIPLE_PARAM = "A function can't have more than one parameter with the same name.";
+    public final static String ERR_MODIFIES = "There is no global variable with this name.";
+    public final static String ERR_RETURN = "You can only return if you are in a function.";
+    public final static String ERR_FUNCTION_DEFINITION = "You can only declare functions in the global scope.";
+
+    public final static String ERR_STRUCT = "The value of the operand must be a structure so that its elements can be accessed with point.";
 
     public final static String ERR_ARRAY_OUT_OF_BOUNDS = "The position in the array is out of bounds.";
     public final static String ERR_LIST_OUT_OF_BOUNDS = "The position in the list is out of bounds.";

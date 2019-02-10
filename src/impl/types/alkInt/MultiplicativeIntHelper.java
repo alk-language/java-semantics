@@ -114,9 +114,15 @@ public class MultiplicativeIntHelper {
         throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
     }
 
-    private AlkInt mod(AlkInt operand)
-    {
-        return new AlkInt(value.remainder(operand.value));
+    private AlkInt mod(AlkInt operand) throws AlkException {
+        try {
+            return new AlkInt(value.remainder(operand.value));
+        }
+        catch (ArithmeticException e)
+        {
+            // Treated ArithmeticException
+            throw new AlkException(ERR_DIV_ZERO);
+        }
     }
 
     private AlkDouble mod(AlkDouble operand) throws AlkException {
