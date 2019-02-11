@@ -4,7 +4,7 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkString.AlkString;
 
 import java.math.BigInteger;
@@ -28,7 +28,7 @@ public class BitwiseIntHelper {
         switch(operand.type)
         {
             case "Int": return bitwiseAnd(((AlkInt)operand));
-            case "Double": return bitwiseAnd((AlkDouble)operand);
+            case "Double": return bitwiseAnd((AlkFloat)operand);
             case "String": return bitwiseAnd((AlkString)operand);
             case "Bool": return bitwiseAnd((AlkBool)operand);
         }
@@ -40,7 +40,7 @@ public class BitwiseIntHelper {
         return new AlkInt(value.and(operand.value));
     }
 
-    private AlkDouble bitwiseAnd(AlkDouble operand) throws AlkException {
+    private AlkFloat bitwiseAnd(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_BITWISEAND_DOUBLE);
     }
 
@@ -60,7 +60,7 @@ public class BitwiseIntHelper {
         switch(operand.type)
         {
             case "Int": return bitwiseOr(((AlkInt)operand));
-            case "Double": return bitwiseOr((AlkDouble)operand);
+            case "Double": return bitwiseOr((AlkFloat)operand);
             case "String": return bitwiseOr((AlkString)operand);
             case "Bool": return bitwiseOr((AlkBool)operand);
         }
@@ -72,7 +72,7 @@ public class BitwiseIntHelper {
         return new AlkInt(value.or(operand.value));
     }
 
-    private AlkDouble bitwiseOr(AlkDouble operand) throws AlkException {
+    private AlkFloat bitwiseOr(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_BITWISEOR_DOUBLE);
     }
 
@@ -92,7 +92,7 @@ public class BitwiseIntHelper {
         switch(operand.type)
         {
             case "Int": return bitwiseXor(((AlkInt)operand));
-            case "Double": return bitwiseXor((AlkDouble)operand);
+            case "Double": return bitwiseXor((AlkFloat)operand);
             case "String": return bitwiseXor((AlkString)operand);
             case "Bool": return bitwiseXor((AlkBool)operand);
         }
@@ -104,7 +104,7 @@ public class BitwiseIntHelper {
         return new AlkInt(value.xor(operand.value));
     }
 
-    private AlkDouble bitwiseXor(AlkDouble operand) throws AlkException {
+    private AlkFloat bitwiseXor(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_BITWISEXOR_DOUBLE);
     }
 

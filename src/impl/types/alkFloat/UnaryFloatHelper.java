@@ -1,24 +1,24 @@
-package impl.types.alkDouble;
+package impl.types.alkFloat;
 
 import impl.types.AlkValue;
 
 import java.math.BigDecimal;
 
-public class UnaryDoubleHelper {
+public class UnaryFloatHelper {
     private BigDecimal value;
 
-    UnaryDoubleHelper(BigDecimal value)
+    UnaryFloatHelper(BigDecimal value)
     {
         this.value = value;
     }
 
     AlkValue positive()
     {
-        return new AlkDouble(value);
+        return new AlkFloat(value);
     }
 
     AlkValue negative()
     {
-        return new AlkDouble(value.negate());
+        return new AlkFloat(value.negate());
     }
 }

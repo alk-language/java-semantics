@@ -2,7 +2,7 @@ package impl.types.alkBool;
 
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkInt.AlkInt;
 import impl.types.alkString.AlkString;
 import impl.types.AlkValue;
@@ -26,7 +26,7 @@ public class EqualityBoolHelper {
         switch(operand.type)
         {
             case "Int": return equal(((AlkInt)operand));
-            case "Double": return equal((AlkDouble)operand);
+            case "Double": return equal((AlkFloat)operand);
             case "String": return equal((AlkString)operand);
             case "Bool": return equal((AlkBool)operand);
         }
@@ -37,7 +37,7 @@ public class EqualityBoolHelper {
         throw new AlkException(ERR_EQUAL_INT);
     }
 
-    private AlkBool equal(AlkDouble operand) throws AlkException {
+    private AlkBool equal(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_EQUAL_DOUBLE);
     }
 
@@ -56,7 +56,7 @@ public class EqualityBoolHelper {
         switch(operand.type)
         {
             case "Int": return notequal(((AlkInt)operand));
-            case "Double": return notequal((AlkDouble)operand);
+            case "Double": return notequal((AlkFloat)operand);
             case "String": return notequal((AlkString)operand);
             case "Bool": return notequal((AlkBool)operand);
         }
@@ -67,7 +67,7 @@ public class EqualityBoolHelper {
         throw new AlkException(ERR_NOTEQUAL_INT);
     }
 
-    private AlkBool notequal(AlkDouble operand) throws AlkException {
+    private AlkBool notequal(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_NOTEQUAL_DOUBLE);
     }
 

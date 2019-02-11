@@ -3,7 +3,7 @@ package impl.types.alkInt;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkString.AlkString;
 import impl.types.AlkValue;
 
@@ -34,7 +34,7 @@ class AdditiveIntHelper {
         switch(operand.type)
         {
             case "Int": return add(((AlkInt)operand));
-            case "Double": return add((AlkDouble)operand);
+            case "Double": return add((AlkFloat)operand);
             case "String": return add((AlkString)operand);
             case "Bool": return add((AlkBool)operand);
         }
@@ -46,9 +46,9 @@ class AdditiveIntHelper {
         return new AlkInt(value.add(operand.value));
     }
 
-    private AlkDouble add(AlkDouble operand)
+    private AlkFloat add(AlkFloat operand)
     {
-        return new AlkDouble(new BigDecimal(value).add(operand.value));
+        return new AlkFloat(new BigDecimal(value).add(operand.value));
     }
 
     private AlkInt add(AlkBool operand) throws AlkException {
@@ -67,7 +67,7 @@ class AdditiveIntHelper {
         switch(operand.type)
         {
             case "Int": return subtract(((AlkInt) operand));
-            case "Double": return subtract((AlkDouble) operand);
+            case "Double": return subtract((AlkFloat) operand);
             case "String": return subtract((AlkString) operand);
             case "Bool": return subtract((AlkBool) operand);
         }
@@ -79,9 +79,9 @@ class AdditiveIntHelper {
         return new AlkInt(value.subtract(operand.value));
     }
 
-    private AlkDouble subtract(AlkDouble operand)
+    private AlkFloat subtract(AlkFloat operand)
     {
-        return new AlkDouble(new BigDecimal(value).subtract(operand.value));
+        return new AlkFloat(new BigDecimal(value).subtract(operand.value));
     }
 
     private AlkInt subtract(AlkBool operand) throws AlkException {

@@ -2,7 +2,7 @@ package impl.types.alkBool;
 
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkInt.AlkInt;
 import impl.types.alkString.AlkString;
 import impl.types.AlkValue;
@@ -25,7 +25,7 @@ public class LogicalBoolHelper {
         switch(operand.type)
         {
             case "Int": return logicalAnd(((AlkInt)operand));
-            case "Double": return logicalAnd((AlkDouble)operand);
+            case "Double": return logicalAnd((AlkFloat)operand);
             case "String": return logicalAnd((AlkString)operand);
             case "Bool": return logicalAnd((AlkBool)operand);
         }
@@ -36,7 +36,7 @@ public class LogicalBoolHelper {
         throw new AlkException(ERR_LOGICALAND_INT);
     }
 
-    private AlkBool logicalAnd(AlkDouble operand) throws AlkException {
+    private AlkBool logicalAnd(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_LOGICALAND_DOUBLE);
     }
 
@@ -57,7 +57,7 @@ public class LogicalBoolHelper {
         switch(operand.type)
         {
             case "Int": return logicalOr(((AlkInt)operand));
-            case "Double": return logicalOr((AlkDouble)operand);
+            case "Double": return logicalOr((AlkFloat)operand);
             case "String": return logicalOr((AlkString)operand);
             case "Bool": return logicalOr((AlkBool)operand);
         }
@@ -68,7 +68,7 @@ public class LogicalBoolHelper {
         throw new AlkException(ERR_LOGICALOR_INT);
     }
 
-    private AlkBool logicalOr(AlkDouble operand) throws AlkException {
+    private AlkBool logicalOr(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_LOGICALOR_DOUBLE);
     }
 

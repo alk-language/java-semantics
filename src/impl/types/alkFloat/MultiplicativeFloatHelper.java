@@ -1,4 +1,4 @@
-package impl.types.alkDouble;
+package impl.types.alkFloat;
 
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
@@ -14,11 +14,11 @@ import static impl.constants.Constants.MAX_DECIMALS;
 import static impl.exceptions.AlkException.*;
 import static impl.exceptions.InterpretorException.ERR_VALUE_TYPE_UNRECOGNIZED;
 
-public class MultiplicativeDoubleHelper {
+public class MultiplicativeFloatHelper {
 
     private BigDecimal value;
 
-    MultiplicativeDoubleHelper(BigDecimal value)
+    MultiplicativeFloatHelper(BigDecimal value)
     {
         this.value = value;
     }
@@ -30,21 +30,21 @@ public class MultiplicativeDoubleHelper {
         switch(operand.type)
         {
             case "Int": return multiply(((AlkInt)operand));
-            case "Double": return multiply((AlkDouble)operand);
+            case "Double": return multiply((AlkFloat)operand);
             case "String": return multiply((AlkString)operand);
             case "Bool": return multiply((AlkBool)operand);
         }
         throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
     }
 
-    private AlkDouble multiply(AlkInt operand)
+    private AlkFloat multiply(AlkInt operand)
     {
-        return new AlkDouble(value.multiply(new BigDecimal(operand.value)));
+        return new AlkFloat(value.multiply(new BigDecimal(operand.value)));
     }
 
-    private AlkDouble multiply(AlkDouble operand)
+    private AlkFloat multiply(AlkFloat operand)
     {
-        return new AlkDouble(value.multiply(operand.value));
+        return new AlkFloat(value.multiply(operand.value));
     }
 
     private AlkInt multiply(AlkBool operand) throws AlkException {
@@ -65,28 +65,28 @@ public class MultiplicativeDoubleHelper {
         switch(operand.type)
         {
             case "Int": return divide(((AlkInt)operand));
-            case "Double": return divide((AlkDouble)operand);
+            case "Double": return divide((AlkFloat)operand);
             case "String": return divide((AlkString)operand);
             case "Bool": return divide((AlkBool)operand);
         }
         throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
     }
 
-    private AlkDouble divide(AlkInt operand)
+    private AlkFloat divide(AlkInt operand)
     {
-        return divide(new AlkDouble(new BigDecimal(operand.value)));
+        return divide(new AlkFloat(new BigDecimal(operand.value)));
     }
 
-    private AlkDouble divide(AlkDouble operand)
+    private AlkFloat divide(AlkFloat operand)
     {
         try
         {
-            return new AlkDouble(value.divide(operand.value));
+            return new AlkFloat(value.divide(operand.value));
         }
         catch (ArithmeticException e)
         {
             // Treated ArithmeticException
-            return new AlkDouble(value.divide(operand.value, MAX_DECIMALS, RoundingMode.HALF_EVEN));
+            return new AlkFloat(value.divide(operand.value, MAX_DECIMALS, RoundingMode.HALF_EVEN));
         }
     }
 

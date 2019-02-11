@@ -4,7 +4,7 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkInt.AlkInt;
 
 import static impl.exceptions.AlkException.*;
@@ -24,7 +24,7 @@ public class RelationalStringHelper {
             case "Int":
                 return lowereq(((AlkInt) operand));
             case "Double":
-                return lowereq((AlkDouble) operand);
+                return lowereq((AlkFloat) operand);
             case "String":
                 return lowereq((AlkString) operand);
             case "Bool":
@@ -37,7 +37,7 @@ public class RelationalStringHelper {
         throw new AlkException(ERR_LOWEREQ_INT);
     }
 
-    private AlkBool lowereq(AlkDouble operand) throws AlkException {
+    private AlkBool lowereq(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_LOWEREQ_DOUBLE);
     }
 
@@ -57,7 +57,7 @@ public class RelationalStringHelper {
             case "Int":
                 return lower(((AlkInt) operand));
             case "Double":
-                return lower((AlkDouble) operand);
+                return lower((AlkFloat) operand);
             case "String":
                 return lower((AlkString) operand);
             case "Bool":
@@ -70,7 +70,7 @@ public class RelationalStringHelper {
         throw new AlkException(ERR_LOWER_INT);
     }
 
-    private AlkBool lower(AlkDouble operand) throws AlkException {
+    private AlkBool lower(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_LOWER_DOUBLE);
     }
 
@@ -90,7 +90,7 @@ public class RelationalStringHelper {
             case "Int":
                 return greatereq(((AlkInt) operand));
             case "Double":
-                return greatereq((AlkDouble) operand);
+                return greatereq((AlkFloat) operand);
             case "String":
                 return greatereq((AlkString) operand);
             case "Bool":
@@ -103,7 +103,7 @@ public class RelationalStringHelper {
         throw new AlkException(ERR_GREATEREQ_INT);
     }
 
-    private AlkBool greatereq(AlkDouble operand) throws AlkException {
+    private AlkBool greatereq(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_GREATEREQ_DOUBLE);
     }
 
@@ -123,7 +123,7 @@ public class RelationalStringHelper {
             case "Int":
                 return greater(((AlkInt) operand));
             case "Double":
-                return greater((AlkDouble) operand);
+                return greater((AlkFloat) operand);
             case "String":
                 return greater((AlkString) operand);
             case "Bool":
@@ -136,7 +136,7 @@ public class RelationalStringHelper {
         throw new AlkException(ERR_GREATER_INT);
     }
 
-    private AlkBool greater(AlkDouble operand) throws AlkException {
+    private AlkBool greater(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_GREATER_DOUBLE);
     }
 

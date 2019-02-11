@@ -4,7 +4,7 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkString.AlkString;
 
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class RelationalIntHelper {
         switch(operand.type)
         {
             case "Int": return lowereq(((AlkInt)operand));
-            case "Double": return lowereq((AlkDouble)operand);
+            case "Double": return lowereq((AlkFloat)operand);
             case "String": return lowereq((AlkString)operand);
             case "Bool": return lowereq((AlkBool)operand);
         }
@@ -41,7 +41,7 @@ public class RelationalIntHelper {
         return new AlkBool(value.compareTo(operand.value) <=0 );
     }
 
-    private AlkBool lowereq(AlkDouble operand)
+    private AlkBool lowereq(AlkFloat operand)
     {
 
         return new AlkBool(new BigDecimal(value).compareTo(operand.value) <=0 );
@@ -65,7 +65,7 @@ public class RelationalIntHelper {
         switch(operand.type)
         {
             case "Int": return lower(((AlkInt)operand));
-            case "Double": return lower((AlkDouble)operand);
+            case "Double": return lower((AlkFloat)operand);
             case "String": return lower((AlkString)operand);
             case "Bool": return lower((AlkBool)operand);
         }
@@ -78,7 +78,7 @@ public class RelationalIntHelper {
         return new AlkBool(value.compareTo(operand.value) <0 );
     }
 
-    private AlkBool lower(AlkDouble operand)
+    private AlkBool lower(AlkFloat operand)
     {
 
         return new AlkBool(new BigDecimal(value).compareTo(operand.value) <0 );
@@ -100,7 +100,7 @@ public class RelationalIntHelper {
         switch(operand.type)
         {
             case "Int": return greatereq(((AlkInt)operand));
-            case "Double": return greatereq((AlkDouble)operand);
+            case "Double": return greatereq((AlkFloat)operand);
             case "String": return greatereq((AlkString)operand);
             case "Bool": return greatereq((AlkBool)operand);
         }
@@ -113,7 +113,7 @@ public class RelationalIntHelper {
         return new AlkBool(value.compareTo(operand.value) >=0 );
     }
 
-    private AlkBool greatereq(AlkDouble operand)
+    private AlkBool greatereq(AlkFloat operand)
     {
 
         return new AlkBool(new BigDecimal(value).compareTo(operand.value) >=0 );
@@ -136,7 +136,7 @@ public class RelationalIntHelper {
         switch(operand.type)
         {
             case "Int": return greater(((AlkInt)operand));
-            case "Double": return greater((AlkDouble)operand);
+            case "Double": return greater((AlkFloat)operand);
             case "String": return greater((AlkString)operand);
             case "Bool": return greater((AlkBool)operand);
         }
@@ -148,7 +148,7 @@ public class RelationalIntHelper {
         return new AlkBool(value.compareTo(operand.value) > 0);
     }
 
-    private AlkBool greater(AlkDouble operand)
+    private AlkBool greater(AlkFloat operand)
     {
         return new AlkBool(new BigDecimal(value).compareTo(operand.value) >0);
     }

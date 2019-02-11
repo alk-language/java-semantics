@@ -31,8 +31,6 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
             if (((AlkBool)lower(operand)).value) return -1;
             return 1;
         } catch (AlkException e) {
-            InterpretorException f = new InterpretorException(ERR_COMPARABLE); // momentan nu apare eroarea asta, deoarece seturile sunt omogene
-            f.printException(0);
             e.printException(0);
             return 0;
         } catch (InterpretorException e) {

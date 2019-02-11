@@ -4,7 +4,7 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkString.AlkString;
 
 import java.math.BigInteger;
@@ -28,7 +28,7 @@ public class ShiftIntHelper {
         switch(operand.type)
         {
             case "Int": return shiftLeft(((AlkInt)operand));
-            case "Double": return shiftLeft((AlkDouble)operand);
+            case "Double": return shiftLeft((AlkFloat)operand);
             case "String": return shiftLeft((AlkString)operand);
             case "Bool": return shiftLeft((AlkBool)operand);
         }
@@ -46,7 +46,7 @@ public class ShiftIntHelper {
         }
     }
 
-    private AlkDouble shiftLeft(AlkDouble operand) throws AlkException {
+    private AlkFloat shiftLeft(AlkFloat operand) throws AlkException {
 
         throw new AlkException(ERR_SHIFTLEFT_DOUBLE);
     }
@@ -67,7 +67,7 @@ public class ShiftIntHelper {
         switch(operand.type)
         {
             case "Int": return shiftRight(((AlkInt) operand));
-            case "Double": return shiftRight((AlkDouble) operand);
+            case "Double": return shiftRight((AlkFloat) operand);
             case "String": return shiftRight((AlkString) operand);
             case "Bool": return shiftRight((AlkBool) operand);
         }
@@ -85,7 +85,7 @@ public class ShiftIntHelper {
         }
     }
 
-    private AlkDouble shiftRight(AlkDouble operand) throws AlkException {
+    private AlkFloat shiftRight(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_SHIFTRIGHT_DOUBLE);
     }
 

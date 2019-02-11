@@ -1,4 +1,4 @@
-package impl.types.alkDouble;
+package impl.types.alkFloat;
 
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
@@ -13,10 +13,10 @@ import static impl.exceptions.AlkException.*;
 import static impl.exceptions.AlkException.ERR_SUB_STRING;
 import static impl.exceptions.InterpretorException.ERR_VALUE_TYPE_UNRECOGNIZED;
 
-class AdditiveDoubleHelper {
+class AdditiveFloatHelper {
     private BigDecimal value;
 
-    AdditiveDoubleHelper(BigDecimal value)
+    AdditiveFloatHelper(BigDecimal value)
     {
         this.value = value;
     }
@@ -28,21 +28,21 @@ class AdditiveDoubleHelper {
         switch(operand.type)
         {
             case "Int": return add(((AlkInt)operand));
-            case "Double": return add((AlkDouble)operand);
+            case "Double": return add((AlkFloat)operand);
             case "String": return add((AlkString)operand);
             case "Bool": return add((AlkBool)operand);
         }
         throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
     }
 
-    private AlkDouble add(AlkInt operand)
+    private AlkFloat add(AlkInt operand)
     {
-        return new AlkDouble(value.add(new BigDecimal(operand.value)));
+        return new AlkFloat(value.add(new BigDecimal(operand.value)));
     }
 
-    private AlkDouble add(AlkDouble operand)
+    private AlkFloat add(AlkFloat operand)
     {
-        return new AlkDouble(value.add(operand.value));
+        return new AlkFloat(value.add(operand.value));
     }
 
     private AlkInt add(AlkBool operand) throws AlkException {
@@ -59,28 +59,28 @@ class AdditiveDoubleHelper {
         switch(operand.type)
         {
             case "Int": return subtract(((AlkInt)operand));
-            case "Double": return subtract((AlkDouble)operand);
+            case "Double": return subtract((AlkFloat)operand);
             case "String": return subtract((AlkString)operand);
             case "Bool": return subtract((AlkBool)operand);
         }
         throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
     }
 
-    private AlkDouble subtract(AlkInt operand)
+    private AlkFloat subtract(AlkInt operand)
     {
-        return new AlkDouble(value.subtract(new BigDecimal(operand.value)));
+        return new AlkFloat(value.subtract(new BigDecimal(operand.value)));
     }
 
-    private AlkDouble subtract(AlkDouble operand)
+    private AlkFloat subtract(AlkFloat operand)
     {
-        return new AlkDouble(value.subtract(operand.value));
+        return new AlkFloat(value.subtract(operand.value));
     }
 
-    private AlkDouble subtract(AlkBool operand) throws AlkException {
+    private AlkFloat subtract(AlkBool operand) throws AlkException {
         throw new AlkException(ERR_SUB_BOOL);
     }
 
-    private AlkDouble subtract(AlkString operand) throws AlkException {
+    private AlkFloat subtract(AlkString operand) throws AlkException {
         throw new AlkException(ERR_SUB_STRING);
     }
 }

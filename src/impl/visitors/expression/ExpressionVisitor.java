@@ -4,7 +4,7 @@ import impl.env.Environment;
 import grammar.*;
 import impl.exceptions.InterpretorException;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkInt.AlkInt;
 import impl.types.alkString.AlkString;
 import impl.types.AlkValue;
@@ -424,7 +424,7 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     @Override public AlkValue visitDoubleValue(alkParser.DoubleValueContext ctx) {
-        return new AlkDouble(new BigDecimal(ctx.DOUBLE().toString()));
+        return new AlkFloat(new BigDecimal(ctx.DOUBLE().toString()));
     }
 
     @Override public AlkValue visitBoolValue(alkParser.BoolValueContext ctx) {

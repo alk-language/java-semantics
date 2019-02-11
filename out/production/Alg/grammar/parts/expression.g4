@@ -132,7 +132,6 @@ spec:
     expression VBAR ID IN interval                                                                                      #SpecDefinition
 ;
 
-
 //Arrays
 array:
     LBRA spec RBRA                                                                                                      #ArrayWithSpec

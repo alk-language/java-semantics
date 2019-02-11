@@ -4,7 +4,7 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkString.AlkString;
 
 import java.math.BigDecimal;
@@ -31,7 +31,7 @@ public class MultiplicativeIntHelper {
         switch(operand.type)
         {
             case "Int": return multiply(((AlkInt)operand));
-            case "Double": return multiply((AlkDouble)operand);
+            case "Double": return multiply((AlkFloat)operand);
             case "String": return multiply((AlkString)operand);
             case "Bool": return multiply((AlkBool)operand);
         }
@@ -43,9 +43,9 @@ public class MultiplicativeIntHelper {
         return new AlkInt(value.multiply(operand.value));
     }
 
-    private AlkDouble multiply(AlkDouble operand)
+    private AlkFloat multiply(AlkFloat operand)
     {
-        return new AlkDouble(new BigDecimal(value).multiply(operand.value));
+        return new AlkFloat(new BigDecimal(value).multiply(operand.value));
     }
 
     private AlkInt multiply(AlkBool operand) throws AlkException {
@@ -65,7 +65,7 @@ public class MultiplicativeIntHelper {
         switch(operand.type)
         {
             case "Int": return divide(((AlkInt)operand));
-            case "Double": return divide((AlkDouble)operand);
+            case "Double": return divide((AlkFloat)operand);
             case "String": return divide((AlkString)operand);
             case "Bool": return divide((AlkBool)operand);
         }
@@ -77,16 +77,16 @@ public class MultiplicativeIntHelper {
         return new AlkInt(value.divide(operand.value));
     }
 
-    private AlkDouble divide(AlkDouble operand)
+    private AlkFloat divide(AlkFloat operand)
     {
         try
         {
-            return new AlkDouble(new BigDecimal(value).divide(operand.value));
+            return new AlkFloat(new BigDecimal(value).divide(operand.value));
         }
         catch (ArithmeticException e)
         {
             // Treated ArithmeticException
-            return new AlkDouble(new BigDecimal(value).divide(operand.value, MAX_DECIMALS, RoundingMode.HALF_EVEN));
+            return new AlkFloat(new BigDecimal(value).divide(operand.value, MAX_DECIMALS, RoundingMode.HALF_EVEN));
         }
     }
 
@@ -107,7 +107,7 @@ public class MultiplicativeIntHelper {
         switch(operand.type)
         {
             case "Int": return mod(((AlkInt)operand));
-            case "Double": return mod((AlkDouble)operand);
+            case "Double": return mod((AlkFloat)operand);
             case "String": return mod((AlkString)operand);
             case "Bool": return mod((AlkBool)operand);
         }
@@ -125,7 +125,7 @@ public class MultiplicativeIntHelper {
         }
     }
 
-    private AlkDouble mod(AlkDouble operand) throws AlkException {
+    private AlkFloat mod(AlkFloat operand) throws AlkException {
         throw new AlkException(ERR_MOD_DOUBLE);
     }
 

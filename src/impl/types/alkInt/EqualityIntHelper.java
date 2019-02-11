@@ -4,7 +4,7 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkDouble.AlkDouble;
+import impl.types.alkFloat.AlkFloat;
 import impl.types.alkString.AlkString;
 
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class EqualityIntHelper {
         switch(operand.type)
         {
             case "Int": return equal(((AlkInt)operand));
-            case "Double": return equal((AlkDouble)operand);
+            case "Double": return equal((AlkFloat)operand);
             case "String": return equal((AlkString)operand);
             case "Bool": return equal((AlkBool)operand);
         }
@@ -40,7 +40,7 @@ public class EqualityIntHelper {
         return new AlkBool(value.compareTo(operand.value) == 0);
     }
 
-    private AlkBool equal(AlkDouble operand)
+    private AlkBool equal(AlkFloat operand)
     {
         return new AlkBool(new BigDecimal(value).compareTo(operand.value)==0);
     }
@@ -61,7 +61,7 @@ public class EqualityIntHelper {
         switch(operand.type)
         {
             case "Int": return notequal(((AlkInt)operand));
-            case "Double": return notequal((AlkDouble)operand);
+            case "Double": return notequal((AlkFloat)operand);
             case "String": return notequal((AlkString)operand);
             case "Bool": return notequal((AlkBool)operand);
         }
@@ -74,7 +74,7 @@ public class EqualityIntHelper {
         return new AlkBool(value.compareTo(operand.value) != 0);
     }
 
-    private AlkBool notequal(AlkDouble operand)
+    private AlkBool notequal(AlkFloat operand)
     {
         return new AlkBool(new BigDecimal(value).compareTo(operand.value) != 0);
     }
