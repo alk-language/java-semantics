@@ -1,15 +1,12 @@
 @ECHO OFF
-:: Path to the alk.jar file:
-:: Example:
-:: C:\Users\dlucanu\Documents\alk-language\java-semantics-master\java-semantics-master\releases>
-set JarFile=C:\Users\dlucanu\Documents\alk-language\java-semantics-master\java-semantics-master\releases\alk.jar
+
 IF %1.==. GOTO No1
 IF %2.==. GOTO No2
  java -jar %~dp0alk.jar -a %1 -i %2
 GOTO End1
 
 :No1
-  ECHO Incorrect parameters. Correct command line format:
+  ECHO Usage:
   ECHO "alki.bat <file-with-algorithm>.alk"
   ECHO or 
   ECHO "alki <file-with-algorithm>.alk <file-with-initial-state>.in"

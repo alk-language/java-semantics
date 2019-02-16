@@ -1,0 +1,18 @@
+/*
+  @input: a positive integer n
+  @output: s = 1 + 2 + ... + n
+*/
+
+s = 0 ;
+while (n > 0) {
+  s = s + n;
+  n = n - 1;
+}
+print(s);
+
+/*
+  Example of command line:
+  alki sum.alk sum.in
+  where sum.in includes:
+n |-> 23
+*/
