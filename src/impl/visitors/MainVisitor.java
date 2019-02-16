@@ -10,6 +10,7 @@ public class MainVisitor extends alkBaseVisitor {
 
     public static Stack<Environment> stack = new Stack<>();
     public static Environment Global;
+    public static Boolean exceptionOccured = false;
 
     public MainVisitor(Environment env)
     {

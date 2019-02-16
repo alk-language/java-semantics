@@ -1,4 +1,3 @@
-L = <1, 2, 3>;
-p = L.front();
-*p = 2;
-print(L);
+a=5;
+b=3;
+print(a+b);

@@ -15,6 +15,10 @@ fragment NONDIGIT: [a-zA-Z_];
 fragment DIGIT: [0-9];
 fragment NONZERODIGIT: [1-9];
 
+//Cofiguration
+
+TO: '|->';
+
 
 //Keywords
 

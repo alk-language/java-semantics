@@ -1,5 +1,7 @@
 package impl.exceptions;
 
+import impl.visitors.MainVisitor;
+
 public class AlkException extends Exception {
 
     public final static String ERR_LOGICALOR_DATA_STRUCTURE = "A data structure value is not a valid operand in this logical or expression.";
@@ -259,6 +261,8 @@ public class AlkException extends Exception {
     }
 
     public void printException(int line) {
+        MainVisitor.exceptionOccured=true;
         System.out.println("Error at line "+line+": "+getMessage());
+        throw new RuntimeException();
     }
 }

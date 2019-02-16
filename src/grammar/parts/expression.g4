@@ -130,6 +130,7 @@ interval:
 //Spec
 spec:
     expression VBAR ID IN interval                                                                                      #SpecDefinition
+;
 
 //Arrays
 array:

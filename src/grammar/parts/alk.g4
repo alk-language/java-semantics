@@ -4,7 +4,7 @@ grammar alk;
     package grammar;
 }
 
-import statement;
+import statement, init;
 
 main
 :

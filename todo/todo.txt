@@ -10,5 +10,5 @@
 deci fara functii in prima componenta
 - de pus choose/rand
 - de iterat cu [] in liste
-- insert si remove la iteratori
+- insert si delete la iteratori (delete este facut)
 - break/continue
