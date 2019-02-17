@@ -30,4 +30,4 @@
     ..\..\bin\alki.bat gcd.alk gcd.in
     14
     ```
-
+Read the manual `doc/alk.pdf` to learn how to write Alk programs.
