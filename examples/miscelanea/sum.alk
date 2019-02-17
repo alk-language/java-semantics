@@ -13,6 +13,6 @@ print(s);
 /*
   Example of command line:
   alki sum.alk sum.in
-  where sum.in includes:
+  where, e.g., sum.in includes:
 n |-> 23
 */

@@ -38,7 +38,6 @@ qsort(out a, p, q) {
   }
 }
 
-print(n);
 print(b);
 qsort(b, 0, n-1);
 print(b);
@@ -46,7 +45,7 @@ print(b);
 
 /*
 alki qsort.alk qsort.in
-where qsort.in includes:
+where, e.g., qsort.in includes:
 n |-> 5
 b |-> [5,1,3,2,4]
 */

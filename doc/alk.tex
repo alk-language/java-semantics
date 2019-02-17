@@ -120,58 +120,10 @@ The state from the final configuration:
 Write a Perl prototype for the {\tt alk} tool.
 \end{todo}
 
-\section{Executing Alk Algorithms with K Tools}
+\section{Executing Alk Algorithms with Java Tools}
 
-The Alk language was designed using K Framework (\url{http://www.kframework.org/}). So we can use K tools for executing algorithms. 
-The K definition of Alk is compiled using the \texttt{kompile} tool:
-\begin{verbatim}
-> kompile alk.k
-\end{verbatim}
-Then the compiled definition can be used to execute Alk algorithms:
-\begin{verbatim}
-> krun gcd.alk -cINIT=".Map"
-<k>
-    .K
-</k>
-<state>
-    x |-> 4
-</state>
-\end{verbatim}
-The initial state is given as the value of the option \texttt{-cINIT}; \texttt{.Map} is the K notation for the empty state.
-A nonempty state is specified as expected:
-\begin{verbatim}
-> krun gcd.alk -cINIT="u |-> 42 v |-> 56"
-<k>
-    .K
-</k>
-<state>
-    u |-> 42
-    v |-> 56
-    x |-> 14
-</state>
-\end{verbatim}
+TO BE UPDATED
 
-Here is the execution of the DFS algorithm with the K Tool:
-\begin{verbatim}
-> krun dfsrec.alk  -cINIT="D |-> { n -> 3
-                           a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] }
-                           i0 |-> 1"
-
-
-
-<k>
-    .K
-</k>
-<state>
-    D |-> { (n -> 3) (a -> ([ (< 1, 2 >), (< 2, 0 >), (< 0 >) ])) }
-    i0 |-> 1
-    reached |-> [ 1, 1, 1 ]
-</state>
-\end{verbatim}
-
-\subsubsection{Alki}
-
-There is a script, \texttt{alki} (from Alk Interpretor), which executes the algorithms in a more friendly way. When the initial state is empty, it is enough to specify only the name of the file including the algorithm:
 \begin{verbatim}
 > alki gcd.alk 
 State:
