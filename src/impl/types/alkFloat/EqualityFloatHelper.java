@@ -21,7 +21,7 @@ public class EqualityFloatHelper {
         this.value = value;
     }
 
-    AlkValue equal(AlkValue operand) throws AlkException, InterpretorException
+    AlkBool equal(AlkValue operand) throws AlkException, InterpretorException
     {
         if (operand.isDataStructure)
             throw new AlkException(ERR_EQUAL_DATA_STRUCTURE);

@@ -30,8 +30,8 @@ public class AlkNotAValue extends AlkValue {
     }
 
     @Override
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
-        return this;
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
+        return new AlkBool(false);
     }
 
     @Override

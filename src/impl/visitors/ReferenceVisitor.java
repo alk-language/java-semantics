@@ -100,7 +100,7 @@ public class ReferenceVisitor extends alkBaseVisitor {
         for (int i=0; i<size; i++)
         {
             ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
-            params.add((AlkValue)expressionVisitor.visit(ctx.expression(i)));
+            params.add(((AlkValue)expressionVisitor.visit(ctx.expression(i))).clone());
         }
         if (!builtin_methods_name.contains(name)) // metodele vor fi considerate doar cele builtin momentan
         {

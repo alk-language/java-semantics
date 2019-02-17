@@ -6,7 +6,7 @@ import java.util.HashSet;
 public class Constants {
     public final static int MAX_DECIMALS = 20;
     public final static int MAX_ARRAY = 1000000000;
-    public final static boolean DEBUG = true;
+    public final static boolean DEBUG = false;
 
     public final static HashSet builtin_methods_name = new HashSet() { // TODO de transformat in set
         {

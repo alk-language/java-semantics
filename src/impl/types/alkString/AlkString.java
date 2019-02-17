@@ -14,13 +14,9 @@ public class AlkString extends AlkValue {
         this.value = value;
     }
 
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         EqualityStringHelper help = new EqualityStringHelper(value);
         return help.equal(operand);
-    }
-    public AlkValue notequal(AlkValue operand) throws AlkException, InterpretorException {
-        EqualityStringHelper help = new EqualityStringHelper(value);
-        return help.notequal(operand);
     }
 
 

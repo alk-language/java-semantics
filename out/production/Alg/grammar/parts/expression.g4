@@ -185,7 +185,9 @@ method_name :
     | DELETE
     | END
     | FIRST
+    | FLOAT
     | INSERT
+    | INTEGER
     | PRINT
     | POPBACK
     | POPFRONT

@@ -1,4 +1,4 @@
-// Generated from /home/alex/work/java-semantics/script/../src/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /home/alex/work/Alk/script/../src/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -22,16 +22,16 @@ public class alkParser extends Parser {
 		WS=1, COMMENT=2, LINE_COMMENT=3, TO=4, IF=5, ELSE=6, WHILE=7, DO=8, FOR=9, 
 		FORALL=10, IN=11, OUT=12, CHOOSE=13, RETURN=14, SUCCESS=15, FAILURE=16, 
 		EMPTYSET=17, EMPTYLIST=18, MODIFIES=19, XOR=20, AT=21, BELONGSTO=22, DELETE=23, 
-		EMPTY=24, END=25, FIRST=26, INSERT=27, PRINT=28, POPBACK=29, POPFRONT=30, 
-		PUSHBACK=31, PUSHFRONT=32, REMOVE=33, REMOVEALLEQTO=34, REMOVEAT=35, SINGLETONSET=36, 
-		SIZE=37, TOPBACK=38, TOPFRONT=39, UPDATE=40, RANDOM=41, ARROW=42, UNION=43, 
-		INTERSECT=44, SUBTRACT=45, INT=46, DOUBLE=47, BOOL=48, ID=49, PLUSPLUS=50, 
-		MINUSMINUS=51, BITWISE_AND=52, PLUSMOD=53, MINUSMOD=54, PLUSPLUSMOD=55, 
-		MINUSMINUSMOD=56, LOWER=57, GREATER=58, LOWEREQ=59, GREATEREQ=60, ISEQUAL=61, 
-		NOTEQUAL=62, ASSIGNMENT_OPERATOR=63, MINUS=64, PLUS=65, MUL=66, DIV=67, 
-		MOD=68, LPAR=69, RPAR=70, LEFTSHIFT=71, RIGHTSHIFT=72, OR=73, AND=74, 
-		NOT=75, SEMICOLON=76, DPOINT=77, VBAR=78, LCB=79, RCB=80, COMMA=81, POINT=82, 
-		LBRA=83, RBRA=84, QUOTE=85, QUESTION=86, STRING=87;
+		EMPTY=24, END=25, FIRST=26, FLOAT=27, INSERT=28, INTEGER=29, PRINT=30, 
+		POPBACK=31, POPFRONT=32, PUSHBACK=33, PUSHFRONT=34, REMOVE=35, REMOVEALLEQTO=36, 
+		REMOVEAT=37, SINGLETONSET=38, SIZE=39, TOPBACK=40, TOPFRONT=41, UPDATE=42, 
+		RANDOM=43, ARROW=44, UNION=45, INTERSECT=46, SUBTRACT=47, INT=48, DOUBLE=49, 
+		BOOL=50, ID=51, PLUSPLUS=52, MINUSMINUS=53, BITWISE_AND=54, PLUSMOD=55, 
+		MINUSMOD=56, PLUSPLUSMOD=57, MINUSMINUSMOD=58, LOWER=59, GREATER=60, LOWEREQ=61, 
+		GREATEREQ=62, ISEQUAL=63, NOTEQUAL=64, ASSIGNMENT_OPERATOR=65, MINUS=66, 
+		PLUS=67, MUL=68, DIV=69, MOD=70, LPAR=71, RPAR=72, LEFTSHIFT=73, RIGHTSHIFT=74, 
+		OR=75, AND=76, NOT=77, SEMICOLON=78, DPOINT=79, VBAR=80, LCB=81, RCB=82, 
+		COMMA=83, POINT=84, LBRA=85, RBRA=86, QUOTE=87, QUESTION=88, STRING=89;
 	public static final int
 		RULE_main = 0, RULE_statement_sequence = 1, RULE_statement = 2, RULE_statement_block = 3, 
 		RULE_choose = 4, RULE_increase_decrease = 5, RULE_assignment = 6, RULE_while_struct = 7, 
@@ -63,25 +63,26 @@ public class alkParser extends Parser {
 		null, null, null, null, "'|->'", "'if'", "'else'", "'while'", "'do'", 
 		"'for'", "'forall'", "'in'", "'out'", "'choose'", "'return'", "'success'", 
 		"'failure'", "'emptySet'", "'emptyList'", "'modifies'", "'xor'", "'at'", 
-		"'belongsTo'", "'delete'", "'empty'", "'end'", "'first'", "'insert'", 
-		"'print'", "'popBack'", "'popFront'", "'pushBack'", "'pushFront'", "'remove'", 
-		"'removeAllEqTo'", "'removeAt'", "'singletonSet'", "'size'", "'topBack'", 
-		"'topFront'", "'update'", "'random'", "'->'", "'U'", "'^'", "'\\'", null, 
-		null, null, null, "'++'", "'--'", "'&'", "'+%'", "'-%'", "'++%'", "'--%'", 
-		"'<'", "'>'", "'<='", "'>='", "'=='", "'!='", null, "'-'", "'+'", "'*'", 
-		"'/'", "'%'", "'('", "')'", "'<<'", "'>>'", "'||'", "'&&'", "'!'", "';'", 
-		"':'", "'|'", "'{'", "'}'", "','", "'.'", "'['", "']'", "'\"'", "'?'"
+		"'belongsTo'", "'delete'", "'empty'", "'end'", "'first'", "'float'", "'insert'", 
+		"'int'", "'print'", "'popBack'", "'popFront'", "'pushBack'", "'pushFront'", 
+		"'remove'", "'removeAllEqTo'", "'removeAt'", "'singletonSet'", "'size'", 
+		"'topBack'", "'topFront'", "'update'", "'random'", "'->'", "'U'", "'^'", 
+		"'\\'", null, null, null, null, "'++'", "'--'", "'&'", "'+%'", "'-%'", 
+		"'++%'", "'--%'", "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", null, 
+		"'-'", "'+'", "'*'", "'/'", "'%'", "'('", "')'", "'<<'", "'>>'", "'||'", 
+		"'&&'", "'!'", "';'", "':'", "'|'", "'{'", "'}'", "','", "'.'", "'['", 
+		"']'", "'\"'", "'?'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "WS", "COMMENT", "LINE_COMMENT", "TO", "IF", "ELSE", "WHILE", "DO", 
 		"FOR", "FORALL", "IN", "OUT", "CHOOSE", "RETURN", "SUCCESS", "FAILURE", 
 		"EMPTYSET", "EMPTYLIST", "MODIFIES", "XOR", "AT", "BELONGSTO", "DELETE", 
-		"EMPTY", "END", "FIRST", "INSERT", "PRINT", "POPBACK", "POPFRONT", "PUSHBACK", 
-		"PUSHFRONT", "REMOVE", "REMOVEALLEQTO", "REMOVEAT", "SINGLETONSET", "SIZE", 
-		"TOPBACK", "TOPFRONT", "UPDATE", "RANDOM", "ARROW", "UNION", "INTERSECT", 
-		"SUBTRACT", "INT", "DOUBLE", "BOOL", "ID", "PLUSPLUS", "MINUSMINUS", "BITWISE_AND", 
-		"PLUSMOD", "MINUSMOD", "PLUSPLUSMOD", "MINUSMINUSMOD", "LOWER", "GREATER", 
-		"LOWEREQ", "GREATEREQ", "ISEQUAL", "NOTEQUAL", "ASSIGNMENT_OPERATOR", 
+		"EMPTY", "END", "FIRST", "FLOAT", "INSERT", "INTEGER", "PRINT", "POPBACK", 
+		"POPFRONT", "PUSHBACK", "PUSHFRONT", "REMOVE", "REMOVEALLEQTO", "REMOVEAT", 
+		"SINGLETONSET", "SIZE", "TOPBACK", "TOPFRONT", "UPDATE", "RANDOM", "ARROW", 
+		"UNION", "INTERSECT", "SUBTRACT", "INT", "DOUBLE", "BOOL", "ID", "PLUSPLUS", 
+		"MINUSMINUS", "BITWISE_AND", "PLUSMOD", "MINUSMOD", "PLUSPLUSMOD", "MINUSMINUSMOD", 
+		"LOWER", "GREATER", "LOWEREQ", "GREATEREQ", "ISEQUAL", "NOTEQUAL", "ASSIGNMENT_OPERATOR", 
 		"MINUS", "PLUS", "MUL", "DIV", "MOD", "LPAR", "RPAR", "LEFTSHIFT", "RIGHTSHIFT", 
 		"OR", "AND", "NOT", "SEMICOLON", "DPOINT", "VBAR", "LCB", "RCB", "COMMA", 
 		"POINT", "LBRA", "RBRA", "QUOTE", "QUESTION", "STRING"
@@ -170,7 +171,7 @@ public class alkParser extends Parser {
 			setState(95);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FORALL) | (1L << CHOOSE) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD))) != 0) || _la==LCB) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FORALL) | (1L << CHOOSE) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD))) != 0) || _la==LCB) {
 				{
 				setState(94);
 				statement_sequence();
@@ -491,7 +492,7 @@ public class alkParser extends Parser {
 				setState(116);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (MINUS - 64)) | (1L << (PLUS - 64)) | (1L << (MUL - 64)) | (1L << (LPAR - 64)) | (1L << (NOT - 64)) | (1L << (LCB - 64)) | (1L << (LBRA - 64)) | (1L << (STRING - 64)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MINUS - 66)) | (1L << (PLUS - 66)) | (1L << (MUL - 66)) | (1L << (LPAR - 66)) | (1L << (NOT - 66)) | (1L << (LCB - 66)) | (1L << (LBRA - 66)) | (1L << (STRING - 66)))) != 0)) {
 					{
 					setState(115);
 					expression();
@@ -1181,7 +1182,7 @@ public class alkParser extends Parser {
 			setState(196);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << ID))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << ID))) != 0)) {
 				{
 				setState(195);
 				start_assignment();
@@ -2333,12 +2334,12 @@ public class alkParser extends Parser {
 			setState(332);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 53)) & ~0x3f) == 0 && ((1L << (_la - 53)) & ((1L << (PLUSMOD - 53)) | (1L << (MINUSMOD - 53)) | (1L << (MINUS - 53)) | (1L << (PLUS - 53)))) != 0)) {
+			while (((((_la - 55)) & ~0x3f) == 0 && ((1L << (_la - 55)) & ((1L << (PLUSMOD - 55)) | (1L << (MINUSMOD - 55)) | (1L << (MINUS - 55)) | (1L << (PLUS - 55)))) != 0)) {
 				{
 				{
 				setState(328);
 				_la = _input.LA(1);
-				if ( !(((((_la - 53)) & ~0x3f) == 0 && ((1L << (_la - 53)) & ((1L << (PLUSMOD - 53)) | (1L << (MINUSMOD - 53)) | (1L << (MINUS - 53)) | (1L << (PLUS - 53)))) != 0)) ) {
+				if ( !(((((_la - 55)) & ~0x3f) == 0 && ((1L << (_la - 55)) & ((1L << (PLUSMOD - 55)) | (1L << (MINUSMOD - 55)) | (1L << (MINUS - 55)) | (1L << (PLUS - 55)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2418,12 +2419,12 @@ public class alkParser extends Parser {
 			setState(340);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MUL - 66)) | (1L << (DIV - 66)) | (1L << (MOD - 66)))) != 0)) {
+			while (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (MUL - 68)) | (1L << (DIV - 68)) | (1L << (MOD - 68)))) != 0)) {
 				{
 				{
 				setState(336);
 				_la = _input.LA(1);
-				if ( !(((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MUL - 66)) | (1L << (DIV - 66)) | (1L << (MOD - 66)))) != 0)) ) {
+				if ( !(((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (MUL - 68)) | (1L << (DIV - 68)) | (1L << (MOD - 68)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2543,7 +2544,7 @@ public class alkParser extends Parser {
 				{
 				setState(345);
 				_la = _input.LA(1);
-				if ( !(((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (MINUS - 64)) | (1L << (PLUS - 64)) | (1L << (MUL - 64)) | (1L << (NOT - 64)))) != 0)) ) {
+				if ( !(((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MINUS - 66)) | (1L << (PLUS - 66)) | (1L << (MUL - 66)) | (1L << (NOT - 66)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2561,7 +2562,9 @@ public class alkParser extends Parser {
 			case DELETE:
 			case END:
 			case FIRST:
+			case FLOAT:
 			case INSERT:
+			case INTEGER:
 			case PRINT:
 			case POPBACK:
 			case POPFRONT:
@@ -3491,7 +3494,7 @@ public class alkParser extends Parser {
 				setState(436);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (MINUS - 64)) | (1L << (PLUS - 64)) | (1L << (MUL - 64)) | (1L << (LPAR - 64)) | (1L << (NOT - 64)) | (1L << (LCB - 64)) | (1L << (LBRA - 64)) | (1L << (STRING - 64)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MINUS - 66)) | (1L << (PLUS - 66)) | (1L << (MUL - 66)) | (1L << (LPAR - 66)) | (1L << (NOT - 66)) | (1L << (LCB - 66)) | (1L << (LBRA - 66)) | (1L << (STRING - 66)))) != 0)) {
 					{
 					setState(428);
 					expression();
@@ -3641,7 +3644,7 @@ public class alkParser extends Parser {
 				setState(459);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (MINUS - 64)) | (1L << (PLUS - 64)) | (1L << (MUL - 64)) | (1L << (LPAR - 64)) | (1L << (NOT - 64)) | (1L << (LCB - 64)) | (1L << (LBRA - 64)) | (1L << (STRING - 64)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MINUS - 66)) | (1L << (PLUS - 66)) | (1L << (MUL - 66)) | (1L << (LPAR - 66)) | (1L << (NOT - 66)) | (1L << (LCB - 66)) | (1L << (LBRA - 66)) | (1L << (STRING - 66)))) != 0)) {
 					{
 					setState(451);
 					expression();
@@ -3915,7 +3918,7 @@ public class alkParser extends Parser {
 				setState(494);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (MINUS - 64)) | (1L << (PLUS - 64)) | (1L << (MUL - 64)) | (1L << (LPAR - 64)) | (1L << (NOT - 64)) | (1L << (LCB - 64)) | (1L << (LBRA - 64)) | (1L << (STRING - 64)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MINUS - 66)) | (1L << (PLUS - 66)) | (1L << (MUL - 66)) | (1L << (LPAR - 66)) | (1L << (NOT - 66)) | (1L << (LCB - 66)) | (1L << (LBRA - 66)) | (1L << (STRING - 66)))) != 0)) {
 					{
 					setState(486);
 					expression();
@@ -4023,7 +4026,9 @@ public class alkParser extends Parser {
 			case DELETE:
 			case END:
 			case FIRST:
+			case FLOAT:
 			case INSERT:
+			case INTEGER:
 			case PRINT:
 			case POPBACK:
 			case POPFRONT:
@@ -4055,7 +4060,7 @@ public class alkParser extends Parser {
 				setState(514);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (MINUS - 64)) | (1L << (PLUS - 64)) | (1L << (MUL - 64)) | (1L << (LPAR - 64)) | (1L << (NOT - 64)) | (1L << (LCB - 64)) | (1L << (LBRA - 64)) | (1L << (STRING - 64)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MINUS - 66)) | (1L << (PLUS - 66)) | (1L << (MUL - 66)) | (1L << (LPAR - 66)) | (1L << (NOT - 66)) | (1L << (LCB - 66)) | (1L << (LBRA - 66)) | (1L << (STRING - 66)))) != 0)) {
 					{
 					setState(506);
 					expression();
@@ -4147,7 +4152,7 @@ public class alkParser extends Parser {
 			setState(529);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (MINUS - 64)) | (1L << (PLUS - 64)) | (1L << (MUL - 64)) | (1L << (LPAR - 64)) | (1L << (NOT - 64)) | (1L << (LCB - 64)) | (1L << (LBRA - 64)) | (1L << (STRING - 64)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << ID) | (1L << PLUSPLUS) | (1L << MINUSMINUS) | (1L << PLUSPLUSMOD) | (1L << MINUSMINUSMOD) | (1L << LOWER))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (MINUS - 66)) | (1L << (PLUS - 66)) | (1L << (MUL - 66)) | (1L << (LPAR - 66)) | (1L << (NOT - 66)) | (1L << (LCB - 66)) | (1L << (LBRA - 66)) | (1L << (STRING - 66)))) != 0)) {
 				{
 				setState(521);
 				expression();
@@ -4190,7 +4195,9 @@ public class alkParser extends Parser {
 		public TerminalNode DELETE() { return getToken(alkParser.DELETE, 0); }
 		public TerminalNode END() { return getToken(alkParser.END, 0); }
 		public TerminalNode FIRST() { return getToken(alkParser.FIRST, 0); }
+		public TerminalNode FLOAT() { return getToken(alkParser.FLOAT, 0); }
 		public TerminalNode INSERT() { return getToken(alkParser.INSERT, 0); }
+		public TerminalNode INTEGER() { return getToken(alkParser.INTEGER, 0); }
 		public TerminalNode PRINT() { return getToken(alkParser.PRINT, 0); }
 		public TerminalNode POPBACK() { return getToken(alkParser.POPBACK, 0); }
 		public TerminalNode POPFRONT() { return getToken(alkParser.POPFRONT, 0); }
@@ -4224,7 +4231,7 @@ public class alkParser extends Parser {
 			{
 			setState(533);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << FLOAT) | (1L << INSERT) | (1L << INTEGER) | (1L << PRINT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SINGLETONSET) | (1L << SIZE) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -4358,7 +4365,7 @@ public class alkParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3Y\u0224\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3[\u0224\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -4398,9 +4405,9 @@ public class alkParser extends Parser {
 		"\n,\f,\16,\u0203\13,\5,\u0205\n,\3,\5,\u0208\n,\3-\3-\3-\3-\3-\7-\u020f"+
 		"\n-\f-\16-\u0212\13-\5-\u0214\n-\3-\3-\3.\3.\3/\7/\u021b\n/\f/\16/\u021e"+
 		"\13/\3\60\3\60\3\60\3\60\3\60\2\2\61\2\4\6\b\n\f\16\20\22\24\26\30\32"+
-		"\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^\2\16\4\2,,TT\3\2?@\3"+
-		"\2;>\3\2-/\4\2\26\26PP\3\2IJ\4\2\678BC\3\2DF\4\2\64\659:\4\2BDMM\3\2\64"+
-		"\65\5\2\27\27\31\31\33*\2\u0244\2a\3\2\2\2\4i\3\2\2\2\6\u008e\3\2\2\2"+
+		"\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^\2\16\4\2..VV\3\2AB\3"+
+		"\2=@\3\2/\61\4\2\26\26RR\3\2KL\4\29:DE\3\2FH\4\2\66\67;<\4\2DFOO\3\2\66"+
+		"\67\5\2\27\27\31\31\33,\2\u0244\2a\3\2\2\2\4i\3\2\2\2\6\u008e\3\2\2\2"+
 		"\b\u0090\3\2\2\2\n\u0094\3\2\2\2\f\u00a7\3\2\2\2\16\u00a9\3\2\2\2\20\u00ad"+
 		"\3\2\2\2\22\u00b3\3\2\2\2\24\u00ba\3\2\2\2\26\u00c3\3\2\2\2\30\u00d2\3"+
 		"\2\2\2\32\u00d4\3\2\2\2\34\u00da\3\2\2\2\36\u00f5\3\2\2\2 \u00f9\3\2\2"+
@@ -4413,56 +4420,56 @@ public class alkParser extends Parser {
 		"\3\2\2\2Z\u0217\3\2\2\2\\\u021c\3\2\2\2^\u021f\3\2\2\2`b\5\4\3\2a`\3\2"+
 		"\2\2ab\3\2\2\2bc\3\2\2\2cd\7\2\2\3d\3\3\2\2\2ej\5\6\4\2fg\5\6\4\2gh\5"+
 		"\4\3\2hj\3\2\2\2ie\3\2\2\2if\3\2\2\2j\5\3\2\2\2kl\5B\"\2lm\t\2\2\2mn\5"+
-		"X-\2no\7N\2\2o\u008f\3\2\2\2pq\5V,\2qr\7N\2\2r\u008f\3\2\2\2s\u008f\5"+
-		"\34\17\2tv\7\20\2\2uw\5 \21\2vu\3\2\2\2vw\3\2\2\2wx\3\2\2\2x\u008f\7N"+
-		"\2\2yz\5\n\6\2z{\7N\2\2{\u008f\3\2\2\2|}\7\21\2\2}\u008f\7N\2\2~\177\7"+
-		"\22\2\2\177\u008f\7N\2\2\u0080\u0081\5\16\b\2\u0081\u0082\7N\2\2\u0082"+
-		"\u008f\3\2\2\2\u0083\u0084\5\f\7\2\u0084\u0085\7N\2\2\u0085\u008f\3\2"+
+		"X-\2no\7P\2\2o\u008f\3\2\2\2pq\5V,\2qr\7P\2\2r\u008f\3\2\2\2s\u008f\5"+
+		"\34\17\2tv\7\20\2\2uw\5 \21\2vu\3\2\2\2vw\3\2\2\2wx\3\2\2\2x\u008f\7P"+
+		"\2\2yz\5\n\6\2z{\7P\2\2{\u008f\3\2\2\2|}\7\21\2\2}\u008f\7P\2\2~\177\7"+
+		"\22\2\2\177\u008f\7P\2\2\u0080\u0081\5\16\b\2\u0081\u0082\7P\2\2\u0082"+
+		"\u008f\3\2\2\2\u0083\u0084\5\f\7\2\u0084\u0085\7P\2\2\u0085\u008f\3\2"+
 		"\2\2\u0086\u008f\5\b\5\2\u0087\u008f\5\20\t\2\u0088\u0089\5\22\n\2\u0089"+
-		"\u008a\7N\2\2\u008a\u008f\3\2\2\2\u008b\u008f\5\24\13\2\u008c\u008f\5"+
+		"\u008a\7P\2\2\u008a\u008f\3\2\2\2\u008b\u008f\5\24\13\2\u008c\u008f\5"+
 		"\26\f\2\u008d\u008f\5\32\16\2\u008ek\3\2\2\2\u008ep\3\2\2\2\u008es\3\2"+
 		"\2\2\u008et\3\2\2\2\u008ey\3\2\2\2\u008e|\3\2\2\2\u008e~\3\2\2\2\u008e"+
 		"\u0080\3\2\2\2\u008e\u0083\3\2\2\2\u008e\u0086\3\2\2\2\u008e\u0087\3\2"+
 		"\2\2\u008e\u0088\3\2\2\2\u008e\u008b\3\2\2\2\u008e\u008c\3\2\2\2\u008e"+
-		"\u008d\3\2\2\2\u008f\7\3\2\2\2\u0090\u0091\7Q\2\2\u0091\u0092\5\4\3\2"+
-		"\u0092\u0093\7R\2\2\u0093\t\3\2\2\2\u0094\u0095\7\17\2\2\u0095\u0096\7"+
-		"\63\2\2\u0096\u0097\7\r\2\2\u0097\u0098\5 \21\2\u0098\13\3\2\2\2\u0099"+
-		"\u009a\7\64\2\2\u009a\u00a8\5B\"\2\u009b\u009c\5B\"\2\u009c\u009d\7\64"+
-		"\2\2\u009d\u00a8\3\2\2\2\u009e\u009f\7\65\2\2\u009f\u00a8\5B\"\2\u00a0"+
-		"\u00a1\5B\"\2\u00a1\u00a2\7\65\2\2\u00a2\u00a8\3\2\2\2\u00a3\u00a4\79"+
-		"\2\2\u00a4\u00a8\5B\"\2\u00a5\u00a6\7:\2\2\u00a6\u00a8\5B\"\2\u00a7\u0099"+
+		"\u008d\3\2\2\2\u008f\7\3\2\2\2\u0090\u0091\7S\2\2\u0091\u0092\5\4\3\2"+
+		"\u0092\u0093\7T\2\2\u0093\t\3\2\2\2\u0094\u0095\7\17\2\2\u0095\u0096\7"+
+		"\65\2\2\u0096\u0097\7\r\2\2\u0097\u0098\5 \21\2\u0098\13\3\2\2\2\u0099"+
+		"\u009a\7\66\2\2\u009a\u00a8\5B\"\2\u009b\u009c\5B\"\2\u009c\u009d\7\66"+
+		"\2\2\u009d\u00a8\3\2\2\2\u009e\u009f\7\67\2\2\u009f\u00a8\5B\"\2\u00a0"+
+		"\u00a1\5B\"\2\u00a1\u00a2\7\67\2\2\u00a2\u00a8\3\2\2\2\u00a3\u00a4\7;"+
+		"\2\2\u00a4\u00a8\5B\"\2\u00a5\u00a6\7<\2\2\u00a6\u00a8\5B\"\2\u00a7\u0099"+
 		"\3\2\2\2\u00a7\u009b\3\2\2\2\u00a7\u009e\3\2\2\2\u00a7\u00a0\3\2\2\2\u00a7"+
 		"\u00a3\3\2\2\2\u00a7\u00a5\3\2\2\2\u00a8\r\3\2\2\2\u00a9\u00aa\5B\"\2"+
-		"\u00aa\u00ab\7A\2\2\u00ab\u00ac\5 \21\2\u00ac\17\3\2\2\2\u00ad\u00ae\7"+
-		"\t\2\2\u00ae\u00af\7G\2\2\u00af\u00b0\5 \21\2\u00b0\u00b1\7H\2\2\u00b1"+
+		"\u00aa\u00ab\7C\2\2\u00ab\u00ac\5 \21\2\u00ac\17\3\2\2\2\u00ad\u00ae\7"+
+		"\t\2\2\u00ae\u00af\7I\2\2\u00af\u00b0\5 \21\2\u00b0\u00b1\7J\2\2\u00b1"+
 		"\u00b2\5\6\4\2\u00b2\21\3\2\2\2\u00b3\u00b4\7\n\2\2\u00b4\u00b5\5\6\4"+
-		"\2\u00b5\u00b6\7\t\2\2\u00b6\u00b7\7G\2\2\u00b7\u00b8\5 \21\2\u00b8\u00b9"+
-		"\7H\2\2\u00b9\23\3\2\2\2\u00ba\u00bb\7\7\2\2\u00bb\u00bc\7G\2\2\u00bc"+
-		"\u00bd\5 \21\2\u00bd\u00be\7H\2\2\u00be\u00c1\5\6\4\2\u00bf\u00c0\7\b"+
+		"\2\u00b5\u00b6\7\t\2\2\u00b6\u00b7\7I\2\2\u00b7\u00b8\5 \21\2\u00b8\u00b9"+
+		"\7J\2\2\u00b9\23\3\2\2\2\u00ba\u00bb\7\7\2\2\u00bb\u00bc\7I\2\2\u00bc"+
+		"\u00bd\5 \21\2\u00bd\u00be\7J\2\2\u00be\u00c1\5\6\4\2\u00bf\u00c0\7\b"+
 		"\2\2\u00c0\u00c2\5\6\4\2\u00c1\u00bf\3\2\2\2\u00c1\u00c2\3\2\2\2\u00c2"+
-		"\25\3\2\2\2\u00c3\u00c4\7\13\2\2\u00c4\u00c6\7G\2\2\u00c5\u00c7\5\30\r"+
+		"\25\3\2\2\2\u00c3\u00c4\7\13\2\2\u00c4\u00c6\7I\2\2\u00c5\u00c7\5\30\r"+
 		"\2\u00c6\u00c5\3\2\2\2\u00c6\u00c7\3\2\2\2\u00c7\u00c8\3\2\2\2\u00c8\u00c9"+
-		"\7N\2\2\u00c9\u00ca\5 \21\2\u00ca\u00cd\7N\2\2\u00cb\u00ce\5\16\b\2\u00cc"+
+		"\7P\2\2\u00c9\u00ca\5 \21\2\u00ca\u00cd\7P\2\2\u00cb\u00ce\5\16\b\2\u00cc"+
 		"\u00ce\5\f\7\2\u00cd\u00cb\3\2\2\2\u00cd\u00cc\3\2\2\2\u00ce\u00cf\3\2"+
-		"\2\2\u00cf\u00d0\7H\2\2\u00d0\u00d1\5\6\4\2\u00d1\27\3\2\2\2\u00d2\u00d3"+
-		"\5\16\b\2\u00d3\31\3\2\2\2\u00d4\u00d5\7\f\2\2\u00d5\u00d6\7\63\2\2\u00d6"+
+		"\2\2\u00cf\u00d0\7J\2\2\u00d0\u00d1\5\6\4\2\u00d1\27\3\2\2\2\u00d2\u00d3"+
+		"\5\16\b\2\u00d3\31\3\2\2\2\u00d4\u00d5\7\f\2\2\u00d5\u00d6\7\65\2\2\u00d6"+
 		"\u00d7\7\r\2\2\u00d7\u00d8\5 \21\2\u00d8\u00d9\5\6\4\2\u00d9\33\3\2\2"+
-		"\2\u00da\u00db\7\63\2\2\u00db\u00e4\7G\2\2\u00dc\u00e1\5\36\20\2\u00dd"+
-		"\u00de\7S\2\2\u00de\u00e0\5\36\20\2\u00df\u00dd\3\2\2\2\u00e0\u00e3\3"+
+		"\2\u00da\u00db\7\65\2\2\u00db\u00e4\7I\2\2\u00dc\u00e1\5\36\20\2\u00dd"+
+		"\u00de\7U\2\2\u00de\u00e0\5\36\20\2\u00df\u00dd\3\2\2\2\u00e0\u00e3\3"+
 		"\2\2\2\u00e1\u00df\3\2\2\2\u00e1\u00e2\3\2\2\2\u00e2\u00e5\3\2\2\2\u00e3"+
 		"\u00e1\3\2\2\2\u00e4\u00dc\3\2\2\2\u00e4\u00e5\3\2\2\2\u00e5\u00e6\3\2"+
-		"\2\2\u00e6\u00f0\7H\2\2\u00e7\u00e8\7\25\2\2\u00e8\u00ed\7\63\2\2\u00e9"+
-		"\u00ea\7S\2\2\u00ea\u00ec\7\63\2\2\u00eb\u00e9\3\2\2\2\u00ec\u00ef\3\2"+
+		"\2\2\u00e6\u00f0\7J\2\2\u00e7\u00e8\7\25\2\2\u00e8\u00ed\7\65\2\2\u00e9"+
+		"\u00ea\7U\2\2\u00ea\u00ec\7\65\2\2\u00eb\u00e9\3\2\2\2\u00ec\u00ef\3\2"+
 		"\2\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\u00f1\3\2\2\2\u00ef"+
 		"\u00ed\3\2\2\2\u00f0\u00e7\3\2\2\2\u00f0\u00f1\3\2\2\2\u00f1\u00f2\3\2"+
 		"\2\2\u00f2\u00f3\5\b\5\2\u00f3\35\3\2\2\2\u00f4\u00f6\7\16\2\2\u00f5\u00f4"+
-		"\3\2\2\2\u00f5\u00f6\3\2\2\2\u00f6\u00f7\3\2\2\2\u00f7\u00f8\7\63\2\2"+
-		"\u00f8\37\3\2\2\2\u00f9\u00ff\5\"\22\2\u00fa\u00fb\7X\2\2\u00fb\u00fc"+
-		"\5 \21\2\u00fc\u00fd\7O\2\2\u00fd\u00fe\5 \21\2\u00fe\u0100\3\2\2\2\u00ff"+
+		"\3\2\2\2\u00f5\u00f6\3\2\2\2\u00f6\u00f7\3\2\2\2\u00f7\u00f8\7\65\2\2"+
+		"\u00f8\37\3\2\2\2\u00f9\u00ff\5\"\22\2\u00fa\u00fb\7Z\2\2\u00fb\u00fc"+
+		"\5 \21\2\u00fc\u00fd\7Q\2\2\u00fd\u00fe\5 \21\2\u00fe\u0100\3\2\2\2\u00ff"+
 		"\u00fa\3\2\2\2\u00ff\u0100\3\2\2\2\u0100!\3\2\2\2\u0101\u0106\5$\23\2"+
-		"\u0102\u0103\7K\2\2\u0103\u0105\5$\23\2\u0104\u0102\3\2\2\2\u0105\u0108"+
+		"\u0102\u0103\7M\2\2\u0103\u0105\5$\23\2\u0104\u0102\3\2\2\2\u0105\u0108"+
 		"\3\2\2\2\u0106\u0104\3\2\2\2\u0106\u0107\3\2\2\2\u0107#\3\2\2\2\u0108"+
-		"\u0106\3\2\2\2\u0109\u010e\5&\24\2\u010a\u010b\7L\2\2\u010b\u010d\5&\24"+
+		"\u0106\3\2\2\2\u0109\u010e\5&\24\2\u010a\u010b\7N\2\2\u010b\u010d\5&\24"+
 		"\2\u010c\u010a\3\2\2\2\u010d\u0110\3\2\2\2\u010e\u010c\3\2\2\2\u010e\u010f"+
 		"\3\2\2\2\u010f%\3\2\2\2\u0110\u010e\3\2\2\2\u0111\u0116\5(\25\2\u0112"+
 		"\u0113\7\r\2\2\u0113\u0115\5(\25\2\u0114\u0112\3\2\2\2\u0115\u0118\3\2"+
@@ -4477,7 +4484,7 @@ public class alkParser extends Parser {
 		"-\3\2\2\2\u0130\u012e\3\2\2\2\u0131\u0136\5\60\31\2\u0132\u0133\t\6\2"+
 		"\2\u0133\u0135\5\60\31\2\u0134\u0132\3\2\2\2\u0135\u0138\3\2\2\2\u0136"+
 		"\u0134\3\2\2\2\u0136\u0137\3\2\2\2\u0137/\3\2\2\2\u0138\u0136\3\2\2\2"+
-		"\u0139\u013e\5\62\32\2\u013a\u013b\7\66\2\2\u013b\u013d\5\62\32\2\u013c"+
+		"\u0139\u013e\5\62\32\2\u013a\u013b\78\2\2\u013b\u013d\5\62\32\2\u013c"+
 		"\u013a\3\2\2\2\u013d\u0140\3\2\2\2\u013e\u013c\3\2\2\2\u013e\u013f\3\2"+
 		"\2\2\u013f\61\3\2\2\2\u0140\u013e\3\2\2\2\u0141\u0146\5\64\33\2\u0142"+
 		"\u0143\t\7\2\2\u0143\u0145\5\64\33\2\u0144\u0142\3\2\2\2\u0145\u0148\3"+
@@ -4492,66 +4499,66 @@ public class alkParser extends Parser {
 		"\u015b\3\2\2\2\u015e\u015d\3\2\2\2\u015f9\3\2\2\2\u0160\u0164\5<\37\2"+
 		"\u0161\u0163\t\f\2\2\u0162\u0161\3\2\2\2\u0163\u0166\3\2\2\2\u0164\u0162"+
 		"\3\2\2\2\u0164\u0165\3\2\2\2\u0165;\3\2\2\2\u0166\u0164\3\2\2\2\u0167"+
-		"\u016f\5V,\2\u0168\u016f\5B\"\2\u0169\u016f\5> \2\u016a\u016b\7G\2\2\u016b"+
-		"\u016c\5 \21\2\u016c\u016d\7H\2\2\u016d\u016f\3\2\2\2\u016e\u0167\3\2"+
+		"\u016f\5V,\2\u0168\u016f\5B\"\2\u0169\u016f\5> \2\u016a\u016b\7I\2\2\u016b"+
+		"\u016c\5 \21\2\u016c\u016d\7J\2\2\u016d\u016f\3\2\2\2\u016e\u0167\3\2"+
 		"\2\2\u016e\u0168\3\2\2\2\u016e\u0169\3\2\2\2\u016e\u016a\3\2\2\2\u016f"+
 		"=\3\2\2\2\u0170\u0173\5@!\2\u0171\u0173\5F$\2\u0172\u0170\3\2\2\2\u0172"+
-		"\u0171\3\2\2\2\u0173?\3\2\2\2\u0174\u0179\7\60\2\2\u0175\u0179\7\61\2"+
-		"\2\u0176\u0179\7\62\2\2\u0177\u0179\7Y\2\2\u0178\u0174\3\2\2\2\u0178\u0175"+
+		"\u0171\3\2\2\2\u0173?\3\2\2\2\u0174\u0179\7\62\2\2\u0175\u0179\7\63\2"+
+		"\2\u0176\u0179\7\64\2\2\u0177\u0179\7[\2\2\u0178\u0174\3\2\2\2\u0178\u0175"+
 		"\3\2\2\2\u0178\u0176\3\2\2\2\u0178\u0177\3\2\2\2\u0179A\3\2\2\2\u017a"+
 		"\u017f\5D#\2\u017b\u017c\t\2\2\2\u017c\u017e\5D#\2\u017d\u017b\3\2\2\2"+
 		"\u017e\u0181\3\2\2\2\u017f\u017d\3\2\2\2\u017f\u0180\3\2\2\2\u0180C\3"+
-		"\2\2\2\u0181\u017f\3\2\2\2\u0182\u0189\5V,\2\u0183\u0184\7U\2\2\u0184"+
-		"\u0185\5 \21\2\u0185\u0186\7V\2\2\u0186\u0188\3\2\2\2\u0187\u0183\3\2"+
+		"\2\2\2\u0181\u017f\3\2\2\2\u0182\u0189\5V,\2\u0183\u0184\7W\2\2\u0184"+
+		"\u0185\5 \21\2\u0185\u0186\7X\2\2\u0186\u0188\3\2\2\2\u0187\u0183\3\2"+
 		"\2\2\u0188\u018b\3\2\2\2\u0189\u0187\3\2\2\2\u0189\u018a\3\2\2\2\u018a"+
-		"\u0197\3\2\2\2\u018b\u0189\3\2\2\2\u018c\u0193\7\63\2\2\u018d\u018e\7"+
-		"U\2\2\u018e\u018f\5 \21\2\u018f\u0190\7V\2\2\u0190\u0192\3\2\2\2\u0191"+
+		"\u0197\3\2\2\2\u018b\u0189\3\2\2\2\u018c\u0193\7\65\2\2\u018d\u018e\7"+
+		"W\2\2\u018e\u018f\5 \21\2\u018f\u0190\7X\2\2\u0190\u0192\3\2\2\2\u0191"+
 		"\u018d\3\2\2\2\u0192\u0195\3\2\2\2\u0193\u0191\3\2\2\2\u0193\u0194\3\2"+
 		"\2\2\u0194\u0197\3\2\2\2\u0195\u0193\3\2\2\2\u0196\u0182\3\2\2\2\u0196"+
 		"\u018c\3\2\2\2\u0197E\3\2\2\2\u0198\u019d\5L\'\2\u0199\u019d\5N(\2\u019a"+
 		"\u019d\5T+\2\u019b\u019d\5P)\2\u019c\u0198\3\2\2\2\u019c\u0199\3\2\2\2"+
 		"\u019c\u019a\3\2\2\2\u019c\u019b\3\2\2\2\u019dG\3\2\2\2\u019e\u019f\5"+
-		" \21\2\u019f\u01a0\7T\2\2\u01a0\u01a1\7T\2\2\u01a1\u01a2\5 \21\2\u01a2"+
-		"I\3\2\2\2\u01a3\u01a4\5 \21\2\u01a4\u01a5\7P\2\2\u01a5\u01a6\7\63\2\2"+
-		"\u01a6\u01a7\7\r\2\2\u01a7\u01a8\5H%\2\u01a8K\3\2\2\2\u01a9\u01aa\7U\2"+
-		"\2\u01aa\u01ab\5J&\2\u01ab\u01ac\7V\2\2\u01ac\u01be\3\2\2\2\u01ad\u01b6"+
-		"\7U\2\2\u01ae\u01b3\5 \21\2\u01af\u01b0\7S\2\2\u01b0\u01b2\5 \21\2\u01b1"+
+		" \21\2\u019f\u01a0\7V\2\2\u01a0\u01a1\7V\2\2\u01a1\u01a2\5 \21\2\u01a2"+
+		"I\3\2\2\2\u01a3\u01a4\5 \21\2\u01a4\u01a5\7R\2\2\u01a5\u01a6\7\65\2\2"+
+		"\u01a6\u01a7\7\r\2\2\u01a7\u01a8\5H%\2\u01a8K\3\2\2\2\u01a9\u01aa\7W\2"+
+		"\2\u01aa\u01ab\5J&\2\u01ab\u01ac\7X\2\2\u01ac\u01be\3\2\2\2\u01ad\u01b6"+
+		"\7W\2\2\u01ae\u01b3\5 \21\2\u01af\u01b0\7U\2\2\u01b0\u01b2\5 \21\2\u01b1"+
 		"\u01af\3\2\2\2\u01b2\u01b5\3\2\2\2\u01b3\u01b1\3\2\2\2\u01b3\u01b4\3\2"+
 		"\2\2\u01b4\u01b7\3\2\2\2\u01b5\u01b3\3\2\2\2\u01b6\u01ae\3\2\2\2\u01b6"+
-		"\u01b7\3\2\2\2\u01b7\u01b8\3\2\2\2\u01b8\u01be\7V\2\2\u01b9\u01ba\7U\2"+
-		"\2\u01ba\u01bb\5H%\2\u01bb\u01bc\7V\2\2\u01bc\u01be\3\2\2\2\u01bd\u01a9"+
+		"\u01b7\3\2\2\2\u01b7\u01b8\3\2\2\2\u01b8\u01be\7X\2\2\u01b9\u01ba\7W\2"+
+		"\2\u01ba\u01bb\5H%\2\u01bb\u01bc\7X\2\2\u01bc\u01be\3\2\2\2\u01bd\u01a9"+
 		"\3\2\2\2\u01bd\u01ad\3\2\2\2\u01bd\u01b9\3\2\2\2\u01beM\3\2\2\2\u01bf"+
-		"\u01d5\7\24\2\2\u01c0\u01c1\7;\2\2\u01c1\u01c2\5J&\2\u01c2\u01c3\7<\2"+
-		"\2\u01c3\u01d5\3\2\2\2\u01c4\u01cd\7;\2\2\u01c5\u01ca\5 \21\2\u01c6\u01c7"+
-		"\7S\2\2\u01c7\u01c9\5 \21\2\u01c8\u01c6\3\2\2\2\u01c9\u01cc\3\2\2\2\u01ca"+
+		"\u01d5\7\24\2\2\u01c0\u01c1\7=\2\2\u01c1\u01c2\5J&\2\u01c2\u01c3\7>\2"+
+		"\2\u01c3\u01d5\3\2\2\2\u01c4\u01cd\7=\2\2\u01c5\u01ca\5 \21\2\u01c6\u01c7"+
+		"\7U\2\2\u01c7\u01c9\5 \21\2\u01c8\u01c6\3\2\2\2\u01c9\u01cc\3\2\2\2\u01ca"+
 		"\u01c8\3\2\2\2\u01ca\u01cb\3\2\2\2\u01cb\u01ce\3\2\2\2\u01cc\u01ca\3\2"+
 		"\2\2\u01cd\u01c5\3\2\2\2\u01cd\u01ce\3\2\2\2\u01ce\u01cf\3\2\2\2\u01cf"+
-		"\u01d5\7<\2\2\u01d0\u01d1\7;\2\2\u01d1\u01d2\5H%\2\u01d2\u01d3\7<\2\2"+
+		"\u01d5\7>\2\2\u01d0\u01d1\7=\2\2\u01d1\u01d2\5H%\2\u01d2\u01d3\7>\2\2"+
 		"\u01d3\u01d5\3\2\2\2\u01d4\u01bf\3\2\2\2\u01d4\u01c0\3\2\2\2\u01d4\u01c4"+
-		"\3\2\2\2\u01d4\u01d0\3\2\2\2\u01d5O\3\2\2\2\u01d6\u01d8\7Q\2\2\u01d7\u01d9"+
+		"\3\2\2\2\u01d4\u01d0\3\2\2\2\u01d5O\3\2\2\2\u01d6\u01d8\7S\2\2\u01d7\u01d9"+
 		"\5R*\2\u01d8\u01d7\3\2\2\2\u01d9\u01da\3\2\2\2\u01da\u01d8\3\2\2\2\u01da"+
-		"\u01db\3\2\2\2\u01db\u01dc\3\2\2\2\u01dc\u01dd\7R\2\2\u01ddQ\3\2\2\2\u01de"+
-		"\u01df\7\63\2\2\u01df\u01e0\7,\2\2\u01e0\u01e1\5 \21\2\u01e1S\3\2\2\2"+
-		"\u01e2\u01f8\7\23\2\2\u01e3\u01e4\7Q\2\2\u01e4\u01e5\5J&\2\u01e5\u01e6"+
-		"\7R\2\2\u01e6\u01f8\3\2\2\2\u01e7\u01f0\7Q\2\2\u01e8\u01ed\5 \21\2\u01e9"+
-		"\u01ea\7S\2\2\u01ea\u01ec\5 \21\2\u01eb\u01e9\3\2\2\2\u01ec\u01ef\3\2"+
+		"\u01db\3\2\2\2\u01db\u01dc\3\2\2\2\u01dc\u01dd\7T\2\2\u01ddQ\3\2\2\2\u01de"+
+		"\u01df\7\65\2\2\u01df\u01e0\7.\2\2\u01e0\u01e1\5 \21\2\u01e1S\3\2\2\2"+
+		"\u01e2\u01f8\7\23\2\2\u01e3\u01e4\7S\2\2\u01e4\u01e5\5J&\2\u01e5\u01e6"+
+		"\7T\2\2\u01e6\u01f8\3\2\2\2\u01e7\u01f0\7S\2\2\u01e8\u01ed\5 \21\2\u01e9"+
+		"\u01ea\7U\2\2\u01ea\u01ec\5 \21\2\u01eb\u01e9\3\2\2\2\u01ec\u01ef\3\2"+
 		"\2\2\u01ed\u01eb\3\2\2\2\u01ed\u01ee\3\2\2\2\u01ee\u01f1\3\2\2\2\u01ef"+
 		"\u01ed\3\2\2\2\u01f0\u01e8\3\2\2\2\u01f0\u01f1\3\2\2\2\u01f1\u01f2\3\2"+
-		"\2\2\u01f2\u01f8\7R\2\2\u01f3\u01f4\7Q\2\2\u01f4\u01f5\5H%\2\u01f5\u01f6"+
-		"\7R\2\2\u01f6\u01f8\3\2\2\2\u01f7\u01e2\3\2\2\2\u01f7\u01e3\3\2\2\2\u01f7"+
+		"\2\2\u01f2\u01f8\7T\2\2\u01f3\u01f4\7S\2\2\u01f4\u01f5\5H%\2\u01f5\u01f6"+
+		"\7T\2\2\u01f6\u01f8\3\2\2\2\u01f7\u01e2\3\2\2\2\u01f7\u01e3\3\2\2\2\u01f7"+
 		"\u01e7\3\2\2\2\u01f7\u01f3\3\2\2\2\u01f8U\3\2\2\2\u01f9\u0208\5X-\2\u01fa"+
-		"\u01fb\7\63\2\2\u01fb\u0204\7G\2\2\u01fc\u0201\5 \21\2\u01fd\u01fe\7S"+
+		"\u01fb\7\65\2\2\u01fb\u0204\7I\2\2\u01fc\u0201\5 \21\2\u01fd\u01fe\7U"+
 		"\2\2\u01fe\u0200\5 \21\2\u01ff\u01fd\3\2\2\2\u0200\u0203\3\2\2\2\u0201"+
 		"\u01ff\3\2\2\2\u0201\u0202\3\2\2\2\u0202\u0205\3\2\2\2\u0203\u0201\3\2"+
 		"\2\2\u0204\u01fc\3\2\2\2\u0204\u0205\3\2\2\2\u0205\u0206\3\2\2\2\u0206"+
-		"\u0208\7H\2\2\u0207\u01f9\3\2\2\2\u0207\u01fa\3\2\2\2\u0208W\3\2\2\2\u0209"+
-		"\u020a\5Z.\2\u020a\u0213\7G\2\2\u020b\u0210\5 \21\2\u020c\u020d\7S\2\2"+
+		"\u0208\7J\2\2\u0207\u01f9\3\2\2\2\u0207\u01fa\3\2\2\2\u0208W\3\2\2\2\u0209"+
+		"\u020a\5Z.\2\u020a\u0213\7I\2\2\u020b\u0210\5 \21\2\u020c\u020d\7U\2\2"+
 		"\u020d\u020f\5 \21\2\u020e\u020c\3\2\2\2\u020f\u0212\3\2\2\2\u0210\u020e"+
 		"\3\2\2\2\u0210\u0211\3\2\2\2\u0211\u0214\3\2\2\2\u0212\u0210\3\2\2\2\u0213"+
-		"\u020b\3\2\2\2\u0213\u0214\3\2\2\2\u0214\u0215\3\2\2\2\u0215\u0216\7H"+
+		"\u020b\3\2\2\2\u0213\u0214\3\2\2\2\u0214\u0215\3\2\2\2\u0215\u0216\7J"+
 		"\2\2\u0216Y\3\2\2\2\u0217\u0218\t\r\2\2\u0218[\3\2\2\2\u0219\u021b\5^"+
 		"\60\2\u021a\u0219\3\2\2\2\u021b\u021e\3\2\2\2\u021c\u021a\3\2\2\2\u021c"+
-		"\u021d\3\2\2\2\u021d]\3\2\2\2\u021e\u021c\3\2\2\2\u021f\u0220\7\63\2\2"+
+		"\u021d\3\2\2\2\u021d]\3\2\2\2\u021e\u021c\3\2\2\2\u021f\u0220\7\65\2\2"+
 		"\u0220\u0221\7\6\2\2\u0221\u0222\5 \21\2\u0222_\3\2\2\2\65aiv\u008e\u00a7"+
 		"\u00c1\u00c6\u00cd\u00e1\u00e4\u00ed\u00f0\u00f5\u00ff\u0106\u010e\u0116"+
 		"\u011e\u0126\u012e\u0136\u013e\u0146\u014e\u0156\u015e\u0164\u016e\u0172"+

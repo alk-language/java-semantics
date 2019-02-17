@@ -4,7 +4,6 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
-import impl.types.alkArray.AlkArray;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkIterator.AlkIterator;
 
@@ -114,11 +113,18 @@ public class AlkList extends AlkIterableValue {
 
     @Override
     public String toString() {
-        return list.toString();
+        String returnable = "<" ;
+        for (int i=0; i<list.size()-1; i++)
+        {
+            returnable = returnable + list.get(i).toString() + ", ";
+        }
+        if (list.size()>0)
+            returnable = returnable + list.get(list.size()-1);
+        return returnable + ">";
     }
 
     @Override
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         if (!operand.type.equals("List"))
             throw new AlkException(ERR_EQUAL_LIST);
         AlkList op = (AlkList) operand;
@@ -143,4 +149,8 @@ public class AlkList extends AlkIterableValue {
     } //TODO de modioficat in functia default
 
 
+    @Override
+    public boolean has(AlkValue operand) {
+        return list.contains(operand);
+    }
 }

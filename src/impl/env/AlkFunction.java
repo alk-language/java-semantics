@@ -80,8 +80,10 @@ public class AlkFunction {
             env.add(modifies.get(i), globals.getLocation(modifies.get(i)));
         }
 
+        MainVisitor.stack.push(env);
         StmtVisitor visitor = new StmtVisitor(env, true);
         visitor.visit(stmt);
+        MainVisitor.stack.pop();
         if (visitor.returnValue == null)
             return new AlkNotAValue(AlkNotAValue.NO_RETURN);
         return visitor.returnValue;
