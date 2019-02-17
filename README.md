@@ -31,3 +31,4 @@
     14
     ```
 Read the manual `doc/alk.pdf` to learn how to write Alk programs.
+The Java interpreter for Alk is in progress, therefore we strongly advise you to weekly update it.
