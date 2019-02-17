@@ -11,10 +11,7 @@ import org.antlr.v4.runtime.tree.*;
 import grammar.*;
 import org.apache.commons.cli.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -36,8 +33,10 @@ public class Main {
         alkParser parserAlk = new alkParser(tokensAlk);
 
         ParseTree tree = parserAlk.main();
-        MainVisitor alkVisitor = new MainVisitor(new Environment());
+        Environment e = new Environment();
+        MainVisitor alkVisitor = new MainVisitor(e);
         alkVisitor.visit(tree);
+        System.out.println(e);
     }
 
     public static void main( String[] args )
@@ -62,7 +61,7 @@ public class Main {
         alk.setRequired(true);
         options.addOption(alk);
 
-        Option input = new Option("i", "init", true, "initial configuration file path");
+        Option input = new Option("i", "init", true, "initial configuration");
         input.setRequired(false);
         options.addOption(input);
 
@@ -81,8 +80,13 @@ public class Main {
 
             if (cmd.getOptionValue("init") != null)
             {
-                CharStream initFile = CharStreams.fromPath(Paths.get(cmd.getOptionValue("init")));
-
+                CharStream initFile;
+                try {
+                    initFile = CharStreams.fromPath(Paths.get(cmd.getOptionValue("init")));
+                } catch (IOException exp)
+                {
+                    initFile = new ANTLRInputStream(cmd.getOptionValue("init"));
+                }
                 alkLexer lexerInit = new alkLexer(initFile);
                 CommonTokenStream tokensInit = new CommonTokenStream(lexerInit);
                 alkParser parserInit = new alkParser(tokensInit);
@@ -98,6 +102,7 @@ public class Main {
             ParseTree tree = parserAlk.main();
             MainVisitor alkVisitor = new MainVisitor(e);
             alkVisitor.visit(tree);
+            System.out.println(e);
         }
         catch (ParseException e)
         {
