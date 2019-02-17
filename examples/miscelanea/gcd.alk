@@ -2,7 +2,7 @@
   gcd
   alki gcd.alk 
   alki gcd.alk gcd.in
-  where the gcd.in includes:
+  where, e.g., the gcd.in includes:
 u |-> 42 v |-> 56
 */
 gcd(a, b)
