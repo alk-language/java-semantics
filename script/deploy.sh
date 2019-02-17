@@ -1,3 +1,6 @@
 #!/bin/bash
+#copy this script where the classes are
 
-jar cvfm $PWD/../jar/deploy.jar manifest.txt $PWD/../out/production/Alg/*.class
+jar cvfm $PWD/../../../bin/alk.jar/ manifest.txt .
+
+

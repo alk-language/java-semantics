@@ -4,6 +4,7 @@ import impl.exceptions.AlkException;
 import impl.types.AlkValue;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static impl.exceptions.AlkException.ERR_NO_REF;
 
@@ -49,5 +50,15 @@ public class Environment {
         if (variables.containsKey(id))
             return true;
         return false;
+    }
+
+    @Override public String toString()
+    {
+        String returnable = "";
+        for (Map.Entry<String, Integer> i : variables.entrySet())
+        {
+            returnable = returnable + i.getKey() + " |-> " + Store.get(i.getValue()) + '\n';
+        }
+        return returnable;
     }
 }
