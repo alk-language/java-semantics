@@ -171,6 +171,7 @@ name = "john";
 \end{verbatim}
 The execution of the above algorithm produces an output as expected:
 \begin{verbatim}
+> alki scalars.alk
 234
 true
 21.468
@@ -340,18 +341,21 @@ Now we may define sequences of arrays:
 Algorithm & Output\\
 \hline
 \\
-\begin{minipage}{.35\textwidth}
+\begin{minipage}{.55\textwidth}
 \begin{verbatim}
 l = < [1, 2, 3], [4, 5] >;
 a = l.at(1);
 l.pushBack(a);
+print(a);  // [4, 5]
+print(l);  // <[1, 2, 3], [4, 5], [4, 5]>
 \end{verbatim}
 \end{minipage}
 &
-\begin{minipage}{.55\textwidth}
+\begin{minipage}{.45\textwidth}
 \begin{verbatim}
-a |-> [ 4, 5 ]
-l |-> < ([ 1, 2, 3 ]), [ 4, 5 ], [ 4, 5 ] >
+> alki sequencesofarrays.alk
+[ 4, 5 ]
+< [ 1, 2, 3 ], [ 4, 5 ], [ 4, 5 ] >
 \end{verbatim}
 \end{minipage}
 \end{tabular}
@@ -364,11 +368,13 @@ Algorithm \\
 \\
 \begin{minipage}{.8\textwidth}
 \begin{verbatim}
-a = [ < 1, 2, 3 >, < 4, 5, 6 >, < 7, 8 > ]; 
+a = [ { x -> 1 y -> 2 }, { x -> 4 y -> 5 }  ]; 
 b = a[1];
-a[1].update(1, 11);
-a[0].insert(2,22);
-a[2] = a[1].pushBack(77);
+c = a[1].y;
+a[1].x = 77;
+print(a); // [{x -> 1, y -> 2}, {x -> 77, y -> 5}]
+print(b); // {x -> 4, y -> 5}
+print(c); // 5
 \end{verbatim}
 \end{minipage}
 \\
@@ -378,8 +384,10 @@ Output \\
 \\
 \begin{minipage}{.8\textwidth}
 \begin{verbatim}
-    a |-> [ (< 1, 2, 22, 3 >), (< 4, 11, 6 >), (< 4, 11, 6, 77 >) ]
-    b |-> < 4, 5, 6 >
+> alki arraysofstructures.alk 
+[{x -> 1, y -> 2}, {x -> 77, y -> 5}]
+{x -> 4, y -> 5}
+5
 \end{verbatim}
 \end{minipage}
 \end{tabular}
@@ -401,14 +409,16 @@ s = { x -> 12  y -> 45 };
 a = s.x;
 s.y = 99;
 b.x = 22;
+print(s); // {x -> 12, y -> 99}
+print(b); // {x -> 22}
 \end{verbatim}
 \end{minipage}
 &
 \begin{minipage}{.45\textwidth}
 \begin{verbatim}
-    a |-> 12
-    b |-> { x -> 22 }
-    s |-> { (x -> 12) (y -> 99) }
+> alki structures.alk
+{ (x -> 12) (y -> 99) }
+{ x -> 22 }
 \end{verbatim}
 \end{minipage}
 \end{tabular}
@@ -425,7 +435,9 @@ Algorithm\\
 \begin{verbatim}
 s = { x -> [ 1, 2, 3 ] y -> [ 4, 5, 6 ] }; 
 b = s.y;
-(s.x)[1] = 11;
+s.x[1] = 11;
+print(b); // [4, 5, 6]
+print(s);  // {x -> [1, 11, 3], y -> [4, 5, 6]}
 \end{verbatim}
 \end{minipage}
 \\
@@ -435,13 +447,14 @@ Output\\
 \\
 \begin{minipage}{.65\textwidth}
 \begin{verbatim}
-b |-> [ 4, 5, 6 ]
-s |-> { (x -> ([ 1, 11, 3 ])) (y -> [ 4, 5, 6 ]) }
+> alki structuresofarrays.alk
+[ 4, 5, 6 ]
+{ (x -> ([ 1, 11, 3 ])) (y -> [ 4, 5, 6 ]) }
 \end{verbatim}
 \end{minipage}
 \end{tabular}
 \end{center}
-sequences of arrays
+sequences of structures
 \begin{center}
 \begin{tabular}{l}
 Algorithm \\
@@ -452,7 +465,8 @@ Algorithm \\
 l = < { x -> 12 y -> 56 }, { x -> -43 y -> 98 }, { x -> 33 y -> 66 } >; 
 u = l.topFront();
 l.pushBack({ x -> -100 y -> 200 });
-l.at(2).x = 999;
+print(u);
+print(l); 
 \end{verbatim}
 \end{minipage}
 \\
@@ -462,17 +476,15 @@ Output\\
 \\
 \begin{minipage}{.85\textwidth}
 \begin{verbatim}
-a |-> [ 4, 5 ]
-l |-> < ([ 1, 2, 3 ]), [ 4, 5 ], [ 4, 5 ] >
+> alki seqofstructures.alk
+{x -> 12, y -> 56}
+<{x -> 12, y -> 56}, {x -> -43, y -> 98}, {x -> 33, y -> 66}, {x -> -100, y -> 200}>
 \end{verbatim}
 \end{minipage}
 \end{tabular}
 \end{center}
 and so on.
 
-\begin{todo}
-Change the notation \verb'x -> v' into \verb'x : v'.
-\end{todo}
 
 \subsection{Sets}
 
@@ -483,25 +495,37 @@ Example:
 Algorithm & Output\\
 \hline
 \\
-\begin{minipage}{.45\textwidth}
+\begin{minipage}{.55\textwidth}
 \begin{verbatim}
 s1 = { 1 .. 5 };
 s2 = { 2, 4, 6, 7 };
 a = s1 U s2 ;
 b = s1 ^ s2;
 c = s1 \ s2;
-t = 2 belongsTo b ^ c;
+print(a); // {1, 2, 3, 4, 5, 6, 7}
+print(b); // {2, 4}
+print(c); // {1, 3, 5}
+t = 2 in b ^ c;
+print(t); // false
+x = 0;
+forall y in s2 x = x + y;
+print(x); // 19
+d = emptySet;
+forall y in { 1 .. 6 }
+  if (y in s2) d = d U singletonSet(y);
+print(d); // {7}
 \end{verbatim}
 \end{minipage}
 &
 \begin{minipage}{.45\textwidth}
 \begin{verbatim}
-    a |-> { 7, 6, 1, 2, 3, 4, 5 }
-    b |-> { 2, 4 }
-    c |-> { 1, 3, 5 }
-    s1 |-> { 1, 2, 3, 4, 5 }
-    s2 |-> { 2, 4, 6, 7 }
-    t |-> false
+> alki sets.alk 
+{1, 2, 3, 4, 5, 6, 7}
+{2, 4}
+{1, 3, 5}
+false
+19
+{2, 4, 6}
 \end{verbatim}
 \end{minipage}
 \end{tabular}
@@ -525,117 +549,119 @@ Algorithm & Output\\
 \begin{verbatim}
 p = 3;
 q = 9;
-a = [ i | i : p .. q ];
+a = [ i | i in p .. q ];
 p = 2;
-b = [ a[i] | i : p .. p+3 ];
-l = < b[i] * 2 | i : p-2 .. p >;
+b = [ a[i] | i in p .. p+3 ];
+l = < b[i] * 2 | i in p-2 .. p >;
+print(a);
+print(b);
+print(l);
 \end{verbatim}
 \end{minipage}
 &
 \begin{minipage}{.45\textwidth}
 \begin{verbatim}
-    a |-> [ 3, 4, 5, 6, 7, 8, 9 ]
-    b |-> [ 5, 6, 7, 8 ]
-    l |-> < 10, 12, 14 >
-    p |-> 2
-    q |-> 9
+> alki specs.alk 
+[3, 4, 5, 6, 7, 8, 9]
+[5, 6, 7, 8]
+<10, 12, 14>
 \end{verbatim}
 \end{minipage}
 \end{tabular}
 \end{center}
 
-\subsection{Flexibility in Using Data Structures}
-
-Even if each data structure has its own operations with specific notations, these operations and notations can be "exported" to the other data structures as sugar syntax. For instance, if \texttt{L} is a sequence, then we may use ${\tt L}[i]$ for ${\tt L.at}(i)$.
-
-Example:
-\begin{center}
-\begin{tabular}{ll}
-Algorithm & Output\\
-\hline
-\\
-\begin{minipage}{.4\textwidth}
-\begin{verbatim}
-L = < 8, 3, 9, 4 >;
-x = ll[2];
-L[3] = 33;
-L[4] = 44;
-\end{verbatim}
-\end{minipage}
-&
-\begin{minipage}{.35\textwidth}
-\begin{verbatim}
-L |-> < 8, 3, 9, 33, 44 >
-x |-> 9
-\end{verbatim}
-\end{minipage}
-\end{tabular}
-\end{center}
-
-If {\tt S} is a set, then we can borrow the notations from sequences and array operations:
-\begin{description}
-\item[{\tt S}{$[i]$}] -- returns an element from $S$. The same do {\tt S.topFront()} and {\tt S.topBack()}. Note that the behaviour of these operations could be nondeterministic: for the same set vale, they could return different elements in different execution steps;
-\item[{\tt S.insert}$(i,x)$] -- adds $x$ to $S$ (it is a short notation for {\tt S = S U }$(x)$);
-\end{description}
-
-Example:
-\begin{center}
-\begin{tabular}{ll}
-Algorithm & Output\\
-\hline
-\\
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-s = { 2, 4, 6, 7 };
-z = s.topFront();
-n = s.size();
-s2 = s.pushBack(99);
-a = s2[3];
-s.insert(2, 22);
-\end{verbatim}
-\end{minipage}
-&
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-a |-> 7
-n |-> 4
-s2 |-> { 2, 4, 6, 7, 99 }
-s |-> { 2, 4, 22, 6, 7 }
-z |-> 2
-\end{verbatim}
-\end{minipage}
-\end{tabular}
-\end{center}
-Here is an example that shows that {\tt \_.topFron()} returns different values, even if it is called for equal sets:
-\begin{center}
-\begin{tabular}{ll}
-Algorithm & Output\\
-\hline
-\\
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-s = { 2, 4, 6, 7 };
-s2 = s;
-a = s.topFront();
-s2.popFront();
-s2.pushBack(a);
-b = s2.topFront();
-t = s == s2;
-\end{verbatim}
-\end{minipage}
-&
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-a |-> 2
-b |-> 4
-s2 |-> { 4, 6, 7, 2 }
-s |-> { 2, 4, 6, 7 }
-t |-> true
-\end{verbatim}
-\end{minipage}
-\end{tabular}
-\end{center}
-We can see that {\tt s} and {\tt s2} are equal as sets, but {\tt a} and {\tt b} are different.
+%\subsection{Flexibility in Using Data Structures}
+%
+%Even if each data structure has its own operations with specific notations, these operations and notations can be "exported" to the other data structures as sugar syntax. For instance, if \texttt{L} is a sequence, then we may use ${\tt L}[i]$ for ${\tt L.at}(i)$.
+%
+%Example:
+%\begin{center}
+%\begin{tabular}{ll}
+%Algorithm & Output\\
+%\hline
+%\\
+%\begin{minipage}{.4\textwidth}
+%\begin{verbatim}
+%L = < 8, 3, 9, 4 >;
+%x = ll[2];
+%L[3] = 33;
+%L[4] = 44;
+%\end{verbatim}
+%\end{minipage}
+%&
+%\begin{minipage}{.35\textwidth}
+%\begin{verbatim}
+%L |-> < 8, 3, 9, 33, 44 >
+%x |-> 9
+%\end{verbatim}
+%\end{minipage}
+%\end{tabular}
+%\end{center}
+%
+%If {\tt S} is a set, then we can borrow the notations from sequences and array operations:
+%\begin{description}
+%\item[{\tt S}{$[i]$}] -- returns an element from $S$. The same do {\tt S.topFront()} and {\tt S.topBack()}. Note that the behaviour of these operations could be nondeterministic: for the same set vale, they could return different elements in different execution steps;
+%\item[{\tt S.insert}$(i,x)$] -- adds $x$ to $S$ (it is a short notation for {\tt S = S U }$(x)$);
+%\end{description}
+%
+%Example:
+%\begin{center}
+%\begin{tabular}{ll}
+%Algorithm & Output\\
+%\hline
+%\\
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%s = { 2, 4, 6, 7 };
+%z = s.topFront();
+%n = s.size();
+%s2 = s.pushBack(99);
+%a = s2[3];
+%s.insert(2, 22);
+%\end{verbatim}
+%\end{minipage}
+%&
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%a |-> 7
+%n |-> 4
+%s2 |-> { 2, 4, 6, 7, 99 }
+%s |-> { 2, 4, 22, 6, 7 }
+%z |-> 2
+%\end{verbatim}
+%\end{minipage}
+%\end{tabular}
+%\end{center}
+%Here is an example that shows that {\tt \_.topFron()} returns different values, even if it is called for equal sets:
+%\begin{center}
+%\begin{tabular}{ll}
+%Algorithm & Output\\
+%\hline
+%\\
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%s = { 2, 4, 6, 7 };
+%s2 = s;
+%a = s.topFront();
+%s2.popFront();
+%s2.pushBack(a);
+%b = s2.topFront();
+%t = s == s2;
+%\end{verbatim}
+%\end{minipage}
+%&
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%a |-> 2
+%b |-> 4
+%s2 |-> { 4, 6, 7, 2 }
+%s |-> { 2, 4, 6, 7 }
+%t |-> true
+%\end{verbatim}
+%\end{minipage}
+%\end{tabular}
+%\end{center}
+%We can see that {\tt s} and {\tt s2} are equal as sets, but {\tt a} and {\tt b} are different.
 
 \subsection{Lists with iterators}
 
@@ -684,15 +710,14 @@ for (p = L.first(); p != L.end(); ++p) {
   A[i] = *p ;
   ++i;
 }
+print(A);
 \end{verbatim}
 \end{minipage}
 &
 \begin{minipage}{.45\textwidth}
 \begin{verbatim}
-    A |-> [ 2, 5, 8 ]
-    L |-> < 2, 5, 8 >
-    i |-> 3
-    p |-> it ( L , 3 )
+> alki it1.alk 
+[2, 5, 8]
 \end{verbatim}
 \end{minipage}
 \end{tabular}
@@ -714,17 +739,18 @@ a = *p;
 b = *p;
 q = L.first();
 c = *(--% q);
+print(a);
+print(b);
+print(c);
 \end{verbatim}
 \end{minipage}
 &
 \begin{minipage}{.45\textwidth}
 \begin{verbatim}
-    L |-> < 2, 5, 8, 33 >
-    a |-> 33
-    b |-> 2
-    c |-> 33
-    p |-> it ( L , 0 )
-    q |-> it ( L , 3 )
+> alki it3.alk 
+33
+2
+33
 \end{verbatim}
 \end{minipage}
 \end{tabular}
@@ -768,7 +794,7 @@ Examples:
     if (x % i == 0) return false;
 
   forall y in { 1 .. 6 }
-    if (y belongsTo s2) d = d U singletonSet(y);
+    if (y in s2) d = d U singletonSet(y);
 \end{verbatim}
 
 
@@ -777,143 +803,149 @@ Examples:
 
 Syntax: {\it Stmt}~{\it Stmt}
 
-\section{Statements for Nondeterministic Algorithms}
-
-\subsection{\texttt{choose}}
-
-Syntax:  \verb"choose" {\it Id} \verb"in" {\it Exp} \verb";"  \quad 2) \verb"choose" Id \verb"in" {\it Exp} \verb"s.t." {\it Exp} \verb";"    
-
-Example 1:
-\begin{center}
-\begin{tabular}{ll}
-Algorithm & Output\\
-\hline
-\\
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-choose x1 in { 1 .. 5 };
-choose x2 in { 1 .. 5 };
-\end{verbatim}
-\end{minipage}
-&
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-    x1 |-> 3
-    x2 |-> 1
-\end{verbatim}
-\end{minipage}
-\end{tabular}
-\end{center}
-
-Example 2:
-\begin{center}
-\begin{tabular}{ll}
-Algorithm & Output\\
-\hline
-\\
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-odd(x) {
-  return x % 2 == 1;
-}
-
-choose x1 in { 1 .. 5 } s.t. odd(x1);
-choose x2 in { 1 .. 5 } s.t. odd(x2);
-\end{verbatim}
-\end{minipage}
-&
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-    x1 |-> 5
-    x2 |-> 3
-\end{verbatim}
-\end{minipage}
-\end{tabular}
-\end{center}
-
-
-\subsection{\texttt{success}}
-
-Syntax: \verb"success" \verb";"
-
-Example:
-\begin{center}
-\begin{tabular}{ll}
-Algorithm & Output\\
-\hline
-\\
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-odd(x) {
-  return x % 2 == 1;
-}
-
-choose a in { 1 .. 8 };
-if (odd(a)) success;
-\end{verbatim}
-\end{minipage}
-&
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-<k>
-    success ;
-</k>
-<state>
-    a |-> 7
-</state>
-\end{verbatim}
-\end{minipage}
-\end{tabular}
-\end{center}
-
-\subsection{\texttt{failure}}
-
-Syntax: \verb"failure" \verb";"
-
-Example:
-\begin{center}
-\begin{tabular}{ll}
-Algorithm & Output\\
-\hline
-\\
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-odd(x) {
-  return x % 2 == 1;
-}
-
-s = emptySet;
-for (i = 0; i < 8; i = i+2)
-  s.pushBack(i);
-choose x in s s.t. odd(x);
-\end{verbatim}
-\end{minipage}
-&
-\begin{minipage}{.45\textwidth}
-\begin{verbatim}
-<k>
-    failure ;
-</k>
-<state>
-    i |-> 8
-    s |-> { 0, 2, 4, 6 }
-    x |-> 6
-</state>
-\end{verbatim}
-\end{minipage}
-\end{tabular}
-\end{center}
+%\section{Statements for Nondeterministic Algorithms}
+%
+%\subsection{\texttt{choose}}
+%
+%Syntax:  \verb"choose" {\it Id} \verb"in" {\it Exp} \verb";"  \quad 2) \verb"choose" Id \verb"in" {\it Exp} \verb"s.t." {\it Exp} \verb";"    
+%
+%Example 1:
+%\begin{center}
+%\begin{tabular}{ll}
+%Algorithm & Output\\
+%\hline
+%\\
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%choose x1 in { 1 .. 5 };
+%choose x2 in { 1 .. 5 };
+%\end{verbatim}
+%\end{minipage}
+%&
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%    x1 |-> 3
+%    x2 |-> 1
+%\end{verbatim}
+%\end{minipage}
+%\end{tabular}
+%\end{center}
+%
+%Example 2:
+%\begin{center}
+%\begin{tabular}{ll}
+%Algorithm & Output\\
+%\hline
+%\\
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%odd(x) {
+%  return x % 2 == 1;
+%}
+%
+%choose x1 in { 1 .. 5 } s.t. odd(x1);
+%choose x2 in { 1 .. 5 } s.t. odd(x2);
+%\end{verbatim}
+%\end{minipage}
+%&
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%    x1 |-> 5
+%    x2 |-> 3
+%\end{verbatim}
+%\end{minipage}
+%\end{tabular}
+%\end{center}
+%
+%
+%\subsection{\texttt{success}}
+%
+%Syntax: \verb"success" \verb";"
+%
+%Example:
+%\begin{center}
+%\begin{tabular}{ll}
+%Algorithm & Output\\
+%\hline
+%\\
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%odd(x) {
+%  return x % 2 == 1;
+%}
+%
+%choose a in { 1 .. 8 };
+%if (odd(a)) success;
+%\end{verbatim}
+%\end{minipage}
+%&
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%<k>
+%    success ;
+%</k>
+%<state>
+%    a |-> 7
+%</state>
+%\end{verbatim}
+%\end{minipage}
+%\end{tabular}
+%\end{center}
+%
+%\subsection{\texttt{failure}}
+%
+%Syntax: \verb"failure" \verb";"
+%
+%Example:
+%\begin{center}
+%\begin{tabular}{ll}
+%Algorithm & Output\\
+%\hline
+%\\
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%odd(x) {
+%  return x % 2 == 1;
+%}
+%
+%s = emptySet;
+%for (i = 0; i < 8; i = i+2)
+%  s.pushBack(i);
+%choose x in s s.t. odd(x);
+%\end{verbatim}
+%\end{minipage}
+%&
+%\begin{minipage}{.45\textwidth}
+%\begin{verbatim}
+%<k>
+%    failure ;
+%</k>
+%<state>
+%    i |-> 8
+%    s |-> { 0, 2, 4, 6 }
+%    x |-> 6
+%</state>
+%\end{verbatim}
+%\end{minipage}
+%\end{tabular}
+%\end{center}
 
 \section{Functions/Procedures Describing Algorithms}
 
 Example:
 \begin{center}
 \begin{tabular}{ll}
-Algorithm & Output for \verb"n |-> 5 b |-> [5,1,3,2,4]"\\
+Algorithm & Output "\\
 \hline
 \\
 \begin{minipage}{.55\textwidth}
 \begin{verbatim}
+swap(out a, i, j) {
+  temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}
+
 partition(out a, p, q) {
   x = a[p] ; 
   i = p + 1;   j = q;
@@ -927,6 +959,7 @@ partition(out a, p, q) {
     }
   }
   k = i-1;  a[p] = a[k];  a[k] = x;
+//  if (k == q) --k;
   return k;
 }
 
@@ -938,19 +971,54 @@ qsort(out a, p, q) {
   }
 }
 
+b = [5,1,3,2,4];
+n = 5;
 qsort(b, 0, n-1);
+print(b);
 \end{verbatim}
 \end{minipage}
 &
 \begin{minipage}{.42\textwidth}
 \begin{verbatim}
-    b |-> [ 1, 2, 3, 4, 5 ]
-    n |-> 5
+> alki qsort.alk 
+[1, 2, 3, 4, 5]
 \end{verbatim}
 \end{minipage}
 \end{tabular}
 \end{center}
 Note that the output parameters and the input/output parameters are declared with the prefix {\tt out}.
+
+If a function modifies global variables, then these must be specified in a "modifies" clause.
+Example:
+\begin{center}
+\begin{tabular}{ll}
+Algorithm & Output"\\
+\hline
+\\
+\begin{minipage}{.55\textwidth}
+\begin{verbatim}
+x = 3;
+y = 5;
+g(b) modifies x, y { 
+  x = x + b;
+  y = y * b;
+  return x;
+}
+g(5);
+print(x);  // 8
+print(y);  // 25
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}{.42\textwidth}
+\begin{verbatim}
+> alki globals.alk 
+8
+25
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+\end{center}
 
 \end{document}
 
