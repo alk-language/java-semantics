@@ -1,3 +1,0 @@
-Main-Class: main.Main
-Class-Path: antlr-4.7.1-complete.jar
-Manifest-Version: 1.0
