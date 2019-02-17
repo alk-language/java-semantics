@@ -20,6 +20,6 @@ fi
 
 if [ $# -eq 2 ]
 then
-    java -jar $jardir/alk.jar -a $1 -i $2
+    java -jar $jardir/alk.jar -a $1 -i "$2"
   exit 0
 fi
