@@ -5,7 +5,7 @@
 
 # Example
 
-There is also a short example inside of the realeases folder, including an example command line, used for executing Alk. The one follows:
+There is also a short example inside of the bin folder, including an example command line, used for executing Alk. The one follows:
 
 java -jar alk.jar -a "algorithm.alk" \[-i "input.in"\]
 
