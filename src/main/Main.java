@@ -83,7 +83,7 @@ public class Main {
                 CharStream initFile;
                 try {
                     initFile = CharStreams.fromPath(Paths.get(cmd.getOptionValue("init")));
-                } catch (IOException exp)
+                } catch (Exception exp)
                 {
                     initFile = new ANTLRInputStream(cmd.getOptionValue("init"));
                 }
