@@ -18,7 +18,7 @@ public class LogicalBoolHelper {
         this.value = value;
     }
 
-    AlkValue logicalAnd(AlkValue operand) throws AlkException, InterpretorException
+    AlkBool logicalAnd(AlkValue operand) throws AlkException, InterpretorException
     {
         if (operand.isDataStructure)
             throw new AlkException(ERR_LOGICALAND_DATA_STRUCTURE);
@@ -50,7 +50,7 @@ public class LogicalBoolHelper {
 
 
 
-    AlkValue logicalOr(AlkValue operand) throws AlkException, InterpretorException
+    AlkBool logicalOr(AlkValue operand) throws AlkException, InterpretorException
     {
         if (operand.isDataStructure)
             throw new AlkException(ERR_LOGICALOR_DATA_STRUCTURE);

@@ -6,8 +6,9 @@ import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
-import impl.types.alkSet.AlkSet;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.TreeMap;
 
 import static impl.exceptions.AlkException.*;
@@ -49,11 +50,21 @@ public class AlkStructure extends AlkValue {
 
     @Override
     public String toString() {
-        return map.toString();
+        String returnable = "{" ;
+        Map.Entry<String, AlkValue> act = null;
+        Iterator<Map.Entry<String, AlkValue> > it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            act = it.next();
+            if (!it.hasNext()) break;
+            returnable = returnable + act.getKey()+"->"+act.getValue()+" ";
+        }
+        if (map.size()>0)
+            returnable = returnable + act.getKey()+"->"+act.getValue();
+        return returnable + "}";
     }
 
     @Override
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         if (!operand.type.equals("Structure"))
             throw new AlkException(ERR_EQUAL_STRUCT);
         AlkStructure op = (AlkStructure) operand;

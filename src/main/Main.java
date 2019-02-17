@@ -18,6 +18,8 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static impl.constants.Constants.DEBUG;
+
 public class Main {
 
     public static void testExpression(ParseTree tree)
@@ -26,9 +28,34 @@ public class Main {
         System.out.print(exprVis.visit(tree).toString());
     }
 
-    public static void main( String[] args )
+    public static void parseDebug(CharStream alkFile)
     {
 
+        alkLexer lexerAlk = new alkLexer(alkFile);
+        CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
+        alkParser parserAlk = new alkParser(tokensAlk);
+
+        ParseTree tree = parserAlk.main();
+        MainVisitor alkVisitor = new MainVisitor(new Environment());
+        alkVisitor.visit(tree);
+    }
+
+    public static void main( String[] args )
+    {
+        if (DEBUG)
+        {
+            try {
+                CharStream alkFile = CharStreams.fromPath(Paths.get("/home/alex/work/Alk/input/test.in"));
+                parseDebug(alkFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch(RuntimeException e)
+            {
+                ;
+            }
+            System.exit(1);
+        }
         Options options = new Options();
 
         Option alk = new Option("a", "alk", true, "algorithm file path");

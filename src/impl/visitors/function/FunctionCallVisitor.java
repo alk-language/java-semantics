@@ -7,12 +7,14 @@ import impl.exceptions.AlkException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
+import impl.types.alkNotAValue.AlkNotAValue;
+import impl.types.alkSet.AlkSet;
 import impl.visitors.expression.ExpressionVisitor;
 
 import java.util.ArrayList;
 
-import static impl.exceptions.AlkException.ERR_PARAM_NOT_DEFINED;
-import static impl.exceptions.AlkException.ERR_PRINT_PARAM;
+import static impl.exceptions.AlkException.*;
+import static impl.types.alkNotAValue.AlkNotAValue.NO_RETURN;
 
 public class FunctionCallVisitor extends alkBaseVisitor {
 
@@ -24,15 +26,27 @@ public class FunctionCallVisitor extends alkBaseVisitor {
 
 
     @Override public Object visitBuiltinMethod(alkParser.BuiltinMethodContext ctx) { // momentan este doar printul TODO de analizat
-        if (ctx.expression().size()!=1)
+        int size = ctx.expression().size();
+        String name = ctx.method_name().start.getText();
+        ArrayList<AlkValue> params = new ArrayList<>();
+        for (int i=0; i<size; i++)
         {
-            AlkException e = new AlkException(ERR_PRINT_PARAM);
-            e.printException(ctx.start.getLine());
-            return null;
+            ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
+            params.add(((AlkValue)expressionVisitor.visit(ctx.expression(i))).clone());
         }
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        System.out.println(((AlkValue)exprVisitor.visit(ctx.expression(0))).toString());
-        return null;
+        try {
+            switch (name)
+            {
+                case "print": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); System.out.println(params.get(0).toString()); return new AlkNotAValue(NO_RETURN);
+                case "singletonSet": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); AlkSet set = new AlkSet(); set.insert(params.get(0)); return set;
+                case "int": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); return Convertors.toInt(params.get(0));
+                case "float": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); return Convertors.toFloat(params.get(0));
+                default: throw new AlkException(ERR_FUNCTION_UNDEFINED);
+            }
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+            return new AlkBool(false);
+        }
     }
 
     @Override public Object visitDefinedFunctionCall(alkParser.DefinedFunctionCallContext ctx) {

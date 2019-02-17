@@ -4,7 +4,6 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
-import impl.types.alkArray.AlkArray;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 
@@ -72,11 +71,21 @@ public class AlkSet extends AlkIterableValue {
 
     @Override
     public String toString() {
-        return set.toString();
+        String returnable = "{" ;
+        AlkValue act = new AlkBool(false);
+        Iterator it = set.iterator();
+        while (it.hasNext()) {
+            act = (AlkValue) it.next();
+            if (!it.hasNext()) break;
+            returnable = returnable + act.toString() + ", ";
+        }
+        if (set.size()>0)
+            returnable = returnable + act.toString();
+        return returnable + "}";
     }
 
     @Override
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_EQUAL_SET);
         AlkSet op = (AlkSet) operand;
@@ -108,5 +117,10 @@ public class AlkSet extends AlkIterableValue {
     @Override
     public Iterator<AlkValue> iterator() {
         return set.iterator();
+    }
+
+    @Override
+    public boolean has(AlkValue operand) {
+        return set.contains(operand);
     }
 }

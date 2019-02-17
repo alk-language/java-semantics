@@ -255,6 +255,8 @@ public class AlkException extends Exception {
     public final static String ERR_FUNCTION_REDEFINITION = "Another function with the same name and same number of parameters was already defined.";
     public final static String ERR_FUNCTION_UNDEFINED = "No function with this name and this number of parameters is defined.";
 
+    public final static String ERR_INVALID_CONVERSION = "The argument is invalid for the conversion.";
+
     public AlkException(String text)
     {
         super(text);

@@ -6,7 +6,6 @@ import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
-import impl.types.alkStructure.AlkStructure;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +30,7 @@ public class AlkArray extends AlkIterableValue {
     }
 
     @Override
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         if (!operand.type.equals("Array"))
             throw new AlkException(ERR_EQUAL_ARR);
         AlkArray op = (AlkArray) operand;
@@ -93,7 +92,14 @@ public class AlkArray extends AlkIterableValue {
 
     @Override
     public String toString() {
-        return array.toString();
+        String returnable = "[" ;
+        for (int i=0; i<array.size()-1; i++)
+        {
+            returnable = returnable + array.get(i).toString() + ", ";
+        }
+        if (array.size()>0)
+            returnable = returnable + array.get(array.size()-1);
+        return returnable + "]";
     }
 
     @Override

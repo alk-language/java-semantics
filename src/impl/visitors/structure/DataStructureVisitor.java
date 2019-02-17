@@ -34,7 +34,7 @@ public class DataStructureVisitor extends alkBaseVisitor {
             if (!x.type.equals("Int") || !y.type.equals("Int")) {
                 throw new AlkException(ERR_NOINT_INTERVAL);
             }
-            if (((AlkBool) (x.greater(y))).value) {
+            if ((x.greater(y)).value) {
                 throw new AlkException(ERR_LIMIT);
             }
         } catch (AlkException e) {

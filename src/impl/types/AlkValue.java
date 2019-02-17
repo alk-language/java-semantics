@@ -3,10 +3,8 @@ package impl.types;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.alkBool.AlkBool;
-import impl.types.alkInt.AlkInt;
 
 import static impl.exceptions.AlkException.*;
-import static impl.exceptions.InterpretorException.ERR_COMPARABLE;
 import static impl.exceptions.InterpretorException.ERR_HAS;
 
 
@@ -46,13 +44,13 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
     public abstract String toString();
 
     //LogicalOr operators
-    public AlkValue logicalOr(AlkValue operand) throws AlkException, InterpretorException
+    public AlkBool logicalOr(AlkValue operand) throws AlkException, InterpretorException
     {
         throw new AlkException(ERR_LOGICALOR);
     }
 
     //LogicalAnd operators
-    public AlkValue logicalAnd(AlkValue operand) throws AlkException, InterpretorException
+    public AlkBool logicalAnd(AlkValue operand) throws AlkException, InterpretorException
     {
         throw new AlkException(ERR_LOGICALAND);
     }
@@ -60,41 +58,36 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
     //In operators
     public AlkValue in(AlkValue operand) throws AlkException, InterpretorException
     {
-        if (!operand.isDataStructure)
+        if (!operand.isIterable)
             throw new AlkException(ERR_IN);
-        return new AlkBool(operand.has(this));
-    }
-
-    public boolean has(AlkValue operand) throws AlkException, InterpretorException
-    {
-        throw new InterpretorException(ERR_HAS);
+        return new AlkBool(((AlkIterableValue)operand).has(this));
     }
 
 
     //Equality operators
-    public abstract AlkValue equal(AlkValue operand) throws AlkException, InterpretorException; // sunt abstracte pentru a le putea ordona
+    public abstract AlkBool equal(AlkValue operand) throws AlkException, InterpretorException; // sunt abstracte pentru a le putea ordona
 
-    public AlkValue notequal(AlkValue operand) throws AlkException, InterpretorException
+    public AlkBool notequal(AlkValue operand) throws AlkException, InterpretorException
     {
-        throw new AlkException(ERR_NOTEQUAL);
+        return equal(operand).not();
     }
 
 
     //Relational operators
     public AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException
     {
-        throw new AlkException(ERR_LOWEREQ);
+        return lower(operand).logicalOr(equal(operand));
     }
 
     public abstract AlkBool lower(AlkValue operand) throws AlkException, InterpretorException;// sunt abstracte pentru a le putea ordona
 
     public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException
     {
-        throw new AlkException(ERR_GREATEREQ);
+        return lower(operand).not();
     }
     public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException
     {
-        throw new AlkException(ERR_GREATER);
+        return lowereq(operand).not();
     }
 
     //Set operators
@@ -178,7 +171,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
     {
         throw new AlkException(ERR_NEGATIVE);
     }
-    public AlkValue not() throws AlkException, InterpretorException
+    public AlkBool not() throws AlkException, InterpretorException
     {
         throw new AlkException(ERR_NOT);
     }

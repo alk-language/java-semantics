@@ -3,9 +3,7 @@ package impl.types.alkBool;
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
-import impl.types.alkArray.AlkArray;
 
-import static impl.exceptions.AlkException.ERR_EQUAL_SET;
 import static impl.exceptions.AlkException.ERR_LOWER_BOOL;
 
 public class AlkBool extends AlkValue {
@@ -17,24 +15,19 @@ public class AlkBool extends AlkValue {
         this.value = value;
     }
 
-    public AlkValue logicalOr(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool logicalOr(AlkValue operand) throws AlkException, InterpretorException {
         LogicalBoolHelper help = new LogicalBoolHelper(value);
         return help.logicalOr(operand);
     }
 
-    public AlkValue logicalAnd(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool logicalAnd(AlkValue operand) throws AlkException, InterpretorException {
         LogicalBoolHelper help = new LogicalBoolHelper(value);
         return help.logicalAnd(operand);
     }
 
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         EqualityBoolHelper help = new EqualityBoolHelper(value);
         return help.equal(operand);
-    }
-
-    public AlkValue notequal(AlkValue operand) throws AlkException, InterpretorException {
-        EqualityBoolHelper help = new EqualityBoolHelper(value);
-        return help.notequal(operand);
     }
 
     @Override
@@ -44,7 +37,7 @@ public class AlkBool extends AlkValue {
         return new AlkBool(!value);
     }
 
-    public AlkValue not() throws AlkException, InterpretorException {
+    public AlkBool not() throws AlkException, InterpretorException {
         UnaryBoolHelper help = new UnaryBoolHelper(value);
         return help.not();
     }

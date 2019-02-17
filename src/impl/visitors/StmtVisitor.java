@@ -70,6 +70,7 @@ public class StmtVisitor extends alkBaseVisitor {
     }
 
     @Override public Object visitReturnStmt(alkParser.ReturnStmtContext ctx) {
+        if (returnValue != null) return null;
         if (!inFunction)
         {
             AlkException e = new AlkException(ERR_RETURN);
@@ -91,7 +92,36 @@ public class StmtVisitor extends alkBaseVisitor {
     @Override public Object visitAssignmentStmt(alkParser.AssignmentStmtContext ctx) {
         if (returnValue != null) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AssignedVisitor asgnVisitor = new AssignedVisitor(env, (AlkValue) exprVisitor.visit(ctx.expression()));
+        ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
+        AlkValue right_side = ((AlkValue) exprVisitor.visit(ctx.expression())).clone();
+        if (ctx.ASSIGNMENT_OPERATOR().getText().equals("="))
+        {
+            AssignedVisitor asgnVisitor = new AssignedVisitor(env, right_side);
+            return asgnVisitor.visit(ctx.ref_name());
+        }
+        AlkValue left_side = ((AlkValue) referenceVisitor.visit(ctx.ref_name())).clone();
+        try {
+            switch (ctx.ASSIGNMENT_OPERATOR().getText())
+            {
+                case "+=": right_side = left_side.add(right_side); break;
+                case "-=": right_side = left_side.subtract(right_side); break;
+                case "*=": right_side = left_side.multiply(right_side); break;
+                case "/=": right_side = left_side.divide(right_side); break;
+                case "%=": right_side = left_side.mod(right_side); break;
+                case "<<=": right_side = left_side.shiftLeft(right_side); break;
+                case ">>=": right_side = left_side.shiftLeft(right_side); break;
+                case "|=": right_side = left_side.bitwiseOr(right_side); break;
+                case "&=": right_side = left_side.bitwiseAnd(right_side); break;
+                default: ;
+            }
+        } catch (InterpretorException e) {
+            e.printException(ctx.start.getLine());
+            return null;
+        } catch (AlkException e) {
+            e.printException(ctx.start.getLine());
+            return null;
+        }
+        AssignedVisitor asgnVisitor = new AssignedVisitor(env, right_side);
         return asgnVisitor.visit(ctx.ref_name());
     }
 

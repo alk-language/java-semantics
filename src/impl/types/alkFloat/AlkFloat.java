@@ -16,34 +16,14 @@ public class AlkFloat extends AlkValue {
         this.value = value;
     }
 
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         EqualityFloatHelper help = new EqualityFloatHelper(value);
         return help.equal(operand);
-    }
-
-    public AlkValue notequal(AlkValue operand) throws AlkException, InterpretorException {
-        EqualityFloatHelper help = new EqualityFloatHelper(value);
-        return help.notequal(operand);
-    }
-
-    public AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException {
-        RelationalFloatHelper help = new RelationalFloatHelper(value);
-        return help.lowereq(operand);
     }
 
     public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
         RelationalFloatHelper help = new RelationalFloatHelper(value);
         return help.lower(operand);
-    }
-
-    public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException {
-        RelationalFloatHelper help = new RelationalFloatHelper(value);
-        return help.greatereq(operand);
-    }
-
-    public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException {
-        RelationalFloatHelper help = new RelationalFloatHelper(value);
-        return help.greater(operand);
     }
 
 

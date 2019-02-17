@@ -1,4 +1,4 @@
-// Generated from /home/alex/work/java-semantics/script/../src/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /home/alex/work/Alk/script/../src/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 

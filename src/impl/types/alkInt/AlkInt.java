@@ -5,7 +5,6 @@ import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class AlkInt extends AlkValue {
@@ -29,33 +28,14 @@ public class AlkInt extends AlkValue {
         return this;
     }
 
-    public AlkValue equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
         EqualityIntHelper help = new EqualityIntHelper(value);
         return help.equal(operand);
-    }
-    public AlkValue notequal(AlkValue operand) throws AlkException, InterpretorException {
-        EqualityIntHelper help = new EqualityIntHelper(value);
-        return help.notequal(operand);
-    }
-
-    public AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException {
-        RelationalIntHelper help = new RelationalIntHelper(value);
-        return help.lowereq(operand);
     }
 
     public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
         RelationalIntHelper help = new RelationalIntHelper(value);
         return help.lower(operand);
-    }
-
-    public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException {
-        RelationalIntHelper help = new RelationalIntHelper(value);
-        return help.greatereq(operand);
-    }
-
-    public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException {
-        RelationalIntHelper help = new RelationalIntHelper(value);
-        return help.greater(operand);
     }
 
     public AlkValue bitwiseOr(AlkValue operand) throws AlkException, InterpretorException {

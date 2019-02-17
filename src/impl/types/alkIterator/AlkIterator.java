@@ -2,14 +2,11 @@ package impl.types.alkIterator;
 
 import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
-import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 import impl.types.alkList.AlkList;
 
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.ListIterator;
 
 import static impl.exceptions.AlkException.*;
@@ -25,12 +22,7 @@ public class AlkIterator extends AlkValue {
         this.value = value;
         this.father = father;
     }
-
-    @Override public AlkValue notequal(AlkValue operand) throws AlkException {
-        return new AlkBool(!((AlkBool)equal(operand)).value);
-    }
-
-    @Override public AlkValue equal(AlkValue operand) throws AlkException {
+    @Override public AlkBool equal(AlkValue operand) throws AlkException {
         if (!(operand.type.equals("Iterator")))
             throw new AlkException(ERR_NOTEQUAL_ITERATOR);
         AlkIterator it = (AlkIterator) operand;

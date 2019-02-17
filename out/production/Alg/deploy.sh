@@ -1,5 +1,5 @@
 #!/bin/bash
 
-jar cvfm $PWD/../../jar/deploy.jar/ manifest.txt .  
+jar cvfm $PWD/../../../jar/deploy.jar/ manifest.txt .  
 
 
