@@ -9,7 +9,10 @@
 
 \newtheorem*{todo}{TODO}
 
-\title{Alk Primer \medskip\\ \large (Draft)}
+\title{Alk Primer \medskip\\ [2ex]
+\large (Draft)\\[3ex]
+\large Java-Semantics Version
+}
 
 \author{Dorel Lucanu}
 
@@ -50,38 +53,39 @@ As a starting example we consider the Alk description of the Euclid algorithm:
 The algorithm is described using a C++-like notation. The name of the alghorithm is \texttt{gcd} and its input parameters are \texttt{a} and \texttt{b}. There is no need to declare the type of parameters and/or the type of the return value.
 In order to execute the \texttt{gcd} algorithm, just add a single line algorithm 
 \begin{verbatim}
-x = gcd(12, 8);
+print(gcd(12, 8));
 \end{verbatim}
-and execute it (gcd.alk is the file include the above code):
+and execute it ("gcd.alk" is the file including the above code):\footnote{In this document "alki" denotes one the two scripts running the Alk interpretes: "alki.bat" (for Windows platform), respectively "alki.sh" (for linux, Mac OS).}
 \begin{verbatim}
 > alki gcd.alk 
-    x |-> 4
+    4
 \end{verbatim}
-The output is the final configuration of the execution, that includes the values of the global variables (here {\tt x}).
+%The output is the final configuration of the execution, that includes the values of the global variables (here {\tt x}).
 An alternative is to write a general call of the algorithm
 \begin{verbatim}
-x = gcd(u, v);
+print(gcd(u, v));
 \end{verbatim}
-and execute it by mentioning the initial values of the global variables {\tt u} and {\tt v}:
+and mention the initial values of the global variables {\tt u} and {\tt v} in an input file, say "gcd.in":
 \begin{verbatim}
-> alki gcd.alk --init="u |-> 42 v |-> 56"
-The state from the final configuration:
-    u |-> 42
-    v |-> 56
-    x |-> 14
+u |-> 42 v |-> 56
+\end{verbatim}
+The input file is given as a parameter of the command line:
+\begin{verbatim}
+> alki gcd.alk gcd.in
+ 14
 \end{verbatim}
 
 A more complex algorithm is the DFS traversal of a digraph represented with external adjacent lists:
 \begin{verbatim}
-dfsRec(i, out S) {
+dfsRec(D, i, out S) {
   if (S[i] == 0) {
     // visit i
     S[i] = 1;
-    p = (D.a)[i];
+    p = D.a[i];
     while (p.size() > 0) {
       j = p.topFront();
       p.popFront();
-      dfsRec(j, S);
+      dfsRec(D, j, S);
     }
   }
 }
@@ -93,59 +97,59 @@ dfs(D, i0) {
     S[i] = 0;
     i = i + 1;
   }
-  dfsRec(i0, S);
+  dfsRec(D, i0, S);
   return S;
 }
-reached = dfs(D, i0);
+print(dfs(D, i0));
 \end{verbatim}
-The execution of the above algorithm on the digraph:
+To execute the above algorithm on the digraph:
 \begin{align*}
 &D.n = 3,\\
 &D.a[0] = \langle 1,2\rangle\\
 &D.a[1] = \langle2, 0\rangle\\
 &D.a[2] = \langle0\rangle
 \end{align*}
-is obtained as follows:
+create a file "dfs.in" with the following  contents:
 \begin{verbatim}
-> alki dfsrec.alk  --init="D |-> { n -> 3
-                          a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] }
-                          i0 |-> 1"
-The state from the final configuration:
-    D |-> { (n -> 3) (a -> ([ (< 1, 2 >), (< 2, 0 >), (< 0 >) ])) }
-    i0 |-> 1
-    reached |-> [ 1, 1, 1 ]
+D |-> { n -> 3
+        a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] }
+        i0 |-> 1
+\end{verbatim}
+and then execute the algorithm with this input:
+\begin{verbatim}
+> alki dfsrec.alk dfs.in
+[1, 1, 1]
 \end{verbatim}
 
-\begin{todo}
-Write a Perl prototype for the {\tt alk} tool.
-\end{todo}
 
-\section{Executing Alk Algorithms with Java Tools}
-
-TO BE UPDATED
-
-\begin{verbatim}
-> alki gcd.alk 
-State:
-    x |-> 4
-\end{verbatim}
-Notice that the output is also simplified. A non-empty initial state is specified as follows:
-\begin{verbatim}
-> alki dfsrec.alk  --init="D |-> { n -> 3
-                           a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] }
-                           i0 |-> 1"
-State:
-
-    D |-> { (n -> 3) (a -> ([ (< 1, 2 >), (< 2, 0 >), (< 0 >) ])) }
-    i0 |-> 1
-    reached |-> [ 1, 1, 1 ]
-\end{verbatim}
+%\section{Executing Alk Algorithms with Java Tools}
+%
+%TO BE UPDATED
+%
+%\begin{verbatim}
+%> alki gcd.alk 
+%State:
+%    x |-> 4
+%\end{verbatim}
+%Notice that the output is also simplified. A non-empty initial state is specified as follows:
+%\begin{verbatim}
+%> alki dfsrec.alk  --init="D |-> { n -> 3
+%                           a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] }
+%                           i0 |-> 1"
+%State:
+%
+%    D |-> { (n -> 3) (a -> ([ (< 1, 2 >), (< 2, 0 >), (< 0 >) ])) }
+%    i0 |-> 1
+%    reached |-> [ 1, 1, 1 ]
+%\end{verbatim}
 
 \begin{remark}
 This is a in progress document that is incrementally updated.
 \end{remark}
 
 \chapter{Language Description}
+
+The examples used in this manual can be found in the folder "doc/examples-from-manual".
 
 \section{Variables and their Values}
 
@@ -165,14 +169,14 @@ isEven = true;
 radius = 21.468;
 name = "john";
 \end{verbatim}
-The execution of the above algorithm produces the following output:
+The execution of the above algorithm produces an output as expected:
 \begin{verbatim}
-    index |-> 234
-    isEven |-> true
-    radius |-> 2.1468e+01
-    name |-> "john"
+234
+true
+21.468
+john
 \end{verbatim}
-Note that for the floating point numbers the scientific notation is used.
+
 
 \subsection{Arrays}
 
@@ -189,14 +193,16 @@ a = [3, 5, 6, 4];
 i = 1;
 x = a[i];
 a[i+1] = x;
+print(x);
+print(a);
 \end{verbatim}
 \end{minipage}
 &
 \begin{minipage}{.3\textwidth}
 \begin{verbatim}
-    a |-> [ 3, 5, 5, 4 ]
-    i |-> 1
-    x |-> 5
+> alki arrays.alk
+5
+[3, 5, 5, 4]
 \end{verbatim}
 \end{minipage}
 \end{tabular}
@@ -208,22 +214,25 @@ b = a[1];
 c = a[1][2];
 a[0] = b;
 a[1][1] = 89;
-
+print(a); // [[4, 5, 6], [4, 89, 6]]
 w = [ [ [ 1, 2], [ 3, 4 ] ], [ [ 5, 6 ], [ 7, 8 ] ] ];
 x = w[1];
 y = w[1][0];
 z = w[1][0][1];
 w[0][1][0] = 99;
+print(x); // [[5, 6], [7, 8]]
+print(y); // [5, 6]
+print(z); // 6
+print(w); // [[[1, 2], [99, 4]], [[5, 6], [7, 8]]]
 \end{verbatim}
-The output:
+The output is indeed the expected one:
 \begin{verbatim}
-    a |-> [ ([ 4, 5, 6 ]), ([ 4, 89, 6 ]) ]
-    b |-> ([ 4, 5, 6 ])
-    c |-> 6
-    w |-> [ ([ ([ 1, 2 ]), ([ 99, 4 ]) ]), ([ ([ 5, 6 ]), ([ 7, 8 ]) ]) ]
-    x |-> ([ ([ 5, 6 ]), ([ 7, 8 ]) ])
-    y |-> ([ 5, 6 ])
-    z |-> 6
+>  alki arraysofarrays.alk
+[[4, 5, 6], [4, 89, 6]]
+[[5, 6], [7, 8]]
+[5, 6]
+6
+[[[1, 2], [99, 4]], [[5, 6], [7, 8]]]
 \end{verbatim}
 
 \subsection{Sequences (linear lists)}
@@ -235,7 +244,7 @@ The list of operations over sequences includes:
 \hline
 \texttt{emptyList()}
 &
-returns the empty list $\angle\,\rangle$\\
+returns the empty list $\langle\,\rangle$\\
 \hline
 $L$\texttt{.topFront()}
 &
@@ -253,9 +262,13 @@ $L$\texttt{.insert($i$,$x$)}
 &
 returns $\langle\ldots v_{i-1},x,v_i,\ldots\rangle$\\
 \hline
-$L$\texttt{.remove($i$,$x$)}
+$L$\texttt{.removeAt($i$)}
 &
 returns $\langle\ldots v_{i-1},v_{i+1},\ldots\rangle$\\
+\hline
+$L$\texttt{.removeAllEqTo($x$)}
+&
+returns $L$, where all elements $v_i$ equal to $x$ were removed\\
 \hline
 $L$\texttt{.size()}
 &
@@ -289,28 +302,34 @@ Example:
 Algorithm & Output\\
 \hline
 \\
-\begin{minipage}{.35\textwidth}
+\begin{minipage}{.55\textwidth}
 \begin{verbatim}
 ll = < 8, 3, 9, 4, 5, 4 >;
 i = 1;
 x = ll.at(i + 1);
 y = ll.topFront();
+print(x);  // 9
+print(y);  // 8
 ll.insert(2, 22);
 ll.update(3, 33);
+print(ll); // < 8, 3, 22, 33, 4, 5, 4 >
 l2 = ll;
 l2.removeAt(0);
 l2.removeAt(3);
+print(l2); // < 3, 22, 33, 5, 4 >
 l2.removeAllEqTo(4);
+print(l2); // < 3, 22, 33, 5 >
 \end{verbatim}
 \end{minipage}
 &
-\begin{minipage}{.55\textwidth}
+\begin{minipage}{.45\textwidth}
 \begin{verbatim}
-    i |-> 1
-    l2 |-> < 3, 22, 33, 5 >
-    ll |-> < 8, 3, 22, 33, 4, 5, 4 >
-    x |-> 9
-    y |-> 8
+> alki seq.alk 
+9
+8
+[8, 3, 22, 33, 4, 5, 4]
+[3, 22, 33, 5, 4]
+[3, 22, 33, 5]
 \end{verbatim}
 \end{minipage}
 \end{tabular}
