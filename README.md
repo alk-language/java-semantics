@@ -1,7 +1,7 @@
 # Downloading and Running the Interpreter
 
 1. Be sure you have installed the latest version of Java. Alk interpreter works now on Java 1.8.
-2. Download and compile the Java interpreter of Alk:
+2. Download the Java interpreter of Alk:
 * if you have git on your system, then the best is to make a clone of the K definition of alk from https://github.com/alk-language/java-semantics
 * otherwise, you may download a zip archive from https://github.com/alk-language/java-semantics/archive/master.zip (Clone or download button);
 3. Test the Alk interpreter:
