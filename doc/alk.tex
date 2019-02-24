@@ -55,7 +55,7 @@ In order to execute the \texttt{gcd} algorithm, just add a single line algorithm
 \begin{verbatim}
 print(gcd(12, 8));
 \end{verbatim}
-and execute it ("gcd.alk" is the file including the above code):\footnote{In this document "alki" denotes one the two scripts running the Alk interpretes: "alki.bat" (for Windows platform), respectively "alki.sh" (for linux, Mac OS).}
+and execute it ("gcd.alk" is the file including the above code):\footnote{In this document "alki" denotes one of the two scripts running the Alk interpretes: "alki.bat" (for Windows platform), respectively "alki.sh" (for linux, Mac OS).}
 \begin{verbatim}
 > alki gcd.alk 
     4
@@ -65,11 +65,16 @@ An alternative is to write a general call of the algorithm
 \begin{verbatim}
 print(gcd(u, v));
 \end{verbatim}
-and mention the initial values of the global variables {\tt u} and {\tt v} in an input file, say "gcd.in":
+and mention the initial values of the global variables {\tt u} and {\tt v} in the command line
+\begin{verbatim}
+> alki gcd.alk "u |-> 28 v |-> 35"
+7
+\end{verbatim}
+or in an input file, say "gcd.in":
 \begin{verbatim}
 u |-> 42 v |-> 56
 \end{verbatim}
-The input file is given as a parameter of the command line:
+and give it as a parameter of the command line:
 \begin{verbatim}
 > alki gcd.alk gcd.in
  14
