@@ -18,4 +18,9 @@ public class PrefixIntHelper {
     {
         return new AlkInt(value);
     }
+
+    AlkValue minusminusleft() throws AlkException, InterpretorException
+    {
+        return new AlkInt(value);
+    }
 }

@@ -193,6 +193,7 @@ method_name :
     | POPFRONT
     | PUSHBACK
     | PUSHFRONT
+    | RANDOM
     | REMOVE
     | REMOVEALLEQTO
     | REMOVEAT

@@ -1,9 +1,13 @@
-p = 3;
-q = 9;
-a = [ i | i in p .. q ];
-p = 2;
-b = [ a[i] | i in p .. p+3 ];
-l = < b[i] * 2 | i in p-2 .. p >;
-print(a);
-print(b);
-print(l);
+
+isPrime(x) {
+  if (x < 2) return false;
+  for (i= 2; i*i <= x; ++i)
+  {
+    if (x % i == 0) return false;
+  }
+  return true;
+}
+
+
+p=1;
+print(isPrime(2147483647));

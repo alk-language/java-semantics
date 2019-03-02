@@ -102,12 +102,6 @@ public class ReferenceVisitor extends alkBaseVisitor {
             ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
             params.add(((AlkValue)expressionVisitor.visit(ctx.expression(i))).clone());
         }
-        if (!builtin_methods_name.contains(name)) // metodele vor fi considerate doar cele builtin momentan
-        {
-            InterpretorException e = new InterpretorException(ERR_PARAMS_UNDECLARED);
-            e.printException(ctx.start.getLine());
-            return new AlkBool(false);
-        }
         try{
             switch (name)
             {
@@ -134,6 +128,7 @@ public class ReferenceVisitor extends alkBaseVisitor {
                 case "topBack": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.topBack(); break;
                 case "topFront": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.topFront(); break;
                 case "update": if (params.size()!=2) throw new AlkException(ERR_PARAM_NUMBER); value = value.update(params.get(0), params.get(1)); break;
+                default: throw new AlkException(ERR_METHOD);
             }
         } catch (AlkException e)
         {

@@ -7,6 +7,7 @@ import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkIterator.AlkIterator;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -152,5 +153,13 @@ public class AlkList extends AlkIterableValue {
     @Override
     public boolean has(AlkValue operand) {
         return list.contains(operand);
+    }
+
+    @Override
+    public ArrayList toArray() {
+        ArrayList ar = new ArrayList();
+        for (AlkValue i : list)
+            ar.add(i);
+        return ar;
     }
 }

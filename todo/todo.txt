@@ -1,14 +1,4 @@
-- specificatiile: un al treilea parametru nu ar trebui sa fie doar intervale
-- erorile pentru expresii - de adaugat AlkNotAValue (la expresii)
-- de scos interpretorException (inlocuit cu erori default pe tipuri necunoscute) (in expresii cel putin) ----- inca de gandit
-- erorile la compareTo in AlkValue (momentan apar la linia 0) ------------> de scris si operanzii
-- de reimplementat <= < > >= == != cu ajutorul a doar doi operatori, < si ==
-- operatii de tip %= /= *= += -=
-- de facut functii convertoare (int -> float, float -> int)
-- de adaugat erori la unmodifiable values stanga
-- la functii exista o ambiguitate : ref_name cu function call fara brackets == function_call ca si factor : rezolvarea ar fi eliminarea function_call factor ori refacerea referintelor pentru a intra doar metode
-deci fara functii in prima componenta
-- de pus choose/rand
-- de iterat cu [] in liste
-- insert si delete la iteratori (delete este facut)
-- break/continue
+- Specs (expresii boolene ca argument) : s = {x in A | x%2==0};
+- Scripturile
+- Choose exhaustiv
+- ++ -- de reglat

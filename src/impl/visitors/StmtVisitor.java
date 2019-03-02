@@ -12,6 +12,7 @@ import impl.types.AlkValue;
 import impl.types.alkNotAValue.AlkNotAValue;
 import impl.visitors.expression.ExpressionVisitor;
 import impl.visitors.function.FunctionCallVisitor;
+import impl.visitors.function.NonDeterministic;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -282,6 +283,37 @@ public class StmtVisitor extends alkBaseVisitor {
             value.minusminusleft();
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
+        }
+        return null;
+    }
+
+
+
+    @Override public Object visitChooseStmt(alkParser.ChooseStmtContext ctx) {
+        if (returnValue != null) return null;
+        ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
+        AlkValue struct = (AlkValue)expressionVisitor.visit(ctx.expression(0));
+        if (!struct.isIterable)
+        {
+            AlkException e = new AlkException(ERR_CHOOSE_NOT_ITERABLE);
+            e.printException(ctx.start.getLine());
+        }
+        AlkIterableValue val = (AlkIterableValue) struct;
+
+        if (ctx.SOTHAT()==null)
+        {
+            AlkValue value = NonDeterministic.choose(val);
+            env.update(ctx.ID().getText(), value.clone());
+        }
+        else
+        {
+            AlkValue value = null;
+            try {
+                value = NonDeterministic.chooseST(ctx.ID().getText(), val, ctx.expression(1), env);
+            } catch (AlkException e) {
+                e.printException(ctx.start.getLine());
+            }
+            env.update(ctx.ID().getText(), value.clone());
         }
         return null;
     }

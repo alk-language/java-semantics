@@ -1,8 +1,2 @@
-- Solved a bug in which a return statement was not skipped if another return statement was previously used
-- Solved a bug in which methods like pushBack/pushFront were pushing referances instead of values
-- Reworked on relational and equality operators (kept only == and < as mandatory operators)
-- Added the builtin function: singletonSet(X)
-- Added the compound operators: += -= *= /= %= <<= >>= &= |=
-- Added converting functions: int(X), float(X)
-- Reformated the printing of structures, lists, arrays and sets
-
+- Fixed a bug in which you could use int/float/print as built-in methods, insted of built-in functions
+- Added random(X): generate a random lower than X

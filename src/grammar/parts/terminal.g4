@@ -67,6 +67,7 @@ TOPFRONT : 'topFront';
 UPDATE : 'update';
 
 RANDOM : 'random';
+SOTHAT : 's.t.';
 
 //Structure
 ARROW : '->';

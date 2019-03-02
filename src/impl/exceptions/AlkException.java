@@ -257,6 +257,17 @@ public class AlkException extends Exception {
 
     public final static String ERR_INVALID_CONVERSION = "The argument is invalid for the conversion.";
 
+    public final static String ERR_METHOD = "There is no method with such name.";
+
+    public final static String ERR_RANDOM = "There is no method with such name.";
+
+    public final static String ERR_RANDOM_INT = "The paramteter of the random function needs to be an integer.";
+    public final static String ERR_RANDOM_TOO_BIG = "The paramteter of the random function is too big";
+
+    public final static String ERR_CHOOSE_NOT_ITERABLE = "The structure of the choose must be an iterable.";
+    public final static String ERR_CHOSE_ST_BOOL = "The condition in choose must be boolean.";
+    public final static String ERR_CHOSE_RESULT = "Choose can't find any suitable value.";
+
     public AlkException(String text)
     {
         super(text);
