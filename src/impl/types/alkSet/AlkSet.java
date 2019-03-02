@@ -7,6 +7,7 @@ import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -122,5 +123,13 @@ public class AlkSet extends AlkIterableValue {
     @Override
     public boolean has(AlkValue operand) {
         return set.contains(operand);
+    }
+
+    @Override
+    public ArrayList toArray() {
+        ArrayList ans = new ArrayList();
+        for (AlkValue i : set)
+            ans.add(i);
+        return ans;
     }
 }

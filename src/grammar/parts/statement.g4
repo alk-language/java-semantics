@@ -41,7 +41,7 @@ statement_block
 ;
 
 choose:
-    CHOOSE ID IN expression
+    CHOOSE ID IN expression (SOTHAT expression)?                                                                        #ChooseStmt
 ;
 
 increase_decrease

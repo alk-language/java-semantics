@@ -98,6 +98,11 @@ public class AlkInt extends AlkValue {
         return help.negative();
     }
 
+    public AlkValue minusminusleft() throws AlkException {
+        value = value.subtract(new BigInteger(String.valueOf(1)));
+        return this;
+    }
+
     @Override
     public AlkValue clone() {
         return new AlkInt(value);

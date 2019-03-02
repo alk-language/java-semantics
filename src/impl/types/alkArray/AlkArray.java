@@ -79,6 +79,11 @@ public class AlkArray extends AlkIterableValue {
     }
 
     @Override
+    public ArrayList toArray() {
+        return (ArrayList) array.clone();
+    }
+
+    @Override
     public AlkValue bracket(int operand) throws AlkException {
         return get(operand);
     }

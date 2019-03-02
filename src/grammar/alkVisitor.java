@@ -138,11 +138,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(alkParser.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#choose}.
+	 * Visit a parse tree produced by the {@code ChooseStmt}
+	 * labeled alternative in {@link alkParser#choose}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitChoose(alkParser.ChooseContext ctx);
+	T visitChooseStmt(alkParser.ChooseStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PlusPlusStmt}
 	 * labeled alternative in {@link alkParser#increase_decrease}.
