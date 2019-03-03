@@ -3,6 +3,7 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{url}
+\usepackage{color}
 
 
 \newtheorem*{remark}{Remark}
@@ -808,132 +809,148 @@ Examples:
 
 Syntax: {\it Stmt}~{\it Stmt}
 
-%\section{Statements for Nondeterministic Algorithms}
-%
-%\subsection{\texttt{choose}}
-%
-%Syntax:  \verb"choose" {\it Id} \verb"in" {\it Exp} \verb";"  \quad 2) \verb"choose" Id \verb"in" {\it Exp} \verb"s.t." {\it Exp} \verb";"    
-%
-%Example 1:
-%\begin{center}
-%\begin{tabular}{ll}
-%Algorithm & Output\\
-%\hline
-%\\
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%choose x1 in { 1 .. 5 };
-%choose x2 in { 1 .. 5 };
-%\end{verbatim}
-%\end{minipage}
-%&
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%    x1 |-> 3
-%    x2 |-> 1
-%\end{verbatim}
-%\end{minipage}
-%\end{tabular}
-%\end{center}
-%
-%Example 2:
-%\begin{center}
-%\begin{tabular}{ll}
-%Algorithm & Output\\
-%\hline
-%\\
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%odd(x) {
-%  return x % 2 == 1;
-%}
-%
-%choose x1 in { 1 .. 5 } s.t. odd(x1);
-%choose x2 in { 1 .. 5 } s.t. odd(x2);
-%\end{verbatim}
-%\end{minipage}
-%&
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%    x1 |-> 5
-%    x2 |-> 3
-%\end{verbatim}
-%\end{minipage}
-%\end{tabular}
-%\end{center}
-%
-%
-%\subsection{\texttt{success}}
-%
-%Syntax: \verb"success" \verb";"
-%
-%Example:
-%\begin{center}
-%\begin{tabular}{ll}
-%Algorithm & Output\\
-%\hline
-%\\
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%odd(x) {
-%  return x % 2 == 1;
-%}
-%
-%choose a in { 1 .. 8 };
-%if (odd(a)) success;
-%\end{verbatim}
-%\end{minipage}
-%&
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%<k>
-%    success ;
-%</k>
-%<state>
-%    a |-> 7
-%</state>
-%\end{verbatim}
-%\end{minipage}
-%\end{tabular}
-%\end{center}
-%
-%\subsection{\texttt{failure}}
-%
-%Syntax: \verb"failure" \verb";"
-%
-%Example:
-%\begin{center}
-%\begin{tabular}{ll}
-%Algorithm & Output\\
-%\hline
-%\\
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%odd(x) {
-%  return x % 2 == 1;
-%}
-%
-%s = emptySet;
-%for (i = 0; i < 8; i = i+2)
-%  s.pushBack(i);
-%choose x in s s.t. odd(x);
-%\end{verbatim}
-%\end{minipage}
-%&
-%\begin{minipage}{.45\textwidth}
-%\begin{verbatim}
-%<k>
-%    failure ;
-%</k>
-%<state>
-%    i |-> 8
-%    s |-> { 0, 2, 4, 6 }
-%    x |-> 6
-%</state>
-%\end{verbatim}
-%\end{minipage}
-%\end{tabular}
-%\end{center}
+\section{Statements for Nondeterministic Algorithms}
+
+\subsection{\texttt{choose}}
+
+Syntax:  \verb"choose" {\it Id} \verb"in" {\it Exp} \verb";"  \quad 2) \verb"choose" Id \verb"in" {\it Exp} \verb"s.t." {\it Exp} \verb";"    
+
+Example 1:
+\begin{center}
+\begin{tabular}{ll}
+Algorithm & Output\\
+\hline
+\\
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+choose x1 in { 1 .. 5 };
+choose x2 in { 1 .. 5 };
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+    x1 |-> 3
+    x2 |-> 1
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+\end{center}
+
+Example 2:
+\begin{center}
+\begin{tabular}{ll}
+Algorithm & Output\\
+\hline
+\\
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+odd(x) {
+  return x % 2 == 1;
+}
+
+choose x1 in { 1 .. 5 } s.t. odd(x1);
+choose x2 in { 1 .. 5 } s.t. odd(x2);
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+    x1 |-> 5
+    x2 |-> 3
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+\end{center}
+
+Example 3:
+\begin{center}
+\begin{tabular}{ll}
+Algorithm & Output\\
+\hline
+\\
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+choose x8 in { 1 .. 5 } s.t. x8 > 6;
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+Error at line 14: Choose can't find any 
+suitable value.
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+\end{center}
+
+
+\subsection{\texttt{success}}
+
+\textcolor{red}{TO BE REVISED. For now replace \texttt{success;} with \texttt{print("success");}}
+
+Syntax: \verb"success" \verb";"
+
+Example:
+\begin{center}
+\begin{tabular}{ll}
+Algorithm & Output\\
+\hline
+\\
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+odd(x) {
+  return x % 2 == 1;
+}
+
+choose x in { 1 .. 8 };
+if (odd(x)) print("success");
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+> alki success.alk 
+success
+x |-> 5
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+\end{center}
+
+\subsection{\texttt{failure}}
+
+\textcolor{red}{TO BE REVISED. For now replace \texttt{failure;} with \texttt{print("failure");}}
+
+Syntax: \verb"failure" \verb";"
+
+Example:
+\begin{center}
+\begin{tabular}{ll}
+Algorithm & Output\\
+\hline
+\\
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+odd(x) {
+  return x % 2 == 1;
+}
+
+choose x in { 1 .. 8 };
+if (odd(x)) print("success");
+else print("failure");
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}{.45\textwidth}
+\begin{verbatim}
+> alki success.alk 
+failure
+x |-> 8
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+\end{center}
 
 \section{Functions/Procedures Describing Algorithms}
 

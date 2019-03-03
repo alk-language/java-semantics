@@ -1,0 +1,25 @@
+CB(n)
+{
+  i = random(n-1) + 1;
+  s1 = float(i) / float(n);
+  s2 = float(n - i) / float(n);
+  if (s1 > s2 ) return s1; 
+  return s2;
+/*
+  if (i > n - i) return i;
+  return n - i;
+*/
+}
+
+exp (n) {
+  sum = 0;
+  for (j = 0; j < n; ++j)
+    sum = sum + CB(31);
+  return sum / float(n);
+}
+
+print(exp(n));
+
+/*
+alki choc-bar.alk "n |-> 100"
+*/
