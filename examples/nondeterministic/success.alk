@@ -1,0 +1,7 @@
+odd(x) {
+  return x % 2 == 1;
+}
+
+choose x in { 1 .. 8 };
+if (odd(x)) print("success");
+else print("failure");
