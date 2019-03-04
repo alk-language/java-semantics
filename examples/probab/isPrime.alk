@@ -15,7 +15,7 @@ isPrime2(x) {
   return true;
 }
 
-//print(isPrime1(2147483647));
+print(isPrime1(2147483647));
 /*
 $ time alki.sh isPrime.alk 
 ^C
@@ -32,7 +32,7 @@ real	0m3.562s
 user	0m6.173s
 sys	0m0.273s
 */
-print(isPrime1(457241));
+//print(isPrime1(457241));
 /*
 $ time alki.sh isPrime.alk 
 true
