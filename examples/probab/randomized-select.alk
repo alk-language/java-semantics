@@ -15,7 +15,7 @@ partition(out a, p, q)
   pivot = a[q]; 
   i = p - 1;    
   for (j = p; j < q; ++j)
-    if (a[j] <= pivot) {
+    if (a[j] < pivot) {
         i = i + 1;
         swap(a, i , j);
     }
@@ -23,16 +23,16 @@ partition(out a, p, q)
   return i + 1;
 }
 
-/*
-a = [3, 2, 5, 4, 7, 1, 8, 6];
-k1 = partition(a,0, 7);
 
-a = [3, 2, 5, 4, 7, 1, 6, 8];
-k2 = partition(a,0, 7);
+a1 = [3, 2, 5, 4, 7, 1, 8, 6];
+k1 = partition(a1,0, 7);
 
-a = [3, 2, 5, 4, 7, 6, 8, 1];
-k3 = partition(a,0, 7);
-*/
+a2 = [3, 2, 5, 4, 7, 1, 6, 8];
+k2 = partition(a2,0, 7);
+
+a3 = [3, 2, 5, 4, 7, 6, 8, 1];
+k3 = partition(a3,0, 7);
+
 
 /*
   randomized partition
@@ -65,6 +65,7 @@ randSelect(out a, k)
 {
   return randSelectRec(a, 0, a.size()-1, k);
 }
-
+/*
 a = [3, 2, 5, 4, 7, 1, 8, 6];
 k4 = randSelect(a, 4);
+*/
