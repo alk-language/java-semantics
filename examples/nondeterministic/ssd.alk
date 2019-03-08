@@ -15,7 +15,7 @@ for(i = 0; i < k-1; ++i) {
 }
 /* try to choose the k-th element, if needed */
 if (PM != M)
-  choose x in S s.t. PM == M;
+  choose x in S s.t. PM + x == M;
 /*
 
 alki ssd.alk "S |-> {1, 3, 4, 7, 9}  M |-> 14"
