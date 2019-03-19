@@ -4,6 +4,7 @@ import impl.exceptions.AlkException;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
+import impl.types.alkInt.AlkInt;
 
 public class AlkString extends AlkValue {
 
@@ -40,6 +41,18 @@ public class AlkString extends AlkValue {
     public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException {
         RelationalStringHelper help = new RelationalStringHelper(value);
         return help.greater(operand);
+    }
+
+
+    public AlkInt len() throws AlkException {
+        return new AlkInt(value.length());
+    }
+
+    @Override
+    public AlkString add(AlkValue operand) throws AlkException {
+        if (!operand.type.equals("String"))
+            throw new AlkException(AlkException.ERR_ADD_STRING);
+        return new AlkString(value + ((AlkString)operand).value);
     }
 
     @Override

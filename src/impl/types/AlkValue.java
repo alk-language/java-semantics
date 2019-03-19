@@ -227,6 +227,10 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
         throw new AlkException(ERR_INSERT);
     }
 
+    public AlkValue len() throws AlkException {
+        throw new AlkException(ERR_LEN);
+    }
+
     public AlkValue popBack() throws AlkException {
         throw new AlkException(ERR_POPBACK);
     }
