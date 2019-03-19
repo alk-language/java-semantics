@@ -116,6 +116,8 @@ public class AlkException extends Exception {
 
     public final static String ERR_IN = "The values of the operands are not valid in this type of expression (in)";
 
+    public final static String ERR_LEN = "Len can't be used with such data type.";
+
     public final static String ERR_EQUAL = "The values of the operands are not valid in this equality (==) expression";
     public final static String ERR_NOTEQUAL = "The values of the operands are not valid in this equality (!=) expression";
 
@@ -205,6 +207,7 @@ public class AlkException extends Exception {
     public final static String ERR_ITERATOR_IS_END = "Iterator is at the end or invalid.";
 
     public final static String ERR_FORALL_ITERABLE_REQUIRED = "The forall structure must have an iterable value as right operand.";
+    public final static String ERR_SPEC_ITERABLE_REQUIRED = "A specification must have an iterable value as source of values.";
 
     public final static String ERR_NOT_HOMOGENEOUS = "The set can't be made on objects of different types.";
 
@@ -267,6 +270,16 @@ public class AlkException extends Exception {
     public final static String ERR_CHOOSE_NOT_ITERABLE = "The structure of the choose must be an iterable.";
     public final static String ERR_CHOSE_ST_BOOL = "The condition in choose must be boolean.";
     public final static String ERR_CHOSE_RESULT = "Choose can't find any suitable value.";
+
+    public final static String ERR_UNIFORM_RESULT = "Uniform can't find any value.";
+
+
+    public final static String ERR_UNIFORM_NOT_ITERABLE = "The structure of the uniform must be an iterable.";
+
+
+    public final static String ERR_MATH_INT_OR_DOUBLE = "The parameter of a mathematical function must be numeric.";
+
+    public final static String ERR_SPEC_BOOL = "The expression checking validity in specification must be bool.";
 
     public AlkException(String text)
     {

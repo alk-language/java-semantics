@@ -300,6 +300,12 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         AlkIterableValue val = (AlkIterableValue) struct;
 
+        if (val.toArray().size()==0)
+        {
+            AlkException e = new AlkException(ERR_CHOSE_RESULT);
+            e.printException(ctx.start.getLine());
+        }
+
         if (ctx.SOTHAT()==null)
         {
             AlkValue value = NonDeterministic.choose(val);
@@ -317,6 +323,31 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         return null;
     }
+
+
+
+    @Override public Object visitUniformStmt(alkParser.UniformStmtContext ctx) {
+        if (returnValue != null) return null;
+        ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
+        AlkValue struct = (AlkValue)expressionVisitor.visit(ctx.expression());
+        if (!struct.isIterable)
+        {
+            AlkException e = new AlkException(ERR_UNIFORM_NOT_ITERABLE);
+            e.printException(ctx.start.getLine());
+        }
+        AlkIterableValue val = (AlkIterableValue) struct;
+
+        if (val.toArray().size()==0)
+        {
+            AlkException e = new AlkException(ERR_UNIFORM_RESULT);
+            e.printException(ctx.start.getLine());
+        }
+
+        AlkValue value = NonDeterministic.choose(val);
+        env.update(ctx.ID().getText(), value.clone());
+        return null;
+    }
+
 
 
 

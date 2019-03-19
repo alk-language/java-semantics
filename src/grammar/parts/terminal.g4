@@ -31,6 +31,7 @@ FORALL : 'forall';
 IN : 'in';
 OUT : 'out';
 CHOOSE : 'choose';
+UNIFORM : 'uniform';
 RETURN : 'return';
 SUCCESS : 'success';
 FAILURE : 'failure';
@@ -41,6 +42,22 @@ EMPTYLIST : 'emptyList';
 MODIFIES : 'modifies';
 
 XOR : 'xor';
+
+//Math Functions
+ABS : 'abs';
+ACOS : 'acos';
+ASIN : 'asin';
+ATAN : 'atan';
+COS : 'cos';
+LOG : 'log';
+PI : 'pi';
+POW : 'pow';
+SIN : 'sin';
+SQRT : 'sqrt';
+TAN : 'tan';
+
+//String Functions
+LEN : 'len';
 
 //Builtin Functions
 AT : 'at';

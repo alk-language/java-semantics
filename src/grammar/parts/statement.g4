@@ -18,9 +18,10 @@ statement //statement
     | function_decl                                                                                                     #ToFunctionDecl
     | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
 
-    | choose SEMICOLON                                         #ChooseStm
-    | SUCCESS SEMICOLON                                        #Success
-    | FAILURE SEMICOLON                                        #Failure
+    | choose SEMICOLON                                                                                                  #ChooseStm
+    | uniform SEMICOLON                                                                                                 #UniformStm
+    | SUCCESS SEMICOLON                                                                                                 #Success
+    | FAILURE SEMICOLON                                                                                                 #Failure
 
     // de adaugat break, continue
 
@@ -39,6 +40,11 @@ statement_block
 :
     LCB statement_sequence RCB                                                                                          #Block
 ;
+
+uniform:
+    UNIFORM ID IN expression                                                                                            #UniformStmt
+;
+
 
 choose:
     CHOOSE ID IN expression (SOTHAT expression)?                                                                        #ChooseStmt

@@ -129,7 +129,7 @@ interval:
 
 //Spec
 spec:
-    expression VBAR ID IN interval                                                                                      #SpecDefinition
+    ID IN expression VBAR expression                                                                                    #SpecDefinition
 ;
 
 //Arrays
@@ -180,25 +180,39 @@ builtin_method
     method_name LPAR (expression (COMMA expression)*)? RPAR                                                             #BuiltinMethod
 ;
 
+
+//Also builtin function names
 method_name :
-    AT
+    ABS
+    | ASIN
+    | ACOS
+    | ATAN
+    | AT
+    | COS
     | DELETE
     | END
     | FIRST
     | FLOAT
     | INSERT
     | INTEGER
+    | LEN
+    | LOG
+    | PI
     | PRINT
     | POPBACK
     | POPFRONT
+    | POW
     | PUSHBACK
     | PUSHFRONT
     | RANDOM
     | REMOVE
     | REMOVEALLEQTO
     | REMOVEAT
+    | SIN
     | SINGLETONSET
     | SIZE
+    | SQRT
+    | TAN
     | TOPBACK
     | TOPFRONT
     | UPDATE
