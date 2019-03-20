@@ -1,4 +1,30 @@
-a="abc";
-b="bcd";
-if (a<b)
-    print(len(a+b));
+A = [1, 2, 3];
+B = [2, 3, 4];
+
+
+
+1) expr | ID in expr
+
+a = [ 2*x | x in {x in B | x%2==0}];
+
+print(a); ----->  [1, 1, 0]
+
+
+
+
+2) ID from expr | expr
+
+a = [x from A | x in B];
+
+print(a); ----->  [2, 3]
+
+
+c = {a from B | a in A};
+
+-> [2 ,3];
+-> [false, true, true];
+
+
+
+
+forall x in A^B
