@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Constants {
-    public final static int MAX_DECIMALS = 20;
+    public final static int MAX_DECIMALS = 100;
     public final static int MAX_ARRAY = 1000000000;
     public final static boolean DEBUG = false;
 

@@ -1,2 +1,1 @@
-- Fixed a bug in which you could use int/float/print as built-in methods, insted of built-in functions
-- Added random(X): generate a random lower than X
+- Functii matematice
