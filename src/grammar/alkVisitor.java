@@ -494,12 +494,26 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SpecDefinition}
+	 * Visit a parse tree produced by the {@code DeprecatedSpecDefinition}
 	 * labeled alternative in {@link alkParser#spec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSpecDefinition(alkParser.SpecDefinitionContext ctx);
+	T visitDeprecatedSpecDefinition(alkParser.DeprecatedSpecDefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FilterSpecDefinition}
+	 * labeled alternative in {@link alkParser#spec}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFilterSpecDefinition(alkParser.FilterSpecDefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SelectSpecDefinition}
+	 * labeled alternative in {@link alkParser#spec}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSelectSpecDefinition(alkParser.SelectSpecDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayWithSpec}
 	 * labeled alternative in {@link alkParser#array}.

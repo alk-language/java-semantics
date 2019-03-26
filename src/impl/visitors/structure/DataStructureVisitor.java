@@ -5,6 +5,7 @@ import grammar.alkParser;
 import impl.Pair;
 import impl.env.Environment;
 import impl.exceptions.AlkException;
+import impl.exceptions.AlkWarning;
 import impl.exceptions.InterpretorException;
 import impl.types.AlkIterableValue;
 import impl.types.AlkValue;
@@ -47,15 +48,51 @@ public class DataStructureVisitor extends alkBaseVisitor {
         return new Pair<>(x, y);
     }
 
-    public ArrayList visitSpecDefinition(alkParser.SpecDefinitionContext ctx) {
-        /*String iterator = ctx.ID().toString();
+    @Deprecated
+    public ArrayList visitDeprecatedSpecDefinition(alkParser.DeprecatedSpecDefinitionContext ctx) {
+        AlkWarning.addWarning("The syntax for specs is deprecated. Use keyword from instead of in.", ctx.start.getLine());
+        String iterator = ctx.ID().toString();
         ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        Pair limits = (Pair) visit(ctx.interval());
         ArrayList<AlkValue> array = new ArrayList<>();
-        for (BigInteger i = ((AlkInt) limits.x).value; i.compareTo(((AlkInt) limits.y).value) <= 0; i = i.add(new BigInteger("1"))) {
-            env.update(iterator, new AlkInt(i));
-            array.add((AlkValue) expVisitor.visit(ctx.expression()));
-        }*/
+        AlkValue source = (AlkValue) expVisitor.visit(ctx.expression(1));
+        if (!source.isIterable)
+        {
+            AlkException e = new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
+            e.printException(ctx.start.getLine());
+            return array;
+        }
+        ArrayList<AlkValue> src = ((AlkIterableValue)source).toArray();
+        for (AlkValue x : src)
+        {
+            env.update(iterator, x);
+            AlkValue result = (AlkValue) expVisitor.visit(ctx.expression(0));
+            array.add(result);
+        }
+        return array;
+    }
+
+    public ArrayList visitSelectSpecDefinition(alkParser.SelectSpecDefinitionContext ctx) {
+        String iterator = ctx.ID().toString();
+        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
+        ArrayList<AlkValue> array = new ArrayList<>();
+        AlkValue source = (AlkValue) expVisitor.visit(ctx.expression(1));
+        if (!source.isIterable)
+        {
+            AlkException e = new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
+            e.printException(ctx.start.getLine());
+            return array;
+        }
+        ArrayList<AlkValue> src = ((AlkIterableValue)source).toArray();
+        for (AlkValue x : src)
+        {
+            env.update(iterator, x);
+            AlkValue result = (AlkValue) expVisitor.visit(ctx.expression(0));
+            array.add(result);
+        }
+        return array;
+    }
+
+    public ArrayList visitFilterSpecDefinition(alkParser.FilterSpecDefinitionContext ctx) {
         String iterator = ctx.ID().toString();
         ArrayList<AlkValue> array = new ArrayList<>();
         ExpressionVisitor expVisitor = new ExpressionVisitor(env);
