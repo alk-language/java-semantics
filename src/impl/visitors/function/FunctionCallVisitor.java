@@ -32,7 +32,7 @@ public class FunctionCallVisitor extends alkBaseVisitor {
     }
 
 
-    @Override public Object visitBuiltinMethod(alkParser.BuiltinMethodContext ctx) { // momentan este doar printul TODO de analizat
+    @Override public Object visitBuiltinMethod(alkParser.BuiltinMethodContext ctx) {
         int size = ctx.expression().size();
         String name = ctx.method_name().start.getText();
         ArrayList<AlkValue> params = new ArrayList<>();

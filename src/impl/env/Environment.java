@@ -16,13 +16,13 @@ public class Environment {
     public AlkValue lookup(String str) throws AlkException {
         if (variables.containsKey(str))
             return Store.get(variables.get(str));
-        throw new AlkException(ERR_NO_REF);
+        throw new AlkException(ERR_NO_REF + ": " + str);
     }
 
     public Integer getLocation(String str) throws AlkException {
         if (variables.containsKey(str))
             return variables.get(str);
-        throw new AlkException(ERR_NO_REF);
+        throw new AlkException(ERR_NO_REF + ": " + str);
     }
 
     public void add(String id, Integer location)

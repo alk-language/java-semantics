@@ -14,6 +14,6 @@
 
 - De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
 - Scripturile + optiunile
-- Algoritm probabilist -> afisarea probabilitatii
+--- Algoritm probabilist -> afisarea probabilitatii
 - Include librarii
-- De schimbat specificatii -> 3 versiuni, 1 deprecated
+--- De schimbat specificatii -> 3 versiuni, 1 deprecated

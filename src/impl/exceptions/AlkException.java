@@ -4,6 +4,8 @@ import impl.visitors.MainVisitor;
 
 public class AlkException extends Exception {
 
+    public String message;
+
     public final static String ERR_LOGICALOR_DATA_STRUCTURE = "A data structure value is not a valid operand in this logical or expression.";
     public final static String ERR_LOGICALOR_INT = "An int value is not a valid operand in this logical or expression.";
     public final static String ERR_LOGICALOR_DOUBLE = "A double value is not a valid operand in this logical or expression.";
@@ -169,7 +171,7 @@ public class AlkException extends Exception {
 
 
     public final static String ERR_PRINT_PARAM = "The print function must have only one parameter.";
-    public final static String ERR_NO_REF = "The reference is invalid.";
+    public final static String ERR_NO_REF = "The reference is invalid";
     public final static String ERR_IF_NOT_BOOL = "The value of the expression to evaluate in if must be boolean.";
     public final static String ERR_WHILE_NOT_BOOL = "The value of the expression to evaluate in while must be boolean.";
     public final static String ERR_DOWHILE_NOT_BOOL = "The value of the expression to evaluate in do while must be boolean.";
@@ -262,10 +264,7 @@ public class AlkException extends Exception {
 
     public final static String ERR_METHOD = "There is no method with such name.";
 
-    public final static String ERR_RANDOM = "There is no method with such name.";
-
     public final static String ERR_RANDOM_INT = "The paramteter of the random function needs to be an integer.";
-    public final static String ERR_RANDOM_TOO_BIG = "The paramteter of the random function is too big";
 
     public final static String ERR_CHOOSE_NOT_ITERABLE = "The structure of the choose must be an iterable.";
     public final static String ERR_CHOSE_ST_BOOL = "The condition in choose must be boolean.";
@@ -283,12 +282,16 @@ public class AlkException extends Exception {
 
     public AlkException(String text)
     {
-        super(text);
+        this.message=text;
     }
 
     public void printException(int line) {
         MainVisitor.exceptionOccured=true;
-        System.out.println("Error at line "+line+": "+getMessage());
+        System.out.println("Error at line "+line+": "+message);
         throw new RuntimeException();
+    }
+
+    public void glueLine(String text) {
+        this.message += " " + text;
     }
 }

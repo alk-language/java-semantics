@@ -1,6 +1,7 @@
 package impl.visitors.function;
 
 import grammar.alkParser;
+import impl.Parsing;
 import impl.env.Environment;
 import impl.exceptions.AlkException;
 import impl.types.AlkIterableValue;
@@ -26,22 +27,9 @@ public class NonDeterministic {
         while( result.compareTo(intValue.value) >= 0 ) {
             result = new BigInteger(intValue.value.bitLength(), rand);
         }
+        Parsing.callRandom(((AlkInt) valmax).value);
         return new AlkInt(result);
     }
-
-    /*public static AlkInt get(AlkValue valmax) throws AlkException {
-        if (!valmax.type.equals("Int"))
-            throw new AlkException(ERR_RANDOM_INT);
-        AlkInt value = (AlkInt) valmax;
-        try {
-            int iValue = value.value.intValueExact();
-            return new AlkInt((int)(Math.random() * (iValue)));
-        } catch (ArithmeticException e)
-        {
-            throw new AlkException(ERR_RANDOM_TOO_BIG);
-        }
-    }*/
-
     public static AlkValue choose(AlkIterableValue struct) {
         ArrayList array = struct.toArray();
         Random rand = new Random();
