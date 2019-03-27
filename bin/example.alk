@@ -10,3 +10,7 @@ gcd(a, b)
 }
 
 print(gcd(a, b));
+
+
+print({<1, 2>, <1, 2>});
+print({} == {});

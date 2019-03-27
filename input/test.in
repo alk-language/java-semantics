@@ -1,6 +1,1 @@
-y = random(100);
-if (y<50)
-    choose x in {1..10};
-else
-    x=2;
-print(x);
+print({<1, 2>, <1, 2>, <2, 3>});
