@@ -29,6 +29,7 @@ DO : 'do';
 FOR : 'for';
 FORALL : 'forall';
 IN : 'in';
+FROM : 'from';
 OUT : 'out';
 CHOOSE : 'choose';
 UNIFORM : 'uniform';
