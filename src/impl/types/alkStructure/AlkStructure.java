@@ -68,7 +68,7 @@ public class AlkStructure extends AlkValue {
         if (!operand.type.equals("Structure"))
             throw new AlkException(ERR_EQUAL_STRUCT);
         AlkStructure op = (AlkStructure) operand;
-        return new AlkBool(map.toString().equals(op.toString()));
+        return new AlkBool(this.toString().equals(op.toString()));
     }
 
     @Override

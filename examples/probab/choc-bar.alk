@@ -3,7 +3,7 @@ CB(n)
   i = random(n-1) + 1;
   s1 = float(i) / float(n);
   s2 = float(n - i) / float(n);
-  if (s1 > s2 ) return s1; 
+  if (s1 > s2 ) return s1;
   return s2;
 /*
   if (i > n - i) return i;
