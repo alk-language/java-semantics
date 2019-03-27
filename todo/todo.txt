@@ -1,22 +1,14 @@
-- Algoritm probabilist -> afisarea probabilitatii
-- Visitor de analiza (daca este algoritm probabilist ...)
-- De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
-- De pus constants la optiuni
 - Analiza complexitatii
 - Lambda Expressions -> high order functions (map filter)
 
-- Scripturile
 - Functii builtin: max, min, is Array, isalpha
 - Pluginuri editoare
 - Algoritm exhaustiv
 - ++ -- de reglat
 
-- De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
-- Scripturile + optiunile
---- Algoritm probabilist -> afisarea probabilitatii
+- Scripturile + optiunile - De pus constants la optiuni
 - Include librarii
---- De schimbat specificatii -> 3 versiuni, 1 deprecated
 
+- De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
 - De pus la stringuri mai multe metode, dintre care split, size, at
 - repeat until
-- de pus la uniform probabilitatea de a alege
