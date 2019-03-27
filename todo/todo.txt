@@ -3,14 +3,13 @@
 - De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
 - De pus constants la optiuni
 - Analiza complexitatii
+- Lambda Expressions -> high order functions (map filter)
 
 - Scripturile
 - Functii builtin: max, min, is Array, isalpha
 - Pluginuri editoare
 - Algoritm exhaustiv
 - ++ -- de reglat
-
-
 
 - De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
 - Scripturile + optiunile
