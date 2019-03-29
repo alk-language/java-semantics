@@ -20,7 +20,8 @@ public class PreStmtVisitor extends alkBaseVisitor {
     }
 
     @Override public Object visitUniformStmt(alkParser.UniformStmtContext ctx) {
-        data.setType("nedeterminist");
+        if (data.getType().equals("determinist"))
+            data.setType("probabilist");
         return null;
     }
 

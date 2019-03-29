@@ -129,7 +129,7 @@ public class AlkList extends AlkIterableValue {
         if (!operand.type.equals("List"))
             throw new AlkException(ERR_EQUAL_LIST);
         AlkList op = (AlkList) operand;
-        return new AlkBool(list.toString().equals(op.toString()));
+        return new AlkBool(this.toString().equals(op.toString()));
     }
 
     @Override

@@ -213,6 +213,7 @@ method_name :
     | SIN
     | SINGLETONSET
     | SIZE
+    | SPLIT
     | SQRT
     | TAN
     | TOPBACK

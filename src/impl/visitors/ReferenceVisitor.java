@@ -126,6 +126,7 @@ public class ReferenceVisitor extends alkBaseVisitor {
                 case "removeAllEqTo": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.removeAllEqTo(params.get(0)); break;
                 case "removeAt": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); value = value.removeAt(params.get(0)); break;
                 case "size": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.size(); break;
+                case "split": if (params.size()>1) throw new AlkException(ERR_PARAM_NUMBER); if (params.size()==0) value = value.split(); else value = value.split(params.get(0)); break;
                 case "topBack": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.topBack(); break;
                 case "topFront": if (params.size()!=0) throw new AlkException(ERR_PARAM_NUMBER); value = value.topFront(); break;
                 case "update": if (params.size()!=2) throw new AlkException(ERR_PARAM_NUMBER); value = value.update(params.get(0), params.get(1)); break;
