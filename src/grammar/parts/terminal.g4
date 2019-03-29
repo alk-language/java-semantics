@@ -33,8 +33,10 @@ FROM : 'from';
 OUT : 'out';
 CHOOSE : 'choose';
 UNIFORM : 'uniform';
+REPEAT : 'repeat';
 RETURN : 'return';
 SUCCESS : 'success';
+UNTIL : 'until';
 FAILURE : 'failure';
 
 EMPTYSET : 'emptySet';
@@ -80,6 +82,7 @@ REMOVEALLEQTO : 'removeAllEqTo';
 REMOVEAT : 'removeAt';
 SINGLETONSET : 'singletonSet';
 SIZE : 'size';
+SPLIT : 'split';
 TOPBACK : 'topBack';
 TOPFRONT : 'topFront';
 UPDATE : 'update';

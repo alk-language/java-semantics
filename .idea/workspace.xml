@@ -1,7 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="" />
+    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/alk.jar" beforeDir="false" afterPath="$PROJECT_DIR$/bin/alk.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/example.alk" beforeDir="false" afterPath="$PROJECT_DIR$/bin/example.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/input.in" beforeDir="false" afterPath="$PROJECT_DIR$/bin/input.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/change.log" beforeDir="false" afterPath="$PROJECT_DIR$/change.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input/test.in" beforeDir="false" afterPath="$PROJECT_DIR$/input/test.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alk.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alk.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alk.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alk.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkBaseVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkBaseVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkLexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkLexer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$AdditiveExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$AdditiveExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Additive_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Additive_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ArrayContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ArrayContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ArrayValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ArrayValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ArrayWithExpressionsContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ArrayWithExpressionsContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ArrayWithIntervalContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ArrayWithIntervalContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ArrayWithSpecContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ArrayWithSpecContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$AssignmentContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$AssignmentContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$AssignmentStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$AssignmentStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$BitwiseAndExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$BitwiseAndExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$BitwiseOrExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$BitwiseOrExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Bitwise_andContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Bitwise_andContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Bitwise_orContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Bitwise_orContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$BlockContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$BlockContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$BoolValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$BoolValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$BuiltinMethodContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$BuiltinMethodContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Builtin_methodContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Builtin_methodContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ChooseContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ChooseContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ChooseStmContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ChooseStmContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ChooseStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ChooseStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ComponentContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ComponentContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ComponentDefinitionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ComponentDefinitionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ConditionalExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ConditionalExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ConfigContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ConfigContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ConfigurationContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ConfigurationContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Data_structureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Data_structureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$DefinedFunctionCallContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$DefinedFunctionCallContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$DoWhileStructureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$DoWhileStructureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Do_while_structContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Do_while_structContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$DoubleValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$DoubleValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$EmptyListContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$EmptyListContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$EmptySetContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$EmptySetContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$EqualityExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$EqualityExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Equality_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Equality_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$FactorContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$FactorContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$FailureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$FailureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ForAllStructureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ForAllStructureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ForStartContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ForStartContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ForStructureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ForStructureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$For_structContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$For_structContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Forall_structContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Forall_structContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$FunctionCallContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$FunctionCallContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$FunctionCallFactorContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$FunctionCallFactorContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$FunctionChunkContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$FunctionChunkContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$FunctionDeclContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$FunctionDeclContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Function_callContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Function_callContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Function_declContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Function_declContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$IDChunkContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$IDChunkContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$IfStructureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$IfStructureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$If_structContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$If_structContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$InExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$InExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$In_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$In_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Increase_decreaseContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Increase_decreaseContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$IntValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$IntValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$IntervalContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$IntervalContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$IntervalDefinitionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$IntervalDefinitionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ListContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ListContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ListValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ListValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ListWithExpressionsContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ListWithExpressionsContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ListWithIntervalContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ListWithIntervalContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ListWithSpecContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ListWithSpecContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$LogicalAndExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$LogicalAndExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$LogicalOrExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$LogicalOrExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Logical_and_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Logical_and_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Logical_or_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Logical_or_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$MainContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$MainContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$MethodCallContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$MethodCallContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Method_nameContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Method_nameContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$MinusMinusModStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$MinusMinusModStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$MinusMinusStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$MinusMinusStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$MultiplicativeExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$MultiplicativeExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Multiplicative_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Multiplicative_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ParamContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ParamContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ParamDefinitionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ParamDefinitionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ParanthesesFactorContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ParanthesesFactorContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$PlusPlusModStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$PlusPlusModStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$PlusPlusStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$PlusPlusStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$PostfixExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$PostfixExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Postfix_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Postfix_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$PrefixExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$PrefixExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$RefNameContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$RefNameContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$RefNameFactorContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$RefNameFactorContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Ref_nameContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Ref_nameContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Ref_name_chunkContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Ref_name_chunkContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$RelationalExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$RelationalExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Relational_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Relational_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ReturnStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ReturnStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Scalar_valueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Scalar_valueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SetContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SetContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SetExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SetExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SetValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SetValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SetWithExpressionsContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SetWithExpressionsContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SetWithIntervalContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SetWithIntervalContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SetWithSpecContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SetWithSpecContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Set_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Set_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ShiftExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ShiftExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Shift_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Shift_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SpecContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SpecContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StartPointContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StartPointContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Start_assignmentContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Start_assignmentContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StatementContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StatementContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Statement_blockContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Statement_blockContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Statement_sequenceContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Statement_sequenceContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StmtMinusMinusContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StmtMinusMinusContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StmtPlusPlusContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StmtPlusPlusContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StringValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StringValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StructureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StructureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StructureValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StructureValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$StructureWithComponentsContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$StructureWithComponentsContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$SuccessContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$SuccessContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToAssignmentStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToAssignmentStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToBlockContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToBlockContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToBuiltinMethodContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToBuiltinMethodContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToDoWhileContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToDoWhileContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToForAllContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToForAllContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToForContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToForContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToFunctionDeclContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToFunctionDeclContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToIfContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToIfContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToIncreaseDecreaseContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToIncreaseDecreaseContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToPostfixExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToPostfixExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ToWhileContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ToWhileContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$UnaryExpressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$UnaryExpressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$Unary_expressionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$Unary_expressionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$UniformContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$UniformContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$UniformStmContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$UniformStmContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$UniformStmtContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$UniformStmtContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$ValueFactorContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$ValueFactorContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$VarContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$VarContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$VariableContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$VariableContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$WhileStructureContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$WhileStructureContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser$While_structContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser$While_structContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/alkVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/alkVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/parts/expression.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/parts/expression.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/parts/statement.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/parts/statement.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/parts/terminal.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/parts/terminal.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/exceptions/AlkException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/exceptions/AlkException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/exceptions/AlkWarning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/exceptions/AlkWarning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/types/AlkValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/types/AlkValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/types/alkList/AlkList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/types/alkList/AlkList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/types/alkSet/AlkSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/types/alkSet/AlkSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/types/alkString/AlkString.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/types/alkString/AlkString.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/types/alkStructure/AlkStructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/types/alkStructure/AlkStructure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/visitors/expression/ExpressionVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/visitors/expression/ExpressionVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/visitors/function/NonDeterministic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/visitors/function/NonDeterministic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/impl/visitors/structure/DataStructureVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/visitors/structure/DataStructureVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/preparsing/visitors/PreStmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/preparsing/visitors/PreStmtVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo/notes.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/todo/todo.txt" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,13 +199,26 @@
     <expand />
     <select />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/input/test.in">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="6" selection-start-column="6" selection-end-column="6" />
+            <state relative-caret-position="90">
+              <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/change.log">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="60" lean-forward="true" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -42,22 +226,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/todo/todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+            <state relative-caret-position="195">
+              <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/impl/Parsing.java">
+        <entry file="file://$PROJECT_DIR$/src/grammar/parts/expression.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#593#594#0" expanded="true" />
-                <element signature="e#627#628#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="328">
+              <caret line="203" column="13" selection-start-line="203" selection-start-column="13" selection-end-line="203" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -65,17 +244,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/impl/exceptions/AlkException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2595">
-              <caret line="173" column="69" selection-start-line="173" selection-start-column="69" selection-end-line="173" selection-end-column="69" />
+            <state relative-caret-position="363">
+              <caret line="288" selection-start-line="288" selection-end-line="288" />
+              <folding>
+                <element signature="e#24286#24287#0" expanded="true" />
+                <element signature="e#24319#24320#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/impl/visitors/function/FunctionCallVisitor.java">
+        <entry file="file://$PROJECT_DIR$/src/grammar/parts/statement.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="100" column="34" selection-start-line="100" selection-start-column="34" selection-end-line="100" selection-end-column="34" />
+            <state relative-caret-position="308">
+              <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="149" column="54" selection-start-line="149" selection-start-column="54" selection-end-line="149" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,60 +276,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/impl/env/Environment.java">
+        <entry file="file://$PROJECT_DIR$/src/grammar/parts/terminal.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="428">
+              <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/impl/env/AlkFunction.java">
+        <entry file="file://$PROJECT_DIR$/examples/string-alg/naiv-search.alk">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="63" column="22" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="24" />
+            <state relative-caret-position="300">
+              <caret line="20" column="20" selection-end-line="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java">
+        <entry file="file://$PROJECT_DIR$/src/impl/types/alkString/AlkString.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="85" column="34" selection-start-line="85" selection-start-column="34" selection-end-line="85" selection-end-column="34" />
+            <state relative-caret-position="260">
+              <caret line="113" column="32" selection-start-line="113" selection-start-column="32" selection-end-line="113" selection-end-column="32" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/impl/visitors/AssignedVisitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="129" column="53" selection-start-line="129" selection-start-column="53" selection-end-line="129" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/preparsing/PreParsing.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="e#129#130#0" expanded="true" />
-                <element signature="e#166#167#0" expanded="true" />
-                <element signature="e#197#198#0" expanded="true" />
-                <element signature="e#234#235#0" expanded="true" />
+                <element signature="e#1449#1450#0" expanded="true" />
+                <element signature="e#1498#1499#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,23 +317,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>data_s</find>
-      <find>primaryExpression</find>
-      <find>do</find>
-      <find>lowe</find>
-      <find>set_expression</find>
-      <find>subs</find>
-      <find>The values of the operands are not valid in this relational (==) expression</find>
-      <find>union</find>
-      <find>ERR_INTERSECT</find>
-      <find>print</find>
       <find>RefName</find>
       <find>function_call</find>
       <find>equal</find>
       <find>ass</find>
       <find>iter</find>
       <find>int</find>
-      <find>at</find>
       <find>spec</find>
       <find>vbar</find>
       <find>iterab</find>
@@ -184,6 +336,17 @@
       <find>random</find>
       <find>refere</find>
       <find>the re</find>
+      <find>out_of</find>
+      <find>at</find>
+      <find>err_size</find>
+      <find>update</find>
+      <find>insert</find>
+      <find>logicaland</find>
+      <find>whil</find>
+      <find>dowhi</find>
+      <find>function_decl</find>
+      <find>statement_block</find>
+      <find>statement_sequence</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -214,19 +377,12 @@
         <option value="$PROJECT_DIR$/src/impl/types/alkSet/AlkSet.java" />
         <option value="$PROJECT_DIR$/src/impl/types/alkList/AlkList.java" />
         <option value="$PROJECT_DIR$/src/impl/visitors/function/MathHelper.java" />
-        <option value="$PROJECT_DIR$/src/grammar/parts/statement.g4" />
-        <option value="$PROJECT_DIR$/src/impl/types/AlkValue.java" />
-        <option value="$PROJECT_DIR$/src/impl/types/alkString/AlkString.java" />
         <option value="$PROJECT_DIR$/todo/notes.txt" />
-        <option value="$PROJECT_DIR$/change.log" />
-        <option value="$PROJECT_DIR$/src/grammar/parts/expression.g4" />
-        <option value="$PROJECT_DIR$/src/grammar/parts/terminal.g4" />
         <option value="$PROJECT_DIR$/src/impl/exceptions/AlkWarning.java" />
         <option value="$PROJECT_DIR$/src/impl/visitors/structure/DataStructureVisitor.java" />
         <option value="$PROJECT_DIR$/src/preparsing/visitors/PreParsing.java" />
         <option value="$PROJECT_DIR$/src/main/PreParsing.java" />
         <option value="$PROJECT_DIR$/src/preparsing/visitors/MainVisitor.java" />
-        <option value="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" />
         <option value="$PROJECT_DIR$/src/preparsing/visitors/PreExpressionVisitor.java" />
         <option value="$PROJECT_DIR$/src/preparsing/visitors/PreMainVisitor.java" />
         <option value="$PROJECT_DIR$/src/preparsing/PreParsing.java" />
@@ -236,13 +392,20 @@
         <option value="$PROJECT_DIR$/src/impl/constants/Constants.java" />
         <option value="$PROJECT_DIR$/examples/probab/choc-bar.alk" />
         <option value="$PROJECT_DIR$/src/impl/visitors/function/NonDeterministic.java" />
-        <option value="$PROJECT_DIR$/todo/todo.txt" />
         <option value="$PROJECT_DIR$/src/impl/env/Environment.java" />
-        <option value="$PROJECT_DIR$/input/test.in" />
-        <option value="$PROJECT_DIR$/src/impl/exceptions/AlkException.java" />
         <option value="$PROJECT_DIR$/src/impl/visitors/function/FunctionCallVisitor.java" />
-        <option value="$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java" />
         <option value="$PROJECT_DIR$/src/impl/visitors/AssignedVisitor.java" />
+        <option value="$PROJECT_DIR$/src/grammar/parts/expression.g4" />
+        <option value="$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java" />
+        <option value="$PROJECT_DIR$/src/impl/types/AlkValue.java" />
+        <option value="$PROJECT_DIR$/src/impl/types/alkString/AlkString.java" />
+        <option value="$PROJECT_DIR$/todo/todo.txt" />
+        <option value="$PROJECT_DIR$/src/grammar/parts/terminal.g4" />
+        <option value="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" />
+        <option value="$PROJECT_DIR$/src/impl/exceptions/AlkException.java" />
+        <option value="$PROJECT_DIR$/src/grammar/parts/statement.g4" />
+        <option value="$PROJECT_DIR$/input/test.in" />
+        <option value="$PROJECT_DIR$/change.log" />
       </list>
     </option>
   </component>
@@ -263,7 +426,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -275,95 +437,13 @@
             <path>
               <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
               <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="probab" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="constants" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="visitors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="visitors" type="462c0819:PsiDirectoryNode" />
-              <item name="expression" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="visitors" type="462c0819:PsiDirectoryNode" />
-              <item name="function" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="preparsing" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="preparsing" type="462c0819:PsiDirectoryNode" />
-              <item name="visitors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
               <item name="todo" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -467,6 +547,7 @@
       <workItem from="1553021230264" duration="6454000" />
       <workItem from="1553068673266" duration="5229000" />
       <workItem from="1553633809433" duration="355000" />
+      <workItem from="1553879771860" duration="2950000" />
     </task>
     <task id="LOCAL-00001" summary="Update spec, changed errors message, added preparsing">
       <created>1553634139154</created>
@@ -475,16 +556,24 @@
       <option name="project" value="LOCAL" />
       <updated>1553634139154</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update workspace">
+      <created>1553879810380</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1553879810380</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195994000" />
+    <option name="totallyTimeSpent" value="198944000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1853" height="1173" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17614578" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17819591" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -492,8 +581,8 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.3291866" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994664" weight="0.30813396" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32883316" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994664" visible="true" weight="0.30761814" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39904305" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -502,10 +591,10 @@
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Tool Output" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053364" side_tool="true" weight="0.32939914" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32822967" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053364" side_tool="true" weight="0.32883316" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32786885" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="14" visible="true" weight="0.3291866" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32916266" />
       <window_info anchor="bottom" id="ANTLR Preview" order="15" />
       <window_info anchor="right" id="Maven" order="0" weight="0.32977587" />
       <window_info anchor="right" id="Palette" order="1" />
@@ -516,7 +605,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="6" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.32977587" />
       <window_info anchor="right" id="Database" order="8" weight="0.32965213" />
-      <window_info anchor="right" id="Ant Build" order="9" weight="0.24958587" />
+      <window_info anchor="right" id="Ant Build" order="9" weight="0.24958494" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +616,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update spec, changed errors message, added preparsing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update spec, changed errors message, added preparsing" />
+    <MESSAGE value="Update workspace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workspace" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -540,7 +630,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/impl/visitors/structure/DataStructureVisitor.java</url>
-          <line>84</line>
+          <line>85</line>
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
@@ -596,52 +686,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/examples/language-features/assgns.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" lean-forward="true" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/data-structures/seq.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="33" lean-forward="true" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/data-structures/seqofstructures.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="9" lean-forward="true" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/types/alkList/AlkList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="669">
-          <caret line="153" column="38" selection-start-line="153" selection-start-column="38" selection-end-line="153" selection-end-column="38" />
-          <folding>
-            <element signature="e#4460#4461#0" expanded="true" />
-            <element signature="e#4488#4489#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/types/alkArray/AlkArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/data-structures/specs.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/impl/types/alkInt/RelationalIntHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -693,13 +737,6 @@
     <entry file="file://$PROJECT_DIR$/src/grammar/parts/init.g4">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/parts/statement.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="44" column="11" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/impl/visitors/function/MathHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6">
@@ -707,48 +744,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/types/AlkValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3375">
-          <caret line="230" column="27" selection-start-line="230" selection-start-column="27" selection-end-line="230" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/types/alkString/AlkString.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/todo/notes.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="20" selection-start-column="20" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/change.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="55" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/parts/terminal.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/parts/expression.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="131" column="145" selection-start-line="131" selection-start-column="121" selection-end-line="131" selection-end-column="145" />
         </state>
       </provider>
     </entry>
@@ -811,16 +806,6 @@
           <folding>
             <element signature="e#373#374#0" expanded="true" />
             <element signature="e#403#404#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="159" column="72" lean-forward="true" selection-start-line="159" selection-start-column="72" selection-end-line="159" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -903,30 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/visitors/expression/ExpressionVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5880">
-          <caret line="414" column="20" selection-start-line="414" selection-start-column="20" selection-end-line="414" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/test.in">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="6" selection-start-column="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/todo/todo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/impl/Parsing.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -936,13 +897,6 @@
             <element signature="e#593#594#0" expanded="true" />
             <element signature="e#627#628#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/exceptions/AlkException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2595">
-          <caret line="173" column="69" selection-start-line="173" selection-start-column="69" selection-end-line="173" selection-end-column="69" />
         </state>
       </provider>
     </entry>
@@ -973,19 +927,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java">
+    <entry file="file://$PROJECT_DIR$/src/preparsing/PreParsing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="85" column="34" selection-start-line="85" selection-start-column="34" selection-end-line="85" selection-end-column="34" />
+        <state relative-caret-position="180">
+          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#129#130#0" expanded="true" />
+            <element signature="e#166#167#0" expanded="true" />
+            <element signature="e#197#198#0" expanded="true" />
+            <element signature="e#234#235#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/impl/visitors/AssignedVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
+        <state relative-caret-position="318">
           <caret line="129" column="53" selection-start-line="129" selection-start-column="53" selection-end-line="129" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -993,16 +950,157 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/preparsing/PreParsing.java">
+    <entry file="file://$PROJECT_DIR$/src/impl/types/alkArray/AlkArray.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="120">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/types/alkList/FunctionListHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="35" column="79" selection-start-line="35" selection-start-column="79" selection-end-line="47" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/types/alkList/AlkList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
           <folding>
-            <element signature="e#129#130#0" expanded="true" />
-            <element signature="e#166#167#0" expanded="true" />
-            <element signature="e#197#198#0" expanded="true" />
-            <element signature="e#234#235#0" expanded="true" />
+            <element signature="e#4488#4489#0" expanded="true" />
+            <element signature="e#4533#4534#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/types/AlkValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="257" column="24" selection-start-line="257" selection-start-column="24" selection-end-line="257" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="126" column="111" selection-start-line="126" selection-start-column="111" selection-end-line="126" selection-end-column="111" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/types/alkString/AlkString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="113" column="32" selection-start-line="113" selection-start-column="32" selection-end-line="113" selection-end-column="32" />
+          <folding>
+            <element signature="e#1449#1450#0" expanded="true" />
+            <element signature="e#1498#1499#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/string-alg/bm.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" lean-forward="true" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/string-alg/kmp.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="13" lean-forward="true" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/string-alg/naiv-search.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="20" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/todo/notes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/visitors/expression/ExpressionVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="74" column="45" selection-start-line="74" selection-start-column="35" selection-end-line="74" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/exceptions/AlkException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="288" selection-start-line="288" selection-end-line="288" />
+          <folding>
+            <element signature="e#24286#24287#0" expanded="true" />
+            <element signature="e#24319#24320#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="149" column="54" selection-start-line="149" selection-start-column="54" selection-end-line="149" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/parts/terminal.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/parts/expression.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="203" column="13" selection-start-line="203" selection-start-column="13" selection-end-line="203" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/parts/statement.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input/test.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/todo/todo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/change.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="60" lean-forward="true" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
         </state>
       </provider>
     </entry>

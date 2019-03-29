@@ -49,9 +49,15 @@ public class ExpressionVisitor extends alkBaseVisitor {
     @Override public AlkValue visitLogicalOrExpression(alkParser.LogicalOrExpressionContext ctx) {
         int size = ctx.logical_and_expression().size();
         AlkValue result = (AlkValue)visit(ctx.logical_and_expression(0));
+        if (result.type.equals("Bool") && ((AlkBool) result).value)
+            return new AlkBool(true);
         try {
             for (int i = 1; i < size; i++)
+            {
                 result = result.logicalOr((AlkValue) visit(ctx.logical_and_expression(i)));
+                if (((AlkBool) result).value)
+                    return new AlkBool(true);
+            }
         }
         catch (AlkException e) {
             e.printException(ctx.start.getLine());
@@ -69,9 +75,15 @@ public class ExpressionVisitor extends alkBaseVisitor {
     @Override public AlkValue visitLogicalAndExpression(alkParser.LogicalAndExpressionContext ctx) {
         int size = ctx.in_expression().size();
         AlkValue result = (AlkValue)visit(ctx.in_expression(0));
+        if (result.type.equals("Bool") && !(((AlkBool) result).value))
+            return new AlkBool(false);
         try {
             for (int i = 1; i < size; i++)
+            {
                 result = result.logicalAnd((AlkValue) visit(ctx.in_expression(i)));
+                if (!(((AlkBool) result).value))
+                    return new AlkBool(false);
+            }
         }
         catch (AlkException e) {
             e.printException(ctx.start.getLine());

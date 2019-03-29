@@ -34,6 +34,7 @@ public class NonDeterministic {
         ArrayList array = struct.toArray();
         Random rand = new Random();
         int poz = rand.nextInt(array.size());
+        Parsing.callRandom(new BigInteger(String.valueOf(array.size())));
         return (AlkValue) array.get(poz);
     }
 

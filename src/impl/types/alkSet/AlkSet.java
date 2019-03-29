@@ -90,7 +90,7 @@ public class AlkSet extends AlkIterableValue {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_EQUAL_SET);
         AlkSet op = (AlkSet) operand;
-        return new AlkBool(set.toString().equals(op.toString()));
+        return new AlkBool(this.toString().equals(op.toString()));
     }
 
     @Override

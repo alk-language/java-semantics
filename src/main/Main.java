@@ -114,7 +114,9 @@ public class Main {
             System.out.println(e);
 
             if (data.getType().equals("probabilist"))
-                System.out.println("Probabilitatea acestui fir de executie este de: " + Parsing.getProbability());
+                System.out.println("The probability for this execution is: " + Parsing.getProbability());
+            else if (data.getType().equals("nedeterminist"))
+                System.out.println("Note that the executed algorithm is nondeterministic.");
             AlkWarning.printAll();
         }
         catch (ParseException e)

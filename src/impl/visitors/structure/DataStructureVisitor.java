@@ -17,6 +17,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import static impl.exceptions.AlkException.*;
+import static impl.exceptions.AlkWarning.WARR_DEPRECATED_SPECS;
 
 public class DataStructureVisitor extends alkBaseVisitor {
 
@@ -50,7 +51,7 @@ public class DataStructureVisitor extends alkBaseVisitor {
 
     @Deprecated
     public ArrayList visitDeprecatedSpecDefinition(alkParser.DeprecatedSpecDefinitionContext ctx) {
-        AlkWarning.addWarning("The syntax for specs is deprecated. Use keyword from instead of in.", ctx.start.getLine());
+        AlkWarning.addWarning(WARR_DEPRECATED_SPECS, ctx.start.getLine());
         String iterator = ctx.ID().toString();
         ExpressionVisitor expVisitor = new ExpressionVisitor(env);
         ArrayList<AlkValue> array = new ArrayList<>();
