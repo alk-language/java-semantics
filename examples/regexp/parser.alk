@@ -6,7 +6,9 @@
  
  term = factor "*"
      | factor ("." factor)* .
- 
+ /*
+   TODO: add a representaion for "eps"
+ */
  factor =
      Sigma
      | "(" expression ")".
@@ -14,7 +16,10 @@
 */
 
 // the input expression
-input = ["(","a",".","a","+","b",")","*"];
+//input = ["a", ".", "a"];  // aa
+//input = ["(","a",".","a","+","b",")","*"];  // (aa + b)* 
+//input = ["(", "a", ".", "c", "+", "c",")", "*", "+", "(","a",".","a","+","b",")","*"]; // (ac+c)*+(aa+b)*
+input = ["(","a",".","b","+","b",")","*", ".", "b", ".", "a"];  // (ab + b)*ba
 
 // the current position in the input
 index = 0;
@@ -24,7 +29,9 @@ sigma = ["a","b","c"];
 
 // the current symbol
 sym() modifies index, input {
-  return input[index];
+  if (index < input.size())
+    return input[index];
+  return "\0";
 }
 
 // goes to the next symbol
@@ -85,9 +92,7 @@ factor() {
     } else if (accept("(", ast)) {
         ast = expression();
         expect(")");
-//        return ast;
     }
-//    error("factor: error");
         return ast;
 }
 
@@ -95,11 +100,12 @@ factor() {
 term() {
     ast = factor();
     list = < ast >;
-    if (accept("*", ast)) return ["_*", list];
+    if (accept("*", ast)) list = < ["_*", list] >;
     while (sym() == ".") {
         nextSym();
-        ast = factor();
-	list.pushBack(ast);
+        ast1 = factor();
+	if (accept("*", ast)) list.pushBack(["_*", < ast1 >]);
+	else list.pushBack(ast1);
     }
     if (list.size() > 1)
       return ["_._", list];
@@ -119,7 +125,14 @@ expression() {
     return ["_+_", list];
 }
 
-//print(factor());
+// print(factor());
+ print(term());
+// expect("+");
+// print(factor());
+/*
 print(term());
-//expect("+");
-//factor();
+expect("+");
+print(term());
+*/
+//print(expression());
+
