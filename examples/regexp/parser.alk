@@ -2,35 +2,27 @@
 
  Sigma ::= "a" | "b" | "c"
  
- expression ::= term ("+" term)* .
+ expression ::= term ("+" term)* 
  
  term ::= factor "*"
-        | factor ("." factor)* .
+        | factor ("." factor)* 
 
    TODO: add a representaion for "eps"
  
  factor ::=
      Sigma
-     | "(" expression ")".
+     | "(" expression ")"
 
 */
 
-// the input expression
-//input = ["a", ".", "a"];  // aa
-//input = ["(","a",".","a","+","b",")","*"];  // (aa + b)* 
-//input = ["(", "a", ".", "c", "+", "c",")", "*", "+", "(","a",".","a","+","b",")","*"]; // (ac+c)*+(aa+b)*
-input = ["(","a",".","b","+","b",")","*", ".", "b", ".", "a"];  // (ab + b)*ba
 
 // the current position in the input
 index = 0;
 
-// the alphabet
-sigma = ["a","b","c"];
-
 // the current symbol
 sym() modifies index, input {
   if (index < input.size())
-    return input[index];
+    return input.at(index);
   return "\0";
 }
 
@@ -40,7 +32,7 @@ nextSym() modifies index, input {
     index++;
 /*
     // skip the spaces
-    while (input[index] == " " && index < input.size())
+    while (input.at(index) == " " && index < input.size())
     index++;
 */
   } else
@@ -54,8 +46,10 @@ error(msg) modifies index {
   print("");
 }
 
-// tests if the current symbol is accepted and
-// if yes, returns its AST
+/*
+  tests if the current symbol is accepted and
+  if yes, advances in the input
+*/
 accept(s, out ast) {
     if (sym() == s) {
         nextSym();
@@ -65,8 +59,10 @@ accept(s, out ast) {
     return false;
 }
 
-// test if the current symbol is in the alphabet Sigma and
-// if yes, returns its AST
+/*
+  test if the current symbol is in the alphabet Sigma and
+  if yes, advances in the input
+*/
 acceptSigma(out ast) modifies sigma {
   for (i = 0; i < sigma.size(); ++i) 
       if (accept(sigma[i], ast)) {
@@ -122,18 +118,13 @@ expression() {
         ast = term();
 	list.pushBack(ast);
     }
-    return ["_+_", list];
+    if (list.size() > 1)
+      return ["_+_", list];
+    else
+      return list.at(0);
 }
-
-exp = "(a.b+c)*.(b.a)";
-input = exp.split();
-// print(factor());
- print(term());
-// expect("+");
-// print(factor());
-/*
-print(term());
-expect("+");
-print(term());
-*/
-//print(expression());
+// the alphabet
+sigma = ["a","b","c"];
+// the expression
+input = "(a.b+b)*.(b.a)";
+print(expression());

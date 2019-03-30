@@ -17,17 +17,6 @@ chld(ast, i) {
   }
 }
 
-/*
-// the first child of an AST   !!!!???? ==> chld[i]
-fstChd(ast) {
-  return ast[1].at(0);
-}
-
-// the second child of an AST
-sndChd(ast) {
-  return ast[1].at(1);
-}
-*/
 
 /*
 anast = ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>];
@@ -37,26 +26,12 @@ print(chld(["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>], 0));
 print(chld (["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>], 1));
 */
 
-// the concatenation of two strings (as arrays)
-concat(s1, s2) {
-  s = s1;
-  for (i = 0; i < s2.size(); ++i)
-    s[s1.size()+i] = s2[i];
-  return s;
-}
-
-/*
-print(concat(["a", "b"], ["c", "d", "e"])); 
-print(concat(["a", "b"], [])); 
-print(concat([], ["c", "d", "e"]));
-*/
-
 // the product of two languages
 prod(L1, L2) {
   L = {};
   forall s1 in L1
     forall s2 in L2
-      L = L U { concat(s1, s2) };
+        L = L U { s1 + s2 };
   return L;
 }
 
@@ -74,19 +49,19 @@ print(prod({["a", "b"], ["c", "d", "e"]}, {[]}));
 lang(ast, k) {
   if (ast == []) L = {};
   else if (chldNo(ast) == 0)
-    L = {[ast[0]]}; 
+    L = {ast[0]}; 
   else if (root(ast) == "_+_") {
     L = {};
     for (i = 0; i < chldNo(ast); ++i)
       L = L U lang(chld(ast, i),k);
     }
   else if (root(ast) == "_._") {
-    L = {[]};
+    L = {""};
     for (i = 0; i < chldNo(ast); ++i)
       L = prod(L, lang(chld(ast, i),k));
     }
   else if (root(ast) == "_*") {
-    if (k == 0) L = {[]};
+    if (k == 0) L = {""};
     else {
       L1 = lang(ast, k-1);
       L  = L1 U prod(lang(chld(ast, 0), k), L1);
@@ -96,42 +71,12 @@ lang(ast, k) {
   return L;
 }
 
-/*
+/* tests:
 print(lang(["a", <>], 2));
 print(lang(["_*", <["a", <>]>], 2));
 print(lang(["_._", <["a", <>], ["a", <>]>], 2)); 
 print(lang(["_+_", <["a", <>], ["b", <>]>], 2));
-print(lang(["_*", <["_+_", <["a", <>], ["b", <>]>]>], 2));
-print(lang(["",<>],1));
 */
-anast = ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>];
-//print(lang(anast, 2));
-
-
-// the string representation of an AST
-ast2string(ast) {
-  if (ast == []) str = "";
-  else if (chldNo(ast) == 0) str = root(ast);
-  else if (root(ast) == "_+_") {
-    str = "(" + ast2string(chld(ast,0));
-    n = chldNo(ast);
-    for (i = 1; i < n; ++i)
-      str = str + " + " + ast2string(chld(ast, i));
-    str = str + ")";
-  }
-  else if (root(ast) == "_._") {
-    str = ast2string(chld(ast,0));
-    n = chldNo(ast);
-    for (i = 1; i < n; ++i)
-      str = str + ast2string(chld(ast, i));
-  }
-  else if (root(ast) == "_*") 
-    str = ast2string(chld(ast, 0)) + "*";
-  else
-    return "undefined";
-  return str;
-}
-
-print(ast2string(anast));
-print(ast2string(["_+_", <["_*", <["_+_", <["_._", <["a", <>], ["c", <>]>], ["c", <>]>]>], ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>]>]));
+print(lang(["_*", <["_+_", <["a", <>], ["b", <>]>]>], 3));
+//print(lang(["",<>],1));
 
