@@ -125,3 +125,32 @@ print(simplify(["_._", < ["_+_", <[], []>], ["_._", < ["a", <>], ["_._", <["", <
 // print(simplify1(simplify (["_._", < ["_+_", <[], []>], ["_._", < ["a", <>], ["_._", <["", <>], ["", <>]>] >]>])));
 
 
+// the string representation of an AST
+ast2string(ast) {
+  if (ast == []) str = "";
+  else if (chldNo(ast) == 0) str = root(ast);
+  else if (root(ast) == "_+_") {
+    str = "(" + ast2string(chld(ast,0));
+    n = chldNo(ast);
+    for (i = 1; i < n; ++i)
+      str = str + " + " + ast2string(chld(ast, i));
+    str = str + ")";
+  }
+  else if (root(ast) == "_._") {
+    str = ast2string(chld(ast,0));
+    n = chldNo(ast);
+    for (i = 1; i < n; ++i)
+      str = str + ast2string(chld(ast, i));
+  }
+  else if (root(ast) == "_*") 
+    str = ast2string(chld(ast, 0)) + "*";
+  else
+    return "undefined";
+  return str;
+}
+
+/* tests:
+print(ast2string(["_._", <["a", <>], ["b", <>]>]));
+print(ast2string(["_._", <["a", <>], ["_*", <["_+_", <["a", <>], ["b", <>]>]>], ["_._", <["a", <>], ["b", <>]>]>])); 
+*/
+

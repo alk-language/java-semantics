@@ -1,3 +1,4 @@
+// ***begin of copy-paste from ast.alk***
 
 // the root of an AST
 root(ast) {
@@ -27,6 +28,7 @@ updatedChld(ast, i, newchld) {
     }
 }
 
+
 // removes a child
 removedChld(ast, i) {
   if (ast.size() > 0 && ast[1].size() > 0)
@@ -36,11 +38,71 @@ removedChld(ast, i) {
     }
 }
 
-/* tests: */
-print(updatedChld(["_+_", <["a", <>], ["", <>]>], 1, ["b", <>])); 
-print(updatedChld(["_+_", <["a", <>], ["", <>]>], 0, ["b", <>])); 
-print(updatedChld(["_+_", <["a", <>], ["", <>]>], 2, ["b", <>]));
 
+/*
+  Simplifies an AST using the unit/domination law
+  for empty and eps
+  TODO: add the associativity law for _+_ and _._
+*/
+simplify1(ast) {
+  if (ast == [])   // empty
+    return ast; 
+  if (len(root(ast)) <= 1)  // eps or in Sigma
+    return ast;
+  if (root(ast) == "_+_" ) { // a sum expression
+    for (i = 0; i < chldNo(ast); ++i) {
+      if (chld(ast, i) == [])   //i-th child is empty
+        ast = removedChld(ast, i);
+      else  //i-th child is non-empty
+        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
+    }	
+    if (chldNo(ast) == 0)
+      return [];
+    else if (chldNo(ast) == 1)
+      return chld(ast,0);
+    else
+      return ast;
+  }
+  if (root(ast) == "_._" ) {  // a product expression
+    for (i = 0; i < chldNo(ast); ++i) {
+      if (chld(ast, i) == [])  //i-th child is empty
+        return []; 
+      else if (root(chld(ast, i)) == "")   //i-th child is eps
+        ast = removedChld(ast, i); 
+      else   //i-th child is non-empty or eps
+        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
+    }
+    if (chldNo(ast) == 0) // removed all children
+      return ["", <>];
+    else if (chldNo(ast) == 1) // just one child remained
+      return chld(ast,0);
+    else  // at least two children
+      return ast;
+  }
+  if (root(ast) == "_*") // a star expression
+    if (chld(ast, 0) == []) // empty
+      return [];
+    else
+      return ["_*", < simplify1(chld(ast, 0)) >];
+  return ast;
+}
+
+simplify(ast) {
+/*
+  do {
+print("&&&&&");
+print(ast);
+    ast1 = ast;
+    ast = simplify1(ast1);
+print("-----");
+print(ast); 
+print(ast1);
+  } while (ast != ast1);
+  return ast1;
+*/
+  ast1 = simplify1(simplify1(simplify1(simplify1(simplify1(simplify1(ast))))));
+  return ast1;
+}
 
 
 // the string representation of an AST
@@ -67,10 +129,7 @@ ast2string(ast) {
   return str;
 }
 
-/* tests:
-print(ast2string(["_._", <["a", <>], ["b", <>]>]));
-print(ast2string(["_._", <["a", <>], ["_*", <["_+_", <["a", <>], ["b", <>]>]>], ["_._", <["a", <>], ["b", <>]>]>])); 
-*/
+// ***end of copy-paste from ast.alk***
 
 /*
  epsIn(E) stands for true if L(E) contains the empty string;
@@ -155,52 +214,6 @@ print(ast2string(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a")));
 */
 
 
-/*
-  Simplifies an AST using the unit/domination law
-  for empty and eps
-  TODO: add the associativity law for _+_ and _._
-*/
-simplify1(ast) {
-  if (ast == [])   // empty
-    return ast; 
-  if (len(root(ast)) <= 1)  // eps or in Sigma
-    return ast;
-  if (root(ast) == "_+_" ) // a sum expression
-    for (i = 0; i < chldNo(ast); ++i)
-      if (chld(ast, i) == [])   //i-th child is empty
-        ast = removedChld(ast, i);
-      else  //i-th child is non-empty
-        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
-    if (chldNo(ast) == 0)
-      return [];
-    else if (chldNo(ast) == 1)
-      return chld(ast,0);
-    else
-      return ast;
-  if (root(ast) == "_._" ) {  // a product expression
-    for (i = 0; i < chldNo(ast); ++i) {
-      if (chld(ast, i) == [])  //i-th child is empty
-        return []; 
-      else if (root(chld(ast, i)) == "")   //i-th child is eps
-        ast = removedChld(ast, i); 
-      else   //i-th child is non-empty or eps
-        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
-    }
-    if (chldNo(ast) == 0) // removed all children
-      return ["", <>];
-    else if (chldNo(ast) == 1) // just one child remained
-      return chld(ast,0);
-    else  // at least two children
-      return ast;
-  }
-  if (root(ast) == "_*") // a star expression
-    if (chld(ast, 0) == []) // empty
-      return [];
-    else
-      return ["_*", < simplify1(chld(ast, 0)) >];
-  return ast;
-}
-
 
 /*
 tests:
@@ -214,24 +227,6 @@ print(simplify1(simplify1 (der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a")))
 print(["_+_", <[], []>]);
 print(simplify1(["_+_", <[], []>]));
 */
-
-simplify(ast) {
-/*
-  do {
-print("&&&&&");
-print(ast);
-    ast1 = ast;
-    ast = simplify1(ast1);
-print("-----");
-print(ast); 
-print(ast1);
-  } while (ast != ast1);
-  return ast1;
-*/
-  ast1 = simplify1(simplify1(simplify1(simplify1(simplify1(simplify1(ast))))));
-  return ast1;
-}
-
 
 
 //print((simplify (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "a")))); 
@@ -259,14 +254,10 @@ getState (map, str) {
 */ 
 detAut(ast, Sigma) {
   state = 0;
-  aut = {};
-  ast = simplify(ast);
-//  map = < [state, ast2string(ast)] >; 
+  ast = simplify(ast); 
   map = < [state, ast] >;
   derSet = { ast };
   do {
-forall x in derSet print(ast2string(x));
-print("");
     derSet1 = derSet;
     forall s in Sigma 
       forall ast in derSet1 {
@@ -274,33 +265,37 @@ print("");
         if (!(ast1 in derSet) && ast1 != []) {
           derSet = derSet U { ast1 };
 	  state++;
-	  //str = ast2string(ast1);
-	  str = ast1;
 	  if (epsIn(ast1))
-            map.pushBack([state, str,"acc"]);
+            map.pushBack([state, ast1,"acc"]);
 	  else
-	    map.pushBack([state, str]);
-//	  aut = aut U { < getState(map,  ast2string(ast)), s, state > };
+	    map.pushBack([state, ast1]);
 	}
       }	
   } while (derSet != derSet1);
+  aut = {};
   forall p in map
     forall q in map 
       forall s in Sigma
         if (q[1] == simplify(der(p[1], s)))
 	  aut = aut U { < p[0], s, q[0] > };
+  forall p in map
+    p[1] = ast2string(p[1]);
   return [aut, map];
 }
 
-//print(detAut(["_+_", <["_*", <["_+_", <["_._", <["a", <>], ["c", <>]>], ["c", <>]>]>], ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>]>], ["a", "b", "c"]));
-
-print(detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]));
-
-/*
-print(ast2string (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "a"))); 
-print(ast2string (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "b"))); 
-print(ast2string (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "c")));
+/* tests:
+am = detAut(["a", <>],  ["a", "b", "c"]);
+print(am[1]);
+forall p in am[2]
+  print(p);
+am = detAut(["_+_", <["_*", <["_+_", <["_._", <["a", <>], ["c", <>]>], ["c", <>]>]>], ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>]>], ["a", "b", "c"]); 
+print(am[1]);
+forall p in am[2]
+  print(p);
 */
-
-//print(detAut(["a", <>],  ["a", "b", "c"]));
+am = detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]); 
+print(am[0]);
+forall p in am[1]
+  print(p);
+  
 

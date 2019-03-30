@@ -2,14 +2,14 @@
 
  Sigma ::= "a" | "b" | "c"
  
- expression = term ("+" term)* .
+ expression ::= term ("+" term)* .
  
- term = factor "*"
-     | factor ("." factor)* .
- /*
+ term ::= factor "*"
+        | factor ("." factor)* .
+
    TODO: add a representaion for "eps"
- */
- factor =
+ 
+ factor ::=
      Sigma
      | "(" expression ")".
 
@@ -125,6 +125,8 @@ expression() {
     return ["_+_", list];
 }
 
+exp = "(a.b+c)*.(b.a)";
+input = exp.split();
 // print(factor());
  print(term());
 // expect("+");
@@ -135,4 +137,3 @@ expect("+");
 print(term());
 */
 //print(expression());
-
