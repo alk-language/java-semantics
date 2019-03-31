@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 import static impl.exceptions.AlkException.*;
 
-public class AlkStructure extends AlkValue {
+public class AlkStructure extends AlkValue implements Cloneable {
 
     private TreeMap<String, AlkValue> map;
 

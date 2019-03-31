@@ -13,7 +13,7 @@ import java.util.TreeSet;
 
 import static impl.exceptions.AlkException.*;
 
-public class AlkSet extends AlkIterableValue {
+public class AlkSet extends AlkIterableValue implements Cloneable {
 
     private TreeSet<AlkValue> set;
     public String contains; //tipuri de date, seturile sunt omogene
@@ -66,7 +66,8 @@ public class AlkSet extends AlkIterableValue {
     @Override
     public AlkValue clone() {
         AlkSet copy = new AlkSet();
-        copy.set = (TreeSet<AlkValue>) set.clone();
+        for (AlkValue i : set)
+            copy.set.add(i.clone());
         return copy;
     }
 

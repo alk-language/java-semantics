@@ -9,7 +9,7 @@ import impl.types.alkInt.AlkInt;
 
 import static impl.exceptions.AlkException.*;
 
-public class AlkString extends AlkValue {
+public class AlkString extends AlkValue implements Cloneable{
 
     public String value;
 
@@ -159,7 +159,8 @@ public class AlkString extends AlkValue {
 
     @Override
     public AlkValue clone() {
-        return new AlkString(value);
+        String copy = value;
+        return new AlkString(copy);
     }
 
     @Override

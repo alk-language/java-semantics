@@ -11,7 +11,7 @@ import java.util.ListIterator;
 
 import static impl.exceptions.AlkException.*;
 
-public class AlkIterator extends AlkValue {
+public class AlkIterator extends AlkValue implements Cloneable{
 
     public ListIterator value;
     public AlkList father;

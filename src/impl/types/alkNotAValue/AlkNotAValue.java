@@ -6,7 +6,7 @@ import impl.types.AlkValue;
 import impl.types.alkBool.AlkBool;
 
 
-public class AlkNotAValue extends AlkValue {
+public class AlkNotAValue extends AlkValue implements Cloneable {
 
     public static final String NO_RETURN = "No value was returned from a called function.";
 

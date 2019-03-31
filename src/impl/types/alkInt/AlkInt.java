@@ -7,7 +7,7 @@ import impl.types.alkBool.AlkBool;
 
 import java.math.BigInteger;
 
-public class AlkInt extends AlkValue {
+public class AlkInt extends AlkValue implements Cloneable{
 
     public BigInteger value;
 
