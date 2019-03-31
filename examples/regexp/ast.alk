@@ -102,16 +102,9 @@ print(simplify1(["_._", <["", <>], ["b", <>]>]));
 */
 
 simplify(ast) {
-    print("simplify");
       do {
-        print("before loop");
-        print(ast);
         ast1 = ast;
-        print(ast1);
         ast = simplify1(ast1);
-        print("after loop");
-        print(ast);
-        print(ast1);
       } while (ast != ast1);
       return ast;
 }
