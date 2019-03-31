@@ -93,7 +93,7 @@ simplify(ast) {
 print("&&&&&");
 print(ast);
     ast1 = ast;
-    ast = simplify1(ast1);
+    ast = simplify1(ast1);   // BUG!!!
 print("-----");
 print(ast); 
 print(ast1);
@@ -141,17 +141,19 @@ epsIn(ast) {
     return true;
   if (root(ast) == "_+_") {
     answ = epsIn(chld(ast, 0));
-    for (i = 1; i < chldNo(ast); ++i)
-      asw = answ || epsIn(chld(ast, i));
+    for (i = 1; i < chldNo(ast); ++i) {
+//      asw = answ || epsIn(chld(ast, i));   // BUG!!!!
+      if (epsIn(chld(ast, i)))
+        answ = true;
+    }
     return answ;
   } 
   if (root(ast) == "_._") {
     answ = epsIn(chld(ast, 0));
     for (i = 1; i < chldNo(ast); ++i) {
-print(i);
-print(answ);
-print(epsIn(chld(ast, i)));
-      asw = answ && epsIn(chld(ast, i));   // BUG!!!!
+//      asw = answ && epsIn(chld(ast, i));   // BUG!!!!
+      if (!epsIn(chld(ast, i)))
+        answ = false; 
     }
     return answ;
   } 
@@ -160,8 +162,6 @@ print(epsIn(chld(ast, i)));
   return false;
 }
 
-// test care arata aparitia bug-ului (a se vedea mesajele printate)
-print(epsIn(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>])); 
 
 
 
@@ -170,6 +170,11 @@ print(epsIn(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]
 tests:
 print(epsIn(["_._", <["a", <>], ["a", <>]>]));
 print(epsIn(["_+_", <["a", <>], ["", <>]>]));
+// teste care arata aparitia bug-ului (a se vedea mesajele printate)
+//((ab + b)*ba)
+print(epsIn(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>])); 
+//(b(ab + b)*ba + )
+print(epsIn(["_+_", <["_._", <["b", <>], ["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["", <>]>]));
 */
 
 /*
@@ -264,7 +269,7 @@ detAut(ast, Sigma) {
   if (epsIn(ast))
     map = < [state, ast, "acc"] >;
   else 
-    map = < [state, ast] >;
+    map = < [state, ast, ""] >;
   derSet = { ast };
   do {
     derSet1 = derSet;
@@ -275,11 +280,10 @@ detAut(ast, Sigma) {
           derSet = derSet U { ast1 };
 	  state++;
 	  if (epsIn(ast1)) {
-print(ast1);
             map.pushBack([state, ast1,"acc"]);
 	  }
 	  else
-	    map.pushBack([state, ast1]);
+	    map.pushBack([state, ast1, ""]);
 	}
       }	
   } while (derSet != derSet1);
@@ -304,11 +308,103 @@ print(am[0]);
 forall p in am[1]
   print(p);
 */
-
+am = detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]);
 /*
-am = detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]); 
 print(am[0]);
 forall p in am[1]
   print(p);
 */
+
+
+/*
+ if aut = am[0] may consume a in the state,
+ then returns an array consists of
+   - the new state
+   - and a string = "acc" if the new state
+     is an accepting state, = "" otherwise
+ otherwise returns [-1] (invalid state) 
+*/
+expected(am, state, a)
+{
+  aut = am[0];
+  map = am[1];
+  forall trans in aut {
+    if (trans.at(0) == state && trans.at(1) == a) { // expected
+      newState = trans.at(2);
+      return [newState, map.at(newState)[2]];
+    }
+  }
+  return [-1];
+}
+
+/* tests:
+print(expected(am, 0, "a")); 
+print(expected(am, 2, "a")); 
+print(expected(am, 3, "a")); 
+*/
+
+/*
+  @input: a string s[0..n-1],
+          a pair am consisting of
+             an automaton am[0] and a map am[1] with the states
+	     (computed by detAut),
+          a position i, 0 <= i < n
+  @output: true,  if s[i..i+m-1] is accepted by aut,
+           false, otherwise
+*/
+occAtPos(s, am,  i)
+{
+  n = s.size();
+  aut = am[0];
+  state = 0; // the current state is the initial state
+  for (j = 0; true; ++j) {
+    exp = expected (am, state, s[i+j]);
+    if (i + j < n && exp[0] >= 0) { // expected
+      state = exp[0];
+      if (exp[1] == "acc") // accepted
+        return true;
+      // else: expected but not accepted
+    }
+    else
+      return false;  // not expected
+  }
+}
+
+/* tests:
+subj = "cbbaaabbacc";
+s = subj.split();
+print(occAtPos(s, am, 0)); 
+print(occAtPos(s, am, 1)); 
+print(occAtPos(s, am, 2));
+print(occAtPos(s, am, 3)); 
+print(occAtPos(s, am, 4));
+print(occAtPos(s, am, 5)); 
+print(occAtPos(s, am, 6));
+*/
+
+/*
+  @input:  strings s[0..n-1], 
+          a pair am consisting of
+             an automaton am[0] and a map am[1] with the states
+	     (computed by detAut),
+  @ouput:  the first occurence of p in s, if any
+            -1, otherwise
+*/
+firstOcc(s, am)
+{ 
+  n = s.size();
+  for (i = 0; i < n; ++i) {
+    if (occAtPos(s, am, i)) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+/* tests:
+*/
+subj = "cbbaaabbacc";
+s = subj.split();
+print(firstOcc(s, am));
 
