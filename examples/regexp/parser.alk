@@ -4,10 +4,10 @@
  
  expression ::= term ("+" term)* 
  
- term ::= factor "*"
-        | factor ("." factor)* 
+ term ::= factor ["*"]
+        | factor ["*"] ("." factor ["*"])* 
 
-   TODO: add a representaion for "eps"
+   TODO: add a representation for "eps"
  
  factor ::=
      Sigma

@@ -45,11 +45,14 @@ print(prod({[]}, {["1", "2"], ["3", "4", "5"]}));
 print(prod({["a", "b"], ["c", "d", "e"]}, {[]}));
 */
 
-// the bounded language defined by a regular expression 
+// the bounded language defined by a regular expression
+/*
+  Returns the strings from L(ast) of length <= k
+*/
 lang(ast, k) {
   if (ast == []) L = {};
   else if (chldNo(ast) == 0)
-    L = {ast[0]}; 
+    L = {root(ast)}; 
   else if (root(ast) == "_+_") {
     L = {};
     for (i = 0; i < chldNo(ast); ++i)
