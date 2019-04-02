@@ -46,9 +46,6 @@ print(prod({["a", "b"], ["c", "d", "e"]}, {[]}));
 */
 
 // the bounded language defined by a regular expression
-/*
-  Returns the strings from L(ast) of length <= k
-*/
 lang(ast, k) {
   if (ast == []) L = {};
   else if (chldNo(ast) == 0)
@@ -64,10 +61,12 @@ lang(ast, k) {
       L = prod(L, lang(chld(ast, i),k));
     }
   else if (root(ast) == "_*") {
-    if (k == 0) L = {""};
-    else {
-      L1 = lang(ast, k-1);
-      L  = L1 U prod(lang(chld(ast, 0), k), L1);
+    L = {""};
+    Li = {""};
+    L1 = lang(chld(ast, 0), k);   
+    for (i = 0; i < k; ++i) {
+      Li = prod(Li, L1); 
+      L = L U Li;
     }
   }
   else return "undefined";
