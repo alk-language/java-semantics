@@ -287,6 +287,10 @@ public class AlkException extends Exception {
 
     public final static String ERR_ONLY_CHAR = "The value to be updated must be a single character string (a char).";
 
+    public final static String ERR_INCLUDE = "Couldn't find: ";
+
+    public final static String ERR_INCLUDE_CYCLE = "There is a circular including process.";
+
     public AlkException(String text)
     {
         this.message=text;

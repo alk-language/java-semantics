@@ -1,5 +1,6 @@
-n=2;
-if (n%2==0)
-    success;
-else
-    failure;
+#include "/home/alex/work/Alk/input/gcd.alk"
+
+a=12;
+b=15;
+c=gcd(a, b);
+print(c);

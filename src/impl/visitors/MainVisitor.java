@@ -17,6 +17,7 @@ public class MainVisitor extends alkBaseVisitor {
         stack.clear();
         Global = env;
         stack.push(env);
+        exceptionOccured = false;
     }
 
     @Override public Object visitStartPoint(alkParser.StartPointContext ctx) {
