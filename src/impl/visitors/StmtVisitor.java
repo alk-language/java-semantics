@@ -231,7 +231,7 @@ public class StmtVisitor extends alkBaseVisitor {
 
     @Override public Object visitFailure(alkParser.FailureContext ctx) {
         AlkException e = new AlkException(null);
-        e.success();
+        e.failure();
         return null;
     }
 
