@@ -3,12 +3,9 @@
  Sigma ::= "a" | "b" | "c"
  
  expression ::= term ("+" term)* 
- 
- term ::= factor "*"
-        | factor ("." factor)* 
-
-   TODO: add a representaion for "eps"
- 
+ term ::= maybeStar
+        | maybeStar ("." maybeStar)* 
+ maybeStar ::= factor ["*"] // equiv to  factor | factor "*"
  factor ::=
      Sigma
      | "(" expression ")"
@@ -50,10 +47,9 @@ error(msg) modifies index {
   tests if the current symbol is accepted and
   if yes, advances in the input
 */
-accept(s, out ast) {
+accept(s) {
     if (sym() == s) {
         nextSym();
-	ast = [s, <>];
         return true;
     }
     return false;
@@ -63,9 +59,9 @@ accept(s, out ast) {
   test if the current symbol is in the alphabet Sigma and
   if yes, advances in the input
 */
-acceptSigma(out ast) modifies sigma {
+acceptSigma() modifies sigma {
   for (i = 0; i < sigma.size(); ++i) 
-      if (accept(sigma[i], ast)) {
+      if (accept(sigma[i])) {
         return true;
       }
   return false;
@@ -73,8 +69,7 @@ acceptSigma(out ast) modifies sigma {
 
 // test if the current symbol is the exptected one
 expect(s) {
-    ast = [];
-    if (accept(s, ast))
+    if (accept(s))
         return true;
     error("expect: unexpected symbol");
     return false;
@@ -82,26 +77,48 @@ expect(s) {
 
 // parses a factor and returs its AST
 factor() {
-    ast = [];
-    if (acceptSigma(ast)) {
-      return ast;
-    } else if (accept("(", ast)) {
+    s = sym();
+    if (acceptSigma()) {
+      return [s,<>];
+    } else if (accept("(")) {
         ast = expression();
         expect(")");
     }
         return ast;
 }
 
+// parses a maybeStar and returs its AST
+maybeStar() {
+    ast = factor();
+    if (accept("*")) 
+      return < ["_*", ast] >;
+    else
+      return ast;
+}
+
 // parses a term and returs its AST
+/*
 term() {
     ast = factor();
     list = < ast >;
-    if (accept("*", ast)) list = < ["_*", list] >;
-    while (sym() == ".") {
-        nextSym();
+    if (accept("*")) list = < ["_*", list] >;
+    while (accept(".")) {
         ast1 = factor();
-	if (accept("*", ast)) list.pushBack(["_*", < ast1 >]);
+	if (accept("*")) list.pushBack(["_*", < ast1 >]);
 	else list.pushBack(ast1);
+    }
+    if (list.size() > 1)
+      return ["_._", list];
+    else
+      return list.at(0);
+}
+*/
+term() {
+    ast = maybeStar();
+    list = < ast >;
+    while (accept(".")) {
+        ast1 = maybeStar();
+        list.pushBack(ast1);
     }
     if (list.size() > 1)
       return ["_._", list];
@@ -113,8 +130,7 @@ term() {
 expression() {
     ast = term();
     list = < ast >;
-    while (sym() == "+") {
-        nextSym();
+    while (accept("+")) {
         ast = term();
 	list.pushBack(ast);
     }

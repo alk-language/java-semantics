@@ -298,6 +298,18 @@ public class AlkException extends Exception {
         throw new RuntimeException();
     }
 
+    public void success()
+    {
+        System.out.println("The execution of the algorithm ended successfully.");
+        throw new RuntimeException();
+    }
+
+    public void failure()
+    {
+        System.out.println("The execution of the algorithm failed.");
+        throw new RuntimeException();
+    }
+
     public void glueLine(String text) {
         this.message += " " + text;
     }

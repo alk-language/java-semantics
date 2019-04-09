@@ -45,11 +45,11 @@ print(prod({[]}, {["1", "2"], ["3", "4", "5"]}));
 print(prod({["a", "b"], ["c", "d", "e"]}, {[]}));
 */
 
-// the bounded language defined by a regular expression 
+// the bounded language defined by a regular expression
 lang(ast, k) {
   if (ast == []) L = {};
   else if (chldNo(ast) == 0)
-    L = {ast[0]}; 
+    L = {root(ast)}; 
   else if (root(ast) == "_+_") {
     L = {};
     for (i = 0; i < chldNo(ast); ++i)
@@ -61,10 +61,12 @@ lang(ast, k) {
       L = prod(L, lang(chld(ast, i),k));
     }
   else if (root(ast) == "_*") {
-    if (k == 0) L = {""};
-    else {
-      L1 = lang(ast, k-1);
-      L  = L1 U prod(lang(chld(ast, 0), k), L1);
+    L = {""};
+    Li = {""};
+    L1 = lang(chld(ast, 0), k);   
+    for (i = 0; i < k; ++i) {
+      Li = prod(Li, L1); 
+      L = L U Li;
     }
   }
   else return "undefined";
