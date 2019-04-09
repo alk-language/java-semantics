@@ -221,6 +221,12 @@ public class StmtVisitor extends alkBaseVisitor {
     }
 
 
+    @Override public Object visitSuccess(alkParser.SuccessContext ctx) {
+        AlkException e = new AlkException(null);
+        e.success();
+        return null;
+    }
+
 
     @Override public Object visitForStructure(alkParser.ForStructureContext ctx) {
         if (returnValue != null) return null;
