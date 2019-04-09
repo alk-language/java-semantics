@@ -1,8 +1,5 @@
-fcd(x)
-{
-    x=2;
-}
-
-x=1;
-fcd(x);
-print(x);
+n=2;
+if (n%2==0)
+    success;
+else
+    failure;
