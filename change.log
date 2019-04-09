@@ -10,3 +10,6 @@
 - Adaugat functii peste stringuri: size(), split(), split(pattern), at(position), update(position, value), insert(position, value), remove(position);
 - Adaugat structura repeat until
 - Acum blocurile de instructiuni pot fi vide ex: gcd(a, b) {}
+
+- Adaugat script in C pentru rulare
+- Adaugat include
