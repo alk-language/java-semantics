@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/regexp/detaut.alk" beforeDir="false" afterPath="$PROJECT_DIR$/examples/regexp/detaut.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="182" column="21" lean-forward="true" selection-start-line="182" selection-start-column="21" selection-end-line="182" selection-end-column="21" />
+            <state relative-caret-position="727">
+              <caret line="231" column="58" selection-start-line="231" selection-start-column="58" selection-end-line="231" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,13 +47,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/impl/exceptions/AlkException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="817">
-              <caret line="298" column="5" selection-start-line="298" selection-start-column="5" selection-end-line="298" selection-end-column="5" />
+            <state relative-caret-position="952">
+              <caret line="310" column="5" lean-forward="true" selection-start-line="310" selection-start-column="5" selection-end-line="310" selection-end-column="5" />
               <folding>
-                <element signature="e#24689#24690#0" expanded="true" />
+                <element signature="e#24995#24996#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -64,8 +62,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/regexp/detaut.alk">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2235">
-              <caret line="149" column="3" selection-end-line="410" />
+            <state relative-caret-position="2115">
+              <caret line="141" column="3" selection-end-line="401" />
             </state>
           </provider>
         </entry>
@@ -231,8 +229,8 @@
         <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/examples/regexp/detaut.alk" />
         <option value="$PROJECT_DIR$/input/test.in" />
-        <option value="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" />
         <option value="$PROJECT_DIR$/src/impl/exceptions/AlkException.java" />
+        <option value="$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java" />
       </list>
     </option>
   </component>
@@ -455,7 +453,7 @@
       <workItem from="1553879771860" duration="2950000" />
       <workItem from="1553943263938" duration="3527000" />
       <workItem from="1554047609537" duration="697000" />
-      <workItem from="1554802468379" duration="125000" />
+      <workItem from="1554802468379" duration="871000" />
     </task>
     <task id="LOCAL-00001" summary="Update spec, changed errors message, added preparsing">
       <created>1553634139154</created>
@@ -478,17 +476,31 @@
       <option name="project" value="LOCAL" />
       <updated>1554047866166</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="merge">
+      <created>1554802624122</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1554802624122</updated>
+    </task>
+    <task id="LOCAL-00005" summary="success and failure">
+      <created>1554802700294</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1554802700294</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203293000" />
+    <option name="totallyTimeSpent" value="204039000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1853" height="1173" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18483675" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18483675" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -497,7 +509,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32883316" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4994664" visible="true" weight="0.30761814" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994664" weight="0.30761814" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25747347" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -533,7 +545,9 @@
     <MESSAGE value="Update spec, changed errors message, added preparsing" />
     <MESSAGE value="Update workspace" />
     <MESSAGE value="Fixed clone bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed clone bug" />
+    <MESSAGE value="merge" />
+    <MESSAGE value="success and failure" />
+    <option name="LAST_COMMIT_MESSAGE" value="success and failure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -940,8 +954,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/regexp/detaut.alk">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2235">
-          <caret line="149" column="3" selection-end-line="410" />
+        <state relative-caret-position="2115">
+          <caret line="141" column="3" selection-end-line="401" />
         </state>
       </provider>
     </entry>
@@ -994,22 +1008,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java">
+    <entry file="file://$PROJECT_DIR$/src/impl/exceptions/AlkException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="182" column="21" lean-forward="true" selection-start-line="182" selection-start-column="21" selection-end-line="182" selection-end-column="21" />
+        <state relative-caret-position="952">
+          <caret line="310" column="5" lean-forward="true" selection-start-line="310" selection-start-column="5" selection-end-line="310" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#24995#24996#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/impl/exceptions/AlkException.java">
+    <entry file="file://$PROJECT_DIR$/src/impl/visitors/StmtVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="298" column="5" selection-start-line="298" selection-start-column="5" selection-end-line="298" selection-end-column="5" />
+        <state relative-caret-position="727">
+          <caret line="231" column="58" selection-start-line="231" selection-start-column="58" selection-end-line="231" selection-end-column="58" />
           <folding>
-            <element signature="e#24689#24690#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
