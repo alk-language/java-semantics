@@ -1,15 +1,15 @@
-package preparsing.visitors;
+package analysis.visitors;
 
+import analysis.Analysis;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import preparsing.PreParsing;
 
 
-public class PreStmtVisitor extends alkBaseVisitor {
+public class AnalysisStmtVisitor extends alkBaseVisitor {
 
-    PreParsing data;
+    Analysis data;
 
-    public PreStmtVisitor(PreParsing data)
+    public AnalysisStmtVisitor(Analysis data)
     {
         this.data=data;
     }

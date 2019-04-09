@@ -29,12 +29,20 @@ statement //statement
     | increase_decrease SEMICOLON                                                                                       #ToIncreaseDecrease
     | statement_block                                                                                                   #ToBlock
 
+    //directives
+    | directive                                                                                                         #ToDirective
+
     | repeat_struct SEMICOLON                                                                                           #ToRepeat
     | while_struct                                                                                                      #ToWhile
     | do_while_struct SEMICOLON                                                                                         #ToDoWhile
     | if_struct                                                                                                         #ToIf
     | for_struct                                                                                                        #ToFor
     | forall_struct                                                                                                     #ToForAll
+;
+
+directive
+:
+    NUMSIGN INCLDUE STRING                                                                                              #Include
 ;
 
 repeat_struct

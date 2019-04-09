@@ -2,23 +2,23 @@ package main;
 
 import impl.Parsing;
 import impl.env.Environment;
-import impl.env.Store;
+import impl.exceptions.AlkException;
 import impl.exceptions.AlkWarning;
 import impl.visitors.ConfigVisitator;
 import impl.visitors.MainVisitor;
-import impl.visitors.StmtVisitor;
 import impl.visitors.expression.ExpressionVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.tree.*;
 import grammar.*;
 import org.apache.commons.cli.*;
-import preparsing.PreParsing;
-import preparsing.visitors.PreMainVisitor;
+import analysis.Analysis;
+import analysis.visitors.AnalysisMainVisitor;
+import preprocessing.PreProcessing;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import static impl.constants.Constants.DEBUG;
 
@@ -100,15 +100,18 @@ public class Main {
                 configVisitator.visit(treeInit);
             }
 
+            PreProcessing pre = new PreProcessing(file, new ArrayList());
+            pre.execute(e, true);
+
             alkLexer lexerAlk = new alkLexer(alkFile);
             CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
             alkParser parserAlk = new alkParser(tokensAlk);
 
             ParseTree tree = parserAlk.main();
 
-            PreParsing data = new PreParsing();
-            PreMainVisitor preMainVisitor = new PreMainVisitor(data);
-            preMainVisitor.visit(tree);
+            Analysis data = new Analysis();
+            AnalysisMainVisitor analysisMainVisitor = new AnalysisMainVisitor(data);
+            analysisMainVisitor.visit(tree);
 
             MainVisitor alkVisitor = new MainVisitor(e);
             alkVisitor.visit(tree);
@@ -129,6 +132,9 @@ public class Main {
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+        catch (AlkException e) {
+            System.out.println(e.message);
         }
         catch(RuntimeException e)
         {
