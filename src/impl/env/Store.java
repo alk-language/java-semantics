@@ -17,12 +17,17 @@ public class Store {
 
     public static void set(Integer location, AlkValue value)
     {
-        store.put(location, value);
+        store.put(location, value.clone());
     }
 
     public static Integer setNew(AlkValue value) {
         location++;
-        store.put(location, value);
+        store.put(location, value.clone());
         return location;
+    }
+
+    public static void printStore()
+    {
+        System.out.print(store.toString());
     }
 }

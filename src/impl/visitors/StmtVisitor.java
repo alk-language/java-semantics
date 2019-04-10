@@ -135,6 +135,25 @@ public class StmtVisitor extends alkBaseVisitor {
         return null;
     }
 
+    @Override public Object visitRepeatStructure(alkParser.RepeatStructureContext ctx) {
+        if (returnValue != null) return null;
+        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
+        AlkValue value;
+        do
+        {
+            visit(ctx.statement());
+            if (returnValue != null) return null;
+            value = (AlkValue) exprVisitor.visit(ctx.expression());
+            if (!value.type.equals("Bool"))
+            {
+                AlkException e = new AlkException(ERR_REPEAT_NOT_BOOL);
+                e.printException(ctx.start.getLine());
+                return null;
+            }
+        } while (!((AlkBool)value).value);
+        return null;
+    }
+
     @Override public Object visitDoWhileStructure(alkParser.DoWhileStructureContext ctx) {
         if (returnValue != null) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);

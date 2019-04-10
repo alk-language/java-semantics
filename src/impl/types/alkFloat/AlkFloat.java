@@ -7,7 +7,7 @@ import impl.types.alkBool.AlkBool;
 
 import java.math.BigDecimal;
 
-public class AlkFloat extends AlkValue {
+public class AlkFloat extends AlkValue implements Cloneable{
 
     public BigDecimal value;
 

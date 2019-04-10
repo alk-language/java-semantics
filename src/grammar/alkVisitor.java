@@ -103,6 +103,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToBlock(alkParser.ToBlockContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ToRepeat}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToRepeat(alkParser.ToRepeatContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ToWhile}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
@@ -138,12 +145,26 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToForAll(alkParser.ToForAllContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code RepeatStructure}
+	 * labeled alternative in {@link alkParser#repeat_struct}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRepeatStructure(alkParser.RepeatStructureContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Block}
 	 * labeled alternative in {@link alkParser#statement_block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBlock(alkParser.BlockContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EmptyBlock}
+	 * labeled alternative in {@link alkParser#statement_block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmptyBlock(alkParser.EmptyBlockContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code UniformStmt}
 	 * labeled alternative in {@link alkParser#uniform}.

@@ -14,7 +14,7 @@ import java.util.ListIterator;
 
 import static impl.exceptions.AlkException.*;
 
-public class AlkList extends AlkIterableValue {
+public class AlkList extends AlkIterableValue implements Cloneable{
 
     private LinkedList<AlkValue> list;
 
@@ -108,7 +108,8 @@ public class AlkList extends AlkIterableValue {
     @Override
     public AlkValue clone() {
         AlkList copy = new AlkList();
-        copy.list = (LinkedList) list.clone();
+        for (AlkValue i : list)
+            copy.list.add(i.clone());
         return copy;
     }
 

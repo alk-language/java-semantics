@@ -10,5 +10,15 @@
 - Include librarii
 
 - De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
-- De pus la stringuri mai multe metode, dintre care split, size, at
+- De pus la stringuri mai multe metode, dintre care split, size, at DONE
 - repeat until
+- de redenumit preprocessing
+
+***
+- operatie de lookup la liste
+- maps
+- metode pentru structurii proprii (de ex. grafuri, ast-uri)
+    x.f(...) equivalent cu x = f(out x,...)  sau f(x, ...)  (diferenta
+    este data de prezenta lui "out" la declarare si neprezenta lui
+    return in al doilea caz)
+

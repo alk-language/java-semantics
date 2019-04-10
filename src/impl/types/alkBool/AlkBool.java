@@ -6,7 +6,7 @@ import impl.types.AlkValue;
 
 import static impl.exceptions.AlkException.ERR_LOWER_BOOL;
 
-public class AlkBool extends AlkValue {
+public class AlkBool extends AlkValue implements Cloneable{
 
     public Boolean value;
 

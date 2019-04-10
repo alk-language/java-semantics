@@ -175,6 +175,7 @@ public class AlkException extends Exception {
     public final static String ERR_IF_NOT_BOOL = "The value of the expression to evaluate in if must be boolean.";
     public final static String ERR_WHILE_NOT_BOOL = "The value of the expression to evaluate in while must be boolean.";
     public final static String ERR_DOWHILE_NOT_BOOL = "The value of the expression to evaluate in do while must be boolean.";
+    public final static String ERR_REPEAT_NOT_BOOL = "The value of the expression to evaluate in repeat until must be boolean.";
     public final static String ERR_FOR_NOT_BOOL = "The value of the expression to evaluate in for must be boolean.";
 
 
@@ -196,6 +197,7 @@ public class AlkException extends Exception {
 
     public final static String ERR_ARRAY_OUT_OF_BOUNDS = "The position in the array is out of bounds.";
     public final static String ERR_LIST_OUT_OF_BOUNDS = "The position in the list is out of bounds.";
+    public final static String ERR_STRING_OUT_OF_BOUNDS = "The position in the string is out of bounds.";
 
     public final static String ERR_LIST_EMPTY = "The list is empty, can't get iterator to first element.";
 
@@ -248,6 +250,8 @@ public class AlkException extends Exception {
 
     public final static String ERR_SIZE = "This type of value is not valid for the size function.";
 
+    public final static String ERR_SPLIT = "This type of value is not valid for the split function.";
+
     public final static String ERR_TOPBACK = "This type of value is not valid for the topBack function.";
     public final static String ERR_TOPBACK_EMPTY = "The data structure is empty, there is no topBack element.";
 
@@ -255,6 +259,7 @@ public class AlkException extends Exception {
     public final static String ERR_TOPFRONT_EMPTY = "The data structure is empty, there is no topFront element.";
 
     public final static String ERR_UPDATE = "This type of value is not valid for the update function.";
+    public final static String ERR_UPDATE_TOOBIG = "The operand for the position is too big for the parameter.";
 
 
     public final static String ERR_FUNCTION_REDEFINITION = "Another function with the same name and same number of parameters was already defined.";
@@ -279,6 +284,8 @@ public class AlkException extends Exception {
     public final static String ERR_MATH_INT_OR_DOUBLE = "The parameter of a mathematical function must be numeric.";
 
     public final static String ERR_SPEC_BOOL = "The expression checking validity in specification must be bool.";
+
+    public final static String ERR_ONLY_CHAR = "The value to be updated must be a single character string (a char).";
 
     public AlkException(String text)
     {

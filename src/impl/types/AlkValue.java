@@ -263,6 +263,14 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
         throw new AlkException(ERR_SIZE);
     }
 
+    public AlkValue split() throws AlkException {
+        throw new AlkException(ERR_SPLIT);
+    }
+
+    public AlkValue split(AlkValue pattern) throws AlkException {
+        throw new AlkException(ERR_SPLIT);
+    }
+
     public AlkValue topBack() throws AlkException {
         throw new AlkException(ERR_TOPBACK);
     }
@@ -274,5 +282,4 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
     public AlkValue update(AlkValue position, AlkValue value) throws AlkException {
         throw new AlkException(ERR_UPDATE);
     }
-
 }

@@ -13,7 +13,7 @@ import java.util.Iterator;
 import static impl.constants.Constants.MAX_ARRAY;
 import static impl.exceptions.AlkException.*;
 
-public class AlkArray extends AlkIterableValue {
+public class AlkArray extends AlkIterableValue implements Cloneable {
 
     private ArrayList<AlkValue> array;
 
@@ -91,7 +91,8 @@ public class AlkArray extends AlkIterableValue {
     @Override
     public AlkValue clone() {
         AlkArray copy = new AlkArray();
-        copy.array = (ArrayList<AlkValue>) array.clone();
+        for (AlkValue i : array)
+            copy.array.add(i.clone());
         return copy;
     }
 
