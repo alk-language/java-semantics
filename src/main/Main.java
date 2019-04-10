@@ -2,6 +2,7 @@ package main;
 
 import impl.Parsing;
 import impl.env.Environment;
+import impl.env.Store;
 import impl.exceptions.AlkWarning;
 import impl.visitors.ConfigVisitator;
 import impl.visitors.MainVisitor;

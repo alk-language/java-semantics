@@ -29,6 +29,7 @@ statement //statement
     | increase_decrease SEMICOLON                                                                                       #ToIncreaseDecrease
     | statement_block                                                                                                   #ToBlock
 
+    | repeat_struct SEMICOLON                                                                                           #ToRepeat
     | while_struct                                                                                                      #ToWhile
     | do_while_struct SEMICOLON                                                                                         #ToDoWhile
     | if_struct                                                                                                         #ToIf
@@ -36,9 +37,15 @@ statement //statement
     | forall_struct                                                                                                     #ToForAll
 ;
 
+repeat_struct
+:
+    REPEAT statement UNTIL LPAR expression RPAR                                                                         #RepeatStructure
+;
+
 statement_block
 :
     LCB statement_sequence RCB                                                                                          #Block
+    | LCB RCB                                                                                                           #EmptyBlock
 ;
 
 uniform:
@@ -96,7 +103,7 @@ forall_struct
 
 function_decl
 :
-    ID LPAR (param (COMMA param)*)? RPAR (MODIFIES ID (COMMA ID)*)?statement_block                                      #FunctionDecl
+    ID LPAR (param (COMMA param)*)? RPAR (MODIFIES ID (COMMA ID)*)? statement_block                                     #FunctionDecl
 ;
 
 param

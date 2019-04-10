@@ -5,3 +5,8 @@
 - Specificatiile sunt de 3 tipuri, dintre care 1 deprecated: A={a from B | a%2==0} sau A={2*a | a from B} sau A={2*a | a in B} (deprecated)
 - Scurtcircuitat or si and
 - Reparat bugul de la egalitatea datelor compuse
+
+
+- Adaugat functii peste stringuri: size(), split(), split(pattern), at(position), update(position, value), insert(position, value), remove(position);
+- Adaugat structura repeat until
+- Acum blocurile de instructiuni pot fi vide ex: gcd(a, b) {}

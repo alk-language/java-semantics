@@ -93,7 +93,8 @@ public class FunctionCallVisitor extends alkBaseVisitor {
                 }
                 else
                 {
-                    array.add(expressionVisitor.visit(ctx.expression(i)));
+                    AlkValue val = (AlkValue) expressionVisitor.visit(ctx.expression(i));
+                    array.add(val.clone());
                 }
             }
             return function.call(array);

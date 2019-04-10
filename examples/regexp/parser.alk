@@ -2,29 +2,25 @@
 
  Sigma ::= "a" | "b" | "c"
  
- expression = term ("+" term)* .
- 
- term = factor "*"
-     | factor ("." factor)* .
- 
- factor =
+ expression ::= term ("+" term)* 
+ term ::= maybeStar
+        | maybeStar ("." maybeStar)* 
+ maybeStar ::= factor ["*"] // equiv to  factor | factor "*"
+ factor ::=
      Sigma
-     | "(" expression ")".
+     | "(" expression ")"
 
 */
 
-// the input expression
-input = ["(","a",".","a","+","b",")","*"];
 
 // the current position in the input
 index = 0;
 
-// the alphabet
-sigma = ["a","b","c"];
-
 // the current symbol
 sym() modifies index, input {
-  return input[index];
+  if (index < input.size())
+    return input.at(index);
+  return "\0";
 }
 
 // goes to the next symbol
@@ -33,7 +29,7 @@ nextSym() modifies index, input {
     index++;
 /*
     // skip the spaces
-    while (input[index] == " " && index < input.size())
+    while (input.at(index) == " " && index < input.size())
     index++;
 */
   } else
@@ -47,22 +43,25 @@ error(msg) modifies index {
   print("");
 }
 
-// tests if the current symbol is accepted and
-// if yes, returns its AST
-accept(s, out ast) {
+/*
+  tests if the current symbol is accepted and
+  if yes, advances in the input
+*/
+accept(s) {
     if (sym() == s) {
         nextSym();
-	ast = [s, <>];
         return true;
     }
     return false;
 }
 
-// test if the current symbol is in the alphabet Sigma and
-// if yes, returns its AST
-acceptSigma(out ast) modifies sigma {
+/*
+  test if the current symbol is in the alphabet Sigma and
+  if yes, advances in the input
+*/
+acceptSigma() modifies sigma {
   for (i = 0; i < sigma.size(); ++i) 
-      if (accept(sigma[i], ast)) {
+      if (accept(sigma[i])) {
         return true;
       }
   return false;
@@ -70,8 +69,7 @@ acceptSigma(out ast) modifies sigma {
 
 // test if the current symbol is the exptected one
 expect(s) {
-    ast = [];
-    if (accept(s, ast))
+    if (accept(s))
         return true;
     error("expect: unexpected symbol");
     return false;
@@ -79,27 +77,48 @@ expect(s) {
 
 // parses a factor and returs its AST
 factor() {
-    ast = [];
-    if (acceptSigma(ast)) {
-      return ast;
-    } else if (accept("(", ast)) {
+    s = sym();
+    if (acceptSigma()) {
+      return [s,<>];
+    } else if (accept("(")) {
         ast = expression();
         expect(")");
-//        return ast;
     }
-//    error("factor: error");
         return ast;
 }
 
+// parses a maybeStar and returs its AST
+maybeStar() {
+    ast = factor();
+    if (accept("*")) 
+      return < ["_*", ast] >;
+    else
+      return ast;
+}
+
 // parses a term and returs its AST
+/*
 term() {
     ast = factor();
     list = < ast >;
-    if (accept("*", ast)) return ["_*", list];
-    while (sym() == ".") {
-        nextSym();
-        ast = factor();
-	list.pushBack(ast);
+    if (accept("*")) list = < ["_*", list] >;
+    while (accept(".")) {
+        ast1 = factor();
+	if (accept("*")) list.pushBack(["_*", < ast1 >]);
+	else list.pushBack(ast1);
+    }
+    if (list.size() > 1)
+      return ["_._", list];
+    else
+      return list.at(0);
+}
+*/
+term() {
+    ast = maybeStar();
+    list = < ast >;
+    while (accept(".")) {
+        ast1 = maybeStar();
+        list.pushBack(ast1);
     }
     if (list.size() > 1)
       return ["_._", list];
@@ -111,15 +130,17 @@ term() {
 expression() {
     ast = term();
     list = < ast >;
-    while (sym() == "+") {
-        nextSym();
+    while (accept("+")) {
         ast = term();
 	list.pushBack(ast);
     }
-    return ["_+_", list];
+    if (list.size() > 1)
+      return ["_+_", list];
+    else
+      return list.at(0);
 }
-
-//print(factor());
-print(term());
-//expect("+");
-//factor();
+// the alphabet
+sigma = ["a","b","c"];
+// the expression
+input = "(a.b+b)*.(b.a)";
+print(expression());
