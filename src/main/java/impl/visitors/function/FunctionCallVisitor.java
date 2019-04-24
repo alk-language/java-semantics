@@ -1,7 +1,6 @@
 package impl.visitors.function;
 
 
-import ch.obermuhlner.math.big.BigDecimalMath;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import impl.env.AlkFunction;
@@ -14,10 +13,11 @@ import impl.types.alkInt.AlkInt;
 import impl.types.alkNotAValue.AlkNotAValue;
 import impl.types.alkSet.AlkSet;
 import impl.visitors.expression.ExpressionVisitor;
+import impl.visitors.helpers.Convertors;
+import impl.visitors.helpers.MathHelper;
+import impl.visitors.helpers.NonDeterministic;
 
 
-import java.math.BigInteger;
-import java.math.MathContext;
 import java.util.ArrayList;
 
 import static impl.exceptions.AlkException.*;

@@ -7,7 +7,6 @@ import impl.visitors.MainVisitor;
 import impl.visitors.StmtVisitor;
 import impl.exceptions.AlkException;
 import impl.types.AlkValue;
-import impl.types.alkBool.AlkBool;
 import impl.types.alkInt.AlkInt;
 
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class AlkFunction {
                 env.update(this.params.get(i).x, params.get(i));
         }
 
-        Environment globals = MainVisitor.Global;
+        Environment globals = MainVisitor.global;
         for (int i=0; i<modifies.size(); i++)
         {
             if (!globals.has(modifies.get(i)))
