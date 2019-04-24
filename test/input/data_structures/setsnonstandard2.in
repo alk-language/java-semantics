@@ -1,7 +1,0 @@
-s = { 2, 4, 6, 7 };
-s2 = s;
-a = s.topFront();
-s2.popFront();
-s2.pushBack(a);
-b = s2.topFront();
-t = s == s2;

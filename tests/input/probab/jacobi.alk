@@ -1,0 +1,22 @@
+jacobi(a, n)
+{
+  j = 1;
+  while (a != 0) {
+    while (a % 2 == 0) { // a is even
+      a = a / 2;
+      if (n % 8 == 3 || n % 8 == 5) j = 0-j;
+    }
+    aux = n;
+    n = a;
+    a = aux;
+    if (a % 4 == 3 && n % 4 == 3) j = 0-j;
+    a = a % n;
+  }
+  if (n == 1) return j;
+  else return 0;
+}
+
+x = jacobi(2, 4);
+x1 = jacobi(2, 5);
+x2 = jacobi(3, 5);
+x3 = jacobi(4, 5);
