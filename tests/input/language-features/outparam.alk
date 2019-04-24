@@ -1,0 +1,24 @@
+f1(x) {
+  return x * x;
+}
+
+f2(out x) {
+  x = 7;
+}
+
+f3(x, out y) {
+  y = x + 3;
+  return y / x;
+}
+
+print(f1(5)); // 25
+b2 = 22;
+f2(b2);
+print(b2);  // 7
+b3 = 33;
+a3 = f3(5, b3);
+print(a3); // 1 
+print(b3); // 8
+
+
+

@@ -44,7 +44,10 @@ public class FunctionCallVisitor extends alkBaseVisitor {
         try {
             switch (name)
             {
-                case "print": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); System.out.println(params.get(0).toString()); return new AlkNotAValue(NO_RETURN);
+                case "print": if (params.size()!=1)
+                    throw new AlkException(ERR_PARAM_NUMBER);
+                System.out.println(params.get(0).toString());
+                return new AlkNotAValue(NO_RETURN);
                 case "singletonSet": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); AlkSet set = new AlkSet(); set.insert(params.get(0)); return set;
                 case "int": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); return Convertors.toInt(params.get(0));
                 case "float": if (params.size()!=1) throw new AlkException(ERR_PARAM_NUMBER); return Convertors.toFloat(params.get(0));

@@ -12,8 +12,8 @@ swap(out a, i, j) {
 */
 partition(out a, p, q)
 {
-  pivot = a[q];
-  i = p - 1;
+  pivot = a[q]; 
+  i = p - 1;    
   for (j = p; j < q; ++j)
     if (a[j] < pivot) {
         i = i + 1;
@@ -57,7 +57,7 @@ randSelectRec(out a, p, q, k)
 {
   j = randPartition(a, p, q);
   if (j == k) return a[j];
-  if (j < k) return randSelectRec(a, j+1, q, k);
+  if (j < k) return randSelectRec(a, j+1, q, k); 
   return randSelectRec(a, p, j-1, k);
 }
 
