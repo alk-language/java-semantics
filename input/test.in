@@ -1,6 +1,8 @@
-#include "ast"
-#option p
+#include "/home/alex/work/Alk/releases/gcd"
 
-a = [1, <1, 2>];
-b = a;
-b[1].insert(0, 0);
+n=7;
+if (n%2==0)
+    success;
+else
+    failure;
+print(10);

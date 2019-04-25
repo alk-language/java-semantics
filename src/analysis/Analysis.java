@@ -1,6 +1,6 @@
-package preparsing;
+package analysis;
 
-public class PreParsing {
+public class Analysis {
 
     String algorithm_type = "determinist";
 
