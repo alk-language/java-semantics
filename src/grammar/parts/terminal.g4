@@ -43,6 +43,7 @@ EMPTYSET : 'emptySet';
 EMPTYLIST : 'emptyList';
 
 MODIFIES : 'modifies';
+INCLDUE : 'include';
 
 XOR : 'xor';
 
@@ -92,6 +93,7 @@ SOTHAT : 's.t.';
 
 //Structure
 ARROW : '->';
+NUMSIGN : '#';
 
 
 //Set Operators

@@ -287,6 +287,10 @@ public class AlkException extends Exception {
 
     public final static String ERR_ONLY_CHAR = "The value to be updated must be a single character string (a char).";
 
+    public final static String ERR_INCLUDE = "Couldn't find: ";
+
+    public final static String ERR_INCLUDE_CYCLE = "There is a circular including process.";
+
     public AlkException(String text)
     {
         this.message=text;
@@ -295,6 +299,18 @@ public class AlkException extends Exception {
     public void printException(int line) {
         MainVisitor.exceptionOccured=true;
         System.out.println("Error at line "+line+": "+message);
+        throw new RuntimeException();
+    }
+
+    public void success()
+    {
+        System.out.println("The nondeterministic execution of the algorithm successfully terminated.");
+        throw new RuntimeException();
+    }
+
+    public void failure()
+    {
+        System.out.println("The nondeterministic execution of the algorithm failed.");
         throw new RuntimeException();
     }
 
