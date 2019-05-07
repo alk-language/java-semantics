@@ -3,6 +3,7 @@
   @output: x = [log n] + 1
 */
 
+n=78;
 print(n);
 x = 0;
 while (n > 0) {

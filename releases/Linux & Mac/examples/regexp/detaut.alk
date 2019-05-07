@@ -1,0 +1,401 @@
+// ***begin of copy-paste from ast.alk***
+
+// the root of an AST
+root(ast) {
+  if (ast.size() > 0) return ast[0];
+}
+
+
+// the number of children
+chldNo(ast) {
+  if (ast.size() > 0) return ast[1].size();
+  return 0;
+}
+
+// the i-th child of an AST
+chld(ast, i) {
+  if (ast.size() > 0 && i < ast[1].size()) {
+    return ast[1].at(i);
+  }
+}
+
+// updates a child
+updatedChld(ast, i, newchld) {
+  if (ast.size() > 0 && ast[1].size() > 0)
+    if (i >= 0 && i < ast[1].size()) {
+      ast[1].update(i, newchld);
+      return ast;
+    }
+}
+
+
+// removes a child
+removedChld(ast, i) {
+  if (ast.size() > 0 && ast[1].size() > 0)
+    if (i >= 0 && i < ast[1].size()) {
+      ast[1].removeAt(i);
+      return ast;
+    }
+}
+
+
+/*
+  Simplifies an AST using the unit/domination law
+  for empty and eps
+  TODO: add the associativity law for _+_ and _._
+*/
+simplify1(ast) {
+  if (ast == [])   // empty
+    return ast; 
+  if (len(root(ast)) <= 1)  // eps or in Sigma
+    return ast;
+  if (root(ast) == "_+_" ) { // a sum expression
+    for (i = 0; i < chldNo(ast); ++i) {
+      if (chld(ast, i) == [])   //i-th child is empty
+        ast = removedChld(ast, i);
+      else  //i-th child is non-empty
+        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
+    }	
+    if (chldNo(ast) == 0)
+      return [];
+    else if (chldNo(ast) == 1)
+      return chld(ast,0);
+    else
+      return ast;
+  }
+  if (root(ast) == "_._" ) {  // a product expression
+    for (i = 0; i < chldNo(ast); ++i) {
+      if (chld(ast, i) == [])  //i-th child is empty
+        return []; 
+      else if (root(chld(ast, i)) == "")   //i-th child is eps
+        ast = removedChld(ast, i); 
+      else   //i-th child is non-empty or eps
+        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
+    }
+    if (chldNo(ast) == 0) // removed all children
+      return ["", <>];
+    else if (chldNo(ast) == 1) // just one child remained
+      return chld(ast,0);
+    else  // at least two children
+      return ast;
+  }
+  if (root(ast) == "_*") // a star expression
+    if (chld(ast, 0) == []) // empty
+      return [];
+    else
+      return ["_*", < simplify1(chld(ast, 0)) >];
+  return ast;
+}
+
+simplify(ast) {
+      do {
+        ast1 = ast;
+        ast = simplify1(ast1);
+      } while (ast != ast1);
+      return ast;
+}
+
+
+
+// the string representation of an AST
+ast2string(ast) {
+  if (ast == []) str = "";
+  else if (chldNo(ast) == 0) str = root(ast);
+  else if (root(ast) == "_+_") {
+    str = "(" + ast2string(chld(ast,0));
+    n = chldNo(ast);
+    for (i = 1; i < n; ++i)
+      str = str + " + " + ast2string(chld(ast, i));
+    str = str + ")";
+  }
+  else if (root(ast) == "_._") {
+    str = ast2string(chld(ast,0));
+    n = chldNo(ast);
+    for (i = 1; i < n; ++i)
+      str = str + ast2string(chld(ast, i));
+  }
+  else if (root(ast) == "_*") 
+    str = ast2string(chld(ast, 0)) + "*";
+  else
+    return "undefined";
+  return str;
+}
+
+// ***end of copy-paste from ast.alk***
+
+/*
+ epsIn(E) stands for true if L(E) contains the empty string;
+ otherwise, espIn(E) stands for 0.
+*/
+epsIn(ast) {
+  if (ast == []) return false;
+  if (root(ast) == "")  // eps
+    return true;
+  if (root(ast) == "_+_") {
+    answ = epsIn(chld(ast, 0));
+    for (i = 1; i < chldNo(ast); ++i) {
+      asw = answ || epsIn(chld(ast, i));
+//      if (epsIn(chld(ast, i)))
+//        answ = true;
+    }
+    return answ;
+  } 
+  if (root(ast) == "_._") {
+    answ = epsIn(chld(ast, 0));
+    for (i = 1; i < chldNo(ast); ++i) {
+      asw = answ && epsIn(chld(ast, i)); 
+//      if (!epsIn(chld(ast, i)))
+//        answ = false; 
+    }
+    return answ;
+  } 
+  if (root(ast) == "_*")
+    return true;
+  return false;
+}
+
+
+
+
+
+/*
+tests:
+print(epsIn(["_._", <["a", <>], ["a", <>]>]));
+print(epsIn(["_+_", <["a", <>], ["", <>]>]));
+*/
+// teste care arata aparitia bug-ului (a se vedea mesajele printate)
+//((ab + b)*ba)
+//print(epsIn(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>])); 
+//(b(ab + b)*ba + )
+//print(epsIn(["_+_", <["_._", <["b", <>], ["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["", <>]>]));
+
+
+/*
+ Brzozowski's derivatives:
+ lang(der(E,a)) = {w | aw in lang(E)}
+*/
+der(ast, a) {
+  if (ast == []) astder = [];
+  else if (chldNo(ast) == 0) {
+    if (root(ast) == a) astder = ["", <>]; 
+    else astder = [];
+  }
+  else if (root(ast) == "_+_") {
+    chlds = <>;
+    for (i = 0; i < chldNo(ast); ++i)
+      chlds.pushBack(der(chld(ast,i), a));
+    astder = ["_+_", chlds];
+  }
+  else if (root(ast) == "_._") {
+    epsInPref = true;
+    chlds = < >;
+    i = 0;
+    while (epsInPref && i < chldNo(ast) - 1 ) {
+       chldsi = < der(chld(ast,i), a) >;
+        for (j = i + 1; j < chldNo(ast); ++j)
+          chldsi.pushBack(chld(ast,j)); 
+        chlds.pushBack(["_._", chldsi]);
+        epsInPref = epsIn(chld(ast, i));
+	i++;
+    }
+    if (chlds.size() == 1)
+      astder = chlds.at(0);
+    else
+      astder = ["_+_", chlds];
+  }
+  else if (ast[0] == "_*") 
+    astder = ["_._", < der(chld(ast, 0), a), ast >];
+  return astder;
+}
+
+/*
+tests:
+print(ast2string(["_._", <["a", <>], ["b", <>]>]));
+print(ast2string(der(["_._", <["a", <>], ["b", <>]>], "a")));
+print(ast2string(["_._", <["a", <>], ["_*", <["_+_", <["a", <>], ["b", <>]>]>], ["_._", <["a", <>], ["b", <>]>]>])); 
+print(ast2string(der(["_._", <["a", <>], ["_*", <["_+_", <["a", <>], ["b", <>]>]>], ["_._", <["a", <>], ["b", <>]>]>], "a")));
+print(ast2string(["_+_", <["a", <>], ["b", <>]>])); 
+print(ast2string(der(["_+_", <["a", <>], ["b", <>]>], "a")));
+print(ast2string(["_*", <["_+_", <["a", <>], ["b", <>]>]>])); 
+print(ast2string(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a"))); 
+*/
+
+
+/*
+tests:
+print(der(["_._", <["a", <>], ["b", <>]>], "a"));
+print(simplify(der(["_._", <["a", <>], ["b", <>]>], "a")));
+print(der(["_+_", <["a", <>], ["b", <>]>], "a"));
+print(simplify1(der(["_+_", <["a", <>], ["b", <>]>], "a"))); 
+print(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a"));
+print(simplify(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a")));
+*/
+
+/*
+print((simplify (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "a")))); 
+print((simplify (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "b")))); 
+print((simplify (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "c"))));
+*/
+
+/*
+print(["_._", < ["_+_", <[], []>], ["_._", < ["a", <>], ["_._", <["", <>], ["", <>]>] >]>]);
+print(simplify(["_._", < ["_+_", <[], []>], ["_._", < ["a", <>], ["_._", <["", <>], ["", <>]>] >]>]));
+print(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a"));
+print(simplify(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a")));
+*/
+
+getState (map, str) {
+  forall pair in map 
+    if(pair[1] == str)
+      return pair[0];
+}
+
+
+/*
+  Brzozowski's automaton
+*/ 
+detAut(ast, Sigma) {
+  state = 0;
+  ast = simplify(ast);
+  if (epsIn(ast))
+    map = < [state, ast, "acc"] >;
+  else 
+    map = < [state, ast, ""] >;
+  derSet = { ast };
+  do {
+    derSet1 = derSet;
+    forall s in Sigma 
+      forall ast in derSet1 {
+        ast1 = simplify(der(ast, s));
+        if (!(ast1 in derSet) && ast1 != []) {
+          derSet = derSet U { ast1 };
+	  state++;
+	  if (epsIn(ast1)) {
+            map.pushBack([state, ast1,"acc"]);
+	  }
+	  else
+	    map.pushBack([state, ast1, ""]);
+	}
+      }	
+  } while (derSet != derSet1);
+  aut = {};
+  forall p in map
+    forall q in map 
+      forall s in Sigma
+        if (q[1] == simplify(der(p[1], s)))
+	  aut = aut U { < p[0], s, q[0] > };
+  forall p in map
+    p[1] = ast2string(p[1]);
+  return [aut, map];
+}
+
+/* tests:
+am = detAut(["a", <>],  ["a", "b", "c"]);
+print(am[0]);
+forall p in am[1]
+  print(p);
+am = detAut(["_+_", <["_*", <["_+_", <["_._", <["a", <>], ["c", <>]>], ["c", <>]>]>], ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>]>], ["a", "b", "c"]); 
+print(am[0]);
+forall p in am[1]
+  print(p);
+*/
+am = detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]);
+/*
+print(am[0]);
+forall p in am[1]
+  print(p);
+*/
+
+
+/*
+ if aut = am[0] may consume a in the state,
+ then returns an array consists of
+   - the new state
+   - and a string = "acc" if the new state
+     is an accepting state, = "" otherwise
+ otherwise returns [-1] (invalid state) 
+*/
+expected(am, state, a)
+{
+  aut = am[0];
+  map = am[1];
+  forall trans in aut {
+    if (trans.at(0) == state && trans.at(1) == a) { // expected
+      newState = trans.at(2);
+      return [newState, map.at(newState)[2]];
+    }
+  }
+  return [-1];
+}
+
+/* tests:
+print(expected(am, 0, "a")); 
+print(expected(am, 2, "a")); 
+print(expected(am, 3, "a")); 
+*/
+
+/*
+  @input: a string s[0..n-1],
+          a pair am consisting of
+             an automaton am[0] and a map am[1] with the states
+	     (computed by detAut),
+          a position i, 0 <= i < n
+  @output: true,  if s[i..i+m-1] is accepted by aut,
+           false, otherwise
+*/
+occAtPos(s, am,  i)
+{
+  n = s.size();
+  aut = am[0];
+  state = 0; // the current state is the initial state
+  for (j = 0; true; ++j) {
+    exp = expected (am, state, s[i+j]);
+    if (i + j < n && exp[0] >= 0) { // expected
+      state = exp[0];
+      if (exp[1] == "acc") // accepted
+        return true;
+      // else: expected but not accepted
+    }
+    else
+      return false;  // not expected
+  }
+}
+
+/* tests:
+subj = "cbbaaabbacc";
+s = subj.split();
+print(occAtPos(s, am, 0)); 
+print(occAtPos(s, am, 1)); 
+print(occAtPos(s, am, 2));
+print(occAtPos(s, am, 3)); 
+print(occAtPos(s, am, 4));
+print(occAtPos(s, am, 5)); 
+print(occAtPos(s, am, 6));
+*/
+
+/*
+  @input:  strings s[0..n-1], 
+          a pair am consisting of
+             an automaton am[0] and a map am[1] with the states
+	     (computed by detAut),
+  @ouput:  the first occurence of p in s, if any
+            -1, otherwise
+*/
+firstOcc(s, am)
+{ 
+  n = s.size();
+  for (i = 0; i < n; ++i) {
+    if (occAtPos(s, am, i)) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+/* tests:
+*/
+subj = "cbbaaabbacc";
+s = subj.split();
+print(firstOcc(s, am));
+

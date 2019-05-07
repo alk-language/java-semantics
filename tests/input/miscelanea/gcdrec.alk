@@ -11,6 +11,3 @@ gcd(a, b)
 
 x = gcd(32, 20);
 print(x);
-
-
-
