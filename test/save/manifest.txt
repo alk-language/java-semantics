@@ -1,2 +1,0 @@
-main.Main-Class: main.Main
-Manifest-Version: 1.0
