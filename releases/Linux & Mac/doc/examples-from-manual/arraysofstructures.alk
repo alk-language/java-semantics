@@ -1,0 +1,12 @@
+/*
+  arrays of structures
+  alki arraysofstructures.alk
+*/ 
+a = [ { x -> 1 y -> 2 }, { x -> 4 y -> 5 }  ]; 
+b = a[1];
+c = a[1].y;
+a[1].x = 77;
+print(a); // [{x -> 1, y -> 2}, {x -> 77, y -> 5}]
+print(b); // {x -> 4, y -> 5}
+print(c); // 5
+

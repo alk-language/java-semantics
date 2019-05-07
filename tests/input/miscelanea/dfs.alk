@@ -4,6 +4,12 @@
   @output: the list S of the verices reachable from i0
 */
 
+D.n = 3;
+D.a[0] = <1, 2>;
+D.a[1] = <2, 0>;
+D.a[2] = <0>;
+i0=1;
+
 i = 0;
 while (i < D.n) {
   p[i] = D.a[i];
@@ -30,16 +36,3 @@ while (SB.size() > 0) {
   }
 }
 print(S);
-/* Example of running command line
-   Assuming that the digraph D is given by
-     D.n = 3
-     D.a[0] = < 1,2 >
-     D.a[1] = < 2, 0 >
-     D.a[2] = < 0 >
-   and the vertex i0 is 1, then create a file dfs.in with the following contents:
-D |-> { n -> 3
-        a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] }
-i0 |-> 1
-and execute the command
-alki dfs.alk dfs.in
-*/
