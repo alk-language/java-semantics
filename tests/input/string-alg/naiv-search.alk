@@ -1,0 +1,45 @@
+/*
+  @input: strings s[0..n-1], p[0..m-1],
+          a position i, 0 <= i < n
+  @output: true,  if p <=_pref s[i..n-1]
+           false, otherwise
+*/
+occAtPos(s, p,  i)
+{
+  n = s.size();
+  m = p.size();
+  for (j = 0; j < m; ++j) {
+    if (i + j >= n || s[i + j] != p[j]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/*
+s=["a","b", "a", "c", "b", "a", "b", "a", "c"];
+p = ["b", "a", "c"];
+print(occAtPos(s, p,  2));
+*/
+
+
+/*
+  @input:  strings s[0..n-1], p[0..m-1]
+  @ouput:  the first occurence of p in s, if any
+            -1, otherwise
+*/
+firstOcc(s, p)
+{ 
+  n = s.size();
+  m = p.size();
+  for (i = 0; i < n; ++i) {
+    if (occAtPos(s, p, i)) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+s = ["a","b", "a", "c", "b", "a", "b", "a", "c"];
+p = ["b", "a", "c"];
+print(firstOcc (s, p));

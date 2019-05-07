@@ -1,8 +1,51 @@
-#include "/home/alex/work/Alk/releases/gcd"
+Sigma = ["a","b","c","d"];
 
-n=7;
-if (n%2==0)
-    success;
-else
-    failure;
-print(10);
+SigmaInv(c) modifies Sigma {
+  j = 0;
+  while (Sigma[j] != c)
+    j++;
+  return j;
+}
+
+detSalt(p, out salt) modifies Sigma {
+  m = p.size();
+  for (i = 0; i < Sigma.size(); ++i)
+    salt[i] = m;
+  for (i = m-1; i >= 0; --i) {
+    j = SigmaInv(p[i]);
+    if (salt[j] == m)
+      salt[j] = (m-1) - i;
+  }
+}
+
+BM(s, p, salt) {
+  n = s.size();
+  m = p.size();
+  i = m-1; j = m-1;
+  // repeat
+  while (j >= 0 && i <= n-1) {
+    k = SigmaInv(s[i]);
+    if (s[i] == p[j]) {
+      i = i-1;
+      j = j-1;
+    }
+    else {
+      if ((m-j) > salt[k]) i = i+m-j;  // Sigma[k] = s[i]
+      else i = i + salt[k];            // Sigma[k] = s[i]
+      j = m-1;
+    }
+  }
+  // until (j<0 or i>n-1);
+  if (j<0)  return i+1;
+  else return -1;
+}
+
+s = ["a","b", "d", "c", "d", "a", "b", "a", "c", "d"];
+p = ["b", "a", "c"];
+
+saltp = [];
+detSalt(p, saltp);
+print(BM(s, p, saltp));
+
+
+

@@ -1,3 +1,0 @@
-s = { 0 };
-forall x in a
-if (x %2 == 0) s = s U singletonSet(x);
