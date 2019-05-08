@@ -5,106 +5,21 @@
     <option name="CUSTOM_SCOPE_NAME" value="Unnamed1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in">
-      <change afterPath="$PROJECT_DIR$/bin/alki2.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/alk.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/alki.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/C.g4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/alk.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/alk.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/arrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/arraysofarrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/arraysofstructures.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/choose.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/choosest.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/dfs.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/dfsrec.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/gcd.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/gcd.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/globals.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/it1.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/it3.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/qsort.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/scalars.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/seq.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/seqofstructures.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/sequencesofarrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/sets.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/specs.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/structures.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/structuresofarrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/success.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arraysofarrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arraysofsequences.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arraysofstructures.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/intervals.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/seq.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/seqofstructures.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/seqofstructures.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/sequencesofarrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/sets.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/sets.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/specs.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/structures.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/structuresofarrays.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/structuresofstructures.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/arrofchars.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/assgns.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/boolops.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/boolops.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/conv.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/eq.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/evenset.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/evenset.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/fctcalls.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/floatops.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/globals.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/outparam.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/dfs.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/dfs.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/dfsrec.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcd-no-input.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcd.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcd.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcdrec.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/log.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/log.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/platou.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/platou1.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/platou2.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/prime.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/qsort.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/qsort.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/sum.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/sum.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/choose.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/choosest.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/failure.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/nqsort.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/nqueens.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/sat.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/ssd.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/ssd3.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/success.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/xcover.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/choc-bar.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/compos.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/isPrime.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/jacobi.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/random.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/randomized-select.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/ast.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/detaut.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/lang.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/parser.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/scalars/scalars1.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/string-alg/bm.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/string-alg/kmp.alk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/string-alg/naiv-search.alk" afterDir="false" />
+    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.attach_pid10400" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid10448" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid10601" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid16684" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid16776" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid16960" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid17013" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid17098" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid5658" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid7418" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid7521" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid7615" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.attach_pid7881" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/test.in" beforeDir="false" afterPath="$PROJECT_DIR$/input/test.in" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -147,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/impl/constants/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -165,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/MiscelaneaTests.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
-              <caret line="29" column="61" lean-forward="true" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
+              <caret line="29" column="61" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -481,7 +396,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557299342668" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557299370581" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/include/big-math-2.0.1.jar!/" />
@@ -622,7 +537,7 @@
       <workItem from="1556174387912" duration="2272000" />
       <workItem from="1557219772761" duration="5165000" />
       <workItem from="1557256777128" duration="2193000" />
-      <workItem from="1557298848943" duration="316000" />
+      <workItem from="1557298848943" duration="595000" />
     </task>
     <task id="LOCAL-00001" summary="Update spec, changed errors message, added preparsing">
       <created>1553634139154</created>
@@ -715,7 +630,14 @@
       <option name="project" value="LOCAL" />
       <updated>1557258204842</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in">
+      <created>1557299357352</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1557299357352</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -751,7 +673,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="230918000" />
+    <option name="totallyTimeSpent" value="231197000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -764,9 +686,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19530416" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19530416" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -775,7 +696,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32883316" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.3329753" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.3329753" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25747347" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1275,14 +1196,14 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/impl/constants/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/MiscelaneaTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
-          <caret line="29" column="61" lean-forward="true" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
+          <caret line="29" column="61" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
