@@ -5,36 +5,106 @@
     <option name="CUSTOM_SCOPE_NAME" value="Unnamed1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/LanguageFeaturesTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/MiscelaneaTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Testing.java" afterDir="false" />
+    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in">
+      <change afterPath="$PROJECT_DIR$/bin/alki2.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/alk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/alki.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/C.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/alk.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/alk.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/arrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/arraysofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/arraysofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/choose.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/choosest.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/dfs.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/dfsrec.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/gcd.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/gcd.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/globals.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/it1.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/it3.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/qsort.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/scalars.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/seq.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/seqofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/sequencesofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/sets.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/specs.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/structures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/structuresofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/doc/examples-from-manual/success.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arraysofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arraysofsequences.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/arraysofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/intervals.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/seq.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/seqofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/seqofstructures.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/sequencesofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/sets.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/sets.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/specs.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/structures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/structuresofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/data-structures/structuresofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/arrofchars.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/assgns.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/boolops.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/boolops.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/conv.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/eq.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/evenset.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/evenset.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/fctcalls.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/floatops.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/globals.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/language-features/outparam.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/dfs.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/dfs.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/dfsrec.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcd-no-input.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcd.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcd.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/gcdrec.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/log.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/log.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/platou.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/platou1.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/platou2.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/prime.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/qsort.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/qsort.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/sum.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/miscelanea/sum.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/choose.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/choosest.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/failure.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/nqsort.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/nqueens.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/sat.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/ssd.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/ssd3.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/success.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/nondeterministic/xcover.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/choc-bar.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/compos.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/isPrime.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/jacobi.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/random.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/probab/randomized-select.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/ast.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/detaut.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/lang.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/regexp/parser.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/scalars/scalars1.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/string-alg/bm.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/string-alg/kmp.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/Windows/examples/string-alg/naiv-search.alk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/data-structures/arraysofsequences.alk" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data-structures/arraysofsequences.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/data-structures/specs.alk" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data-structures/specs.alk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input/test.in" beforeDir="false" afterPath="$PROJECT_DIR$/input/test.in" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/alk.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/alki" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/gcd.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/test.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DataStrcuturesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DataStrcuturesTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/arraysofsequences.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/arraysofsequences.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/intervals.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/intervals.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/seqofstructures.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/seqofstructures.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/specs.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/specs.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/language-features/boolops.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/language-features/boolops.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/language-features/evenset.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/language-features/evenset.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/language-features/floatops.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/language-features/floatops.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/dfs.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/dfs.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/dfsrec.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/dfsrec.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/gcd.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/gcd.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/gcdrec.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/gcdrec.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/log.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/log.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/platou.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/platou.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/qsort.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/qsort.alk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/sum.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/sum.alk" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -70,9 +140,14 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/input/test.in">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/impl/constants/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -81,7 +156,7 @@
         <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/platou.alk">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-end-line="10" />
+              <caret line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -89,8 +164,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/MiscelaneaTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="69" column="26" selection-start-line="69" selection-start-column="26" selection-end-line="69" selection-end-column="26" />
+            <state relative-caret-position="435">
+              <caret line="29" column="61" lean-forward="true" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -101,8 +176,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/qsort.alk">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="13" lean-forward="true" selection-end-line="58" />
+            <state relative-caret-position="15">
+              <caret line="1" column="12" selection-end-line="58" />
             </state>
           </provider>
         </entry>
@@ -175,8 +250,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/change.log" />
-        <option value="$PROJECT_DIR$/examples/regexp/ast.alk" />
         <option value="$PROJECT_DIR$/src/impl/env/Environment.java" />
         <option value="$PROJECT_DIR$/src/impl/env/AlkFunction.java" />
         <option value="$PROJECT_DIR$/src/impl/visitors/function/FunctionCallVisitor.java" />
@@ -224,8 +297,10 @@
         <option value="$PROJECT_DIR$/tests/input/miscelanea/gcdrec.alk" />
         <option value="$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java" />
         <option value="$PROJECT_DIR$/src/test/java/Testing.java" />
-        <option value="$PROJECT_DIR$/input/test.in" />
         <option value="$PROJECT_DIR$/src/test/java/MiscelaneaTests.java" />
+        <option value="$PROJECT_DIR$/tests/input/miscelanea/qsort.alk" />
+        <option value="$PROJECT_DIR$/src/main/java/impl/constants/Constants.java" />
+        <option value="$PROJECT_DIR$/input/test.in" />
       </list>
     </option>
   </component>
@@ -260,10 +335,9 @@
     <scope name="Unnamed1" pattern="src[Alg]:gui.*||src[Alg]:impl.env.*||src[Alg]:impl.types.alkInt.*||src[Alg]:impl.types.alkSet.*||src[Alg]:impl.types.alkBool.*||src[Alg]:impl.types.alkList.*||src[Alg]:impl.types.alkArray.*||src[Alg]:impl.types.alkFloat.*||src[Alg]:impl.types.alkString.*||src[Alg]:impl.types.alkIterator.*||src[Alg]:impl.types.alkNotAValue.*||src[Alg]:impl.types.alkStructure.*||src[Alg]:impl.types.*||src[Alg]:impl.visitors.function.*||src[Alg]:impl.visitors.structure.*||src[Alg]:impl.visitors.expression.*||src[Alg]:impl.visitors.*||src[Alg]:impl.*||src[Alg]:impl.constants.*||src[Alg]:impl.exceptions.*||src[Alg]:main.*||src[Alg]:grammar.parts.*||src[Alg]:analysis.visitors.*||src[Alg]:analysis.*||src[Alg]:preprocessing.visitors.*||src[Alg]:preprocessing.*" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="26" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="-1" />
+    <option name="width" value="1392" />
+    <option name="height" value="996" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -319,6 +393,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Alk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+              <item name="constants" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
@@ -398,7 +481,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557258184309" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557299342668" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/include/big-math-2.0.1.jar!/" />
@@ -538,7 +621,8 @@
       <workItem from="1556105238814" duration="12388000" />
       <workItem from="1556174387912" duration="2272000" />
       <workItem from="1557219772761" duration="5165000" />
-      <workItem from="1557256777128" duration="1396000" />
+      <workItem from="1557256777128" duration="2193000" />
+      <workItem from="1557298848943" duration="316000" />
     </task>
     <task id="LOCAL-00001" summary="Update spec, changed errors message, added preparsing">
       <created>1553634139154</created>
@@ -624,7 +708,14 @@
       <option name="project" value="LOCAL" />
       <updated>1557219954018</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in">
+      <created>1557258204842</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1557258204842</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -660,13 +751,22 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229805000" />
+    <option name="totallyTimeSpent" value="230918000" />
+  </component>
+  <component name="TodoView" selected-index="4">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19316968" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19530416" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -675,11 +775,11 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32883316" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.31471536" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.3329753" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25747347" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32975295" />
       <window_info anchor="bottom" id="Duplicate detector" order="7" weight="0.32939914" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
@@ -818,13 +918,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/io/PrintStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/regexp/parser.alk">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="568">
@@ -1134,20 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/log.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="2" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/platou.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/prime.alk">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -1155,10 +1234,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/sum.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input/test.in">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/platou.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/qsort.alk">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="13" lean-forward="true" selection-end-line="58" />
+        <state relative-caret-position="15">
+          <caret line="1" column="12" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/log.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="2" selection-end-line="20" />
         </state>
       </provider>
     </entry>
@@ -1169,24 +1272,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/sum.alk">
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/constants/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="31" lean-forward="true" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/test.in">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/MiscelaneaTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="69" column="26" selection-start-line="69" selection-start-column="26" selection-end-line="69" selection-end-column="26" />
+        <state relative-caret-position="435">
+          <caret line="29" column="61" lean-forward="true" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

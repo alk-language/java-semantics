@@ -1,0 +1,14 @@
+L = < 2, 5, 8, 33 >;
+p = L.first();
+p = p + 3;
+a = *p;
+++% p;
+b = *p;
+q = L.first();
+c = *(--% q);
+print(a);
+print(b);
+print(c);
+
+
+
