@@ -1,9 +1,0 @@
-choose x1 in { 1 .. 5 };
-/*
-choose x2 in { 1 .. 5 };
-choose x3 in { 1 .. 5 };
-choose x4 in { 1 .. 5 };
-choose x5 in { 1 .. 5 };
-choose x6 in { 1 .. 5 };
-choose x7 in { 1 .. 5 };
-*/
