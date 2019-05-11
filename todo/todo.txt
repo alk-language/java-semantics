@@ -1,3 +1,5 @@
+- caracterele speciale (tab, newline)
+
 - Analiza complexitatii
 - Lambda Expressions -> high order functions (map filter)
 
