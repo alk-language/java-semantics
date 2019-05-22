@@ -5,200 +5,108 @@
     <option name="CUSTOM_SCOPE_NAME" value="Unnamed1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="">
+    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="reformat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/alk.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/alki.sh" beforeDir="false" afterPath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/alki.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/C.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/alk.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/alk.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/arrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/arraysofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/arraysofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/choose.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/choosest.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/dfs.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/dfsrec.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/gcd.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/gcd.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/globals.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/it1.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/it3.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/qsort.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/scalars.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/seq.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/seqofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/sequencesofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/sets.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/specs.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/structures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/structuresofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/doc/examples-from-manual/success.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/arrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/arraysofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/arraysofsequences.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/arraysofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/intervals.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/seq.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/seqofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/seqofstructures.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/sequencesofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/sets.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/sets.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/specs.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/structures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/structuresofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/data-structures/structuresofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/arrofchars.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/assgns.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/boolops.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/boolops.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/conv.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/eq.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/evenset.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/evenset.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/fctcalls.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/floatops.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/globals.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/language-features/outparam.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/dfs.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/dfs.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/dfsrec.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/gcd-no-input.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/gcd.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/gcd.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/gcdrec.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/log.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/log.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/platou.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/platou1.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/platou2.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/prime.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/qsort.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/qsort.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/sum.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/miscelanea/sum.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/choose.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/choosest.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/failure.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/nqsort.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/nqueens.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/sat.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/ssd.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/ssd3.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/success.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/nondeterministic/xcover.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/probab/choc-bar.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/probab/compos.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/probab/isPrime.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/probab/jacobi.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/probab/random.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/probab/randomized-select.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/regexp/ast.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/regexp/detaut.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/regexp/lang.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/regexp/parser.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/scalars/scalars1.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/string-alg/bm.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/string-alg/kmp.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Linux &amp; Mac/examples/string-alg/naiv-search.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/alk.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/alki.bat" beforeDir="false" afterPath="$PROJECT_DIR$/releases/1.0/Windows/alki.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/C.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/alk.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/alk.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/arrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/arraysofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/arraysofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/choose.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/choosest.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/dfs.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/dfsrec.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/gcd.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/gcd.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/globals.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/it1.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/it3.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/qsort.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/scalars.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/seq.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/seqofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/sequencesofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/sets.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/specs.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/structures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/structuresofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/doc/examples-from-manual/success.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/arrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/arraysofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/arraysofsequences.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/arraysofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/intervals.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/seq.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/seqofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/seqofstructures.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/sequencesofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/sets.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/sets.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/specs.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/structures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/structuresofarrays.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/data-structures/structuresofstructures.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/arrofchars.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/assgns.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/boolops.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/boolops.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/conv.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/eq.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/evenset.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/evenset.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/fctcalls.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/floatops.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/globals.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/language-features/outparam.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/dfs.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/dfs.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/dfsrec.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/gcd-no-input.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/gcd.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/gcd.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/gcdrec.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/log.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/log.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/platou.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/platou1.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/platou2.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/prime.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/qsort.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/qsort.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/sum.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/miscelanea/sum.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/choose.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/choosest.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/failure.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/nqsort.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/nqueens.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/sat.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/ssd.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/ssd3.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/success.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/nondeterministic/xcover.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/probab/choc-bar.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/probab/compos.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/probab/isPrime.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/probab/jacobi.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/probab/random.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/probab/randomized-select.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/regexp/ast.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/regexp/detaut.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/regexp/lang.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/regexp/parser.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/scalars/scalars1.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/string-alg/bm.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/string-alg/kmp.alk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/releases/1.0/Windows/examples/string-alg/naiv-search.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/example.alk" beforeDir="false" afterPath="$PROJECT_DIR$/bin/example.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/language-features/arrofchars.alk" beforeDir="false" afterPath="$PROJECT_DIR$/examples/language-features/arrofchars.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/language-features/evenset.alk" beforeDir="false" afterPath="$PROJECT_DIR$/examples/language-features/evenset.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/Linux &amp; Mac/alki.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/Windows/alki.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/alk.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/C.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/alk.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/alk.tex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/arrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/arraysofarrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/arraysofstructures.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/choose.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/choosest.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/dfs.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/dfsrec.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/gcd.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/gcd.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/globals.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/it1.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/it3.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/qsort.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/scalars.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/seq.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/seqofstructures.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/sequencesofarrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/sets.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/specs.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/structures.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/structuresofarrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/success.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arraysofarrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arraysofsequences.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arraysofstructures.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/intervals.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/seq.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/seqofstructures.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/seqofstructures.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/sequencesofarrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/sets.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/sets.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/specs.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/structures.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/structuresofarrays.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/structuresofstructures.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/arrofchars.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/assgns.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/boolops.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/boolops.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/conv.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/eq.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/evenset.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/evenset.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/fctcalls.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/floatops.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/globals.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/language-features/outparam.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/dfs.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/dfs.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/dfsrec.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcd-no-input.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcd.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcd.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcdrec.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/log.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/log.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/platou.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/platou1.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/platou2.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/prime.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/qsort.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/qsort.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/sum.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/sum.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/choose.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/choosest.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/failure.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/nqsort.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/nqueens.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/sat.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/ssd.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/ssd3.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/success.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/xcover.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/probab/choc-bar.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/probab/compos.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/probab/isPrime.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/probab/jacobi.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/probab/random.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/probab/randomized-select.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/regexp/ast.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/regexp/detaut.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/regexp/lang.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/regexp/parser.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/scalars/scalars1.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/string-alg/bm.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/string-alg/kmp.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/v1.0/examples/string-alg/naiv-search.alk" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -258,8 +166,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/MiscelaneaTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="61" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
+            <state relative-caret-position="180">
+              <caret line="12" column="39" lean-forward="true" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -281,15 +189,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
               <caret line="14" column="2" selection-end-line="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/target/surefire-reports/MiscelaneaTests.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -438,7 +337,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -449,122 +347,19 @@
             <path>
               <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
               <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="data-structures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
               <item name="input" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
               <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="constants" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="visitors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="visitors" type="462c0819:PsiDirectoryNode" />
-              <item name="function" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-              <item name="miscelanea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="output" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="output" type="462c0819:PsiDirectoryNode" />
-              <item name="miscelanea" type="462c0819:PsiDirectoryNode" />
+              <item name="releases" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -575,7 +370,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557299772224" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558508912892" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/include/big-math-2.0.1.jar!/" />
@@ -716,7 +511,9 @@
       <workItem from="1556174387912" duration="2272000" />
       <workItem from="1557219772761" duration="5165000" />
       <workItem from="1557256777128" duration="2193000" />
-      <workItem from="1557298848943" duration="842000" />
+      <workItem from="1557298848943" duration="2055000" />
+      <workItem from="1557551894525" duration="295000" />
+      <workItem from="1558508446739" duration="269000" />
     </task>
     <task id="LOCAL-00001" summary="Update spec, changed errors message, added preparsing">
       <created>1553634139154</created>
@@ -823,7 +620,21 @@
       <option name="project" value="LOCAL" />
       <updated>1557299448196</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="reformat">
+      <created>1557299744423</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1557299744423</updated>
+    </task>
+    <task id="LOCAL-00017" summary="reformat">
+      <created>1557299779935</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1557299779935</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -859,7 +670,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231444000" />
+    <option name="totallyTimeSpent" value="233221000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -871,9 +682,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1922" height="1053" extended-state="7" />
+    <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19530416" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1995731" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -882,7 +694,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32883316" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.3329753" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893278" weight="0.3329753" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25747347" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -962,7 +774,8 @@
     <MESSAGE value="MainVisitor and Statement Visitor documented" />
     <MESSAGE value="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="reformat" />
+    <option name="LAST_COMMIT_MESSAGE" value="reformat" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1352,6 +1165,13 @@
     <entry file="file://$PROJECT_DIR$/input/test.in">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/constants/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/platou.alk">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1380,17 +1200,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/constants/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/MiscelaneaTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="61" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
+        <state relative-caret-position="180">
+          <caret line="12" column="39" lean-forward="true" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

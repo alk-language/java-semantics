@@ -8,20 +8,13 @@ gcd(a, b)
     }
     return a;
 }
-
+	
 print(gcd(a, b));
 
 
 print({<1, 2>, <1, 2>});
 print({} == {});
 
-x = "Ana ";
-y = "are ";
-z = "mere";
-t = x+y+z;
-print(t.split());
-print(t.split(" "));
-t.update(0, "U");
-t.insert(t.size(), " si pere.");
-t.remove(t.size()-1);
-print(t);
+x = "ana.are.mere";
+print(x.split());
+print(x.split("\."));
