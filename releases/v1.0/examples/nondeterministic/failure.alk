@@ -1,9 +1,0 @@
-odd(x) {
-  return x % 2 == 1;
-}
-
-s = emptyList;
-for (i = 0; i < 8; i = i+2)
-  s.pushBack(i);
-choose x in s s.t. odd(x); 
-
