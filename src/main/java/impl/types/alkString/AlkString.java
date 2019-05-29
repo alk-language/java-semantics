@@ -146,7 +146,7 @@ public class AlkString extends AlkValue implements Cloneable{
     }
 
 
-    public AlkInt len() throws AlkException {
+    public AlkInt len() {
         return new AlkInt(value.length());
     }
 

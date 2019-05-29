@@ -120,7 +120,6 @@ public class StmtVisitor extends alkBaseVisitor {
      * there is no expression, a AlkNotAValue will be returned. From this point until the end of the statement visitor,
      * no other statement will be executed.
      * @param ctx A Return Statement node in the execution tree meant to be parsed.
-     * @return
      */
     @Override public Object visitReturnStmt(alkParser.ReturnStmtContext ctx) {
         if (returnValue != null) return null;

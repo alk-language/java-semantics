@@ -3,6 +3,7 @@
   @output: s = 1 + 2 + ... + n
 */
 
+n=23;
 s = 0 ;
 while (n > 0) {
   s = s + n;

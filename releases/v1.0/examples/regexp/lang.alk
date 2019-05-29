@@ -1,0 +1,84 @@
+
+// the root of an AST
+root(ast) {
+  if (ast.size() > 0) return ast[0];
+}
+
+// the number of children
+chldNo(ast) {
+  if (ast.size() > 0) return ast[1].size();
+  return 0;
+}
+
+// the i-th child of an AST
+chld(ast, i) {
+  if (ast.size() > 0 && i < ast[1].size()) {
+    return ast[1].at(i);
+  }
+}
+
+
+/*
+anast = ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>];
+print(root(anast));
+print(chld(anast, 0)); 
+print(chld(["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>], 0)); 
+print(chld (["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>], 1));
+*/
+
+// the product of two languages
+prod(L1, L2) {
+  L = {};
+  forall s1 in L1
+    forall s2 in L2
+        L = L U { s1 + s2 };
+  return L;
+}
+
+/*
+print(prod({["a", "b"], ["c", "d", "e"]}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({["a", "b"], ["c", "d", "e"]}, {})); 
+print(prod({["a"]}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({["a", "b"], ["c", "d", "e"]}, {["1"]}));
+print(prod({[]}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({["a", "b"], ["c", "d", "e"]}, {[]}));
+*/
+
+// the bounded language defined by a regular expression
+lang(ast, k) {
+  if (ast == []) L = {};
+  else if (chldNo(ast) == 0)
+    L = {root(ast)}; 
+  else if (root(ast) == "_+_") {
+    L = {};
+    for (i = 0; i < chldNo(ast); ++i)
+      L = L U lang(chld(ast, i),k);
+    }
+  else if (root(ast) == "_._") {
+    L = {""};
+    for (i = 0; i < chldNo(ast); ++i)
+      L = prod(L, lang(chld(ast, i),k));
+    }
+  else if (root(ast) == "_*") {
+    L = {""};
+    Li = {""};
+    L1 = lang(chld(ast, 0), k);   
+    for (i = 0; i < k; ++i) {
+      Li = prod(Li, L1); 
+      L = L U Li;
+    }
+  }
+  else return "undefined";
+  return L;
+}
+
+/* tests:
+print(lang(["a", <>], 2));
+print(lang(["_*", <["a", <>]>], 2));
+print(lang(["_._", <["a", <>], ["a", <>]>], 2)); 
+print(lang(["_+_", <["a", <>], ["b", <>]>], 2));
+*/
+print(lang(["_*", <["_+_", <["a", <>], ["b", <>]>]>], 3));
+//print(lang(["",<>],1));
+

@@ -14,6 +14,9 @@ gcd(a, b)
   return a;
 }
 
+u=42;
+v=56;
+
 //x = gcd(12, 8);
 //x = gcd(u, v);
 print(gcd(u,v));

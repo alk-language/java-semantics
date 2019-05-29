@@ -1,0 +1,11 @@
+x = 3;
+y = 5;
+g(b) modifies x, y { 
+  x = x + b;
+  y = y * b;
+  return x;
+}
+print("g:");
+g(5);
+print(x);  // 8
+print(y);  // 25

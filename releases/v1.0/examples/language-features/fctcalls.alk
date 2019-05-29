@@ -1,0 +1,21 @@
+/*
+  function calls
+  alki fctcalls.alk 
+*/
+f(a) {   // a hides the global a
+  b = a + 1;
+  return b;
+}
+
+x = f(2);
+a = f(x);
+y = f(a);
+print("f:");
+print(x);  // 3
+print(a);  // 4
+print(y);  // 5
+print(a);  // 4
+
+
+
+

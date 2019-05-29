@@ -21,6 +21,11 @@ public class AlkFunction {
     private ArrayList<String> modifies;
     private alkParser.Statement_blockContext stmt;
 
+    public static void reset()
+    {
+        functions.clear();
+    }
+
 
     public AlkFunction(String name, ArrayList<Pair<String, Boolean>> params, ArrayList<String> modifies, alkParser.Statement_blockContext stmt) throws AlkException {
         this.params = params;

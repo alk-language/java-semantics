@@ -1,0 +1,31 @@
+a = 2 / 3;
+b = 2.0 / 3;
+c = 2.0 / 3.0;
+print("2/3:");
+print(a);
+print(b);
+print(c);
+
+a = 2 + 3;
+b = 2.0 + 3;
+c = 2.0 + 3.0; 
+print("2+3:");
+print(a);
+print(b);
+print(c);
+
+a = 2 * 3; 
+b = 2.0 * 3;
+c = 2.0 * 3.0; 
+print("2*3:");
+print(a);
+print(b);
+print(c);
+
+a = 2 - 3; 
+b = 2.0 - 3;
+c = 2.0 - 3.0; 
+print("2-3:");
+print(a);
+print(b);
+print(c);

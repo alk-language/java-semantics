@@ -1,3 +1,5 @@
+- caracterele speciale (tab, newline)
+
 - Analiza complexitatii
 - Lambda Expressions -> high order functions (map filter)
 
@@ -12,6 +14,7 @@
 - De printat cu paranteze complete erorile la expresii (reference is invalid): de rafinat mesajul nume variabila + expresie
 - De pus la stringuri mai multe metode, dintre care split, size, at DONE
 - repeat until
+- de redenumit preprocessing
 
 ***
 - operatie de lookup la liste
@@ -21,5 +24,3 @@
     este data de prezenta lui "out" la declarare si neprezenta lui
     return in al doilea caz)
 
-
-    

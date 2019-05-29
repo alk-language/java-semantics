@@ -5,7 +5,189 @@
     <option name="CUSTOM_SCOPE_NAME" value="Unnamed1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="" />
+    <list default="true" id="e47d368d-d1e8-41d6-a1b2-8f6009260044" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_3_2_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_3_2_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_3_2_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_3_2_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_3_2_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_3_2_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/alki2.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/alki2.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/Linux &amp; Mac/alki.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/Windows/alki.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/C.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/alk.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/alk.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/arrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/arraysofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/arraysofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/choose.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/choosest.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/dfs.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/dfsrec.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/gcd.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/gcd.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/globals.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/it1.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/it3.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/qsort.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/scalars.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/seq.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/seqofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/sequencesofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/sets.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/specs.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/structures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/structuresofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/doc/examples-from-manual/success.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arraysofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arraysofsequences.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/arraysofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/intervals.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/seq.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/seqofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/seqofstructures.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/sequencesofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/sets.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/sets.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/specs.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/structures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/structuresofarrays.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/data-structures/structuresofstructures.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/arrofchars.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/assgns.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/boolops.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/boolops.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/conv.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/eq.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/evenset.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/evenset.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/fctcalls.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/floatops.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/globals.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/language-features/outparam.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/dfs.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/dfs.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/dfsrec.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcd-no-input.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcd.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcd.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/gcdrec.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/log.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/log.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/platou.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/platou1.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/platou2.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/prime.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/qsort.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/qsort.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/sum.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/miscelanea/sum.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/choose.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/choosest.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/failure.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/nqsort.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/nqueens.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/sat.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/ssd.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/ssd3.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/success.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/nondeterministic/xcover.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/probab/choc-bar.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/probab/compos.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/probab/isPrime.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/probab/jacobi.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/probab/random.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/probab/randomized-select.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/regexp/ast.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/regexp/detaut.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/regexp/lang.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/regexp/parser.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/scalars/scalars1.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/string-alg/bm.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/string-alg/kmp.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/releases/v1.0/examples/string-alg/naiv-search.alk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/script/a.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/aop/DemoAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/LanguageFeaturesTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/MiscelaneaTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Testing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/arraysofarrays.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/arraysofsequences.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/intervals.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/seq.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/seqofstructures.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/sequencesofarrays.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/sets.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/specs.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/structures.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/structuresofarrays.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/data-structures/structuresofstructures.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/arrofchars.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/assgns.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/boolops.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/conv.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/eq.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/evenset.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/fctcalls.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/floatops.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/globals.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/language-features/outparam.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/dfs.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/dfsrec.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/gcd.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/gcdrec.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/log.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/platou.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/prime.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/qsort.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/output/miscelanea/sum.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Alk.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data-structures/arraysofsequences.alk" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data-structures/arraysofsequences.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data-structures/specs.alk" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data-structures/specs.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/antlr-4.7.1-complete.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/big-math-2.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/commons-cli-1.4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/input/gcd.alk" beforeDir="false" afterPath="$PROJECT_DIR$/input/gcd.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input/test.in" beforeDir="false" afterPath="$PROJECT_DIR$/input/test.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/alk.jar" beforeDir="false" afterPath="$PROJECT_DIR$/releases/v1.0/alk.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/alki.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/gcd.alk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/releases/test.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/alki.c" beforeDir="false" afterPath="$PROJECT_DIR$/script/alki.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/impl/exceptions/AlkException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/impl/exceptions/AlkException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/impl/types/alkString/AlkString.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/impl/types/alkString/AlkString.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/preprocessing/PreProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/preprocessing/PreProcessing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DataStrcuturesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DataStrcuturesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/arraysofsequences.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/arraysofsequences.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/intervals.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/intervals.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/seqofstructures.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/seqofstructures.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/data-structures/specs.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/data-structures/specs.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/language-features/boolops.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/language-features/boolops.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/language-features/evenset.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/language-features/evenset.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/language-features/floatops.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/language-features/floatops.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/dfs.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/dfs.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/dfsrec.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/dfsrec.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/gcd.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/gcd.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/gcdrec.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/gcdrec.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/log.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/log.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/platou.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/platou.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/qsort.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/qsort.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/input/miscelanea/sum.alk" beforeDir="false" afterPath="$PROJECT_DIR$/tests/input/miscelanea/sum.alk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/todo/todo.txt" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,53 +223,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="193" column="86" selection-start-line="193" selection-start-column="81" selection-end-line="193" selection-end-column="86" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/function/FunctionCallVisitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="48" column="41" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="90" column="11" lean-forward="true" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="478">
+              <caret line="97" column="21" lean-forward="true" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/DataStrcuturesTests.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/aop/DemoAspect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="52" lean-forward="true" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+            <state relative-caret-position="45">
+              <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/expression/ExpressionVisitor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="564">
+              <caret line="121" lean-forward="true" selection-start-line="121" selection-end-line="121" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,10 +251,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/MainVisitor.java">
+        <entry file="file://$PROJECT_DIR$/input/test.in">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state>
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -116,8 +271,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>iterab</find>
-      <find>plus</find>
       <find>len</find>
       <find>result</find>
       <find>in</find>
@@ -140,12 +293,14 @@
       <find>simpli</find>
       <find>dowhi</find>
       <find>ast1</find>
-      <find>clone</find>
       <find>prin</find>
       <find>epsIn</find>
       <find>succ</find>
       <find>fai</find>
       <find>built</find>
+      <find>plus</find>
+      <find>add</find>
+      <find>clone</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,22 +309,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/preparsing/visitors/PreMainVisitor.java" />
-        <option value="$PROJECT_DIR$/src/preparsing/PreParsing.java" />
-        <option value="$PROJECT_DIR$/src/preparsing/visitors/PreStmtVisitor.java" />
-        <option value="$PROJECT_DIR$/src/impl/Parsing.java" />
-        <option value="$PROJECT_DIR$/src/impl/constants/Constants.java" />
-        <option value="$PROJECT_DIR$/examples/probab/choc-bar.alk" />
-        <option value="$PROJECT_DIR$/src/impl/visitors/function/NonDeterministic.java" />
-        <option value="$PROJECT_DIR$/src/impl/visitors/AssignedVisitor.java" />
-        <option value="$PROJECT_DIR$/src/grammar/parts/expression.g4" />
-        <option value="$PROJECT_DIR$/src/impl/visitors/ReferenceVisitor.java" />
-        <option value="$PROJECT_DIR$/src/impl/types/AlkValue.java" />
-        <option value="$PROJECT_DIR$/todo/todo.txt" />
-        <option value="$PROJECT_DIR$/change.log" />
-        <option value="$PROJECT_DIR$/examples/regexp/ast.alk" />
-        <option value="$PROJECT_DIR$/src/impl/env/Environment.java" />
-        <option value="$PROJECT_DIR$/src/impl/env/AlkFunction.java" />
         <option value="$PROJECT_DIR$/src/impl/visitors/function/FunctionCallVisitor.java" />
         <option value="$PROJECT_DIR$/src/impl/types/alkNotAValue/AlkNotAValue.java" />
         <option value="$PROJECT_DIR$/src/impl/types/alkIterator/AlkIterator.java" />
@@ -195,16 +334,32 @@
         <option value="$PROJECT_DIR$/src/preprocessing/visitors/PreMainVisitor.java" />
         <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/preprocessing/PreProcessing.java" />
-        <option value="$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/impl/visitors/MainVisitor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java" />
         <option value="$PROJECT_DIR$/src/test/java/DataStructuresTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/DataStructuresTestTest.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/impl/visitors/function/FunctionCallVisitor.java" />
-        <option value="$PROJECT_DIR$/input/test.in" />
+        <option value="$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/impl/types/alkString/AlkString.java" />
+        <option value="$PROJECT_DIR$/tests/input/data-structures/arraysofsequences.alk" />
+        <option value="$PROJECT_DIR$/tests/input/data-structures/specs.alk" />
+        <option value="$PROJECT_DIR$/examples/data-structures/specs.alk" />
+        <option value="$PROJECT_DIR$/target/surefire-reports/DataStrcuturesTests.txt" />
         <option value="$PROJECT_DIR$/src/test/java/DataStrcuturesTests.java" />
+        <option value="$PROJECT_DIR$/tests/input/data-structures/seqofstructures.alk" />
+        <option value="$PROJECT_DIR$/src/test/java/LanguageFeaturesTests.java" />
+        <option value="$PROJECT_DIR$/tests/input/miscelanea/dfs.alk" />
+        <option value="$PROJECT_DIR$/tests/input/miscelanea/dfsrec.alk" />
+        <option value="$PROJECT_DIR$/tests/input/miscelanea/gcdrec.alk" />
+        <option value="$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java" />
+        <option value="$PROJECT_DIR$/src/test/java/Testing.java" />
+        <option value="$PROJECT_DIR$/src/test/java/MiscelaneaTests.java" />
+        <option value="$PROJECT_DIR$/tests/input/miscelanea/qsort.alk" />
+        <option value="$PROJECT_DIR$/src/main/java/impl/constants/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aop/Demo.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/input/test.in" />
+        <option value="$PROJECT_DIR$/src/main/java/aop/DemoAspect.java" />
       </list>
     </option>
   </component>
@@ -234,10 +389,9 @@
     <scope name="Unnamed1" pattern="src[Alg]:gui.*||src[Alg]:impl.env.*||src[Alg]:impl.types.alkInt.*||src[Alg]:impl.types.alkSet.*||src[Alg]:impl.types.alkBool.*||src[Alg]:impl.types.alkList.*||src[Alg]:impl.types.alkArray.*||src[Alg]:impl.types.alkFloat.*||src[Alg]:impl.types.alkString.*||src[Alg]:impl.types.alkIterator.*||src[Alg]:impl.types.alkNotAValue.*||src[Alg]:impl.types.alkStructure.*||src[Alg]:impl.types.*||src[Alg]:impl.visitors.function.*||src[Alg]:impl.visitors.structure.*||src[Alg]:impl.visitors.expression.*||src[Alg]:impl.visitors.*||src[Alg]:impl.*||src[Alg]:impl.constants.*||src[Alg]:impl.exceptions.*||src[Alg]:main.*||src[Alg]:grammar.parts.*||src[Alg]:analysis.visitors.*||src[Alg]:analysis.*||src[Alg]:preprocessing.visitors.*||src[Alg]:preprocessing.*" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="26" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="-1" />
+    <option name="width" value="1392" />
+    <option name="height" value="996" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -254,34 +408,6 @@
             <path>
               <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
               <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="data-structures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="probab" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="regexp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -303,38 +429,39 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="aop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Alk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Alk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+              <item name="types" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Alk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+              <item name="visitors" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
               <item name="Alk" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Alk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Alk" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-              <item name="data-structures" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -352,7 +479,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553536717116" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557299772224" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/include/big-math-2.0.1.jar!/" />
@@ -362,7 +489,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -395,7 +522,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DataStrcuturesTests">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -438,8 +565,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DataStrcuturesTests" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.DataStrcuturesTests" />
         <item itemvalue="JUnit.DataStrcuturesTests.arraysTest" />
       </list>
     </recent_temporary>
@@ -490,7 +617,12 @@
       <workItem from="1553943263938" duration="3527000" />
       <workItem from="1554047609537" duration="697000" />
       <workItem from="1554802468379" duration="5416000" />
-      <workItem from="1556105238814" duration="12631000" />
+      <workItem from="1556105238814" duration="12388000" />
+      <workItem from="1556174387912" duration="2272000" />
+      <workItem from="1557219772761" duration="5165000" />
+      <workItem from="1557256777128" duration="2193000" />
+      <workItem from="1557298848943" duration="842000" />
+      <workItem from="1559059457907" duration="1009000" />
     </task>
     <task id="LOCAL-00001" summary="Update spec, changed errors message, added preparsing">
       <created>1553634139154</created>
@@ -569,17 +701,41 @@
       <option name="project" value="LOCAL" />
       <updated>1556112795048</updated>
     </task>
-    <task id="LOCAL-00012" summary="Added support for Unit testing">
-      <created>1556117854080</created>
+    <task id="LOCAL-00012" summary="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in">
+      <created>1557219954016</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1556117854080</updated>
+      <updated>1557219954018</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in">
+      <created>1557258204842</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1557258204842</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in">
+      <created>1557299357352</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1557299357352</updated>
+    </task>
+    <task id="LOCAL-00015" summary="clean">
+      <created>1557299448196</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1557299448196</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TestHistory">
+    <history-entry file="DataStrcuturesTests_arraysTest - 2019.04.24 at 17h 21m 52s.xml">
+      <configuration name="DataStrcuturesTests.arraysTest" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="DataStrcuturesTests_arraysTest - 2019.04.24 at 17h 31m 58s.xml">
       <configuration name="DataStrcuturesTests.arraysTest" configurationId="JUnit" />
     </history-entry>
@@ -607,17 +763,24 @@
     <history-entry file="DataStrcuturesTests_arraysTest - 2019.04.24 at 17h 43m 47s.xml">
       <configuration name="DataStrcuturesTests.arraysTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DataStrcuturesTests - 2019.04.24 at 17h 56m 25s.xml">
-      <configuration name="DataStrcuturesTests" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221215000" />
+    <option name="totallyTimeSpent" value="233233000" />
+  </component>
+  <component name="TodoView" selected-index="4">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1853" height="1173" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18705036" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19147758" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -626,20 +789,21 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32883316" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994664" weight="0.30761814" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.33269045" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25747347" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32975295" />
       <window_info anchor="bottom" id="Duplicate detector" order="7" weight="0.32939914" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Tool Output" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053364" side_tool="true" weight="0.32883316" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32786885" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5010672" side_tool="true" weight="0.27604726" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32690454" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32883316" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.2150434" />
       <window_info anchor="bottom" id="ANTLR Preview" order="15" />
+      <window_info anchor="bottom" id="Spring" order="16" />
       <window_info anchor="right" id="Maven" order="0" visible="true" weight="0.22302158" />
       <window_info anchor="right" id="Palette" order="1" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
@@ -651,6 +815,41 @@
       <window_info anchor="right" id="Database" order="8" weight="0.32965213" />
       <window_info anchor="right" id="Ant Build" order="9" weight="0.24958494" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19103523" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32883316" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.27604726" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.25747347" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Duplicate detector" order="7" weight="0.32939914" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Tool Output" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5010672" side_tool="true" weight="0.27604726" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32760474" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32867885" />
+      <window_info anchor="bottom" id="ANTLR Preview" order="15" />
+      <window_info anchor="right" id="Maven" order="0" visible="true" weight="0.22785486" />
+      <window_info anchor="right" id="Palette" order="1" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="5" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="6" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.32977587" />
+      <window_info anchor="right" id="Database" order="8" weight="0.32965213" />
+      <window_info anchor="right" id="Ant Build" order="9" weight="0.24958494" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -669,18 +868,13 @@
     <MESSAGE value="release a beta version for includes" />
     <MESSAGE value="added maven support" />
     <MESSAGE value="MainVisitor and Statement Visitor documented" />
-    <MESSAGE value="Added support for Unit testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added support for Unit testing" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/alk-language/java-semantics&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;input/test.in" />
+    <MESSAGE value="clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java</url>
-          <line>106</line>
-          <properties />
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/impl/visitors/structure/DataStructureVisitor.java</url>
           <line>85</line>
@@ -740,326 +934,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkArray/AlkArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="94" column="34" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="34" />
-          <folding>
-            <element signature="e#3103#3104#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/regexp/ast.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="81" column="17" selection-end-line="127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/regexp/detaut.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2115">
-          <caret line="141" column="3" selection-end-line="401" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkList/AlkList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="110" column="31" selection-start-line="110" selection-start-column="31" selection-end-line="110" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkSet/AlkSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkIterator/AlkIterator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkInt/AlkInt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkFloat/AlkFloat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="59" selection-start-line="9" selection-start-column="59" selection-end-line="9" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkBool/AlkBool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/grammar/parts/terminal.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="45" column="7" selection-start-line="45" selection-start-column="7" selection-end-line="45" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/analysis/Analysis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/grammar/parts/expression.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="203" column="13" selection-start-line="203" selection-start-column="13" selection-end-line="203" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/grammar/parts/statement.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="44" column="128" selection-start-line="44" selection-start-column="121" selection-end-line="44" selection-end-column="128" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/env/Environment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#925#926#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/gcd.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/analysis/visitors/AnalysisStmtVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="16" column="67" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/preprocessing/visitors/PreMainVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkString/AlkString.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2280">
-          <caret line="162" column="33" selection-start-line="162" selection-start-column="33" selection-end-line="162" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/expression/ExpressionVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6345">
-          <caret line="445" column="82" selection-start-line="445" selection-start-column="82" selection-end-line="447" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/exceptions/AlkException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/analysis/visitors/AnalysisMainVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkList/FunctionListHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
-          <folding>
-            <element signature="e#1974#1975#0" expanded="true" />
-            <element signature="e#2018#2019#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkStructure/AlkStructure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/helpers/Convertors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/helpers/NonDeterministic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/helpers/MathHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/DataStructuresTestTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/DataStructuresTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.5.0-M1/junit-jupiter-api-5.5.0-M1.jar!/org/junit/jupiter/api/Test.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/preprocessing/PreProcessing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="34" column="59" lean-forward="true" selection-start-line="34" selection-start-column="59" selection-end-line="34" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.7.1/antlr4-runtime-4.7.1.jar!/org/antlr/v4/runtime/tree/AbstractParseTreeVisitor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="9" column="62" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/grammar/alkParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="167" selection-start-line="167" selection-end-line="167" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/MainVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="193" column="86" selection-start-line="193" selection-start-column="81" selection-end-line="193" selection-end-column="86" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/function/FunctionCallVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="48" column="41" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/io/PrintStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="90" column="11" lean-forward="true" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/regexp/parser.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="144" column="25" lean-forward="true" selection-end-line="146" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/nondeterministic/sat.alk">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/nondeterministic/nqueens.alk">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="45" lean-forward="true" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/nondeterministic/xcover.alk">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/probab/choc-bar.alk">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1087,13 +961,6 @@
     <entry file="file://$PROJECT_DIR$/examples/probab/random.alk">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/input/test.in">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="70" column="2" selection-start-line="70" selection-start-column="2" selection-end-line="70" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/probab/randomized-select.alk">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1101,20 +968,340 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/MainVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        <state relative-caret-position="180">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/nondeterministic/nqueens.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="5" lean-forward="true" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/string-alg/bm.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="37" lean-forward="true" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkString/AlkString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="157" column="5" selection-start-line="157" selection-start-column="5" selection-end-line="157" selection-end-column="5" />
+          <folding>
+            <element signature="e#4918#4919#0" expanded="true" />
+            <element signature="e#4967#4968#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/data-structures/arraysofarrays.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="14" selection-end-line="18" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/data-structures/arraysofsequences.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/data-structures/seq.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" lean-forward="true" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkList/FunctionListHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
+          <folding>
+            <element signature="e#1974#1975#0" expanded="true" />
+            <element signature="e#2018#2019#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/data-structures/specs.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/data-structures/specs.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/surefire-reports/DataStrcuturesTests.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/data-structures/seqofstructures.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/DataStrcuturesTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="52" lean-forward="true" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+        <state relative-caret-position="506">
+          <caret line="87" column="61" selection-start-line="87" selection-start-column="61" selection-end-line="87" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/language-features/boolops.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/language-features/conv.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/language-features/eq.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/language-features/evenset.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" lean-forward="true" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/language-features/floatops.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/surefire-reports/LanguageFeaturesTests.txt" />
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/dfs.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="24" lean-forward="true" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkList/AlkList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="27" selection-start-column="27" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/LanguageFeaturesTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/dfsrec.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="51" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/surefire-reports/TEST-MiscelaneaTests.xml" />
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/gcdrec.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/env/AlkFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+          <folding>
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#738#739#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/Testing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/prime.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="9" lean-forward="true" selection-end-line="26" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/sum.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/platou.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/qsort.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="12" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/input/miscelanea/log.alk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="2" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/surefire-reports/MiscelaneaTests.txt" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/constants/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/MiscelaneaTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="61" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="90" column="11" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/function/FunctionCallVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="48" column="41" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/StmtVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="192" column="86" selection-start-line="192" selection-start-column="81" selection-end-line="192" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="97" column="21" lean-forward="true" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkInt/AdditiveIntHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+          <folding>
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#676#677#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/alkInt/AlkInt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="76" column="46" selection-start-line="76" selection-start-column="46" selection-end-line="76" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/types/AlkValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/impl/visitors/expression/ExpressionVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="564">
+          <caret line="121" lean-forward="true" selection-start-line="121" selection-end-line="121" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input/test.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aop/DemoAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1135,7 +1322,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
+          <last-edited>Spring</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1170,7 +1357,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Alk</last-edited>
+          <last-edited>Spring|Alk</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1194,6 +1381,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>Maven: ch.obermuhlner:big-math:2.0.1</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1220,5 +1408,8 @@
         </settings>
       </state>
     </states>
+  </component>
+  <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
+    <setting name="isActivated" value="true" />
   </component>
 </project>
