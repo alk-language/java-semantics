@@ -5,10 +5,10 @@
   where, e.g., listsofstructures.in includes
 l |-> < { x -> 12 y -> 56 }, { x -> -43 y -> 98 }, { x -> 33 y -> 66 } >
 */
-l = < { x -> 12 y -> 56 }, { x -> -43 y -> 98 }, { x -> 33 y -> 66 } >; 
+l = < { x -> 12 y -> 56 }, { x -> -43 y -> 98 }, { x -> 33 y -> 66 } >;
 u = l.topFront();
 l.pushBack({ x -> -100 y -> 200 });
-l.at(2).x = 999;
+l.removeAt(2);
+l.insert(2, {x->999 y->98});
 print(u);
-print(l); 
-
+print(l);

@@ -1,3 +1,5 @@
+#include "/home/alex/work/Alk/releases/test.in"
+
 gcd(a, b)
 {
     while (b>0)

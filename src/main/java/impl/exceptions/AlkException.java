@@ -304,13 +304,13 @@ public class AlkException extends Exception {
 
     public void success()
     {
-        System.out.println("The execution of the algorithm ended successfully.");
+        System.out.println("The nondeterministic execution of the algorithm successfully terminated.");
         throw new RuntimeException();
     }
 
     public void failure()
     {
-        System.out.println("The execution of the algorithm failed.");
+        System.out.println("The nondeterministic execution of the algorithm failed.");
         throw new RuntimeException();
     }
 

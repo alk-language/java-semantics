@@ -45,7 +45,7 @@ public class PreProcessing {
             preMainVisitor.visit(tree);
 
             for (String i : includes)
-                if (previous_includes.contains(i))
+                if (previous_includes.contains(new File(i).getAbsolutePath()))
                     throw new AlkException(ERR_INCLUDE_CYCLE);
 
             for (String i : includes)

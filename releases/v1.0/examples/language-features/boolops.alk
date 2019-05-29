@@ -1,0 +1,11 @@
+/*
+ alki boolops.alk boolops.in
+ where, e.g., boolops.in includes
+ x |-> 1  y |-> 2
+ */
+
+b1 = x < y;
+b2 = b1 && ! (x < 0);
+b3 = !b1 || b1 && b2;
+print(b2);
+print(b3);

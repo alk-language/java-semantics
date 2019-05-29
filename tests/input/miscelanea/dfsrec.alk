@@ -4,6 +4,10 @@
   @output: the list S of the verices reachable from i0
 */
 
+
+D = { n -> 3 a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] };
+i0 = 1;
+
 // the recursive function
 dfsRec(out D, i, out S) {
   if (S[i] == 0) {
@@ -30,17 +34,3 @@ dfs(out D, i0) {
 }
 reached = dfs(D, i0);
 print(reached);
-
-/* Example of running command line
-   Assuming that the digraph D is given by
-     D.n = 3
-     D.a[0] = <1,2>
-     D.a[1] = <2, 0>
-     D.a[2] = <0>
-   and the vertex i0 is 1, then create a file dfs.in with the following contents:
-D |-> { n -> 3
-        a -> [ < 1, 2 >, < 2, 0 >,  < 0 > ] }
-i0 |-> 1
-and execute the command
-alki dfsrec.alk dfs.in
-*/

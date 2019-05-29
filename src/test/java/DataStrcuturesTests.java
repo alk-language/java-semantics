@@ -6,37 +6,85 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DataStrcuturesTests {
+public class DataStrcuturesTests extends Testing{
 
-    String run(String input) throws IOException {
-        OutputStream out = new ByteArrayOutputStream();
-        PrintStream stream = new PrintStream(out);
-        System.setOut(stream);
-        CharStream alkFile = CharStreams.fromPath(Paths.get("tests/input/data-structures/"+input+".alk"));
-        alkLexer lexerAlk = new alkLexer(alkFile);
-        CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
-        alkParser parserAlk = new alkParser(tokensAlk);
-        ParseTree tree = parserAlk.main();
-        Environment e = new Environment();
-        MainVisitor alkVisitor = new MainVisitor(e);
-        alkVisitor.visit(tree);
-        return out.toString();
-    }
+    private String chapter = "data-structures";
 
     @Test
     void arraysTest() throws IOException {
         String test = "arrays";
-        CharStream correct = CharStreams.fromPath(Paths.get("tests/output/data-structures/"+test+".out"));
-        assertEquals(correct.toString(), run(test));
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void arraysofarraysTest() throws IOException {
+        String test = "arraysofarrays";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void arraysofsequencesTest() throws IOException {
+        String test = "arraysofsequences";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void intervalsTest() throws IOException {
+        String test = "intervals";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void seqTest() throws IOException {
+        String test = "seq";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void sequencesofarraysTest() throws IOException {
+        String test = "sequencesofarrays";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void setsTest() throws IOException {
+        String test = "sets";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void specsTest() throws IOException {
+        String test = "specs";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void structuresTest() throws IOException {
+        String test = "structures";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+
+    @Test
+    void structuresofstructuresTest() throws IOException {
+        String test = "structuresofstructures";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
     }
 }
