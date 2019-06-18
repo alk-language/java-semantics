@@ -1,2 +1,3 @@
-a = 2+2-2;
+a = random(5);
+choose a in [1..5];
 print(a);

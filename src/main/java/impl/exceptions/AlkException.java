@@ -199,7 +199,7 @@ public class AlkException extends Exception {
     public final static String ERR_LIST_OUT_OF_BOUNDS = "The position in the list is out of bounds.";
     public final static String ERR_STRING_OUT_OF_BOUNDS = "The position in the string is out of bounds.";
 
-    public final static String ERR_LIST_EMPTY = "The list is empty, can't get iterator to first element.";
+    public final static String ERR_LIST_EMPTY = "The list is empty, can't getRandom iterator to first element.";
 
     public final static String ERR_ITERATOR_NO_NEXT = "The iterator can't be incremented.";
     public final static String ERR_ITERATOR_NO_PREVIOUS = "The Iterator can't be decremented.";
