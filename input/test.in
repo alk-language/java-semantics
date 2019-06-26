@@ -1,6 +1,2 @@
-if (1 == 1)
-    x = random(4);
-else
-    x = 2;
-
-print(x);
+a = 2+2;
+print(2);

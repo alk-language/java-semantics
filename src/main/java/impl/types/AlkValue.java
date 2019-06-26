@@ -25,8 +25,8 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
 
     @Override public int compareTo(AlkValue operand) {
         try {
-            if (((AlkBool)equal(operand)).value) return 0;
-            if (((AlkBool)lower(operand)).value) return -1;
+            if (equal(operand).value) return 0;
+            if (lower(operand).value) return -1;
             return 1;
         } catch (AlkException e) {
             e.printException(0);
