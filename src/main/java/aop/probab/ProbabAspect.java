@@ -35,6 +35,7 @@ public class ProbabAspect {
         BigInteger possiblePaths = ((AlkInt) joinPoint.getArgs()[0]).value;
         Analysis.probability = Analysis.probability.multiply(BigDecimal.ONE.divide(new BigDecimal(possiblePaths), Constants.MAX_DECIMALS, BigDecimal.ROUND_HALF_UP));
         Analysis.probability = Analysis.probability.setScale(Constants.MAX_DECIMALS, BigDecimal.ROUND_HALF_UP);
+
     }
 
 }

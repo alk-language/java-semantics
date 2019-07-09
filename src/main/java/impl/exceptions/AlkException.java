@@ -291,6 +291,9 @@ public class AlkException extends Exception {
 
     public final static String ERR_INCLUDE_CYCLE = "There is a circular including process.";
 
+    public final static String ERR_CONTINUE = "Can't use continue outside a loop.";
+    public final static String ERR_BREAK = "Can't use break outside a loop.";
+
     public AlkException(String text)
     {
         this.message=text;

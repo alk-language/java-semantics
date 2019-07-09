@@ -10,12 +10,12 @@ public class DemoAspect {
     @Before("execution(* impl.types.AlkValue.add(..))")
     public void logBeforePlus(JoinPoint joinPoint)
     {
-        System.out.println("****LoggingAspect.logBeforeAllMethods() : " + joinPoint.getSignature().getName());
+        //System.out.println("****LoggingAspect.logBeforeAllMethods() : " + joinPoint.getSignature().getName());
     }
 
     @Before("execution(* impl.types.AlkValue.subtract(..))")
     public void logBeforeMinus(JoinPoint joinPoint)
     {
-        System.out.println("****LoggingAspect.logBeforeAllMethods() : " + joinPoint.getSignature().getName());
+        //System.out.println("****LoggingAspect.logBeforeAllMethods() : " + joinPoint.getSignature().getName());
     }
 }
