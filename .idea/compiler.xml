@@ -2,7 +2,6 @@
 <project version="4">
   <component name="AjcSettings">
     <option name="ajcPath" value="$MAVEN_REPOSITORY$/org/aspectj/aspectjtools/1.8.13/aspectjtools-1.8.13.jar" />
-    <option name="cmdLineParams" value="-Xlint:ignore -showWeaveInfo" />
     <option name="delegateToJavac" value="true" />
   </component>
   <component name="CompilerConfiguration">
@@ -12,13 +11,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Alk" />
-        <module name="Alg" />
+        <module name="java-semantics" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Alg" target="8" />
-      <module name="Alk" target="8" />
+      <module name="java-semantics" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
