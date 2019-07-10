@@ -1,9 +1,7 @@
 package main;
 
-import impl.Parsing;
 import impl.env.Environment;
 import impl.exceptions.AlkException;
-import impl.exceptions.AlkWarning;
 import impl.visitors.ConfigVisitator;
 import impl.visitors.MainVisitor;
 import impl.visitors.expression.ExpressionVisitor;
@@ -12,8 +10,6 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.tree.*;
 import grammar.*;
 import org.apache.commons.cli.*;
-import analysis.Analysis;
-import analysis.visitors.AnalysisMainVisitor;
 import preprocessing.PreProcessing;
 
 import java.io.*;
@@ -109,19 +105,9 @@ public class Main {
 
             ParseTree tree = parserAlk.main();
 
-            Analysis data = new Analysis();
-            AnalysisMainVisitor analysisMainVisitor = new AnalysisMainVisitor(data);
-            analysisMainVisitor.visit(tree);
-
             MainVisitor alkVisitor = new MainVisitor(e);
             alkVisitor.visit(tree);
-            System.out.println(e);
-
-            if (data.getType().equals("probabilist"))
-                System.out.println("The probability for this execution is: " + Parsing.getProbability());
-            else if (data.getType().equals("nedeterminist"))
-                System.out.println("Note that the executed algorithm is nondeterministic.");
-            AlkWarning.printAll();
+            Output.printAll(e);
         }
         catch (ParseException e)
         {

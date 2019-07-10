@@ -1,7 +1,6 @@
 package impl.visitors.helpers;
 
 import grammar.alkParser;
-import impl.Parsing;
 import impl.env.Environment;
 import impl.exceptions.AlkException;
 import impl.types.AlkIterableValue;
@@ -18,7 +17,8 @@ import static impl.exceptions.AlkException.*;
 
 public class NonDeterministic {
 
-    public static AlkInt get(AlkValue valmax) throws AlkException {
+    // generated random value
+    public static AlkInt getRandom(AlkValue valmax) throws AlkException {
         if (!valmax.type.equals("Int"))
             throw new AlkException(ERR_RANDOM_INT);
         AlkInt intValue = (AlkInt) valmax;
@@ -27,14 +27,14 @@ public class NonDeterministic {
         while( result.compareTo(intValue.value) >= 0 ) {
             result = new BigInteger(intValue.value.bitLength(), rand);
         }
-        Parsing.callRandom(((AlkInt) valmax).value);
         return new AlkInt(result);
     }
+
     public static AlkValue choose(AlkIterableValue struct) {
         ArrayList array = struct.toArray();
         Random rand = new Random();
         int poz = rand.nextInt(array.size());
-        Parsing.callRandom(new BigInteger(String.valueOf(array.size())));
+        //Parsing.callRandom(new BigInteger(String.valueOf(array.size())));
         return (AlkValue) array.get(poz);
     }
 
