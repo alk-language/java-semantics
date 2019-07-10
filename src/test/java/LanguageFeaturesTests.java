@@ -31,6 +31,20 @@ public class LanguageFeaturesTests extends Testing {
     }
 
     @Test
+    void breakTest() throws IOException {
+        String test = "break";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
+    void continueTest() throws IOException {
+        String test = "continue";
+        CharStream correct = getCorrect(chapter, test);
+        assertEquals(correct.toString(), run(chapter, test));
+    }
+
+    @Test
     void convTest() throws IOException {
         String test = "conv";
         CharStream correct = getCorrect(chapter, test);

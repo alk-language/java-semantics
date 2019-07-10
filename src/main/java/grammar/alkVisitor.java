@@ -1,4 +1,4 @@
-// Generated from /home/alex/work/Alk/script/../src/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /home/alex/work/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -81,6 +81,20 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFailure(alkParser.FailureContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ContinueStmt}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContinueStmt(alkParser.ContinueStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BreakStmt}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBreakStmt(alkParser.BreakStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToAssignmentStmt}
 	 * labeled alternative in {@link alkParser#statement}.

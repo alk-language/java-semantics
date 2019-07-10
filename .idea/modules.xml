@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Alg.iml" filepath="$PROJECT_DIR$/Alg.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Alk.iml" filepath="$PROJECT_DIR$/Alk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/java-semantics.iml" filepath="$PROJECT_DIR$/.idea/java-semantics.iml" />
     </modules>
   </component>
 </project>

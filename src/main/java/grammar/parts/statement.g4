@@ -23,7 +23,8 @@ statement //statement
     | SUCCESS SEMICOLON                                                                                                 #Success
     | FAILURE SEMICOLON                                                                                                 #Failure
 
-    // de adaugat break, continue
+    | CONTINUE SEMICOLON                                                                                                #ContinueStmt
+    | BREAK SEMICOLON                                                                                                   #BreakStmt
 
     | assignment SEMICOLON                                                                                              #ToAssignmentStmt
     | increase_decrease SEMICOLON                                                                                       #ToIncreaseDecrease
