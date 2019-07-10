@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.tree.*;
 import grammar.*;
 import org.apache.commons.cli.*;
+
 import preprocessing.PreProcessing;
 
 import java.io.*;
@@ -26,36 +27,8 @@ public class Main {
         System.out.print(exprVis.visit(tree).toString());
     }
 
-    private static void parseDebug(CharStream alkFile)
-    {
-
-        alkLexer lexerAlk = new alkLexer(alkFile);
-        CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
-        alkParser parserAlk = new alkParser(tokensAlk);
-
-        ParseTree tree = parserAlk.main();
-        Environment e = new Environment();
-        MainVisitor alkVisitor = new MainVisitor(e);
-        alkVisitor.visit(tree);
-        System.out.println(e);
-    }
-
     public static void main( String[] args )
     {
-        if (DEBUG)
-        {
-            try {
-                CharStream alkFile = CharStreams.fromPath(Paths.get("/home/alex/work/Alk/input/test.in"));
-                parseDebug(alkFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            catch(RuntimeException ignored)
-            {
-
-            }
-            System.exit(1);
-        }
         Options options = new Options();
 
         Option alk = new Option("a", "alk", true, "algorithm file path");

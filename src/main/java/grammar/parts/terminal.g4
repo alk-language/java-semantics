@@ -39,6 +39,9 @@ SUCCESS : 'success';
 UNTIL : 'until';
 FAILURE : 'failure';
 
+CONTINUE: 'continue';
+BREAK: 'break';
+
 EMPTYSET : 'emptySet';
 EMPTYLIST : 'emptyList';
 
