@@ -1,5 +1,6 @@
 package main;
 
+import impl.constants.Constants;
 import impl.env.Environment;
 import impl.exceptions.AlkException;
 import impl.visitors.ConfigVisitator;
@@ -39,6 +40,46 @@ public class Main {
         input.setRequired(false);
         options.addOption(input);
 
+        Option metadata = new Option("m", "metadata", false, "metadata display");
+        metadata.setRequired(false);
+        options.addOption(metadata);
+
+        Option precision = new Option("p", "precision", true, "precision set");
+        precision.setRequired(false);
+        options.addOption(precision);
+
+        Option demonic = new Option("d", "demonic", false, "demonic execution");
+        demonic.setRequired(false);
+        options.addOption(demonic);
+
+        Option complexity = new Option("c", "complexity", false, "complexity display");
+        complexity.setRequired(false);
+        options.addOption(complexity);
+
+        Option output = new Option("o", "output", true, "output file name");
+        output.setRequired(false);
+        options.addOption(output);
+
+        Option help = new Option("h", "help", false, "show help");
+        help.setRequired(false);
+        options.addOption(help);
+
+        Option size = new Option("z", "size", true, "maximum array size");
+        size.setRequired(false);
+        options.addOption(size);
+
+        Option version = new Option("v", "version", false, "display version");
+        version.setRequired(false);
+        options.addOption(version);
+
+        Option runtimeverification = new Option("r", "runtimeverification", false, "runtime verification");
+        runtimeverification.setRequired(false);
+        options.addOption(runtimeverification);
+
+        Option staticverification = new Option("s", "staticverification", false, "static verification");
+        staticverification.setRequired(false);
+        options.addOption(staticverification);
+
         CommandLineParser cmdparser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -69,6 +110,34 @@ public class Main {
                 configVisitator.visit(treeInit);
             }
 
+            if (cmd.getOptionValue("precision") != null)
+            {
+                Constants.MAX_DECIMALS = Integer.parseInt(cmd.getOptionValue("precision"));
+            }
+
+            if (cmd.hasOption("help"))
+            {
+                formatter.printHelp("help", options);
+            }
+
+            if (cmd.hasOption("version"))
+            {
+                System.out.println("The current version is: " + Constants.VERSION);
+            }
+
+            if (cmd.getOptionValue("size") != null)
+            {
+                Constants.MAX_ARRAY = Integer.parseInt(cmd.getOptionValue("size"));
+            }
+
+            if (cmd.getOptionValue("output") != null)
+            {
+                String url = cmd.getOptionValue("output");
+                File file2 = new File(url);
+                file2.createNewFile();
+                System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(url)), true));
+            }
+
             PreProcessing pre = new PreProcessing(file, new ArrayList());
             pre.execute(e, true);
 
@@ -80,7 +149,9 @@ public class Main {
 
             MainVisitor alkVisitor = new MainVisitor(e);
             alkVisitor.visit(tree);
-            Output.printAll(e);
+
+            if (cmd.hasOption("metadata"))
+                Output.printAll(e);
         }
         catch (ParseException e)
         {
