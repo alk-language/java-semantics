@@ -40,7 +40,7 @@ public class Main {
         input.setRequired(false);
         options.addOption(input);
 
-        Option metadata = new Option("m", "metadata", false, "metadata display");
+        Option metadata = new Option("m", "metadata", false, "display metadata: final configuration and kind of execution");
         metadata.setRequired(false);
         options.addOption(metadata);
 
@@ -48,11 +48,11 @@ public class Main {
         precision.setRequired(false);
         options.addOption(precision);
 
-        Option demonic = new Option("d", "demonic", false, "demonic execution");
+        Option demonic = new Option("d", "demonic", false, "demonic execution (Not yet implemented)");
         demonic.setRequired(false);
         options.addOption(demonic);
 
-        Option complexity = new Option("c", "complexity", false, "complexity display");
+        Option complexity = new Option("c", "complexity", false, "complexity display (Not yet implemented)");
         complexity.setRequired(false);
         options.addOption(complexity);
 
@@ -72,11 +72,11 @@ public class Main {
         version.setRequired(false);
         options.addOption(version);
 
-        Option runtimeverification = new Option("r", "runtimeverification", false, "runtime verification");
+        Option runtimeverification = new Option("r", "runtimeverification", false, "runtime verification (Not yet implemented)");
         runtimeverification.setRequired(false);
         options.addOption(runtimeverification);
 
-        Option staticverification = new Option("s", "staticverification", false, "static verification");
+        Option staticverification = new Option("s", "staticverification", false, "static verification (Not yet implemented)");
         staticverification.setRequired(false);
         options.addOption(staticverification);
 
@@ -138,7 +138,7 @@ public class Main {
                 System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(url)), true));
             }
 
-            PreProcessing pre = new PreProcessing(file, new ArrayList());
+            PreProcessing pre = new PreProcessing(file, new ArrayList<>());
             pre.execute(e, true);
 
             alkLexer lexerAlk = new alkLexer(alkFile);
