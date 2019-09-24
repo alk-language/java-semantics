@@ -299,6 +299,12 @@ public class AlkException extends Exception {
         this.message=text;
     }
 
+    public void printException() {
+        MainVisitor.exceptionOccured=true;
+        System.out.println("[ERROR]: " + message);
+        throw new RuntimeException();
+    }
+
     public void printException(int line) {
         MainVisitor.exceptionOccured=true;
         System.out.println("Error at line "+line+": "+message);
