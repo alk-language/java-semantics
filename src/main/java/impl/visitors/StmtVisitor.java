@@ -49,7 +49,7 @@ public class StmtVisitor extends alkBaseVisitor {
     /**
      * A counter used to count the number of loop scopes in which we are (for, forall, while, do while, repeat until)
      */
-    private int loopLevel = 0;
+    public int loopLevel = 0;
 
     /**
      * A flag used to determine if a continue was executed.
@@ -115,6 +115,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Function Call node in the execution tree meant to be parsed.
      */
     @Override public Object visitFunctionCall(alkParser.FunctionCallContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         FunctionCallVisitor visitor = new FunctionCallVisitor(env);
         visitor.visit(ctx.function_call());
         return null;
@@ -127,7 +128,8 @@ public class StmtVisitor extends alkBaseVisitor {
      * @return A pair containing the name of the parameter and a flag used to determine if it is about an output parameter.
      */
     @Override public Object visitParamDefinition(alkParser.ParamDefinitionContext ctx) {
-        return new Pair<>(ctx.ID().getText(), ctx.OUT()!=null);
+        Pair<String, Boolean> pair = new Pair<>(ctx.ID().getText(), ctx.OUT()!=null);
+        return pair;
     }
 
 
@@ -140,7 +142,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Return Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitReturnStmt(alkParser.ReturnStmtContext ctx) {
-        //if (returnValue != null || breakFlag || continueFlag) return null;
+        if (returnValue != null || breakFlag || continueFlag) return null;
         if (!inFunction)
         {
             AlkException e = new AlkException(ERR_RETURN);
@@ -170,6 +172,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An Assignment Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitAssignmentStmt(alkParser.AssignmentStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
         AlkValue right_side = ((AlkValue) exprVisitor.visit(ctx.expression())).clone();
@@ -191,7 +194,7 @@ public class StmtVisitor extends alkBaseVisitor {
                 case ">>=": right_side = left_side.shiftLeft(right_side); break;
                 case "|=": right_side = left_side.bitwiseOr(right_side); break;
                 case "&=": right_side = left_side.bitwiseAnd(right_side); break;
-                default:
+                default: ;
             }
         } catch (InterpretorException e) {
             e.printException(ctx.start.getLine());
@@ -211,6 +214,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Method Call node in the execution tree meant to be parsed.
      */
     @Override public Object visitMethodCall(alkParser.MethodCallContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
         referenceVisitor.visit(ctx.ref_name());
         referenceVisitor.visit(ctx.builtin_method());
@@ -226,6 +230,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Repeat Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitRepeatStructure(alkParser.RepeatStructureContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue value;
         loopLevel++;
@@ -258,6 +263,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Do While Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitDoWhileStructure(alkParser.DoWhileStructureContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue value;
         loopLevel++;
@@ -294,6 +300,8 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A While Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitWhileStructure(alkParser.WhileStructureContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag)
+            return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
         if (!value.type.equals("Bool"))
@@ -331,9 +339,11 @@ public class StmtVisitor extends alkBaseVisitor {
      * Handles the visiting of the If Structure. Making use of the ExpressionVisitor, it is checked if
      * the condition provided is true or false. Depending on the result, the corresponding statement will be executed.
      * In case there is no else keyword, and the condition returns false, the execution continues normally
-     * @param ctx  An If Structure node in the execution tree meant to be parsed.
+     * @param ctx
+     * @return An If Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitIfStructure(alkParser.IfStructureContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
         if (!value.type.equals("Bool"))
@@ -362,6 +372,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Success node in the execution tree meant to be parsed.
      */
     @Override public Object visitSuccess(alkParser.SuccessContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         AlkException e = new AlkException(null);
         e.success();
         return null;
@@ -374,6 +385,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Failure node in the execution tree meant to be parsed.
      */
     @Override public Object visitFailure(alkParser.FailureContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         AlkException e = new AlkException(null);
         e.failure();
         return null;
@@ -387,6 +399,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A For Strcuture node in the execution tree meant to be parsed.
      */
     @Override public Object visitForStructure(alkParser.ForStructureContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         if (ctx.start_assignment()!=null)
             visit(ctx.start_assignment());
 
@@ -436,6 +449,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A ForAll Strcuture node in the execution tree meant to be parsed.
      */
     @Override public Object visitForAllStructure(alkParser.ForAllStructureContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         String iterator = ctx.ID().toString();
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue struct = (AlkValue) exprVisitor.visit(ctx.expression());
@@ -472,6 +486,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A PlusPlus Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
@@ -490,6 +505,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A MinusMinus Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
@@ -513,6 +529,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Choose Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitChooseStmt(alkParser.ChooseStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
         AlkValue struct = (AlkValue)expressionVisitor.visit(ctx.expression(0));
         if (!struct.isIterable)
@@ -535,12 +552,11 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         else
         {
-            AlkValue value;
+            AlkValue value = null;
             try {
                 value = NonDeterministic.chooseST(ctx.ID().getText(), val, ctx.expression(1), env);
             } catch (AlkException e) {
                 e.printException(ctx.start.getLine());
-                return null;
             }
             env.update(ctx.ID().getText(), value.clone());
         }
@@ -554,6 +570,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An Uniform Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitUniformStmt(alkParser.UniformStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
         AlkValue struct = (AlkValue)expressionVisitor.visit(ctx.expression());
         if (!struct.isIterable)
@@ -581,6 +598,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     //TODO reimplement the function
     @Override public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
             AssignedVisitor asgnVisitor = new AssignedVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1")))); //TODO de modificat in functii proprii
@@ -601,6 +619,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     //TODO reimplement the function
     @Override public Object visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
             AssignedVisitor asgnVisitor = new AssignedVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).subtract(new AlkInt(new BigInteger("1"))));
@@ -622,6 +641,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An MinusMinusMod Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitMinusMinusModStmt(alkParser.MinusMinusModStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
@@ -640,6 +660,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An PlusPlusMod Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitPlusPlusModStmt(alkParser.PlusPlusModStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         ReferenceVisitor refVisitor = new ReferenceVisitor(env);
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
@@ -656,6 +677,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An ContinueStmt Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitContinueStmt(alkParser.ContinueStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         if (loopLevel == 0)
         {
             AlkException e = new AlkException(ERR_CONTINUE);
@@ -666,11 +688,12 @@ public class StmtVisitor extends alkBaseVisitor {
     }
 
     /**
-     * Handles the visiting of a BreakStmt Statement. This will set a breakFlag which will be parsed by the next
+     * Handles the visiting of a ContinueStmt Statement. This will set a continueFlag which will be parsed by the next
      * loop statement executed. This will work only if the execution is in a loop.
-     * @param ctx An BreakStmt Statement node in the execution tree meant to be parsed.
+     * @param ctx An ContinueStmt Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitBreakStmt(alkParser.BreakStmtContext ctx) {
+        if (returnValue != null || breakFlag || continueFlag) return null;
         if (loopLevel == 0)
         {
             AlkException e = new AlkException(ERR_BREAK);

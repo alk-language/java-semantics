@@ -20,71 +20,16 @@ import java.util.ArrayList;
 
 import static impl.constants.Constants.DEBUG;
 
+@Deprecated
 public class Main {
 
-    public static void testExpression(ParseTree tree)
+    public static void main(String[] args)
     {
-        ExpressionVisitor exprVis = new ExpressionVisitor(new Environment());
-        System.out.print(exprVis.visit(tree).toString());
-    }
 
-    public static void main( String[] args )
-    {
-        Options options = new Options();
+        System.out.println("Deprecated!");
+        return ;
 
-        Option alk = new Option("a", "alk", true, "algorithm file path");
-        alk.setRequired(true);
-        options.addOption(alk);
-
-        Option input = new Option("i", "init", true, "initial configuration");
-        input.setRequired(false);
-        options.addOption(input);
-
-        Option metadata = new Option("m", "metadata", false, "display metadata: final configuration and kind of execution");
-        metadata.setRequired(false);
-        options.addOption(metadata);
-
-        Option precision = new Option("p", "precision", true, "precision set");
-        precision.setRequired(false);
-        options.addOption(precision);
-
-        Option demonic = new Option("d", "demonic", false, "demonic execution (Not yet implemented)");
-        demonic.setRequired(false);
-        options.addOption(demonic);
-
-        Option complexity = new Option("c", "complexity", false, "complexity display (Not yet implemented)");
-        complexity.setRequired(false);
-        options.addOption(complexity);
-
-        Option output = new Option("o", "output", true, "output file name");
-        output.setRequired(false);
-        options.addOption(output);
-
-        Option help = new Option("h", "help", false, "show help");
-        help.setRequired(false);
-        options.addOption(help);
-
-        Option size = new Option("z", "size", true, "maximum array size");
-        size.setRequired(false);
-        options.addOption(size);
-
-        Option version = new Option("v", "version", false, "display version");
-        version.setRequired(false);
-        options.addOption(version);
-
-        Option runtimeverification = new Option("r", "runtimeverification", false, "runtime verification (Not yet implemented)");
-        runtimeverification.setRequired(false);
-        options.addOption(runtimeverification);
-
-        Option staticverification = new Option("s", "staticverification", false, "static verification (Not yet implemented)");
-        staticverification.setRequired(false);
-        options.addOption(staticverification);
-
-        CommandLineParser cmdparser = new DefaultParser();
-        HelpFormatter formatter = new HelpFormatter();
-        CommandLine cmd;
-
-        try {
+        /*try {
             cmd = cmdparser.parse(options, args);
 
             File file=new File(cmd.getOptionValue("alk"));
@@ -169,6 +114,6 @@ public class Main {
         catch(RuntimeException e)
         {
             //e.printStackTrace();
-        }
+        }*/
     }
 }

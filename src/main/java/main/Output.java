@@ -4,6 +4,7 @@ import analysis.Analysis;
 import impl.env.Environment;
 import impl.exceptions.AlkWarning;
 
+@Deprecated
 public class Output {
 
     public static void printAll(Environment e) {
