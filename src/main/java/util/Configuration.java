@@ -2,6 +2,7 @@ package util;
 
 import io.IOManager;
 
+import java.io.DataOutput;
 import java.io.File;
 
 /**
@@ -103,5 +104,10 @@ public class Configuration implements OptionProvider
      */
     public ErrorManager getErrorManager() {
         return em;
+    }
+
+    public IOManager getIOManager()
+    {
+        return io;
     }
 }

@@ -1,8 +1,8 @@
 package main;
 
 import analysis.Analysis;
-import impl.env.Environment;
-import impl.exceptions.AlkWarning;
+import parser.env.Environment;
+import parser.exceptions.AlkWarning;
 
 @Deprecated
 public class Output {

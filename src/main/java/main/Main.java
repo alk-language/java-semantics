@@ -1,25 +1,5 @@
 package main;
 
-import impl.constants.Constants;
-import impl.env.Environment;
-import impl.exceptions.AlkException;
-import impl.visitors.ConfigVisitator;
-import impl.visitors.MainVisitor;
-import impl.visitors.expression.ExpressionVisitor;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.tree.*;
-import grammar.*;
-import org.apache.commons.cli.*;
-
-import preprocessing.PreProcessing;
-
-import java.io.*;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
-import static impl.constants.Constants.DEBUG;
-
 @Deprecated
 public class Main {
 

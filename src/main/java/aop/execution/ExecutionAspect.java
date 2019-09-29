@@ -1,12 +1,9 @@
 package aop.execution;
 
-import analysis.Analysis;
-import impl.visitors.StmtVisitor;
-import org.aspectj.lang.JoinPoint;
+import parser.visitors.StmtVisitor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 
 @Aspect
 public class ExecutionAspect {
@@ -17,7 +14,7 @@ public class ExecutionAspect {
 
     }*/
 
-    @Around("execution(* impl.visitors.StmtVisitor.*(..) )")
+    @Around("execution(* parser.visitors.StmtVisitor.*(..) )")
     public Object stopAssignmentStmt(ProceedingJoinPoint joinPoint) throws Throwable {
         StmtVisitor visitor = (StmtVisitor) joinPoint.getThis();
         if (visitor.breakFlag || visitor.continueFlag || visitor.returnValue != null)

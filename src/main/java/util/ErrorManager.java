@@ -1,6 +1,6 @@
 package util;
 
-import impl.exceptions.AlkException;
+import parser.exceptions.AlkException;
 import io.IOManager;
 import util.exception.AlkFatalException;
 import util.exception.AlkIOException;

@@ -5,7 +5,8 @@ import java.io.File;
 /**
  * A provider class for the options needed in one execution.
  */
-public interface OptionProvider {
+public interface OptionProvider
+{
 
     /**
      * Used for identifying the metadata flag
