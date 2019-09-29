@@ -1,16 +1,12 @@
 package main;
 
-import grammar.alkLexer;
-import grammar.alkParser;
-import impl.env.Environment;
-import impl.exceptions.AlkException;
-import impl.visitors.MainVisitor;
+import parser.AlkParser;
+import parser.env.Environment;
+import parser.exceptions.AlkException;
+import preprocessing.PreProcessing;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import preprocessing.PreProcessing;
 import util.Configuration;
 import util.ErrorManager;
 import util.OptionProvider;
@@ -54,11 +50,10 @@ public class Execution extends Thread
 
         // get the main algorithm file and obtain the CharStream in order to be parsed
         File file = config.getAlkFile();
-        InputStream alkInStr = null;
         CharStream alkFile = null;
         try
         {
-            alkInStr = new FileInputStream(file);
+            InputStream alkInStr = new FileInputStream(file);
             alkFile = CharStreams.fromStream(alkInStr);
         }
         catch (IOException e)
@@ -66,10 +61,11 @@ public class Execution extends Thread
             em.handleError(e, file.getPath());
         }
 
-        // setup the initial environment
+        /*
+            execute preprocessing part
+            TODO: rework preprocessing, move it to the parsing stage
+         */
         Environment e = new Environment();
-
-        // start preprocessing stage
         PreProcessing pre = null;
         try
         {
@@ -81,18 +77,16 @@ public class Execution extends Thread
         }
         pre.execute(e, true);
 
-        // start parsing the main alk file
-        alkLexer lexerAlk = new alkLexer(alkFile);
-        CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
-        alkParser parserAlk = new alkParser(tokensAlk);
+        /*
+            start parsing
+            TODO: call different constructor without predefined environment
+         */
+        AlkParser parser = new AlkParser(alkFile, e);
+        parser.execute(config);
 
-        ParseTree tree = parserAlk.main();
-
-        MainVisitor alkVisitor = new MainVisitor(e);
-        alkVisitor.visit(tree);
-
+        // if the metadata flag is set, print the global environmentx
         if (config.hasMetadata())
-            Output.printAll(e);
+            config.getIOManager().write(parser.getGlobalEnvironment().toString());
     }
 
     /**

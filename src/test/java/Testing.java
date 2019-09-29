@@ -1,8 +1,8 @@
 import grammar.alkLexer;
 import grammar.alkParser;
-import impl.env.AlkFunction;
-import impl.env.Environment;
-import impl.visitors.MainVisitor;
+import parser.env.AlkFunction;
+import parser.env.Environment;
+import parser.visitors.MainVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

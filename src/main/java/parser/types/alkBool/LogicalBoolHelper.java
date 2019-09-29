@@ -1,0 +1,82 @@
+package parser.types.alkBool;
+
+import parser.exceptions.AlkException;
+import parser.exceptions.InterpretorException;
+import parser.types.alkFloat.AlkFloat;
+import parser.types.alkInt.AlkInt;
+import parser.types.alkString.AlkString;
+import parser.types.AlkValue;
+
+import static parser.exceptions.AlkException.*;
+import static parser.exceptions.InterpretorException.ERR_VALUE_TYPE_UNRECOGNIZED;
+
+public class LogicalBoolHelper {
+    private Boolean value;
+
+    LogicalBoolHelper(Boolean value)
+    {
+        this.value = value;
+    }
+
+    AlkBool logicalAnd(AlkValue operand) throws AlkException, InterpretorException
+    {
+        if (operand.isDataStructure)
+            throw new AlkException(ERR_LOGICALAND_DATA_STRUCTURE);
+        switch(operand.type)
+        {
+            case "Int": return logicalAnd(((AlkInt)operand));
+            case "Double": return logicalAnd((AlkFloat)operand);
+            case "String": return logicalAnd((AlkString)operand);
+            case "Bool": return logicalAnd((AlkBool)operand);
+        }
+        throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
+    }
+
+    private AlkBool logicalAnd(AlkInt operand) throws AlkException {
+        throw new AlkException(ERR_LOGICALAND_INT);
+    }
+
+    private AlkBool logicalAnd(AlkFloat operand) throws AlkException {
+        throw new AlkException(ERR_LOGICALAND_DOUBLE);
+    }
+
+    private AlkBool logicalAnd(AlkBool operand) throws AlkException {
+        return new AlkBool(value && operand.value);
+    }
+
+    private AlkBool logicalAnd(AlkString operand) throws AlkException {
+        throw new AlkException(ERR_LOGICALAND_STRING);
+    }
+
+
+
+    AlkBool logicalOr(AlkValue operand) throws AlkException, InterpretorException
+    {
+        if (operand.isDataStructure)
+            throw new AlkException(ERR_LOGICALOR_DATA_STRUCTURE);
+        switch(operand.type)
+        {
+            case "Int": return logicalOr(((AlkInt)operand));
+            case "Double": return logicalOr((AlkFloat)operand);
+            case "String": return logicalOr((AlkString)operand);
+            case "Bool": return logicalOr((AlkBool)operand);
+        }
+        throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
+    }
+
+    private AlkBool logicalOr(AlkInt operand) throws AlkException {
+        throw new AlkException(ERR_LOGICALOR_INT);
+    }
+
+    private AlkBool logicalOr(AlkFloat operand) throws AlkException {
+        throw new AlkException(ERR_LOGICALOR_DOUBLE);
+    }
+
+    private AlkBool logicalOr(AlkBool operand) throws AlkException {
+        return new AlkBool(value || operand.value);
+    }
+
+    private AlkBool logicalOr(AlkString operand) throws AlkException {
+        throw new AlkException(ERR_LOGICALOR_STRING);
+    }
+}
