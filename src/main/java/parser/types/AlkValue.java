@@ -1,28 +1,67 @@
 package parser.types;
 
 import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
 import parser.types.alkBool.AlkBool;
 
 import static parser.exceptions.AlkException.*;
 
-
-public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
-
-    // scalar_value - Int, Double, Bool, String
-    // data_structure_value - Array, List, Structure, Set
+/**
+ *  The main abstract class describing a value in Alk.
+ *  TODO: Take care with default method behavior if not overridden. Some of the methods there may not be implemented.
+ */
+public abstract class AlkValue implements Comparable<AlkValue>, Cloneable
+{
+    /** Describes the type of the current value, can have one of the following:
+     * TODO: replace the type with instance of checker
+     * scalar_value - Int, Double, Bool, String
+     * data_structure_value - Array, List, Structure, Set
+     */
+    @Deprecated
     public String type;
+
+    /**
+     * Flag to indicate if the current value is a data structure
+     * TODO: replace with instance of data strcuture, create abstract class
+     */
+    @Deprecated
     public boolean isDataStructure;
+
+    /** Flag to indicate if the current value is iterable
+     * TODO: replace with instance of iterable value checker
+     */
+    @Deprecated
     public boolean isIterable;
 
-    @Override public boolean equals(Object value)
+    /**
+     * Standard override of the equals method
+     * TODO: Why is he value of type Object?
+     * @param value
+     * The Object used as comparable
+     * @return
+     * A flag dictating if the current value is equal or not with {@value}
+     */
+    @Override
+    public boolean equals(Object value)
     {
-        if (!(value instanceof AlkValue)) return false;
-        return compareTo((AlkValue) value)==0;
+        if (!(value instanceof AlkValue))
+        {
+            return false;
+        }
+        return compareTo((AlkValue) value) == 0;
     }
 
 
-    @Override public int compareTo(AlkValue operand) {
+    /**
+     * Standard override of the compareTo method
+     * TODO: change so that compareTo can rise an exception, due to unimplemented equal/lower.
+     * @param operand
+     * The operand used as comparable
+     * @return
+     * -1, 0 or 1 depending on the result of the comparison
+     */
+    @Override
+    public int compareTo(AlkValue operand)
+    {
         try {
             if (equal(operand).value) return 0;
             if (lower(operand).value) return -1;
@@ -30,32 +69,69 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
         } catch (AlkException e) {
             e.printException(0);
             return 0;
-        } catch (InterpretorException e) {
-            e.printException(0);
-            return 0;
         }
     }
 
-    public abstract AlkValue clone();
 
-
+    /**
+     * Standard override of the toString method
+     * TODO: By default, throw an exception, as the value couldn't ve represented? Or find standard message?
+     * @return
+     * A string describing the value
+     */
     @Override
     public abstract String toString();
 
-    //LogicalOr operators
-    public AlkBool logicalOr(AlkValue operand) throws AlkException, InterpretorException
+
+    /**
+     * All children should implement the clone method, as they are immutable
+     * @return
+     * A value representing a copy of the value
+     */
+    public abstract AlkValue clone();
+
+
+    /**
+     * Handles the logical or operation (||) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkBool logicalOr(AlkValue operand)
     {
         throw new AlkException(ERR_LOGICALOR);
     }
 
-    //LogicalAnd operators
-    public AlkBool logicalAnd(AlkValue operand) throws AlkException, InterpretorException
+
+    /**
+     * Handles the logical and operation (&&) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkBool logicalAnd(AlkValue operand)
     {
         throw new AlkException(ERR_LOGICALAND);
     }
 
-    //In operators
-    public AlkValue in(AlkValue operand) throws AlkException, InterpretorException
+
+    /**
+     * Handles the in operation (in) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * TODO: Move the implementation in the children.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue in(AlkValue operand)
     {
         if (!operand.isIterable)
             throw new AlkException(ERR_IN);
@@ -63,222 +139,675 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable{
     }
 
 
-    //Equality operators
-    public abstract AlkBool equal(AlkValue operand) throws AlkException, InterpretorException; // sunt abstracte pentru a le putea ordona
+    /**
+     * Handles the equal operation (==) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * TODO: Can the abstract restraint be removed?
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public abstract AlkBool equal(AlkValue operand);
 
-    public AlkBool notequal(AlkValue operand) throws AlkException, InterpretorException
+
+    /**
+     * Handles the not equal operation (!=) over a value.
+     * By default, the operation makes use of the equal method.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkBool notequal(AlkValue operand)
     {
         return equal(operand).not();
     }
 
 
-    //Relational operators
-    public AlkBool lowereq(AlkValue operand) throws AlkException, InterpretorException
+    /**
+     * Handles the lower operation (<) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * TODO: Can the abstract restraint be removed?
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public abstract AlkBool lower(AlkValue operand);
+
+
+    /**
+     * Handles the lower or equal operation (<=) over a value.
+     * By default, the operation makes use of the lower, equal and logicalOr methods.
+     * TODO: Do not take logicalOr for granted.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkBool lowereq(AlkValue operand)
     {
         return lower(operand).logicalOr(equal(operand));
     }
 
-    public abstract AlkBool lower(AlkValue operand) throws AlkException, InterpretorException;// sunt abstracte pentru a le putea ordona
 
-    public AlkBool greatereq(AlkValue operand) throws AlkException, InterpretorException
+    /**
+     * Handles the greater or equal operation (>=) over a value.
+     * By default, the operation makes use of the lower and not methods.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkBool greatereq(AlkValue operand)
     {
         return lower(operand).not();
     }
-    public AlkBool greater(AlkValue operand) throws AlkException, InterpretorException
+
+
+    /**
+     * Handles the greater operation (>) over a value.
+     * By default, the operation makes use of the lowerEq and not methods.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkBool greater(AlkValue operand)
     {
         return lowereq(operand).not();
     }
 
-    //Set operators
-    public AlkValue union(AlkValue operand) throws AlkException {
+
+    /**
+     * Handles the set union operation (U) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue union(AlkValue operand)
+    {
         throw new AlkException(ERR_UNION);
     }
-    public AlkValue intersect(AlkValue operand) throws AlkException {
+
+
+    /**
+     * Handles the set intersect operation (^) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue intersect(AlkValue operand)
+    {
         throw new AlkException(ERR_INTERSECT);
     }
-    public AlkValue setSubtract(AlkValue operand) throws AlkException, InterpretorException {
+
+
+    /**
+     * Handles the set substract operation (\) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue setSubtract(AlkValue operand)
+    {
         throw new AlkException(ERR_SET_SUBTRACT);
     }
 
-    //BitwiseOr operators
-    public AlkValue bitwiseOr(AlkValue operand) throws AlkException, InterpretorException
+
+    /**
+     * Handles the bitwise or operation (|) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue bitwiseOr(AlkValue operand)
     {
         throw new AlkException(ERR_BITWISEOR);
     }
-    public AlkValue bitwiseXor(AlkValue operand) throws AlkException, InterpretorException
+
+
+    /**
+     * Handles the bitwise xor operation (xor) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue bitwiseXor(AlkValue operand)
     {
         throw new AlkException(ERR_BITWISEXOR);
     }
 
 
-    //BitwiseAnd operator
-    public AlkValue bitwiseAnd(AlkValue operand) throws AlkException, InterpretorException
+    /**
+     * Handles the bitwise and operation (&) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue bitwiseAnd(AlkValue operand)
     {
         throw new AlkException(ERR_BITWISEAND);
     }
 
 
-    //Shift operators
-    public AlkValue shiftLeft(AlkValue operand) throws AlkException, InterpretorException
+    /**
+     * Handles the shift left operation (<<) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue shiftLeft(AlkValue operand)
     {
         throw new AlkException(ERR_SHIFTLEFT);
     }
 
-    public AlkValue shiftRight(AlkValue visit) throws AlkException, InterpretorException
+
+    /**
+     * Handles the shift right operation (>>) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue shiftRight(AlkValue operand)
     {
         throw new AlkException(ERR_SHIFTRIGHT);
     }
 
 
-    //Addition operators
-    public AlkValue add(AlkValue operand) throws AlkException, InterpretorException
+    /**
+     * Handles the additive operation (+) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue add(AlkValue operand)
     {
         throw new AlkException(ERR_ADD);
     }
 
-    public AlkValue subtract(AlkValue visit) throws AlkException, InterpretorException
+
+    /**
+     * Handles the subtraction operation (-) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue subtract(AlkValue operand)
     {
         throw new AlkException(ERR_SUB);
     }
 
 
-    //Mulitplicative operators
-    public AlkValue multiply(AlkValue operand) throws AlkException, InterpretorException
+    /**
+     * Handles the multiply operation (*) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue multiply(AlkValue operand)
     {
         throw new AlkException(ERR_MUL);
     }
-    public AlkValue divide(AlkValue operand) throws AlkException, InterpretorException
+
+
+    /**
+     * Handles the divide operation (/) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue divide(AlkValue operand)
     {
         throw new AlkException(ERR_DIV);
     }
-    public AlkValue mod(AlkValue operand) throws AlkException, InterpretorException
+
+
+    /**
+     * Handles the mod operation (%) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param operand
+     * The value having the role of the second operand in this binary operation
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue mod(AlkValue operand)
     {
         throw new AlkException(ERR_MOD);
     }
 
 
-    //Unary operators
-    public AlkValue star() throws AlkException, InterpretorException
+    /**
+     * Handles the star operation (*) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue star()
     {
         throw new AlkException(ERR_STAR);
     }
-    public AlkValue positive() throws AlkException, InterpretorException
+
+
+    /**
+     * Handles the positive operation (+) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue positive()
     {
         throw new AlkException(ERR_POSITIVE);
     }
-    public AlkValue negative() throws AlkException, InterpretorException
+
+
+    /**
+     * Handles the negative operation (-) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue negative()
     {
         throw new AlkException(ERR_NEGATIVE);
     }
-    public AlkBool not() throws AlkException, InterpretorException
+
+
+    /**
+     * Handles the multiply operation (!) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkBool not()
     {
         throw new AlkException(ERR_NOT);
     }
 
 
-    //Prefix operators
-    public AlkValue plusplusleft () throws AlkException {
+    /**
+     * Handles the plus plus left operation (++) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue plusplusleft()
+    {
         throw new AlkException(ERR_LEFT_PLUSPLUS);
     }
-    public AlkValue minusminusleft() throws AlkException {
+
+
+    /**
+     * Handles the minus minus left operation (--) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue minusminusleft()
+    {
         throw new AlkException(ERR_LEFT_MINUSMINUS);
     }
-    public AlkValue minusminusmod() throws AlkException {
+
+
+    /**
+     * Handles the minus minus mod operation (--%) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue minusminusmod()
+    {
         throw new AlkException(ERR_MINUSMINUSMOD);
     }
-    public AlkValue plusplusmod() throws AlkException {
+
+
+    /**
+     * Handles the plus plus mod operation (++%) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue plusplusmod()
+    {
         throw new AlkException(ERR_PLUSPLUSMOD);
     }
 
-    //Special operators
-    public AlkValue bracket(int operand) throws AlkException {
+
+    /**
+     * Handles the bracket operation ([]) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue bracket(int operand)
+    {
         throw new AlkException(ERR_BRACKET);
     }
 
-    public AlkValue dot(String operand) throws AlkException {
+
+    /**
+     * Handles the dot operation (--%) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue dot(String operand)
+    {
         throw new AlkException(ERR_DOT);
     }
 
 
-    //BuiltInFunctions
-
-    public AlkValue at(AlkValue operand) throws AlkException {
+    /**
+     * Handles the at built in method (at) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue at(AlkValue operand)
+    {
         throw new AlkException(ERR_AT);
     }
 
-    public AlkValue delete() throws AlkException {
+
+    /**
+     * Handles the delete built in method (delete) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue delete()
+    {
         throw new AlkException(ERR_DELETE);
     }
 
-    public AlkValue end() throws AlkException {
+
+    /**
+     * Handles the end built in method (end) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue end()
+    {
         throw new AlkException(ERR_END);
     }
 
-    public AlkValue first() throws AlkException {
+
+    /**
+     * Handles the first built in method (first) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue first()
+    {
         throw new AlkException(ERR_FIRST);
     }
 
-    public AlkValue insert(AlkValue value) throws AlkException {
+
+    /**
+     * Handles the insert built in method (insert) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue insert(AlkValue value)
+    {
         throw new AlkException(ERR_INSERT);
     }
 
-    public AlkValue insert(AlkValue position, AlkValue value) throws AlkException {
+
+    /**
+     * Handles the insert built in method (insert) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue insert(AlkValue position, AlkValue value)
+    {
         throw new AlkException(ERR_INSERT);
     }
 
-    public AlkValue len() throws AlkException {
+
+    /**
+     * Handles the len built in method (len) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue len()
+    {
         throw new AlkException(ERR_LEN);
     }
 
-    public AlkValue popBack() throws AlkException {
+
+    /**
+     * Handles the popBack built in method (popBack) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue popBack()
+    {
         throw new AlkException(ERR_POPBACK);
     }
 
-    public AlkValue popFront() throws AlkException {
+
+    /**
+     * Handles the popFront built in method (popFront) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue popFront()
+    {
         throw new AlkException(ERR_POPFRONT);
     }
 
-    public AlkValue pushBack(AlkValue value) throws AlkException {
+
+    /**
+     * Handles the pushBack built in method (pushBack) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue pushBack(AlkValue value)
+    {
         throw new AlkException(ERR_PUSHBACK);
     }
 
-    public AlkValue pushFront(AlkValue value) throws AlkException {
+
+    /**
+     * Handles the pushFront built in method (pushFront) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue pushFront(AlkValue value)
+    {
         throw new AlkException(ERR_PUSHFRONT);
     }
 
-    public AlkValue remove(AlkValue value) throws AlkException {
+
+    /**
+     * Handles the remove built in method (remove) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue remove(AlkValue value)
+    {
         throw new AlkException(ERR_REMOVE);
     }
 
-    public AlkValue removeAllEqTo(AlkValue value) throws AlkException {
+
+    /**
+     * Handles the removeAllEqTo built in method (removeAllEqTo) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue removeAllEqTo(AlkValue value)
+    {
         throw new AlkException(ERR_REMOVEALLEQTO);
     }
 
-    public AlkValue removeAt(AlkValue position) throws AlkException {
+    /**
+     * Handles the removeAt built in method (removeAt) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue removeAt(AlkValue position)
+    {
         throw new AlkException(ERR_REMOVEAT);
     }
 
-    public AlkValue size() throws AlkException {
+
+    /**
+     * Handles the size built in method (size) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue size()
+    {
         throw new AlkException(ERR_SIZE);
     }
 
-    public AlkValue split() throws AlkException {
+
+    /**
+     * Handles the split built in method (split) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue split()
+    {
         throw new AlkException(ERR_SPLIT);
     }
 
-    public AlkValue split(AlkValue pattern) throws AlkException {
+
+    /**
+     * Handles the split built in method (split) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @param pattern
+     * The pattern in regex form after which the value is split
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue split(AlkValue pattern)
+    {
         throw new AlkException(ERR_SPLIT);
     }
 
-    public AlkValue topBack() throws AlkException {
+
+    /**
+     * Handles the topBack built in method (topBack) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue topBack()
+    {
         throw new AlkException(ERR_TOPBACK);
     }
 
-    public AlkValue topFront() throws AlkException {
+
+    /**
+     * Handles the topFront built in method (topFront) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue topFront()
+    {
         throw new AlkException(ERR_TOPFRONT);
     }
 
-    public AlkValue update(AlkValue position, AlkValue value) throws AlkException {
+
+    /**
+     * Handles the update built in method (update) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue update(AlkValue position, AlkValue value)
+    {
         throw new AlkException(ERR_UPDATE);
     }
 }

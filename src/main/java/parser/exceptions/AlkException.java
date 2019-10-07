@@ -1,10 +1,10 @@
 package parser.exceptions;
 
 import parser.visitors.MainVisitor;
+import util.exception.InternalException;
 
-public class AlkException extends Exception {
-
-    public String message;
+public class AlkException extends InternalException
+{
 
     public final static String ERR_LOGICALOR_DATA_STRUCTURE = "A data structure value is not a valid operand in this logical or expression.";
     public final static String ERR_LOGICALOR_INT = "An int value is not a valid operand in this logical or expression.";
@@ -296,18 +296,18 @@ public class AlkException extends Exception {
 
     public AlkException(String text)
     {
-        this.message=text;
+        super(text);
     }
 
     public void printException() {
         MainVisitor.exceptionOccured=true;
-        System.out.println("[ERROR]: " + message);
+        System.out.println("[ERROR]: " + getMessage());
         throw new RuntimeException();
     }
 
     public void printException(int line) {
         MainVisitor.exceptionOccured=true;
-        System.out.println("Error at line "+line+": "+message);
+        System.out.println("Error at line "+line+": " + getMessage());
         throw new RuntimeException();
     }
 
@@ -321,9 +321,5 @@ public class AlkException extends Exception {
     {
         System.out.println("The nondeterministic execution of the algorithm failed.");
         throw new RuntimeException();
-    }
-
-    public void glueLine(String text) {
-        this.message += " " + text;
     }
 }
