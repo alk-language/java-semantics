@@ -15,29 +15,29 @@ public class AlkBool extends AlkValue implements Cloneable{
         this.value = value;
     }
 
-    public AlkBool logicalOr(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool logicalOr(AlkValue operand) throws AlkException {
         LogicalBoolHelper help = new LogicalBoolHelper(value);
         return help.logicalOr(operand);
     }
 
-    public AlkBool logicalAnd(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool logicalAnd(AlkValue operand) throws AlkException {
         LogicalBoolHelper help = new LogicalBoolHelper(value);
         return help.logicalAnd(operand);
     }
 
-    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException {
         EqualityBoolHelper help = new EqualityBoolHelper(value);
         return help.equal(operand);
     }
 
     @Override
-    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lower(AlkValue operand) throws AlkException {
         if (!operand.type.equals("Bool"))
             throw new AlkException(ERR_LOWER_BOOL);
         return new AlkBool(!value);
     }
 
-    public AlkBool not() throws AlkException, InterpretorException {
+    public AlkBool not() throws AlkException {
         UnaryBoolHelper help = new UnaryBoolHelper(value);
         return help.not();
     }

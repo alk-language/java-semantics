@@ -24,4 +24,15 @@ public class InternalException extends RuntimeException
     {
         super(e);
     }
+
+    /**
+     * Constructor with given message
+     *
+     * @param text
+     * The message with which the exception should be initialized
+     */
+    public InternalException(String text)
+    {
+        super(text);
+    }
 }

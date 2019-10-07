@@ -18,6 +18,7 @@ public class AlkConsole implements IOManager, OptionProvider
 
     /**
      * Constructor based on in line arguments usually provided by a main method
+     * TODO: move constructor logic to another function so the parsing of the arguments will be separate
      *
      * @param args
      * The arguments formatted in classic style like in the main method
@@ -86,10 +87,9 @@ public class AlkConsole implements IOManager, OptionProvider
         }
         catch (ParseException e)
         {
-            // we can't use ErrorManager as it wasn't yet initialized at this moment
-            // this is the io class constructor, ErrorManager is not yet aware of it
+            // TODO: find a way to pass this to the ErrorManager
 
-            write("[ERROR]: The command line couldn't be parsed");
+            write("[ERROR]: The command line couldn't be parsed. " + e.getMessage());
             throw new AlkParseException(e);
         }
     }
