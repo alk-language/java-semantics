@@ -36,7 +36,7 @@ public class DataStructureVisitor extends alkBaseVisitor {
             if (!x.type.equals("Int") || !y.type.equals("Int")) {
                 throw new AlkException(ERR_NOINT_INTERVAL);
             }
-            if ((x.greater(y)).value) {
+            if ((x.greater(y)).getValue()) {
                 throw new AlkException(ERR_LIMIT);
             }
         } catch (AlkException e) {
@@ -116,7 +116,7 @@ public class DataStructureVisitor extends alkBaseVisitor {
                 e.printException(ctx.start.getLine());
                 return array;
             }
-            if (((AlkBool)result).value)
+            if (((AlkBool)result).getValue())
                 array.add(x);
         }
         return array;
