@@ -71,7 +71,7 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
     {
         for (AlkValue alkValue : array) {
             try {
-                if (((AlkBool) alkValue.equal(operator)).value)
+                if (((AlkBool) alkValue.equal(operator)).getValue())
                     return true;
             } catch (AlkException | InterpretorException ignored) {}
         }

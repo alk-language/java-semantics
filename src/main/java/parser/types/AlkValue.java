@@ -34,7 +34,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable
 
     /**
      * Standard override of the equals method
-     * TODO: Why is he value of type Object?
+     * TODO: Why is the value of type Object?
      * @param value
      * The Object used as comparable
      * @return
@@ -63,8 +63,8 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable
     public int compareTo(AlkValue operand)
     {
         try {
-            if (equal(operand).value) return 0;
-            if (lower(operand).value) return -1;
+            if (equal(operand).getValue()) return 0;
+            if (lower(operand).getValue()) return -1;
             return 1;
         } catch (AlkException e) {
             e.printException(0);
@@ -142,13 +142,14 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable
     /**
      * Handles the equal operation (==) over a value.
      * By default, the operation is not supported, thus an error is thrown.
-     * TODO: Can the abstract restraint be removed?
+     * TODO: Can the abstract restraint be removed and replaced with interfaces?
      * @param operand
      * The value having the role of the second operand in this binary operation
      * @return
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
+    @Deprecated
     public abstract AlkBool equal(AlkValue operand);
 
 
@@ -170,13 +171,14 @@ public abstract class AlkValue implements Comparable<AlkValue>, Cloneable
     /**
      * Handles the lower operation (<) over a value.
      * By default, the operation is not supported, thus an error is thrown.
-     * TODO: Can the abstract restraint be removed?
+     * TODO: Can the abstract restraint be removed and replaced with interfaces?
      * @param operand
      * The value having the role of the second operand in this binary operation
      * @return
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
+    @Deprecated
     public abstract AlkBool lower(AlkValue operand);
 
 
