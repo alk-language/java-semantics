@@ -1,5 +1,6 @@
-package main;
+package execution;
 
+import execution.state.ExecutionState;
 import parser.AlkParser;
 import parser.env.Environment;
 import parser.exceptions.AlkException;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class Execution extends Thread
 {
 
+
     /** The main configuration delivery instance.*/
     private Configuration config;
 
@@ -34,7 +36,7 @@ public class Execution extends Thread
      * @param config
      * The configuration meant to be used for this execution
      */
-    Execution(Configuration config) {
+    public Execution(Configuration config) {
         this.config = config;
     }
 
@@ -66,7 +68,7 @@ public class Execution extends Thread
             TODO: rework preprocessing, move it to the parsing stage
          */
         Environment e = new Environment();
-        PreProcessing pre = null;
+        /*PreProcessing pre = null;
         try
         {
             pre = new PreProcessing(file, new ArrayList<>());
@@ -75,18 +77,32 @@ public class Execution extends Thread
         {
             em.handleError(ex);
         }
-        pre.execute(e, true);
+        pre.execute(e, true);*/
 
         /*
             start parsing
             TODO: call different constructor without predefined environment
          */
-        AlkParser parser = new AlkParser(alkFile, e);
+
+
+        AlkParser parser = new AlkParser(alkFile, e, this);
+        ExecutionState state = parser.execute(config);
+        ExecutionStack stack = new ExecutionStack();
+        stack.push(state);
+        stack.run();
+
+        System.out.println(stack.getResult());
+
+        /* AlkParser parser = new AlkParser(alkFile, e);
         parser.execute(config);
 
-        // if the metadata flag is set, print the global environmentx
+
+
+        // if the metadata flag is set, print the global environment
         if (config.hasMetadata())
+        {
             config.getIOManager().write(parser.getGlobalEnvironment().toString());
+        }*/
     }
 
     /**
