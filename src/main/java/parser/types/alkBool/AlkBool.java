@@ -53,4 +53,8 @@ public class AlkBool extends AlkValue implements Cloneable{
             return "true";
         return "false";
     }
+
+    public boolean isTrue() {
+        return value;
+    }
 }
