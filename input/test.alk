@@ -1,3 +1,2 @@
-x = 5;
-y = 2;
-print(x+y);
+a = "abc";
+print(a.at(2));
