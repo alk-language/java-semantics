@@ -166,4 +166,8 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
             return "true";
         return "false";
     }
+
+    public boolean isTrue() {
+        return value;
+    }
 }

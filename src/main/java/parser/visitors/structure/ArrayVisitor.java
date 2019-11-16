@@ -1,5 +1,8 @@
 package parser.visitors.structure;
 
+import execution.state.ExecutionState;
+import execution.state.structure.ArrayWithExpressionsState;
+import execution.state.structure.ArrayWithIntervalState;
 import grammar.alkParser;
 import parser.Pair;
 import parser.env.Environment;
@@ -17,22 +20,17 @@ public class ArrayVisitor extends DataStructureVisitor {
         super(env);
     }
 
-    @Override public AlkValue visitArrayWithExpressions(alkParser.ArrayWithExpressionsContext ctx) {
-        int size = ctx.expression().size();
-        AlkArray array = new AlkArray();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        for (int i=0; i<size; i++)
-            array.push((AlkValue) expVisitor.visit(ctx.expression(i)));
-        return array;
+    @Override
+    public ExecutionState visitArrayWithExpressions(alkParser.ArrayWithExpressionsContext ctx)
+    {
+        return new ArrayWithExpressionsState(ctx, this);
     }
 
 
-    @Override public AlkValue visitArrayWithInterval(alkParser.ArrayWithIntervalContext ctx) {
-        Pair limits = (Pair)visit(ctx.interval());
-        AlkArray array = new AlkArray();
-        for (BigInteger i=((AlkInt) limits.x).value; i.compareTo(((AlkInt) limits.y).value) <= 0; i = i.add(new BigInteger("1")))
-            array.push(new AlkInt(i));
-        return array;
+    @Override
+    public ExecutionState visitArrayWithInterval(alkParser.ArrayWithIntervalContext ctx)
+    {
+        return new ArrayWithIntervalState(ctx, this);
     }
 
     @Override public AlkValue visitArrayWithSpec(alkParser.ArrayWithSpecContext ctx) {

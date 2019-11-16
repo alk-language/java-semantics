@@ -1,5 +1,7 @@
 package parser.visitors.structure;
 
+import execution.state.ExecutionState;
+import execution.state.structure.IntervalDefinitionState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.Pair;
@@ -24,29 +26,16 @@ public class DataStructureVisitor extends alkBaseVisitor {
 
     protected Environment env;
 
+    public Environment getEnvironment() {
+        return env;
+    }
+
     public DataStructureVisitor(Environment env) {
         this.env = env;
     }
 
-    public Pair visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx) {
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        AlkValue x = (AlkValue) expVisitor.visit(ctx.expression(0));
-        AlkValue y = (AlkValue) expVisitor.visit(ctx.expression(1));
-        try {
-            if (!x.type.equals("Int") || !y.type.equals("Int")) {
-                throw new AlkException(ERR_NOINT_INTERVAL);
-            }
-            if ((x.greater(y)).getValue()) {
-                throw new AlkException(ERR_LIMIT);
-            }
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-            return new Pair<>(new AlkInt(new BigInteger("0")), new AlkInt(new BigInteger("0")));
-        } catch (InterpretorException e) {
-            e.printException(ctx.start.getLine());
-            return new Pair<>(new AlkInt(new BigInteger("0")), new AlkInt(new BigInteger("0")));
-        }
-        return new Pair<>(x, y);
+    public ExecutionState visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx) {
+        return new IntervalDefinitionState(ctx, this);
     }
 
     @Deprecated
