@@ -2,6 +2,7 @@ package parser.types;
 
 import parser.exceptions.AlkException;
 import parser.types.alkBool.AlkBool;
+import util.types.Value;
 
 import static parser.exceptions.AlkException.*;
 
@@ -9,7 +10,7 @@ import static parser.exceptions.AlkException.*;
  *  The main abstract class describing a value in Alk.
  *  TODO: Take care with default method behavior if not overridden. Some of the methods there may not be implemented.
  */
-public abstract class AlkValue implements Comparable<AlkValue>, Cloneable
+public abstract class AlkValue extends Value implements Comparable<AlkValue>, Cloneable
 {
     /** Describes the type of the current value, can have one of the following:
      * TODO: replace the type with instance of checker
