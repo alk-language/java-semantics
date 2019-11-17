@@ -1,5 +1,10 @@
 package parser.visitors.structure;
 
+import execution.ExecutionResult;
+import execution.state.ExecutionState;
+import execution.state.expression.PrimitiveState;
+import execution.state.structure.IterableWithExpressionsState;
+import execution.state.structure.IterableWithIntervalState;
 import grammar.alkParser;
 import parser.Pair;
 import parser.env.Environment;
@@ -19,38 +24,17 @@ public class SetVisitor extends DataStructureVisitor
     }
 
 
-    public AlkValue visitSetWithExpressions(alkParser.SetWithExpressionsContext ctx) {
-        int size = ctx.expression().size();
-        AlkSet set = new AlkSet();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        for (int i=0; i<size; i++)
-            try {
-                set.insert((AlkValue) expVisitor.visit(ctx.expression(i)));
-            } catch (AlkException e)
-            {
-                e.printException(ctx.start.getLine());
-                return set;
-            }
-        return set;
+    public ExecutionState visitSetWithExpressions(alkParser.SetWithExpressionsContext ctx) {
+        return new IterableWithExpressionsState(ctx, env, ctx.expression(), AlkSet.class);
     }
 
-    public AlkValue visitEmptySet(alkParser.EmptySetContext ctx) {
-        return new AlkSet();
+    public ExecutionState visitEmptySet(alkParser.EmptySetContext ctx) {
+        return new PrimitiveState(ctx, this, new AlkSet());
     }
 
 
-    public AlkValue visitSetWithInterval(alkParser.SetWithIntervalContext ctx) {
-        Pair limits = (Pair)visit(ctx.interval());
-        AlkSet set = new AlkSet();
-        for (BigInteger i = ((AlkInt) limits.x).value; i.compareTo(((AlkInt) limits.y).value) <= 0; i = i.add(new BigInteger("1")))
-            try {
-                set.insert(new AlkInt(i));
-            } catch (AlkException e)
-            {
-                e.printException(ctx.start.getLine());
-                return set;
-            }
-        return set;
+    public ExecutionState visitSetWithInterval(alkParser.SetWithIntervalContext ctx) {
+        return new IterableWithIntervalState(ctx, this, ctx.interval(), AlkSet.class);
     }
 
 

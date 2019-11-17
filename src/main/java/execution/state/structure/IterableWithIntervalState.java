@@ -18,7 +18,7 @@ import util.types.Value;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IterableWithIntervalState extends SingleState<AlkValue, PairValue>
+public class IterableWithIntervalState extends SingleState<AlkIterableValue, PairValue>
 {
     private Class<? extends AlkIterableValue> clazz;
 
@@ -32,7 +32,7 @@ public class IterableWithIntervalState extends SingleState<AlkValue, PairValue>
     }
 
     @Override
-    protected AlkValue interpretResult(PairValue value)
+    protected AlkIterableValue interpretResult(PairValue value)
     {
         try {
             AlkIterableValue iterableValue = clazz.newInstance();
