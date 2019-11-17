@@ -110,7 +110,7 @@ public class ExpressionVisitor extends alkBaseVisitor {
         return new ExecutionState(ctx, this) {
             @Override
             public ExecutionState makeStep() {
-                result = new ExecutionResult((Value) new ReferenceVisitor(env).visit(ctx.ref_name()));
+                result = new ExecutionResult<>((Value) new ReferenceVisitor(env).visit(ctx.ref_name()));
                 return null;
             }
 
@@ -155,9 +155,8 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
 
-    @Override public AlkValue visitSetValue(alkParser.SetValueContext ctx) {
-        SetVisitor structVisitator = new SetVisitor(env);
-        return (AlkValue) structVisitator.visit(ctx.set());
+    @Override public ExecutionState visitSetValue(alkParser.SetValueContext ctx) {
+        return (ExecutionState) new SetVisitor(env).visit(ctx.set());
     }
 
 
