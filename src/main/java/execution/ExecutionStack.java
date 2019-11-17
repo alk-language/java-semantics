@@ -13,7 +13,7 @@ public class ExecutionStack
 {
     private Configuration config;
 
-    private Stack< ExecutionState<Value, Value> > stack = new Stack<>();
+    private Stack< ExecutionState<? extends Value, ? extends Value> > stack = new Stack<>();
 
     private ExecutionResult result;
 
@@ -21,7 +21,7 @@ public class ExecutionStack
         this.config = config;
     }
 
-    void push(ExecutionState<Value, Value> state) {
+    void push(ExecutionState<? extends Value, ? extends Value> state) {
         stack.push(state);
     }
 
@@ -44,12 +44,12 @@ public class ExecutionStack
 
     private void makeStep()
     {
-        ExecutionState<Value, Value> top = stack.peek();
-        ExecutionState<Value, Value> next = top.makeStep();
+        ExecutionState<? extends Value, ? extends Value> top = stack.peek();
+        ExecutionState<? extends Value, ? extends Value> next = top.makeStep();
 
         if (next == null)
         {
-            ExecutionResult<Value> result = top.getResult();
+            ExecutionResult result = top.getResult();
             pop();
             if (!stack.empty())
             {

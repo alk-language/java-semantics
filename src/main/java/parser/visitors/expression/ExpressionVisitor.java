@@ -1,4 +1,5 @@
 package parser.visitors.expression;
+import execution.ExecutionResult;
 import execution.state.expression.IntValueState;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
@@ -11,6 +12,7 @@ import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.ListVisitor;
 import parser.visitors.structure.SetVisitor;
 import parser.visitors.structure.StructureVisitor;
+import util.types.Value;
 
 public class ExpressionVisitor extends alkBaseVisitor {
 
@@ -92,19 +94,31 @@ public class ExpressionVisitor extends alkBaseVisitor {
 
     //Factor
 
+    // TODO: not compatible with the latest stack fashion execution
     @Override
     public ExecutionState visitFunctionCallFactor(alkParser.FunctionCallFactorContext ctx)
     {
         return (ExecutionState) new FunctionCallVisitor(env).visit(ctx.function_call());
     }
 
-    @Override public Object visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx) {
-        return visit(ctx.expression());
+    @Override public ExecutionState visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx) {
+        return (ExecutionState) visit(ctx.expression());
     }
 
-    @Override public Object visitRefNameFactor(alkParser.RefNameFactorContext ctx) {
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
-        return refVisitor.visit(ctx.ref_name());
+    @Override public ExecutionState visitRefNameFactor(alkParser.RefNameFactorContext ctx) {
+        // TODO: port the reference visitor to the state stack
+        return new ExecutionState(ctx, this) {
+            @Override
+            public ExecutionState makeStep() {
+                result = new ExecutionResult((Value) new ReferenceVisitor(env).visit(ctx.ref_name()));
+                return null;
+            }
+
+            @Override
+            public void assign(ExecutionResult result) {
+                // no-op
+            }
+        };
     }
 
 
@@ -136,9 +150,8 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
 
-    @Override public AlkValue visitListValue(alkParser.ListValueContext ctx) {
-        ListVisitor structVisitator = new ListVisitor(env);
-        return (AlkValue) structVisitator.visit(ctx.list());
+    @Override public ExecutionState visitListValue(alkParser.ListValueContext ctx) {
+        return (ExecutionState) new ListVisitor(env).visit(ctx.list());
     }
 
 
