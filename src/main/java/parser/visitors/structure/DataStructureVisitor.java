@@ -1,7 +1,9 @@
 package parser.visitors.structure;
 
 import execution.state.ExecutionState;
+import execution.state.structure.FilterSpecDefinitionState;
 import execution.state.structure.IntervalDefinitionState;
+import execution.state.structure.SelectSpecDefinitionState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.Pair;
@@ -61,54 +63,13 @@ public class DataStructureVisitor extends alkBaseVisitor {
         return array;
     }
 
-    public ArrayList visitSelectSpecDefinition(alkParser.SelectSpecDefinitionContext ctx) {
-        String iterator = ctx.ID().toString();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        ArrayList<AlkValue> array = new ArrayList<>();
-        AlkValue source = (AlkValue) expVisitor.visit(ctx.expression(1));
-        if (!source.isIterable)
-        {
-            AlkException e = new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
-            e.printException(ctx.start.getLine());
-            return array;
-        }
-        ArrayList<AlkValue> src = ((AlkIterableValue)source).toArray();
-        for (AlkValue x : src)
-        {
-            env.update(iterator, x);
-            AlkValue result = (AlkValue) expVisitor.visit(ctx.expression(0));
-            array.add(result);
-        }
-        return array;
+    public ExecutionState visitSelectSpecDefinition(alkParser.SelectSpecDefinitionContext ctx)
+    {
+        return new SelectSpecDefinitionState(ctx, this);
     }
 
-    public ArrayList visitFilterSpecDefinition(alkParser.FilterSpecDefinitionContext ctx) {
-        String iterator = ctx.ID().toString();
-        ArrayList<AlkValue> array = new ArrayList<>();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        AlkValue source = (AlkValue) expVisitor.visit(ctx.expression(0));
-        if (!source.isIterable)
-        {
-            AlkException e = new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
-            e.printException(ctx.start.getLine());
-            return array;
-        }
-
-        ArrayList<AlkValue> src = ((AlkIterableValue)source).toArray();
-        for (AlkValue x : src)
-        {
-            env.update(iterator, x);
-            AlkValue result = (AlkValue) expVisitor.visit(ctx.expression(1));
-            if (!result.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_SPEC_BOOL);
-                e.printException(ctx.start.getLine());
-                return array;
-            }
-            if (((AlkBool)result).getValue())
-                array.add(x);
-        }
-        return array;
+    public ExecutionState visitFilterSpecDefinition(alkParser.FilterSpecDefinitionContext ctx) {
+        return new FilterSpecDefinitionState(ctx, this);
     }
 
     public Pair visitComponentDefinition(alkParser.ComponentDefinitionContext ctx)

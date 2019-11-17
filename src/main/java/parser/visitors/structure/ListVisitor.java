@@ -1,8 +1,13 @@
 package parser.visitors.structure;
 
+import execution.ExecutionResult;
+import execution.state.ExecutionState;
+import execution.state.structure.IterableWithExpressionsState;
+import execution.state.structure.IterableWithIntervalState;
 import grammar.alkParser;
 import parser.Pair;
 import parser.env.Environment;
+import parser.types.alkArray.AlkArray;
 import parser.types.alkList.AlkList;
 import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
@@ -17,26 +22,28 @@ public class ListVisitor extends DataStructureVisitor {
         super(env);
     }
 
-    public AlkValue visitListWithExpressions(alkParser.ListWithExpressionsContext ctx) {
-        int size = ctx.expression().size();
-        AlkList list = new AlkList();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        for (int i=0; i<size; i++)
-            list.push_back((AlkValue) expVisitor.visit(ctx.expression(i)));
-        return list;
+    public ExecutionState visitListWithExpressions(alkParser.ListWithExpressionsContext ctx) {
+        return new IterableWithExpressionsState(ctx, env, ctx.expression(), AlkList.class);
     }
 
-    public AlkValue visitEmptyList(alkParser.EmptyListContext ctx) {
-        return new AlkList();
+    public ExecutionState visitEmptyList(alkParser.EmptyListContext ctx) {
+        return new ExecutionState(ctx, this) {
+            @Override
+            public ExecutionState makeStep() {
+                result = new ExecutionResult<>(new AlkList());
+                return null;
+            }
+
+            @Override
+            public void assign(ExecutionResult result) {
+                // no-op
+            }
+        };
     }
 
 
-    public AlkValue visitListWithInterval(alkParser.ListWithIntervalContext ctx) {
-        Pair limits = (Pair)visit(ctx.interval());
-        AlkList list = new AlkList();
-        for (BigInteger i = ((AlkInt) limits.x).value; i.compareTo(((AlkInt) limits.y).value) <= 0; i = i.add(new BigInteger("1")))
-            list.push_back(new AlkInt(i));
-        return list;
+    public ExecutionState visitListWithInterval(alkParser.ListWithIntervalContext ctx) {
+        return new IterableWithIntervalState(ctx, this, ctx.interval(), AlkList.class);
     }
 
 
