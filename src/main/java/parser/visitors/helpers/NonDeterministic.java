@@ -51,7 +51,7 @@ public class NonDeterministic {
             if (!result.type.equals("Bool"))
                 throw new AlkException(ERR_CHOSE_ST_BOOL);
             AlkBool ok = (AlkBool) result;
-            if (ok.value)
+            if (ok.getValue())
                 return value;
             array.remove(poz);
         }

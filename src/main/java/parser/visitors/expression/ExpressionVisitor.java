@@ -1,14 +1,10 @@
 package parser.visitors.expression;
+import execution.ExecutionResult;
+import execution.state.expression.IntValueState;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
-import parser.exceptions.AlkException;
 import parser.env.Environment;
 import grammar.*;
-import parser.exceptions.InterpretorException;
-import parser.types.alkBool.AlkBool;
-import parser.types.alkFloat.AlkFloat;
-import parser.types.alkInt.AlkInt;
-import parser.types.alkString.AlkString;
 import parser.types.AlkValue;
 import parser.visitors.ReferenceVisitor;
 import parser.visitors.function.FunctionCallVisitor;
@@ -16,12 +12,7 @@ import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.ListVisitor;
 import parser.visitors.structure.SetVisitor;
 import parser.visitors.structure.StructureVisitor;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
-import static parser.constants.Constants.DEBUG;
-import static parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;
+import util.types.Value;
 
 public class ExpressionVisitor extends alkBaseVisitor {
 
@@ -103,20 +94,31 @@ public class ExpressionVisitor extends alkBaseVisitor {
 
     //Factor
 
+    // TODO: not compatible with the latest stack fashion execution
     @Override
-    public Object visitFunctionCallFactor(alkParser.FunctionCallFactorContext ctx)
+    public ExecutionState visitFunctionCallFactor(alkParser.FunctionCallFactorContext ctx)
     {
-        FunctionCallVisitor functionVisitor = new FunctionCallVisitor(env);
-        return functionVisitor.visit(ctx.function_call());
+        return (ExecutionState) new FunctionCallVisitor(env).visit(ctx.function_call());
     }
 
-    @Override public Object visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx) {
-        return visit(ctx.expression());
+    @Override public ExecutionState visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx) {
+        return (ExecutionState) visit(ctx.expression());
     }
 
-    @Override public Object visitRefNameFactor(alkParser.RefNameFactorContext ctx) {
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
-        return refVisitor.visit(ctx.ref_name());
+    @Override public ExecutionState visitRefNameFactor(alkParser.RefNameFactorContext ctx) {
+        // TODO: port the reference visitor to the state stack
+        return new ExecutionState(ctx, this) {
+            @Override
+            public ExecutionState makeStep() {
+                result = new ExecutionResult<>((Value) new ReferenceVisitor(env).visit(ctx.ref_name()));
+                return null;
+            }
+
+            @Override
+            public void assign(ExecutionResult result) {
+                // no-op
+            }
+        };
     }
 
 
@@ -142,21 +144,19 @@ public class ExpressionVisitor extends alkBaseVisitor {
 
     //Data Structures
 
-    @Override public AlkValue visitArrayValue(alkParser.ArrayValueContext ctx) {
-        ArrayVisitor structVisitator = new ArrayVisitor(env);
-        return (AlkValue) structVisitator.visit(ctx.array());
+    @Override public ExecutionState visitArrayValue(alkParser.ArrayValueContext ctx)
+    {
+        return (ExecutionState) new ArrayVisitor(env).visit(ctx.array());
     }
 
 
-    @Override public AlkValue visitListValue(alkParser.ListValueContext ctx) {
-        ListVisitor structVisitator = new ListVisitor(env);
-        return (AlkValue) structVisitator.visit(ctx.list());
+    @Override public ExecutionState visitListValue(alkParser.ListValueContext ctx) {
+        return (ExecutionState) new ListVisitor(env).visit(ctx.list());
     }
 
 
-    @Override public AlkValue visitSetValue(alkParser.SetValueContext ctx) {
-        SetVisitor structVisitator = new SetVisitor(env);
-        return (AlkValue) structVisitator.visit(ctx.set());
+    @Override public ExecutionState visitSetValue(alkParser.SetValueContext ctx) {
+        return (ExecutionState) new SetVisitor(env).visit(ctx.set());
     }
 
 

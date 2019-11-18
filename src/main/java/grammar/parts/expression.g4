@@ -129,8 +129,7 @@ interval:
 
 //Spec
 spec:
-    expression VBAR ID IN expression                                                                                    #DeprecatedSpecDefinition
-    | ID FROM expression VBAR expression                                                                                #FilterSpecDefinition
+    ID FROM expression VBAR expression                                                                                  #FilterSpecDefinition
     | expression VBAR ID FROM expression                                                                                #SelectSpecDefinition
 ;
 

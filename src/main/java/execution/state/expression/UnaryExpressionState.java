@@ -6,8 +6,9 @@ import execution.state.SingleState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.types.Value;
 
-public class UnaryExpressionState extends SingleState
+public class UnaryExpressionState extends SingleState<AlkValue, AlkValue>
 {
     public UnaryExpressionState(alkParser.UnaryExpressionContext tree, ExpressionVisitor visitor)
     {
@@ -15,7 +16,7 @@ public class UnaryExpressionState extends SingleState
     }
 
     @Override
-    protected AlkValue interpretResult() {
+    protected AlkValue interpretResult(AlkValue value) {
         switch (tree.getChild(0).getText())
         {
             case "*":
@@ -28,4 +29,5 @@ public class UnaryExpressionState extends SingleState
                 return localResult.not();
         }
     }
+
 }

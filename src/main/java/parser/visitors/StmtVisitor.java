@@ -252,7 +252,7 @@ public class StmtVisitor extends alkBaseVisitor {
                 e.printException(ctx.start.getLine());
                 return null;
             }
-        } while (!((AlkBool)value).value);
+        } while (!((AlkBool)value).getValue());
         loopLevel--;
         return null;
     }
@@ -262,8 +262,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * The same semantic as the repeat until structure.
      * @param ctx A Do While Structure node in the execution tree meant to be parsed.
      */
-    @Override public Object visitDoWhileStructure(alkParser.DoWhileStructureContext ctx)
-    {
+    @Override public Object visitDoWhileStructure(alkParser.DoWhileStructureContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue value;
@@ -287,7 +286,7 @@ public class StmtVisitor extends alkBaseVisitor {
                 e.printException(ctx.start.getLine());
                 return null;
             }
-        } while (((AlkBool)value).value);
+        } while (((AlkBool)value).getValue());
         loopLevel--;
         return null;
     }
@@ -313,7 +312,7 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         loopLevel++;
         breakFlag = continueFlag = false;
-        while (((AlkBool)value).value)
+        while (((AlkBool)value).getValue())
         {
             visit(ctx.statement());
             continueFlag = false;
@@ -343,24 +342,25 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx
      * @return An If Structure node in the execution tree meant to be parsed.
      */
-    @Override public Object visitIfStructure(alkParser.IfStructureContext ctx)
-    {
+    @Override public Object visitIfStructure(alkParser.IfStructureContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!(value instanceof AlkBool))
+        if (!value.type.equals("Bool"))
         {
 
             AlkException e = new AlkException(ERR_IF_NOT_BOOL);
             e.printException(ctx.start.getLine());
             return null;
         }
-
-        if (((AlkBool)value).value)
+        if (((AlkBool)value).getValue())
             return visit(ctx.statement(0));
-        else if (ctx.statement().size()>1)
+        else
         {
-            return visit(ctx.statement(1));
+            if (ctx.statement().size()>1)
+            {
+                return visit(ctx.statement(1));
+            }
         }
         return null;
     }
@@ -413,7 +413,7 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         loopLevel++;
         breakFlag = continueFlag = false;
-        while (((AlkBool)value).value)
+        while (((AlkBool)value).getValue())
         {
             visit(ctx.statement());
             continueFlag = false;

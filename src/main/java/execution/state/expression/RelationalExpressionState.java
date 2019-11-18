@@ -1,14 +1,12 @@
 package execution.state.expression;
 
 import execution.ExecutionResult;
-import execution.state.ExecutionState;
-import execution.state.GeneratorState;
+import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
-import parser.exceptions.InterpretorException;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 
-public class RelationalExpressionState extends GeneratorState
+public class RelationalExpressionState extends GuardedGeneratorState<AlkValue>
 {
     public RelationalExpressionState(alkParser.RelationalExpressionContext tree, ExpressionVisitor visitor)
     {
@@ -16,17 +14,17 @@ public class RelationalExpressionState extends GeneratorState
     }
 
     @Override
-    protected AlkValue interpretResult(ExecutionResult result)
+    protected AlkValue interpretResult(AlkValue current, AlkValue next)
     {
         switch (tree.getChild(getSignPos()).getText()) {
             case "<=":
-                return localResult.lowereq(result.getValue());
+                return current.lowereq(next);
             case "<":
-                return localResult.lower(result.getValue());
+                return current.lower(next);
             case ">=":
-                return localResult.greatereq(result.getValue());
+                return current.greatereq(next);
             default:
-                return localResult.greater(result.getValue());
+                return current.greater(next);
         }
     }
 }

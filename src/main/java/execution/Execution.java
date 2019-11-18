@@ -87,7 +87,7 @@ public class Execution extends Thread
 
         AlkParser parser = new AlkParser(alkFile, e, this);
         ExecutionState state = parser.execute(config);
-        ExecutionStack stack = new ExecutionStack();
+        ExecutionStack stack = new ExecutionStack(config);
         stack.push(state);
         stack.run();
 

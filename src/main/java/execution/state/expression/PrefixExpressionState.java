@@ -1,14 +1,11 @@
 package execution.state.expression;
 
-import execution.ExecutionResult;
-import execution.state.ExecutionState;
-import execution.state.GeneratorState;
 import execution.state.SingleState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 
-public class PrefixExpressionState extends SingleState {
+public class PrefixExpressionState extends SingleState<AlkValue, AlkValue> {
 
 
     public PrefixExpressionState(alkParser.PrefixExpressionContext tree, ExpressionVisitor visitor) {
@@ -16,17 +13,17 @@ public class PrefixExpressionState extends SingleState {
     }
 
     @Override
-    protected AlkValue interpretResult() {
+    protected AlkValue interpretResult(AlkValue value) {
         switch (tree.getChild(0).getText())
         {
             case "++":
-                return localResult.plusplusleft();
+                return value.plusplusleft();
             case "--":
-                return localResult.minusminusleft();
+                return value.minusminusleft();
             case "++%":
-                return localResult.plusplusmod();
+                return value.plusplusmod();
             default:
-                return localResult.minusminusmod();
+                return value.minusminusmod();
         }
     }
 }

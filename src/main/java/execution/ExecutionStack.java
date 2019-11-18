@@ -1,34 +1,51 @@
 package execution;
 
 import execution.state.ExecutionState;
+import parser.exceptions.AlkException;
+import parser.types.AlkValue;
+import util.Configuration;
+import util.ErrorManager;
+import util.types.Value;
 
 import java.util.Stack;
 
-public class ExecutionStack {
+public class ExecutionStack
+{
+    private Configuration config;
 
-    Stack<ExecutionState> stack = new Stack<>();
+    private Stack< ExecutionState<? extends Value, ? extends Value> > stack = new Stack<>();
+
     private ExecutionResult result;
 
-    public void push(ExecutionState state) {
+    ExecutionStack(Configuration config) {
+        this.config = config;
+    }
+
+    void push(ExecutionState<? extends Value, ? extends Value> state) {
         stack.push(state);
     }
 
-    public void pop()
+    private void pop()
     {
         stack.pop();
     }
 
-    public void run() {
+    void run() {
         while (!stack.empty())
         {
-            makeStep();
+            try {
+                makeStep();
+            } catch (AlkException e) {
+                ErrorManager em = config.getErrorManager();
+                em.handleError(e);
+            }
         }
     }
 
-    public void makeStep()
+    private void makeStep()
     {
-        ExecutionState top = stack.peek();
-        ExecutionState next = top.makeStep();
+        ExecutionState<? extends Value, ? extends Value> top = stack.peek();
+        ExecutionState<? extends Value, ? extends Value> next = top.makeStep();
 
         if (next == null)
         {

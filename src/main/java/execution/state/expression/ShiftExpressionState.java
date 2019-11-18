@@ -1,21 +1,19 @@
 package execution.state.expression;
 
-import execution.ExecutionResult;
-import execution.state.ExecutionState;
-import execution.state.GeneratorState;
+import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 
-public class ShiftExpressionState extends GeneratorState {
+public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
     public ShiftExpressionState(alkParser.ShiftExpressionContext tree, ExpressionVisitor visitor) {
         super(tree, visitor, tree.additive_expression());
     }
 
     @Override
-    protected AlkValue interpretResult(ExecutionResult result) {
+    protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         if (tree.getChild(getSignPos()).getText().equals("<<"))
-            return localResult.shiftLeft(result.getValue());
-        return localResult.shiftRight(result.getValue());
+            return current.shiftLeft(next);
+        return next.shiftRight(next);
     }
 }

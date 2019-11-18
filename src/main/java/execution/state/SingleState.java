@@ -4,11 +4,19 @@ import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.types.AlkValue;
+import util.types.Value;
 
-public abstract class SingleState extends ExecutionState
+/**
+ *
+ * @param <T>
+ *        The type of value which will be returned
+ * @param <S>
+ *        The type of value which will be dependent upon
+ */
+public abstract class SingleState<T extends Value, S extends Value> extends ExecutionState<T, S>
 {
 
-    protected AlkValue localResult;
+    protected T localResult;
     private final ParseTree dependency;
 
     public SingleState(ParseTree tree, alkBaseVisitor visitor, ParseTree dependency) {
@@ -17,10 +25,10 @@ public abstract class SingleState extends ExecutionState
     }
 
     @Override
-    public ExecutionState makeStep() {
+    public ExecutionState<S, Value> makeStep() {
         if (localResult != null)
         {
-            result = new ExecutionResult(localResult);
+            result = new ExecutionResult<>(localResult);
             return null;
         }
 
@@ -28,10 +36,10 @@ public abstract class SingleState extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult result) {
-        localResult = result.getValue();
-        localResult = interpretResult();
+    public void assign(ExecutionResult<S> result)
+    {
+        localResult = interpretResult(result.getValue());
     }
 
-    protected abstract AlkValue interpretResult();
+    protected abstract T interpretResult(S value);
 }

@@ -7,10 +7,7 @@ import parser.types.AlkValue;
 import parser.types.alkBool.AlkBool;
 import parser.types.alkIterator.AlkIterator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.*;
 
 import static parser.exceptions.AlkException.*;
 
@@ -146,9 +143,10 @@ public class AlkList extends AlkIterableValue implements Cloneable{
         return list.iterator();
     }
 
+    @Deprecated
     public void push_back(AlkValue value) {
         list.addLast(value);
-    } //TODO de modioficat in functia default
+    } //TODO de modificat in functia default
 
 
     @Override
@@ -162,5 +160,10 @@ public class AlkList extends AlkIterableValue implements Cloneable{
         for (AlkValue i : list)
             ar.add(i);
         return ar;
+    }
+
+    @Override
+    public void addAll(List<AlkValue> values) {
+        list.addAll(values);
     }
 }

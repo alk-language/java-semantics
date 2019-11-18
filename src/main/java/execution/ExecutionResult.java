@@ -1,16 +1,16 @@
 package execution;
 
-import parser.types.AlkValue;
+import util.types.Value;
 
-public class ExecutionResult {
+public class ExecutionResult<T extends Value>
+{
+    private T value;
 
-    private AlkValue value;
-
-    public ExecutionResult(AlkValue value) {
+    public ExecutionResult(T value) {
         this.value = value;
     }
 
-    public AlkValue getValue() {
+    public T getValue() {
         return value;
     }
 

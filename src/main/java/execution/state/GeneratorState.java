@@ -3,57 +3,50 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.types.AlkValue;
+import parser.types.alkInt.AlkInt;
 import util.lambda.Validator;
+import util.types.Value;
 
 import java.util.List;
 
-public abstract class GeneratorState extends ExecutionState {
+/**
+ *
+ * @param <T>
+ *        The type of value which will be returned
+ * @param <S>
+ *        The type of value which will be dependent upon
+ */
+public abstract class GeneratorState<T extends Value, S extends Value> extends ExecutionState<T, S> {
 
-    protected int step = 0;
-    protected AlkValue localResult;
+    int step = 0;
     private List<? extends ParseTree> children;
     private Validator preValidator;
 
-    public GeneratorState(ParseTree tree, alkBaseVisitor visitor, List<? extends ParseTree> children) {
+    protected GeneratorState(ParseTree tree, alkBaseVisitor visitor, List<? extends ParseTree> children) {
         super(tree, visitor);
         this.children = children;
     }
 
     @Override
-    public ExecutionState makeStep()
+    public ExecutionState<S, Value> makeStep()
     {
-        if (step == children.size())
+        if (step == children.size() ||
+            preValidator != null && !preValidator.isValid())
         {
-            result = new ExecutionResult(localResult);
+            result = new ExecutionResult<>(getFinalResult());
             return null;
         }
 
-        if (preValidator != null && !preValidator.isValid())
-            return null;
-
-        return (ExecutionState) visitor.visit(children.get(step));
+        return (ExecutionState) visitor.visit(children.get(step++));
     }
 
     @Override
-    public void assign(ExecutionResult result)
-    {
-        if (step == 0)
-            localResult = result.getValue();
-        else
-            localResult = interpretResult(result);
-        step++;
-    }
+    public abstract void assign(ExecutionResult<S> result);
+
+    public abstract T getFinalResult();
 
     protected void setPreValidator(Validator preValidator) {
         this.preValidator = preValidator;
-    }
-
-    protected abstract AlkValue interpretResult(ExecutionResult result);
-
-    protected int getSignPos()
-    {
-        return step*2-1;
     }
 
 }

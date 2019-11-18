@@ -1,13 +1,13 @@
 package execution.state.expression;
 
 import execution.ExecutionResult;
-import execution.state.ExecutionState;
-import execution.state.GeneratorState;
+import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
+import parser.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 
-public class EqualityExpressionState extends GeneratorState
+public class EqualityExpressionState extends GuardedGeneratorState<AlkValue>
 {
 
     public EqualityExpressionState(alkParser.EqualityExpressionContext tree, ExpressionVisitor visitor)
@@ -16,9 +16,9 @@ public class EqualityExpressionState extends GeneratorState
     }
 
     @Override
-    protected AlkValue interpretResult(ExecutionResult result) {
+    protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         if (tree.getChild(getSignPos()).getText().equals("=="))
-            return localResult.equal(result.getValue());
-        return localResult.notequal(result.getValue());
+            return current.equal(next);
+        return current.notequal(next);
     }
 }

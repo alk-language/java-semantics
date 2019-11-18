@@ -2,7 +2,6 @@ package execution.state.expression;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import execution.state.GenericState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
@@ -36,7 +35,7 @@ public class ConditionalExpressionState extends ExecutionState {
 
         if (ctx.expression().size() == 0)
         {
-            result = new ExecutionResult(queryExpression);
+            result = new ExecutionResult<>(queryExpression);
             return null;
         }
 
@@ -45,7 +44,7 @@ public class ConditionalExpressionState extends ExecutionState {
             throw new AlkException(ERR_CONDITIONAL_NO_BOOL);
         }
 
-        if (((AlkBool) queryExpression).value)
+        if (((AlkBool) queryExpression).isTrue())
         {
             return (ExecutionState) visitor.visit(ctx.expression(0));
         }
@@ -60,7 +59,7 @@ public class ConditionalExpressionState extends ExecutionState {
     {
         if (queryExpression == null)
         {
-            queryExpression = result.getValue();
+            queryExpression = (AlkValue) result.getValue();
         }
         else
         {

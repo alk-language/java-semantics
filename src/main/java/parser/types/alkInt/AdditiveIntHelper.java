@@ -59,8 +59,6 @@ class AdditiveIntHelper {
         throw new AlkException(ERR_ADD_STRING);
     }
 
-
-
     AlkValue subtract(AlkValue operand) throws AlkException, InterpretorException {
         if (operand.isDataStructure)
             throw new AlkException(ERR_SUB_DATA_STRUCTURE);
