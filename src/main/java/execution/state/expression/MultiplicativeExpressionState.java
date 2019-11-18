@@ -1,26 +1,25 @@
 package execution.state.expression;
 
 import execution.ExecutionResult;
-import execution.state.ExecutionState;
-import execution.state.GeneratorState;
+import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 
-public class MultiplicativeExpressionState extends GeneratorState {
+public class MultiplicativeExpressionState extends GuardedGeneratorState<AlkValue> {
     public MultiplicativeExpressionState(alkParser.MultiplicativeExpressionContext tree, ExpressionVisitor visitor) {
         super(tree, visitor, tree.unary_expression());
     }
 
     @Override
-    protected AlkValue interpretResult(ExecutionResult result) {
+    protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         switch (tree.getChild(getSignPos()).getText()) {
             case "*":
-                return localResult.multiply(result.getValue());
+                return current.multiply(next);
             case "/":
-                return localResult.divide(result.getValue());
+                return current.divide(next);
             default:
-                return localResult.mod(result.getValue());
+                return current.mod(next);
         }
     }
 }

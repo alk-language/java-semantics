@@ -1,27 +1,26 @@
 package execution.state.expression;
 
 import execution.ExecutionResult;
-import execution.state.ExecutionState;
-import execution.state.GeneratorState;
+import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 
-public class SetExpressionState extends GeneratorState {
+public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
 
     public SetExpressionState(alkParser.SetExpressionContext ctx, ExpressionVisitor visitor) {
         super(ctx, visitor, ctx.bitwise_or());
     }
 
     @Override
-    protected AlkValue interpretResult(ExecutionResult result) {
+    protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         switch (tree.getChild(getSignPos()).getText()) {
             case "U":
-                return localResult.union(result.getValue());
+                return current.union(next);
             case "^":
-                return localResult.intersect(result.getValue());
+                return current.intersect(next);
             default:
-                return localResult.setSubtract(result.getValue());
+                return current.setSubtract(next);
         }
     }
 }

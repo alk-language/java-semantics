@@ -1,6 +1,5 @@
 package parser;
 
-import execution.state.GenericState;
 import grammar.alkLexer;
 import grammar.alkParser;
 import execution.Execution;

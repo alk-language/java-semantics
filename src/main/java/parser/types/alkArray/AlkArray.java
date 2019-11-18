@@ -9,6 +9,7 @@ import parser.types.alkInt.AlkInt;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static parser.constants.Constants.MAX_ARRAY;
 import static parser.exceptions.AlkException.*;
@@ -71,7 +72,7 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
     {
         for (AlkValue alkValue : array) {
             try {
-                if (((AlkBool) alkValue.equal(operator)).value)
+                if (((AlkBool) alkValue.equal(operator)).getValue())
                     return true;
             } catch (AlkException | InterpretorException ignored) {}
         }
@@ -81,6 +82,11 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
     @Override
     public ArrayList toArray() {
         return (ArrayList) array.clone();
+    }
+
+    @Override
+    public void addAll(List<AlkValue> values) {
+        array.addAll(values);
     }
 
     @Override
