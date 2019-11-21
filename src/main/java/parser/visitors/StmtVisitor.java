@@ -252,7 +252,7 @@ public class StmtVisitor extends alkBaseVisitor {
                 e.printException(ctx.start.getLine());
                 return null;
             }
-        } while (!((AlkBool)value).value);
+        } while (!((AlkBool)value).getValue());
         loopLevel--;
         return null;
     }
@@ -286,7 +286,7 @@ public class StmtVisitor extends alkBaseVisitor {
                 e.printException(ctx.start.getLine());
                 return null;
             }
-        } while (((AlkBool)value).value);
+        } while (((AlkBool)value).getValue());
         loopLevel--;
         return null;
     }
@@ -312,7 +312,7 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         loopLevel++;
         breakFlag = continueFlag = false;
-        while (((AlkBool)value).value)
+        while (((AlkBool)value).getValue())
         {
             visit(ctx.statement());
             continueFlag = false;
@@ -353,7 +353,7 @@ public class StmtVisitor extends alkBaseVisitor {
             e.printException(ctx.start.getLine());
             return null;
         }
-        if (((AlkBool)value).value)
+        if (((AlkBool)value).getValue())
             return visit(ctx.statement(0));
         else
         {
@@ -413,7 +413,7 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         loopLevel++;
         breakFlag = continueFlag = false;
-        while (((AlkBool)value).value)
+        while (((AlkBool)value).getValue())
         {
             visit(ctx.statement());
             continueFlag = false;

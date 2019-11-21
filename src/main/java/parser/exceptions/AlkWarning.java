@@ -2,7 +2,7 @@ package parser.exceptions;
 
 import java.util.ArrayList;
 
-
+@Deprecated
 public class AlkWarning {
     static private ArrayList<String> warnings = new ArrayList<>();
 
