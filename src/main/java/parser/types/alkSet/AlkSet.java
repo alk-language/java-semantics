@@ -9,6 +9,7 @@ import parser.types.alkInt.AlkInt;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 import static parser.exceptions.AlkException.*;
@@ -132,5 +133,10 @@ public class AlkSet extends AlkIterableValue implements Cloneable {
         for (AlkValue i : set)
             ans.add(i);
         return ans;
+    }
+
+    @Override
+    public void addAll(List<AlkValue> values) {
+        set.addAll(values);
     }
 }

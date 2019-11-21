@@ -2,6 +2,7 @@ package parser.visitors;
 
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
+import execution.Execution;
 import parser.env.Environment;
 import java.util.Stack;
 
@@ -33,10 +34,14 @@ public class MainVisitor extends alkBaseVisitor {
      * Starts the execution of the specified Alk program.
      * @param ctx The root of the Alk program which needs to be executed.
      */
-    @Override public Object visitStartPoint(alkParser.StartPointContext ctx) {
+    @Override
+    public Object visitStartPoint(alkParser.StartPointContext ctx)
+    {
         StmtVisitor stmtVisitor = new StmtVisitor(global, false);
+
         if (ctx.statement_sequence() == null)
             return false;
+
         stmtVisitor.visit(ctx.statement_sequence());
         return true;
     }

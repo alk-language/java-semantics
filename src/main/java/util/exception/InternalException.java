@@ -20,7 +20,7 @@ public class InternalException extends RuntimeException
      * @param e
      * The exception to bve wrapped
      */
-    InternalException(Exception e)
+    public InternalException(Exception e)
     {
         super(e);
     }

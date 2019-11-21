@@ -280,6 +280,7 @@ public class AlkException extends InternalException
 
     public final static String ERR_UNIFORM_NOT_ITERABLE = "The structure of the uniform must be an iterable.";
 
+    public final static String ERR_INVALID_PARAM = "Invalid parameter.";
 
     public final static String ERR_MATH_INT_OR_DOUBLE = "The parameter of a mathematical function must be numeric.";
 
@@ -295,6 +296,11 @@ public class AlkException extends InternalException
     public final static String ERR_BREAK = "Can't use break outside a loop.";
 
     public AlkException(String text)
+    {
+        super(text);
+    }
+
+    public AlkException(int line, String text)
     {
         super(text);
     }

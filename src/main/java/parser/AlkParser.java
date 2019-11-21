@@ -2,11 +2,13 @@ package parser;
 
 import grammar.alkLexer;
 import grammar.alkParser;
+import execution.Execution;
+import execution.state.ExecutionState;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
-import parser.visitors.MainVisitor;
+import parser.visitors.expression.ExpressionVisitor;
 import util.Configuration;
 
 /**
@@ -21,6 +23,9 @@ public class AlkParser {
     /* The global environment initially empty */
     private Environment global = new Environment();
 
+    /* The execution to which this parser is linked */
+    private Execution execution;
+
     /* Basic constructor meant to initialize the main char stream */
     public AlkParser(CharStream alkFile)
     {
@@ -29,10 +34,11 @@ public class AlkParser {
 
     /* Basic constructor meant to initialize the main char stream */
     @Deprecated
-    public AlkParser(CharStream alkFile, Environment e)
+    public AlkParser(CharStream alkFile, Environment e, Execution execution)
     {
         this.alkFile = alkFile;
         this.global = e;
+        this.execution = execution;
     }
 
 
@@ -41,14 +47,18 @@ public class AlkParser {
      * @param config
      * A predefined set of parameters under which the parser should run
      */
-    public void execute(Configuration config)
+    public ExecutionState execute (Configuration config)
     {
         alkLexer lexerAlk = new alkLexer(alkFile);
         CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
         alkParser parserAlk = new alkParser(tokensAlk);
-        ParseTree tree = parserAlk.main();
-        MainVisitor alkVisitor = new MainVisitor(global);
-        alkVisitor.visit(tree);
+
+        ParseTree tree = parserAlk.expression();
+        // MainVisitor alkVisitor = new MainVisitor(global, execution);
+        // alkVisitor.visit(tree);
+
+        ExpressionVisitor exprvisitor = new ExpressionVisitor(global);
+        return (ExecutionState) exprvisitor.visit(tree);
     }
 
     /**
