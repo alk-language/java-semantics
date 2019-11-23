@@ -10,7 +10,6 @@ import static parser.exceptions.AlkException.ERR_NO_REF;
 
 public class Environment {
 
-    //private HashMap<String, AlkValue> variables = new HashMap<>();
     private HashMap<String, Integer> variables = new HashMap<>(); // mapeaza o variabila la o zona de memorie (Store)
 
     public AlkValue lookup(String str) throws AlkException {

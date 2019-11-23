@@ -14,6 +14,8 @@ import parser.visitors.expression.ExpressionVisitor;
 
 import static parser.exceptions.AlkException.*;
 
+// TODO: needs hard reformat
+
 public class AssignedVisitor extends alkBaseVisitor {
 
     private Environment env;
