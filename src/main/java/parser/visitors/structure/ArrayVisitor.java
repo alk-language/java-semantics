@@ -3,6 +3,7 @@ package parser.visitors.structure;
 import execution.state.ExecutionState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
+import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.env.Environment;
 import parser.types.alkArray.AlkArray;
@@ -29,6 +30,6 @@ public class ArrayVisitor extends DataStructureVisitor {
     @Override
     public ExecutionState visitArrayWithSpec(alkParser.ArrayWithSpecContext ctx)
     {
-        return (ExecutionState) visit(ctx.spec());
+        return new IterableWithSpecState(ctx, this, ctx.spec(), AlkArray.class);
     }
 }

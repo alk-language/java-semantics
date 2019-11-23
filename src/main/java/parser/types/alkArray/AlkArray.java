@@ -80,7 +80,7 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
     }
 
     @Override
-    public ArrayList toArray() {
+    public ArrayList<AlkValue> toArray() {
         return (ArrayList) array.clone();
     }
 
