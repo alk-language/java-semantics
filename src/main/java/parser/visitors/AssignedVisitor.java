@@ -11,6 +11,7 @@ import parser.types.alkBool.AlkBool;
 import parser.types.alkInt.AlkInt;
 import parser.types.alkStructure.AlkStructure;
 import parser.visitors.expression.ExpressionVisitor;
+import util.types.ComponentValue;
 
 import static parser.exceptions.AlkException.*;
 
@@ -53,7 +54,7 @@ public class AssignedVisitor extends alkBaseVisitor {
                     if (!left_side.type.equals("Structure"))
                         throw new AlkException(ERR_STRUCT);
                     AlkStructure struct = (AlkStructure) left_side; // este ultima componenta
-                    struct.insert(new Pair<>(name, value));
+                    struct.insert(new ComponentValue(name, value));
                 }
                 return null;
             }
@@ -76,9 +77,9 @@ public class AssignedVisitor extends alkBaseVisitor {
                 if (!struct.has(name)) // ins structura nu exista o componenta cu numele respectivv
                 {
                     if (size==0)
-                        struct.insert(new Pair<>(name, new AlkStructure()));
+                        struct.insert(new ComponentValue(name, new AlkStructure()));
                     else
-                        struct.insert(new Pair<>(name, new AlkArray()));
+                        struct.insert(new ComponentValue(name, new AlkArray()));
                 }
                 left_side = struct.dot(name);
             }

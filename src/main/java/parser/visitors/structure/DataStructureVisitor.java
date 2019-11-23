@@ -1,6 +1,7 @@
 package parser.visitors.structure;
 
 import execution.state.ExecutionState;
+import execution.state.structure.ComponentDefinitionState;
 import execution.state.structure.FilterSpecDefinitionState;
 import execution.state.structure.IntervalDefinitionState;
 import execution.state.structure.SelectSpecDefinitionState;
@@ -10,6 +11,7 @@ import parser.Pair;
 import parser.env.Environment;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.types.ComponentValue;
 
 public class DataStructureVisitor extends alkBaseVisitor
 {
@@ -36,12 +38,9 @@ public class DataStructureVisitor extends alkBaseVisitor
         return new FilterSpecDefinitionState(ctx, this);
     }
 
-    public Pair visitComponentDefinition(alkParser.ComponentDefinitionContext ctx)
+    public ExecutionState visitComponentDefinition(alkParser.ComponentDefinitionContext ctx)
     {
-        String comp = ctx.ID().toString();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        AlkValue value = (AlkValue) expVisitor.visit(ctx.expression());
-        return new Pair<>(comp, value);
+        return new ComponentDefinitionState(ctx, this);
     }
 
 }
