@@ -6,6 +6,7 @@ import parser.exceptions.InterpretorException;
 import parser.types.AlkValue;
 import parser.types.alkBool.AlkBool;
 import parser.types.alkInt.AlkInt;
+import util.types.ComponentValue;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -24,9 +25,9 @@ public class AlkStructure extends AlkValue implements Cloneable {
         map = new TreeMap<>();
     }
 
-    public void insert(Pair pair)
+    public void insert(ComponentValue pair)
     {
-        map.put((String)pair.x, (AlkValue)pair.y);
+        map.put(pair.getIdentifier(), pair.getValue());
     }
 
     public boolean has(String operand)

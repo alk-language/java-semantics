@@ -1,24 +1,18 @@
 package execution.state.structure;
 
 import execution.state.SingleState;
-import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.Environment;
 import parser.types.AlkIterableValue;
 import parser.types.AlkValue;
-import parser.types.alkArray.AlkArray;
 import parser.types.alkInt.AlkInt;
-import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.DataStructureVisitor;
 import util.exception.InternalException;
-import util.types.PairValue;
-import util.types.Value;
+import util.types.IntervalValue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IterableWithIntervalState extends SingleState<AlkIterableValue, PairValue>
+public class IterableWithIntervalState extends SingleState<AlkIterableValue, IntervalValue>
 {
     private Class<? extends AlkIterableValue> clazz;
 
@@ -32,7 +26,7 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Pai
     }
 
     @Override
-    protected AlkIterableValue interpretResult(PairValue value)
+    protected AlkIterableValue interpretResult(IntervalValue value)
     {
         try {
             AlkIterableValue iterableValue = clazz.newInstance();

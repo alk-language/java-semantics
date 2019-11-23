@@ -161,10 +161,9 @@ public class ExpressionVisitor extends alkBaseVisitor {
 
 
     @Override
-    public AlkValue visitStructureValue(alkParser.StructureValueContext ctx)
+    public ExecutionState visitStructureValue(alkParser.StructureValueContext ctx)
     {
-        StructureVisitor structVisitator = new StructureVisitor(env);
-        return (AlkValue) structVisitator.visit(ctx.structure());
+        return (ExecutionState) new StructureVisitor(env).visit(ctx.structure());
     }
 
 }

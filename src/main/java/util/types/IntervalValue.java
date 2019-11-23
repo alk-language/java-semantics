@@ -5,11 +5,11 @@ import parser.types.alkInt.AlkInt;
 import java.math.BigDecimal;
 import java.util.Iterator;
 
-public class PairValue extends Value implements Iterable<AlkInt> {
+public class IntervalValue extends Value implements Iterable<AlkInt> {
 
     private AlkInt left, right;
 
-    public PairValue(AlkInt left, AlkInt right) {
+    public IntervalValue(AlkInt left, AlkInt right) {
         this.left = left;
         this.right = right;
     }
