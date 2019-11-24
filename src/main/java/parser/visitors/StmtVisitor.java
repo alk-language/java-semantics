@@ -1,5 +1,7 @@
 package parser.visitors;
 import execution.state.ExecutionState;
+import execution.state.statement.AssignmentStmtState;
+import execution.state.statement.ToAssignmentStmtState;
 import grammar.*;
 import parser.Pair;
 import parser.env.AlkFunction;
@@ -160,6 +162,12 @@ public class StmtVisitor extends alkBaseVisitor {
             returnValue = (AlkValue) expressionVisitor.visit(ctx.expression());
         }
         return null;
+    }
+
+
+    @Override public ExecutionState visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx)
+    {
+        return new ToAssignmentStmtState(ctx, this);
     }
 
 

@@ -1,10 +1,13 @@
-package parser.visitors;
+package execution.state.statement;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
+import parser.visitors.AssignedVisitor;
+import parser.visitors.ReferenceVisitor;
+import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.exception.InternalException;
 import util.exception.UnimplementedException;
@@ -16,7 +19,7 @@ public class AssignmentStmtState extends ExecutionState
     private AlkValue rightSide;
     private String operator;
 
-    AssignmentStmtState(alkParser.AssignmentStmtContext tree, StmtVisitor visitor) {
+    public AssignmentStmtState(alkParser.AssignmentStmtContext tree, StmtVisitor visitor) {
         super(tree, visitor);
         env = visitor.getEnvironment();
         ctx = tree;
@@ -37,6 +40,7 @@ public class AssignmentStmtState extends ExecutionState
             return null;
         }
 
+        // TODO: rethink the ReferenceVisitor
         ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
         AlkValue leftSide = ((AlkValue) referenceVisitor.visit(ctx.ref_name())).clone();
 
@@ -66,45 +70,6 @@ public class AssignmentStmtState extends ExecutionState
         if (rightSide == null)
         {
             rightSide = (AlkValue) result.getValue();
-            return;
         }
-
-
     }
 }
-
-
-/*
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
-        AlkValue right_side = ((AlkValue) exprVisitor.visit(ctx.expression())).clone();
-        if (ctx.ASSIGNMENT_OPERATOR().getText().equals("="))
-        {
-            AssignedVisitor asgnVisitor = new AssignedVisitor(env, right_side);
-            return asgnVisitor.visit(ctx.ref_name());
-        }
-        AlkValue left_side = ((AlkValue) referenceVisitor.visit(ctx.ref_name())).clone();
-        try {
-            switch (ctx.ASSIGNMENT_OPERATOR().getText())
-            {
-                case "+=": right_side = left_side.add(right_side); break;
-                case "-=": right_side = left_side.subtract(right_side); break;
-                case "*=": right_side = left_side.multiply(right_side); break;
-                case "/=": right_side = left_side.divide(right_side); break;
-                case "%=": right_side = left_side.mod(right_side); break;
-                case "<<=": right_side = left_side.shiftLeft(right_side); break;
-                case ">>=": right_side = left_side.shiftLeft(right_side); break;
-                case "|=": right_side = left_side.bitwiseOr(right_side); break;
-                case "&=": right_side = left_side.bitwiseAnd(right_side); break;
-                default: ;
-            }
-        } catch (InterpretorException e) {
-            e.printException(ctx.start.getLine());
-            return null;
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        AssignedVisitor asgnVisitor = new AssignedVisitor(env, right_side);
-        return asgnVisitor.visit(ctx.ref_name()); */

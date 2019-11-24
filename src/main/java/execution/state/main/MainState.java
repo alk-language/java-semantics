@@ -3,7 +3,6 @@ package execution.state.main;
 import execution.state.IndependentSingleState;
 import grammar.alkParser;
 import parser.visitors.MainVisitor;
-import parser.visitors.StmtVisitor;
 
 public class MainState extends IndependentSingleState
 {
