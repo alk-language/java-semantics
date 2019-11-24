@@ -1,4 +1,5 @@
 package parser.visitors;
+import execution.state.ExecutionState;
 import grammar.*;
 import parser.Pair;
 import parser.env.AlkFunction;
@@ -23,8 +24,8 @@ import static parser.types.alkNotAValue.AlkNotAValue.NO_RETURN;
 
 /**
  * This class is responsible for the visiting of the statements.
+ * TODO: generify visitor
  */
-
 public class StmtVisitor extends alkBaseVisitor {
 
     /**
@@ -49,7 +50,7 @@ public class StmtVisitor extends alkBaseVisitor {
     /**
      * A counter used to count the number of loop scopes in which we are (for, forall, while, do while, repeat until)
      */
-    public int loopLevel = 0;
+    private int loopLevel = 0;
 
     /**
      * A flag used to determine if a continue was executed.
@@ -171,40 +172,9 @@ public class StmtVisitor extends alkBaseVisitor {
      * AssignedVisitor in order to put value obtained in the location needed.
      * @param ctx An Assignment Statement node in the execution tree meant to be parsed.
      */
-    @Override public Object visitAssignmentStmt(alkParser.AssignmentStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
-        AlkValue right_side = ((AlkValue) exprVisitor.visit(ctx.expression())).clone();
-        if (ctx.ASSIGNMENT_OPERATOR().getText().equals("="))
-        {
-            AssignedVisitor asgnVisitor = new AssignedVisitor(env, right_side);
-            return asgnVisitor.visit(ctx.ref_name());
-        }
-        AlkValue left_side = ((AlkValue) referenceVisitor.visit(ctx.ref_name())).clone();
-        try {
-            switch (ctx.ASSIGNMENT_OPERATOR().getText())
-            {
-                case "+=": right_side = left_side.add(right_side); break;
-                case "-=": right_side = left_side.subtract(right_side); break;
-                case "*=": right_side = left_side.multiply(right_side); break;
-                case "/=": right_side = left_side.divide(right_side); break;
-                case "%=": right_side = left_side.mod(right_side); break;
-                case "<<=": right_side = left_side.shiftLeft(right_side); break;
-                case ">>=": right_side = left_side.shiftLeft(right_side); break;
-                case "|=": right_side = left_side.bitwiseOr(right_side); break;
-                case "&=": right_side = left_side.bitwiseAnd(right_side); break;
-                default: ;
-            }
-        } catch (InterpretorException e) {
-            e.printException(ctx.start.getLine());
-            return null;
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        AssignedVisitor asgnVisitor = new AssignedVisitor(env, right_side);
-        return asgnVisitor.visit(ctx.ref_name());
+    @Override public ExecutionState visitAssignmentStmt(alkParser.AssignmentStmtContext ctx)
+    {
+        return new AssignmentStmtState(ctx, this);
     }
 
 
@@ -701,5 +671,9 @@ public class StmtVisitor extends alkBaseVisitor {
         }
         breakFlag = true;
         return null;
+    }
+
+    public Environment getEnvironment() {
+        return env;
     }
 }

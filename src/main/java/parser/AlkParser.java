@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
+import parser.visitors.MainVisitor;
+import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.Configuration;
 
@@ -53,12 +55,10 @@ public class AlkParser {
         CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
         alkParser parserAlk = new alkParser(tokensAlk);
 
-        ParseTree tree = parserAlk.expression();
-        // MainVisitor alkVisitor = new MainVisitor(global, execution);
-        // alkVisitor.visit(tree);
+        ParseTree tree = parserAlk.main();
 
-        ExpressionVisitor exprvisitor = new ExpressionVisitor(global);
-        return (ExecutionState) exprvisitor.visit(tree);
+        MainVisitor visitor = new MainVisitor(global);
+        return (ExecutionState) visitor.visit(tree);
     }
 
     /**

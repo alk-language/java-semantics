@@ -91,10 +91,11 @@ public class Execution extends Thread
         stack.push(state);
         stack.run();
 
-        System.out.println(stack.getResult());
+        // debugging
+        System.out.println("Result: " + stack.getResult());
 
         /* AlkParser parser = new AlkParser(alkFile, e);
-        parser.execute(config);
+        parser.execute(config); */
 
 
 
@@ -102,7 +103,7 @@ public class Execution extends Thread
         if (config.hasMetadata())
         {
             config.getIOManager().write(parser.getGlobalEnvironment().toString());
-        }*/
+        }
     }
 
     /**
