@@ -1,4 +1,4 @@
-// Generated from /home/alex/work/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /home/alex/work/alk/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -20,11 +20,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStartPoint(alkParser.StartPointContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alkParser#statement_sequence}.
+	 * Visit a parse tree produced by the {@code StatementSeq}
+	 * labeled alternative in {@link alkParser#statement_sequence}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement_sequence(alkParser.Statement_sequenceContext ctx);
+	T visitStatementSeq(alkParser.StatementSeqContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code MethodCall}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -542,13 +543,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code DeprecatedSpecDefinition}
-	 * labeled alternative in {@link alkParser#spec}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeprecatedSpecDefinition(alkParser.DeprecatedSpecDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FilterSpecDefinition}
 	 * labeled alternative in {@link alkParser#spec}.
