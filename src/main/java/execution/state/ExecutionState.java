@@ -19,10 +19,10 @@ public abstract class ExecutionState<T extends Value, S extends Value>
 
     protected ParseTree tree;
     protected alkBaseVisitor visitor;
-    protected ExecutionResult<T> result;
+    protected ExecutionResult<T> result = null;
 
     // TODO: remove the env variable, make it accessible in another way
-    private Environment env;
+    protected Environment env;
 
     public ExecutionState(ParseTree tree, alkBaseVisitor visitor)
     {
