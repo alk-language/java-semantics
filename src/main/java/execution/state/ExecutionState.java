@@ -30,6 +30,11 @@ public abstract class ExecutionState<T extends Value, S extends Value>
         this.visitor = visitor;
     }
 
+    public ExecutionState(Environment env)
+    {
+        this.env = env;
+    }
+
     public ExecutionResult<T> getResult()
     {
         return result;

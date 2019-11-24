@@ -2,6 +2,7 @@ package parser.visitors;
 
 import execution.state.ExecutionState;
 import execution.state.main.MainState;
+import execution.state.main.StatementSeqState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import execution.Execution;
@@ -43,5 +44,15 @@ public class MainVisitor extends alkBaseVisitor<ExecutionState> {
     public ExecutionState visitStartPoint(alkParser.StartPointContext ctx)
     {
         return new MainState(ctx, this);
+    }
+
+    /**
+     * Starts the execution of the specified Alk program.
+     * @param ctx The root of the Alk program which needs to be executed.
+     */
+    @Override
+    public ExecutionState visitStatementSeq(alkParser.StatementSeqContext ctx)
+    {
+        return new StatementSeqState(ctx, this);
     }
 }
