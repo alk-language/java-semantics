@@ -37,7 +37,7 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue
     {
         if (source == null)
         {
-            return (ExecutionState<AlkValue, Value>) visitor.visit(ctx.expression(1));
+            return visitor.visit(ctx.expression(1));
         }
 
         if (!iterator.hasNext())
@@ -47,7 +47,7 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue
         }
 
         getEnv().update(ctx.ID().toString(), iterator.next());
-        return (ExecutionState<AlkValue, Value>) visitor.visit(ctx.expression(0));
+        return visitor.visit(ctx.expression(0));
     }
 
     @Override

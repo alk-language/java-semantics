@@ -1,6 +1,5 @@
 package execution.state.expression;
 
-import execution.ExecutionResult;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;

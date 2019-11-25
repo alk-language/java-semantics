@@ -2,7 +2,6 @@ package execution;
 
 import execution.state.ExecutionState;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
 import util.Configuration;
 import util.ErrorManager;
 import util.types.Value;
@@ -13,9 +12,9 @@ public class ExecutionStack
 {
     private Configuration config;
 
-    private Stack< ExecutionState<? extends Value, ? extends Value> > stack = new Stack<>();
-
     private ExecutionResult result;
+
+    private Stack< ExecutionState<? extends Value, ? extends Value> > stack = new Stack<>();
 
     ExecutionStack(Configuration config) {
         this.config = config;
