@@ -1,5 +1,7 @@
 package parser.visitors.structure;
 
+import execution.state.ExecutionState;
+import execution.state.structure.StructureWithComponentsState;
 import grammar.alkParser;
 import parser.Pair;
 import parser.env.Environment;
@@ -11,11 +13,8 @@ public class StructureVisitor extends DataStructureVisitor {
         super(env);
     }
 
-    public AlkValue visitStructureWithComponents(alkParser.StructureWithComponentsContext ctx) {
-        AlkStructure struct = new AlkStructure();
-        for (int i=0; i<ctx.component().size(); i++) {
-            struct.insert((Pair) visit(ctx.component(i)));
-        }
-        return struct;
+    public ExecutionState visitStructureWithComponents(alkParser.StructureWithComponentsContext ctx)
+    {
+        return new StructureWithComponentsState(ctx, this);
     }
 }

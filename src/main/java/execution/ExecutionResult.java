@@ -16,6 +16,8 @@ public class ExecutionResult<T extends Value>
 
     @Override
     public String toString() {
+        if (value == null)
+            return "null";
         return value.toString();
     }
 }

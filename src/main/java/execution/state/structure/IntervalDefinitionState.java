@@ -8,7 +8,7 @@ import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.structure.DataStructureVisitor;
-import util.types.PairValue;
+import util.types.IntervalValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 import static parser.exceptions.AlkException.ERR_LIMIT;
 import static parser.exceptions.AlkException.ERR_NOINT_INTERVAL;
 
-public class IntervalDefinitionState extends GeneratorState<PairValue, AlkValue>
+public class IntervalDefinitionState extends GeneratorState<IntervalValue, AlkValue>
 {
 
     private List<AlkValue> limits = new ArrayList<>();
@@ -31,7 +31,7 @@ public class IntervalDefinitionState extends GeneratorState<PairValue, AlkValue>
     }
 
     @Override
-    public PairValue getFinalResult() {
+    public IntervalValue getFinalResult() {
         AlkValue x = limits.get(0);
         AlkValue y = limits.get(1);
 
@@ -41,6 +41,6 @@ public class IntervalDefinitionState extends GeneratorState<PairValue, AlkValue>
         if ((x.greater(y)).getValue())
             throw new AlkException(ERR_LIMIT);
 
-        return new PairValue((AlkInt) x, (AlkInt) y);
+        return new IntervalValue((AlkInt) x, (AlkInt) y);
     }
 }

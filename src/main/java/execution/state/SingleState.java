@@ -17,6 +17,7 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
 {
 
     protected T localResult;
+    boolean visited = false;
     private final ParseTree dependency;
 
     public SingleState(ParseTree tree, alkBaseVisitor visitor, ParseTree dependency) {
@@ -25,8 +26,9 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
     }
 
     @Override
-    public ExecutionState<S, Value> makeStep() {
-        if (localResult != null)
+    public ExecutionState<S, Value> makeStep()
+    {
+        if (visited)
         {
             result = new ExecutionResult<>(localResult);
             return null;
@@ -38,7 +40,9 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
     @Override
     public void assign(ExecutionResult<S> result)
     {
-        localResult = interpretResult(result.getValue());
+        if (result != null)
+            localResult = interpretResult(result.getValue());
+        visited = true;
     }
 
     protected abstract T interpretResult(S value);

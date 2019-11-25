@@ -22,7 +22,7 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
         type = "Array";
         isDataStructure = true;
         isIterable = true;
-        array = new ArrayList<>();;
+        array = new ArrayList<>();
     }
 
     public void push(AlkValue value)
@@ -80,8 +80,8 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
     }
 
     @Override
-    public ArrayList toArray() {
-        return (ArrayList) array.clone();
+    public ArrayList<AlkValue> toArray() {
+        return clone().array;
     }
 
     @Override
@@ -90,12 +90,12 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
     }
 
     @Override
-    public AlkValue bracket(int operand) throws AlkException {
+    public AlkValue bracket(int operand) {
         return get(operand);
     }
 
     @Override
-    public AlkValue clone() {
+    public AlkArray clone() {
         AlkArray copy = new AlkArray();
         for (AlkValue i : array)
             copy.array.add(i.clone());
@@ -104,13 +104,13 @@ public class AlkArray extends AlkIterableValue implements Cloneable {
 
     @Override
     public String toString() {
-        String returnable = "[" ;
+        StringBuilder returnable = new StringBuilder("[");
         for (int i=0; i<array.size()-1; i++)
         {
-            returnable = returnable + array.get(i).toString() + ", ";
+            returnable.append(array.get(i).toString()).append(", ");
         }
         if (array.size()>0)
-            returnable = returnable + array.get(array.size()-1);
+            returnable.append(array.get(array.size() - 1));
         return returnable + "]";
     }
 

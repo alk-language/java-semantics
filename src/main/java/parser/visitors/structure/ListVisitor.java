@@ -4,6 +4,7 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
+import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.Pair;
 import parser.env.Environment;
@@ -47,12 +48,8 @@ public class ListVisitor extends DataStructureVisitor {
     }
 
 
-    public AlkValue visitListWithSpec(alkParser.ListWithSpecContext ctx) {
-        ArrayList array = (ArrayList) visit(ctx.spec());
-        AlkList returnable = new AlkList();
-        for (Object value : array)
-            returnable.push_back((AlkValue) value);
-        return returnable;
+    public ExecutionState visitListWithSpec(alkParser.ListWithSpecContext ctx) {
+        return new IterableWithSpecState(ctx, this, ctx.spec(), AlkList.class);
     }
 
 
