@@ -18,18 +18,21 @@ public abstract class ExecutionState<T extends Value, S extends Value>
 {
 
     protected ParseTree tree;
-
-    // TODO: generify the ExecutionState inside the visitor
-    protected alkBaseVisitor<ExecutionState> visitor;
-    protected ExecutionResult<T> result;
+    protected alkBaseVisitor visitor;
+    protected ExecutionResult<T> result = null;
 
     // TODO: remove the env variable, make it accessible in another way
-    private Environment env;
+    protected Environment env;
 
-    public ExecutionState(ParseTree tree, alkBaseVisitor<ExecutionState> visitor)
+    public ExecutionState(ParseTree tree, alkBaseVisitor visitor)
     {
         this.tree = tree;
         this.visitor = visitor;
+    }
+
+    public ExecutionState(Environment env)
+    {
+        this.env = env;
     }
 
     public ExecutionResult<T> getResult()

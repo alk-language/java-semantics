@@ -7,8 +7,7 @@ import expression;
 
 statement_sequence
 :
-    statement
-    | statement statement_sequence
+    (statement)+                                                                                                        #StatementSeq
 ;
 
 statement //statement

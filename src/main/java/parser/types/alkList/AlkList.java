@@ -155,11 +155,8 @@ public class AlkList extends AlkIterableValue implements Cloneable{
     }
 
     @Override
-    public ArrayList toArray() {
-        ArrayList ar = new ArrayList();
-        for (AlkValue i : list)
-            ar.add(i);
-        return ar;
+    public ArrayList<AlkValue> toArray() {
+        return new ArrayList<>(list);
     }
 
     @Override

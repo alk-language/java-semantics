@@ -1,5 +1,8 @@
 package parser.visitors;
 
+import execution.state.ExecutionState;
+import execution.state.main.MainState;
+import execution.state.main.StatementSeqState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import execution.Execution;
@@ -10,11 +13,15 @@ import java.util.Stack;
 /**
  * This is the class responsible for parsing an Alk program, starting from the root.
  */
-public class MainVisitor extends alkBaseVisitor {
+public class MainVisitor extends alkBaseVisitor<ExecutionState> {
 
+    @Deprecated
     public static Stack<Environment> stack = new Stack<>();
-    public static Environment global;
+
+    @Deprecated
     public static Boolean exceptionOccured = false;
+
+    public static Environment global;
 
 
     /**
@@ -29,20 +36,23 @@ public class MainVisitor extends alkBaseVisitor {
         exceptionOccured = false;
     }
 
+    /**
+     * Starts the execution of the specified Alk program.
+     * @param ctx The root of the Alk program which needs to be executed.
+     */
+    @Override
+    public ExecutionState visitStartPoint(alkParser.StartPointContext ctx)
+    {
+        return new MainState(ctx, this);
+    }
 
     /**
      * Starts the execution of the specified Alk program.
      * @param ctx The root of the Alk program which needs to be executed.
      */
     @Override
-    public Object visitStartPoint(alkParser.StartPointContext ctx)
+    public ExecutionState visitStatementSeq(alkParser.StatementSeqContext ctx)
     {
-        StmtVisitor stmtVisitor = new StmtVisitor(global, false);
-
-        if (ctx.statement_sequence() == null)
-            return false;
-
-        stmtVisitor.visit(ctx.statement_sequence());
-        return true;
+        return new StatementSeqState(ctx, this);
     }
 }
