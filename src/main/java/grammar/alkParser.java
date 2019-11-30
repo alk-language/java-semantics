@@ -1,4 +1,4 @@
-// Generated from /home/alex/work/alk/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /home/alex/IdeaProjects/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -358,18 +358,6 @@ public class alkParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class ChooseStmContext extends StatementContext {
-		public ChooseContext choose() {
-			return getRuleContext(ChooseContext.class,0);
-		}
-		public TerminalNode SEMICOLON() { return getToken(alkParser.SEMICOLON, 0); }
-		public ChooseStmContext(StatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitChooseStm(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class ToRepeatContext extends StatementContext {
 		public Repeat_structContext repeat_struct() {
 			return getRuleContext(Repeat_structContext.class,0);
@@ -412,6 +400,18 @@ public class alkParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitToBlock(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ToChooseStmtContext extends StatementContext {
+		public ChooseContext choose() {
+			return getRuleContext(ChooseContext.class,0);
+		}
+		public TerminalNode SEMICOLON() { return getToken(alkParser.SEMICOLON, 0); }
+		public ToChooseStmtContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof alkVisitor ) return ((alkVisitor<? extends T>)visitor).visitToChooseStmt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -577,7 +577,7 @@ public class alkParser extends Parser {
 				}
 				break;
 			case 5:
-				_localctx = new ChooseStmContext(_localctx);
+				_localctx = new ToChooseStmtContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(124);
