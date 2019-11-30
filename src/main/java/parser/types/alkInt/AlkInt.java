@@ -8,7 +8,7 @@ import parser.types.alkBool.AlkBool;
 import java.math.BigInteger;
 
 // TODO: define AlkInt constants for efficiency
-public class AlkInt extends AlkValue implements Cloneable{
+public class AlkInt extends AlkValue implements Cloneable {
 
     public BigInteger value;
 

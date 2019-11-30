@@ -17,7 +17,7 @@ statement //statement
     | function_decl                                                                                                     #ToFunctionDecl
     | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
 
-    | choose SEMICOLON                                                                                                  #ChooseStm
+    | choose SEMICOLON                                                                                                  #ToChooseStmt
     | uniform SEMICOLON                                                                                                 #UniformStm
     | SUCCESS SEMICOLON                                                                                                 #Success
     | FAILURE SEMICOLON                                                                                                 #Failure

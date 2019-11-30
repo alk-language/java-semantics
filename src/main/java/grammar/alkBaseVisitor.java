@@ -1,4 +1,4 @@
-// Generated from /home/alex/work/alk/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /home/alex/IdeaProjects/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -61,7 +61,7 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitChooseStm(alkParser.ChooseStmContext ctx) { return visitChildren(ctx); }
+	@Override public T visitToChooseStmt(alkParser.ToChooseStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
