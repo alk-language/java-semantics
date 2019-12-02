@@ -5,6 +5,7 @@ import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import parser.types.AlkValue;
+import util.Configuration;
 import util.types.Value;
 
 /**
@@ -16,10 +17,10 @@ import util.types.Value;
  */
 public abstract class ExecutionState<T extends Value, S extends Value>
 {
-
     protected ParseTree tree;
     protected alkBaseVisitor visitor;
     protected ExecutionResult<T> result = null;
+    protected Configuration config;
 
     // TODO: remove the env variable, make it accessible in another way
     protected Environment env;
@@ -52,5 +53,9 @@ public abstract class ExecutionState<T extends Value, S extends Value>
     protected void setEnv(Environment e)
     {
         env = e;
+    }
+
+    public void setConfiguration(Configuration config) {
+        this.config = config;
     }
 }

@@ -16,6 +16,9 @@ public interface OptionProvider
      */
     boolean hasMetadata();
 
+
+    boolean hasExhaustive();
+
     /**
      * Used for identifying the main alk file
      *

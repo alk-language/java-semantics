@@ -17,6 +17,8 @@ public class Configuration implements OptionProvider
     /** The metadata flag, used to inform an IOManager if the metadata should be printed at the end */
     private boolean metadata;
 
+    private boolean exhaustive;
+
     /** The debugMode flag, used to print the stach trace in case of one exception*/
     private boolean debugMode;
 
@@ -58,6 +60,11 @@ public class Configuration implements OptionProvider
     @Override
     public boolean hasMetadata() {
         return metadata;
+    }
+
+    @Override
+    public boolean hasExhaustive() {
+        return exhaustive;
     }
 
     /**
