@@ -44,6 +44,7 @@ public class ExecutionStack
     private void makeStep()
     {
         ExecutionState<? extends Value, ? extends Value> top = stack.peek();
+        top.setConfiguration(config);
         ExecutionState<? extends Value, ? extends Value> next = top.makeStep();
 
         if (next == null)

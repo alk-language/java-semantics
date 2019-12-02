@@ -38,7 +38,7 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
     public ExecutionState makeStep()
     {
         if (source == null)
-            return visitor.visit(ctx.expression(0));
+            return (ExecutionState) visitor.visit(ctx.expression(0));
 
         if (!iterator.hasNext())
         {
@@ -48,7 +48,7 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
 
         validatingValue = iterator.next();
         getEnv().update(ctx.ID().toString(), validatingValue);
-        return visitor.visit(ctx.expression(1));
+        return (ExecutionState) visitor.visit(ctx.expression(1));
     }
 
     @Override

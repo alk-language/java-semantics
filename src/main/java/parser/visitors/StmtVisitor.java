@@ -1,6 +1,7 @@
 package parser.visitors;
 import execution.state.ExecutionState;
 import execution.state.statement.AssignmentStmtState;
+import execution.state.statement.ChooseStmtState;
 import execution.state.statement.ToAssignmentStmtState;
 import grammar.*;
 import parser.Pair;
@@ -506,39 +507,8 @@ public class StmtVisitor extends alkBaseVisitor {
      * the value obtained will be inserted in the environment.
      * @param ctx A Choose Statement node in the execution tree meant to be parsed.
      */
-    @Override public Object visitChooseStmt(alkParser.ChooseStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
-        AlkValue struct = (AlkValue)expressionVisitor.visit(ctx.expression(0));
-        if (!struct.isIterable)
-        {
-            AlkException e = new AlkException(ERR_CHOOSE_NOT_ITERABLE);
-            e.printException(ctx.start.getLine());
-        }
-        AlkIterableValue val = (AlkIterableValue) struct;
-
-        if (val.toArray().size()==0)
-        {
-            AlkException e = new AlkException(ERR_CHOSE_RESULT);
-            e.printException(ctx.start.getLine());
-        }
-
-        if (ctx.SOTHAT()==null)
-        {
-            AlkValue value = NonDeterministic.choose(val);
-            env.update(ctx.ID().getText(), value.clone());
-        }
-        else
-        {
-            AlkValue value = null;
-            try {
-                value = NonDeterministic.chooseST(ctx.ID().getText(), val, ctx.expression(1), env);
-            } catch (AlkException e) {
-                e.printException(ctx.start.getLine());
-            }
-            env.update(ctx.ID().getText(), value.clone());
-        }
-        return null;
+    @Override public ExecutionState visitChooseStmt(alkParser.ChooseStmtContext ctx) {
+        return new ChooseStmtState(ctx, this);
     }
 
 

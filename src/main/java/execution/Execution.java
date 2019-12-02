@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class Execution extends Thread
 {
 
-
     /** The main configuration delivery instance.*/
     private Configuration config;
 
