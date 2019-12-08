@@ -1,5 +1,6 @@
 package parser.visitors;
 import execution.state.ExecutionState;
+import execution.state.StateFactory;
 import execution.state.statement.AssignmentStmtState;
 import execution.state.statement.ChooseStmtState;
 import execution.state.statement.ToAssignmentStmtState;
@@ -18,6 +19,8 @@ import parser.types.alkNotAValue.AlkNotAValue;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 import parser.visitors.helpers.NonDeterministic;
+import util.EnvironmentManager;
+import util.Payload;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -36,6 +39,10 @@ public class StmtVisitor extends alkBaseVisitor {
      * The environment over which this visitor will work.
      */
     private Environment env;
+
+    private StateFactory stateFactory = new StateFactory();
+
+    private Payload payload;
 
     /**
      * A flag to be known if the execution is currently inside of a function.
@@ -78,6 +85,13 @@ public class StmtVisitor extends alkBaseVisitor {
     {
         this.env=env;
         this.inFunction = inFunction;
+    }
+
+    // TODO: in function to be added
+    public StmtVisitor(Environment env, Payload payload)
+    {
+        this.env=env;
+        this.payload = payload;
     }
 
 
@@ -169,7 +183,7 @@ public class StmtVisitor extends alkBaseVisitor {
 
     @Override public ExecutionState visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx)
     {
-        return new ToAssignmentStmtState(ctx, this);
+        return new ToAssignmentStmtState(ctx, payload);
     }
 
 
@@ -497,7 +511,10 @@ public class StmtVisitor extends alkBaseVisitor {
     }
 
     @Override public ExecutionState visitToChooseStmt(alkParser.ToChooseStmtContext ctx) {
-        return new ToChooseStmtState(ctx, this);
+        EnvironmentManager envManager = payload.getEnvManager();
+        ToChooseStmtState state = new ToChooseStmtState(ctx, payload);
+        envManager.link(state, env);
+        return state;
     }
 
     /**
@@ -511,8 +528,13 @@ public class StmtVisitor extends alkBaseVisitor {
      * the value obtained will be inserted in the environment.
      * @param ctx A Choose Statement node in the execution tree meant to be parsed.
      */
-    @Override public ExecutionState visitChooseStmt(alkParser.ChooseStmtContext ctx) {
-        return new ChooseStmtState(ctx, this);
+    @Override
+    public ExecutionState visitChooseStmt(alkParser.ChooseStmtContext ctx) {
+        //return stateFactory.create(ChooseStmtState.class, this, alkParser.ChooseStmtContext.class, ctx, env);
+        EnvironmentManager envManager = payload.getEnvManager();
+        ChooseStmtState state = new ChooseStmtState(ctx, new Payload(envManager));
+        envManager.link(state, env);
+        return state;
     }
 
 

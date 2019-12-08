@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.types.AlkIterableValue;
 import parser.types.alkArray.AlkArray;
 import parser.visitors.structure.DataStructureVisitor;
+import util.Payload;
 import util.exception.InternalException;
 
 public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArray> {
@@ -12,11 +13,12 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
     private final Class<? extends AlkIterableValue> clazz;
 
     public IterableWithSpecState(ParseTree tree,
-                                 DataStructureVisitor visitor,
+                                 Payload payload,
                                  ParseTree spec,
                                  Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, visitor, spec);
+        super(tree, payload, spec);
+        visitor = DataStructureVisitor.class;
         this.clazz = clazz;
     }
 

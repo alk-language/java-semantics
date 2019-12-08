@@ -7,6 +7,10 @@ import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import execution.Execution;
 import parser.env.Environment;
+import util.EnvironmentManager;
+import util.Payload;
+
+import javax.naming.spi.StateFactory;
 import java.util.Stack;
 
 
@@ -23,6 +27,8 @@ public class MainVisitor extends alkBaseVisitor<ExecutionState> {
 
     public static Environment global;
 
+    private Payload payload;
+
 
     /**
      * Creates a new MainVisitor with a Stack containing only the specified global enironment.
@@ -35,6 +41,15 @@ public class MainVisitor extends alkBaseVisitor<ExecutionState> {
         stack.push(global);
         exceptionOccured = false;
     }
+    
+    public MainVisitor(Environment global, Payload payload)
+    {
+        stack.clear();
+        MainVisitor.global = global;
+        stack.push(global);
+        exceptionOccured = false;
+        this.payload = payload;
+    }
 
     /**
      * Starts the execution of the specified Alk program.
@@ -43,7 +58,10 @@ public class MainVisitor extends alkBaseVisitor<ExecutionState> {
     @Override
     public ExecutionState visitStartPoint(alkParser.StartPointContext ctx)
     {
-        return new MainState(ctx, this);
+        EnvironmentManager envManager = payload.getEnvManager();
+        MainState state = new MainState(ctx, payload);
+        envManager.link(state, global);
+        return state;
     }
 
     /**
@@ -53,6 +71,9 @@ public class MainVisitor extends alkBaseVisitor<ExecutionState> {
     @Override
     public ExecutionState visitStatementSeq(alkParser.StatementSeqContext ctx)
     {
-        return new StatementSeqState(ctx, this);
+        EnvironmentManager envManager = payload.getEnvManager();
+        StatementSeqState state = new StatementSeqState(ctx, payload);
+        envManager.link(state, global);
+        return state;
     }
 }

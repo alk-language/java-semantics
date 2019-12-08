@@ -6,6 +6,7 @@ import parser.types.AlkIterableValue;
 import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
 import parser.visitors.structure.DataStructureVisitor;
+import util.Payload;
 import util.exception.InternalException;
 import util.types.IntervalValue;
 
@@ -17,11 +18,12 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
     private Class<? extends AlkIterableValue> clazz;
 
     public IterableWithIntervalState(ParseTree tree,
-                                     DataStructureVisitor visitor,
+                                     Payload payload,
                                      ParseTree interval,
                                      Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, visitor, interval);
+        super(tree, payload, interval);
+        visitor = DataStructureVisitor.class;
         this.clazz = clazz;
     }
 

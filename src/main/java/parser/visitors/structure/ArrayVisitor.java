@@ -24,12 +24,12 @@ public class ArrayVisitor extends DataStructureVisitor {
     @Override
     public ExecutionState visitArrayWithInterval(alkParser.ArrayWithIntervalContext ctx)
     {
-        return new IterableWithIntervalState(ctx, this, ctx.interval(), AlkArray.class);
+        return new IterableWithIntervalState(ctx, payload, ctx.interval(), AlkArray.class);
     }
 
     @Override
     public ExecutionState visitArrayWithSpec(alkParser.ArrayWithSpecContext ctx)
     {
-        return new IterableWithSpecState(ctx, this, ctx.spec(), AlkArray.class);
+        return new IterableWithSpecState(ctx, payload, ctx.spec(), AlkArray.class);
     }
 }

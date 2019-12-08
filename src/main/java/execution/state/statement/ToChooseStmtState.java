@@ -1,14 +1,14 @@
 package execution.state.statement;
 
-import execution.state.ExecutionState;
 import execution.state.IndependentSingleState;
-import execution.state.SingleState;
+import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.visitors.StmtVisitor;
-import util.types.Value;
+import util.Payload;
 
 public class ToChooseStmtState extends IndependentSingleState {
-    public ToChooseStmtState(alkParser.ToChooseStmtContext ctx, StmtVisitor stmtVisitor) {
-        super(ctx, stmtVisitor, ctx.choose());
+    public ToChooseStmtState(alkParser.ToChooseStmtContext ctx, Payload payload) {
+        super(ctx, payload, ctx.choose());
+        visitor = StmtVisitor.class;
     }
 }

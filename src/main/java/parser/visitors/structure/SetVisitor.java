@@ -24,10 +24,10 @@ public class SetVisitor extends DataStructureVisitor
     }
 
     public ExecutionState visitSetWithInterval(alkParser.SetWithIntervalContext ctx) {
-        return new IterableWithIntervalState(ctx, this, ctx.interval(), AlkSet.class);
+        return new IterableWithIntervalState(ctx, payload, ctx.interval(), AlkSet.class);
     }
 
     public ExecutionState visitSetWithSpec(alkParser.SetWithSpecContext ctx) {
-        return new IterableWithSpecState(ctx, this, ctx.spec(), AlkSet.class);
+        return new IterableWithSpecState(ctx, payload, ctx.spec(), AlkSet.class);
     }
 }
