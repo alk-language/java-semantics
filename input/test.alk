@@ -1,30 +1,38 @@
-choose x in [1..10];
+Fir de executie 1
 
+MainState(env)
+ChooseState(env)
 
--m
+FunctionCall(env2)
+ExpressionState(env2)
+IfState(env2)
 
-
-AlkValue rightSide : value = 6, ref = null
-Environment: a |-> store.create()
-Environment: env.update(a, 6);
-
-
-AlkValue rightSide : value = 8, ref = null
-Environment: a |-> store.get()
-Environment: env.update(a, 8);
+env2 (a |-> 3)
 
 
 
-a = [4, 5, 6];
-x = [1, 2, 3] U a;
-a.pushBack(2);
+Fir de executie 2
 
-1. AlkValue rightSide : value = []
-   Environment: a |-> store.create() // 0x1234
-   Environment: env.update(a, []);
+MainState(env')
+ChooseState(env')
 
-2. Environment: env.get(a); // 0x1234
-   AlkValue: value =
+FunctionCall(env2')
+ExpressionState(env2')
+IfState(env2')
 
-   AlkValue rightSide : value = 3
+env -> env' (clone)
+env2 -> env2' (clone)
 
+
+
+Fir de executie 3
+
+MainState
+ChooseState
+
+FunctionCall
+ExpressionState
+IfState
+
+
+static EnvironmentController

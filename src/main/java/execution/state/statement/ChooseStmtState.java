@@ -1,42 +1,71 @@
 package execution.state.statement;
 
+import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkIterableValue;
 import parser.types.AlkValue;
+import parser.types.alkArray.AlkArray;
+import parser.types.alkBool.AlkBool;
 import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.helpers.NonDeterministic;
 
+import java.util.ArrayList;
+
 import static parser.exceptions.AlkException.ERR_CHOOSE_NOT_ITERABLE;
+import static parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 
 public class ChooseStmtState extends ExecutionState
 {
 
     private alkParser.ChooseStmtContext ctx;
-    private AlkIterableValue iterable;
+    private ArrayList<AlkValue> array;
+    private ArrayList<AlkValue> values = new ArrayList<>();
+    private int step = 0;
 
     public ChooseStmtState(alkParser.ChooseStmtContext ctx, StmtVisitor visitor)
     {
         super(ctx, new ExpressionVisitor(visitor.getEnvironment()));
         this.ctx = ctx;
+        setEnv(visitor.getEnvironment());
     }
 
     @Override
     public ExecutionState makeStep()
     {
-        if (iterable == null)
-        {
+        if (array == null)
             return (ExecutionState) visitor.visit(ctx.expression(0));
+
+        if (ctx.SOTHAT() != null && step < array.size())
+        {
+            env.update(ctx.ID().getText(), array.get(step).clone());
+            return (ExecutionState) visitor.visit(ctx.expression(1));
         }
 
-        // TODO: implement SoThat
+        if (ctx.SOTHAT() == null)
+        {
+            values = array;
+        }
+
+        AlkArray arr = new AlkArray();
+        arr.addAll(values);
+        AlkValue value = NonDeterministic.choose(arr);
+
         if (!config.hasExhaustive())
         {
-            AlkValue value = NonDeterministic.choose(iterable);
             env.update(ctx.ID().getText(), value.clone());
+        }
+        else
+        {
+            for (AlkValue val : arr)
+            {
+                Execution exec = new Execution(config);
+                // exec.setStack();
+                // exec.run();
+            }
         }
 
         return null;
@@ -45,15 +74,30 @@ public class ChooseStmtState extends ExecutionState
     @Override
     public void assign(ExecutionResult result)
     {
-        if (iterable == null)
+        if (array == null)
         {
             if (result.getValue() instanceof AlkIterableValue)
             {
-                iterable = (AlkIterableValue) result.getValue();
+                array = ((AlkIterableValue) result.getValue()).toArray();
             }
             else
             {
                 throw new AlkException(ERR_CHOOSE_NOT_ITERABLE);
+            }
+        }
+        else
+        {
+            assert(ctx.SOTHAT() != null);
+
+            if (result.getValue() instanceof AlkBool)
+            {
+                if (((AlkBool)result.getValue()).isTrue())
+                    values.add(array.get(step));
+                step++;
+            }
+            else
+            {
+                throw new AlkException(ERR_CHOSE_ST_BOOL);
             }
         }
     }

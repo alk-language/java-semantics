@@ -101,6 +101,7 @@ public class Configuration implements OptionProvider
         this.metadata = op.hasMetadata();
         this.alkFile = op.getAlkFile();
         this.debugMode = op.hasDebugMode();
+        this.exhaustive = op.hasExhaustive();
     }
 
     /**

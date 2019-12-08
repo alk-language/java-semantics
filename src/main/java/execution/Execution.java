@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 /**
  * The main class responsible for one alk file execution. It is implemented
@@ -28,6 +27,8 @@ public class Execution extends Thread
 
     /** The main configuration delivery instance.*/
     private Configuration config;
+
+    private ExecutionStack stack;
 
     /**
      * Constructor with specific configuration
@@ -66,6 +67,8 @@ public class Execution extends Thread
             execute preprocessing part
             TODO: rework preprocessing, move it to the parsing stage
          */
+
+
         Environment e = new Environment();
         /*PreProcessing pre = null;
         try
@@ -83,15 +86,17 @@ public class Execution extends Thread
             TODO: call different constructor without predefined environment
          */
 
-
         AlkParser parser = new AlkParser(alkFile, e, this);
-        ExecutionState state = parser.execute(config);
-        ExecutionStack stack = new ExecutionStack(config);
-        stack.push(state);
+        if (stack == null)
+        {
+            ExecutionState state = parser.execute(config);
+            stack = new ExecutionStack(config);
+            stack.push(state);
+        }
         stack.run();
 
         // debugging
-        System.out.println("Result: " + stack.getResult());
+        // System.out.println("Result: " + stack.getResult());
 
         /* AlkParser parser = new AlkParser(alkFile, e);
         parser.execute(config); */

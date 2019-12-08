@@ -3,6 +3,7 @@ import execution.state.ExecutionState;
 import execution.state.statement.AssignmentStmtState;
 import execution.state.statement.ChooseStmtState;
 import execution.state.statement.ToAssignmentStmtState;
+import execution.state.statement.ToChooseStmtState;
 import grammar.*;
 import parser.Pair;
 import parser.env.AlkFunction;
@@ -495,6 +496,9 @@ public class StmtVisitor extends alkBaseVisitor {
         return null;
     }
 
+    @Override public ExecutionState visitToChooseStmt(alkParser.ToChooseStmtContext ctx) {
+        return new ToChooseStmtState(ctx, this);
+    }
 
     /**
      * Handles the visiting of a Choose Statement. At first some checks are done as: if the second parameter is an

@@ -79,6 +79,10 @@ public class AlkConsole implements IOManager, OptionProvider
         trace.setRequired(false);
         options.addOption(trace);
 
+        Option exhaustive = new Option("e", "exhaustive", false, "run in exhaustive mode");
+        trace.setRequired(false);
+        options.addOption(exhaustive);
+
         CommandLineParser cmdparser = new DefaultParser();
 
         try
@@ -114,6 +118,11 @@ public class AlkConsole implements IOManager, OptionProvider
     @Override
     public boolean hasMetadata() {
         return cmd.hasOption("metadata");
+    }
+
+    @Override
+    public boolean hasExhaustive() {
+        return cmd.hasOption("exhaustive");
     }
 
     /**
