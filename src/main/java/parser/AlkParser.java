@@ -12,6 +12,8 @@ import parser.visitors.MainVisitor;
 import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.Configuration;
+import util.EnvironmentManager;
+import util.Payload;
 
 /**
  * Responsible for one file parsing. It starts with one empty global environment and a predefined configuration.
@@ -28,6 +30,8 @@ public class AlkParser {
     /* The execution to which this parser is linked */
     private Execution execution;
 
+    private EnvironmentManager envManager = new EnvironmentManager();
+
     /* Basic constructor meant to initialize the main char stream */
     public AlkParser(CharStream alkFile)
     {
@@ -43,22 +47,22 @@ public class AlkParser {
         this.execution = execution;
     }
 
-
     /**
      * Main entry point of the parsing process.
      * @param config
      * A predefined set of parameters under which the parser should run
      */
-    public ExecutionState execute (Configuration config)
+    public ExecutionState execute(Configuration config)
     {
         alkLexer lexerAlk = new alkLexer(alkFile);
         CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
         alkParser parserAlk = new alkParser(tokensAlk);
 
         ParseTree tree = parserAlk.main();
-
-        MainVisitor visitor = new MainVisitor(global);
-        return (ExecutionState) visitor.visit(tree);
+        MainVisitor visitor = new MainVisitor(global, new Payload(envManager));
+        ExecutionState state = visitor.visit(tree);
+        envManager.link(state, global);
+        return state;
     }
 
     /**

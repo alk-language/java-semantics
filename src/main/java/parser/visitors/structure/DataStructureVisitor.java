@@ -11,11 +11,14 @@ import parser.Pair;
 import parser.env.Environment;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.Payload;
 import util.types.ComponentValue;
 
 public class DataStructureVisitor extends alkBaseVisitor
 {
     protected Environment env;
+
+    protected Payload payload;
 
     public Environment getEnvironment() {
         return env;
@@ -23,6 +26,11 @@ public class DataStructureVisitor extends alkBaseVisitor
 
     public DataStructureVisitor(Environment env) {
         this.env = env;
+    }
+
+    public DataStructureVisitor(Environment env, Payload payload) {
+        this.env = env;
+        this.payload = payload;
     }
 
     public ExecutionState visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx) {
@@ -40,7 +48,7 @@ public class DataStructureVisitor extends alkBaseVisitor
 
     public ExecutionState visitComponentDefinition(alkParser.ComponentDefinitionContext ctx)
     {
-        return new ComponentDefinitionState(ctx, this);
+        return new ComponentDefinitionState(ctx, payload);
     }
 
 }

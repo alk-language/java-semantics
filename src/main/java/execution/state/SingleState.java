@@ -4,6 +4,8 @@ import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.types.AlkValue;
+import util.Payload;
+import util.VisitorFactory;
 import util.types.Value;
 
 /**
@@ -19,9 +21,10 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
     protected T localResult;
     boolean visited = false;
     private final ParseTree dependency;
+    protected Class<? extends alkBaseVisitor> visitor;
 
-    public SingleState(ParseTree tree, alkBaseVisitor visitor, ParseTree dependency) {
-        super(tree, visitor);
+    public SingleState(ParseTree tree, Payload payload, ParseTree dependency) {
+        super(tree, payload);
         this.dependency = dependency;
     }
 
@@ -34,7 +37,7 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
             return null;
         }
 
-        return (ExecutionState) visitor.visit(dependency);
+        return (ExecutionState<S, Value>) VisitorFactory.create(visitor, getEnv(), payload).visit(dependency);
     }
 
     @Override

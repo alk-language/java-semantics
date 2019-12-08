@@ -44,12 +44,12 @@ public class ListVisitor extends DataStructureVisitor {
 
 
     public ExecutionState visitListWithInterval(alkParser.ListWithIntervalContext ctx) {
-        return new IterableWithIntervalState(ctx, this, ctx.interval(), AlkList.class);
+        return new IterableWithIntervalState(ctx, payload, ctx.interval(), AlkList.class);
     }
 
 
     public ExecutionState visitListWithSpec(alkParser.ListWithSpecContext ctx) {
-        return new IterableWithSpecState(ctx, this, ctx.spec(), AlkList.class);
+        return new IterableWithSpecState(ctx, payload, ctx.spec(), AlkList.class);
     }
 
 

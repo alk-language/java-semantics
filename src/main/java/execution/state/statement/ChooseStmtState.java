@@ -4,6 +4,7 @@ import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
+import parser.env.Environment;
 import parser.exceptions.AlkException;
 import parser.types.AlkIterableValue;
 import parser.types.AlkValue;
@@ -12,6 +13,8 @@ import parser.types.alkBool.AlkBool;
 import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.helpers.NonDeterministic;
+import util.EnvironmentManager;
+import util.Payload;
 
 import java.util.ArrayList;
 
@@ -26,22 +29,28 @@ public class ChooseStmtState extends ExecutionState
     private ArrayList<AlkValue> values = new ArrayList<>();
     private int step = 0;
 
-    public ChooseStmtState(alkParser.ChooseStmtContext ctx, StmtVisitor visitor)
+    public ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
     {
-        super(ctx, new ExpressionVisitor(visitor.getEnvironment()));
+        super(ctx, payload);
         this.ctx = ctx;
-        setEnv(visitor.getEnvironment());
     }
 
     @Override
     public ExecutionState makeStep()
     {
+        if (visitor == null)
+        {
+            visitor = new ExpressionVisitor(getEnv());
+        }
+
         if (array == null)
+        {
             return (ExecutionState) visitor.visit(ctx.expression(0));
+        }
 
         if (ctx.SOTHAT() != null && step < array.size())
         {
-            env.update(ctx.ID().getText(), array.get(step).clone());
+            getEnv().update(ctx.ID().getText(), array.get(step).clone());
             return (ExecutionState) visitor.visit(ctx.expression(1));
         }
 
@@ -56,7 +65,7 @@ public class ChooseStmtState extends ExecutionState
 
         if (!config.hasExhaustive())
         {
-            env.update(ctx.ID().getText(), value.clone());
+            getEnv().update(ctx.ID().getText(), value.clone());
         }
         else
         {

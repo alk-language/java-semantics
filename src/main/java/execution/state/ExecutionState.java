@@ -6,6 +6,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import parser.types.AlkValue;
 import util.Configuration;
+import util.EnvironmentManager;
+import util.Payload;
 import util.types.Value;
 
 /**
@@ -18,17 +20,29 @@ import util.types.Value;
 public abstract class ExecutionState<T extends Value, S extends Value>
 {
     protected ParseTree tree;
+
+    // TODO: remove the visitor as global instance (not everybody needs a visitor
+    // TODO: it shouldn't be initialized in the constructor (there is no unique visitor for one state
     protected alkBaseVisitor visitor;
+
     protected ExecutionResult<T> result = null;
     protected Configuration config;
+    protected Payload payload;
 
     // TODO: remove the env variable, make it accessible in another way
+    @Deprecated
     protected Environment env;
 
     public ExecutionState(ParseTree tree, alkBaseVisitor visitor)
     {
         this.tree = tree;
         this.visitor = visitor;
+    }
+
+    public ExecutionState(ParseTree tree, Payload payload)
+    {
+        this.tree = tree;
+        this.payload = payload;
     }
 
     public ExecutionState(Environment env)
@@ -47,6 +61,11 @@ public abstract class ExecutionState<T extends Value, S extends Value>
 
     protected Environment getEnv()
     {
+        //TODO: for backward compatibility we keep the env variable, remove the if check when porting to the newest version
+        if (payload != null)
+        {
+            return payload.getEnvManager().getEnv(this);
+        }
         return env;
     }
 

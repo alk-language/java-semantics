@@ -12,11 +12,14 @@ import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.ListVisitor;
 import parser.visitors.structure.SetVisitor;
 import parser.visitors.structure.StructureVisitor;
+import util.Payload;
 import util.types.Value;
 
 public class ExpressionVisitor extends alkBaseVisitor {
 
     private Environment env;
+
+    private Payload payload;
 
     public ExpressionVisitor(Environment env) {
         this.env = env;
@@ -84,11 +87,11 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     @Override public ExecutionState visitPrefixExpression(alkParser.PrefixExpressionContext ctx) {
-        return new PrefixExpressionState(ctx, this);
+        return new PrefixExpressionState(ctx, payload);
     }
 
     @Override public ExecutionState visitUnaryExpression(alkParser.UnaryExpressionContext ctx) {
-        return new UnaryExpressionState(ctx, this);
+        return new UnaryExpressionState(ctx, payload);
     }
 
 

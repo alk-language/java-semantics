@@ -4,12 +4,13 @@ import execution.state.SingleState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.Payload;
 
 public class PrefixExpressionState extends SingleState<AlkValue, AlkValue> {
 
 
-    public PrefixExpressionState(alkParser.PrefixExpressionContext tree, ExpressionVisitor visitor) {
-        super(tree, visitor, tree.unary_expression());
+    public PrefixExpressionState(alkParser.PrefixExpressionContext tree, Payload payload) {
+        super(tree, payload, tree.unary_expression());
     }
 
     @Override
