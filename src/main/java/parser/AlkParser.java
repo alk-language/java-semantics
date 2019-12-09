@@ -25,21 +25,11 @@ public class AlkParser {
     private CharStream alkFile;
 
     /* The global environment initially empty */
-    private Environment global = new Environment();
+    private Environment global;
 
-    /* The execution to which this parser is linked */
     private Execution execution;
 
-    private EnvironmentManager envManager = new EnvironmentManager();
-
     /* Basic constructor meant to initialize the main char stream */
-    public AlkParser(CharStream alkFile)
-    {
-        this.alkFile = alkFile;
-    }
-
-    /* Basic constructor meant to initialize the main char stream */
-    @Deprecated
     public AlkParser(CharStream alkFile, Environment e, Execution execution)
     {
         this.alkFile = alkFile;
@@ -59,9 +49,9 @@ public class AlkParser {
         alkParser parserAlk = new alkParser(tokensAlk);
 
         ParseTree tree = parserAlk.main();
-        MainVisitor visitor = new MainVisitor(global, new Payload(envManager));
+        MainVisitor visitor = new MainVisitor(global, new Payload(execution));
         ExecutionState state = visitor.visit(tree);
-        envManager.link(state, global);
+        execution.getEnvManager().link(state, global);
         return state;
     }
 

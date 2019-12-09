@@ -1,23 +1,21 @@
 package util;
 
-import util.exception.InternalWarning;
+import execution.Execution;
 
 public class Payload {
 
-    EnvironmentManager envManager;
+    Execution execution;
 
-    public Payload (Object ... loads)
+    public Payload (Execution execution)
     {
-        for (Object load : loads)
-        {
-            if (load instanceof EnvironmentManager)
-                envManager = (EnvironmentManager) load;
-
-            //TODO: log warning if the load is unknown
-        }
+        this.execution = execution;
     }
 
     public EnvironmentManager getEnvManager() {
-        return envManager;
+        return execution.getEnvManager();
+    }
+
+    public Execution getExecution() {
+        return execution;
     }
 }

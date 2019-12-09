@@ -71,9 +71,10 @@ public class ChooseStmtState extends ExecutionState
         {
             for (AlkValue val : arr)
             {
-                Execution exec = new Execution(config);
-                // exec.setStack();
-                // exec.run();
+                Execution current = payload.getExecution();
+                getEnv().update(ctx.ID().getText(), val.clone());
+                //Execution next = current.clone(true);
+                //next.start();
             }
         }
 
