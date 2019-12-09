@@ -1,11 +1,8 @@
 package execution.state;
 
-import execution.state.statement.ChooseStmtState;
 import grammar.alkBaseVisitor;
-import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
-import util.EnvironmentManager;
 
 
 @Deprecated

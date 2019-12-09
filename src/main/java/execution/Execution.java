@@ -5,6 +5,7 @@ import parser.AlkParser;
 import parser.env.Environment;
 import parser.exceptions.AlkException;
 import preprocessing.PreProcessing;
+import util.EnvironmentManager;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -29,6 +30,10 @@ public class Execution extends Thread
     private Configuration config;
 
     private ExecutionStack stack;
+
+    private EnvironmentManager envManager = new EnvironmentManager();
+
+
 
     /**
      * Constructor with specific configuration
@@ -128,5 +133,9 @@ public class Execution extends Thread
                 e.printStackTrace();
             }
         }
+    }
+
+    public EnvironmentManager getEnvManager() {
+        return envManager;
     }
 }

@@ -532,7 +532,7 @@ public class StmtVisitor extends alkBaseVisitor {
     public ExecutionState visitChooseStmt(alkParser.ChooseStmtContext ctx) {
         //return stateFactory.create(ChooseStmtState.class, this, alkParser.ChooseStmtContext.class, ctx, env);
         EnvironmentManager envManager = payload.getEnvManager();
-        ChooseStmtState state = new ChooseStmtState(ctx, new Payload(envManager));
+        ChooseStmtState state = new ChooseStmtState(ctx, payload);
         envManager.link(state, env);
         return state;
     }
