@@ -1,35 +1,37 @@
 package parser.visitors.structure;
 
 import execution.state.ExecutionState;
+import execution.state.StateFactory;
+import execution.state.expression.StringValueState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.env.Environment;
 import parser.types.alkArray.AlkArray;
+import util.Payload;
 
 public class ArrayVisitor extends DataStructureVisitor {
 
-    public ArrayVisitor(Environment env) {
-        super(env);
+    public ArrayVisitor(Environment env, Payload payload) {
+        super(env, payload);
     }
 
     @Override
     public ExecutionState visitArrayWithExpressions(alkParser.ArrayWithExpressionsContext ctx)
     {
-        return new IterableWithExpressionsState(ctx, env, ctx.expression(), AlkArray.class);
+        return StateFactory.create(IterableWithExpressionsState.class, ctx, payload, AlkArray.class, env);
     }
-
 
     @Override
     public ExecutionState visitArrayWithInterval(alkParser.ArrayWithIntervalContext ctx)
     {
-        return new IterableWithIntervalState(ctx, payload, ctx.interval(), AlkArray.class);
+        return StateFactory.create(IterableWithIntervalState.class, ctx, payload, ctx.interval(), AlkArray.class, env);
     }
 
     @Override
     public ExecutionState visitArrayWithSpec(alkParser.ArrayWithSpecContext ctx)
     {
-        return new IterableWithSpecState(ctx, payload, ctx.spec(), AlkArray.class);
+        return StateFactory.create(IterableWithSpecState.class, ctx, payload, ctx.spec(), AlkArray.class, env);
     }
 }

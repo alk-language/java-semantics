@@ -19,13 +19,14 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
 {
 
     protected T localResult;
-    boolean visited = false;
+    private boolean visited = false;
     private final ParseTree dependency;
     protected Class<? extends alkBaseVisitor> visitor;
 
-    public SingleState(ParseTree tree, Payload payload, ParseTree dependency) {
+    public SingleState(ParseTree tree, Payload payload, ParseTree dependency, Class<? extends alkBaseVisitor> visitor) {
         super(tree, payload);
         this.dependency = dependency;
+        this.visitor = visitor;
     }
 
     @Override

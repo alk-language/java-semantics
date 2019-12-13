@@ -9,12 +9,14 @@ import util.types.Value;
 
 import java.util.List;
 
-public abstract class IndividualGeneratorState extends GeneratorState {
+public abstract class IndependentGeneratorState extends GeneratorState {
 
-    protected Class<? extends alkBaseVisitor> visitor;
-
-    protected IndividualGeneratorState(ParseTree tree, Payload payload, List<? extends ParseTree> children) {
-        super(tree, payload, children);
+    protected IndependentGeneratorState(ParseTree tree,
+                                        Payload payload,
+                                        List<? extends ParseTree> children,
+                                        Class<? extends alkBaseVisitor> visitor)
+    {
+        super(tree, payload, children, visitor);
     }
 
     @Override

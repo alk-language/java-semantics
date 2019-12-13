@@ -34,7 +34,6 @@ public class NonDeterministic {
         ArrayList array = struct.toArray();
         Random rand = new Random();
         int poz = rand.nextInt(array.size());
-        //Parsing.callRandom(new BigInteger(String.valueOf(array.size())));
         return (AlkValue) array.get(poz);
     }
 
@@ -42,7 +41,7 @@ public class NonDeterministic {
         ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
         ArrayList array = struct.toArray();
 
-        while (array.size()>0) {
+        while (array.size() > 0) {
             Random rand = new Random();
             int poz = rand.nextInt(array.size());
             AlkValue value = (AlkValue) array.get(poz);

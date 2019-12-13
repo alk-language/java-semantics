@@ -1,13 +1,12 @@
 package parser.visitors.structure;
 
 import execution.state.ExecutionState;
-import execution.state.structure.ComponentDefinitionState;
-import execution.state.structure.FilterSpecDefinitionState;
-import execution.state.structure.IntervalDefinitionState;
-import execution.state.structure.SelectSpecDefinitionState;
+import execution.state.StateFactory;
+import execution.state.structure.*;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.env.Environment;
+import parser.types.alkArray.AlkArray;
 import util.Payload;
 
 public class DataStructureVisitor extends alkBaseVisitor
@@ -20,31 +19,27 @@ public class DataStructureVisitor extends alkBaseVisitor
         return env;
     }
 
-    public DataStructureVisitor(Environment env) {
-        this.env = env;
-    }
-
     public DataStructureVisitor(Environment env, Payload payload) {
         this.env = env;
         this.payload = payload;
     }
 
     public ExecutionState visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx) {
-        return new IntervalDefinitionState(ctx, this);
+        return StateFactory.create(IntervalDefinitionState.class, ctx, payload, env);
     }
 
     public ExecutionState visitSelectSpecDefinition(alkParser.SelectSpecDefinitionContext ctx)
     {
-        return new SelectSpecDefinitionState(ctx, this);
+        return StateFactory.create(SelectSpecDefinitionState.class, ctx, payload, env);
     }
 
     public ExecutionState visitFilterSpecDefinition(alkParser.FilterSpecDefinitionContext ctx) {
-        return new FilterSpecDefinitionState(ctx, this);
+        return StateFactory.create(FilterSpecDefinitionState.class, ctx, payload, env);
     }
 
     public ExecutionState visitComponentDefinition(alkParser.ComponentDefinitionContext ctx)
     {
-        return new ComponentDefinitionState(ctx, payload);
+        return StateFactory.create(ComponentDefinitionState.class, ctx, payload, env);
     }
 
 }

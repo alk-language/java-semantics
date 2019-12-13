@@ -5,11 +5,14 @@ import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 
+@CtxState(ctxClass = alkParser.BitwiseOrExpressionContext.class)
 public class BitwiseOrExpressionState extends GuardedGeneratorState<AlkValue> {
 
-    public BitwiseOrExpressionState(alkParser.BitwiseOrExpressionContext tree, ExpressionVisitor visitor) {
-        super(tree, visitor, tree.bitwise_and());
+    public BitwiseOrExpressionState(alkParser.BitwiseOrExpressionContext tree, Payload payload) {
+        super(tree, payload, tree.bitwise_and(), ExpressionVisitor.class);
     }
 
     @Override

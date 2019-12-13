@@ -3,6 +3,7 @@ package execution.state.statement;
 import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkIterableValue;
@@ -12,6 +13,7 @@ import parser.types.alkBool.AlkBool;
 import parser.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.helpers.NonDeterministic;
+import util.CtxState;
 import util.Payload;
 
 import java.util.ArrayList;
@@ -19,9 +21,9 @@ import java.util.ArrayList;
 import static parser.exceptions.AlkException.ERR_CHOOSE_NOT_ITERABLE;
 import static parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 
+@CtxState(ctxClass = alkParser.ChooseStmtContext.class)
 public class ChooseStmtState extends ExecutionState
 {
-
     private alkParser.ChooseStmtContext ctx;
     private ArrayList<AlkValue> array;
     private ArrayList<AlkValue> values = new ArrayList<>();
@@ -36,10 +38,7 @@ public class ChooseStmtState extends ExecutionState
     @Override
     public ExecutionState makeStep()
     {
-        if (visitor == null)
-        {
-            visitor = new ExpressionVisitor(getEnv());
-        }
+        alkBaseVisitor visitor = new ExpressionVisitor(getEnv(), payload);
 
         if (array == null)
         {

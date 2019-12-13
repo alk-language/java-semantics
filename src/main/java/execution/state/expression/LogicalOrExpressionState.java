@@ -7,15 +7,18 @@ import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkValue;
 import parser.types.alkBool.AlkBool;
+import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 
 import static parser.exceptions.AlkException.ERR_LOGICALOR;
 
+@CtxState(ctxClass = alkParser.LogicalOrExpressionContext.class)
 public class LogicalOrExpressionState extends GuardedGeneratorState<AlkValue>
 {
-
-    public LogicalOrExpressionState(alkParser.LogicalOrExpressionContext tree, alkBaseVisitor visitor)
+    public LogicalOrExpressionState(alkParser.LogicalOrExpressionContext tree, Payload payload)
     {
-        super(tree, visitor, tree.logical_and_expression());
+        super(tree, payload, tree.logical_and_expression(), ExpressionVisitor.class);
         setPreValidator(() -> {
             if (getLocalResult() != null)
             {

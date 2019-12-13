@@ -1,6 +1,7 @@
 package parser.visitors;
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
+import execution.state.main.StatementSeqState;
 import execution.state.statement.AssignmentStmtState;
 import execution.state.statement.ChooseStmtState;
 import execution.state.statement.ToAssignmentStmtState;
@@ -22,6 +23,7 @@ import parser.visitors.helpers.NonDeterministic;
 import util.EnvironmentManager;
 import util.Payload;
 
+import javax.swing.plaf.nimbus.State;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -181,6 +183,12 @@ public class StmtVisitor extends alkBaseVisitor {
     }
 
 
+    @Override
+    public ExecutionState visitStatementSeq(alkParser.StatementSeqContext ctx)
+    {
+        return new StatementSeqState(ctx, payload);
+    }
+
     @Override public ExecutionState visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx)
     {
         return new ToAssignmentStmtState(ctx, payload);
@@ -198,7 +206,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public ExecutionState visitAssignmentStmt(alkParser.AssignmentStmtContext ctx)
     {
-        return new AssignmentStmtState(ctx, this);
+        return new AssignmentStmtState(ctx, payload);
     }
 
 
@@ -510,11 +518,10 @@ public class StmtVisitor extends alkBaseVisitor {
         return null;
     }
 
-    @Override public ExecutionState visitToChooseStmt(alkParser.ToChooseStmtContext ctx) {
-        EnvironmentManager envManager = payload.getEnvManager();
-        ToChooseStmtState state = new ToChooseStmtState(ctx, payload);
-        envManager.link(state, env);
-        return state;
+    @Override
+    public ExecutionState visitToChooseStmt(alkParser.ToChooseStmtContext ctx)
+    {
+        return StateFactory.create(ToChooseStmtState.class, ctx, payload, env);
     }
 
     /**
@@ -529,12 +536,9 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Choose Statement node in the execution tree meant to be parsed.
      */
     @Override
-    public ExecutionState visitChooseStmt(alkParser.ChooseStmtContext ctx) {
-        //return stateFactory.create(ChooseStmtState.class, this, alkParser.ChooseStmtContext.class, ctx, env);
-        EnvironmentManager envManager = payload.getEnvManager();
-        ChooseStmtState state = new ChooseStmtState(ctx, payload);
-        envManager.link(state, env);
-        return state;
+    public ExecutionState visitChooseStmt(alkParser.ChooseStmtContext ctx)
+    {
+        return StateFactory.create(ChooseStmtState.class, ctx, payload, env);
     }
 
 

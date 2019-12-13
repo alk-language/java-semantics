@@ -8,6 +8,8 @@ import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.structure.DataStructureVisitor;
+import util.CtxState;
+import util.Payload;
 import util.types.IntervalValue;
 
 import java.util.ArrayList;
@@ -16,13 +18,14 @@ import java.util.List;
 import static parser.exceptions.AlkException.ERR_LIMIT;
 import static parser.exceptions.AlkException.ERR_NOINT_INTERVAL;
 
+@CtxState(ctxClass = alkParser.IntervalDefinitionContext.class)
 public class IntervalDefinitionState extends GeneratorState<IntervalValue, AlkValue>
 {
 
     private List<AlkValue> limits = new ArrayList<>();
 
-    public IntervalDefinitionState(alkParser.IntervalDefinitionContext tree, DataStructureVisitor visitor) {
-        super(tree, new ExpressionVisitor(visitor.getEnvironment()), tree.expression());
+    public IntervalDefinitionState(alkParser.IntervalDefinitionContext tree, Payload payload) {
+        super(tree, payload, tree.expression(), ExpressionVisitor.class);
     }
 
     @Override

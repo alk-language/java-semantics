@@ -5,16 +5,18 @@ import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.structure.DataStructureVisitor;
+import util.CtxState;
 import util.Payload;
 import util.types.ComponentValue;
 
+@CtxState(ctxClass = alkParser.ComponentDefinitionContext.class)
 public class ComponentDefinitionState extends SingleState <ComponentValue, AlkValue>
 {
 
     private alkParser.ComponentDefinitionContext ctx;
 
     public ComponentDefinitionState(alkParser.ComponentDefinitionContext tree, Payload payload) {
-        super(tree, payload, tree.expression());
+        super(tree, payload, tree.expression(), ExpressionVisitor.class);
         ctx = tree;
     }
 

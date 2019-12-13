@@ -17,8 +17,7 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
                                  ParseTree spec,
                                  Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, payload, spec);
-        visitor = DataStructureVisitor.class;
+        super(tree, payload, spec, DataStructureVisitor.class);
         this.clazz = clazz;
     }
 
