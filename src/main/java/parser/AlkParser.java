@@ -47,7 +47,6 @@ public class AlkParser {
         ParseTree tree = parserAlk.main();
         MainVisitor visitor = new MainVisitor(global, new Payload(execution));
         ExecutionState state = visitor.visit(tree);
-        execution.getEnvManager().link(state, global);
         return state;
     }
 

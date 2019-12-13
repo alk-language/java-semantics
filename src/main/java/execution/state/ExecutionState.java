@@ -21,31 +21,16 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     // TODO: remove the visitor as global instance (not everybody needs a visitor
     // TODO: it shouldn't be initialized in the constructor (there is no unique visitor for one state
-    protected alkBaseVisitor visitor;
+    // protected alkBaseVisitor visitor;
 
     protected ExecutionResult<T> result = null;
     protected Configuration config;
     protected Payload payload;
 
-    // TODO: remove the env variable, make it accessible in another way
-    @Deprecated
-    protected Environment env;
-
-    public ExecutionState(ParseTree tree, alkBaseVisitor visitor)
-    {
-        this.tree = tree;
-        this.visitor = visitor;
-    }
-
     public ExecutionState(ParseTree tree, Payload payload)
     {
         this.tree = tree;
         this.payload = payload;
-    }
-
-    public ExecutionState(Environment env)
-    {
-        this.env = env;
     }
 
     public ExecutionResult<T> getResult()
@@ -59,22 +44,10 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     protected Environment getEnv()
     {
-        //TODO: for backward compatibility we keep the env variable, remove the if check when porting to the newest version
-        if (payload != null)
-        {
-            return payload.getEnvManager().getEnv(this);
-        }
-        return env;
-    }
-
-    protected void setEnv(Environment e)
-    {
-        env = e;
+        return payload.getEnvManager().getEnv(this);
     }
 
     public void setConfiguration(Configuration config) {
         this.config = config;
     }
-
-    // public abstract ExecutionState clone();
 }

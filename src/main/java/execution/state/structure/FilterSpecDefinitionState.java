@@ -2,6 +2,7 @@ package execution.state.structure;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkIterableValue;
@@ -10,6 +11,9 @@ import parser.types.alkArray.AlkArray;
 import parser.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.structure.DataStructureVisitor;
+import util.CtxState;
+import util.Payload;
+import util.VisitorFactory;
 import util.types.Value;
 
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ import static parser.exceptions.AlkException.ERR_SPEC_BOOL;
 import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 // TODO: make use of temporary environment once there exists an environment stack
+@CtxState(ctxClass = alkParser.FilterSpecDefinitionContext.class)
 public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue> {
 
     private List<AlkValue> source;
@@ -28,15 +33,15 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
     private AlkArray array = new AlkArray();
     private AlkValue validatingValue;
 
-    public FilterSpecDefinitionState(alkParser.FilterSpecDefinitionContext tree, DataStructureVisitor visitor) {
-        super(tree, new ExpressionVisitor(visitor.getEnvironment()));
+    public FilterSpecDefinitionState(alkParser.FilterSpecDefinitionContext tree, Payload payload) {
+        super(tree, payload);
         ctx = tree;
-        setEnv(visitor.getEnvironment());
     }
 
     @Override
     public ExecutionState makeStep()
     {
+        alkBaseVisitor visitor = VisitorFactory.create(ExpressionVisitor.class, getEnv(), payload);
         if (source == null)
             return (ExecutionState) visitor.visit(ctx.expression(0));
 

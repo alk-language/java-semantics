@@ -1,16 +1,16 @@
 package execution.state.main;
 
-import execution.state.IndividualGeneratorState;
+import execution.state.IndependentGeneratorState;
 import grammar.alkParser;
-import parser.visitors.MainVisitor;
 import parser.visitors.StmtVisitor;
+import util.CtxState;
 import util.Payload;
 
-public class StatementSeqState extends IndividualGeneratorState {
+@CtxState(ctxClass = alkParser.StatementSeqContext.class)
+public class StatementSeqState extends IndependentGeneratorState
+{
     public StatementSeqState(alkParser.StatementSeqContext tree, Payload payload)
     {
-        // TODO: to be rethinked
-        super(tree, payload, tree.statement());
-        visitor = StmtVisitor.class;
+        super(tree, payload, tree.statement(), StmtVisitor.class);
     }
 }

@@ -1,13 +1,14 @@
 package execution.state.expression;
 
-import execution.state.ExecutionState;
+import execution.state.PrimitiveState;
 import grammar.alkParser;
-import parser.types.AlkValue;
 import parser.types.alkString.AlkString;
-import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 
+@CtxState(ctxClass = alkParser.StringValueContext.class)
 public class StringValueState extends PrimitiveState {
-    public StringValueState(alkParser.StringValueContext ctx, ExpressionVisitor visitor) {
-        super(ctx, visitor, new AlkString(ctx.STRING().toString().substring(1, ctx.STRING().toString().length()-1)));
+    public StringValueState(alkParser.StringValueContext ctx, Payload payload) {
+        super(ctx, payload, new AlkString(ctx.STRING().toString().substring(1, ctx.STRING().toString().length()-1)));
     }
 }

@@ -7,22 +7,29 @@ import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkValue;
 import parser.types.alkBool.AlkBool;
+import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
+import util.VisitorFactory;
 
 import static parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;
 
+@CtxState(ctxClass = alkParser.ConditionalExpressionContext.class)
 public class ConditionalExpressionState extends ExecutionState {
 
     private alkParser.ConditionalExpressionContext ctx;
     private AlkValue queryExpression;
 
-    public ConditionalExpressionState(alkParser.ConditionalExpressionContext tree, alkBaseVisitor visitor) {
-        super(tree, visitor);
+    public ConditionalExpressionState(alkParser.ConditionalExpressionContext tree, Payload payload) {
+        super(tree, payload);
         ctx = tree;
     }
 
     @Override
     public ExecutionState makeStep()
     {
+        alkBaseVisitor visitor = VisitorFactory.create(ExpressionVisitor.class, getEnv(), payload);
+
         if (result != null)
         {
             return null;

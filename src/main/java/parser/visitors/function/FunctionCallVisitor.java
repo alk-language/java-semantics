@@ -12,6 +12,7 @@ import parser.types.AlkValue;
 import parser.types.alkBool.AlkBool;
 import parser.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
+import util.Payload;
 
 
 import java.util.ArrayList;
@@ -22,9 +23,17 @@ public class FunctionCallVisitor extends alkBaseVisitor {
 
     private Environment env;
 
+    private Payload payload;
+
     public FunctionCallVisitor(Environment env)
     {
         this.env = env;
+    }
+
+    public FunctionCallVisitor(Environment env, Payload payload)
+    {
+        this.env = env;
+        this.payload = payload;
     }
 
     public Environment getEnvironment()
@@ -36,7 +45,7 @@ public class FunctionCallVisitor extends alkBaseVisitor {
     @Override
     public ExecutionState visitBuiltinMethod(alkParser.BuiltinMethodContext ctx)
     {
-        return new BuiltInMethodState(ctx, this);
+        return new BuiltInMethodState(ctx, payload);
     }
 
     @Override public Object visitDefinedFunctionCall(alkParser.DefinedFunctionCallContext ctx)

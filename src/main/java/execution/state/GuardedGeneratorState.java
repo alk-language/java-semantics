@@ -4,6 +4,7 @@ import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.types.AlkValue;
+import util.Payload;
 import util.exception.AlkFatalException;
 import util.exception.InternalException;
 import util.types.Value;
@@ -19,9 +20,12 @@ public abstract class GuardedGeneratorState<T extends Value> extends GeneratorSt
 {
     private T localResult;
 
-    public GuardedGeneratorState(ParseTree tree, alkBaseVisitor visitor, List<? extends ParseTree> children)
+    public GuardedGeneratorState(ParseTree tree,
+                                 Payload payload,
+                                 List<? extends ParseTree> children,
+                                 Class<? extends alkBaseVisitor> visitor)
     {
-        super(tree, visitor, children);
+        super(tree, payload, children, visitor);
     }
 
     @Override

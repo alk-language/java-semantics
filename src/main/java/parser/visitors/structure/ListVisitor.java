@@ -1,47 +1,38 @@
 package parser.visitors.structure;
 
-import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.state.StateFactory;
+import execution.state.PrimitiveState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.env.Environment;
 import parser.types.alkList.AlkList;
+import util.Payload;
 
 public class ListVisitor extends DataStructureVisitor {
 
-    public ListVisitor(Environment env) {
-        super(env);
+    public ListVisitor(Environment env, Payload payload) {
+        super(env, payload);
     }
 
     public ExecutionState visitListWithExpressions(alkParser.ListWithExpressionsContext ctx) {
-        return new IterableWithExpressionsState(ctx, env, ctx.expression(), AlkList.class);
+        return StateFactory.create(IterableWithExpressionsState.class, ctx, payload, AlkList.class, env);
     }
 
     public ExecutionState visitEmptyList(alkParser.EmptyListContext ctx) {
-        return new ExecutionState(ctx, this) {
-            @Override
-            public ExecutionState makeStep() {
-                result = new ExecutionResult<>(new AlkList());
-                return null;
-            }
-
-            @Override
-            public void assign(ExecutionResult result) {
-                // no-op
-            }
-        };
+        return StateFactory.create(PrimitiveState.class, ctx, payload, new AlkList(), env);
     }
 
 
     public ExecutionState visitListWithInterval(alkParser.ListWithIntervalContext ctx) {
-        return new IterableWithIntervalState(ctx, payload, ctx.interval(), AlkList.class);
+        return StateFactory.create(IterableWithIntervalState.class, ctx, payload, ctx.interval(), AlkList.class, env);
     }
 
 
     public ExecutionState visitListWithSpec(alkParser.ListWithSpecContext ctx) {
-        return new IterableWithSpecState(ctx, payload, ctx.spec(), AlkList.class);
+        return StateFactory.create(IterableWithSpecState.class, ctx, payload, ctx.spec(), AlkList.class, env);
     }
 
 

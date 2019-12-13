@@ -2,11 +2,14 @@ package execution.state.structure;
 
 import execution.ExecutionResult;
 import execution.state.GeneratorState;
+import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import parser.types.AlkIterableValue;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 import util.exception.InternalException;
 
 import java.util.ArrayList;
@@ -18,10 +21,10 @@ public class IterableWithExpressionsState extends GeneratorState<AlkIterableValu
     private Class<? extends AlkIterableValue> clazz;
 
     public IterableWithExpressionsState(ParseTree tree,
-                                        Environment env,
+                                        Payload payload,
                                         List<? extends ParseTree> dependency,
                                         Class<? extends AlkIterableValue> clazz) {
-        super(tree, new ExpressionVisitor(env), dependency);
+        super(tree, payload, dependency, ExpressionVisitor.class);
         this.clazz = clazz;
     }
 

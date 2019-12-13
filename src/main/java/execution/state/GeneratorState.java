@@ -5,6 +5,7 @@ import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.types.alkInt.AlkInt;
 import util.Payload;
+import util.VisitorFactory;
 import util.lambda.Validator;
 import util.types.Value;
 
@@ -22,16 +23,16 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
     int step = 0;
     private List<? extends ParseTree> children;
     private Validator preValidator;
+    protected Class<? extends alkBaseVisitor> visitor;
 
-    @Deprecated
-    protected GeneratorState(ParseTree tree, alkBaseVisitor visitor, List<? extends ParseTree> children) {
-        super(tree, visitor);
-        this.children = children;
-    }
-
-    protected GeneratorState(ParseTree tree, Payload payload, List<? extends ParseTree> children) {
+    protected GeneratorState(ParseTree tree,
+                             Payload payload,
+                             List<? extends ParseTree> children,
+                             Class<? extends alkBaseVisitor> visitor)
+    {
         super(tree, payload);
         this.children = children;
+        this.visitor = visitor;
     }
 
     @Override
@@ -44,7 +45,7 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
             return null;
         }
 
-        return (ExecutionState) visitor.visit(children.get(step++));
+        return (ExecutionState) VisitorFactory.create(visitor, getEnv(), payload).visit(children.get(step++));
     }
 
     @Override

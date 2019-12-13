@@ -4,11 +4,14 @@ import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 
+@CtxState(ctxClass = alkParser.SetExpressionContext.class)
 public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
 
-    public SetExpressionState(alkParser.SetExpressionContext ctx, ExpressionVisitor visitor) {
-        super(ctx, visitor, ctx.bitwise_or());
+    public SetExpressionState(alkParser.SetExpressionContext ctx, Payload payload) {
+        super(ctx, payload, ctx.bitwise_or(), ExpressionVisitor.class);
     }
 
     @Override
@@ -20,6 +23,7 @@ public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
                 return current.intersect(next);
             default:
                 return current.setSubtract(next);
+
         }
     }
 }

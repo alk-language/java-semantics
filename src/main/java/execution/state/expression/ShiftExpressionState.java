@@ -4,10 +4,13 @@ import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 
+@CtxState(ctxClass = alkParser.ShiftExpressionContext.class)
 public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
-    public ShiftExpressionState(alkParser.ShiftExpressionContext tree, ExpressionVisitor visitor) {
-        super(tree, visitor, tree.additive_expression());
+    public ShiftExpressionState(alkParser.ShiftExpressionContext tree, Payload payload) {
+        super(tree, payload, tree.additive_expression(), ExpressionVisitor.class);
     }
 
     @Override

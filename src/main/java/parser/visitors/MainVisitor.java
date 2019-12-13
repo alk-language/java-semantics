@@ -1,6 +1,7 @@
 package parser.visitors;
 
 import execution.state.ExecutionState;
+import execution.state.StateFactory;
 import execution.state.main.MainState;
 import execution.state.main.StatementSeqState;
 import grammar.alkBaseVisitor;
@@ -56,10 +57,7 @@ public class MainVisitor extends alkBaseVisitor<ExecutionState> {
     @Override
     public ExecutionState visitStartPoint(alkParser.StartPointContext ctx)
     {
-        EnvironmentManager envManager = payload.getEnvManager();
-        MainState state = new MainState(ctx, payload);
-        envManager.link(state, global);
-        return state;
+        return StateFactory.create(MainState.class, ctx, payload, global);
     }
 
     /**
@@ -69,9 +67,6 @@ public class MainVisitor extends alkBaseVisitor<ExecutionState> {
     @Override
     public ExecutionState visitStatementSeq(alkParser.StatementSeqContext ctx)
     {
-        EnvironmentManager envManager = payload.getEnvManager();
-        StatementSeqState state = new StatementSeqState(ctx, payload);
-        envManager.link(state, global);
-        return state;
+        return StateFactory.create(StatementSeqState.class, ctx, payload, global);
     }
 }

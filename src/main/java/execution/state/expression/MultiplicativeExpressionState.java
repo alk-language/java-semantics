@@ -1,14 +1,16 @@
 package execution.state.expression;
 
-import execution.ExecutionResult;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 
+@CtxState(ctxClass = alkParser.MultiplicativeExpressionContext.class)
 public class MultiplicativeExpressionState extends GuardedGeneratorState<AlkValue> {
-    public MultiplicativeExpressionState(alkParser.MultiplicativeExpressionContext tree, ExpressionVisitor visitor) {
-        super(tree, visitor, tree.unary_expression());
+    public MultiplicativeExpressionState(alkParser.MultiplicativeExpressionContext tree, Payload payload) {
+        super(tree, payload, tree.unary_expression(), ExpressionVisitor.class);
     }
 
     @Override

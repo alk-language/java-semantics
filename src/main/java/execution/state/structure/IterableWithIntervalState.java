@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.types.AlkIterableValue;
 import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
+import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.structure.DataStructureVisitor;
 import util.Payload;
 import util.exception.InternalException;
@@ -22,8 +23,7 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
                                      ParseTree interval,
                                      Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, payload, interval);
-        visitor = DataStructureVisitor.class;
+        super(tree, payload, interval, DataStructureVisitor.class);
         this.clazz = clazz;
     }
 

@@ -47,7 +47,6 @@ public class EnvironmentManager {
             // ExecutionState key = entry.getKey().clone();
             ExecutionState key = (ExecutionState) entry.getKey();
 
-            //Environment value = (Environment) entry.getValue().clone();
             Environment value = ((Environment) entry.getValue()).clone();
 
             clone.state2env.put(key, value);

@@ -9,9 +9,12 @@ import parser.visitors.AssignedVisitor;
 import parser.visitors.ReferenceVisitor;
 import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
+import util.CtxState;
+import util.Payload;
 import util.exception.InternalException;
 import util.exception.UnimplementedException;
 
+@CtxState(ctxClass = alkParser.AssignmentStmtContext.class)
 public class AssignmentStmtState extends ExecutionState
 {
 
@@ -19,9 +22,8 @@ public class AssignmentStmtState extends ExecutionState
     private AlkValue rightSide;
     private String operator;
 
-    public AssignmentStmtState(alkParser.AssignmentStmtContext tree, StmtVisitor visitor) {
-        super(tree, visitor);
-        env = visitor.getEnvironment();
+    public AssignmentStmtState(alkParser.AssignmentStmtContext tree, Payload payload) {
+        super(tree, payload);
         ctx = tree;
         operator = ctx.ASSIGNMENT_OPERATOR().getText();
     }
@@ -30,18 +32,18 @@ public class AssignmentStmtState extends ExecutionState
     public ExecutionState makeStep()
     {
         if (rightSide == null)
-            return (ExecutionState) new ExpressionVisitor(env).visit(ctx.expression());
+            return (ExecutionState) new ExpressionVisitor(getEnv()).visit(ctx.expression());
 
         if (operator.equals("="))
         {
             // TODO: rethink the AssignedVisitor
-            AssignedVisitor asgnVisitor = new AssignedVisitor(env, rightSide);
+            AssignedVisitor asgnVisitor = new AssignedVisitor(getEnv(), rightSide);
             asgnVisitor.visit(ctx.ref_name());
             return null;
         }
 
         // TODO: rethink the ReferenceVisitor
-        ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor referenceVisitor = new ReferenceVisitor(getEnv());
         AlkValue leftSide = ((AlkValue) referenceVisitor.visit(ctx.ref_name())).clone();
 
         switch (operator)
@@ -59,7 +61,7 @@ public class AssignmentStmtState extends ExecutionState
                 throw new UnimplementedException("Unimplemented assignment operator: " + operator);
         }
 
-        AssignedVisitor asgnVisitor = new AssignedVisitor(env, rightSide);
+        AssignedVisitor asgnVisitor = new AssignedVisitor(getEnv(), rightSide);
         asgnVisitor.visit(ctx.ref_name());
         return null;
     }
