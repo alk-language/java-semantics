@@ -9,7 +9,7 @@ import java.io.File;
  * Responsible for registering important details regarding one execution.
  * I also serves as an option provider.
  */
-public class Configuration implements OptionProvider
+public class Configuration implements OptionProvider, Cloneable
 {
     /** The main file to be parsed */
     private File alkFile;
@@ -117,5 +117,21 @@ public class Configuration implements OptionProvider
     public IOManager getIOManager()
     {
         return io;
+    }
+
+    public Configuration clone() {
+        try {
+            Configuration copy = (Configuration) super.clone();
+            copy.importOptions(this);
+            copy.attach(io);
+            copy.attach(em);
+            return copy;
+        }
+        catch (CloneNotSupportedException e)
+        {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return null;
     }
 }

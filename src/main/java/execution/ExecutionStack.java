@@ -8,7 +8,7 @@ import util.types.Value;
 
 import java.util.Stack;
 
-public class ExecutionStack
+public class ExecutionStack implements Cloneable
 {
     private Configuration config;
 
@@ -69,5 +69,36 @@ public class ExecutionStack
 
     public ExecutionResult getResult() {
         return result;
+    }
+
+    void nullifyLast()
+    {
+        ExecutionState<? extends Value, ? extends Value> top = stack.peek();
+        ExecutionResult result = top.getResult();
+        pop();
+        if (!stack.empty())
+        {
+            top = stack.peek();
+            top.assign(result);
+        }
+        else
+        {
+            this.result = result;
+        }
+    }
+    
+    public ExecutionStack clone() {
+        ExecutionStack clone = new ExecutionStack(null);
+        // TODO: this shouldn't be a clone, but the config from the execution
+        clone.config = config.clone();
+        if (result != null)
+            clone.result = result.clone();
+        for (ExecutionState<? extends Value, ? extends Value> state : stack)
+        {
+            //clone.stack.push(state.clone());
+            clone.stack.push(state);
+        }
+
+        return clone;
     }
 }

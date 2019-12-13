@@ -104,7 +104,7 @@ public class AlkConsole implements IOManager, OptionProvider
      * The text meant to be displayed on stdout
      */
     @Override
-    public void write(String text)
+    public synchronized void write(String text)
     {
         System.out.println(text);
     }

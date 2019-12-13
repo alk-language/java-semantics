@@ -5,7 +5,6 @@ import execution.state.ExecutionState;
 import execution.state.expression.*;
 import parser.env.Environment;
 import grammar.*;
-import parser.types.AlkValue;
 import parser.visitors.ReferenceVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 import parser.visitors.structure.ArrayVisitor;

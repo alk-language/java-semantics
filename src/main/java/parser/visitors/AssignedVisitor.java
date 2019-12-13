@@ -2,7 +2,6 @@ package parser.visitors;
 
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import parser.Pair;
 import parser.env.Environment;
 import parser.exceptions.AlkException;
 import parser.types.AlkValue;

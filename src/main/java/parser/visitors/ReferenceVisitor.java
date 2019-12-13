@@ -7,7 +7,6 @@ import parser.exceptions.AlkException;
 import parser.types.alkBool.AlkBool;
 import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
-import parser.types.alkString.AlkString;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 
