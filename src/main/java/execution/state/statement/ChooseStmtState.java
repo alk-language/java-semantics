@@ -4,16 +4,14 @@ import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.env.Environment;
 import parser.exceptions.AlkException;
 import parser.types.AlkIterableValue;
 import parser.types.AlkValue;
 import parser.types.alkArray.AlkArray;
 import parser.types.alkBool.AlkBool;
-import parser.visitors.StmtVisitor;
+import parser.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.helpers.NonDeterministic;
-import util.EnvironmentManager;
 import util.Payload;
 
 import java.util.ArrayList;
@@ -69,13 +67,15 @@ public class ChooseStmtState extends ExecutionState
         }
         else
         {
-            for (AlkValue val : arr)
+            int size = ((AlkInt)arr.size()).value.intValueExact();
+            for (int i = 0; i < size - 1; i++)
             {
                 Execution current = payload.getExecution();
-                getEnv().update(ctx.ID().getText(), val.clone());
-                //Execution next = current.clone(true);
-                //next.start();
+                getEnv().update(ctx.ID().getText(), arr.get(i).clone());
+                Execution next = current.clone(true);
+                next.start();
             }
+            getEnv().update(ctx.ID().getText(), arr.get(size-1).clone());
         }
 
         return null;

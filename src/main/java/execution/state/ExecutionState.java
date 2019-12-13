@@ -4,9 +4,7 @@ import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
-import parser.types.AlkValue;
 import util.Configuration;
-import util.EnvironmentManager;
 import util.Payload;
 import util.types.Value;
 
@@ -17,7 +15,7 @@ import util.types.Value;
  * @param <S>
  *        The type of value which will be dependent upon
  */
-public abstract class ExecutionState<T extends Value, S extends Value>
+public abstract class ExecutionState<T extends Value, S extends Value> implements Cloneable
 {
     protected ParseTree tree;
 
@@ -77,4 +75,6 @@ public abstract class ExecutionState<T extends Value, S extends Value>
     public void setConfiguration(Configuration config) {
         this.config = config;
     }
+
+    // public abstract ExecutionState clone();
 }

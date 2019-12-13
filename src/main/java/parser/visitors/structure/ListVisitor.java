@@ -6,16 +6,8 @@ import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
-import parser.Pair;
 import parser.env.Environment;
-import parser.types.alkArray.AlkArray;
 import parser.types.alkList.AlkList;
-import parser.types.AlkValue;
-import parser.types.alkInt.AlkInt;
-import parser.visitors.expression.ExpressionVisitor;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
 
 public class ListVisitor extends DataStructureVisitor {
 

@@ -3,8 +3,6 @@ package execution;
 import execution.state.ExecutionState;
 import parser.AlkParser;
 import parser.env.Environment;
-import parser.exceptions.AlkException;
-import preprocessing.PreProcessing;
 import util.EnvironmentManager;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
@@ -31,7 +29,10 @@ public class Execution extends Thread
 
     private ExecutionStack stack;
 
-    private EnvironmentManager envManager = new EnvironmentManager();
+    private EnvironmentManager envManager;
+
+    /* The global environment initially empty */
+    private Environment global;
 
 
 
@@ -43,6 +44,23 @@ public class Execution extends Thread
      */
     public Execution(Configuration config) {
         this.config = config;
+        envManager = new EnvironmentManager();
+        global = new Environment();
+    }
+
+
+
+    /**
+     * Constructor with specific configuration
+     *
+     * @param config
+     * The configuration meant to be used for this execution
+     */
+    private Execution(Configuration config, ExecutionStack stack, EnvironmentManager envManager, Environment global) {
+        this.config = config;
+        this.stack = stack;
+        this.envManager = envManager;
+        this.global = global;
     }
 
     /**
@@ -72,9 +90,6 @@ public class Execution extends Thread
             execute preprocessing part
             TODO: rework preprocessing, move it to the parsing stage
          */
-
-
-        Environment e = new Environment();
         /*PreProcessing pre = null;
         try
         {
@@ -90,8 +105,7 @@ public class Execution extends Thread
             start parsing
             TODO: call different constructor without predefined environment
          */
-
-        AlkParser parser = new AlkParser(alkFile, e, this);
+        AlkParser parser = new AlkParser(alkFile, global, this);
         if (stack == null)
         {
             ExecutionState state = parser.execute(config);
@@ -137,5 +151,15 @@ public class Execution extends Thread
 
     public EnvironmentManager getEnvManager() {
         return envManager;
+    }
+
+    public Execution clone(boolean nullifyLast)
+    {
+        Execution copy = new Execution(config.clone(), stack.clone(), envManager.clone(), global.clone());
+        if (nullifyLast)
+        {
+            copy.stack.nullifyLast();
+        }
+        return copy;
     }
 }

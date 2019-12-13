@@ -9,10 +9,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import parser.visitors.MainVisitor;
-import parser.visitors.StmtVisitor;
-import parser.visitors.expression.ExpressionVisitor;
 import util.Configuration;
-import util.EnvironmentManager;
 import util.Payload;
 
 /**
@@ -24,10 +21,9 @@ public class AlkParser {
     /* The main char stream meant to be parsed */
     private CharStream alkFile;
 
-    /* The global environment initially empty */
-    private Environment global;
-
     private Execution execution;
+
+    private Environment global;
 
     /* Basic constructor meant to initialize the main char stream */
     public AlkParser(CharStream alkFile, Environment e, Execution execution)

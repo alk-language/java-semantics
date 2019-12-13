@@ -5,12 +5,10 @@ import execution.state.main.MainState;
 import execution.state.main.StatementSeqState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import execution.Execution;
 import parser.env.Environment;
 import util.EnvironmentManager;
 import util.Payload;
 
-import javax.naming.spi.StateFactory;
 import java.util.Stack;
 
 

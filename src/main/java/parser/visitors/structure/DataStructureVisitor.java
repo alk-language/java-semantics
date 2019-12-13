@@ -7,12 +7,8 @@ import execution.state.structure.IntervalDefinitionState;
 import execution.state.structure.SelectSpecDefinitionState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import parser.Pair;
 import parser.env.Environment;
-import parser.types.AlkValue;
-import parser.visitors.expression.ExpressionVisitor;
 import util.Payload;
-import util.types.ComponentValue;
 
 public class DataStructureVisitor extends alkBaseVisitor
 {

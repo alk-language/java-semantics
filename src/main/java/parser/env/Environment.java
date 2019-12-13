@@ -60,4 +60,15 @@ public class Environment {
         }
         return returnable;
     }
+
+    public Environment clone()
+    {
+        Environment clone = new Environment();
+        for (Map.Entry entry : variables.entrySet())
+        {
+            Integer location = Store.setNew(lookup((String) entry.getKey()));
+            clone.variables.put((String)entry.getKey(), location);
+        }
+        return clone;
+    }
 }
