@@ -29,7 +29,7 @@ public class ChooseStmtState extends ExecutionState
     private ArrayList<AlkValue> values = new ArrayList<>();
     private int step = 0;
 
-    private ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
+    public ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
     {
         super(ctx, payload);
         this.ctx = ctx;
