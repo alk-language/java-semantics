@@ -3,6 +3,7 @@ package execution;
 import execution.state.ExecutionState;
 import parser.AlkParser;
 import parser.env.Environment;
+import parser.env.Store;
 import util.EnvironmentManager;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
@@ -15,6 +16,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The main class responsible for one alk file execution. It is implemented
@@ -23,6 +26,8 @@ import java.io.InputStream;
  */
 public class Execution extends Thread
 {
+
+    private Store store;
 
     /** The main configuration delivery instance.*/
     private Configuration config;
@@ -43,22 +48,8 @@ public class Execution extends Thread
     public Execution(Configuration config) {
         this.config = config;
         envManager = new EnvironmentManager();
-        global = new Environment();
-    }
-
-
-
-    /**
-     * Constructor with specific configuration
-     *
-     * @param config
-     * The configuration meant to be used for this execution
-     */
-    private Execution(Configuration config, ExecutionStack stack, EnvironmentManager envManager, Environment global) {
-        this.config = config;
-        this.stack = stack;
-        this.envManager = envManager;
-        this.global = global;
+        store = new Store();
+        global = new Environment(store);
     }
 
     /**
@@ -123,7 +114,7 @@ public class Execution extends Thread
         // if the metadata flag is set, print the global environment
         if (config.hasMetadata())
         {
-            config.getIOManager().write(parser.getGlobalEnvironment().toString());
+            config.getIOManager().write(global.toString());
         }
     }
 
@@ -157,11 +148,82 @@ public class Execution extends Thread
 
     public Execution clone(boolean nullifyLast)
     {
-        Execution copy = new Execution(config.clone(), stack.clone(this), envManager.clone(), global.clone());
+        ExecutionCloner cloner = new ExecutionCloner(this);
+        Execution copy = cloner.execute();
         if (nullifyLast)
         {
             copy.stack.nullifyLast();
         }
         return copy;
     }
+
+    Configuration getConfig() {
+        return config;
+    }
+
+    ExecutionStack getStack() {
+        return stack;
+    }
+
+    public Environment getGlobal() {
+        return global;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    void setConfig(Configuration config) {
+        this.config = config;
+    }
+
+    public void setGlobal(Environment global) {
+        this.global = global;
+    }
+
+    void setEnvManager(EnvironmentManager envManager) {
+        this.envManager = envManager;
+    }
+
+    public void setStack(ExecutionStack stack) {
+        this.stack = stack;
+    }
+}
+
+class ExecutionCloner {
+
+    private Execution source;
+    private Execution copy;
+    private Store copyStore;
+    private Map<ExecutionState, ExecutionState> stateMapping;
+    private Map<Environment, Environment> envMapping;
+
+    ExecutionCloner(Execution exec)
+    {
+        source = exec;
+        copyStore = source.getStore().makeClone();
+        copy = new Execution(exec.getConfig());
+        envMapping = source.getEnvManager().cloneEnvironments(copyStore);
+        stateMapping = source.getStack().cloneStates(copy);
+    }
+
+    Execution execute() {
+
+        Configuration config = source.getConfig();
+
+        ExecutionStack stack = source.getStack().makeClone(copy, stateMapping);
+        EnvironmentManager envManager = source.getEnvManager().makeClone(copy, stateMapping, envMapping, copyStore);
+
+        copy.setStore(copyStore);
+        copy.setConfig(config);
+        copy.setGlobal(envMapping.get(source.getGlobal()));
+        copy.setEnvManager(envManager);
+        copy.setStack(stack);
+        return copy;
+    }
+
 }

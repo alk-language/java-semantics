@@ -12,6 +12,7 @@ import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.VisitorFactory;
 import util.exception.InternalException;
 import util.exception.UnimplementedException;
 
@@ -23,7 +24,7 @@ public class AssignmentStmtState extends ExecutionState
     private AlkValue rightSide;
     private String operator;
 
-    public AssignmentStmtState(alkParser.AssignmentStmtContext tree, Payload payload) {
+    private AssignmentStmtState(alkParser.AssignmentStmtContext tree, Payload payload) {
         super(tree, payload);
         ctx = tree;
         operator = ctx.ASSIGNMENT_OPERATOR().getText();
@@ -33,7 +34,7 @@ public class AssignmentStmtState extends ExecutionState
     public ExecutionState makeStep()
     {
         if (rightSide == null)
-            return (ExecutionState) new ExpressionVisitor(getEnv()).visit(ctx.expression());
+            return super.request(ExpressionVisitor.class, ctx.expression());
 
         if (operator.equals("="))
         {

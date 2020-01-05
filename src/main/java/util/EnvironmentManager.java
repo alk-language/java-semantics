@@ -1,13 +1,12 @@
 package util;
 
+import execution.Execution;
 import execution.state.ExecutionState;
 import parser.env.Environment;
+import parser.env.Store;
 import util.exception.InternalException;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 // Static worker responsible for environment management
@@ -39,29 +38,49 @@ public class EnvironmentManager {
         return state2env.get(state);
     }
 
-    public EnvironmentManager clone() {
-        // TODO: finish deep cloning
-        EnvironmentManager clone = new EnvironmentManager();
-        for (Map.Entry entry : state2env.entrySet())
+    public Map<Environment, Environment> cloneEnvironments(Store store) {
+        Map<Environment, Environment> mapping = new HashMap<>();
+        for (Environment env : env2state.keySet())
         {
-            // ExecutionState key = entry.getKey().clone();
-            ExecutionState key = (ExecutionState) entry.getKey();
+            Environment copy = env.makeClone(store);
+            mapping.put(env, copy);
+        }
+        return mapping;
+    }
 
-            Environment value = ((Environment) entry.getValue()).clone();
+    public EnvironmentManager makeClone(Execution copy,
+                                        Map<ExecutionState, ExecutionState> stateMapping,
+                                        Map<Environment, Environment> envMapping,
+                                        Store copyStore) {
+
+        EnvironmentManager clone = new EnvironmentManager();
+
+        for (Map.Entry<ExecutionState, Environment> entry : state2env.entrySet())
+        {
+            ExecutionState key = stateMapping.get(entry.getKey());
+
+            Environment value = envMapping.get(entry.getValue());
 
             clone.state2env.put(key, value);
         }
 
-        /* for (Map.Entry entry : env2state.entrySet())
+        for (Map.Entry<Environment, List<ExecutionState> > entry : env2state.entrySet())
         {
-            // ExecutionState key = entry.getKey().clone();
-            Environment key = (Environment) entry.getKey();
+            Environment key = envMapping.get(entry.getKey());
 
-            //Environment value = (Environment) entry.getValue().clone();
-            Environment value = (Environment) entry.getValue();
+            List<ExecutionState> value = entry.getValue();
+            List<ExecutionState> copyValue = new LinkedList<>();
 
-            clone.state2env.put(key, value);
-        } */
+            for (ExecutionState state : value)
+            {
+                ExecutionState copyState = stateMapping.get(state);
+                copyValue.add(copyState);
+            }
+
+            clone.env2state.put(key, copyValue);
+        }
+
         return clone;
+
     }
 }

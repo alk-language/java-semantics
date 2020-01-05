@@ -10,11 +10,17 @@ import static parser.exceptions.AlkException.ERR_NO_REF;
 
 public class Environment {
 
-    private HashMap<String, Integer> variables = new HashMap<>(); // mapeaza o variabila la o zona de memorie (Store)
+    private Store store;
+    private HashMap<String, Integer> variables = new HashMap<>();
+
+    public Environment(Store store)
+    {
+        this.store = store;
+    }
 
     public AlkValue lookup(String str) throws AlkException {
         if (variables.containsKey(str))
-            return Store.get(variables.get(str));
+            return store.get(variables.get(str));
         throw new AlkException(ERR_NO_REF + ": " + str);
     }
 
@@ -32,41 +38,38 @@ public class Environment {
     public void update(String id, AlkValue value)
     {
         if (variables.containsKey(id))
-            Store.set(variables.get(id), value);
+            store.set(variables.get(id), value);
         else
-            variables.put(id, Store.setNew(value));
+            variables.put(id, store.setNew(value));
     }
 
     public boolean has(String id)
     {
-        if (variables.containsKey(id))
-            return true;
-        return false;
+        return variables.containsKey(id);
     }
 
     public boolean remove(String id)
     {
-        if (variables.containsKey(id))
-            return true;
-        return false;
+        return variables.containsKey(id);
     }
 
-    @Override public String toString()
+    @Override
+    public String toString()
     {
-        String returnable = "";
+        StringBuilder returnable = new StringBuilder();
         for (Map.Entry<String, Integer> i : variables.entrySet())
         {
-            returnable = returnable + i.getKey() + " |-> " + Store.get(i.getValue()) + '\n';
+            returnable.append(i.getKey()).append(" |-> ").append(store.get(i.getValue())).append('\n');
         }
-        return returnable;
+        return returnable.toString();
     }
 
-    public Environment clone()
+    public Environment makeClone(Store store)
     {
-        Environment clone = new Environment();
+        Environment clone = new Environment(store);
         for (Map.Entry entry : variables.entrySet())
         {
-            Integer location = Store.setNew(lookup((String) entry.getKey()));
+            Integer location = store.setNew(lookup((String) entry.getKey()));
             clone.variables.put((String)entry.getKey(), location);
         }
         return clone;

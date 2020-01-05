@@ -41,9 +41,8 @@ public class AlkFunction {
                 if (params.get(i).x.equals(params.get(j).x))
                     throw new AlkException(ERR_MULTIPLE_PARAM);
             }
-            for (int j=0; j<modifies.size(); j++)
-            {
-                if (params.get(i).x.equals(modifies.get(j)))
+            for (String modify : modifies) {
+                if (params.get(i).x.equals(modify))
                     throw new AlkException(ERR_MULTIPLE_PARAM);
             }
         }
@@ -65,7 +64,7 @@ public class AlkFunction {
 
     //daca este vorba de parametrii de intrare-iesire, se va primi un AlkInt cu valoarea locatii in store
     public AlkValue call(ArrayList<AlkValue> params) throws AlkException {
-        Environment env = new Environment();
+        Environment env = new Environment(new Store());
 
         for (int i=0; i<params.size(); i++)
         {
@@ -76,11 +75,10 @@ public class AlkFunction {
         }
 
         Environment globals = MainVisitor.global;
-        for (int i=0; i<modifies.size(); i++)
-        {
-            if (!globals.has(modifies.get(i)))
+        for (String modify : modifies) {
+            if (!globals.has(modify))
                 throw new AlkException(ERR_MODIFIES);
-            env.add(modifies.get(i), globals.getLocation(modifies.get(i)));
+            env.add(modify, globals.getLocation(modify));
         }
 
         MainVisitor.stack.push(env);

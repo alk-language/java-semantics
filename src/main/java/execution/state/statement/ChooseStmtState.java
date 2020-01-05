@@ -3,7 +3,6 @@ package execution.state.statement;
 import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkIterableValue;
@@ -30,7 +29,7 @@ public class ChooseStmtState extends ExecutionState
     private ArrayList<AlkValue> values = new ArrayList<>();
     private int step = 0;
 
-    public ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
+    private ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
     {
         super(ctx, payload);
         this.ctx = ctx;
