@@ -34,4 +34,10 @@ public class UnaryExpressionState extends SingleState<AlkValue, AlkValue>
         }
     }
 
+    @Override
+    public ExecutionState clone(Payload payload) {
+        UnaryExpressionState copy = new UnaryExpressionState((alkParser.UnaryExpressionContext) tree, payload);
+        return super.decorate(copy);
+    }
+
 }

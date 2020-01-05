@@ -1,5 +1,6 @@
 package execution.state.structure;
 
+import execution.state.ExecutionState;
 import execution.state.SingleState;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.types.AlkIterableValue;
@@ -42,5 +43,12 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
         } catch (InstantiationException | IllegalAccessException e) {
             throw new InternalException(e);
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        IterableWithIntervalState copy = new IterableWithIntervalState(tree, payload, null, clazz);
+
+        return super.decorate(copy);
     }
 }

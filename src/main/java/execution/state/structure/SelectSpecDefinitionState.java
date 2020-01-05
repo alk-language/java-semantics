@@ -29,7 +29,7 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue
     private List<AlkValue> source;
     private alkParser.SelectSpecDefinitionContext ctx;
     private AlkArray array = new AlkArray();
-    private Iterator<AlkValue> iterator;
+    private int step;
 
     public SelectSpecDefinitionState(alkParser.SelectSpecDefinitionContext tree, Payload payload) {
         super(tree, payload);
@@ -39,20 +39,19 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue
     @Override
     public ExecutionState<AlkValue, Value> makeStep()
     {
-        alkBaseVisitor visitor = VisitorFactory.create(ExpressionVisitor.class, getEnv(), payload);
         if (source == null)
         {
-            return (ExecutionState<AlkValue, Value>) visitor.visit(ctx.expression(1));
+            return super.request(ExpressionVisitor.class, ctx.expression(1));
         }
 
-        if (!iterator.hasNext())
+        if (step == source.size())
         {
             result = new ExecutionResult<>(array);
             return null;
         }
 
-        getEnv().update(ctx.ID().toString(), iterator.next());
-        return (ExecutionState<AlkValue, Value>) visitor.visit(ctx.expression(0));
+        getEnv().update(ctx.ID().toString(), source.get(step++));
+        return super.request(ExpressionVisitor.class, ctx.expression(0));
     }
 
     @Override
@@ -63,12 +62,29 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue
             if (!(resultVal instanceof AlkIterableValue))
                 throw new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
             source = ((AlkIterableValue) resultVal).toArray();
-            iterator = source.iterator();
+            step = 0;
         }
         else
         {
             array.push(result.getValue());
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        SelectSpecDefinitionState copy = new SelectSpecDefinitionState(ctx, payload);
+        for (AlkValue value : source)
+        {
+            copy.source.add(value.clone());
+        }
+
+        for (AlkValue value : array)
+        {
+            copy.array.add(value.clone());
+        }
+        copy.step = step;
+
+        return super.decorate(copy);
     }
 }
 

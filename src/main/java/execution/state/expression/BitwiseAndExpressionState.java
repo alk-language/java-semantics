@@ -1,5 +1,7 @@
 package execution.state.expression;
 
+import execution.Execution;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -8,13 +10,24 @@ import util.CtxState;
 import util.Payload;
 
 @CtxState(ctxClass = alkParser.BitwiseAndExpressionContext.class)
-public class BitwiseAndExpressionState extends GuardedGeneratorState<AlkValue> {
-    public BitwiseAndExpressionState(alkParser.BitwiseAndExpressionContext tree, Payload payload) {
+public class BitwiseAndExpressionState extends GuardedGeneratorState<AlkValue>
+{
+    alkParser.BitwiseAndExpressionContext ctx;
+
+    public BitwiseAndExpressionState(alkParser.BitwiseAndExpressionContext tree, Payload payload)
+    {
         super(tree, payload, tree.shift_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         return current.bitwiseAnd(next);
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        BitwiseAndExpressionState copy = new BitwiseAndExpressionState(ctx, payload);
+        return super.decorate(copy);
     }
 }

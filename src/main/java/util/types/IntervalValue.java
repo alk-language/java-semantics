@@ -19,6 +19,11 @@ public class IntervalValue extends Value implements Iterable<AlkInt> {
         return new PairValueIterator();
     }
 
+    @Override
+    public Value clone() {
+        return new IntervalValue((AlkInt)left.clone(), (AlkInt)right.clone());
+    }
+
     class PairValueIterator implements Iterator<AlkInt> {
 
         private AlkInt index = left;

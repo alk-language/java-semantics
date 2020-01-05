@@ -117,19 +117,7 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     @Override public ExecutionState visitRefNameFactor(alkParser.RefNameFactorContext ctx) {
-        // TODO: port the reference visitor to the state stack
-        return new ExecutionState(ctx, payload) {
-            @Override
-            public ExecutionState makeStep() {
-                result = new ExecutionResult<>((Value) new ReferenceVisitor(env).visit(ctx.ref_name()));
-                return null;
-            }
-
-            @Override
-            public void assign(ExecutionResult result) {
-                // no-op
-            }
-        };
+        return StateFactory.create(RefNameFactorState.class, ctx, payload, env);
     }
 
 

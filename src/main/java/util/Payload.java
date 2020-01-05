@@ -18,4 +18,8 @@ public class Payload {
     public Execution getExecution() {
         return execution;
     }
+
+    public Configuration getConfiguration() {
+        return execution.getConfiguration();
+    }
 }

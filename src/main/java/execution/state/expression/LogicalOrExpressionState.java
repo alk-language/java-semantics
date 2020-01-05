@@ -1,6 +1,8 @@
 package execution.state.expression;
 
+import execution.Execution;
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
@@ -34,5 +36,12 @@ public class LogicalOrExpressionState extends GuardedGeneratorState<AlkValue>
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         return current.logicalOr(next);
+    }
+
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        LogicalOrExpressionState copy = new LogicalOrExpressionState((alkParser.LogicalOrExpressionContext) tree, payload);
+        return super.decorate(copy);
     }
 }

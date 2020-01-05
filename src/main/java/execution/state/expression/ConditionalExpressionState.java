@@ -1,5 +1,6 @@
 package execution.state.expression;
 
+import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkBaseVisitor;
@@ -28,8 +29,6 @@ public class ConditionalExpressionState extends ExecutionState {
     @Override
     public ExecutionState makeStep()
     {
-        alkBaseVisitor visitor = VisitorFactory.create(ExpressionVisitor.class, getEnv(), payload);
-
         if (result != null)
         {
             return null;
@@ -37,7 +36,7 @@ public class ConditionalExpressionState extends ExecutionState {
 
         if (queryExpression == null)
         {
-            return (ExecutionState) visitor.visit(ctx.logical_or_expression());
+            return request(ExpressionVisitor.class, ctx.logical_or_expression());
         }
 
         if (ctx.expression().size() == 0)
@@ -53,11 +52,11 @@ public class ConditionalExpressionState extends ExecutionState {
 
         if (((AlkBool) queryExpression).isTrue())
         {
-            return (ExecutionState) visitor.visit(ctx.expression(0));
+            return request(ExpressionVisitor.class, ctx.expression(0));
         }
         else
         {
-            return (ExecutionState) visitor.visit(ctx.expression(1));
+            return request(ExpressionVisitor.class, ctx.expression(1));
         }
     }
 
@@ -72,5 +71,12 @@ public class ConditionalExpressionState extends ExecutionState {
         {
             this.result = result;
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        ConditionalExpressionState copy = new ConditionalExpressionState(ctx, payload);
+        copy.queryExpression = queryExpression.clone();
+        return copy;
     }
 }

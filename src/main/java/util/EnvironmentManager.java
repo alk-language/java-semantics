@@ -14,7 +14,7 @@ import java.util.Map;
 public class EnvironmentManager {
 
     private Map<ExecutionState, Environment> state2env = new HashMap<>();
-    private Map<Environment, List<ExecutionState>> env2state = new HashMap<>();
+    private Map<Environment, List<ExecutionState> > env2state = new HashMap<>();
 
     public void link(ExecutionState state, Environment env)
     {

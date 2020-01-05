@@ -1,6 +1,8 @@
 package execution.state.expression;
 
+import execution.Execution;
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -23,5 +25,11 @@ public class EqualityExpressionState extends GuardedGeneratorState<AlkValue>
         if (tree.getChild(getSignPos()).getText().equals("=="))
             return current.equal(next);
         return current.notequal(next);
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        EqualityExpressionState copy = new EqualityExpressionState((alkParser.EqualityExpressionContext) tree, payload);
+        return super.decorate(copy);
     }
 }

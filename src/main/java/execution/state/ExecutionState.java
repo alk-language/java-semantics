@@ -1,15 +1,16 @@
 package execution.state;
 
+import execution.Execution;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import util.Configuration;
 import util.Payload;
+import util.VisitorFactory;
 import util.types.Value;
 
 /**
- * TODO: make execution state independent from the visitor: use a the execution stack for global configurations
  * @param <T>
  *        What does the execution state return
  * @param <S>
@@ -19,13 +20,9 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 {
     protected ParseTree tree;
 
-    // TODO: remove the visitor as global instance (not everybody needs a visitor
-    // TODO: it shouldn't be initialized in the constructor (there is no unique visitor for one state
-    // protected alkBaseVisitor visitor;
-
     protected ExecutionResult<T> result = null;
-    protected Configuration config;
-    protected Payload payload;
+
+    private Payload payload;
 
     public ExecutionState(ParseTree tree, Payload payload)
     {
@@ -42,12 +39,28 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     public abstract void assign(ExecutionResult<S> result);
 
+    public abstract ExecutionState clone(Payload payload);
+
     protected Environment getEnv()
     {
         return payload.getEnvManager().getEnv(this);
     }
 
-    public void setConfiguration(Configuration config) {
-        this.config = config;
+    protected Configuration getConfig() { return payload.getConfiguration(); }
+
+    protected Execution getExec() { return payload.getExecution(); }
+
+    protected ExecutionState decorate(ExecutionState copy)
+    {
+        if (result != null)
+        {
+            copy.result = result.clone();
+        }
+        return copy;
+    }
+
+    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree)
+    {
+        return (ExecutionState) VisitorFactory.create(visitor, getEnv(), payload).visit(parseTree);
     }
 }

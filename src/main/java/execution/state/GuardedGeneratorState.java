@@ -54,4 +54,10 @@ public abstract class GuardedGeneratorState<T extends Value> extends GeneratorSt
         return localResult;
     }
 
+    protected GuardedGeneratorState decorate(GuardedGeneratorState copy)
+    {
+        copy.localResult = localResult.clone();
+        return (GuardedGeneratorState) super.decorate(copy);
+    }
+
 }

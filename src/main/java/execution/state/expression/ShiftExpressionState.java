@@ -1,5 +1,6 @@
 package execution.state.expression;
 
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -18,5 +19,12 @@ public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
         if (tree.getChild(getSignPos()).getText().equals("<<"))
             return current.shiftLeft(next);
         return next.shiftRight(next);
+    }
+
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        ShiftExpressionState copy = new ShiftExpressionState((alkParser.ShiftExpressionContext) tree, payload);
+        return super.decorate(copy);
     }
 }

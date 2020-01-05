@@ -1,6 +1,7 @@
 package execution.state.structure;
 
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GeneratorState;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -42,5 +43,17 @@ public class IterableWithExpressionsState extends GeneratorState<AlkIterableValu
         } catch (InstantiationException | IllegalAccessException e) {
             throw new InternalException(e);
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        IterableWithExpressionsState copy = new IterableWithExpressionsState(tree, payload, null, clazz);
+
+        for (AlkValue value : array)
+        {
+            copy.array.add(value.clone());
+        }
+
+        return super.decorate(copy);
     }
 }

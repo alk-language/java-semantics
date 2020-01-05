@@ -2,6 +2,7 @@ package execution.state.statement;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.state.main.MainState;
 import grammar.alkParser;
 import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
@@ -73,5 +74,12 @@ public class AssignmentStmtState extends ExecutionState
         {
             rightSide = (AlkValue) result.getValue();
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        AssignmentStmtState copy = new AssignmentStmtState((alkParser.AssignmentStmtContext) tree, payload);
+        copy.rightSide = rightSide.clone();
+        return super.decorate(copy);
     }
 }

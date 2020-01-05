@@ -1,5 +1,7 @@
 package execution.state.expression;
 
+import execution.Execution;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -25,5 +27,11 @@ public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
                 return current.setSubtract(next);
 
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        RelationalExpressionState copy = new RelationalExpressionState((alkParser.RelationalExpressionContext) tree, payload);
+        return super.decorate(copy);
     }
 }

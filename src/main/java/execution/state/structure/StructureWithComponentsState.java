@@ -1,6 +1,7 @@
 package execution.state.structure;
 
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GeneratorState;
 import execution.state.SingleState;
 import grammar.alkParser;
@@ -19,8 +20,11 @@ public class StructureWithComponentsState extends GeneratorState<AlkStructure, C
 
     private AlkStructure struct = new AlkStructure();
 
+    alkParser.StructureWithComponentsContext ctx;
+
     public StructureWithComponentsState(alkParser.StructureWithComponentsContext tree, Payload payload) {
         super(tree, payload, tree.component(), DataStructureVisitor.class);
+        ctx = tree;
     }
 
     @Override
@@ -33,5 +37,11 @@ public class StructureWithComponentsState extends GeneratorState<AlkStructure, C
     public AlkStructure getFinalResult()
     {
         return struct;
+    }
+    @Override
+    public ExecutionState clone(Payload payload) {
+        StructureWithComponentsState copy = new StructureWithComponentsState(ctx, payload);
+        copy.struct = (AlkStructure) this.struct.clone();
+        return super.decorate(copy);
     }
 }

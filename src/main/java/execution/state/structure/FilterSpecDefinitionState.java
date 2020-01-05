@@ -2,6 +2,7 @@ package execution.state.structure;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.state.statement.ToAssignmentStmtState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
@@ -19,6 +20,7 @@ import util.types.Value;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import static parser.exceptions.AlkException.ERR_SPEC_BOOL;
 import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
@@ -28,7 +30,7 @@ import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue> {
 
     private List<AlkValue> source;
-    private Iterator<AlkValue> iterator;
+    private int step;
     private alkParser.FilterSpecDefinitionContext ctx;
     private AlkArray array = new AlkArray();
     private AlkValue validatingValue;
@@ -41,19 +43,18 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
     @Override
     public ExecutionState makeStep()
     {
-        alkBaseVisitor visitor = VisitorFactory.create(ExpressionVisitor.class, getEnv(), payload);
         if (source == null)
-            return (ExecutionState) visitor.visit(ctx.expression(0));
+            return super.request(ExpressionVisitor.class, ctx.expression(0));
 
-        if (!iterator.hasNext())
+        if (step == source.size())
         {
             result = new ExecutionResult<>(array);
             return null;
         }
 
-        validatingValue = iterator.next();
+        validatingValue = source.get(step++);
         getEnv().update(ctx.ID().toString(), validatingValue);
-        return (ExecutionState) visitor.visit(ctx.expression(1));
+        return super.request(ExpressionVisitor.class, ctx.expression(1));
     }
 
     @Override
@@ -66,7 +67,7 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
                 throw new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
 
             source = ((AlkIterableValue) resultVal).toArray();
-            iterator = source.iterator();
+            step = 0;
         }
         else
         {
@@ -75,6 +76,22 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
             if (((AlkBool) result.getValue()).isTrue())
                 array.push(validatingValue);
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        FilterSpecDefinitionState copy = new FilterSpecDefinitionState((alkParser.FilterSpecDefinitionContext) tree, payload);
+        for (AlkValue value : source)
+        {
+            copy.source.add(value.clone());
+        }
+        copy.step = step;
+        for (AlkValue value : array)
+        {
+            copy.array.add(value.clone());
+        }
+        copy.validatingValue = this.validatingValue.clone();
+        return super.decorate(copy);
     }
 }
 

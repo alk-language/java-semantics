@@ -1,7 +1,9 @@
 package execution.state.function;
 
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GeneratorState;
+import execution.state.expression.UnaryExpressionState;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkValue;
@@ -60,5 +62,16 @@ public class BuiltInMethodState extends GeneratorState<AlkValue, AlkValue>
         catch (IllegalAccessException | InvocationTargetException e) {
             throw new InternalException(e);
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        BuiltInMethodState copy = new BuiltInMethodState((alkParser.BuiltinMethodContext) tree, payload);
+        for (AlkValue value : this.params)
+        {
+            copy.params.add(value.clone());
+        }
+
+        return super.decorate(copy);
     }
 }

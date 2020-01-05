@@ -1,6 +1,8 @@
 package execution.state.expression;
 
+import execution.Execution;
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -18,6 +20,12 @@ public class InExpressionState extends GuardedGeneratorState<AlkValue> {
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         return current.in(next);
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        InExpressionState copy = new InExpressionState((alkParser.InExpressionContext) tree, payload);
+        return super.decorate(copy);
     }
 
 }
