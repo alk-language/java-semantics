@@ -1,5 +1,7 @@
 package execution.state.expression;
 
+import execution.Execution;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -9,8 +11,12 @@ import util.Payload;
 
 @CtxState(ctxClass = alkParser.MultiplicativeExpressionContext.class)
 public class MultiplicativeExpressionState extends GuardedGeneratorState<AlkValue> {
+
+    alkParser.MultiplicativeExpressionContext ctx;
+
     public MultiplicativeExpressionState(alkParser.MultiplicativeExpressionContext tree, Payload payload) {
         super(tree, payload, tree.unary_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
@@ -23,5 +29,11 @@ public class MultiplicativeExpressionState extends GuardedGeneratorState<AlkValu
             default:
                 return current.mod(next);
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        MultiplicativeExpressionState copy = new MultiplicativeExpressionState(ctx, payload);
+        return super.decorate(copy);
     }
 }

@@ -1,7 +1,6 @@
 package util.types;
 
-public class Value {
+public abstract class Value {
 
-
-
+    public abstract Value clone();
 }

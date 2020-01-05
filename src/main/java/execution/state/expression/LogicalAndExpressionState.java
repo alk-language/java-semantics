@@ -1,5 +1,7 @@
 package execution.state.expression;
 
+import execution.Execution;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
@@ -15,6 +17,8 @@ import static parser.exceptions.AlkException.ERR_LOGICALOR;
 public class LogicalAndExpressionState extends GuardedGeneratorState<AlkValue>
 {
 
+    alkParser.LogicalAndExpressionContext ctx;
+
     public LogicalAndExpressionState(alkParser.LogicalAndExpressionContext tree, Payload payload)
     {
         super(tree, payload, tree.in_expression(), ExpressionVisitor.class);
@@ -28,10 +32,18 @@ public class LogicalAndExpressionState extends GuardedGeneratorState<AlkValue>
             }
             return true;
         });
+        this.ctx = tree;
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        LogicalAndExpressionState copy = new LogicalAndExpressionState(ctx, payload);
+        return super.decorate(copy);
     }
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         return current.logicalAnd(next);
     }
+
 }

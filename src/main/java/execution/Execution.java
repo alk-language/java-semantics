@@ -34,8 +34,6 @@ public class Execution extends Thread
     /* The global environment initially empty */
     private Environment global;
 
-
-
     /**
      * Constructor with specific configuration
      *
@@ -153,9 +151,13 @@ public class Execution extends Thread
         return envManager;
     }
 
+    public Configuration getConfiguration() {
+        return config;
+    }
+
     public Execution clone(boolean nullifyLast)
     {
-        Execution copy = new Execution(config.clone(), stack.clone(), envManager.clone(), global.clone());
+        Execution copy = new Execution(config.clone(), stack.clone(this), envManager.clone(), global.clone());
         if (nullifyLast)
         {
             copy.stack.nullifyLast();

@@ -1,7 +1,9 @@
 package execution.state.structure;
 
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GeneratorState;
+import execution.state.statement.ToAssignmentStmtState;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
 import parser.types.AlkValue;
@@ -46,4 +48,15 @@ public class IntervalDefinitionState extends GeneratorState<IntervalValue, AlkVa
 
         return new IntervalValue((AlkInt) x, (AlkInt) y);
     }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        IntervalDefinitionState copy = new IntervalDefinitionState((alkParser.IntervalDefinitionContext) tree, payload);
+        for (AlkValue value : limits)
+        {
+            copy.limits.add(value.clone());
+        }
+        return super.decorate(copy);
+    }
+
 }

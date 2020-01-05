@@ -10,7 +10,7 @@ import util.CtxState;
 import util.Payload;
 import util.types.Value;
 
-public class PrimitiveState extends ExecutionState<AlkValue, AlkValue> {
+public abstract class PrimitiveState extends ExecutionState<AlkValue, AlkValue> {
 
     public PrimitiveState(ParseTree tree, Payload payload, AlkValue value) {
         super(tree, payload);

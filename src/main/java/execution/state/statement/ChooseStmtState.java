@@ -13,6 +13,7 @@ import parser.types.alkBool.AlkBool;
 import parser.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.helpers.NonDeterministic;
+import util.Cloner;
 import util.CtxState;
 import util.Payload;
 
@@ -38,17 +39,15 @@ public class ChooseStmtState extends ExecutionState
     @Override
     public ExecutionState makeStep()
     {
-        alkBaseVisitor visitor = new ExpressionVisitor(getEnv(), payload);
-
         if (array == null)
         {
-            return (ExecutionState) visitor.visit(ctx.expression(0));
+            return super.request(ExpressionVisitor.class, ctx.expression(0));
         }
 
         if (ctx.SOTHAT() != null && step < array.size())
         {
             getEnv().update(ctx.ID().getText(), array.get(step).clone());
-            return (ExecutionState) visitor.visit(ctx.expression(1));
+            return super.request(ExpressionVisitor.class, ctx.expression(1));
         }
 
         if (ctx.SOTHAT() == null)
@@ -60,7 +59,7 @@ public class ChooseStmtState extends ExecutionState
         arr.addAll(values);
         AlkValue value = NonDeterministic.choose(arr);
 
-        if (!config.hasExhaustive())
+        if (!getConfig().hasExhaustive())
         {
             getEnv().update(ctx.ID().getText(), value.clone());
         }
@@ -69,7 +68,7 @@ public class ChooseStmtState extends ExecutionState
             int size = ((AlkInt)arr.size()).value.intValueExact();
             for (int i = 0; i < size - 1; i++)
             {
-                Execution current = payload.getExecution();
+                Execution current = getExec();
                 getEnv().update(ctx.ID().getText(), arr.get(i).clone());
                 Execution next = current.clone(true);
                 next.start();
@@ -109,6 +108,15 @@ public class ChooseStmtState extends ExecutionState
                 throw new AlkException(ERR_CHOSE_ST_BOOL);
             }
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, payload);
+        copy.step = step;
+        copy.array = Cloner.clone(array);
+        copy.values = Cloner.clone(values);
+        return super.decorate(copy);
     }
 }
 

@@ -18,9 +18,11 @@ import java.util.List;
  * @param <S>
  *        The type of value which will be dependent upon
  */
-public abstract class GeneratorState<T extends Value, S extends Value> extends ExecutionState<T, S> {
+public abstract class GeneratorState<T extends Value, S extends Value> extends ExecutionState<T, S>
+{
 
     int step = 0;
+
     private List<? extends ParseTree> children;
     private Validator preValidator;
     protected Class<? extends alkBaseVisitor> visitor;
@@ -45,7 +47,7 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
             return null;
         }
 
-        return (ExecutionState) VisitorFactory.create(visitor, getEnv(), payload).visit(children.get(step++));
+        return super.request(visitor, children.get(step++));
     }
 
     @Override
@@ -55,6 +57,13 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
 
     protected void setPreValidator(Validator preValidator) {
         this.preValidator = preValidator;
+    }
+
+    protected GeneratorState decorate(GeneratorState copy)
+    {
+        copy.step = step;
+        copy.children.addAll(children);
+        return (GeneratorState) super.decorate(copy);
     }
 
 }

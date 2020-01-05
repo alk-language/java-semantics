@@ -20,4 +20,9 @@ public class ComponentValue extends Value {
     public String getIdentifier() {
         return identifier;
     }
+
+    @Override
+    public Value clone() {
+        return new ComponentValue(identifier, value.clone());
+    }
 }

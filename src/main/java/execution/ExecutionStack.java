@@ -2,8 +2,10 @@ package execution;
 
 import execution.state.ExecutionState;
 import parser.exceptions.AlkException;
+import util.Cloner;
 import util.Configuration;
 import util.ErrorManager;
+import util.Payload;
 import util.types.Value;
 
 import java.util.Stack;
@@ -44,7 +46,6 @@ public class ExecutionStack implements Cloneable
     private void makeStep()
     {
         ExecutionState<? extends Value, ? extends Value> top = stack.peek();
-        top.setConfiguration(config);
         ExecutionState<? extends Value, ? extends Value> next = top.makeStep();
 
         if (next == null)
@@ -87,16 +88,15 @@ public class ExecutionStack implements Cloneable
         }
     }
     
-    public ExecutionStack clone() {
+    public ExecutionStack clone(Execution master) {
         ExecutionStack clone = new ExecutionStack(null);
-        // TODO: this shouldn't be a clone, but the config from the execution
-        clone.config = config.clone();
+        clone.config = master.getConfiguration();
         if (result != null)
             clone.result = result.clone();
         for (ExecutionState<? extends Value, ? extends Value> state : stack)
         {
-            //clone.stack.push(state.clone());
-            clone.stack.push(state);
+            ExecutionState copy = Cloner.clone(state, master);
+            clone.stack.push(copy);
         }
 
         return clone;

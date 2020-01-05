@@ -1,6 +1,8 @@
 package execution.state.expression;
 
+import execution.Execution;
 import execution.ExecutionResult;
+import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -11,8 +13,11 @@ import util.Payload;
 @CtxState(ctxClass = alkParser.BitwiseOrExpressionContext.class)
 public class BitwiseOrExpressionState extends GuardedGeneratorState<AlkValue> {
 
+    alkParser.BitwiseOrExpressionContext ctx;
+
     public BitwiseOrExpressionState(alkParser.BitwiseOrExpressionContext tree, Payload payload) {
         super(tree, payload, tree.bitwise_and(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
@@ -20,5 +25,11 @@ public class BitwiseOrExpressionState extends GuardedGeneratorState<AlkValue> {
         if (tree.getChild(getSignPos()).getText().equals("|"))
             return current.bitwiseOr(next);
         return current.bitwiseXor(next);
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        BitwiseOrExpressionState copy = new BitwiseOrExpressionState(ctx, payload);
+        return super.decorate(copy);
     }
 }

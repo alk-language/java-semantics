@@ -1,5 +1,7 @@
 package execution.state.expression;
 
+import execution.Execution;
+import execution.state.ExecutionState;
 import execution.state.SingleState;
 import grammar.alkParser;
 import parser.types.AlkValue;
@@ -28,5 +30,11 @@ public class PrefixExpressionState extends SingleState<AlkValue, AlkValue> {
             default:
                 return value.minusminusmod();
         }
+    }
+
+    @Override
+    public ExecutionState clone(Payload payload) {
+        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, payload);
+        return super.decorate(copy);
     }
 }
