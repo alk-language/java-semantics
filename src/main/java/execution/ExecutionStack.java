@@ -2,12 +2,13 @@ package execution;
 
 import execution.state.ExecutionState;
 import parser.exceptions.AlkException;
-import util.Cloner;
 import util.Configuration;
 import util.ErrorManager;
 import util.Payload;
 import util.types.Value;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class ExecutionStack implements Cloneable
@@ -87,16 +88,29 @@ public class ExecutionStack implements Cloneable
             this.result = result;
         }
     }
-    
-    public ExecutionStack clone(Execution master) {
-        ExecutionStack clone = new ExecutionStack(null);
-        clone.config = master.getConfiguration();
-        if (result != null)
-            clone.result = result.clone();
+
+    Map<ExecutionState, ExecutionState> cloneStates(Execution master) {
+        Map<ExecutionState, ExecutionState> mapping = new HashMap<>();
+
         for (ExecutionState<? extends Value, ? extends Value> state : stack)
         {
-            ExecutionState copy = Cloner.clone(state, master);
-            clone.stack.push(copy);
+            Payload payload = new Payload(master);
+            mapping.put(state, state.clone(payload));
+        }
+
+        return mapping;
+    }
+
+    ExecutionStack makeClone(Execution master, Map<ExecutionState, ExecutionState> stateMapping)
+    {
+        ExecutionStack clone = new ExecutionStack(master.getConfiguration());
+
+        if (result != null)
+            clone.result = result.clone();
+
+        for (ExecutionState<? extends Value, ? extends Value> state : stack)
+        {
+            clone.stack.push(stateMapping.get(state));
         }
 
         return clone;

@@ -62,6 +62,7 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
     protected GeneratorState decorate(GeneratorState copy)
     {
         copy.step = step;
+        copy.children.clear();
         copy.children.addAll(children);
         return (GeneratorState) super.decorate(copy);
     }

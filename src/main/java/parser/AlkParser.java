@@ -46,16 +46,6 @@ public class AlkParser {
 
         ParseTree tree = parserAlk.main();
         MainVisitor visitor = new MainVisitor(global, new Payload(execution));
-        ExecutionState state = visitor.visit(tree);
-        return state;
-    }
-
-    /**
-     * A getter for the global environmentenvironment.
-     * @return
-     * The global environment.
-     */
-    public Environment getGlobalEnvironment() {
-        return global;
+        return visitor.visit(tree);
     }
 }

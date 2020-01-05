@@ -1,2 +1,5 @@
+a=2;
 choose x in [1..2];
+b=3;
 choose y in [1..2];
+c=4;

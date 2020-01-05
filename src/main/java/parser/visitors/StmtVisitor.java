@@ -1,6 +1,7 @@
 package parser.visitors;
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
+import execution.state.expression.ConditionalExpressionState;
 import execution.state.main.StatementSeqState;
 import execution.state.statement.AssignmentStmtState;
 import execution.state.statement.ChooseStmtState;
@@ -149,8 +150,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @return A pair containing the name of the parameter and a flag used to determine if it is about an output parameter.
      */
     @Override public Object visitParamDefinition(alkParser.ParamDefinitionContext ctx) {
-        Pair<String, Boolean> pair = new Pair<>(ctx.ID().getText(), ctx.OUT()!=null);
-        return pair;
+        return new Pair<>(ctx.ID().getText(), ctx.OUT()!=null);
     }
 
 
@@ -186,12 +186,12 @@ public class StmtVisitor extends alkBaseVisitor {
     @Override
     public ExecutionState visitStatementSeq(alkParser.StatementSeqContext ctx)
     {
-        return new StatementSeqState(ctx, payload);
+        return StateFactory.create(StatementSeqState.class, ctx, payload, env);
     }
 
     @Override public ExecutionState visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx)
     {
-        return new ToAssignmentStmtState(ctx, payload);
+        return StateFactory.create(ToAssignmentStmtState.class, ctx, payload, env);
     }
 
 
@@ -206,7 +206,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public ExecutionState visitAssignmentStmt(alkParser.AssignmentStmtContext ctx)
     {
-        return new AssignmentStmtState(ctx, payload);
+        return StateFactory.create(AssignmentStmtState.class, ctx, payload, env);
     }
 
 

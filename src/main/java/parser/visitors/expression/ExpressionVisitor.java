@@ -1,13 +1,10 @@
 package parser.visitors.expression;
-import execution.ExecutionResult;
 import execution.state.StateFactory;
 import execution.state.expression.IntValueState;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
-import execution.state.statement.ChooseStmtState;
 import parser.env.Environment;
 import grammar.*;
-import parser.visitors.ReferenceVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.ListVisitor;

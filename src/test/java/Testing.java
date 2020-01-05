@@ -2,6 +2,7 @@ import grammar.alkLexer;
 import grammar.alkParser;
 import parser.env.AlkFunction;
 import parser.env.Environment;
+import parser.env.Store;
 import parser.visitors.MainVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -14,7 +15,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 
-public class Testing {
+class Testing {
     String run(String chapter, String input) throws IOException {
         OutputStream out = new ByteArrayOutputStream();
         PrintStream stream = new PrintStream(out);
@@ -24,13 +25,14 @@ public class Testing {
         CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
         alkParser parserAlk = new alkParser(tokensAlk);
         ParseTree tree = parserAlk.main();
-        Environment e = new Environment();
+        Environment e = new Environment(new Store());
         AlkFunction.reset();
         MainVisitor alkVisitor = new MainVisitor(e);
         alkVisitor.visit(tree);
         return out.toString();
     }
-    public CharStream getCorrect(String chapter, String test) throws IOException {
+
+    CharStream getCorrect(String chapter, String test) throws IOException {
         return  CharStreams.fromPath(Paths.get("tests/output/"+chapter+"/"+test+".out"));
     }
 }

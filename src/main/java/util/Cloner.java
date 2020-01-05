@@ -22,12 +22,4 @@ public class Cloner {
         }
         return dest;
     }
-
-    public static ExecutionState clone(ExecutionState<? extends Value,? extends Value> state, Execution master)
-    {
-        Payload payload = new Payload(master);
-        ExecutionState copy = state.clone(payload);
-        EnvironmentManager envManager = master.getEnvManager();
-        return copy;
-    }
 }
