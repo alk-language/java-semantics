@@ -24,7 +24,7 @@ public class AssignmentStmtState extends ExecutionState
     private AlkValue rightSide;
     private String operator;
 
-    private AssignmentStmtState(alkParser.AssignmentStmtContext tree, Payload payload) {
+    public AssignmentStmtState(alkParser.AssignmentStmtContext tree, Payload payload) {
         super(tree, payload);
         ctx = tree;
         operator = ctx.ASSIGNMENT_OPERATOR().getText();
