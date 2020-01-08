@@ -1,12 +1,8 @@
 package parser.visitors;
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
-import execution.state.expression.ConditionalExpressionState;
 import execution.state.main.StatementSeqState;
-import execution.state.statement.AssignmentStmtState;
-import execution.state.statement.ChooseStmtState;
-import execution.state.statement.ToAssignmentStmtState;
-import execution.state.statement.ToChooseStmtState;
+import execution.state.statement.*;
 import grammar.*;
 import parser.Pair;
 import parser.env.AlkFunction;
@@ -20,11 +16,8 @@ import parser.types.AlkValue;
 import parser.types.alkNotAValue.AlkNotAValue;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
-import parser.visitors.helpers.NonDeterministic;
-import util.EnvironmentManager;
 import util.Payload;
 
-import javax.swing.plaf.nimbus.State;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -129,6 +122,23 @@ public class StmtVisitor extends alkBaseVisitor {
             e.printException(ctx.start.getLine());
         }
         return null;
+    }
+
+
+
+
+    /**
+     * Handles the context reffering to a declaration of a new function. It takes in account the inFunction flag to
+     * determine if this kind of statement is legal here. It parses the statement to compute the in/out/modifies params
+     * and also the statement block (the context/node in the visitor tree) and finally adds the new generated
+     * AlkFunction in the static collection of all AlkFunctions. In case there is another function with another name,
+     * an AlkExeption will be thrown.
+     * @param ctx A Function Declaration node in the execution tree meant to be parsed.
+     */
+    @Override
+    public Object visitBlock(alkParser.BlockContext ctx)
+    {
+        return StateFactory.create(BlockState.class, ctx, payload, env);
     }
 
 
@@ -345,26 +355,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @return An If Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitIfStructure(alkParser.IfStructureContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!value.type.equals("Bool"))
-        {
-
-            AlkException e = new AlkException(ERR_IF_NOT_BOOL);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        if (((AlkBool)value).getValue())
-            return visit(ctx.statement(0));
-        else
-        {
-            if (ctx.statement().size()>1)
-            {
-                return visit(ctx.statement(1));
-            }
-        }
-        return null;
+        return StateFactory.create(IfStmtState.class, ctx, payload, env);
     }
 
 
@@ -547,26 +538,12 @@ public class StmtVisitor extends alkBaseVisitor {
      * which we are not required to check for the SOTHAT condition.
      * @param ctx An Uniform Statement node in the execution tree meant to be parsed.
      */
-    @Override public Object visitUniformStmt(alkParser.UniformStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
-        AlkValue struct = (AlkValue)expressionVisitor.visit(ctx.expression());
-        if (!struct.isIterable)
-        {
-            AlkException e = new AlkException(ERR_UNIFORM_NOT_ITERABLE);
-            e.printException(ctx.start.getLine());
-        }
-        AlkIterableValue val = (AlkIterableValue) struct;
-
-        if (val.toArray().size()==0)
-        {
-            AlkException e = new AlkException(ERR_UNIFORM_RESULT);
-            e.printException(ctx.start.getLine());
-        }
-
-        AlkValue value = NonDeterministic.choose(val);
-        env.update(ctx.ID().getText(), value.clone());
-        return null;
+    @Override public Object visitUniformStmt(alkParser.UniformStmtContext ctx)
+    {
+        alkParser.ChooseStmtContext cctx = new alkParser.ChooseStmtContext(ctx);
+        for (int i=0; i<ctx.getChildCount(); i++)
+            cctx.addAnyChild(ctx.getChild(i));
+        return StateFactory.create(ChooseStmtState.class, cctx, payload, env);
     }
 
 
