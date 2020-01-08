@@ -62,13 +62,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToChooseStmt(alkParser.ToChooseStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code UniformStm}
-	 * labeled alternative in {@link alkParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUniformStm(alkParser.UniformStmContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Success}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
@@ -195,19 +188,19 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEmptyBlock(alkParser.EmptyBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code UniformStmt}
-	 * labeled alternative in {@link alkParser#uniform}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUniformStmt(alkParser.UniformStmtContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ChooseStmt}
 	 * labeled alternative in {@link alkParser#choose}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitChooseStmt(alkParser.ChooseStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UniformStmt}
+	 * labeled alternative in {@link alkParser#choose}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUniformStmt(alkParser.UniformStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PlusPlusStmt}
 	 * labeled alternative in {@link alkParser#increase_decrease}.

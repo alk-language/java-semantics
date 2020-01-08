@@ -14,4 +14,6 @@ public interface IOManager {
      */
     void write(String text);
 
+    void flush();
+
 }

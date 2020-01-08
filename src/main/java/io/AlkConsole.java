@@ -109,6 +109,12 @@ public class AlkConsole implements IOManager, OptionProvider
         System.out.println(text);
     }
 
+    @Override
+    public void flush()
+    {
+        // no-op
+    }
+
     /**
      * Used for identifying the metadata flag based on the command line
      *
