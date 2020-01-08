@@ -1,6 +1,6 @@
 a = 2;
-choose x in [1..2];
+uniform x in [1..2];
 b = 3;
-choose y in [1..2];
+uniform y in [1..2];
 print(2);
 c = 4;
