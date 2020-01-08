@@ -32,12 +32,16 @@ public class ExecutionStack implements Cloneable
         stack.pop();
     }
 
-    void run() {
+    void run()
+    {
         while (!stack.empty())
         {
-            try {
+            try
+            {
                 makeStep();
-            } catch (AlkException e) {
+            }
+            catch (AlkException e)
+            {
                 ErrorManager em = config.getErrorManager();
                 em.handleError(e);
             }

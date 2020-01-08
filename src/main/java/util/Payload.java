@@ -4,7 +4,7 @@ import execution.Execution;
 
 public class Payload {
 
-    Execution execution;
+    private Execution execution;
 
     public Payload (Execution execution)
     {

@@ -18,7 +18,6 @@ statement //statement
     | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
 
     | choose SEMICOLON                                                                                                  #ToChooseStmt
-    | uniform SEMICOLON                                                                                                 #UniformStm
     | SUCCESS SEMICOLON                                                                                                 #Success
     | FAILURE SEMICOLON                                                                                                 #Failure
 
@@ -56,13 +55,10 @@ statement_block
     | LCB RCB                                                                                                           #EmptyBlock
 ;
 
-uniform:
-    UNIFORM ID IN expression                                                                                            #UniformStmt
-;
-
 
 choose:
     CHOOSE ID IN expression (SOTHAT expression)?                                                                        #ChooseStmt
+    | UNIFORM ID IN expression                                                                                            #UniformStmt
 ;
 
 increase_decrease

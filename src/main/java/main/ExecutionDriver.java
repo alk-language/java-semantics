@@ -2,6 +2,7 @@ package main;
 
 import execution.Execution;
 import io.AlkConsole;
+import io.BufferedIOWrapper;
 import io.IOManager;
 import util.Configuration;
 import util.ErrorManager;
@@ -53,7 +54,7 @@ public class ExecutionDriver
         config = new Configuration();
 
         // attach interfaces to the managers
-        em.attach((IOManager) io);
+        em.attach(new BufferedIOWrapper(io));
         em.attach((OptionProvider) io);
         config.attach(em);
         config.attach(io);

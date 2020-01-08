@@ -68,13 +68,6 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUniformStm(alkParser.UniformStmContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitSuccess(alkParser.SuccessContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -201,14 +194,14 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUniformStmt(alkParser.UniformStmtContext ctx) { return visitChildren(ctx); }
+	@Override public T visitChooseStmt(alkParser.ChooseStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitChooseStmt(alkParser.ChooseStmtContext ctx) { return visitChildren(ctx); }
+	@Override public T visitUniformStmt(alkParser.UniformStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
