@@ -233,6 +233,9 @@ public class StmtVisitor extends alkBaseVisitor {
         return null;
     }
 
+    @Override public Object visitToRepeat(alkParser.ToRepeatContext ctx) {
+        return StateFactory.create(ToRepeatState.class, ctx, payload, env);
+    }
 
     /**
      * Handles the visiting of a Repeat Structure. Making use of an ExpressionVisitor, after each iteration we check if
@@ -242,65 +245,19 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Repeat Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitRepeatStructure(alkParser.RepeatStructureContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value;
-        loopLevel++;
-        breakFlag = continueFlag = false;
-        do
-        {
-            visit(ctx.statement());
-            continueFlag = false;
-            if (returnValue != null || breakFlag)
-            {
-                breakFlag = false;
-                loopLevel--;
-                return null;
-            }
-            value = (AlkValue) exprVisitor.visit(ctx.expression());
-            if (!value.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_REPEAT_NOT_BOOL);
-                e.printException(ctx.start.getLine());
-                return null;
-            }
-        } while (!((AlkBool)value).getValue());
-        loopLevel--;
-        return null;
+        return StateFactory.create(RepeatUntilState.class, ctx, payload, env);
     }
 
+    @Override public Object visitToDoWhile(alkParser.ToDoWhileContext ctx) {
+        return StateFactory.create(ToDoWhileState.class, ctx, payload, env);
+    }
 
     /**
      * The same semantic as the repeat until structure.
      * @param ctx A Do While Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitDoWhileStructure(alkParser.DoWhileStructureContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value;
-        loopLevel++;
-        breakFlag = continueFlag = false;
-        do
-        {
-            visit(ctx.statement());
-            continueFlag = false;
-            if (returnValue != null || breakFlag)
-            {
-                breakFlag = false;
-                loopLevel--;
-                return 0;
-            }
-
-            value = (AlkValue) exprVisitor.visit(ctx.expression());
-            if (!value.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_DOWHILE_NOT_BOOL);
-                e.printException(ctx.start.getLine());
-                return null;
-            }
-        } while (((AlkBool)value).getValue());
-        loopLevel--;
-        return null;
+        return StateFactory.create(DoWhileState.class, ctx, payload, env);
     }
 
 
@@ -312,38 +269,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A While Structure node in the execution tree meant to be parsed.
      */
     @Override public Object visitWhileStructure(alkParser.WhileStructureContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag)
-            return null;
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!value.type.equals("Bool"))
-        {
-            AlkException e = new AlkException(ERR_WHILE_NOT_BOOL);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        loopLevel++;
-        breakFlag = continueFlag = false;
-        while (((AlkBool)value).getValue())
-        {
-            visit(ctx.statement());
-            continueFlag = false;
-            if (returnValue != null || breakFlag)
-            {
-                breakFlag = false;
-                loopLevel--;
-                return null;
-            }
-            value = (AlkValue) exprVisitor.visit(ctx.expression());
-            if (!value.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_WHILE_NOT_BOOL);
-                e.printException(ctx.start.getLine());
-                return null;
-            }
-        }
-        loopLevel--;
-        return null;
+        return StateFactory.create(WhileState.class, ctx, payload, env);
     }
 
 
@@ -392,46 +318,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A For Strcuture node in the execution tree meant to be parsed.
      */
     @Override public Object visitForStructure(alkParser.ForStructureContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        if (ctx.start_assignment()!=null)
-            visit(ctx.start_assignment());
-
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!value.type.equals("Bool"))
-        {
-            AlkException e = new AlkException(ERR_FOR_NOT_BOOL);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        loopLevel++;
-        breakFlag = continueFlag = false;
-        while (((AlkBool)value).getValue())
-        {
-            visit(ctx.statement());
-            continueFlag = false;
-            if (returnValue != null || breakFlag)
-            {
-                breakFlag = false;
-                loopLevel--;
-                return null;
-            }
-
-            if (ctx.assignment()!=null)
-                visit(ctx.assignment());
-            else
-                visit(ctx.increase_decrease());
-
-            value = (AlkValue) exprVisitor.visit(ctx.expression());
-            if (!value.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_FOR_NOT_BOOL);
-                e.printException(ctx.start.getLine());
-                return null;
-            }
-        }
-        loopLevel--;
-        return null;
+        return StateFactory.create(ForState.class, ctx, payload, env);
     }
 
 
