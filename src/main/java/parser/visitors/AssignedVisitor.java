@@ -18,7 +18,7 @@ import static parser.exceptions.AlkException.*;
 
 public class AssignedVisitor extends alkBaseVisitor {
 
-    private Environment env;
+    /*private Environment env;
     private AlkValue value;
     private AlkValue left_side;
 
@@ -144,5 +144,5 @@ public class AssignedVisitor extends alkBaseVisitor {
             value = new AlkBool(false);
         }
         return null;
-    }
+    }*/
 }

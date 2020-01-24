@@ -1,6 +1,10 @@
 package util.types;
 
-public abstract class Value {
+import parser.env.Location;
 
-    public abstract Value clone();
+public interface Value {
+
+    Value clone();
+    Value toRValue();
+    Location toLValue();
 }

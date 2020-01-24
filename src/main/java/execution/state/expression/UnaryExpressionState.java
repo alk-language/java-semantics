@@ -11,7 +11,7 @@ import util.Payload;
 import util.types.Value;
 
 @CtxState(ctxClass = alkParser.UnaryExpressionContext.class)
-public class UnaryExpressionState extends SingleState<AlkValue, AlkValue>
+public class UnaryExpressionState extends SingleState<Value, Value>
 {
     public UnaryExpressionState(alkParser.UnaryExpressionContext tree, Payload payload)
     {
@@ -20,17 +20,18 @@ public class UnaryExpressionState extends SingleState<AlkValue, AlkValue>
     }
 
     @Override
-    protected AlkValue interpretResult(AlkValue value) {
+    protected Value interpretResult(Value value) {
+        AlkValue alkValue = (AlkValue) value.toRValue();
         switch (tree.getChild(0).getText())
         {
             case "*":
-                return localResult.star();
+                return alkValue.star();
             case "+":
-                return localResult.positive();
+                return alkValue.positive();
             case "-":
-                return localResult.negative();
+                return alkValue.negative();
             default:
-                return localResult.not();
+                return alkValue.not();
         }
     }
 

@@ -8,31 +8,43 @@ import java.util.Map;
 
 import static parser.exceptions.AlkException.ERR_NO_REF;
 
-public class Environment {
+public class Environment
+{
 
     private Store store;
-    private HashMap<String, Integer> variables = new HashMap<>();
+
+    private Map<String, Location> variables = new HashMap<>();
 
     public Environment(Store store)
     {
         this.store = store;
     }
 
-    public AlkValue lookup(String str) throws AlkException {
-        if (variables.containsKey(str))
-            return store.get(variables.get(str));
-        throw new AlkException(ERR_NO_REF + ": " + str);
-    }
-
-    public Integer getLocation(String str) throws AlkException {
-        if (variables.containsKey(str))
-            return variables.get(str);
-        throw new AlkException(ERR_NO_REF + ": " + str);
-    }
-
-    public void add(String id, Integer location)
+    public AlkValue lookup(String str)
     {
-        variables.put(id, location);
+        if (variables.containsKey(str))
+        {
+            return store.get(variables.get(str));
+        }
+
+        throw new AlkException(ERR_NO_REF + ": " + str);
+    }
+
+    public Location getLocation(String str)
+    {
+        if (variables.containsKey(str))
+        {
+            return variables.get(str);
+        }
+
+        throw new AlkException(ERR_NO_REF + ": " + str);
+    }
+
+    public Location define(String id)
+    {
+        Location loc = store.malloc();
+        variables.put(id, loc);
+        return loc;
     }
 
     public void update(String id, AlkValue value)
@@ -40,7 +52,7 @@ public class Environment {
         if (variables.containsKey(id))
             store.set(variables.get(id), value);
         else
-            variables.put(id, store.setNew(value));
+            variables.put(id, store.malloc().assign(value));
     }
 
     public boolean has(String id)
@@ -57,7 +69,7 @@ public class Environment {
     public String toString()
     {
         StringBuilder returnable = new StringBuilder();
-        for (Map.Entry<String, Integer> i : variables.entrySet())
+        for (Map.Entry<String, Location> i : variables.entrySet())
         {
             returnable.append(i.getKey()).append(" |-> ").append(store.get(i.getValue())).append('\n');
         }
@@ -67,10 +79,10 @@ public class Environment {
     public Environment makeClone(Store store)
     {
         Environment clone = new Environment(store);
-        for (Map.Entry entry : variables.entrySet())
+        for (Map.Entry<String, Location> entry : variables.entrySet())
         {
-            Integer location = store.setNew(lookup((String) entry.getKey()));
-            clone.variables.put((String)entry.getKey(), location);
+            Location location = store.malloc().assign(lookup(entry.getKey()));
+            clone.variables.put(entry.getKey(), location);
         }
         return clone;
     }

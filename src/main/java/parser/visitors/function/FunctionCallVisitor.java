@@ -50,7 +50,7 @@ public class FunctionCallVisitor extends alkBaseVisitor {
 
     @Override public Object visitDefinedFunctionCall(alkParser.DefinedFunctionCallContext ctx)
     {
-        try {
+        /*try {
             AlkFunction function = AlkFunction.get(ctx.ID().getText(), ctx.expression().size());
             ArrayList array = new ArrayList();
             for (int i=0; i<ctx.expression().size(); i++)
@@ -73,6 +73,7 @@ public class FunctionCallVisitor extends alkBaseVisitor {
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
             return new AlkBool(false);
-        }
+        }*/
+        return null;
     }
 }

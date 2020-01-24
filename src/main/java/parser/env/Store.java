@@ -3,34 +3,41 @@ package parser.env;
 import parser.types.AlkValue;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class Store {
+public class Store
+{
 
-    private HashMap<Integer, AlkValue> store = new HashMap<>();
+    private Map<Location, AlkValue> store = new HashMap<>();
     private int location = 0;
 
-    public AlkValue get(Integer location)
+    public AlkValue get(Location location)
     {
         return store.get(location);
     }
 
-    public void set(Integer location, AlkValue value)
+    public void set(Location location, AlkValue value)
     {
         store.put(location, value.clone());
     }
 
-    Integer setNew(AlkValue value) {
+    public Location malloc()
+    {
         location++;
-        store.put(location, value.clone());
-        return location;
+        Location newLocation = new Location(this, location);
+        store.put(newLocation, null);
+        return newLocation;
     }
 
-    public Store makeClone() {
+    public Store makeClone()
+    {
         Store copyStore = new Store();
-        HashMap<Integer, AlkValue> copy = new HashMap<>();
-        for (Integer key : store.keySet())
+        Map<Location, AlkValue> copy = new HashMap<>();
+        for (Location key : store.keySet())
         {
-            copy.put(key, store.get(key));
+            Location newLocation = new Location(copyStore, key.getLocation());
+            AlkValue value = store.get(key).clone();
+            copy.put(newLocation, value);
         }
         copyStore.store = copy;
         copyStore.location = location;

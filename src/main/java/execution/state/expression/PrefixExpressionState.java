@@ -1,16 +1,18 @@
 package execution.state.expression;
 
-import execution.Execution;
 import execution.state.ExecutionState;
 import execution.state.SingleState;
 import grammar.alkParser;
+import parser.env.Location;
+import parser.exceptions.AlkException;
 import parser.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.PrefixExpressionContext.class)
-public class PrefixExpressionState extends SingleState<AlkValue, AlkValue> {
+public class PrefixExpressionState extends SingleState<Value, Value> {
 
 
     public PrefixExpressionState(alkParser.PrefixExpressionContext tree, Payload payload) {
@@ -18,18 +20,28 @@ public class PrefixExpressionState extends SingleState<AlkValue, AlkValue> {
     }
 
     @Override
-    protected AlkValue interpretResult(AlkValue value) {
+    protected Value interpretResult(Value value) {
+        AlkValue alkValue = (AlkValue) value.toRValue();
+        AlkValue result;
         switch (tree.getChild(0).getText())
         {
             case "++":
-                return value.plusplusleft();
+                result = alkValue.plusplusleft(); break;
             case "--":
-                return value.minusminusleft();
+                result = alkValue.minusminusleft(); break;
             case "++%":
-                return value.plusplusmod();
+                result = alkValue.plusplusmod(); break;
             default:
-                return value.minusminusmod();
+                result = alkValue.minusminusmod(); break;
         }
+
+        try {
+            Location loc = value.toLValue();
+            loc.assign(alkValue);
+        }
+        catch (AlkException ignored){}
+
+        return result;
     }
 
     @Override

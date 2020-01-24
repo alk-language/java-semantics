@@ -4,6 +4,7 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.main.MainState;
 import grammar.alkParser;
+import parser.env.Location;
 import parser.types.AlkValue;
 import parser.types.alkInt.AlkInt;
 import parser.visitors.AssignedVisitor;
@@ -22,6 +23,7 @@ public class AssignmentStmtState extends ExecutionState
 
     private alkParser.AssignmentStmtContext ctx;
     private AlkValue rightSide;
+    private Location leftSide;
     private String operator;
 
     public AssignmentStmtState(alkParser.AssignmentStmtContext tree, Payload payload) {
@@ -34,37 +36,33 @@ public class AssignmentStmtState extends ExecutionState
     public ExecutionState makeStep()
     {
         if (rightSide == null)
-            return super.request(ExpressionVisitor.class, ctx.expression());
-
-        if (operator.equals("="))
         {
-            // TODO: rethink the AssignedVisitor
-            AssignedVisitor asgnVisitor = new AssignedVisitor(getEnv(), rightSide);
-            asgnVisitor.visit(ctx.ref_name());
-            return null;
+            return super.request(ExpressionVisitor.class, ctx.expression());
         }
 
-        // TODO: rethink the ReferenceVisitor
-        ReferenceVisitor referenceVisitor = new ReferenceVisitor(getEnv());
-        AlkValue leftSide = ((AlkValue) referenceVisitor.visit(ctx.ref_name())).clone();
+        if (leftSide == null)
+        {
+            return super.request(ExpressionVisitor.class, ctx.ref_name());
+        }
 
+        AlkValue leftValue = leftSide.getValue();
         switch (operator)
         {
-            case "+=": rightSide = leftSide.add(rightSide); break;
-            case "-=": rightSide = leftSide.subtract(rightSide); break;
-            case "*=": rightSide = leftSide.multiply(rightSide); break;
-            case "/=": rightSide = leftSide.divide(rightSide); break;
-            case "%=": rightSide = leftSide.mod(rightSide); break;
-            case "<<=": rightSide = leftSide.shiftLeft(rightSide); break;
-            case ">>=": rightSide = leftSide.shiftLeft(rightSide); break;
-            case "|=": rightSide = leftSide.bitwiseOr(rightSide); break;
-            case "&=": rightSide = leftSide.bitwiseAnd(rightSide); break;
+            case "=": break;
+            case "+=": rightSide = leftValue.add(rightSide); break;
+            case "-=": rightSide = leftValue.subtract(rightSide); break;
+            case "*=": rightSide = leftValue.multiply(rightSide); break;
+            case "/=": rightSide = leftValue.divide(rightSide); break;
+            case "%=": rightSide = leftValue.mod(rightSide); break;
+            case "<<=": rightSide = leftValue.shiftLeft(rightSide); break;
+            case ">>=": rightSide = leftValue.shiftRight(rightSide); break;
+            case "|=": rightSide = leftValue.bitwiseOr(rightSide); break;
+            case "&=": rightSide = leftValue.bitwiseAnd(rightSide); break;
             default:
                 throw new UnimplementedException("Unimplemented assignment operator: " + operator);
         }
 
-        AssignedVisitor asgnVisitor = new AssignedVisitor(getEnv(), rightSide);
-        asgnVisitor.visit(ctx.ref_name());
+        leftSide.assign(rightSide);
         return null;
     }
 
@@ -73,7 +71,11 @@ public class AssignmentStmtState extends ExecutionState
     {
         if (rightSide == null)
         {
-            rightSide = (AlkValue) result.getValue();
+            rightSide = (AlkValue) result.getValue().toRValue();
+        }
+        else if (leftSide == null)
+        {
+            leftSide = result.getValue().toLValue();
         }
     }
 
@@ -81,6 +83,9 @@ public class AssignmentStmtState extends ExecutionState
     public ExecutionState clone(Payload payload) {
         AssignmentStmtState copy = new AssignmentStmtState((alkParser.AssignmentStmtContext) tree, payload);
         copy.rightSide = rightSide.clone();
+
+        // TODO: Location doesn't clone fine as it doesn't know the new store (is this however mandatory?)
+        copy.leftSide = leftSide.clone();
         return super.decorate(copy);
     }
 }

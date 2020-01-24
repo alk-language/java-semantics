@@ -5,6 +5,7 @@ import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
+import parser.env.Store;
 import util.Configuration;
 import util.Payload;
 import util.VisitorFactory;
@@ -44,6 +45,10 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
     protected Environment getEnv()
     {
         return payload.getEnvManager().getEnv(this);
+    }
+    protected Store getStore()
+    {
+        return payload.getExecution().getStore();
     }
 
     protected Configuration getConfig() { return payload.getConfiguration(); }
