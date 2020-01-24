@@ -31,10 +31,11 @@ public abstract class GuardedGeneratorState<T extends Value> extends GeneratorSt
     @Override
     public void assign(ExecutionResult<T> result)
     {
+        T value = result.getValue();
         if (step == 1)
-            localResult = result.getValue();
+            localResult = value;
         else
-            localResult = interpretResult(localResult, result.getValue());
+            localResult = interpretResult((T) localResult.toRValue(), (T) value.toRValue());
     }
 
     @Override

@@ -3,15 +3,15 @@ import execution.state.StateFactory;
 import execution.state.expression.IntValueState;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
+import execution.state.reference.RefArrayState;
 import parser.env.Environment;
 import grammar.*;
-import parser.visitors.function.FunctionCallVisitor;
+import execution.state.reference.RefIDState;
 import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.ListVisitor;
 import parser.visitors.structure.SetVisitor;
 import parser.visitors.structure.StructureVisitor;
 import util.Payload;
-import util.types.Value;
 
 public class ExpressionVisitor extends alkBaseVisitor {
 
@@ -101,20 +101,24 @@ public class ExpressionVisitor extends alkBaseVisitor {
 
 
     //Factor
-
-    // TODO: not compatible with the latest stack fashion execution
-    @Override
-    public ExecutionState visitFunctionCallFactor(alkParser.FunctionCallFactorContext ctx)
-    {
-        return (ExecutionState) new FunctionCallVisitor(env).visit(ctx.function_call());
-    }
-
     @Override public ExecutionState visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx) {
         return (ExecutionState) visit(ctx.expression());
     }
 
     @Override public ExecutionState visitRefNameFactor(alkParser.RefNameFactorContext ctx) {
         return StateFactory.create(RefNameFactorState.class, ctx, payload, env);
+    }
+
+    //Reference name
+
+    @Override
+    public ExecutionState visitRefID(alkParser.RefIDContext ctx) {
+        return StateFactory.create(RefIDState.class, ctx, payload, env);
+    }
+
+    @Override
+    public ExecutionState visitRefArray(alkParser.RefArrayContext ctx) {
+        return StateFactory.create(RefArrayState.class, ctx, payload, env);
     }
 
 
@@ -154,7 +158,6 @@ public class ExpressionVisitor extends alkBaseVisitor {
     @Override public ExecutionState visitSetValue(alkParser.SetValueContext ctx) {
         return (ExecutionState) new SetVisitor(env, payload).visit(ctx.set());
     }
-
 
     @Override
     public ExecutionState visitStructureValue(alkParser.StructureValueContext ctx)

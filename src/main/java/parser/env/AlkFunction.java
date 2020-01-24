@@ -63,7 +63,9 @@ public class AlkFunction {
 
 
     //daca este vorba de parametrii de intrare-iesire, se va primi un AlkInt cu valoarea locatii in store
-    public AlkValue call(ArrayList<AlkValue> params) throws AlkException {
+    public AlkValue call(ArrayList<AlkValue> params) throws AlkException
+    {
+        /*
         Environment env = new Environment(new Store());
 
         for (int i=0; i<params.size(); i++)
@@ -88,5 +90,8 @@ public class AlkFunction {
         if (visitor.returnValue == null)
             return new AlkNotAValue(AlkNotAValue.NO_RETURN);
         return visitor.returnValue;
+
+        */
+        return null;
     }
 }

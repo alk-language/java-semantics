@@ -12,6 +12,7 @@ import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
 import util.VisitorFactory;
+import util.types.Value;
 
 import static parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;
 
@@ -19,7 +20,7 @@ import static parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;
 public class ConditionalExpressionState extends ExecutionState {
 
     private alkParser.ConditionalExpressionContext ctx;
-    private AlkValue queryExpression;
+    private Value queryExpression;
 
     public ConditionalExpressionState(alkParser.ConditionalExpressionContext tree, Payload payload) {
         super(tree, payload);
@@ -45,6 +46,7 @@ public class ConditionalExpressionState extends ExecutionState {
             return null;
         }
 
+        queryExpression = queryExpression.toRValue();
         if (!(queryExpression instanceof AlkBool))
         {
             throw new AlkException(ERR_CONDITIONAL_NO_BOOL);
@@ -65,11 +67,11 @@ public class ConditionalExpressionState extends ExecutionState {
     {
         if (queryExpression == null)
         {
-            queryExpression = (AlkValue) result.getValue();
+            queryExpression = result.getValue();
         }
         else
         {
-            this.result = result;
+            this.result = new ExecutionResult(result.getValue().toRValue());
         }
     }
 

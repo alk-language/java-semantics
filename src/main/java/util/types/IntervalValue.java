@@ -1,11 +1,13 @@
 package util.types;
 
+import parser.env.Location;
+import parser.exceptions.AlkException;
 import parser.types.alkInt.AlkInt;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
 
-public class IntervalValue extends Value implements Iterable<AlkInt> {
+public class IntervalValue implements Value, Iterable<AlkInt> {
 
     private AlkInt left, right;
 
@@ -22,6 +24,16 @@ public class IntervalValue extends Value implements Iterable<AlkInt> {
     @Override
     public Value clone() {
         return new IntervalValue((AlkInt)left.clone(), (AlkInt)right.clone());
+    }
+
+    @Override
+    public Value toRValue() {
+        return this;
+    }
+
+    @Override
+    public Location toLValue() {
+        throw new AlkException("Can't obtain a reference out of this expression");
     }
 
     class PairValueIterator implements Iterator<AlkInt> {

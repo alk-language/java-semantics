@@ -227,7 +227,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitMethodCall(alkParser.MethodCallContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor referenceVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor referenceVisitor = new ReferenceVisitor();
         referenceVisitor.visit(ctx.ref_name());
         referenceVisitor.visit(ctx.builtin_method());
         return null;
@@ -367,7 +367,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor refVisitor = new ReferenceVisitor();
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
             value.plusplusleft();
@@ -386,7 +386,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor refVisitor = new ReferenceVisitor();
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
             value.minusminusleft();
@@ -441,9 +441,9 @@ public class StmtVisitor extends alkBaseVisitor {
     //TODO reimplement the function
     @Override public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor refVisitor = new ReferenceVisitor();
         try {
-            AssignedVisitor asgnVisitor = new AssignedVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).add(new AlkInt(new BigInteger("1")))); //TODO de modificat in functii proprii
+            AssignedVisitor asgnVisitor = new AssignedVisitor(); //TODO de modificat in functii proprii
             asgnVisitor.visit(ctx.ref_name());
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
@@ -462,9 +462,9 @@ public class StmtVisitor extends alkBaseVisitor {
     //TODO reimplement the function
     @Override public Object visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor refVisitor = new ReferenceVisitor();
         try {
-            AssignedVisitor asgnVisitor = new AssignedVisitor(env, ((AlkValue) refVisitor.visit(ctx.ref_name())).subtract(new AlkInt(new BigInteger("1"))));
+            AssignedVisitor asgnVisitor = new AssignedVisitor();
             asgnVisitor.visit(ctx.ref_name());
         } catch (AlkException e) {
             e.printException(ctx.start.getLine());
@@ -484,7 +484,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitMinusMinusModStmt(alkParser.MinusMinusModStmtContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor refVisitor = new ReferenceVisitor();
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
             value.minusminusmod();
@@ -503,7 +503,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitPlusPlusModStmt(alkParser.PlusPlusModStmtContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor(env);
+        ReferenceVisitor refVisitor = new ReferenceVisitor();
         try {
             AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
             value.plusplusmod();

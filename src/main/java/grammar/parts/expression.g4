@@ -78,8 +78,7 @@ postfix_expression
 
 factor
 :
-    function_call                                                                                                       #FunctionCallFactor
-    | ref_name                                                                                                          #RefNameFactor
+    ref_name                                                                                                            #RefNameFactor
     | value                                                                                                             #ValueFactor
     | LPAR expression RPAR                                                                                              #ParanthesesFactor
 ;
@@ -102,14 +101,12 @@ scalar_value :
 //Reference name
 ref_name
 :
-    ref_name_chunk ((POINT|ARROW) ref_name_chunk)*                                                                      #RefName
+    ref_name (POINT|ARROW) builtin_method                                                                               #RefMethodCall
+    | ref_name LBRA expression RBRA                                                                                     #RefArray
+    | function_call                                                                                                     #RefFunctionCall
+    | ID                                                                                                                #RefID
 ;
 
-ref_name_chunk
-:
-    function_call (LBRA expression RBRA)*                                                                               #FunctionChunk
-    | ID (LBRA expression RBRA)*                                                                                        #IDChunk
-;
 
 
 //Data structures
