@@ -11,18 +11,18 @@
 
     * Linux/Mac OS:
     ```
-    ../../bin/alki.sh gcd-no-input.alk
+    ../../bin/alki.sh -a gcd-no-input.alk
     4
     ```
     * Windows:
     ```
-    ..\..\bin\alki.bat gcd-no-input.alk
+    ..\..\bin\alki.bat -a gcd-no-input.alk
     4
     ```
   * an example that does require the input state:
     * Linux/Mac OS:
     ```
-    ../../bin/alki.sh gcd.alk gcd.in
+    ../../bin/alki.sh -a gcd.alk -i gcd.in
     14
     ```
     * Windows:
