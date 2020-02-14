@@ -27,7 +27,7 @@
     ```
     * Windows:
     ```
-    ..\..\bin\alki.bat gcd.alk gcd.in
+    ..\..\bin\alki.bat -a gcd.alk -i gcd.in
     14
     ```
 It is strongly recommended to include the folder `java-semantics/bin` in the PATH environment variable. This allow to call the the interpreter without mentioning the path to its location.
