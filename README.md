@@ -34,3 +34,10 @@ It is strongly recommended to include the folder `java-semantics/bin` in the PAT
     
 Read the [manual](doc/alk.pdf) to learn how to write Alk programs.
 The Java interpreter for Alk is in progress, therefore we strongly advise you to weekly update it.
+
+# IMPORTANT!
+
+Currently, the night builds are not promoted, as the version is still work in progress. Please use the latest release as it has a stable version and the sources attached. However, once the night builds will be scripted and regularly working, this will be merged.
+
+Use the following for the latest stable version:
+https://github.com/alk-language/java-semantics/releases
