@@ -2,8 +2,8 @@
 
 1. Be sure you have installed the latest version of Java. Alk interpreter works now on Java 1.8.
 2. Download the Java interpreter of Alk:
-* if you have git on your system, then the best is to make a clone of the K definition of alk from https://github.com/alk-language/java-semantics
-* otherwise, you may download a zip archive from https://github.com/alk-language/java-semantics/archive/master.zip (Clone or download button);
+* if you have git on your system, then the best is to make a clone of the JAVA definition of alk from https://github.com/alk-language/java-semantics
+* otherwise, you may download a zip archive from https://github.com/alk-language/java-semantics/releases/download/v1.0/alki-v1.0.zip
 3. Test the Alk interpreter:
 * Go to the `examples/miscelanea` folder and test some examples:
 
