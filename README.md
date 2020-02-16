@@ -11,26 +11,26 @@
 
     * Linux/Mac OS:
     ```
-    ../../bin/alki.sh -a gcd-no-input.alk
+    ../../Linux_Mac/alki.sh -a gcd-no-input.alk
     4
     ```
     * Windows:
     ```
-    ..\..\bin\alki.bat -a gcd-no-input.alk
+    ..\..\Windows\alki.bat -a gcd-no-input.alk
     4
     ```
   * an example that does require the input state:
     * Linux/Mac OS:
     ```
-    ../../bin/alki.sh -a gcd.alk -i gcd.in
+    ../../Linux_Mac/alki.sh -a gcd.alk -i gcd.in
     14
     ```
     * Windows:
     ```
-    ..\..\bin\alki.bat -a gcd.alk -i gcd.in
+    ..\..\Windows\alki.bat -a gcd.alk -i gcd.in
     14
     ```
-It is strongly recommended to include the folder `java-semantics/bin` in the PATH environment variable. This allow to call the the interpreter without mentioning the path to its location.
+It is strongly recommended to include the folder `Linux_Mac` or `Windows` in the PATH environment variable. This allow to call the the interpreter without mentioning the path to its location.
     
 Read the [manual](doc/alk.pdf) to learn how to write Alk programs.
 The Java interpreter for Alk is in progress, therefore we strongly advise you to weekly update it.
