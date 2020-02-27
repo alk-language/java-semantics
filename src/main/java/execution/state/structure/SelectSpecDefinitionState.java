@@ -2,31 +2,26 @@ package execution.state.structure;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import grammar.alkBaseVisitor;
 import grammar.alkParser;
+import parser.env.Location;
 import parser.exceptions.AlkException;
-import parser.types.AlkIterableValue;
-import parser.types.AlkValue;
-import parser.types.alkArray.AlkArray;
+import execution.types.AlkIterableValue;
+import execution.types.AlkValue;
+import execution.types.alkArray.AlkArray;
 import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.structure.DataStructureVisitor;
 import util.CtxState;
 import util.Payload;
-import util.VisitorFactory;
 import util.types.Value;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 // TODO: make use of temporary environment once there exists an environment stack
 @CtxState(ctxClass = alkParser.SelectSpecDefinitionContext.class)
-public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue> {
+public class SelectSpecDefinitionState extends ExecutionState<AlkArray, Value> {
 
-    private List<AlkValue> source;
+    private List<Location> source;
     private alkParser.SelectSpecDefinitionContext ctx;
     private AlkArray array = new AlkArray();
     private int step;
@@ -37,7 +32,7 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue
     }
 
     @Override
-    public ExecutionState<AlkValue, Value> makeStep()
+    public ExecutionState<Value, Value> makeStep()
     {
         if (source == null)
         {
@@ -50,40 +45,39 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, AlkValue
             return null;
         }
 
-        getEnv().update(ctx.ID().toString(), source.get(step++));
+        getEnv().update(ctx.ID().toString(), source.get(step++).toRValue());
         return super.request(ExpressionVisitor.class, ctx.expression(0));
     }
 
     @Override
-    public void assign(ExecutionResult<AlkValue> result) {
+    public void assign(ExecutionResult<Value> result) {
+        Value resultVal = result.getValue().toRValue();
         if (source == null)
         {
-            AlkValue resultVal = result.getValue();
             if (!(resultVal instanceof AlkIterableValue))
                 throw new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
-            source = ((AlkIterableValue) resultVal).toArray();
+
+            source = ((AlkIterableValue) resultVal).toArray(generator);
             step = 0;
         }
         else
         {
-            array.push(result.getValue());
+            if (!(resultVal instanceof AlkValue))
+                throw new AlkException("An iterable should be filled only with AlkValues.");
+
+            array.push(getStore().malloc().assign(((AlkValue) resultVal).clone(generator)));
         }
     }
 
     @Override
     public ExecutionState clone(Payload payload) {
         SelectSpecDefinitionState copy = new SelectSpecDefinitionState(ctx, payload);
-        for (AlkValue value : source)
+        for (Location value : source)
         {
-            copy.source.add(value.clone());
+            copy.source.add(generator.generate(value.toRValue().clone(generator)));
         }
-
-        for (AlkValue value : array)
-        {
-            copy.array.add(value.clone());
-        }
+        copy.array = array.clone(generator);
         copy.step = step;
-
         return super.decorate(copy);
     }
 }

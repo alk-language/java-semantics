@@ -3,7 +3,7 @@ package parser.visitors;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.env.Environment;
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 
 public class ConfigVisitator extends alkBaseVisitor {

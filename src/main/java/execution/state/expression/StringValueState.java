@@ -3,7 +3,7 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
 import grammar.alkParser;
-import parser.types.alkString.AlkString;
+import execution.types.alkString.AlkString;
 import util.CtxState;
 import util.Payload;
 

@@ -1,13 +1,15 @@
 package util;
 
-import parser.types.AlkValue;
+import execution.types.AlkValue;
+import parser.env.Location;
+import util.lambda.LocationGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cloner {
 
-    public static ArrayList<AlkValue> clone(List<AlkValue> src)
+    public static List<AlkValue> clone(List<AlkValue> src, LocationGenerator generator)
     {
         if (src == null)
             return null;
@@ -15,7 +17,7 @@ public class Cloner {
         ArrayList<AlkValue> dest = new ArrayList<>();
         for (AlkValue value : src)
         {
-            dest.add(value.clone());
+            dest.add(value.clone(generator));
         }
         return dest;
     }

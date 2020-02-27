@@ -1,12 +1,9 @@
-x = 1;
-for (i=1; i<=10; i=i+1)
-{
-    x = x + 2;
-}
-
-/*
-    - memory clear
-    - array auto malloc (in get and set) - access to store
-    - array deep clone - access to store
-
-*/
+a[10] = 5;
+a[2] = 8;
+a[0] = 9;
+a[1] = <1, 2, 3>;
+b = a[0] + 5;
+c[0] = [];
+c[1] = [];
+c[0][2] = 1;
+c[1][100] = 5;

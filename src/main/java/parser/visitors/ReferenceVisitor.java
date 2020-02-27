@@ -1,18 +1,6 @@
 package parser.visitors;
 
 import grammar.alkBaseVisitor;
-import grammar.alkParser;
-import parser.env.Environment;
-import parser.exceptions.AlkException;
-import parser.types.alkBool.AlkBool;
-import parser.types.AlkValue;
-import parser.types.alkInt.AlkInt;
-import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.function.FunctionCallVisitor;
-
-import java.util.ArrayList;
-
-import static parser.exceptions.AlkException.*;
 
 public class ReferenceVisitor extends alkBaseVisitor {
 

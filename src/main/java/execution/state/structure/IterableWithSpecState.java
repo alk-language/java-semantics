@@ -3,8 +3,8 @@ package execution.state.structure;
 import execution.state.ExecutionState;
 import execution.state.SingleState;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.types.AlkIterableValue;
-import parser.types.alkArray.AlkArray;
+import execution.types.AlkIterableValue;
+import execution.types.alkArray.AlkArray;
 import parser.visitors.structure.DataStructureVisitor;
 import util.Payload;
 import util.exception.InternalException;
@@ -26,7 +26,7 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
     protected AlkIterableValue interpretResult(AlkArray value) {
         try {
             AlkIterableValue iterableValue = clazz.newInstance();
-            iterableValue.addAll(value.toArray());
+            iterableValue.addAll(value.toArray(generator));
             return iterableValue;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new InternalException(e);

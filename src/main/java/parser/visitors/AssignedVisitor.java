@@ -1,18 +1,6 @@
 package parser.visitors;
 
 import grammar.alkBaseVisitor;
-import grammar.alkParser;
-import parser.env.Environment;
-import parser.exceptions.AlkException;
-import parser.types.AlkValue;
-import parser.types.alkArray.AlkArray;
-import parser.types.alkBool.AlkBool;
-import parser.types.alkInt.AlkInt;
-import parser.types.alkStructure.AlkStructure;
-import parser.visitors.expression.ExpressionVisitor;
-import util.types.ComponentValue;
-
-import static parser.exceptions.AlkException.*;
 
 // TODO: needs hard reformat
 

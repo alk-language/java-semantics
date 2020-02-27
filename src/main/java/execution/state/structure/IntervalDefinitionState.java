@@ -3,13 +3,11 @@ package execution.state.structure;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
-import execution.state.statement.ToAssignmentStmtState;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
-import parser.types.alkInt.AlkInt;
+import execution.types.AlkValue;
+import execution.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.structure.DataStructureVisitor;
 import util.CtxState;
 import util.Payload;
 import util.types.IntervalValue;
@@ -54,7 +52,7 @@ public class IntervalDefinitionState extends GeneratorState<IntervalValue, AlkVa
         IntervalDefinitionState copy = new IntervalDefinitionState((alkParser.IntervalDefinitionContext) tree, payload);
         for (AlkValue value : limits)
         {
-            copy.limits.add(value.clone());
+            copy.limits.add(value.clone(generator));
         }
         return super.decorate(copy);
     }

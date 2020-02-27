@@ -4,7 +4,7 @@ import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.exceptions.AlkException;
-import parser.types.alkBool.AlkBool;
+import execution.types.alkBool.AlkBool;
 import util.Payload;
 import util.types.Value;
 

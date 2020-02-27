@@ -3,12 +3,10 @@ package execution.state.function;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
-import execution.state.expression.UnaryExpressionState;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.function.FunctionCallVisitor;
 import util.CtxState;
 import util.NameMapper;
 import util.Payload;
@@ -69,7 +67,7 @@ public class BuiltInMethodState extends GeneratorState<AlkValue, AlkValue>
         BuiltInMethodState copy = new BuiltInMethodState((alkParser.BuiltinMethodContext) tree, payload);
         for (AlkValue value : this.params)
         {
-            copy.params.add(value.clone());
+            copy.params.add(value.clone(generator));
         }
 
         return super.decorate(copy);

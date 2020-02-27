@@ -2,9 +2,7 @@ package execution.state.main;
 
 import execution.state.ExecutionState;
 import execution.state.IndependentSingleState;
-import execution.state.function.BuiltInMethodState;
 import grammar.alkParser;
-import parser.types.AlkValue;
 import parser.visitors.MainVisitor;
 import util.CtxState;
 import util.Payload;

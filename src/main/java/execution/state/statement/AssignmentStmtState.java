@@ -2,19 +2,12 @@ package execution.state.statement;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import execution.state.main.MainState;
 import grammar.alkParser;
 import parser.env.Location;
-import parser.types.AlkValue;
-import parser.types.alkInt.AlkInt;
-import parser.visitors.AssignedVisitor;
-import parser.visitors.ReferenceVisitor;
-import parser.visitors.StmtVisitor;
+import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
-import util.VisitorFactory;
-import util.exception.InternalException;
 import util.exception.UnimplementedException;
 
 @CtxState(ctxClass = alkParser.AssignmentStmtContext.class)
@@ -82,7 +75,7 @@ public class AssignmentStmtState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload) {
         AssignmentStmtState copy = new AssignmentStmtState((alkParser.AssignmentStmtContext) tree, payload);
-        copy.rightSide = rightSide.clone();
+        copy.rightSide = rightSide.clone(generator);
 
         // TODO: Location doesn't clone fine as it doesn't know the new store (is this however mandatory?)
         copy.leftSide = leftSide.clone();

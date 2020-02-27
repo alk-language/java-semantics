@@ -3,13 +3,11 @@ package execution.state.structure;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
-import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.Environment;
-import parser.types.AlkIterableValue;
-import parser.types.AlkValue;
+import execution.types.AlkIterableValue;
+import execution.types.AlkValue;
+import parser.env.Location;
 import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
 import util.Payload;
 import util.exception.InternalException;
 
@@ -38,7 +36,10 @@ public class IterableWithExpressionsState extends GeneratorState<AlkIterableValu
     public AlkIterableValue getFinalResult() {
         try {
             AlkIterableValue iterableVal = clazz.newInstance();
-            iterableVal.addAll(array);
+            for (AlkValue value : array)
+            {
+                iterableVal.push(generator.generate(value.toRValue().clone(generator)));
+            }
             return iterableVal;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new InternalException(e);
@@ -51,7 +52,7 @@ public class IterableWithExpressionsState extends GeneratorState<AlkIterableValu
 
         for (AlkValue value : array)
         {
-            copy.array.add(value.clone());
+            copy.array.add(value.clone(generator));
         }
 
         return super.decorate(copy);

@@ -1,14 +1,13 @@
 package execution.state;
 
-import execution.Execution;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 import util.CtxState;
 import util.Payload;
-import util.exception.InternalException;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 // TODO: merge the create interfaces
 public class StateFactory {
@@ -72,6 +71,32 @@ public class StateFactory {
                     ctxClass,
                     Payload.class,
                     AlkValue.class).newInstance(ctx, payload, arg);
+            payload.getEnvManager().link(state, env);
+            return state;
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ExecutionState create(Class<? extends ExecutionState> stateClass,
+                                        ParseTree ctx,
+                                        Payload payload,
+                                        List list,
+                                        Class<?> clazz,
+                                        Environment env)
+    {
+        try {
+            Class<? extends ParseTree> ctxClass = ParseTree.class;
+            if (stateClass.isAnnotationPresent(CtxState.class))
+                ctxClass = stateClass.getAnnotation(CtxState.class).ctxClass();
+
+            ExecutionState state = stateClass.getDeclaredConstructor(
+                    ctxClass,
+                    Payload.class,
+                    List.class,
+                    Class.class).newInstance(ctx, payload, list, clazz);
             payload.getEnvManager().link(state, env);
             return state;
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {

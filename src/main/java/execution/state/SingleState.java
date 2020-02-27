@@ -1,12 +1,9 @@
 package execution.state;
 
 import execution.ExecutionResult;
-import execution.state.structure.IterableWithIntervalState;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.types.AlkValue;
 import util.Payload;
-import util.VisitorFactory;
 import util.types.Value;
 
 /**

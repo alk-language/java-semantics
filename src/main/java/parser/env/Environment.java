@@ -1,7 +1,7 @@
 package parser.env;
 
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 
 import java.util.HashMap;
 import java.util.Map;
