@@ -3,10 +3,7 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.types.AlkValue;
 import util.Payload;
-import util.exception.AlkFatalException;
-import util.exception.InternalException;
 import util.types.Value;
 
 import java.util.List;

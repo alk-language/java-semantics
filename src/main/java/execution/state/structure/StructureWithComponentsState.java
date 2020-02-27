@@ -3,16 +3,12 @@ package execution.state.structure;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
-import execution.state.SingleState;
 import grammar.alkParser;
-import parser.types.AlkValue;
-import parser.types.alkStructure.AlkStructure;
+import execution.types.alkStructure.AlkStructure;
 import parser.visitors.structure.DataStructureVisitor;
-import parser.visitors.structure.StructureVisitor;
 import util.CtxState;
 import util.Payload;
 import util.types.ComponentValue;
-import util.types.Value;
 
 @CtxState(ctxClass = alkParser.StructureWithComponentsContext.class)
 public class StructureWithComponentsState extends GeneratorState<AlkStructure, ComponentValue>

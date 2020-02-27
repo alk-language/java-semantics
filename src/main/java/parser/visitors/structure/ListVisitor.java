@@ -8,7 +8,7 @@ import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.env.Environment;
-import parser.types.alkList.AlkList;
+import execution.types.alkList.AlkList;
 import util.Payload;
 
 public class ListVisitor extends DataStructureVisitor {
@@ -18,7 +18,7 @@ public class ListVisitor extends DataStructureVisitor {
     }
 
     public ExecutionState visitListWithExpressions(alkParser.ListWithExpressionsContext ctx) {
-        return StateFactory.create(IterableWithExpressionsState.class, ctx, payload, AlkList.class, env);
+        return StateFactory.create(IterableWithExpressionsState.class, ctx, payload, ctx.expression(), AlkList.class, env);
     }
 
     public ExecutionState visitEmptyList(alkParser.EmptyListContext ctx) {

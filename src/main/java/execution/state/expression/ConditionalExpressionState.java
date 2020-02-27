@@ -1,17 +1,13 @@
 package execution.state.expression;
 
-import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
-import parser.types.alkBool.AlkBool;
+import execution.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
-import util.VisitorFactory;
 import util.types.Value;
 
 import static parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;

@@ -6,9 +6,11 @@ import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import parser.env.Store;
+import execution.types.AlkValue;
 import util.Configuration;
 import util.Payload;
 import util.VisitorFactory;
+import util.lambda.LocationGenerator;
 import util.types.Value;
 
 /**
@@ -25,10 +27,13 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     private Payload payload;
 
+    protected LocationGenerator generator;
+
     public ExecutionState(ParseTree tree, Payload payload)
     {
         this.tree = tree;
         this.payload = payload;
+        generator = (AlkValue value) -> getStore().malloc().assign(value);
     }
 
     public ExecutionResult<T> getResult()

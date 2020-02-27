@@ -9,21 +9,18 @@ import parser.env.AlkFunction;
 import parser.env.Environment;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
-import parser.types.AlkIterableValue;
-import parser.types.alkBool.AlkBool;
-import parser.types.alkInt.AlkInt;
-import parser.types.AlkValue;
-import parser.types.alkNotAValue.AlkNotAValue;
+import execution.types.AlkIterableValue;
+import execution.types.AlkValue;
+import execution.types.alkNotAValue.AlkNotAValue;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 import util.Payload;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 import static parser.constants.Constants.DEBUG;
 import static parser.exceptions.AlkException.*;
-import static parser.types.alkNotAValue.AlkNotAValue.NO_RETURN;
+import static execution.types.alkNotAValue.AlkNotAValue.NO_RETURN;
 
 /**
  * This class is responsible for the visiting of the statements.
@@ -329,7 +326,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A ForAll Strcuture node in the execution tree meant to be parsed.
      */
     @Override public Object visitForAllStructure(alkParser.ForAllStructureContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
+        /*if (returnValue != null || breakFlag || continueFlag) return null;
         String iterator = ctx.ID().toString();
         ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
         AlkValue struct = (AlkValue) exprVisitor.visit(ctx.expression());
@@ -354,7 +351,7 @@ public class StmtVisitor extends alkBaseVisitor {
                 return null;
             }
         }
-        loopLevel--;
+        loopLevel--;*/
         return null;
     }
 

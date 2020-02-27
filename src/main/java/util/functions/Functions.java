@@ -1,10 +1,9 @@
 package util.functions;
 
-import parser.types.AlkValue;
-import parser.types.alkSet.AlkSet;
-import parser.visitors.helpers.Convertors;
-import parser.visitors.helpers.MathHelper;
-import parser.visitors.helpers.NonDeterministic;
+import execution.types.AlkValue;
+import execution.helpers.Convertors;
+import execution.helpers.MathHelper;
+import execution.helpers.NonDeterministic;
 
 import java.util.List;
 
@@ -76,11 +75,12 @@ public class Functions {
         return MathHelper.abs(ParamHelper.getFloat(params, 0));
     }
 
-    @BuiltInFunction(paramNumber = 1)
+    // TODO: get a generator here
+    /*@BuiltInFunction(paramNumber = 1)
     public static AlkValue singletonSet(List<AlkValue> params)
     {
         return new AlkSet().insert(ParamHelper.getValue(params, 0));
-    }
+    }*/
 
     @BuiltInFunction(paramNumber = 1)
     public static AlkValue random(List<AlkValue> params)

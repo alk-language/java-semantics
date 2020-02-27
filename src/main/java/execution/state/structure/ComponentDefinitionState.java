@@ -2,11 +2,9 @@ package execution.state.structure;
 
 import execution.state.ExecutionState;
 import execution.state.SingleState;
-import execution.state.statement.ToChooseStmtState;
 import grammar.alkParser;
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.structure.DataStructureVisitor;
 import util.CtxState;
 import util.Payload;
 import util.types.ComponentValue;
@@ -25,7 +23,7 @@ public class ComponentDefinitionState extends SingleState <ComponentValue, AlkVa
     @Override
     protected ComponentValue interpretResult(AlkValue value) {
         String identifier = ctx.ID().toString();
-        return new ComponentValue(identifier, value);
+        return new ComponentValue(identifier, generator.generate(value));
     }
 
     @Override

@@ -5,7 +5,7 @@ import execution.state.SingleState;
 import grammar.alkParser;
 import parser.env.Location;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;

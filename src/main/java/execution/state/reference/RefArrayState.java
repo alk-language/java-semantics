@@ -2,11 +2,12 @@ package execution.state.reference;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.types.AlkValue;
+import execution.types.alkArray.AlkArray;
 import grammar.alkParser;
 import parser.env.Location;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
-import parser.types.alkInt.AlkInt;
+import execution.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
@@ -39,9 +40,11 @@ public class RefArrayState extends ExecutionState
 
         if (reference.isEmpty())
         {
-
+            reference.assign(new AlkArray());
         }
 
+        Location loc = reference.toRValue().bracket(index.value.intValueExact(), generator);
+        result = new ExecutionResult(loc);
         return null;
     }
 

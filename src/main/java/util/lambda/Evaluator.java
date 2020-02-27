@@ -1,6 +1,6 @@
 package util.lambda;
 
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 
 public interface Evaluator {
 

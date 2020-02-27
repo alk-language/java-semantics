@@ -4,19 +4,21 @@ import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
+import parser.env.Location;
 import parser.exceptions.AlkException;
-import parser.types.AlkIterableValue;
-import parser.types.AlkValue;
-import parser.types.alkArray.AlkArray;
-import parser.types.alkBool.AlkBool;
-import parser.types.alkInt.AlkInt;
+import execution.types.AlkIterableValue;
+import execution.types.AlkValue;
+import execution.types.alkArray.AlkArray;
+import execution.types.alkBool.AlkBool;
+import execution.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.helpers.NonDeterministic;
+import execution.helpers.NonDeterministic;
 import util.Cloner;
 import util.CtxState;
 import util.Payload;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static parser.exceptions.AlkException.ERR_CHOOSE_NOT_ITERABLE;
 import static parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
@@ -25,8 +27,8 @@ import static parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 public class ChooseStmtState extends ExecutionState
 {
     private alkParser.ChooseStmtContext ctx;
-    private ArrayList<AlkValue> array;
-    private ArrayList<AlkValue> values = new ArrayList<>();
+    private List<Location> array;
+    private List<Location> values = new ArrayList<>();
     private int step = 0;
 
     public ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
@@ -45,7 +47,7 @@ public class ChooseStmtState extends ExecutionState
 
         if (ctx.SOTHAT() != null && step < array.size())
         {
-            getEnv().update(ctx.ID().getText(), array.get(step).clone());
+            getEnv().update(ctx.ID().getText(), array.get(step).toRValue().clone(generator));
             return super.request(ExpressionVisitor.class, ctx.expression(1));
         }
 
@@ -56,11 +58,11 @@ public class ChooseStmtState extends ExecutionState
 
         AlkArray arr = new AlkArray();
         arr.addAll(values);
-        AlkValue value = NonDeterministic.choose(arr);
+        AlkValue value = NonDeterministic.choose(arr.toArray(generator)).toRValue();
 
         if (!getConfig().hasExhaustive())
         {
-            getEnv().update(ctx.ID().getText(), value.clone());
+            getEnv().update(ctx.ID().getText(), value.clone(generator));
         }
         else
         {
@@ -68,11 +70,11 @@ public class ChooseStmtState extends ExecutionState
             for (int i = 0; i < size - 1; i++)
             {
                 Execution current = getExec();
-                getEnv().update(ctx.ID().getText(), arr.get(i).clone());
+                getEnv().update(ctx.ID().getText(), arr.get(i, generator).toRValue().clone(generator));
                 Execution next = current.clone(true);
                 next.start();
             }
-            getEnv().update(ctx.ID().getText(), arr.get(size-1).clone());
+            getEnv().update(ctx.ID().getText(), arr.get(size-1, generator).toRValue().clone(generator));
         }
 
         return null;
@@ -85,7 +87,7 @@ public class ChooseStmtState extends ExecutionState
         {
             if (result.getValue() instanceof AlkIterableValue)
             {
-                array = ((AlkIterableValue) result.getValue()).toArray();
+                array = ((AlkIterableValue) result.getValue()).toArray(generator);
             }
             else
             {
@@ -113,8 +115,8 @@ public class ChooseStmtState extends ExecutionState
     public ExecutionState clone(Payload payload) {
         ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, payload);
         copy.step = step;
-        copy.array = Cloner.clone(array);
-        copy.values = Cloner.clone(values);
+        //copy.array = Cloner.clone(array, generator);
+        //copy.values = Cloner.clone(values, generator);
         return super.decorate(copy);
     }
 }

@@ -2,12 +2,8 @@ package parser.env;
 
 import grammar.alkParser;
 import parser.Pair;
-import parser.types.alkNotAValue.AlkNotAValue;
-import parser.visitors.MainVisitor;
-import parser.visitors.StmtVisitor;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
-import parser.types.alkInt.AlkInt;
+import execution.types.AlkValue;
 
 import java.util.ArrayList;
 import java.util.TreeMap;

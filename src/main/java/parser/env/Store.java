@@ -1,11 +1,12 @@
 package parser.env;
 
-import parser.types.AlkValue;
+import execution.types.AlkValue;
+import util.lambda.LocationGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Store
+public class Store implements LocationGenerator
 {
 
     private Map<Location, AlkValue> store = new HashMap<>();
@@ -18,7 +19,7 @@ public class Store
 
     public void set(Location location, AlkValue value)
     {
-        store.put(location, value.clone());
+        store.put(location, value.clone(this));
     }
 
     public Location malloc()
@@ -36,11 +37,17 @@ public class Store
         for (Location key : store.keySet())
         {
             Location newLocation = new Location(copyStore, key.getLocation());
-            AlkValue value = store.get(key).clone();
+            AlkValue value = store.get(key).clone(this);
             copy.put(newLocation, value);
         }
         copyStore.store = copy;
         copyStore.location = location;
         return copyStore;
+    }
+
+    @Override
+    public Location generate(AlkValue value)
+    {
+        return malloc().assign(value.clone(this));
     }
 }

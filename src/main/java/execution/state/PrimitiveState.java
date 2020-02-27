@@ -1,12 +1,8 @@
 package execution.state;
 
 import execution.ExecutionResult;
-import execution.state.ExecutionState;
-import grammar.alkBaseVisitor;
-import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.types.AlkValue;
-import util.CtxState;
+import execution.types.AlkValue;
 import util.Payload;
 import util.types.Value;
 

@@ -2,21 +2,20 @@ package util.types;
 
 import parser.env.Location;
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
 
 public class ComponentValue implements Value {
 
     private String identifier;
-    private AlkValue value;
+    private Location location;
 
-    public ComponentValue(String identifier, AlkValue value) {
+    public ComponentValue(String identifier, Location location) {
         this.identifier = identifier;
-        this.value = value;
+        this.location = location;
     }
 
 
-    public AlkValue getValue() {
-        return value;
+    public Location getLocation() {
+        return location;
     }
 
     public String getIdentifier() {
@@ -25,7 +24,7 @@ public class ComponentValue implements Value {
 
     @Override
     public Value clone() {
-        return new ComponentValue(identifier, value.clone());
+        return new ComponentValue(identifier, location.clone());
     }
 
     @Override

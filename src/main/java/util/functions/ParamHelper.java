@@ -1,9 +1,9 @@
 package util.functions;
 
 import parser.exceptions.AlkException;
-import parser.types.AlkValue;
-import parser.types.alkFloat.AlkFloat;
-import parser.types.alkInt.AlkInt;
+import execution.types.AlkValue;
+import execution.types.alkFloat.AlkFloat;
+import execution.types.alkInt.AlkInt;
 
 import java.math.BigDecimal;
 import java.util.List;

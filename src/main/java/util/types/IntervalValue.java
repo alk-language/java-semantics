@@ -2,9 +2,8 @@ package util.types;
 
 import parser.env.Location;
 import parser.exceptions.AlkException;
-import parser.types.alkInt.AlkInt;
+import execution.types.alkInt.AlkInt;
 
-import java.math.BigDecimal;
 import java.util.Iterator;
 
 public class IntervalValue implements Value, Iterable<AlkInt> {

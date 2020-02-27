@@ -3,10 +3,9 @@ package execution.state.structure;
 import execution.state.ExecutionState;
 import execution.state.SingleState;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.types.AlkIterableValue;
-import parser.types.AlkValue;
-import parser.types.alkInt.AlkInt;
-import parser.visitors.expression.ExpressionVisitor;
+import execution.types.AlkIterableValue;
+import execution.types.AlkValue;
+import execution.types.alkInt.AlkInt;
 import parser.visitors.structure.DataStructureVisitor;
 import util.Payload;
 import util.exception.InternalException;
@@ -38,7 +37,10 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
             for (AlkInt val : value)
                 array.add(val);
 
-            iterableValue.addAll(array);
+            for (AlkValue val : array)
+            {
+                iterableValue.push(generator.generate(val.toRValue().clone(generator)));
+            }
             return iterableValue;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new InternalException(e);

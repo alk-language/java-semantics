@@ -2,13 +2,12 @@ package parser.visitors.structure;
 
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
-import execution.state.expression.StringValueState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.env.Environment;
-import parser.types.alkArray.AlkArray;
+import execution.types.alkArray.AlkArray;
 import util.Payload;
 
 public class ArrayVisitor extends DataStructureVisitor {
@@ -20,7 +19,7 @@ public class ArrayVisitor extends DataStructureVisitor {
     @Override
     public ExecutionState visitArrayWithExpressions(alkParser.ArrayWithExpressionsContext ctx)
     {
-        return StateFactory.create(IterableWithExpressionsState.class, ctx, payload, AlkArray.class, env);
+        return StateFactory.create(IterableWithExpressionsState.class, ctx, payload, ctx.expression(), AlkArray.class, env);
     }
 
     @Override

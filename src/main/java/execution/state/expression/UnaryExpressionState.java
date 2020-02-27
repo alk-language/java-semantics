@@ -1,10 +1,9 @@
 package execution.state.expression;
 
-import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.SingleState;
 import grammar.alkParser;
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;

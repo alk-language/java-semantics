@@ -1,6 +1,6 @@
 package parser.env;
 
-import parser.types.AlkValue;
+import execution.types.AlkValue;
 import util.types.Value;
 
 public class Location implements Value {

@@ -5,19 +5,8 @@ import execution.state.ExecutionState;
 import execution.state.function.BuiltInMethodState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import parser.env.AlkFunction;
 import parser.env.Environment;
-import parser.exceptions.AlkException;
-import parser.types.AlkValue;
-import parser.types.alkBool.AlkBool;
-import parser.types.alkInt.AlkInt;
-import parser.visitors.expression.ExpressionVisitor;
 import util.Payload;
-
-
-import java.util.ArrayList;
-
-import static parser.exceptions.AlkException.*;
 
 public class FunctionCallVisitor extends alkBaseVisitor {
 
