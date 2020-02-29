@@ -171,9 +171,9 @@ public class AlkSet extends AlkIterableValue  {
     }
 
     @Override
-    public AlkValue push(Location loc)
+    public void push(Location loc)
     {
-        return insert(loc);
+        insert(loc);
     }
 }
 

@@ -71,6 +71,12 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree)
     {
-        return (ExecutionState) VisitorFactory.create(visitor, getEnv(), payload).visit(parseTree);
+        return request(visitor, parseTree, null);
+    }
+
+    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree, Value value)
+    {
+        Payload nxt = new Payload(payload.getExecution(), value);
+        return (ExecutionState) VisitorFactory.create(visitor, getEnv(), nxt).visit(parseTree);
     }
 }

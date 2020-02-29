@@ -10,5 +10,5 @@ public abstract class AlkIterableValue extends AlkValue implements Iterable<Loca
     public abstract boolean has(AlkValue operand);
     public abstract List<Location> toArray(LocationGenerator generator);
     public abstract void addAll(List<Location> locs);
-    public abstract AlkValue push(Location loc);
+    public abstract void push(Location loc);
 }

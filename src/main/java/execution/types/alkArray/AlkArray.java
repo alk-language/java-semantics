@@ -26,10 +26,15 @@ public class AlkArray extends AlkIterableValue {
         array = new ArrayList<>();
     }
 
-    public AlkValue push(Location loc)
+    public void push(Location loc)
     {
         array.add(loc);
-        return this;
+    }
+
+    @Override
+    public void pushBack(Location loc)
+    {
+        array.add(loc);
     }
 
     @Override
@@ -55,8 +60,11 @@ public class AlkArray extends AlkIterableValue {
         if (index < 0 || index >= MAX_ARRAY)
             throw new AlkException(ERR_ARRAY_OUT_OF_BOUNDS);
 
-        while (array.size() <= index)
+        while (array.size() < index)
             array.add(generator.generate(new AlkInt(0)));
+
+        if (array.size() == index)
+            array.add(generator.generate(null));
 
         return array.get(index);
     }

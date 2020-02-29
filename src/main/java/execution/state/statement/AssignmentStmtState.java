@@ -55,7 +55,7 @@ public class AssignmentStmtState extends ExecutionState
                 throw new UnimplementedException("Unimplemented assignment operator: " + operator);
         }
 
-        leftSide.assign(rightSide);
+        leftSide.assign(rightSide.clone(generator));
         return null;
     }
 

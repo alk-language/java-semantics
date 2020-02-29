@@ -18,7 +18,7 @@ class ParamHelper {
         if (!(value instanceof AlkFloat) && !(value instanceof AlkInt))
             throw new AlkException(ERR_INVALID_PARAM);
 
-        BigDecimal bd = null;
+        BigDecimal bd;
         if (value instanceof AlkInt)
             bd = new BigDecimal(((AlkInt)value).value);
         else

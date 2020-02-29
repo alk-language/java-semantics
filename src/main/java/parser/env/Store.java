@@ -19,7 +19,7 @@ public class Store implements LocationGenerator
 
     public void set(Location location, AlkValue value)
     {
-        store.put(location, value.clone(this));
+        store.put(location, value);
     }
 
     public Location malloc()

@@ -101,7 +101,8 @@ scalar_value :
 //Reference name
 ref_name
 :
-    ref_name (POINT|ARROW) builtin_method                                                                               #RefMethodCall
+    ref_name (POINT|ARROW) builtin_method                                                                               #RefPointMethod
+    | ref_name (POINT|ARROW) ID                                                                                         #RefPointID
     | ref_name LBRA expression RBRA                                                                                     #RefArray
     | function_call                                                                                                     #RefFunctionCall
     | ID                                                                                                                #RefID
@@ -169,8 +170,13 @@ set:
 //Function
 function_call
 :
-    builtin_method                                                                                                      #ToBuiltinMethod
+    builtin_function                                                                                                    #ToBuiltinFunction
     | ID LPAR (expression (COMMA expression)*)? RPAR                                                                    #DefinedFunctionCall
+;
+
+builtin_function
+:
+    function_name LPAR (expression (COMMA expression)*)? RPAR                                                           #BuiltinFunction
 ;
 
 builtin_method
@@ -178,40 +184,43 @@ builtin_method
     method_name LPAR (expression (COMMA expression)*)? RPAR                                                             #BuiltinMethod
 ;
 
-
 //Also builtin function names
-method_name :
+function_name :
     ABS
     | ASIN
     | ACOS
     | ATAN
-    | AT
     | COS
-    | DELETE
-    | END
-    | FIRST
     | FLOAT
-    | INSERT
     | INTEGER
     | LEN
     | LOG
     | PI
     | PRINT
+    | POW
+    | RANDOM
+    | SIN
+    | SINGLETONSET
+    | SQRT
+    | TAN
+;
+
+//Also builtin function names
+method_name :
+    | AT
+    | DELETE
+    | END
+    | FIRST
+    | INSERT
     | POPBACK
     | POPFRONT
-    | POW
     | PUSHBACK
     | PUSHFRONT
-    | RANDOM
     | REMOVE
     | REMOVEALLEQTO
     | REMOVEAT
-    | SIN
-    | SINGLETONSET
     | SIZE
     | SPLIT
-    | SQRT
-    | TAN
     | TOPBACK
     | TOPFRONT
     | UPDATE

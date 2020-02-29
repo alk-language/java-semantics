@@ -2,6 +2,8 @@ package parser.visitors.function;
 
 
 import execution.state.ExecutionState;
+import execution.state.StateFactory;
+import execution.state.function.BuiltInFunctionState;
 import execution.state.function.BuiltInMethodState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
@@ -30,11 +32,16 @@ public class FunctionCallVisitor extends alkBaseVisitor {
         return env;
     }
 
+    @Override
+    public ExecutionState visitBuiltinFunction(alkParser.BuiltinFunctionContext ctx)
+    {
+        return StateFactory.create(BuiltInFunctionState.class, ctx, payload, env);
+    }
 
     @Override
     public ExecutionState visitBuiltinMethod(alkParser.BuiltinMethodContext ctx)
     {
-        return new BuiltInMethodState(ctx, payload);
+        return StateFactory.create(BuiltInMethodState.class, ctx, payload, env);
     }
 
     @Override public Object visitDefinedFunctionCall(alkParser.DefinedFunctionCallContext ctx)

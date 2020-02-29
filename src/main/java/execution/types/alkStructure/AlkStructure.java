@@ -38,7 +38,7 @@ public class AlkStructure extends AlkValue
     @Override
     public Location dot(String operand, LocationGenerator generator) throws AlkException {
         if (!has(operand))
-            map.put(operand, generator.generate(new AlkInt(0)));
+            map.put(operand, generator.generate(null));
 
         return map.get(operand);
     }

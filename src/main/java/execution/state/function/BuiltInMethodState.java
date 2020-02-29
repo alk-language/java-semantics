@@ -3,16 +3,22 @@ package execution.state.function;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
-import grammar.alkParser;
-import parser.exceptions.AlkException;
 import execution.types.AlkValue;
+import grammar.alkBaseVisitor;
+import grammar.alkParser;
+import org.antlr.v4.runtime.tree.ParseTree;
+import parser.env.Location;
+import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.NameMapper;
 import util.Payload;
 import util.exception.InternalException;
 import util.functions.BuiltInFunction;
+import util.functions.BuiltInMethod;
 import util.functions.Functions;
+import util.functions.Methods;
+import util.lambda.LocationGenerator;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,53 +29,52 @@ import static parser.exceptions.AlkException.ERR_FUNCTION_UNDEFINED;
 import static parser.exceptions.AlkException.ERR_PARAM_NUMBER;
 
 @CtxState(ctxClass = alkParser.BuiltinMethodContext.class)
-public class BuiltInMethodState extends GeneratorState<AlkValue, AlkValue>
+public class BuiltInMethodState extends GeneratorState<Location, AlkValue>
 {
+    private alkParser.BuiltinMethodContext ctx;
+    private Location loc;
+    private String methodName;
     private List<AlkValue> params = new ArrayList<>();
 
-    private String functionName;
-
-    public BuiltInMethodState(alkParser.BuiltinMethodContext tree, Payload payload) {
-        super(tree, payload, tree.expression(), ExpressionVisitor.class);
-        functionName = tree.method_name().getText();
+    public BuiltInMethodState(alkParser.BuiltinMethodContext ctx, Payload payload) {
+        super(ctx, payload, ctx.expression(), ExpressionVisitor.class);
+        this.ctx = ctx;
+        this.loc = (Location) payload.getValue();
+        this.methodName = ctx.method_name().getText();
     }
 
     @Override
-    public void assign(ExecutionResult<AlkValue> result) {
+    public void assign(ExecutionResult<AlkValue> result)
+    {
         params.add(result.getValue());
     }
 
     @Override
-    public AlkValue getFinalResult()
+    public ExecutionState clone(Payload payload)
+    {
+        return null;
+    }
+
+    @Override
+    public Location getFinalResult()
     {
         try
         {
-            functionName = NameMapper.processBuiltInName(functionName);
-            Method method = Functions.class.getMethod(functionName, List.class);
+            methodName = NameMapper.processBuiltInName(methodName);
+            Method method = Methods.class.getMethod(methodName, Location.class, List.class, LocationGenerator.class);
 
-            if (method.getAnnotation(BuiltInFunction.class) == null)
-                throw new InternalException("Reflection is calling upon a not built-in annotated function.");
+            if (method.getAnnotation(BuiltInMethod.class) == null)
+                throw new InternalException("Reflection is calling upon a not built-in annotated method.");
 
-            if (method.getAnnotation(BuiltInFunction.class).paramNumber() != params.size())
+            if (method.getAnnotation(BuiltInMethod.class).paramNumber() != params.size())
                 throw new AlkException(ERR_PARAM_NUMBER);
 
-            return (AlkValue) method.invoke(null, params);
+            return (Location) method.invoke(null, loc, params, generator);
         } catch (NoSuchMethodException e) {
             throw new AlkException(ERR_FUNCTION_UNDEFINED);
         }
         catch (IllegalAccessException | InvocationTargetException e) {
             throw new InternalException(e);
         }
-    }
-
-    @Override
-    public ExecutionState clone(Payload payload) {
-        BuiltInMethodState copy = new BuiltInMethodState((alkParser.BuiltinMethodContext) tree, payload);
-        for (AlkValue value : this.params)
-        {
-            copy.params.add(value.clone(generator));
-        }
-
-        return super.decorate(copy);
     }
 }
