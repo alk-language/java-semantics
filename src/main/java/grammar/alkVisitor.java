@@ -481,6 +481,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRefFunctionCall(alkParser.RefFunctionCallContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code RefPointMethod}
+	 * labeled alternative in {@link alkParser#ref_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRefPointMethod(alkParser.RefPointMethodContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code RefArray}
 	 * labeled alternative in {@link alkParser#ref_name}.
 	 * @param ctx the parse tree
@@ -495,12 +502,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRefID(alkParser.RefIDContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code RefMethodCall}
+	 * Visit a parse tree produced by the {@code RefPointID}
 	 * labeled alternative in {@link alkParser#ref_name}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRefMethodCall(alkParser.RefMethodCallContext ctx);
+	T visitRefPointID(alkParser.RefPointIDContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayValue}
 	 * labeled alternative in {@link alkParser#data_structure}.
@@ -642,12 +649,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSetWithInterval(alkParser.SetWithIntervalContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToBuiltinMethod}
+	 * Visit a parse tree produced by the {@code ToBuiltinFunction}
 	 * labeled alternative in {@link alkParser#function_call}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitToBuiltinMethod(alkParser.ToBuiltinMethodContext ctx);
+	T visitToBuiltinFunction(alkParser.ToBuiltinFunctionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code DefinedFunctionCall}
 	 * labeled alternative in {@link alkParser#function_call}.
@@ -656,12 +663,25 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDefinedFunctionCall(alkParser.DefinedFunctionCallContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code BuiltinFunction}
+	 * labeled alternative in {@link alkParser#builtin_function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBuiltinFunction(alkParser.BuiltinFunctionContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code BuiltinMethod}
 	 * labeled alternative in {@link alkParser#builtin_method}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBuiltinMethod(alkParser.BuiltinMethodContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link alkParser#function_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_name(alkParser.Function_nameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#method_name}.
 	 * @param ctx the parse tree

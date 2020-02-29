@@ -680,11 +680,8 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     /**
      * Handles the pushBack built in method (pushBack) over a value.
      * By default, the operation is not supported, thus an error is thrown.
-     * @return
-     * The result of the expression
-     * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue pushBack(Location value)
+    public void pushBack(Location value)
     {
         throw new AlkException(ERR_PUSHBACK);
     }

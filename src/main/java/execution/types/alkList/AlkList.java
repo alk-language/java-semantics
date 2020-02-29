@@ -63,16 +63,15 @@ public class AlkList extends AlkIterableValue
         return this;
     }
 
-    public AlkValue push(Location value)
+    public void push(Location value)
     {
-        return pushBack(value);
+        pushBack(value);
     }
 
-    public AlkValue pushBack(Location value)
+    public void pushBack(Location value)
     {
         FunctionListHelper help = new FunctionListHelper(list);
         help.pushBack(value);
-        return this;
     }
 
     public AlkValue pushFront(Location value)

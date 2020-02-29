@@ -58,7 +58,7 @@ statement_block
 
 choose:
     CHOOSE ID IN expression (SOTHAT expression)?                                                                        #ChooseStmt
-    | UNIFORM ID IN expression                                                                                            #UniformStmt
+    | UNIFORM ID IN expression                                                                                          #UniformStmt
 ;
 
 increase_decrease

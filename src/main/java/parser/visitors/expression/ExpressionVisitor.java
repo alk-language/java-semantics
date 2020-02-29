@@ -4,9 +4,12 @@ import execution.state.expression.IntValueState;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
 import execution.state.reference.RefArrayState;
+import execution.state.reference.RefPointIDState;
+import execution.state.reference.RefPointMethodState;
 import parser.env.Environment;
 import grammar.*;
 import execution.state.reference.RefIDState;
+import parser.visitors.function.FunctionCallVisitor;
 import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.ListVisitor;
 import parser.visitors.structure.SetVisitor;
@@ -110,7 +113,6 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     //Reference name
-
     @Override
     public ExecutionState visitRefID(alkParser.RefIDContext ctx) {
         return StateFactory.create(RefIDState.class, ctx, payload, env);
@@ -121,6 +123,20 @@ public class ExpressionVisitor extends alkBaseVisitor {
         return StateFactory.create(RefArrayState.class, ctx, payload, env);
     }
 
+    @Override
+    public ExecutionState visitRefPointID(alkParser.RefPointIDContext ctx) {
+        return StateFactory.create(RefPointIDState.class, ctx, payload, env);
+    }
+
+    @Override
+    public ExecutionState visitRefFunctionCall(alkParser.RefFunctionCallContext ctx) {
+        return (ExecutionState) new FunctionCallVisitor(env, payload).visit(ctx.function_call());
+    }
+
+    @Override
+    public ExecutionState visitRefPointMethod(alkParser.RefPointMethodContext ctx) {
+        return StateFactory.create(RefPointMethodState.class, ctx, payload, env);
+    }
 
     /// Scalar values
 

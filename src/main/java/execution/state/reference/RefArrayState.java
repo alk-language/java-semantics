@@ -33,6 +33,7 @@ public class RefArrayState extends ExecutionState
         {
             return request(ExpressionVisitor.class, ctx.ref_name());
         }
+
         if (index == null)
         {
             return request(ExpressionVisitor.class, ctx.expression());
