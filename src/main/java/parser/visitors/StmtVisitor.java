@@ -144,10 +144,8 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Function Call node in the execution tree meant to be parsed.
      */
     @Override public Object visitFunctionCall(alkParser.FunctionCallContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        FunctionCallVisitor visitor = new FunctionCallVisitor(env);
-        visitor.visit(ctx.function_call());
-        return null;
+        FunctionCallVisitor visitor = new FunctionCallVisitor(env, payload);
+        return visitor.visit(ctx.function_call());
     }
 
 

@@ -4,6 +4,7 @@ import parser.exceptions.AlkException;
 import io.IOManager;
 import util.exception.AlkFatalException;
 import util.exception.AlkIOException;
+import util.exception.InternalException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,6 +40,11 @@ public class ErrorManager
 
         // rethrow runtime wrapped exception to force execution termination
         throw new AlkIOException(e);
+    }
+
+    public void handleError(InternalException e)
+    {
+        io.write("[ERROR]: " + e.getMessage());
     }
 
     public void handleError(AlkException ex) {

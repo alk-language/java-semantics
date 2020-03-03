@@ -23,10 +23,10 @@ public class Configuration implements OptionProvider, Cloneable
     private boolean debugMode;
 
     /** The IOManager used in the execution linked with this configuration */
-    private IOManager io;
+    protected IOManager io;
 
     /** The ErrorManager used in the execution linked with this configuration*/
-    private ErrorManager em;
+    protected ErrorManager em;
 
     /**
      * Used for identifying the main alk file based on the internal members
