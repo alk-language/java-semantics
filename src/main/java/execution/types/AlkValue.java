@@ -812,7 +812,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue update(AlkValue position, AlkValue value)
+    public AlkValue update(AlkValue position, Location value)
     {
         throw new AlkException(ERR_UPDATE);
     }

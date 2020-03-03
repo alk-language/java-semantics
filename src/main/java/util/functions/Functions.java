@@ -4,10 +4,15 @@ import execution.types.AlkValue;
 import execution.helpers.Convertors;
 import execution.helpers.MathHelper;
 import execution.helpers.NonDeterministic;
+import execution.types.alkNotAValue.AlkNotAValue;
+import io.IOManager;
+import util.Configuration;
 
 import java.util.List;
 
 public class Functions {
+
+    Configuration config;
 
     @BuiltInFunction(paramNumber = 1)
     public static AlkValue sin(List<AlkValue> params)
@@ -104,5 +109,18 @@ public class Functions {
     public static AlkValue _float(List<AlkValue> params)
     {
         return Convertors.toFloat(ParamHelper.getValue(params, 0));
+    }
+
+    public Functions(Configuration config)
+    {
+        this.config = config;
+    }
+
+    @BuiltInFunction(paramNumber = 1)
+    public AlkValue print(List<AlkValue> params)
+    {
+        IOManager io = config.getIOManager();
+        io.write(params.get(0).toString());
+        return new AlkNotAValue("Print does not return a value");
     }
 }

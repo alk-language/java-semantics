@@ -207,7 +207,7 @@ function_name :
 
 //Also builtin function names
 method_name :
-    | AT
+    AT
     | DELETE
     | END
     | FIRST

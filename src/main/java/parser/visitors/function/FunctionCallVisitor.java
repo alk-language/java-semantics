@@ -16,11 +16,6 @@ public class FunctionCallVisitor extends alkBaseVisitor {
 
     private Payload payload;
 
-    public FunctionCallVisitor(Environment env)
-    {
-        this.env = env;
-    }
-
     public FunctionCallVisitor(Environment env, Payload payload)
     {
         this.env = env;

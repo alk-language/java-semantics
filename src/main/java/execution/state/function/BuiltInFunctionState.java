@@ -13,6 +13,7 @@ import util.Payload;
 import util.exception.InternalException;
 import util.functions.BuiltInFunction;
 import util.functions.Functions;
+import util.types.Value;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,20 +24,21 @@ import static parser.exceptions.AlkException.ERR_FUNCTION_UNDEFINED;
 import static parser.exceptions.AlkException.ERR_PARAM_NUMBER;
 
 @CtxState(ctxClass = alkParser.BuiltinFunctionContext.class)
-public class BuiltInFunctionState extends GeneratorState<AlkValue, AlkValue>
+public class BuiltInFunctionState extends GeneratorState<AlkValue, Value>
 {
     private List<AlkValue> params = new ArrayList<>();
-
     private String functionName;
+    private Functions functions;
 
     public BuiltInFunctionState(alkParser.BuiltinFunctionContext tree, Payload payload) {
         super(tree, payload, tree.expression(), ExpressionVisitor.class);
         functionName = tree.function_name().getText();
+        functions = new Functions(payload.getConfiguration());
     }
 
     @Override
-    public void assign(ExecutionResult<AlkValue> result) {
-        params.add(result.getValue());
+    public void assign(ExecutionResult<Value> result) {
+        params.add((AlkValue) result.getValue().toRValue());
     }
 
     @Override
@@ -53,7 +55,7 @@ public class BuiltInFunctionState extends GeneratorState<AlkValue, AlkValue>
             if (method.getAnnotation(BuiltInFunction.class).paramNumber() != params.size())
                 throw new AlkException(ERR_PARAM_NUMBER);
 
-            return (AlkValue) method.invoke(null, params);
+            return (AlkValue) method.invoke(functions, params);
         } catch (NoSuchMethodException e) {
             throw new AlkException(ERR_FUNCTION_UNDEFINED);
         }

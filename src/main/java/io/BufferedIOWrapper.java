@@ -31,12 +31,5 @@ public class BufferedIOWrapper implements IOManager
                 manager.write(text);
             }
         }
-        /*for (String text : buffer)
-        {
-            manager.write(text);
-        }*/
-        /*Mutex mutex = new Mutex(manager);
-        mutex.lock();
-        mutex.unlock();*/
     }
 }
