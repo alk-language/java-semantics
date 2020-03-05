@@ -221,15 +221,15 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Method Call node in the execution tree meant to be parsed.
      */
     @Override public Object visitMethodCall(alkParser.MethodCallContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor referenceVisitor = new ReferenceVisitor();
-        referenceVisitor.visit(ctx.ref_name());
-        referenceVisitor.visit(ctx.builtin_method());
-        return null;
+        return StateFactory.create(MethodCallState.class, ctx, payload, env);
     }
 
     @Override public Object visitToRepeat(alkParser.ToRepeatContext ctx) {
         return StateFactory.create(ToRepeatState.class, ctx, payload, env);
+    }
+
+    @Override public Object visitToForAll(alkParser.ToForAllContext ctx) {
+        return StateFactory.create(ToForAllState.class, ctx, payload, env);
     }
 
     /**
@@ -324,33 +324,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A ForAll Strcuture node in the execution tree meant to be parsed.
      */
     @Override public Object visitForAllStructure(alkParser.ForAllStructureContext ctx) {
-        /*if (returnValue != null || breakFlag || continueFlag) return null;
-        String iterator = ctx.ID().toString();
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue struct = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!struct.isIterable)
-        {
-            AlkException e = new AlkException(ERR_FORALL_ITERABLE_REQUIRED);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        AlkIterableValue iterablestruct = (AlkIterableValue) struct;
-        loopLevel++;
-        breakFlag = continueFlag = false;
-        for (AlkValue value : iterablestruct)
-        {
-            env.update(iterator, value);
-            visit(ctx.statement());
-            continueFlag = false;
-            if (returnValue != null || breakFlag)
-            {
-                breakFlag = false;
-                loopLevel--;
-                return null;
-            }
-        }
-        loopLevel--;*/
-        return null;
+        return StateFactory.create(ForAllState.class, ctx, payload, env);
     }
 
 

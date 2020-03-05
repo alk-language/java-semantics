@@ -5,14 +5,18 @@ import execution.helpers.Convertors;
 import execution.helpers.MathHelper;
 import execution.helpers.NonDeterministic;
 import execution.types.alkNotAValue.AlkNotAValue;
+import execution.types.alkSet.AlkSet;
 import io.IOManager;
+import parser.env.Location;
 import util.Configuration;
+import util.lambda.LocationGenerator;
 
 import java.util.List;
 
 public class Functions {
 
     Configuration config;
+    LocationGenerator generator;
 
     @BuiltInFunction(paramNumber = 1)
     public static AlkValue sin(List<AlkValue> params)
@@ -80,12 +84,6 @@ public class Functions {
         return MathHelper.abs(ParamHelper.getFloat(params, 0));
     }
 
-    // TODO: get a generator here
-    /*@BuiltInFunction(paramNumber = 1)
-    public static AlkValue singletonSet(List<AlkValue> params)
-    {
-        return new AlkSet().insert(ParamHelper.getValue(params, 0));
-    }*/
 
     @BuiltInFunction(paramNumber = 1)
     public static AlkValue random(List<AlkValue> params)
@@ -111,9 +109,10 @@ public class Functions {
         return Convertors.toFloat(ParamHelper.getValue(params, 0));
     }
 
-    public Functions(Configuration config)
+    public Functions(Configuration config, LocationGenerator generator)
     {
         this.config = config;
+        this.generator = generator;
     }
 
     @BuiltInFunction(paramNumber = 1)
@@ -122,5 +121,12 @@ public class Functions {
         IOManager io = config.getIOManager();
         io.write(params.get(0).toString());
         return new AlkNotAValue("Print does not return a value");
+    }
+
+    @BuiltInFunction(paramNumber = 1)
+    public AlkValue singletonSet(List<AlkValue> params)
+    {
+        Location loc = generator.generate(ParamHelper.getValue(params, 0));
+        return new AlkSet().insert(loc);
     }
 }

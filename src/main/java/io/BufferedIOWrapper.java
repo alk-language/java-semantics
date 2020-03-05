@@ -17,7 +17,7 @@ public class BufferedIOWrapper implements IOManager
     @Override
     public void write(String text)
     {
-        manager.write("Hi");
+        // manager.write(text);
         buffer.add(text);
     }
 

@@ -43,7 +43,7 @@ public class AlkArray extends AlkIterableValue {
         if (!operand.type.equals("Array"))
             throw new AlkException(ERR_EQUAL_ARR);
         AlkArray op = (AlkArray) operand;
-        return new AlkBool(array.toString().equals(op.toString()));
+        return new AlkBool(this.toString().equals(op.toString()));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AlkArray extends AlkIterableValue {
         if (!operand.type.equals("Array"))
             throw new AlkException(ERR_LOWER_ARR);
         AlkArray op = (AlkArray) operand;
-        return new AlkBool(array.toString().compareTo(op.toString()) < 0);
+        return new AlkBool(this.toString().compareTo(op.toString()) < 0);
     }
 
     public Location get(int index, LocationGenerator generator)

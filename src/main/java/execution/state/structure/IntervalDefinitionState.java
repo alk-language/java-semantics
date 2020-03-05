@@ -11,6 +11,7 @@ import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
 import util.types.IntervalValue;
+import util.types.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import static parser.exceptions.AlkException.ERR_LIMIT;
 import static parser.exceptions.AlkException.ERR_NOINT_INTERVAL;
 
 @CtxState(ctxClass = alkParser.IntervalDefinitionContext.class)
-public class IntervalDefinitionState extends GeneratorState<IntervalValue, AlkValue>
+public class IntervalDefinitionState extends GeneratorState<IntervalValue, Value>
 {
 
     private List<AlkValue> limits = new ArrayList<>();
@@ -29,8 +30,8 @@ public class IntervalDefinitionState extends GeneratorState<IntervalValue, AlkVa
     }
 
     @Override
-    public void assign(ExecutionResult<AlkValue> result) {
-        limits.add(result.getValue());
+    public void assign(ExecutionResult<Value> result) {
+        limits.add((AlkValue) result.getValue().toRValue());
     }
 
     @Override

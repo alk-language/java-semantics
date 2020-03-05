@@ -49,6 +49,6 @@ public class ErrorManager
 
     public void handleError(AlkException ex) {
         ex.printException();
-        throw new AlkFatalException();
+        throw ex;
     }
 }

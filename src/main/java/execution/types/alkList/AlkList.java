@@ -22,7 +22,7 @@ public class AlkList extends AlkIterableValue
         type = "List";
         isDataStructure = true;
         isIterable = true;
-        list = new LinkedList<>();;
+        list = new LinkedList<>();
     }
 
     public Location at(AlkValue operand)
@@ -157,7 +157,7 @@ public class AlkList extends AlkIterableValue
         if (!operand.type.equals("List"))
             throw new AlkException(ERR_LOWER_LIST);
         AlkList op = (AlkList) operand;
-        return new AlkBool(list.toString().compareTo(op.toString())<0);
+        return new AlkBool(this.toString().compareTo(op.toString())<0);
     }
 
     @Override

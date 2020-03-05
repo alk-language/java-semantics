@@ -11,6 +11,7 @@ import parser.env.Location;
 import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
+import util.Invoker;
 import util.NameMapper;
 import util.Payload;
 import util.exception.InternalException;
@@ -19,6 +20,7 @@ import util.functions.BuiltInMethod;
 import util.functions.Functions;
 import util.functions.Methods;
 import util.lambda.LocationGenerator;
+import util.types.Value;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -29,7 +31,7 @@ import static parser.exceptions.AlkException.ERR_FUNCTION_UNDEFINED;
 import static parser.exceptions.AlkException.ERR_PARAM_NUMBER;
 
 @CtxState(ctxClass = alkParser.BuiltinMethodContext.class)
-public class BuiltInMethodState extends GeneratorState<Location, AlkValue>
+public class BuiltInMethodState extends GeneratorState<Location, Value>
 {
     private alkParser.BuiltinMethodContext ctx;
     private Location loc;
@@ -44,9 +46,9 @@ public class BuiltInMethodState extends GeneratorState<Location, AlkValue>
     }
 
     @Override
-    public void assign(ExecutionResult<AlkValue> result)
+    public void assign(ExecutionResult<Value> result)
     {
-        params.add(result.getValue());
+        params.add(((AlkValue)result.getValue().toRValue()).clone(generator));
     }
 
     @Override
@@ -58,23 +60,6 @@ public class BuiltInMethodState extends GeneratorState<Location, AlkValue>
     @Override
     public Location getFinalResult()
     {
-        try
-        {
-            methodName = NameMapper.processBuiltInName(methodName);
-            Method method = Methods.class.getMethod(methodName, Location.class, List.class, LocationGenerator.class);
-
-            if (method.getAnnotation(BuiltInMethod.class) == null)
-                throw new InternalException("Reflection is calling upon a not built-in annotated method.");
-
-            if (method.getAnnotation(BuiltInMethod.class).paramNumber() != params.size())
-                throw new AlkException(ERR_PARAM_NUMBER);
-
-            return (Location) method.invoke(null, loc, params, generator);
-        } catch (NoSuchMethodException e) {
-            throw new AlkException(ERR_FUNCTION_UNDEFINED);
-        }
-        catch (IllegalAccessException | InvocationTargetException e) {
-            throw new InternalException(e);
-        }
+        return (Location) Invoker.invokeMethod(methodName, loc, params, generator);
     }
 }

@@ -33,7 +33,7 @@ public class BuiltInFunctionState extends GeneratorState<AlkValue, Value>
     public BuiltInFunctionState(alkParser.BuiltinFunctionContext tree, Payload payload) {
         super(tree, payload, tree.expression(), ExpressionVisitor.class);
         functionName = tree.function_name().getText();
-        functions = new Functions(payload.getConfiguration());
+        functions = new Functions(payload.getConfiguration(), generator);
     }
 
     @Override

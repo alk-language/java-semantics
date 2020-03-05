@@ -133,8 +133,8 @@ public class Execution extends Thread
             OptionProvider op = config;
             if (op.hasDebugMode())
             {
-                ErrorManager em = config.getErrorManager();
-                em.handleError(e);
+                // TODO: make use of em
+                e.printStackTrace();
             }
         }
     }

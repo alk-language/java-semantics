@@ -4,7 +4,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface BuiltInMethod {
+public @interface Signature {
 
-    int[] paramNumber();
+    int id();
+    Parameter[] value();
+
 }

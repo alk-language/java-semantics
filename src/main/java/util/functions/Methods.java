@@ -1,6 +1,7 @@
 package util.functions;
 
 import execution.types.AlkValue;
+import execution.types.alkInt.AlkInt;
 import parser.env.Location;
 import util.lambda.LocationGenerator;
 
@@ -11,8 +12,7 @@ public class Methods {
     @BuiltInMethod(paramNumber = 1)
     public static Location at(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
-        loc.toRValue().at(params.get(0));
-        return loc;
+        return loc.toRValue().at(params.get(0));
     }
 
     @BuiltInMethod(paramNumber = 1)
@@ -36,11 +36,19 @@ public class Methods {
     }
     */
 
-    @BuiltInMethod(paramNumber = 1)
+    @BuiltInMethod(paramNumber = {1, 2})
     public static Location insert(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
-        loc.toRValue().insert(generator.generate(params.get(0).clone(generator)));
-        return loc;
+        if (params.size() == 1)
+        {
+            loc.toRValue().insert(generator.generate(params.get(0).clone(generator)));
+            return loc;
+        }
+        else
+        {
+            loc.toRValue().insert(params.get(0), generator.generate(params.get(1).clone(generator)));
+            return loc;
+        }
     }
 
     @BuiltInMethod(paramNumber = 0)
@@ -81,7 +89,7 @@ public class Methods {
     @BuiltInMethod(paramNumber = 1)
     public static Location removeAt(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
-        loc.toRValue().removeAt(params.get(0).clone(generator));
+        loc.toRValue().removeAt(params.get(0));
         return loc;
     }
 
