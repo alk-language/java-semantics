@@ -9,11 +9,13 @@ import execution.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.types.Value;
 
+import static parser.exceptions.AlkException.ERR_LOGICALAND;
 import static parser.exceptions.AlkException.ERR_LOGICALOR;
 
 @CtxState(ctxClass = alkParser.LogicalAndExpressionContext.class)
-public class LogicalAndExpressionState extends GuardedGeneratorState<AlkValue>
+public class LogicalAndExpressionState extends GuardedGeneratorState<Value>
 {
 
     alkParser.LogicalAndExpressionContext ctx;
@@ -24,10 +26,11 @@ public class LogicalAndExpressionState extends GuardedGeneratorState<AlkValue>
         setPreValidator(() -> {
             if (getLocalResult() != null)
             {
-                if (!(getLocalResult() instanceof AlkBool))
-                    throw new AlkException(ERR_LOGICALOR);
+                Value rVal = getLocalResult().toRValue();
+                if (!(rVal instanceof AlkBool))
+                    throw new AlkException(ERR_LOGICALAND);
 
-                return ((AlkBool) getLocalResult()).isTrue();
+                return ((AlkBool) rVal).isTrue();
             }
             return true;
         });
@@ -41,8 +44,9 @@ public class LogicalAndExpressionState extends GuardedGeneratorState<AlkValue>
     }
 
     @Override
-    protected AlkValue interpretResult(AlkValue current, AlkValue next) {
-        return current.logicalAnd(next);
+    protected AlkValue interpretResult(Value current, Value next)
+    {
+        return ((AlkBool) current).logicalAnd((AlkBool) next);
     }
 
 }

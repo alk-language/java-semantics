@@ -3,6 +3,7 @@ package parser.visitors.structure;
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
 import execution.state.PrimitiveState;
+import execution.state.structure.EmptySetState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
@@ -22,7 +23,7 @@ public class SetVisitor extends DataStructureVisitor
     }
 
     public ExecutionState visitEmptySet(alkParser.EmptySetContext ctx) {
-        return StateFactory.create(PrimitiveState.class, ctx, payload, new AlkSet(), env);
+        return StateFactory.create(EmptySetState.class, ctx, payload, new AlkSet(), env);
     }
 
     public ExecutionState visitSetWithInterval(alkParser.SetWithIntervalContext ctx) {

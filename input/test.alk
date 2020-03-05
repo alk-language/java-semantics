@@ -1,13 +1,15 @@
-x = 2;
-y = 3;
-z = 4;
-w = 5;
-a = 10;
-x += a; 
-y *= a;
-z /= a;
-w -= a;
-print(x); // 12
-print(y); // 30
-print(z); // 0
-print(w); // -5
+/*
+  structures of structures
+  line 1 uncommented: alki structuresofstructures.alk
+  line 1 commented: alki structuresofstructures.alk structuresofstructures.in
+  where structuresofstructures.in, e.g., includes
+s |-> { A -> { x -> 12 y -> 56 } B -> { x -> -43 y -> 98 } }
+*/
+s = { A -> { x -> 12 y -> 56 } B -> { x -> -43 y -> 98 } };
+u = s.B;
+v = s.B.x;
+s.B.y = 55;
+print(u); // {x -> -43, y -> 98}
+print(v); // -43
+print(s); // {A -> {x -> 12, y -> 56}, B -> {x -> -43, y -> 55}}
+

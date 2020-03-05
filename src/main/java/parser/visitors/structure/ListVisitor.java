@@ -3,6 +3,7 @@ package parser.visitors.structure;
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
 import execution.state.PrimitiveState;
+import execution.state.structure.EmptyListState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
@@ -22,7 +23,7 @@ public class ListVisitor extends DataStructureVisitor {
     }
 
     public ExecutionState visitEmptyList(alkParser.EmptyListContext ctx) {
-        return StateFactory.create(PrimitiveState.class, ctx, payload, new AlkList(), env);
+        return StateFactory.create(EmptyListState.class, ctx, payload, new AlkList(), env);
     }
 
 

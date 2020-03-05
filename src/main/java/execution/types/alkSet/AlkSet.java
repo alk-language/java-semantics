@@ -114,7 +114,7 @@ public class AlkSet extends AlkIterableValue  {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_LOWER_SET);
         AlkSet op = (AlkSet) operand;
-        return new AlkBool(set.toString().compareTo(op.toString()) < 0);
+        return new AlkBool(this.toString().compareTo(op.toString()) < 0);
     }
 
     @Override
