@@ -23,7 +23,7 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 {
     protected ParseTree tree;
 
-    protected ExecutionResult<T> result = null;
+    protected ExecutionResult result = null;
 
     private Payload payload;
 
@@ -36,7 +36,7 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
         generator = (AlkValue value) -> getStore().malloc().assign(value);
     }
 
-    public ExecutionResult<T> getResult()
+    public ExecutionResult getResult()
     {
         return result;
     }

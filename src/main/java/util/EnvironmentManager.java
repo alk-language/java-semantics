@@ -5,15 +5,25 @@ import execution.state.ExecutionState;
 import parser.env.Environment;
 import parser.env.Store;
 import util.exception.InternalException;
+import util.types.Value;
 
 import java.util.*;
 
 
-// Static worker responsible for environment management
+// Worker responsible for environment management
 public class EnvironmentManager {
 
     private Map<ExecutionState, Environment> state2env = new HashMap<>();
+
+    //TODO: can be removed?
     private Map<Environment, List<ExecutionState> > env2state = new HashMap<>();
+
+    public void unlink(ExecutionState<? extends Value,? extends Value> state)
+    {
+        if (!state2env.containsKey(state))
+            throw new InternalException("Unsync in the envManager! Can't find state which should be deleted");
+        state2env.remove(state);
+    }
 
     public void link(ExecutionState state, Environment env)
     {

@@ -3,6 +3,7 @@ package execution;
 import execution.state.ExecutionState;
 import parser.exceptions.AlkException;
 import util.Configuration;
+import util.EnvironmentManager;
 import util.ErrorManager;
 import util.Payload;
 import util.types.Value;
@@ -13,14 +14,17 @@ import java.util.Stack;
 
 public class ExecutionStack implements Cloneable
 {
+    private EnvironmentManager envManager;
+
     private Configuration config;
 
     private ExecutionResult result;
 
     private Stack< ExecutionState<? extends Value, ? extends Value> > stack = new Stack<>();
 
-    ExecutionStack(Configuration config) {
+    ExecutionStack(Configuration config, EnvironmentManager envManager) {
         this.config = config;
+        this.envManager = envManager;
     }
 
     void push(ExecutionState<? extends Value, ? extends Value> state) {
@@ -56,6 +60,7 @@ public class ExecutionStack implements Cloneable
         if (next == null)
         {
             ExecutionResult result = top.getResult();
+            envManager.unlink(top);
             pop();
             if (!stack.empty())
             {
@@ -107,7 +112,7 @@ public class ExecutionStack implements Cloneable
 
     ExecutionStack makeClone(Execution master, Map<ExecutionState, ExecutionState> stateMapping)
     {
-        ExecutionStack clone = new ExecutionStack(master.getConfiguration());
+        ExecutionStack clone = new ExecutionStack(master.getConfiguration(), master.getEnvManager());
 
         if (result != null)
             clone.result = result.clone();

@@ -33,15 +33,8 @@ public class Store implements LocationGenerator
     public Store makeClone()
     {
         Store copyStore = new Store();
-        Map<Location, AlkValue> copy = new HashMap<>();
         for (Location key : store.keySet())
-        {
-            Location newLocation = new Location(copyStore, key.getLocation());
-            AlkValue value = store.get(key).clone(this);
-            copy.put(newLocation, value);
-        }
-        copyStore.store = copy;
-        copyStore.location = location;
+            copyStore.generate(store.get(key));
         return copyStore;
     }
 

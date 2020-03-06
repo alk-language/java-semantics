@@ -24,7 +24,6 @@ public class ExecutionDriver
     /** A generated configuration based on other managers */
     private static Configuration config;
 
-
     /**
      * Main entry point into the ExecutionDriver
      *

@@ -98,7 +98,7 @@ public class Execution extends Thread
         if (stack == null)
         {
             ExecutionState state = parser.execute(config);
-            stack = new ExecutionStack(config);
+            stack = new ExecutionStack(config, envManager);
             stack.push(state);
         }
         stack.run();
@@ -190,41 +190,7 @@ public class Execution extends Thread
         this.envManager = envManager;
     }
 
-    public void setStack(ExecutionStack stack) {
+    void setStack(ExecutionStack stack) {
         this.stack = stack;
     }
-}
-
-class ExecutionCloner {
-
-    private Execution source;
-    private Execution copy;
-    private Store copyStore;
-    private Map<ExecutionState, ExecutionState> stateMapping;
-    private Map<Environment, Environment> envMapping;
-
-    ExecutionCloner(Execution exec)
-    {
-        source = exec;
-        copyStore = source.getStore().makeClone();
-        copy = new Execution(exec.getConfig());
-        envMapping = source.getEnvManager().cloneEnvironments(copyStore);
-        stateMapping = source.getStack().cloneStates(copy);
-    }
-
-    Execution execute() {
-
-        Configuration config = source.getConfig();
-
-        ExecutionStack stack = source.getStack().makeClone(copy, stateMapping);
-        EnvironmentManager envManager = source.getEnvManager().makeClone(copy, stateMapping, envMapping, copyStore);
-
-        copy.setStore(copyStore);
-        copy.setConfig(config);
-        copy.setGlobal(envMapping.get(source.getGlobal()));
-        copy.setEnvManager(envManager);
-        copy.setStack(stack);
-        return copy;
-    }
-
 }
