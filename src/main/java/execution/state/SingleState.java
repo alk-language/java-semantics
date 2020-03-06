@@ -1,8 +1,10 @@
 package execution.state;
 
 import execution.ExecutionResult;
+import execution.types.AlkValue;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
+import util.Cloner;
 import util.Payload;
 import util.types.Value;
 
@@ -16,7 +18,7 @@ import util.types.Value;
 public abstract class SingleState<T extends Value, S extends Value> extends ExecutionState<T, S>
 {
 
-    protected T localResult;
+    private Value localResult;
     private boolean visited = false;
     private ParseTree dependency;
     protected Class<? extends alkBaseVisitor> visitor;
@@ -50,12 +52,11 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
     protected abstract T interpretResult(S value);
 
     public SingleState decorate(SingleState copy) {
-        if (localResult != null)
-        {
+        if (this.localResult != null)
             copy.localResult = this.localResult.clone();
-        }
-        copy.visited = visited;
-        copy.dependency = dependency;
+        copy.visited = this.visited;
+        copy.dependency = this.dependency;
+        copy.visitor = this.visitor;
         return (SingleState) super.decorate(copy);
     }
 }

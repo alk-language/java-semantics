@@ -10,11 +10,12 @@ import parser.env.Location;
 import parser.visitors.expression.ExpressionVisitor;
 import util.Payload;
 import util.exception.InternalException;
+import util.types.Value;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IterableWithExpressionsState extends GeneratorState<AlkIterableValue, AlkValue>
+public class IterableWithExpressionsState extends GeneratorState<AlkIterableValue, Value>
 {
     private ArrayList<AlkValue> array = new ArrayList<>();
     private Class<? extends AlkIterableValue> clazz;
@@ -28,8 +29,9 @@ public class IterableWithExpressionsState extends GeneratorState<AlkIterableValu
     }
 
     @Override
-    public void assign(ExecutionResult<AlkValue> result) {
-        array.add(result.getValue());
+    public void assign(ExecutionResult<Value> result)
+    {
+        array.add((AlkValue) result.getValue().toRValue());
     }
 
     @Override
