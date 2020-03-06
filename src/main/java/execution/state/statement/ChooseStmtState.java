@@ -85,9 +85,9 @@ public class ChooseStmtState extends ExecutionState
     {
         if (array == null)
         {
-            if (result.getValue() instanceof AlkIterableValue)
+            if (result.getValue().toRValue() instanceof AlkIterableValue)
             {
-                array = ((AlkIterableValue) result.getValue()).toArray(generator);
+                array = ((AlkIterableValue) result.getValue().toRValue()).toArray(generator);
             }
             else
             {
@@ -96,11 +96,9 @@ public class ChooseStmtState extends ExecutionState
         }
         else
         {
-            assert(ctx.SOTHAT() != null);
-
-            if (result.getValue() instanceof AlkBool)
+            if (result.getValue().toRValue() instanceof AlkBool)
             {
-                if (((AlkBool)result.getValue()).isTrue())
+                if (((AlkBool)result.getValue().toRValue()).isTrue())
                     values.add(array.get(step));
                 step++;
             }

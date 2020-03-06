@@ -20,8 +20,8 @@ public class EnvironmentManager {
 
     public void unlink(ExecutionState<? extends Value,? extends Value> state)
     {
-        if (!state2env.containsKey(state))
-            throw new InternalException("Unsync in the envManager! Can't find state which should be deleted");
+        /*if (!state2env.containsKey(state))
+            throw new InternalException("Unsync in the envManager! Can't find state which should be deleted");*/
         state2env.remove(state);
     }
 

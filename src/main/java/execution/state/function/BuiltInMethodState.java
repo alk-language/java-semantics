@@ -48,7 +48,7 @@ public class BuiltInMethodState extends GeneratorState<Location, Value>
     @Override
     public void assign(ExecutionResult<Value> result)
     {
-        params.add(((AlkValue)result.getValue().toRValue()).clone(generator));
+        params.add((AlkValue)result.getValue().toRValue());
     }
 
     @Override

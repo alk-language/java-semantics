@@ -8,6 +8,7 @@ import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
 import util.types.ComponentValue;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.ComponentDefinitionContext.class)
 public class ComponentDefinitionState extends SingleState <ComponentValue, AlkValue>
@@ -21,9 +22,9 @@ public class ComponentDefinitionState extends SingleState <ComponentValue, AlkVa
     }
 
     @Override
-    protected ComponentValue interpretResult(AlkValue value) {
+    protected ComponentValue interpretResult(Value value) {
         String identifier = ctx.ID().toString();
-        return new ComponentValue(identifier, generator.generate(value));
+        return new ComponentValue(identifier, generator.generate((AlkValue) value.toRValue()));
     }
 
     @Override

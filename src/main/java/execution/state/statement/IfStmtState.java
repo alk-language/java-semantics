@@ -60,7 +60,7 @@ public class IfStmtState extends ExecutionState {
     public void assign(ExecutionResult result) {
         if (condition == null)
         {
-            Value value = result.getValue();
+            Value value = result.getValue().toRValue();
             if (!(value instanceof AlkBool))
             {
                 throw new AlkException(ERR_IF_NOT_BOOL);

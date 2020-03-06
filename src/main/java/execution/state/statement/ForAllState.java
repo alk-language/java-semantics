@@ -56,7 +56,6 @@ public class ForAllState extends ExecutionState<Value, Value>
                 throw new AlkException(ERR_FORALL_ITERABLE_REQUIRED);
 
             source = ((AlkIterableValue) value).toArray(generator);
-            return;
         }
 
     }
