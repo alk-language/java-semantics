@@ -12,6 +12,7 @@ import execution.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.types.Value;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 // TODO: make use of temporary environment once there exists an environment stack
 @CtxState(ctxClass = alkParser.FilterSpecDefinitionContext.class)
-public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue> {
+public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
 
     private List<Location> source;
     private int step;
@@ -51,10 +52,10 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
     }
 
     @Override
-    public void assign(ExecutionResult<AlkValue> result) {
+    public void assign(ExecutionResult<Value> result) {
         if (source == null)
         {
-            AlkValue resultVal = result.getValue();
+            AlkValue resultVal = (AlkValue) result.getValue().toRValue();
 
             if (!(resultVal instanceof AlkIterableValue))
                 throw new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
@@ -64,9 +65,9 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, AlkValue
         }
         else
         {
-            if (!(result.getValue() instanceof AlkBool))
+            if (!(result.getValue().toRValue() instanceof AlkBool))
                 throw new AlkException(ERR_SPEC_BOOL);
-            if (((AlkBool) result.getValue()).isTrue())
+            if (((AlkBool) result.getValue().toRValue()).isTrue())
                 array.push(generator.generate(validatingValue));
         }
     }

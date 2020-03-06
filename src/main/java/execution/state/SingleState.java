@@ -49,7 +49,7 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
         visited = true;
     }
 
-    protected abstract T interpretResult(S value);
+    protected abstract T interpretResult(Value value);
 
     public SingleState decorate(SingleState copy) {
         if (this.localResult != null)

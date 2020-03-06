@@ -39,6 +39,7 @@ public class PrefixExpressionState extends SingleState<Value, Value> {
             Location loc = value.toLValue();
             loc.assign(alkValue);
         }
+        // TODO: don't ignore
         catch (AlkException ignored){}
 
         return result;

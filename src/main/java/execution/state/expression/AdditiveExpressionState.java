@@ -11,7 +11,6 @@ import util.Payload;
 @CtxState(ctxClass = alkParser.AdditiveExpressionContext.class)
 public class AdditiveExpressionState extends GuardedGeneratorState<AlkValue>
 {
-
     alkParser.AdditiveExpressionContext ctx;
 
     public AdditiveExpressionState(alkParser.AdditiveExpressionContext tree, Payload payload) {
@@ -23,9 +22,7 @@ public class AdditiveExpressionState extends GuardedGeneratorState<AlkValue>
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
         if (tree.getChild(getSignPos()).getText().equals("+"))
-        {
             return current.add(next);
-        }
         return current.subtract(next);
     }
 

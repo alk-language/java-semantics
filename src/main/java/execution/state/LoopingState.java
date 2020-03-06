@@ -59,7 +59,7 @@ public abstract class LoopingState extends ExecutionState
         if (!checkedCondition)
         {
             checkedCondition = true;
-            Value decide = result.getValue();
+            Value decide = result.getValue().toRValue();
             if (!(decide instanceof AlkBool))
             {
                 throw new AlkException("Condition in loop must be boolean.");
