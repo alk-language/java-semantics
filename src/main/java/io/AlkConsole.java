@@ -43,10 +43,6 @@ public class AlkConsole implements IOManager, OptionProvider
         precision.setRequired(false);
         options.addOption(precision);
 
-        Option demonic = new Option("d", "demonic", false, "demonic execution");
-        demonic.setRequired(false);
-        options.addOption(demonic);
-
         Option complexity = new Option("c", "complexity", false, "complexity display");
         complexity.setRequired(false);
         options.addOption(complexity);

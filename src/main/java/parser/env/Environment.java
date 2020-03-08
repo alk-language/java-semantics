@@ -86,4 +86,8 @@ public class Environment
         }
         return clone;
     }
+
+    public void setLocation(String name, Location location) {
+        variables.put(name, location);
+    }
 }

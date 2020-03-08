@@ -8,6 +8,7 @@ import parser.env.Environment;
 import parser.env.Store;
 import execution.types.AlkValue;
 import util.Configuration;
+import util.FuncManager;
 import util.Payload;
 import util.VisitorFactory;
 import util.lambda.LocationGenerator;
@@ -60,6 +61,11 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     protected Execution getExec() { return payload.getExecution(); }
 
+    protected FuncManager getFuncManager() { return payload.getExecution().getFuncManager(); }
+
+    protected Environment getGlobal() { return payload.getExecution().getGlobal(); }
+
+
     protected ExecutionState decorate(ExecutionState copy)
     {
         if (result != null)
@@ -76,7 +82,23 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree, Value value)
     {
+        return request(visitor, parseTree, getEnv(), value);
+    }
+
+    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor,
+                                               ParseTree parseTree,
+                                               Environment env,
+                                               Value value)
+    {
         Payload nxt = new Payload(payload.getExecution(), value);
-        return (ExecutionState) VisitorFactory.create(visitor, getEnv(), nxt).visit(parseTree);
+        return request(visitor, parseTree, env, nxt);
+    }
+
+    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor,
+                                               ParseTree parseTree,
+                                               Environment env,
+                                               Payload payload)
+    {
+        return (ExecutionState) VisitorFactory.create(visitor, env, payload).visit(parseTree);
     }
 }
