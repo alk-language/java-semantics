@@ -1,27 +1,7 @@
-/*
-  the first N primes 
-  alki prime.alk 
-*/
-
-isPrime(x) {
-  if (x < 2) return false;
-  for (i= 2; i*i <= x; ++i) 
-    if (x % i == 0) return false;
-  return true;
+for (i=1; i<10; i++)
+{
+    if (i>5)
+        break;
+    print(i);
 }
-
-firstNPrimes(n) {
-  x = 2; 
-  l = emptyList;
-  while ( l.size() < n) {
-    if (isPrime(x)) {
-      l.pushBack(x); 
-    }
-    ++ x;
-  }
-  return l;
-}
-
-print(firstNPrimes(23));
- 
-  
+print(i);
