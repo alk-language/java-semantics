@@ -1,7 +1,16 @@
-for (i=1; i<10; i++)
+gcd(a, b, out c) modifies result
 {
-    if (i>5)
-        break;
-    print(i);
+    while (b > 0)
+    {
+        r = a%b;
+        a = b;
+        b = r;
+    }
+    result = a;
+    c = result;
 }
-print(i);
+
+result = 0;
+c = 0;
+gcd(12, 15, c);
+print(result);

@@ -3,6 +3,7 @@ package execution.state;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import execution.types.AlkValue;
+import parser.exceptions.AlkException;
 import util.CtxState;
 import util.Payload;
 
@@ -25,9 +26,12 @@ public class StateFactory {
             ExecutionState state = stateClass.getDeclaredConstructor(ctxClass, Payload.class).newInstance(ctx, payload);
             payload.getEnvManager().link(state, env);
             return state;
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             // TODO: handle exception
             e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            throw new AlkException(e.getTargetException().getMessage());
         }
         return null;
     }
@@ -49,9 +53,12 @@ public class StateFactory {
                     Class.class).newInstance(ctx, payload, arg);
             payload.getEnvManager().link(state, env);
             return state;
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             // TODO: handle exception
             e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            throw new AlkException(e.getTargetException().getMessage());
         }
         return null;
     }
@@ -73,9 +80,12 @@ public class StateFactory {
                     AlkValue.class).newInstance(ctx, payload, arg);
             payload.getEnvManager().link(state, env);
             return state;
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             // TODO: handle exception
             e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            throw new AlkException(e.getTargetException().getMessage());
         }
         return null;
     }
@@ -99,9 +109,12 @@ public class StateFactory {
                     Class.class).newInstance(ctx, payload, list, clazz);
             payload.getEnvManager().link(state, env);
             return state;
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             // TODO: handle exception
             e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            throw new AlkException(e.getTargetException().getMessage());
         }
         return null;
     }
@@ -125,9 +138,12 @@ public class StateFactory {
                     Class.class).newInstance(ctx, payload, arg1, arg2);
             payload.getEnvManager().link(state, env);
             return state;
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             // TODO: handle exception
             e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            throw new AlkException(e.getTargetException().getMessage());
         }
         return null;
     }

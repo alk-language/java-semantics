@@ -19,8 +19,7 @@ import java.util.List;
 public abstract class GeneratorState<T extends Value, S extends Value> extends ExecutionState<T, S>
 {
 
-    int step = 0;
-
+    protected int step = 0;
     private List<? extends ParseTree> children;
     private Validator preValidator;
     protected Class<? extends alkBaseVisitor> visitor;

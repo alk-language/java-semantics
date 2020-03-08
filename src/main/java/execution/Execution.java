@@ -2,15 +2,13 @@ package execution;
 
 import execution.state.ExecutionState;
 import parser.AlkParser;
+import parser.env.AlkFunction;
 import parser.env.Environment;
 import parser.env.Store;
-import util.EnvironmentManager;
+import util.*;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
-import util.Configuration;
-import util.ErrorManager;
-import util.OptionProvider;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +37,8 @@ public class Execution extends Thread
     /* The global environment initially empty */
     private Environment global;
 
+    private FuncManager funcManager;
+
     /**
      * Constructor with specific configuration
      *
@@ -50,6 +50,7 @@ public class Execution extends Thread
         envManager = new EnvironmentManager();
         store = new Store();
         global = new Environment(store);
+        funcManager = new FuncManager();
     }
 
     /**
@@ -145,6 +146,10 @@ public class Execution extends Thread
 
     public Configuration getConfiguration() {
         return config;
+    }
+
+    public FuncManager getFuncManager() {
+        return funcManager;
     }
 
     public Execution clone(boolean nullifyLast)

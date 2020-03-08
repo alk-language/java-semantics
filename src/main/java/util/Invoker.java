@@ -6,7 +6,6 @@ import parser.exceptions.AlkException;
 import util.exception.InternalException;
 import util.functions.BuiltInMethod;
 import util.functions.Methods;
-import util.functions.Signatures;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 

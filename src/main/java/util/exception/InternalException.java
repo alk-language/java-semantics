@@ -9,7 +9,7 @@ public class InternalException extends RuntimeException
     /**
      * Implicit constructor
      */
-    InternalException()
+    public InternalException()
     {
         // no-op
     }

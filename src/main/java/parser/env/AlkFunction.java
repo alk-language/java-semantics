@@ -1,16 +1,52 @@
 package parser.env;
 
-import grammar.alkParser;
-import parser.Pair;
+import org.antlr.v4.runtime.tree.ParseTree;
 import parser.exceptions.AlkException;
-import execution.types.AlkValue;
+import util.exception.InternalException;
+import util.functions.Parameter;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-
-import static parser.exceptions.AlkException.*;
+import java.util.List;
 
 public class AlkFunction {
+
+    String name;
+    List<Parameter> params;
+    List<String> modifies;
+    ParseTree tree;
+
+    public AlkFunction(String name, List<Parameter> params, List<String> modifies, ParseTree tree) {
+        this.name = name;
+        this.params = params;
+        this.modifies = modifies;
+        this.tree = tree;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Parameter getParam(int idx) {
+        if (idx < 0 || idx >= params.size())
+            throw new InternalException("Can't retrieve specified parameter");
+        return params.get(idx);
+    }
+
+    public int countParams() {
+        return params.size();
+    }
+
+    public ParseTree getBody() {
+        return tree;
+    }
+
+    public int countModifies() {
+        return modifies.size();
+    }
+
+    public String getModify(int i) {
+        return modifies.get(i);
+    }
+        /*
     private static TreeMap<Pair<String, Integer>, AlkFunction> functions = new TreeMap<>(); // nume si nr argumente -> functie
 
     private ArrayList<Pair<String, Boolean>> params;
@@ -61,7 +97,6 @@ public class AlkFunction {
     //daca este vorba de parametrii de intrare-iesire, se va primi un AlkInt cu valoarea locatii in store
     public AlkValue call(ArrayList<AlkValue> params) throws AlkException
     {
-        /*
         Environment env = new Environment(new Store());
 
         for (int i=0; i<params.size(); i++)
@@ -87,7 +122,7 @@ public class AlkFunction {
             return new AlkNotAValue(AlkNotAValue.NO_RETURN);
         return visitor.returnValue;
 
-        */
         return null;
     }
+        */
 }

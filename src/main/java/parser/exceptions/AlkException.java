@@ -302,12 +302,12 @@ public class AlkException extends InternalException
 
     public AlkException(int line, String text)
     {
-        super(text);
+        super("line " + line + ": " + text);
     }
 
     public void printException() {
         MainVisitor.exceptionOccured=true;
-        System.out.println("[ERROR]: " + getMessage());
+        System.out.println("[ERROR] " + getMessage());
         // throw new RuntimeException();
     }
 

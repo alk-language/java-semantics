@@ -1,6 +1,9 @@
 package parser.visitors;
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
+import execution.state.function.FunctionCallState;
+import execution.state.function.FunctionDeclState;
+import execution.state.function.ParamDefinitionState;
 import execution.state.main.StatementSeqState;
 import execution.state.statement.*;
 import grammar.*;
@@ -97,28 +100,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Function Declaration node in the execution tree meant to be parsed.
      */
     @Override public Object visitFunctionDecl(alkParser.FunctionDeclContext ctx) {
-        if (inFunction)
-        {
-            AlkException e = new AlkException(ERR_FUNCTION_DEFINITION);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        String name = ctx.ID(0).getText();
-        ArrayList<Pair<String, Boolean> > params = new ArrayList<>();
-        ArrayList<String> modifies =  new ArrayList<>();
-        for (int i=0; i<ctx.param().size(); i++)
-        {
-            Pair <String, Boolean> pair = (Pair<String, Boolean>) visit(ctx.param(i));
-            params.add(pair);
-        }
-        for (int i=1; i<ctx.ID().size(); i++)
-            modifies.add(ctx.ID(i).getText());
-        try {
-            new AlkFunction(name, params, modifies, ctx.statement_block());
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-        }
-        return null;
+        return StateFactory.create(FunctionDeclState.class, ctx, payload, env);
     }
 
 
@@ -144,8 +126,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Function Call node in the execution tree meant to be parsed.
      */
     @Override public Object visitFunctionCall(alkParser.FunctionCallContext ctx) {
-        FunctionCallVisitor visitor = new FunctionCallVisitor(env, payload);
-        return visitor.visit(ctx.function_call());
+        return StateFactory.create(FunctionCallState.class, ctx, payload, env);
     }
 
 
@@ -155,7 +136,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @return A pair containing the name of the parameter and a flag used to determine if it is about an output parameter.
      */
     @Override public Object visitParamDefinition(alkParser.ParamDefinitionContext ctx) {
-        return new Pair<>(ctx.ID().getText(), ctx.OUT()!=null);
+        return StateFactory.create(ParamDefinitionState.class, ctx, payload, env);
     }
 
 
