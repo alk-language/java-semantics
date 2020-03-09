@@ -482,6 +482,12 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     }
 
 
+    public AlkValue minusminusright()
+    {
+        //TODO: implement properly
+        return minusminusleft();
+    }
+
     /**
      * Handles the plus plus left operation (++) over a value.
      * By default, the operation is not supported, thus an error is thrown.
@@ -506,6 +512,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
         // TODO: implement properly
         return plusplusleft();
     }
+
 
 
     /**
@@ -841,4 +848,5 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     {
         throw new AlkException("Can't obtain a reference out of this expression");
     }
+
 }

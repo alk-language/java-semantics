@@ -3,20 +3,18 @@ package execution.state.statement;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Location;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
 
-@CtxState(ctxClass = alkParser.PlusPlusStmtContext.class)
-public class PlusPlusStmtState extends ExecutionState
+@CtxState(ctxClass = alkParser.MinusMinusStmtContext.class)
+public class MinusMinusStmtState extends ExecutionState
 {
+    alkParser.MinusMinusStmtContext ctx;
+    Location ref;
 
-    private alkParser.PlusPlusStmtContext ctx;
-    private Location ref;
-
-    public PlusPlusStmtState(alkParser.PlusPlusStmtContext ctx, Payload payload)
+    public MinusMinusStmtState(alkParser.MinusMinusStmtContext ctx, Payload payload)
     {
         super(ctx, payload);
         this.ctx = ctx;
@@ -29,7 +27,7 @@ public class PlusPlusStmtState extends ExecutionState
         {
             return request(ExpressionVisitor.class, ctx.ref_name());
         }
-        ref.toRValue().plusplusleft();
+        ref.toRValue().minusminusleft();
         return null;
     }
 
