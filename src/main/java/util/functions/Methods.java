@@ -58,6 +58,13 @@ public class Methods {
         return loc;
     }
 
+    @BuiltInMethod(paramNumber = 0)
+    public static Location popFront(Location loc, List<AlkValue> params, LocationGenerator generator)
+    {
+        loc.toRValue().popFront();
+        return loc;
+    }
+
     @BuiltInMethod(paramNumber = 1)
     public static Location pushBack(Location loc, List<AlkValue> params, LocationGenerator generator)
     {

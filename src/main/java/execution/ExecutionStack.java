@@ -2,10 +2,12 @@ package execution;
 
 import execution.state.ExecutionState;
 import parser.exceptions.AlkException;
+import parser.exceptions.UnwindException;
 import util.Configuration;
 import util.EnvironmentManager;
 import util.ErrorManager;
 import util.Payload;
+import util.exception.InternalException;
 import util.types.Value;
 
 import java.util.HashMap;
@@ -33,6 +35,8 @@ public class ExecutionStack implements Cloneable
 
     private void pop()
     {
+        ExecutionState<? extends Value, ? extends Value> top = stack.peek();
+        envManager.unlink(top);
         stack.pop();
     }
 
@@ -44,12 +48,25 @@ public class ExecutionStack implements Cloneable
             {
                 makeStep();
             }
-            catch (AlkException e)
+            catch (UnwindException u)
             {
-                ErrorManager em = config.getErrorManager();
-                em.handleError(e);
+                propagate(u);
             }
         }
+    }
+
+    private void propagate(UnwindException u)
+    {
+        while (!stack.empty())
+        {
+            ExecutionState<? extends Value, ? extends Value> top = stack.peek();
+            if (top.handle(u))
+                break;
+            pop();
+        }
+
+        if (stack.empty())
+            throw new AlkException(u);
     }
 
     private void makeStep()
@@ -60,7 +77,6 @@ public class ExecutionStack implements Cloneable
         if (next == null)
         {
             ExecutionResult result = top.getResult();
-            envManager.unlink(top);
             pop();
             if (!stack.empty())
             {

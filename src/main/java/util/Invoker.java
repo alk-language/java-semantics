@@ -13,8 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import static parser.exceptions.AlkException.ERR_FUNCTION_UNDEFINED;
-import static parser.exceptions.AlkException.ERR_PARAM_NUMBER;
+import static parser.exceptions.AlkException.*;
 
 public class Invoker {
 
@@ -40,7 +39,7 @@ public class Invoker {
 
             return (Value) method.invoke(null, loc, params, generator);
         } catch (NoSuchMethodException e) {
-            throw new AlkException(ERR_FUNCTION_UNDEFINED);
+            throw new AlkException(ERR_METHOD);
         }
         catch (IllegalAccessException | InvocationTargetException e) {
             throw new InternalException(e);

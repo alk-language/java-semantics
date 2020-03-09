@@ -4,6 +4,7 @@ import execution.state.StateFactory;
 import execution.state.function.FunctionCallState;
 import execution.state.function.FunctionDeclState;
 import execution.state.function.ParamDefinitionState;
+import execution.state.function.ReturnState;
 import execution.state.main.StatementSeqState;
 import execution.state.statement.*;
 import grammar.*;
@@ -149,23 +150,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Return Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitReturnStmt(alkParser.ReturnStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        if (!inFunction)
-        {
-            AlkException e = new AlkException(ERR_RETURN);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        if (ctx.expression() == null)
-        {
-            returnValue = new AlkNotAValue(NO_RETURN);
-        }
-        else
-        {
-            ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
-            returnValue = (AlkValue) expressionVisitor.visit(ctx.expression());
-        }
-        return null;
+        return StateFactory.create(ReturnState.class, ctx, payload, env);
     }
 
 
@@ -268,7 +253,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitSuccess(alkParser.SuccessContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        AlkException e = new AlkException(null);
+        AlkException e = new AlkException((String)null);
         e.success();
         return null;
     }
@@ -281,7 +266,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitFailure(alkParser.FailureContext ctx) {
         if (returnValue != null || breakFlag || continueFlag) return null;
-        AlkException e = new AlkException(null);
+        AlkException e = new AlkException((String)null);
         e.failure();
         return null;
     }
@@ -315,16 +300,9 @@ public class StmtVisitor extends alkBaseVisitor {
      * reference is invalid, an AlkException will be thrown.
      * @param ctx A PlusPlus Statement node in the execution tree meant to be parsed.
      */
-    @Override public Object visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor();
-        try {
-            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
-            value.plusplusleft();
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-        }
-        return null;
+    @Override
+    public Object visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx) {
+        return StateFactory.create(PlusPlusStmtState.class, ctx, payload, env);
     }
 
 
@@ -388,20 +366,8 @@ public class StmtVisitor extends alkBaseVisitor {
      * Handles the visiting of a Statement PlusPlus. Similar to the PlusPlus Statement.
      * @param ctx An Statement PlusPlus node in the execution tree meant to be parsed.
      */
-    //TODO reimplement the function
     @Override public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor();
-        try {
-            AssignedVisitor asgnVisitor = new AssignedVisitor(); //TODO de modificat in functii proprii
-            asgnVisitor.visit(ctx.ref_name());
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-        } catch (InterpretorException e) {
-            if (DEBUG)
-                e.printException(ctx.start.getLine());
-        }
-        return null;
+        return StateFactory.create(StmtPlusPlusState.class, ctx, payload, env);
     }
 
 
@@ -469,14 +435,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An ContinueStmt Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitContinueStmt(alkParser.ContinueStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        if (loopLevel == 0)
-        {
-            AlkException e = new AlkException(ERR_CONTINUE);
-            e.printException(ctx.start.getLine());
-        }
-        continueFlag = true;
-        return null;
+        return StateFactory.create(ContinueState.class, ctx, payload, env);
     }
 
     /**
@@ -485,14 +444,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An ContinueStmt Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitBreakStmt(alkParser.BreakStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        if (loopLevel == 0)
-        {
-            AlkException e = new AlkException(ERR_BREAK);
-            e.printException(ctx.start.getLine());
-        }
-        breakFlag = true;
-        return null;
+        return StateFactory.create(BreakState.class, ctx, payload, env);
     }
 
     public Environment getEnvironment() {

@@ -8,6 +8,8 @@ import parser.env.AlkFunction;
 import parser.env.Environment;
 import parser.env.Location;
 import parser.exceptions.AlkException;
+import parser.exceptions.ReturnException;
+import parser.exceptions.UnwindException;
 import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
@@ -65,6 +67,17 @@ public class DefinedFunctionCallState extends ExecutionState {
             return request(StmtVisitor.class, function.getBody(), env, (Value) null);
         }
         return null;
+    }
+
+    @Override
+    public boolean handle(UnwindException e)
+    {
+        if (e instanceof ReturnException)
+        {
+            result = new ExecutionResult<>(((ReturnException) e).getValue());
+            return true;
+        }
+        return false;
     }
 
     @Override

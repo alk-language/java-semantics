@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import parser.env.Store;
 import execution.types.AlkValue;
+import parser.exceptions.UnwindException;
 import util.Configuration;
 import util.FuncManager;
 import util.Payload;
@@ -100,5 +101,10 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
                                                Payload payload)
     {
         return (ExecutionState) VisitorFactory.create(visitor, env, payload).visit(parseTree);
+    }
+
+    public boolean handle(UnwindException u)
+    {
+        return false;
     }
 }
