@@ -2,6 +2,7 @@ package execution.state.statement;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.state.LoopingState;
 import execution.types.AlkIterableValue;
 import grammar.alkParser;
 import parser.env.Location;
@@ -17,14 +18,14 @@ import java.util.List;
 import static parser.exceptions.AlkException.ERR_FORALL_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.ForAllStructureContext.class)
-public class ForAllState extends ExecutionState<Value, Value>
+public class ForAllState extends LoopingState
 {
-    alkParser.ForAllStructureContext ctx;
+    private alkParser.ForAllStructureContext ctx;
     private List<Location> source;
-    int step = 0;
+    private int step = 0;
 
     public ForAllState(alkParser.ForAllStructureContext tree, Payload payload) {
-        super(tree, payload);
+        super(tree, payload, null, null, null, null);
         this.ctx = tree;
     }
 

@@ -156,6 +156,7 @@ public class AlkException extends InternalException
 
 
     public final static String ERR_LEFT_PLUSPLUS = "The value of the operand is not valid in this prefix (left ++) expression";
+    public final static String ERR_RIGHT_PLUSPLUS = "The value of the operand is not valid in this postfix (right ++) expression";
     public final static String ERR_LEFT_MINUSMINUS = "The value of the operand is not valid in this prefix (left --) expression";
     public final static String ERR_MINUSMINUSMOD = "The value of the operand is not valid in this prefix (--%) expression";
     public final static String ERR_PLUSPLUSMOD = "The value of the operand is not valid in this prefix (++%) expression";
@@ -303,6 +304,11 @@ public class AlkException extends InternalException
     public AlkException(int line, String text)
     {
         super("line " + line + ": " + text);
+    }
+
+    public AlkException(UnwindException u)
+    {
+        super(u.getMessage());
     }
 
     public void printException() {

@@ -494,6 +494,19 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
         throw new AlkException(ERR_LEFT_PLUSPLUS);
     }
 
+    /**
+     * Handles the plus plus left operation (++) over a value.
+     * By default, the operation is not supported, thus an error is thrown.
+     * @return
+     * The result of the expression
+     * A return is valid if overridden, otherwise no-return
+     */
+    public AlkValue plusplusright()
+    {
+        // TODO: implement properly
+        return plusplusleft();
+    }
+
 
     /**
      * Handles the minus minus left operation (--) over a value.

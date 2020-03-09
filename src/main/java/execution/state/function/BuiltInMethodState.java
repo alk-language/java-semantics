@@ -60,6 +60,11 @@ public class BuiltInMethodState extends GeneratorState<Location, Value>
     @Override
     public Location getFinalResult()
     {
-        return (Location) Invoker.invokeMethod(methodName, loc, params, generator);
+        try {
+            return (Location) Invoker.invokeMethod(methodName, loc, params, generator);
+        }
+        catch (AlkException e) {
+            throw new AlkException(ctx.start.getLine(), e.getMessage());
+        }
     }
 }

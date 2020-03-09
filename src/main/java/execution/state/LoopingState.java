@@ -5,6 +5,9 @@ import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
+import parser.exceptions.BreakException;
+import parser.exceptions.ContiuneException;
+import parser.exceptions.UnwindException;
 import util.Payload;
 import util.types.Value;
 
@@ -16,6 +19,7 @@ public abstract class LoopingState extends ExecutionState
     protected ParseTree body;
     protected boolean checkedCondition = false;
     protected boolean validCondition = false;
+    boolean broke = false;
 
     public LoopingState(ParseTree tree,
                         Payload payload,
@@ -34,6 +38,11 @@ public abstract class LoopingState extends ExecutionState
     @Override
     public ExecutionState makeStep()
     {
+        if (broke)
+        {
+            return null;
+        }
+
         if (!checkedCondition)
         {
             return request(conditionVisitor, condition);
@@ -75,6 +84,22 @@ public abstract class LoopingState extends ExecutionState
         }
     }
 
+    @Override
+    public boolean handle(UnwindException e)
+    {
+        if (e instanceof BreakException)
+        {
+            assign(new ExecutionResult<>(null));
+            broke = true;
+            return true;
+        }
+        if (e instanceof ContiuneException)
+        {
+            assign(new ExecutionResult<>(null));
+            return true;
+        }
+        return false;
+    }
 
     protected LoopingState decorate(LoopingState copy)
     {

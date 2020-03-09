@@ -5,6 +5,7 @@ import parser.AlkParser;
 import parser.env.AlkFunction;
 import parser.env.Environment;
 import parser.env.Store;
+import parser.exceptions.AlkException;
 import util.*;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
@@ -128,6 +129,11 @@ public class Execution extends Thread
         try
         {
             execute();
+        }
+        catch (AlkException e)
+        {
+            ErrorManager em = config.getErrorManager();
+            em.handleError(e);
         }
         catch (InternalException e)
         {
