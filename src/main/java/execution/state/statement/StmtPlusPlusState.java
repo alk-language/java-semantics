@@ -28,7 +28,7 @@ public class StmtPlusPlusState extends ExecutionState
         {
             return request(ExpressionVisitor.class, ctx.ref_name());
         }
-        ref.toRValue().plusplusleft();
+        ref.toRValue().plusplusright();
         return null;
     }
 

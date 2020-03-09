@@ -26,6 +26,10 @@ public class ForState extends LoopingState
     @Override
     public ExecutionState makeStep()
     {
+        if (broke)
+        {
+            return null;
+        }
         if (!visitedStart)
         {
             return request(StmtVisitor.class, ctx.start_assignment());

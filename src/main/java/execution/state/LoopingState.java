@@ -19,7 +19,7 @@ public abstract class LoopingState extends ExecutionState
     protected ParseTree body;
     protected boolean checkedCondition = false;
     protected boolean validCondition = false;
-    boolean broke = false;
+    protected boolean broke = false;
 
     public LoopingState(ParseTree tree,
                         Payload payload,

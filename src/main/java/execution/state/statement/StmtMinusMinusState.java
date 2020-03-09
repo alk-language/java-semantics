@@ -9,14 +9,13 @@ import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
 
-@CtxState(ctxClass = alkParser.PlusPlusStmtContext.class)
-public class PlusPlusStmtState extends ExecutionState
+@CtxState(ctxClass = alkParser.StmtMinusMinusContext.class)
+public class StmtMinusMinusState extends ExecutionState
 {
-
-    private alkParser.PlusPlusStmtContext ctx;
+    private alkParser.StmtMinusMinusContext ctx;
     private Location ref;
 
-    public PlusPlusStmtState(alkParser.PlusPlusStmtContext ctx, Payload payload)
+    public StmtMinusMinusState(alkParser.StmtMinusMinusContext ctx, Payload payload)
     {
         super(ctx, payload);
         this.ctx = ctx;
@@ -29,7 +28,7 @@ public class PlusPlusStmtState extends ExecutionState
         {
             return request(ExpressionVisitor.class, ctx.ref_name());
         }
-        ref.toRValue().plusplusleft();
+        ref.toRValue().minusminusright();
         return null;
     }
 

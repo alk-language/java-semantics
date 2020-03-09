@@ -313,15 +313,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A MinusMinus Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor();
-        try {
-            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
-            value.minusminusleft();
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-        }
-        return null;
+        return StateFactory.create(MinusMinusStmtState.class, ctx, payload, env);
     }
 
     @Override
@@ -361,12 +353,17 @@ public class StmtVisitor extends alkBaseVisitor {
         return StateFactory.create(ChooseStmtState.class, cctx, payload, env);
     }
 
+    @Override public Object visitToIncreaseDecrease(alkParser.ToIncreaseDecreaseContext ctx) {
+        return StateFactory.create(ToIncreaseDecreaseState.class, ctx, payload, env);
+    }
+
 
     /**
      * Handles the visiting of a Statement PlusPlus. Similar to the PlusPlus Statement.
      * @param ctx An Statement PlusPlus node in the execution tree meant to be parsed.
      */
-    @Override public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
+    @Override
+    public Object visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) {
         return StateFactory.create(StmtPlusPlusState.class, ctx, payload, env);
     }
 
@@ -377,18 +374,7 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     //TODO reimplement the function
     @Override public Object visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor();
-        try {
-            AssignedVisitor asgnVisitor = new AssignedVisitor();
-            asgnVisitor.visit(ctx.ref_name());
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-        } catch (InterpretorException e) {
-            if (DEBUG)
-                e.printException(ctx.start.getLine());
-        }
-        return null;
+        return StateFactory.create(StmtMinusMinusState.class, ctx, payload, env);
     }
 
 
@@ -399,14 +385,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An MinusMinusMod Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitMinusMinusModStmt(alkParser.MinusMinusModStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor();
-        try {
-            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
-            value.minusminusmod();
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-        }
+        //return StateFactory.create(MinusMinusStmtState.class, ctx, payload, env);
         return null;
     }
 
@@ -418,14 +397,6 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx An PlusPlusMod Statement node in the execution tree meant to be parsed.
      */
     @Override public Object visitPlusPlusModStmt(alkParser.PlusPlusModStmtContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        ReferenceVisitor refVisitor = new ReferenceVisitor();
-        try {
-            AlkValue value = (AlkValue) refVisitor.visit(ctx.ref_name());
-            value.plusplusmod();
-        } catch (AlkException e) {
-            e.printException(ctx.start.getLine());
-        }
         return null;
     }
 
