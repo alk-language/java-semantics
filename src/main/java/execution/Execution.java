@@ -204,4 +204,9 @@ public class Execution extends Thread
     void setStack(ExecutionStack stack) {
         this.stack = stack;
     }
+
+    void setFuncManager(FuncManager funcManager)
+    {
+        this.funcManager = funcManager;
+    }
 }

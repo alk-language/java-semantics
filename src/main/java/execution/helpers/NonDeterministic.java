@@ -29,6 +29,8 @@ public class NonDeterministic {
     }
 
     public static Location choose(List<Location> struct) {
+        if (struct.size() == 0)
+            throw new AlkException("Can't choose from an empty structure.");
         Random rand = new Random();
         int poz = rand.nextInt(struct.size());
         return struct.get(poz);

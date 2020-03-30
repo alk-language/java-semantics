@@ -7,6 +7,7 @@ import parser.env.LocationMapper;
 import parser.env.Store;
 import util.Configuration;
 import util.EnvironmentManager;
+import util.FuncManager;
 
 import java.util.Map;
 
@@ -15,6 +16,7 @@ class ExecutionCloner {
     private Execution source;
     private Execution copy;
     private Store copyStore;
+    private FuncManager funcManager;
     private Map<ExecutionState, ExecutionState> stateMapping;
     private Map<Environment, Environment> envMapping;
 
@@ -25,6 +27,7 @@ class ExecutionCloner {
         copy = new Execution(exec.getConfig());
         envMapping = source.getEnvManager().cloneEnvironments(copyStore);
         stateMapping = source.getStack().cloneStates(copy);
+        funcManager = source.getFuncManager();
     }
 
     Execution execute() {
@@ -39,6 +42,7 @@ class ExecutionCloner {
         copy.setGlobal(envMapping.get(source.getGlobal()));
         copy.setEnvManager(envManager);
         copy.setStack(stack);
+        copy.setFuncManager(funcManager);
         return copy;
     }
 

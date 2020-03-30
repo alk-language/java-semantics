@@ -1,7 +1,16 @@
-for (i=1; i<10; i++)
-{
-    if (i>5)
-        break;
-    print(i);
+n = 4;
+
+f(x) {
+  return (x[0] || x[1]) &&
+         (!x[0] || x[3] || x[2]) &&
+         (x[2] || !x[3]) &&
+         (!x[1] || !x[2] || x[3]);
 }
-print(i);
+
+x = [ false | i from [0 .. n-1] ];
+for (i = 0; i < n; ++i) {
+  choose z in {false, true};
+  x[i] = z;
+}
+if (f(x)) print("success");
+else print("failure");
