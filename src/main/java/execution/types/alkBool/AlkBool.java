@@ -1,5 +1,6 @@
 package execution.types.alkBool;
 
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkComparable;
 import execution.types.AlkValue;
@@ -76,6 +77,11 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
     public AlkBool not()
     {
         return new AlkBool(!value);
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        return clone(null);
     }
 
 

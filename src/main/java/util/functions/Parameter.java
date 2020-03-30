@@ -16,7 +16,7 @@ public class Parameter implements Value {
 
     @Override
     public Value clone() {
-        throw new InternalException("Can't clone a parameter.");
+        return this;
     }
 
     @Override

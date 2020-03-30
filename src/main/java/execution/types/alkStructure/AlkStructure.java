@@ -1,6 +1,7 @@
 package execution.types.alkStructure;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
@@ -41,6 +42,16 @@ public class AlkStructure extends AlkValue
             map.put(operand, generator.generate(null));
 
         return map.get(operand);
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        AlkStructure copy = new AlkStructure();
+        for (Map.Entry<String, Location> entry : map.entrySet())
+        {
+            copy.map.put(entry.getKey(), locMapping.get(entry.getValue()));
+        }
+        return copy;
     }
 
     @Override

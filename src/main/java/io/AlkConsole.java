@@ -148,4 +148,9 @@ public class AlkConsole implements IOManager, OptionProvider
     public boolean hasDebugMode() {
         return cmd.hasOption("trace");
     }
+
+    public IOManager getEndpoint()
+    {
+        return this;
+    }
 }

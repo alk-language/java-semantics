@@ -43,25 +43,8 @@ public class ReturnState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        ReturnState copy = new ReturnState(ctx, payload);
+        copy.value = value.clone(payload.getExecution().getStore());
+        return super.decorate(copy);
     }
 }
-
-/*
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        if (!inFunction)
-        {
-            AlkException e = new AlkException(ERR_RETURN);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        if (ctx.expression() == null)
-        {
-            returnValue = new AlkNotAValue(NO_RETURN);
-        }
-        else
-        {
-            ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
-            returnValue = (AlkValue) expressionVisitor.visit(ctx.expression());
-        }
-        return null;*/

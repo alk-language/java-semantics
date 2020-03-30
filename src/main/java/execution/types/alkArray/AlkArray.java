@@ -1,6 +1,7 @@
 package execution.types.alkArray;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
@@ -73,6 +74,14 @@ public class AlkArray extends AlkIterableValue {
     public AlkValue size()
     {
         return new AlkInt(array.size());
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        AlkArray copy = new AlkArray();
+        for (Location loc : array)
+            copy.push(locMapping.get(loc));
+        return copy;
     }
 
     public void put(int index, Location loc, LocationGenerator generator)

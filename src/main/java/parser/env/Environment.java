@@ -76,15 +76,12 @@ public class Environment
         return returnable.toString();
     }
 
-    public Environment makeClone(Store store)
+    public Environment makeClone(LocationMapper locMapping, Store store)
     {
-        Environment clone = new Environment(store);
+        Environment copyEnv = new Environment(store);
         for (Map.Entry<String, Location> entry : variables.entrySet())
-        {
-            Location location = store.malloc().assign(lookup(entry.getKey()));
-            clone.variables.put(entry.getKey(), location);
-        }
-        return clone;
+            copyEnv.variables.put(entry.getKey(), locMapping.get(entry.getValue()));
+        return copyEnv;
     }
 
     public void setLocation(String name, Location location) {

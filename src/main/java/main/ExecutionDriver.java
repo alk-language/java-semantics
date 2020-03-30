@@ -15,11 +15,6 @@ import util.OptionProvider;
  */
 public class ExecutionDriver
 {
-    /** The main IO Manager used for basic IO usage */
-    private static IOManager io;
-
-    /** The main Error Manager used for error handling*/
-    private static ErrorManager em;
 
     /** A generated configuration based on other managers */
     private static Configuration config;
@@ -52,18 +47,15 @@ public class ExecutionDriver
         ErrorManager em = new ErrorManager();
         config = new Configuration();
 
+        // setup buffered input
+        IOManager bufferedIO = new BufferedIOWrapper(io);
+
         // attach interfaces to the managers
-        em.attach(new BufferedIOWrapper(io));
+        em.attach(bufferedIO);
         em.attach((OptionProvider) io);
         config.attach(em);
-        config.attach(io);
+        config.attach(bufferedIO);
         config.importOptions(io);
-
-        /*
-         * setup the managers to static scope
-         */
-        ExecutionDriver.io = io;
-        ExecutionDriver.em = em;
     }
 
 }

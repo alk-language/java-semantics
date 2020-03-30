@@ -6,17 +6,10 @@ import util.types.Value;
 public class Location implements Value {
 
     private Store store;
-    private Integer location;
 
-    public Location(Store store, Integer location)
+    public Location(Store store)
     {
         this.store = store;
-        this.location = location;
-    }
-
-    public Integer getLocation()
-    {
-        return this.location;
     }
 
     public Store getStore()
@@ -31,7 +24,7 @@ public class Location implements Value {
 
     @Override
     public Location clone() {
-        return new Location(store, location);
+        return new Location(store);
     }
 
     @Override

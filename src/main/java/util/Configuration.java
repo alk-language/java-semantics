@@ -120,18 +120,13 @@ public class Configuration implements OptionProvider, Cloneable
     }
 
     public Configuration clone() {
-        try {
-            Configuration copy = (Configuration) super.clone();
-            copy.importOptions(this);
-            copy.attach(io);
-            copy.attach(em);
-            return copy;
-        }
-        catch (CloneNotSupportedException e)
-        {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
-        return null;
+        Configuration copy = new Configuration();
+        copy.importOptions(this);
+        IOManager newIO = io.getEndpoint();
+        copy.attach(newIO);
+        ErrorManager newEm = em.getEndpoint();
+        newEm.attach(newIO);
+        copy.attach(newEm);
+        return copy;
     }
 }

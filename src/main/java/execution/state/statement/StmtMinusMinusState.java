@@ -41,6 +41,8 @@ public class StmtMinusMinusState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        StmtMinusMinusState copy = new StmtMinusMinusState(ctx, payload);
+        copy.ref = ref; //mapping should be done;
+        return copy;
     }
 }

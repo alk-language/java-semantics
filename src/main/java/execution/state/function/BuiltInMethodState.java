@@ -8,6 +8,7 @@ import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Location;
+import parser.env.Store;
 import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
@@ -54,7 +55,13 @@ public class BuiltInMethodState extends GeneratorState<Location, Value>
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        Store store = payload.getExecution().getStore();
+        BuiltInMethodState copy = new BuiltInMethodState(ctx, payload);
+        copy.loc = loc; // this should be mapped
+        copy.methodName = methodName;
+        for (AlkValue value : params)
+            copy.params.add(value.clone(store));
+        return super.decorate(copy);
     }
 
     @Override

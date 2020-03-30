@@ -1,7 +1,5 @@
-package execution.state.statement;
+package execution.state;
 
-import execution.state.ExecutionState;
-import execution.state.LoopingState;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.Payload;

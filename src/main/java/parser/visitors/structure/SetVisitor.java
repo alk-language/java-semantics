@@ -23,7 +23,7 @@ public class SetVisitor extends DataStructureVisitor
     }
 
     public ExecutionState visitEmptySet(alkParser.EmptySetContext ctx) {
-        return StateFactory.create(EmptySetState.class, ctx, payload, new AlkSet(), env);
+        return StateFactory.create(EmptySetState.class, ctx, payload, env);
     }
 
     public ExecutionState visitSetWithInterval(alkParser.SetWithIntervalContext ctx) {

@@ -1,11 +1,23 @@
 package parser.env;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LocationMapper
 {
-    private final Store source;
+    private Map<Location, Location> mapping = new HashMap<>();
 
-    public LocationMapper(Store source)
+    public LocationMapper()
     {
-        this.source = source;
+
+    }
+
+    public void put(Location loc, Location newLoc) {
+        mapping.put(loc, newLoc);
+    }
+
+    public Location get(Location loc)
+    {
+        return mapping.get(loc);
     }
 }

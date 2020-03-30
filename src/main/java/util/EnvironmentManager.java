@@ -3,6 +3,7 @@ package util;
 import execution.Execution;
 import execution.state.ExecutionState;
 import parser.env.Environment;
+import parser.env.LocationMapper;
 import parser.env.Store;
 import util.exception.InternalException;
 import util.types.Value;
@@ -48,11 +49,11 @@ public class EnvironmentManager {
         return state2env.get(state);
     }
 
-    public Map<Environment, Environment> cloneEnvironments(Store store) {
+    public Map<Environment, Environment> cloneEnvironments(LocationMapper locMapping, Store store) {
         Map<Environment, Environment> mapping = new HashMap<>();
         for (Environment env : env2state.keySet())
         {
-            Environment copy = env.makeClone(store);
+            Environment copy = env.makeClone(locMapping, store);
             mapping.put(env, copy);
         }
         return mapping;

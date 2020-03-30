@@ -17,4 +17,9 @@ public class ReturnException extends UnwindException
     {
         return value;
     }
+
+    @Override
+    public boolean isError() {
+        return false;
+    }
 }

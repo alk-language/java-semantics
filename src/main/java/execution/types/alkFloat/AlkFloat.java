@@ -1,5 +1,6 @@
 package execution.types.alkFloat;
 
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
@@ -62,6 +63,11 @@ public class AlkFloat extends AlkValue
     public AlkValue negative() throws AlkException, InterpretorException {
         UnaryFloatHelper help = new UnaryFloatHelper(value);
         return help.negative();
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        return clone(null);
     }
 
     @Override

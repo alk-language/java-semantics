@@ -10,14 +10,19 @@ import util.Payload;
 @CtxState(ctxClass = alkParser.ToIncreaseDecreaseContext.class)
 public class ToIncreaseDecreaseState extends IndependentSingleState
 {
-    public ToIncreaseDecreaseState(alkParser.ToIncreaseDecreaseContext tree, Payload payload)
+
+    alkParser.ToIncreaseDecreaseContext ctx;
+
+    public ToIncreaseDecreaseState(alkParser.ToIncreaseDecreaseContext ctx, Payload payload)
     {
-        super(tree, payload, tree.increase_decrease(), StmtVisitor.class);
+        super(ctx, payload, ctx.increase_decrease(), StmtVisitor.class);
+        this.ctx = ctx;
     }
 
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        ToIncreaseDecreaseState copy = new ToIncreaseDecreaseState(ctx, payload);
+        return copy;
     }
 }

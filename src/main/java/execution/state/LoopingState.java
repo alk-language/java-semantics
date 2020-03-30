@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
 import parser.exceptions.BreakException;
-import parser.exceptions.ContiuneException;
+import parser.exceptions.ContinueException;
 import parser.exceptions.UnwindException;
 import util.Payload;
 import util.types.Value;
@@ -93,7 +93,7 @@ public abstract class LoopingState extends ExecutionState
             broke = true;
             return true;
         }
-        if (e instanceof ContiuneException)
+        if (e instanceof ContinueException)
         {
             assign(new ExecutionResult<>(null));
             return true;

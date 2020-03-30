@@ -1,5 +1,6 @@
 package execution.types.alkString;
 
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkComparable;
 import execution.types.AlkValue;
@@ -67,6 +68,11 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
     public AlkValue split()
     {
         return split(new AlkString(""));
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        return clone(null);
     }
 
     public AlkValue insert(AlkInt position, AlkString str)

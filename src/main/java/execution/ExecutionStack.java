@@ -30,6 +30,10 @@ public class ExecutionStack implements Cloneable
     }
 
     void push(ExecutionState<? extends Value, ? extends Value> state) {
+        if (state == null)
+        {
+            int aci = 0;
+        }
         stack.push(state);
     }
 
@@ -66,7 +70,10 @@ public class ExecutionStack implements Cloneable
         }
 
         if (stack.empty())
-            throw new AlkException(u);
+        {
+            if (u.isError())
+                throw new AlkException(u);
+        }
     }
 
     private void makeStep()
@@ -120,6 +127,10 @@ public class ExecutionStack implements Cloneable
         for (ExecutionState<? extends Value, ? extends Value> state : stack)
         {
             Payload payload = new Payload(master);
+            if (state == null || mapping == null)
+            {
+                int aci = 0;
+            }
             mapping.put(state, state.clone(payload));
         }
 
@@ -135,7 +146,7 @@ public class ExecutionStack implements Cloneable
 
         for (ExecutionState<? extends Value, ? extends Value> state : stack)
         {
-            clone.stack.push(stateMapping.get(state));
+            clone.push(stateMapping.get(state));
         }
 
         return clone;

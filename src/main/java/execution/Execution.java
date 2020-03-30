@@ -105,14 +105,6 @@ public class Execution extends Thread
         }
         stack.run();
 
-        // debugging
-        // System.out.println("Result: " + stack.getResult());
-
-        /* AlkParser parser = new AlkParser(alkFile, e);
-        parser.execute(config); */
-
-
-
         // if the metadata flag is set, print the global environment
         if (config.hasMetadata())
         {
@@ -134,6 +126,12 @@ public class Execution extends Thread
         {
             ErrorManager em = config.getErrorManager();
             em.handleError(e);
+            OptionProvider op = config;
+            if (op.hasDebugMode())
+            {
+                // TODO: make use of em
+                e.printStackTrace();
+            }
         }
         catch (InternalException e)
         {
@@ -143,6 +141,10 @@ public class Execution extends Thread
                 // TODO: make use of em
                 e.printStackTrace();
             }
+        }
+        finally
+        {
+            config.getIOManager().flush();
         }
     }
 
@@ -160,8 +162,7 @@ public class Execution extends Thread
 
     public Execution clone(boolean nullifyLast)
     {
-        ExecutionCloner cloner = new ExecutionCloner(this);
-        Execution copy = cloner.execute();
+        Execution copy = ExecutionCloner.makeClone(this);
         if (nullifyLast)
         {
             copy.stack.nullifyLast();

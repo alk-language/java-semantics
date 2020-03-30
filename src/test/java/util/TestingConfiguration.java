@@ -73,4 +73,9 @@ class TestingIO implements IOManager {
     public void flush() {
         // no-op
     }
+
+    @Override
+    public IOManager getEndpoint() {
+        return this;
+    }
 }

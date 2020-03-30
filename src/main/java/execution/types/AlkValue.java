@@ -1,6 +1,7 @@
 package execution.types;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
 import util.lambda.LocationGenerator;
@@ -849,4 +850,5 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
         throw new AlkException("Can't obtain a reference out of this expression");
     }
 
+    public abstract AlkValue weakClone(LocationMapper locMapping);
 }

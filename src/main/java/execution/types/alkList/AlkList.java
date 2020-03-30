@@ -1,6 +1,7 @@
 package execution.types.alkList;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
 import execution.types.AlkIterableValue;
@@ -120,7 +121,13 @@ public class AlkList extends AlkIterableValue
         return this;
     }
 
-
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        AlkList copy = new AlkList();
+        for (Location loc : list)
+            copy.list.add(locMapping.get(loc));
+        return copy;
+    }
 
     @Override
     public AlkValue clone(LocationGenerator generator)

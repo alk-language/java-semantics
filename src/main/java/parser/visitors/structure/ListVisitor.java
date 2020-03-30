@@ -23,7 +23,7 @@ public class ListVisitor extends DataStructureVisitor {
     }
 
     public ExecutionState visitEmptyList(alkParser.EmptyListContext ctx) {
-        return StateFactory.create(EmptyListState.class, ctx, payload, new AlkList(), env);
+        return StateFactory.create(EmptyListState.class, ctx, payload, env);
     }
 
 

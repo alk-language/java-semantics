@@ -6,6 +6,7 @@ import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import grammar.alkParser;
 import parser.env.Location;
+import parser.env.Store;
 import parser.exceptions.AlkException;
 import execution.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
@@ -74,6 +75,10 @@ public class RefArrayState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        Store store = payload.getExecution().getStore();
+        RefArrayState copy = new RefArrayState(ctx, payload);
+        copy.index = (AlkInt) index.clone(store);
+        copy.reference = reference; // should be mapped
+        return copy;
     }
 }

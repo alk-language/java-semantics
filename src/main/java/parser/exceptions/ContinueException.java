@@ -1,8 +1,8 @@
 package parser.exceptions;
 
-public class BreakException extends UnwindException
+public class ContinueException extends UnwindException
 {
-    public BreakException(String text)
+    public ContinueException(String text)
     {
         super(text);
     }

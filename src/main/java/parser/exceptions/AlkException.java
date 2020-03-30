@@ -5,6 +5,7 @@ import util.exception.InternalException;
 
 public class AlkException extends InternalException
 {
+    int line;
 
     public final static String ERR_LOGICALOR_DATA_STRUCTURE = "A data structure value is not a valid operand in this logical or expression.";
     public final static String ERR_LOGICALOR_INT = "An int value is not a valid operand in this logical or expression.";
@@ -303,7 +304,8 @@ public class AlkException extends InternalException
 
     public AlkException(int line, String text)
     {
-        super("line " + line + ": " + text);
+        super(text);
+        this.line = line;
     }
 
     public AlkException(UnwindException u)
@@ -321,17 +323,5 @@ public class AlkException extends InternalException
         MainVisitor.exceptionOccured=true;
         System.out.println("Error at line "+line+": " + getMessage());
         // throw new RuntimeException();
-    }
-
-    public void success()
-    {
-        System.out.println("The nondeterministic execution of the algorithm successfully terminated.");
-        throw new RuntimeException();
-    }
-
-    public void failure()
-    {
-        System.out.println("The nondeterministic execution of the algorithm failed.");
-        throw new RuntimeException();
     }
 }

@@ -16,4 +16,6 @@ public interface IOManager {
 
     void flush();
 
+    IOManager getEndpoint();
+
 }

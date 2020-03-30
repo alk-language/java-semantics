@@ -1,10 +1,8 @@
 package execution.state.statement;
 
 import execution.state.ExecutionState;
-import execution.state.LoopingState;
-import grammar.alkBaseVisitor;
+import execution.state.FinalCheckLoopingState;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
 import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
