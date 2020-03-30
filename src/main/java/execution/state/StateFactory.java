@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
 import execution.types.AlkValue;
 import parser.exceptions.AlkException;
+import parser.exceptions.UnwindException;
 import util.CtxState;
 import util.Payload;
 
@@ -29,11 +30,17 @@ public class StateFactory {
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             // TODO: handle exception
             e.printStackTrace();
-        } catch (InvocationTargetException e)
+        }
+        catch (InvocationTargetException e)
         {
-            throw new AlkException(e.getTargetException().getMessage());
+            handle(e);
         }
         return null;
+    }
+
+    private static void handle(InvocationTargetException e) {
+        if (e.getTargetException() instanceof RuntimeException)
+            throw (RuntimeException) e.getTargetException();
     }
 
     public static ExecutionState create(Class<? extends ExecutionState> stateClass,

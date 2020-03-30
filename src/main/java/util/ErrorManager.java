@@ -42,13 +42,14 @@ public class ErrorManager
         throw new AlkIOException(e);
     }
 
-    public void handleError(InternalException e)
-    {
-        io.write("[ERROR]: " + e.getMessage());
+    public void handleError(AlkException ex) {
+        io.write("[ERROR]: " + ex.getMessage());
     }
 
-    public void handleError(AlkException ex) {
-        ex.printException();
-        throw ex;
+    public ErrorManager getEndpoint() {
+        ErrorManager em = new ErrorManager();
+        em.attach(io);
+        em.attach(op);
+        return em;
     }
 }

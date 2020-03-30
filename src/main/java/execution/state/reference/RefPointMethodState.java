@@ -57,6 +57,9 @@ public class RefPointMethodState extends ExecutionState
 
     @Override
     public ExecutionState clone(Payload payload) {
-        return null;
+        RefPointMethodState copy = new RefPointMethodState(ctx, payload);
+        copy.reference = reference; // should be mapped
+        copy.solution = solution; // should be mapped
+        return super.decorate(copy);
     }
 }

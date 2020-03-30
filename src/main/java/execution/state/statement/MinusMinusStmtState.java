@@ -40,6 +40,8 @@ public class MinusMinusStmtState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        MinusMinusStmtState copy = new MinusMinusStmtState(ctx, payload);
+        copy.ref = ref; // mapping should be done
+        return super.decorate(copy);
     }
 }

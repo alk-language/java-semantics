@@ -39,6 +39,10 @@ public class BuiltInFunctionState extends GeneratorState<AlkValue, Value>
     @Override
     public void assign(ExecutionResult<Value> result) {
         params.add((AlkValue) result.getValue().toRValue());
+        if ((AlkValue) result.getValue().toRValue() == null)
+        {
+            int aci = 0;
+        }
     }
 
     @Override
@@ -59,18 +63,22 @@ public class BuiltInFunctionState extends GeneratorState<AlkValue, Value>
         } catch (NoSuchMethodException e) {
             throw new AlkException(ERR_FUNCTION_UNDEFINED);
         }
-        catch (IllegalAccessException | InvocationTargetException e) {
-            throw new InternalException(e);
+        catch (IllegalAccessException | InvocationTargetException e )
+        {
+            throw new InternalException((Exception) e.getCause());
         }
     }
 
     @Override
     public ExecutionState clone(Payload payload) {
+
         BuiltInFunctionState copy = new BuiltInFunctionState((alkParser.BuiltinFunctionContext) tree, payload);
+
         for (AlkValue value : this.params)
         {
-            copy.params.add(value.clone(generator));
+            copy.params.add(value.clone(payload.getExecution().getStore()));
         }
+        copy.functionName = functionName;
 
         return super.decorate(copy);
     }

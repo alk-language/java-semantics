@@ -5,6 +5,7 @@ import execution.state.ExecutionState;
 import grammar.alkParser;
 import parser.env.Location;
 import execution.types.AlkValue;
+import parser.env.Store;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
@@ -74,8 +75,9 @@ public class AssignmentStmtState extends ExecutionState
 
     @Override
     public ExecutionState clone(Payload payload) {
+        Store store = payload.getExecution().getStore();
         AssignmentStmtState copy = new AssignmentStmtState((alkParser.AssignmentStmtContext) tree, payload);
-        copy.rightSide = rightSide.clone(generator);
+        copy.rightSide = rightSide.clone(store);
 
         // TODO: Location doesn't clone fine as it doesn't know the new store (is this however mandatory?)
         copy.leftSide = leftSide.clone();

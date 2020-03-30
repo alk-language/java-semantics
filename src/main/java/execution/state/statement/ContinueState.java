@@ -3,23 +3,25 @@ package execution.state.statement;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
-import parser.exceptions.ContiuneException;
+import parser.exceptions.ContinueException;
 import util.CtxState;
 import util.Payload;
 
 @CtxState(ctxClass = alkParser.ContinueStmtContext.class)
 public class ContinueState extends ExecutionState
 {
-    public ContinueState(alkParser.ContinueStmtContext tree, Payload payload)
+    alkParser.ContinueStmtContext ctx;
+
+    public ContinueState(alkParser.ContinueStmtContext ctx, Payload payload)
     {
-        super(tree, payload);
+        super(ctx, payload);
+        this.ctx = ctx;
     }
 
     @Override
     public ExecutionState makeStep()
     {
-        throw new ContiuneException("Can't continue while not in a looping scope.");
+        throw new ContinueException("Can't continue while not in a looping scope.");
     }
 
     @Override
@@ -31,6 +33,7 @@ public class ContinueState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        ContinueState copy = new ContinueState(ctx, payload);
+        return super.decorate(copy);
     }
 }

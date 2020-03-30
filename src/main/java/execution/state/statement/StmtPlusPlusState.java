@@ -41,6 +41,8 @@ public class StmtPlusPlusState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        StmtPlusPlusState copy = new StmtPlusPlusState(ctx, payload);
+        copy.ref = ref; // should be mapped
+        return super.decorate(copy);
     }
 }

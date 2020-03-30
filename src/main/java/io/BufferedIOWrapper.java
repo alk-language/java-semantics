@@ -30,6 +30,15 @@ public class BufferedIOWrapper implements IOManager
             {
                 manager.write(text);
             }
+            manager.flush();
         }
+    }
+
+    public IOManager getEndpoint()
+    {
+        BufferedIOWrapper copy = new BufferedIOWrapper(manager);
+        for (String text : buffer)
+            copy.write(text);
+        return copy;
     }
 }

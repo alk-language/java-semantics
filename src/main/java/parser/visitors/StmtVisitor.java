@@ -252,10 +252,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Success node in the execution tree meant to be parsed.
      */
     @Override public Object visitSuccess(alkParser.SuccessContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        AlkException e = new AlkException((String)null);
-        e.success();
-        return null;
+        return StateFactory.create(SuccessState.class, ctx, payload, env);
     }
 
 
@@ -265,10 +262,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A Failure node in the execution tree meant to be parsed.
      */
     @Override public Object visitFailure(alkParser.FailureContext ctx) {
-        if (returnValue != null || breakFlag || continueFlag) return null;
-        AlkException e = new AlkException((String)null);
-        e.failure();
-        return null;
+        return StateFactory.create(FailureState.class, ctx, payload, env);
     }
 
 

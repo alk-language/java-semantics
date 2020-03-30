@@ -11,9 +11,12 @@ import util.Payload;
 public class RefIDState extends ExecutionState
 {
     private String id;
+    alkParser.RefIDContext ctx;
+
 
     public RefIDState(alkParser.RefIDContext ctx, Payload payload) {
         super(ctx, payload);
+        this.ctx = ctx;
         this.id = ctx.ID().toString();
     }
 
@@ -41,6 +44,8 @@ public class RefIDState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        RefIDState copy = new RefIDState(ctx, payload);
+        copy.id = id;
+        return super.decorate(copy);
     }
 }

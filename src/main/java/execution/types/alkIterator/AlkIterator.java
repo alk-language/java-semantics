@@ -1,5 +1,6 @@
 package execution.types.alkIterator;
 
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
@@ -86,6 +87,11 @@ public class AlkIterator extends AlkValue
         value.next();
         value.remove();
         return this;
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        return clone(null);
     }
 
     @Override public AlkValue plusplusleft() throws AlkException {

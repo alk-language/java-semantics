@@ -1,6 +1,7 @@
 package execution.types.alkSet;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
 import execution.types.AlkIterableValue;
@@ -139,6 +140,15 @@ public class AlkSet extends AlkIterableValue  {
     public AlkInt size()
     {
         return new AlkInt(set.size());
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        AlkSet copy = new AlkSet();
+        for (Location loc : set)
+            copy.set.add(locMapping.get(loc));
+        copy.contains = contains;
+        return copy;
     }
 
     @Override

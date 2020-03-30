@@ -4,13 +4,14 @@ import execution.types.AlkValue;
 import util.lambda.LocationGenerator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Store implements LocationGenerator
 {
 
     private Map<Location, AlkValue> store = new HashMap<>();
-    private int location = 0;
 
     public AlkValue get(Location location)
     {
@@ -24,8 +25,7 @@ public class Store implements LocationGenerator
 
     public Location malloc()
     {
-        location++;
-        Location newLocation = new Location(this, location);
+        Location newLocation = new Location(this);
         store.put(newLocation, null);
         return newLocation;
     }
@@ -36,6 +36,11 @@ public class Store implements LocationGenerator
         for (Location key : store.keySet())
             copyStore.generate(store.get(key));
         return copyStore;
+    }
+
+    public Set<Location> getLocations()
+    {
+        return store.keySet();
     }
 
     @Override

@@ -6,6 +6,7 @@ import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.AlkFunction;
 import parser.visitors.StmtVisitor;
+import util.Cloner;
 import util.CtxState;
 import util.Payload;
 import util.exception.InternalException;
@@ -54,7 +55,14 @@ public class FunctionDeclState extends ExecutionState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        return null;
+    public ExecutionState clone(Payload payload)
+    {
+        FunctionDeclState copy = new FunctionDeclState(ctx, payload);
+        copy.step = step;
+        copy.params.addAll(params);
+        for (Parameter param : params)
+            copy.params.add((Parameter) param.clone());
+        copy.modifies.addAll(modifies);
+        return super.decorate(copy);
     }
 }

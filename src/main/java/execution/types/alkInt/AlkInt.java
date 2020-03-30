@@ -1,5 +1,6 @@
 package execution.types.alkInt;
 
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
@@ -103,6 +104,11 @@ public class AlkInt extends AlkValue {
     public AlkValue minusminusleft() throws AlkException {
         value = value.subtract(new BigInteger(String.valueOf(1)));
         return this;
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        return clone(null);
     }
 
     @Override

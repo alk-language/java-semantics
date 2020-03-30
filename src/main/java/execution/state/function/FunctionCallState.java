@@ -10,12 +10,16 @@ import util.Payload;
 @CtxState(ctxClass = alkParser.FunctionCallContext.class)
 public class FunctionCallState extends IndependentSingleState {
 
+    alkParser.FunctionCallContext tree;
+
     public FunctionCallState(alkParser.FunctionCallContext tree, Payload payload) {
         super(tree, payload, tree.function_call(), FunctionCallVisitor.class);
+        this.tree = tree;
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        return null;
+    public ExecutionState clone(Payload payload)
+    {
+        return super.decorate(new FunctionCallState(tree, payload));
     }
 }

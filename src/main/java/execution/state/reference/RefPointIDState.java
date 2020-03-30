@@ -52,6 +52,8 @@ public class RefPointIDState extends ExecutionState {
 
     @Override
     public ExecutionState clone(Payload payload) {
-        return null;
+        RefPointIDState copy = new RefPointIDState(ctx, payload);
+        copy.reference = reference; // trebuie mappat
+        return super.decorate(copy);
     }
 }

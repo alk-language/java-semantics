@@ -54,6 +54,9 @@ public class MethodCallState extends ExecutionState
 
     @Override
     public ExecutionState clone(Payload payload) {
-        return null;
+        MethodCallState copy = new MethodCallState(ctx, payload);
+        copy.reference = reference; // mapping should be done
+        copy.solution = solution; // mapping should be done
+        return super.decorate(copy);
     }
 }

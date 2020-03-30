@@ -1,5 +1,6 @@
 package execution.types.alkNotAValue;
 
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
@@ -39,5 +40,10 @@ public class AlkNotAValue extends AlkValue
     @Override
     public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
         return new AlkBool(false);
+    }
+
+    @Override
+    public AlkValue weakClone(LocationMapper locMapping) {
+        return clone(null);
     }
 }

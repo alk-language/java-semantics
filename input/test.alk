@@ -1,16 +1,28 @@
+/*
+@input: o tabla de sah n x n.
+@output: o asezare a n piese de tip regina pe tabla a.i.
+         nicio regina nu ataca o alta regina.
+
+alki nqueens.alk "n |-> 4"
+*/
+
+attacked(i, j, b) {
+  attack = false;
+  for (k = 0;  k < i; ++k)
+     if ((b[k] == j) ||  ((b[k] - j) == (k - i)) || ((b[k] - j) == (i-k)))
+       attack = true;
+  return(attack);
+}
+
+nqueens (n) modifies b {
+   for (i = 0; i < n; ++i) {
+     choose j in { 0 .. n-1 } s.t. ! (attacked(i, j, b));
+     b[i] = j;
+    }
+}
+
 n = 4;
+/* b[i] = the row of the queen in the i-th column; -1 initially */
+b = [-1 | i from [0..n-1]];
+nqueens(n);
 
-f(x) {
-  return (x[0] || x[1]) &&
-         (!x[0] || x[3] || x[2]) &&
-         (x[2] || !x[3]) &&
-         (!x[1] || !x[2] || x[3]);
-}
-
-x = [ false | i from [0 .. n-1] ];
-for (i = 0; i < n; ++i) {
-  choose z in {false, true};
-  x[i] = z;
-}
-if (f(x)) print("success");
-else print("failure");

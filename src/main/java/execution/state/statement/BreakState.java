@@ -32,6 +32,7 @@ public class BreakState extends ExecutionState
     @Override
     public ExecutionState clone(Payload payload)
     {
-        return null;
+        BreakState copy = new BreakState(ctx, payload);
+        return super.decorate(copy);
     }
 }

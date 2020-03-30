@@ -118,6 +118,10 @@ public class Functions {
     @BuiltInFunction(paramNumber = 1)
     public AlkValue print(List<AlkValue> params)
     {
+        if (config == null || params == null || params.get(0) == null || config.getIOManager() == null)
+        {
+            int aci = 0;
+        }
         IOManager io = config.getIOManager();
         io.write(params.get(0).toString());
         return new AlkNotAValue("Print does not return a value");
