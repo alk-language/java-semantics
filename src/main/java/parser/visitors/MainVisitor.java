@@ -18,35 +18,14 @@ import java.util.Stack;
  */
 public class MainVisitor extends alkBaseVisitor<ExecutionState> {
 
-    @Deprecated
-    public static Stack<Environment> stack = new Stack<>();
-
-    @Deprecated
-    public static Boolean exceptionOccured = false;
 
     public static Environment global;
 
     private Payload payload;
-
-
-    /**
-     * Creates a new MainVisitor with a Stack containing only the specified global enironment.
-     * @param global The environment used to initialize the global environment of the visitor.
-     */
-    public MainVisitor(Environment global)
-    {
-        stack.clear();
-        MainVisitor.global = global;
-        stack.push(global);
-        exceptionOccured = false;
-    }
     
     public MainVisitor(Environment global, Payload payload)
     {
-        stack.clear();
         MainVisitor.global = global;
-        stack.push(global);
-        exceptionOccured = false;
         this.payload = payload;
     }
 

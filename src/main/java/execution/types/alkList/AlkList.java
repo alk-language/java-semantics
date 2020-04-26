@@ -14,6 +14,7 @@ import java.util.*;
 
 import static parser.exceptions.AlkException.*;
 
+//TODO: implement bracket operator
 public class AlkList extends AlkIterableValue
 {
 
@@ -26,7 +27,8 @@ public class AlkList extends AlkIterableValue
         list = new LinkedList<>();
     }
 
-    public Location at(AlkValue operand)
+    @Override
+    public Location at(AlkValue operand, LocationGenerator generator)
     {
         FunctionListHelper help = new FunctionListHelper(list);
         return help.at(operand);
@@ -69,10 +71,11 @@ public class AlkList extends AlkIterableValue
         pushBack(value);
     }
 
-    public void pushBack(Location value)
+    public AlkValue pushBack(Location value)
     {
         FunctionListHelper help = new FunctionListHelper(list);
         help.pushBack(value);
+        return this;
     }
 
     public AlkValue pushFront(Location value)
@@ -141,14 +144,14 @@ public class AlkList extends AlkIterableValue
     @Override
     public String toString()
     {
-        StringBuilder returnable = new StringBuilder("<");
+        StringBuilder returnable = new StringBuilder("< ");
         for (int i = 0; i < list.size() - 1; i++)
         {
             returnable.append(list.get(i).toRValue().toString()).append(", ");
         }
         if (list.size() > 0)
             returnable.append(list.get(list.size() - 1).toRValue());
-        return returnable + ">";
+        return returnable + " >";
     }
 
     @Override

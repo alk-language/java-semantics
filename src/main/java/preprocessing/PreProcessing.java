@@ -58,14 +58,4 @@ public class PreProcessing {
             throw new AlkException(ERR_INCLUDE + file.toString());
         }
     }
-
-    public void execute(Environment env, boolean onlyDepedency) {
-        for (PreProcessing i : dependencies)
-            i.execute(env, false);
-        if (!onlyDepedency)
-        {
-            MainVisitor mainVisitor = new MainVisitor(env);
-            mainVisitor.visit(tree);
-        }
-    }
 }

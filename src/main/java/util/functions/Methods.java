@@ -12,7 +12,7 @@ public class Methods {
     @BuiltInMethod(paramNumber = 1)
     public static Location at(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
-        return loc.toRValue().at(params.get(0));
+        return loc.toRValue().at(params.get(0), generator);
     }
 
     @BuiltInMethod(paramNumber = 1)
@@ -106,10 +106,17 @@ public class Methods {
         return generator.generate(loc.toRValue().size());
     }
 
-    @BuiltInMethod(paramNumber = 0)
+    @BuiltInMethod(paramNumber = {0, 1})
     public static Location split(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
-        return generator.generate(loc.toRValue().split());
+        if (params.size() == 0)
+        {
+            return loc.toRValue().split(generator);
+        }
+        else
+        {
+            return loc.toRValue().split(params.get(0), generator);
+        }
     }
 
     @BuiltInMethod(paramNumber = 0)

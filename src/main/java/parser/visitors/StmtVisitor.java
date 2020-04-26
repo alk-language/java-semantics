@@ -1,5 +1,6 @@
 package parser.visitors;
 import execution.state.ExecutionState;
+import execution.state.PrimitiveState;
 import execution.state.StateFactory;
 import execution.state.function.FunctionCallState;
 import execution.state.function.FunctionDeclState;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 
 import static parser.constants.Constants.DEBUG;
 import static parser.exceptions.AlkException.*;
-import static execution.types.alkNotAValue.AlkNotAValue.NO_RETURN;
 
 /**
  * This class is responsible for the visiting of the statements.
@@ -410,6 +410,15 @@ public class StmtVisitor extends alkBaseVisitor {
      */
     @Override public Object visitBreakStmt(alkParser.BreakStmtContext ctx) {
         return StateFactory.create(BreakState.class, ctx, payload, env);
+    }
+
+    @Override public Object visitToDirective(alkParser.ToDirectiveContext ctx) {
+        return new PrimitiveState(ctx.directive(), payload, null) {
+            @Override
+            public ExecutionState clone(Payload payload) {
+                return null;
+            }
+        };
     }
 
     public Environment getEnvironment() {

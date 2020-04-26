@@ -24,13 +24,15 @@ dfsRec(out D, i, out S) {
 
 // the calling algorithm
 dfs(out D, i0) {
-  i = i0;
+  i = 0;
   while (i < D.n) {
     S[i] = 0;
     i = i + 1;
   }
+
   dfsRec(D, i0, S);
   return S;
 }
+
 reached = dfs(D, i0);
 print(reached);

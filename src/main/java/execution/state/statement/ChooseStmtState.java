@@ -51,6 +51,7 @@ public class ChooseStmtState extends ExecutionState
             return super.request(ExpressionVisitor.class, ctx.expression(1));
         }
 
+        // TODO: de reimplementat cu choose + if
         if (ctx.SOTHAT() == null)
         {
             values = array;

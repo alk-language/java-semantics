@@ -15,7 +15,6 @@ public class FailureState extends PrimitiveState {
 
     public FailureState(alkParser.FailureContext ctx, Payload payload) {
         super(ctx, payload, null);
-        getConfig().getIOManager().write("failure");
         this.ctx = ctx;
         throw new FailureException();
     }

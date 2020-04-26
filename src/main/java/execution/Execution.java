@@ -1,11 +1,13 @@
 package execution;
 
 import execution.state.ExecutionState;
+import org.antlr.v4.runtime.tree.ParseTree;
 import parser.AlkParser;
 import parser.env.AlkFunction;
 import parser.env.Environment;
 import parser.env.Store;
 import parser.exceptions.AlkException;
+import parser.visitors.MainVisitor;
 import util.*;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
@@ -78,28 +80,15 @@ public class Execution extends Thread
         }
 
         /*
-            execute preprocessing part
-            TODO: rework preprocessing, move it to the parsing stage
-         */
-        /*PreProcessing pre = null;
-        try
-        {
-            pre = new PreProcessing(file, new ArrayList<>());
-        }
-        catch (AlkException ex)
-        {
-            em.handleError(ex);
-        }
-        pre.execute(e, true);*/
-
-        /*
             start parsing
             TODO: call different constructor without predefined environment
          */
-        AlkParser parser = new AlkParser(alkFile, global, this);
         if (stack == null)
         {
-            ExecutionState state = parser.execute(config);
+            AlkParser parser = new AlkParser(alkFile);
+            ParseTree tree = parser.execute();
+            MainVisitor visitor = new MainVisitor(global, new Payload(this));
+            ExecutionState state = visitor.visit(tree);
             stack = new ExecutionStack(config, envManager);
             stack.push(state);
         }
@@ -188,10 +177,6 @@ public class Execution extends Thread
 
     public void setStore(Store store) {
         this.store = store;
-    }
-
-    void setConfig(Configuration config) {
-        this.config = config;
     }
 
     public void setGlobal(Environment global) {

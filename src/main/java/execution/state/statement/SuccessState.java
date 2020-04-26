@@ -15,7 +15,6 @@ public class SuccessState extends PrimitiveState {
 
     public SuccessState(alkParser.SuccessContext ctx, Payload payload) {
         super(ctx, payload, null);
-        getConfig().getIOManager().write("success");
         this.ctx = ctx;
         throw new SuccessException();
     }

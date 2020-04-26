@@ -3,7 +3,7 @@ package parser.exceptions;
 public class SuccessException extends UnwindException {
 
     public SuccessException() {
-        super(null);
+        super("success");
     }
 
     @Override

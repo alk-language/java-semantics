@@ -55,6 +55,15 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
     }
 
 
+    @Override
+    public AlkValue bitwiseXor(AlkValue operand)
+    {
+        if (operand instanceof AlkBool)
+            return new AlkBool(value ^ ((AlkBool) operand).value);
+        return super.bitwiseXor(operand);
+    }
+
+
     /**
      * Basic overload of the AlkValue default logicalAnd operation
      * @param operand

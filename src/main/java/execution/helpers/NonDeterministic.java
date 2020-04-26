@@ -5,6 +5,7 @@ import parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkInt.AlkInt;
+import parser.exceptions.FailureException;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -30,7 +31,9 @@ public class NonDeterministic {
 
     public static Location choose(List<Location> struct) {
         if (struct.size() == 0)
-            throw new AlkException("Can't choose from an empty structure.");
+        {
+            throw new FailureException();
+        }
         Random rand = new Random();
         int poz = rand.nextInt(struct.size());
         return struct.get(poz);

@@ -245,7 +245,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue union(AlkValue operand)
+    public AlkValue union(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_UNION);
     }
@@ -260,7 +260,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue intersect(AlkValue operand)
+    public AlkValue intersect(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_INTERSECT);
     }
@@ -275,7 +275,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue setSubtract(AlkValue operand)
+    public AlkValue setSubtract(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_SET_SUBTRACT);
     }
@@ -510,8 +510,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      */
     public AlkValue plusplusright()
     {
-        // TODO: implement properly
-        return plusplusleft();
+        throw new AlkException(ERR_RIGHT_PLUSPLUS);
     }
 
 
@@ -588,7 +587,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public Location at(AlkValue operand)
+    public Location at(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_AT);
     }
@@ -668,7 +667,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      */
     public AlkValue len()
     {
-        throw new AlkException(ERR_LEN);
+        return size();
     }
 
 
@@ -702,7 +701,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * Handles the pushBack built in method (pushBack) over a value.
      * By default, the operation is not supported, thus an error is thrown.
      */
-    public void pushBack(Location value)
+    public AlkValue pushBack(Location value)
     {
         throw new AlkException(ERR_PUSHBACK);
     }
@@ -779,7 +778,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue split()
+    public Location split(LocationGenerator generator)
     {
         throw new AlkException(ERR_SPLIT);
     }
@@ -794,7 +793,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue split(AlkValue pattern)
+    public Location split(AlkValue pattern, LocationGenerator generator)
     {
         throw new AlkException(ERR_SPLIT);
     }

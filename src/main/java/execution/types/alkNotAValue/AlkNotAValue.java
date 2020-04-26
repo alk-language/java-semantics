@@ -11,25 +11,17 @@ import util.lambda.LocationGenerator;
 public class AlkNotAValue extends AlkValue
 {
 
-    public static final String NO_RETURN = "No value was returned from a called function.";
-
-    private String msg;
-
-    public AlkNotAValue(String msg)
-    {
-        type = "NAN";
-        this.msg = msg;
-    }
+    public static final String NO_VALUE = "Unknown value accessed.";
 
 
     @Override
     public AlkValue clone(LocationGenerator generator) {
-        return new AlkNotAValue(msg);
+        return new AlkNotAValue();
     }
 
     @Override
     public String toString() {
-        return msg;
+        return "?";
     }
 
     @Override
@@ -45,5 +37,11 @@ public class AlkNotAValue extends AlkValue
     @Override
     public AlkValue weakClone(LocationMapper locMapping) {
         return clone(null);
+    }
+
+    @Override
+    public AlkValue toRValue()
+    {
+        throw new AlkException(NO_VALUE);
     }
 }

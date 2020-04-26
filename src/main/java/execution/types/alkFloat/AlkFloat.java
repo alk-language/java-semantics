@@ -1,5 +1,6 @@
 package execution.types.alkFloat;
 
+import execution.types.alkInt.AlkInt;
 import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.InterpretorException;
@@ -8,6 +9,7 @@ import execution.types.alkBool.AlkBool;
 import util.lambda.LocationGenerator;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class AlkFloat extends AlkValue
 {
@@ -63,6 +65,28 @@ public class AlkFloat extends AlkValue
     public AlkValue negative() throws AlkException, InterpretorException {
         UnaryFloatHelper help = new UnaryFloatHelper(value);
         return help.negative();
+    }
+
+    public AlkValue plusplusleft() {
+        value = value.add(new BigDecimal(String.valueOf(1)));
+        return this;
+    }
+
+    public AlkValue minusminusleft() throws AlkException {
+        value = value.subtract(new BigDecimal(String.valueOf(1)));
+        return this;
+    }
+
+    public AlkValue plusplusright() {
+        AlkFloat ans = new AlkFloat(value);
+        value = value.subtract(new BigDecimal(String.valueOf(1)));
+        return ans;
+    }
+
+    public AlkValue minusminusright() throws AlkException {
+        AlkFloat ans = new AlkFloat(value);
+        value = value.subtract(new BigDecimal(String.valueOf(1)));
+        return ans;
     }
 
     @Override

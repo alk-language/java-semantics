@@ -314,13 +314,11 @@ public class AlkException extends InternalException
     }
 
     public void printException() {
-        MainVisitor.exceptionOccured=true;
         System.out.println("[ERROR] " + getMessage());
         // throw new RuntimeException();
     }
 
     public void printException(int line) {
-        MainVisitor.exceptionOccured=true;
         System.out.println("Error at line "+line+": " + getMessage());
         // throw new RuntimeException();
     }
