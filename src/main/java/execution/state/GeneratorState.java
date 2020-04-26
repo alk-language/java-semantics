@@ -40,7 +40,8 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
         if (step == children.size() ||
             preValidator != null && !preValidator.isValid())
         {
-            try{
+            try
+            {
                 result = new ExecutionResult<>(getFinalResult());
             } catch (Exception e)
             {

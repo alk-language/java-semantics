@@ -30,10 +30,6 @@ public class ExecutionStack implements Cloneable
     }
 
     void push(ExecutionState<? extends Value, ? extends Value> state) {
-        if (state == null)
-        {
-            int aci = 0;
-        }
         stack.push(state);
     }
 
@@ -73,6 +69,8 @@ public class ExecutionStack implements Cloneable
         {
             if (u.isError())
                 throw new AlkException(u);
+            else
+                config.getIOManager().write(u.getMessage());
         }
     }
 

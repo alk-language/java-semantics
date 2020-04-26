@@ -299,7 +299,6 @@ print(am[0]);
 forall p in am[1]
   print(p);
 */
-am = detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]);
 /*
 print(am[0]);
 forall p in am[1]
@@ -392,10 +391,7 @@ firstOcc(s, am)
   return -1;
 }
 
-
-/* tests:
-*/
-subj = "cbbaaabbacc";
-s = subj.split();
+am = detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]);
+s = ["c", "b", "b", "a", "a", "a", "b", "b", "a", "c", "c"];
 print(firstOcc(s, am));
 

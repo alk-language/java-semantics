@@ -9,6 +9,7 @@ import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.exception.InternalException;
 import util.types.Value;
 
 @CtxState(ctxClass = alkParser.PrefixExpressionContext.class)
@@ -21,26 +22,21 @@ public class PrefixExpressionState extends SingleState<Value, Value> {
 
     @Override
     protected Value interpretResult(Value value) {
-        AlkValue alkValue = (AlkValue) value.toRValue();
-        AlkValue result;
+        Value result = value;
+
         switch (tree.getChild(0).getText())
         {
             case "++":
-                result = alkValue.plusplusleft(); break;
+                result = ((AlkValue) result.toRValue()).plusplusleft(); break;
             case "--":
-                result = alkValue.minusminusleft(); break;
+                result = ((AlkValue) result.toRValue()).minusminusleft(); break;
             case "++%":
-                result = alkValue.plusplusmod(); break;
+                result = ((AlkValue) result.toRValue()).plusplusmod(); break;
+            case "--%":
+                result = ((AlkValue) result.toRValue()).minusminusmod(); break;
             default:
-                result = alkValue.minusminusmod(); break;
+                throw new InternalException("Unknown prefix operator used.");
         }
-
-        try {
-            Location loc = value.toLValue();
-            loc.assign(alkValue);
-        }
-        // TODO: don't ignore
-        catch (AlkException ignored){}
 
         return result;
     }

@@ -17,6 +17,7 @@ public class ConditionalExpressionState extends ExecutionState {
 
     private alkParser.ConditionalExpressionContext ctx;
     private Value queryExpression;
+    private boolean checkedQuery = false;
 
     public ConditionalExpressionState(alkParser.ConditionalExpressionContext tree, Payload payload) {
         super(tree, payload);
@@ -31,7 +32,7 @@ public class ConditionalExpressionState extends ExecutionState {
             return null;
         }
 
-        if (queryExpression == null)
+        if (queryExpression == null && !checkedQuery)
         {
             return request(ExpressionVisitor.class, ctx.logical_or_expression());
         }
@@ -63,6 +64,7 @@ public class ConditionalExpressionState extends ExecutionState {
     {
         if (queryExpression == null)
         {
+            checkedQuery = true;
             queryExpression = result.getValue();
         }
         else

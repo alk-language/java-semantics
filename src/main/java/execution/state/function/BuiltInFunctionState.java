@@ -39,10 +39,6 @@ public class BuiltInFunctionState extends GeneratorState<AlkValue, Value>
     @Override
     public void assign(ExecutionResult<Value> result) {
         params.add((AlkValue) result.getValue().toRValue());
-        if ((AlkValue) result.getValue().toRValue() == null)
-        {
-            int aci = 0;
-        }
     }
 
     @Override

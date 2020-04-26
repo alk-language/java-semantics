@@ -16,7 +16,7 @@ import static parser.exceptions.AlkException.*;
 
 public class AlkSet extends AlkIterableValue  {
 
-    private TreeSet<Location> set;
+    private Set<Location> set = new TreeSet<>(new SetComparator());
 
     @Deprecated
     public String contains; //tipuri de date, seturile sunt omogene
@@ -25,55 +25,63 @@ public class AlkSet extends AlkIterableValue  {
         type = "Set";
         isDataStructure = true;
         isIterable = true;
-        set = new TreeSet<>(new SetComparator());
-        contains = null;
     }
 
     @Override
     public AlkValue insert(Location value)
     {
-        if (contains == null)
-            contains = value.toRValue().type;
-        else
-        {
-            if (!contains.equals(value.toRValue().type))
-                throw new AlkException(ERR_NOT_HOMOGENEOUS);
-        }
         set.add(value);
         return this;
     }
 
     @Override
-    public AlkValue union(AlkValue operand)
+    public AlkValue union(AlkValue operand, LocationGenerator generator)
     {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_UNION_NO_SET);
 
         AlkSet union = new AlkSet();
-        union.set.addAll(set);
-        union.set.addAll(((AlkSet)operand).set);
+        for (Location loc : set)
+        {
+            union.insert(generator.generate(loc.toRValue().clone(generator)));
+        }
+        for (Location loc : (AlkSet)operand)
+        {
+            union.insert(generator.generate(loc.toRValue().clone(generator)));
+        }
         return union;
     }
 
     @Override
-    public AlkValue intersect(AlkValue operand)
+    public AlkValue intersect(AlkValue operand, LocationGenerator generator)
     {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_INTERSECT_NO_SET);
+
         AlkSet intersect = new AlkSet();
-        intersect.set.addAll(set);
-        intersect.set.retainAll(((AlkSet)operand).set);
+        for (Location loc : (AlkSet) operand)
+        {
+            if (this.has(loc.toRValue()))
+            {
+                intersect.insert(generator.generate(loc.toRValue().clone(generator)));
+            }
+        }
         return intersect;
     }
 
     @Override
-    public AlkValue setSubtract(AlkValue operand)
+    public AlkValue setSubtract(AlkValue operand, LocationGenerator generator)
     {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_SET_SUBTRACT_NO_SET);
         AlkSet subtract = new AlkSet();
-        subtract.set.addAll(set);
-        subtract.set.removeAll(((AlkSet)operand).set);
+        for (Location loc : this)
+        {
+            if (!((AlkSet) operand).has(loc.toRValue()))
+            {
+                subtract.insert(generator.generate(loc.toRValue().clone(generator)));
+            }
+        }
         return subtract;
     }
 
@@ -86,23 +94,48 @@ public class AlkSet extends AlkIterableValue  {
         return copy;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder returnable = new StringBuilder("{");
-        AlkValue act = new AlkBool(false);
-        Iterator<Location> it = set.iterator();
-        while (it.hasNext()) {
-            act = it.next().toRValue();
-            if (!it.hasNext()) break;
-            returnable.append(act.toString()).append(", ");
+    private List<AlkValue> getOrderedList()
+    {
+        Map<Class<? extends AlkValue>, Set<AlkValue>> mapper = new TreeMap<>(Comparator.comparing(Class::toString));
+        for (Location loc : set)
+        {
+            Class<? extends AlkValue> valueType = loc.toRValue().getClass();
+            if (!mapper.containsKey(valueType) || mapper.get(valueType) == null)
+                mapper.put(valueType, new TreeSet<>(new ValueComparator()));
+            AlkValue val = loc.toRValue();
+            mapper.get(valueType).add(val);
         }
-        if (set.size() > 0)
-            returnable.append(act.toString());
-        return returnable + "}";
+
+        List<AlkValue> list = new ArrayList<>();
+
+        for (Map.Entry<Class<? extends AlkValue>, Set<AlkValue>> e : mapper.entrySet())
+        {
+            list.addAll(e.getValue());
+        }
+
+        return list;
     }
 
     @Override
-    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
+    public String toString() {
+        StringBuilder returnable = new StringBuilder("{");
+
+        List<AlkValue> list = getOrderedList();
+
+        for (int i=0; i<list.size(); i++)
+        {
+            returnable.append(list.get(i));
+            if (i != list.size() - 1)
+                returnable.append(", ");
+        }
+
+        returnable.append("}");
+        return returnable.toString();
+    }
+
+    @Override
+    public AlkBool equal(AlkValue operand) throws AlkException
+    {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_EQUAL_SET);
         AlkSet op = (AlkSet) operand;
@@ -127,7 +160,7 @@ public class AlkSet extends AlkIterableValue  {
         Iterator<Location> it = set.iterator();
         while (it.hasNext()) {
             Location act = it.next();
-            if (act.toRValue().equal(value).isTrue())
+            if (act.toRValue().getClass().equals(value.getClass()) && act.toRValue().equals(value))
             {
                 it.remove();
                 break;
@@ -143,7 +176,8 @@ public class AlkSet extends AlkIterableValue  {
     }
 
     @Override
-    public AlkValue weakClone(LocationMapper locMapping) {
+    public AlkValue weakClone(LocationMapper locMapping)
+    {
         AlkSet copy = new AlkSet();
         for (Location loc : set)
             copy.set.add(locMapping.get(loc));
@@ -162,7 +196,7 @@ public class AlkSet extends AlkIterableValue  {
     {
         for (Location loc : set)
         {
-            if ((loc.toRValue().equal(operand)).isTrue())
+            if (loc.toRValue().getClass().equals(operand.getClass()) && (loc.toRValue().equals(operand)))
                 return true;
         }
 
@@ -187,10 +221,27 @@ public class AlkSet extends AlkIterableValue  {
     }
 }
 
+class ValueComparator implements Comparator<AlkValue>
+{
+    @Override
+    public int compare(AlkValue a, AlkValue b) {
+        if (a.equals(b))
+            return 0;
+        if (a.lower(b).isTrue())
+            return -1;
+        return 1;
+    }
+}
+
 class SetComparator implements Comparator<Location>
 {
-    public int compare(Location loc1, Location loc2)
-    {
-        return loc1.toRValue().compareTo(loc2.toRValue());
+    @Override
+    public int compare(Location a, Location b) {
+        AlkValue aVal = a.toRValue();
+        AlkValue bVal = b.toRValue();
+
+        if (aVal != null && bVal != null && aVal.getClass().equals(bVal.getClass()) && aVal.equals(bVal))
+            return 0;
+        return a.toString().compareTo(b.toString());
     }
 }

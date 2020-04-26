@@ -1,5 +1,6 @@
 package parser;
 
+import execution.PreProcessing;
 import grammar.alkLexer;
 import grammar.alkParser;
 import execution.Execution;
@@ -21,31 +22,29 @@ public class AlkParser {
     /* The main char stream meant to be parsed */
     private CharStream alkFile;
 
-    private Execution execution;
-
-    private Environment global;
-
     /* Basic constructor meant to initialize the main char stream */
-    public AlkParser(CharStream alkFile, Environment e, Execution execution)
+    public AlkParser(CharStream alkFile)
     {
         this.alkFile = alkFile;
-        this.global = e;
-        this.execution = execution;
+    }
+
+    public ParseTree execute()
+    {
+        return execute(new PreProcessing());
     }
 
     /**
      * Main entry point of the parsing process.
-     * @param config
-     * A predefined set of parameters under which the parser should run
      */
-    public ExecutionState execute(Configuration config)
+    public ParseTree execute(PreProcessing preProcessing)
     {
         alkLexer lexerAlk = new alkLexer(alkFile);
         CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
         alkParser parserAlk = new alkParser(tokensAlk);
 
         ParseTree tree = parserAlk.main();
-        MainVisitor visitor = new MainVisitor(global, new Payload(execution));
-        return visitor.visit(tree);
+        preProcessing.exapandIncludes(tree);
+
+        return tree;
     }
 }

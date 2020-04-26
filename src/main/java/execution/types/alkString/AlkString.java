@@ -1,5 +1,6 @@
 package execution.types.alkString;
 
+import parser.env.Location;
 import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkComparable;
@@ -11,6 +12,8 @@ import util.lambda.LocationGenerator;
 
 import static parser.exceptions.AlkException.*;
 
+
+// TODO: Make strings methods accessible even if they are not at stored
 public class AlkString extends AlkValue implements AlkComparable<AlkString>
 {
 
@@ -39,14 +42,17 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
         return lower((AlkString)operand);
     }
 
-    private AlkValue at(AlkInt index)
+    @Override
+    public Location at(AlkValue index, LocationGenerator generator)
     {
+        if (!(index instanceof AlkInt))
+            throw new AlkException("First operator of at should be an integer.");
         try
         {
-            int position = index.value.intValueExact();
+            int position = ((AlkInt)index).value.intValueExact();
             if (position < 0 || value.length() <= position)
                 throw new AlkException(ERR_STRING_OUT_OF_BOUNDS);
-            return new AlkString(String.valueOf(value.charAt(position)));
+            return generator.generate(new AlkString(String.valueOf(value.charAt(position))));
         }
         catch (ArithmeticException e)
         {
@@ -55,19 +61,23 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
         }
     }
 
-    public AlkValue split(AlkString pattern, LocationGenerator generator) throws AlkException
+    @Override
+    public Location split(AlkValue pattern, LocationGenerator generator) throws AlkException
     {
-        String[] strings = value.split(pattern.value);
+        if (!(pattern instanceof AlkString))
+            throw new AlkException("Need to use string as split pattern.");
+
+        String[] strings = value.split(((AlkString)pattern).value);
         AlkArray arr = new AlkArray();
         for (String string : strings)
             arr.push(generator.generate(new AlkString(string)));
-        return arr;
+        return generator.generate(arr);
     }
 
     @Override
-    public AlkValue split()
+    public Location split(LocationGenerator generator)
     {
-        return split(new AlkString(""));
+        return split(new AlkString(""), generator);
     }
 
     @Override
@@ -75,14 +85,21 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
         return clone(null);
     }
 
-    public AlkValue insert(AlkInt position, AlkString str)
+    @Override
+    public AlkValue insert(AlkValue position, Location str)
     {
+        if (!(position instanceof AlkInt))
+            throw new AlkException("Can't insert at non-integer position.");
+
+        if (!(str.toRValue() instanceof AlkString))
+            throw new AlkException("Can't insert a non-string value.");
+
         try
         {
-            int index = position.value.intValueExact();
+            int index = ((AlkInt)position).value.intValueExact();
             if (index < 0 || value.length() < index)
                 throw new AlkException(ERR_LIST_OUT_OF_BOUNDS);
-            value = value.substring(0, index) + str + value.substring(index);
+            value = value.substring(0, index) + str.toRValue() + value.substring(index);
             return this;
         }
         catch (ArithmeticException e)
@@ -91,17 +108,25 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
         }
     }
 
-    public AlkValue update(AlkInt position, AlkString str)
+    @Override
+    public AlkValue update(AlkValue position, Location str)
     {
+        if (!(position instanceof AlkInt))
+            throw new AlkException("Can't update at non-integer position.");
+
+        if (!(str.toRValue() instanceof AlkString))
+            throw new AlkException("Can't update with a non-string value.");
+
         try
         {
-            int index = position.value.intValueExact();
+            String val = ((AlkString) str.toRValue()).value;
+            int index = ((AlkInt) position).value.intValueExact();
             if (index < 0 || value.length() <= index)
                 throw new AlkException(ERR_LIST_OUT_OF_BOUNDS);
             // TODO: let update with multiple char string, or show only WARNING and take first character
-            if (str.value.length() != 1)
+            if (val.length() != 1)
                 throw new AlkException(ERR_ONLY_CHAR);
-            value = value.substring(0, index) + str + value.substring(index + 1);
+            value = value.substring(0, index) + str.toRValue() + value.substring(index + 1);
             return this;
         }
         catch (ArithmeticException e)
@@ -110,12 +135,15 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
         }
     }
 
-
-    public AlkValue remove(AlkInt position)
+    @Override
+    public AlkValue remove(AlkValue position)
     {
+        if (!(position instanceof AlkInt))
+            throw new AlkException("Can't remove at non-integer position.");
+
         try
         {
-            int index = position.value.intValueExact();
+            int index = ((AlkInt)position).value.intValueExact();
             if (index<0 || this.value.length()<=index)
                 throw new AlkException(ERR_LIST_OUT_OF_BOUNDS);
             this.value = this.value.substring(0, index) + this.value.substring(index+1);
@@ -129,12 +157,6 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
 
     @Override
     public AlkInt size()
-    {
-        return new AlkInt(value.length());
-    }
-
-
-    public AlkInt len()
     {
         return new AlkInt(value.length());
     }
@@ -155,7 +177,7 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
 
     @Override
     public String toString() {
-        return value;
+        return "\"" + value + "\"";
     }
 
     @Override

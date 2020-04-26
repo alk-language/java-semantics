@@ -73,14 +73,14 @@ public class AlkStructure extends AlkValue
         while (it.hasNext()) {
             act = it.next();
             if (!it.hasNext()) break;
-            returnable.append(act.getKey()).append("->").append(act.getValue().toRValue().toString()).append(" ");
+            returnable.append(act.getKey()).append(" -> ").append(act.getValue().toRValue().toString()).append(" ");
         }
 
         //TODO: change in proper exception handling
         assert(act != null);
 
         if (map.size() > 0)
-            returnable.append(act.getKey()).append("->").append(act.getValue().toRValue().toString());
+            returnable.append(act.getKey()).append(" -> ").append(act.getValue().toRValue().toString());
         return returnable + "}";
     }
 

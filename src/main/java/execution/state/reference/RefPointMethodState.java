@@ -51,6 +51,10 @@ public class RefPointMethodState extends ExecutionState
         }
         else if (solution == null)
         {
+            if (result == null)
+            {
+                int aci = 0;
+            }
             solution = result.getValue().toLValue();
         }
     }

@@ -98,8 +98,16 @@ public class ExpressionVisitor extends alkBaseVisitor {
         return StateFactory.create(PrefixExpressionState.class, ctx, payload, env);
     }
 
+    @Override public ExecutionState visitToPostfixExpression(alkParser.ToPostfixExpressionContext ctx) {
+        return StateFactory.create(ToPostfixExpressionState.class, ctx, payload, env);
+    }
+
     @Override public ExecutionState visitUnaryExpression(alkParser.UnaryExpressionContext ctx) {
         return StateFactory.create(UnaryExpressionState.class, ctx, payload, env);
+    }
+
+    @Override public ExecutionState visitPostfixExpression(alkParser.PostfixExpressionContext ctx) {
+        return StateFactory.create(PostfixExpressionState.class, ctx, payload, env);
     }
 
 
