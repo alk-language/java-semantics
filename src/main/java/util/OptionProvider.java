@@ -35,4 +35,11 @@ public interface OptionProvider
      */
     boolean hasDebugMode();
 
+    int getPrecision();
+
+    boolean hasPrecision();
+
+    boolean hasInput();
+
+    File getInput();
 }

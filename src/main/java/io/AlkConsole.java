@@ -3,6 +3,7 @@ package io;
 import org.apache.commons.cli.*;
 import util.OptionProvider;
 import util.exception.AlkParseException;
+import util.types.IntervalValue;
 
 import java.io.File;
 
@@ -147,6 +148,26 @@ public class AlkConsole implements IOManager, OptionProvider
     @Override
     public boolean hasDebugMode() {
         return cmd.hasOption("trace");
+    }
+
+    @Override
+    public int getPrecision() {
+        return Integer.parseInt(cmd.getOptionValue("precision"));
+    }
+
+    @Override
+    public boolean hasPrecision() {
+        return cmd.hasOption("precision");
+    }
+
+    @Override
+    public boolean hasInput() {
+        return cmd.hasOption("init");
+    }
+
+    @Override
+    public File getInput() {
+        return new File(cmd.getOptionValue("init"));
     }
 
     public IOManager getEndpoint()

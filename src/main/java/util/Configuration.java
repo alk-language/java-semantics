@@ -9,15 +9,19 @@ import java.io.File;
  * Responsible for registering important details regarding one execution.
  * I also serves as an option provider.
  */
-public class Configuration implements OptionProvider, Cloneable
+public class Configuration implements OptionProvider
 {
     /** The main file to be parsed */
     private File alkFile;
+
+    private File input;
 
     /** The metadata flag, used to inform an IOManager if the metadata should be printed at the end */
     private boolean metadata;
 
     private boolean exhaustive;
+
+    private Integer precision;
 
     /** The debugMode flag, used to print the stach trace in case of one exception*/
     private boolean debugMode;
@@ -49,6 +53,26 @@ public class Configuration implements OptionProvider, Cloneable
     @Override
     public boolean hasDebugMode() {
         return debugMode;
+    }
+
+    @Override
+    public int getPrecision() {
+        return precision;
+    }
+
+    @Override
+    public boolean hasPrecision() {
+        return precision != null;
+    }
+
+    @Override
+    public boolean hasInput() {
+        return input != null;
+    }
+
+    @Override
+    public File getInput() {
+        return input;
     }
 
     /**
@@ -102,6 +126,8 @@ public class Configuration implements OptionProvider, Cloneable
         this.alkFile = op.getAlkFile();
         this.debugMode = op.hasDebugMode();
         this.exhaustive = op.hasExhaustive();
+        this.precision = op.getPrecision();
+        this.input = op.getInput();
     }
 
     /**

@@ -3,48 +3,69 @@ package parser;
 import execution.PreProcessing;
 import grammar.alkLexer;
 import grammar.alkParser;
-import execution.Execution;
-import execution.state.ExecutionState;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.Environment;
-import parser.visitors.MainVisitor;
-import util.Configuration;
-import util.Payload;
+import util.exception.InternalException;
+
+import java.io.*;
 
 /**
- * Responsible for one file parsing. It starts with one empty global environment and a predefined configuration.
- * This is basically the main part where visitors are fired for visiting the antlr4 parse tree.
+ * Responsible for one file parsing, returning the parse tree after executing the parser.
  */
-public class AlkParser {
-
-    /* The main char stream meant to be parsed */
-    private CharStream alkFile;
-
-    /* Basic constructor meant to initialize the main char stream */
-    public AlkParser(CharStream alkFile)
+public class AlkParser
+{
+    /**
+     * Main entry point of the parsing process.
+     * @param alkFile
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the file.
+     */
+    public static ParseTree executeInit(File alkFile)
     {
-        this.alkFile = alkFile;
-    }
-
-    public ParseTree execute()
-    {
-        return execute(new PreProcessing());
+        try {
+            InputStream alkInStr= new FileInputStream(alkFile);
+            CharStream file = CharStreams.fromStream(alkInStr);
+            return new alkParser(new CommonTokenStream(new alkLexer(file))).configuration();
+        } catch (IOException e) {
+            throw new InternalException("Can't find file to parse!");
+        }
     }
 
     /**
      * Main entry point of the parsing process.
+     * @param alkFile
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the file.
      */
-    public ParseTree execute(PreProcessing preProcessing)
+    public static ParseTree execute(File alkFile)
     {
-        alkLexer lexerAlk = new alkLexer(alkFile);
-        CommonTokenStream tokensAlk = new CommonTokenStream(lexerAlk);
-        alkParser parserAlk = new alkParser(tokensAlk);
+        return execute(alkFile, PreProcessing.newContext());
+    }
 
-        ParseTree tree = parserAlk.main();
-        preProcessing.exapandIncludes(tree);
-
-        return tree;
+    /**
+     * Main entry point of the parsing process.
+     * @param alkFile
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @param context
+     *        The preProcessing context to be used for this file. This should be used when there
+     *        is already a context which should be taken in consideration when preprocessing.
+     * @return
+     *        The parse tree resulted from parsing the file.
+     */
+    public static ParseTree execute(File alkFile, PreProcessing.PreProcessingContext context)
+    {
+        try {
+            InputStream alkInStr= new FileInputStream(alkFile);
+            CharStream file = CharStreams.fromStream(alkInStr);
+            ParseTree tree = new alkParser(new CommonTokenStream(new alkLexer(file))).main();
+            PreProcessing.expandIncludes(context, tree);
+            return tree;
+        } catch (IOException e) {
+            throw new InternalException("Can't find file to parse!");
+        }
     }
 }

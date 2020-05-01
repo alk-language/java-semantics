@@ -11,50 +11,47 @@ import util.exception.InternalException;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Helper for AST manipulation prior to visiting.
+ */
 public class PreProcessing {
 
-    HashSet<String> loaded = new HashSet<>();
-
-    public void exapandIncludes(ParseTree tree) {
-
-        int childCount = tree.getChildCount();
-        for (int i = 0; i < childCount; i++)
+    public static void expandIncludes(PreProcessingContext context, ParseTree tree)
+    {
+        for (int i = 0; i < tree.getChildCount(); i++)
         {
             ParseTree child = tree.getChild(i);
             if (child instanceof alkParser.ToDirectiveContext && child.getChild(0) instanceof alkParser.IncludeContext)
             {
                 String path = getPath(child.getChild(0));
 
-                if (loaded.contains(path))
+                if (context.isLoaded(path))
                     throw new AlkException("Include cycle detected.");
 
-                loaded.add(path);
+                context.load(path);
                 try {
-                    replaceInclude(tree, i);
-                    childCount = tree.getChildCount();
-                    child = tree.getChild(i);
-                    exapandIncludes(child);
+                    replaceInclude(context, tree, i);
+                    expandIncludes(context, tree.getChild(i));
                 }
                 finally {
-                    loaded.remove(path);
+                    context.unload(path);
                 }
-
             }
             else
             {
-                exapandIncludes(child);
+                expandIncludes(context, child);
             }
         }
     }
 
-    private String getPath(ParseTree include)
+    private static String getPath(ParseTree include)
     {
         alkParser.IncludeContext includeCtx = (alkParser.IncludeContext) include;
         String path = includeCtx.STRING().getText();
         return path.substring(1, path.length() - 1);
     }
 
-    private void replaceInclude(ParseTree stmtseq, int idx)
+    private static void replaceInclude(PreProcessingContext context, ParseTree stmtseq, int idx)
     {
         if (!(stmtseq instanceof alkParser.StatementSeqContext))
             throw new InternalException("Preprocessing failed due to unrecognized include directive wrapped");
@@ -73,7 +70,7 @@ public class PreProcessing {
         ctx.removeLastChild();
         Collections.reverse(backup);
 
-        List<alkParser.StatementContext> stmts = getStmts(path);
+        List<alkParser.StatementContext> stmts = getStmts(context, path);
         for (alkParser.StatementContext stmt : stmts)
         {
             ctx.addChild(stmt);
@@ -85,25 +82,41 @@ public class PreProcessing {
         }
     }
 
-    private List<alkParser.StatementContext> getStmts(String path)
+    private static List<alkParser.StatementContext> getStmts(PreProcessingContext context, String path)
     {
         File file = new File(path);
-        try {
-            InputStream alkInStr = new FileInputStream(file);
-            CharStream alkFile = CharStreams.fromStream(alkInStr);
-            AlkParser parser = new AlkParser(alkFile);
-            ParseTree tree = parser.execute(this);
-            ParseTree stmtseq = tree.getChild(0);
+        ParseTree tree = AlkParser.execute(file, context);
+        ParseTree stmtseq = tree.getChild(0);
 
-            List<alkParser.StatementContext> children = new ArrayList<>();
-            int childCount = stmtseq.getChildCount();
-            for (int i=0; i<childCount; i++)
-            {
-                children.add((alkParser.StatementContext) stmtseq.getChild(i));
-            }
-            return children;
-        } catch (IOException e) {
-            throw new AlkException("Can't find requested file.");
+        List<alkParser.StatementContext> children = new ArrayList<>();
+        int childCount = stmtseq.getChildCount();
+        for (int i=0; i<childCount; i++)
+        {
+            children.add((alkParser.StatementContext) stmtseq.getChild(i));
+        }
+        return children;
+    }
+
+    public static PreProcessingContext newContext() {
+        return new PreProcessingContext();
+    }
+
+    public static class PreProcessingContext {
+        private Set<String> loaded = new HashSet<>();
+
+        public boolean isLoaded(String path)
+        {
+            return loaded.contains(path);
+        }
+
+        public void load(String path)
+        {
+            loaded.add(path);
+        }
+
+        public void unload(String path)
+        {
+            loaded.remove(path);
         }
     }
 }
