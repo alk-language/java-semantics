@@ -1,5 +1,5 @@
-#include "/home/alex/IdeaProjects/java-semantics/input/test2.alk"
-
-a = 12;
-b = 15;
-print(gcd(a, b));
+print(a);
+forall i in b
+{
+   print(i);
+}

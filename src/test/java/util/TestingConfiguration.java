@@ -54,6 +54,26 @@ class TestingOptionProvider implements OptionProvider{
     public boolean hasDebugMode() {
         return false;
     }
+
+    @Override
+    public int getPrecision() {
+        return 10;
+    }
+
+    @Override
+    public boolean hasPrecision() {
+        return false;
+    }
+
+    @Override
+    public boolean hasInput() {
+        return false;
+    }
+
+    @Override
+    public File getInput() {
+        return null;
+    }
 }
 
 class TestingIO implements IOManager {

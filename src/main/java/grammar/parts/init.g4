@@ -7,5 +7,5 @@ configuration:
 ;
 
 variable:
-    ID TO expression                                                                                                    #Var
+    ref_name TO expression                                                                                              #Var
 ;

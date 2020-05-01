@@ -4695,136 +4695,20 @@ public class alkParser extends Parser {
 	public final Method_nameContext method_name() throws RecognitionException {
 		Method_nameContext _localctx = new Method_nameContext(_ctx, getState());
 		enterRule(_localctx, 94, RULE_method_name);
+		int _la;
 		try {
-			setState(602);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case LPAR:
-				enterOuterAlt(_localctx, 1);
-				{
-				}
-				break;
-			case AT:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(585);
-				match(AT);
-				}
-				break;
-			case DELETE:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(586);
-				match(DELETE);
-				}
-				break;
-			case END:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(587);
-				match(END);
-				}
-				break;
-			case FIRST:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(588);
-				match(FIRST);
-				}
-				break;
-			case INSERT:
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(589);
-				match(INSERT);
-				}
-				break;
-			case POPBACK:
-				enterOuterAlt(_localctx, 7);
-				{
-				setState(590);
-				match(POPBACK);
-				}
-				break;
-			case POPFRONT:
-				enterOuterAlt(_localctx, 8);
-				{
-				setState(591);
-				match(POPFRONT);
-				}
-				break;
-			case PUSHBACK:
-				enterOuterAlt(_localctx, 9);
-				{
-				setState(592);
-				match(PUSHBACK);
-				}
-				break;
-			case PUSHFRONT:
-				enterOuterAlt(_localctx, 10);
-				{
-				setState(593);
-				match(PUSHFRONT);
-				}
-				break;
-			case REMOVE:
-				enterOuterAlt(_localctx, 11);
-				{
-				setState(594);
-				match(REMOVE);
-				}
-				break;
-			case REMOVEALLEQTO:
-				enterOuterAlt(_localctx, 12);
-				{
-				setState(595);
-				match(REMOVEALLEQTO);
-				}
-				break;
-			case REMOVEAT:
-				enterOuterAlt(_localctx, 13);
-				{
-				setState(596);
-				match(REMOVEAT);
-				}
-				break;
-			case SIZE:
-				enterOuterAlt(_localctx, 14);
-				{
-				setState(597);
-				match(SIZE);
-				}
-				break;
-			case SPLIT:
-				enterOuterAlt(_localctx, 15);
-				{
-				setState(598);
-				match(SPLIT);
-				}
-				break;
-			case TOPBACK:
-				enterOuterAlt(_localctx, 16);
-				{
-				setState(599);
-				match(TOPBACK);
-				}
-				break;
-			case TOPFRONT:
-				enterOuterAlt(_localctx, 17);
-				{
-				setState(600);
-				match(TOPFRONT);
-				}
-				break;
-			case UPDATE:
-				enterOuterAlt(_localctx, 18);
-				{
-				setState(601);
-				match(UPDATE);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(584);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AT) | (1L << DELETE) | (1L << END) | (1L << FIRST) | (1L << INSERT) | (1L << POPBACK) | (1L << POPFRONT) | (1L << PUSHBACK) | (1L << PUSHFRONT) | (1L << REMOVE) | (1L << REMOVEALLEQTO) | (1L << REMOVEAT) | (1L << SIZE) | (1L << SPLIT) | (1L << TOPBACK) | (1L << TOPFRONT) | (1L << UPDATE))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -4872,17 +4756,17 @@ public class alkParser extends Parser {
 			_localctx = new ConfigContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(607);
+			setState(589);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==ID) {
+			while (((((_la - 28)) & ~0x3f) == 0 && ((1L << (_la - 28)) & ((1L << (ABS - 28)) | (1L << (ACOS - 28)) | (1L << (ASIN - 28)) | (1L << (ATAN - 28)) | (1L << (COS - 28)) | (1L << (LOG - 28)) | (1L << (PI - 28)) | (1L << (POW - 28)) | (1L << (SIN - 28)) | (1L << (SQRT - 28)) | (1L << (TAN - 28)) | (1L << (LEN - 28)) | (1L << (FLOAT - 28)) | (1L << (INTEGER - 28)) | (1L << (PRINT - 28)) | (1L << (SINGLETONSET - 28)) | (1L << (RANDOM - 28)) | (1L << (ID - 28)))) != 0)) {
 				{
 				{
-				setState(604);
+				setState(586);
 				variable();
 				}
 				}
-				setState(609);
+				setState(591);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -4911,7 +4795,9 @@ public class alkParser extends Parser {
 		}
 	}
 	public static class VarContext extends VariableContext {
-		public TerminalNode ID() { return getToken(alkParser.ID, 0); }
+		public Ref_nameContext ref_name() {
+			return getRuleContext(Ref_nameContext.class,0);
+		}
 		public TerminalNode TO() { return getToken(alkParser.TO, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -4931,11 +4817,11 @@ public class alkParser extends Parser {
 			_localctx = new VarContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(610);
-			match(ID);
-			setState(611);
+			setState(592);
+			ref_name(0);
+			setState(593);
 			match(TO);
-			setState(612);
+			setState(594);
 			expression();
 			}
 		}
@@ -4970,7 +4856,7 @@ public class alkParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3q\u0269\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3q\u0257\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -5011,23 +4897,22 @@ public class alkParser extends Parser {
 		"\n,\3,\3,\3,\3,\3,\5,\u021b\n,\3-\3-\3-\3-\3-\3-\7-\u0223\n-\f-\16-\u0226"+
 		"\13-\5-\u0228\n-\3-\5-\u022b\n-\3.\3.\3.\3.\3.\7.\u0232\n.\f.\16.\u0235"+
 		"\13.\5.\u0237\n.\3.\3.\3/\3/\3/\3/\3/\7/\u0240\n/\f/\16/\u0243\13/\5/"+
-		"\u0245\n/\3/\3/\3\60\3\60\3\61\3\61\3\61\3\61\3\61\3\61\3\61\3\61\3\61"+
-		"\3\61\3\61\3\61\3\61\3\61\3\61\3\61\3\61\3\61\5\61\u025d\n\61\3\62\7\62"+
-		"\u0260\n\62\f\62\16\62\u0263\13\62\3\63\3\63\3\63\3\63\3\63\2\3F\64\2"+
-		"\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJL"+
-		"NPRTVXZ\\^`bd\2\16\4\2CCll\3\2WX\3\2SV\3\2EG\4\2\35\35hh\3\2ab\4\2OPZ"+
-		"[\3\2\\^\4\2LMQR\4\2Z\\ee\3\2LM\7\2\36)\60\60\62\63;;AA\2\u02a0\2g\3\2"+
-		"\2\2\4l\3\2\2\2\6\u009b\3\2\2\2\b\u009d\3\2\2\2\n\u00a1\3\2\2\2\f\u00ae"+
-		"\3\2\2\2\16\u00bc\3\2\2\2\20\u00cc\3\2\2\2\22\u00ce\3\2\2\2\24\u00d2\3"+
-		"\2\2\2\26\u00d8\3\2\2\2\30\u00df\3\2\2\2\32\u00e8\3\2\2\2\34\u00f7\3\2"+
-		"\2\2\36\u00f9\3\2\2\2 \u00ff\3\2\2\2\"\u011a\3\2\2\2$\u011e\3\2\2\2&\u0126"+
+		"\u0245\n/\3/\3/\3\60\3\60\3\61\3\61\3\62\7\62\u024e\n\62\f\62\16\62\u0251"+
+		"\13\62\3\63\3\63\3\63\3\63\3\63\2\3F\64\2\4\6\b\n\f\16\20\22\24\26\30"+
+		"\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bd\2\17\4\2CCll\3"+
+		"\2WX\3\2SV\3\2EG\4\2\35\35hh\3\2ab\4\2OPZ[\3\2\\^\4\2LMQR\4\2Z\\ee\3\2"+
+		"LM\7\2\36)\60\60\62\63;;AA\b\2**,,./\61\61\64:<@\2\u027d\2g\3\2\2\2\4"+
+		"l\3\2\2\2\6\u009b\3\2\2\2\b\u009d\3\2\2\2\n\u00a1\3\2\2\2\f\u00ae\3\2"+
+		"\2\2\16\u00bc\3\2\2\2\20\u00cc\3\2\2\2\22\u00ce\3\2\2\2\24\u00d2\3\2\2"+
+		"\2\26\u00d8\3\2\2\2\30\u00df\3\2\2\2\32\u00e8\3\2\2\2\34\u00f7\3\2\2\2"+
+		"\36\u00f9\3\2\2\2 \u00ff\3\2\2\2\"\u011a\3\2\2\2$\u011e\3\2\2\2&\u0126"+
 		"\3\2\2\2(\u012e\3\2\2\2*\u0136\3\2\2\2,\u013e\3\2\2\2.\u0146\3\2\2\2\60"+
 		"\u014e\3\2\2\2\62\u0156\3\2\2\2\64\u015e\3\2\2\2\66\u0166\3\2\2\28\u016e"+
 		"\3\2\2\2:\u0176\3\2\2\2<\u0183\3\2\2\2>\u0185\3\2\2\2@\u0192\3\2\2\2B"+
 		"\u0196\3\2\2\2D\u019c\3\2\2\2F\u01a1\3\2\2\2H\u01b7\3\2\2\2J\u01b9\3\2"+
 		"\2\2L\u01ca\3\2\2\2N\u01e0\3\2\2\2P\u01f7\3\2\2\2R\u01f9\3\2\2\2T\u0201"+
 		"\3\2\2\2V\u021a\3\2\2\2X\u022a\3\2\2\2Z\u022c\3\2\2\2\\\u023a\3\2\2\2"+
-		"^\u0248\3\2\2\2`\u025c\3\2\2\2b\u0261\3\2\2\2d\u0264\3\2\2\2fh\5\4\3\2"+
+		"^\u0248\3\2\2\2`\u024a\3\2\2\2b\u024f\3\2\2\2d\u0252\3\2\2\2fh\5\4\3\2"+
 		"gf\3\2\2\2gh\3\2\2\2hi\3\2\2\2ij\7\2\2\3j\3\3\2\2\2km\5\6\4\2lk\3\2\2"+
 		"\2mn\3\2\2\2nl\3\2\2\2no\3\2\2\2o\5\3\2\2\2pq\5F$\2qr\t\2\2\2rs\5\\/\2"+
 		"st\7f\2\2t\u009c\3\2\2\2uv\5X-\2vw\7f\2\2w\u009c\3\2\2\2x\u009c\5 \21"+
@@ -5180,25 +5065,15 @@ public class alkParser extends Parser {
 		"\2\u023e\u0240\5$\23\2\u023f\u023d\3\2\2\2\u0240\u0243\3\2\2\2\u0241\u023f"+
 		"\3\2\2\2\u0241\u0242\3\2\2\2\u0242\u0245\3\2\2\2\u0243\u0241\3\2\2\2\u0244"+
 		"\u023c\3\2\2\2\u0244\u0245\3\2\2\2\u0245\u0246\3\2\2\2\u0246\u0247\7`"+
-		"\2\2\u0247]\3\2\2\2\u0248\u0249\t\r\2\2\u0249_\3\2\2\2\u024a\u025d\3\2"+
-		"\2\2\u024b\u025d\7*\2\2\u024c\u025d\7,\2\2\u024d\u025d\7.\2\2\u024e\u025d"+
-		"\7/\2\2\u024f\u025d\7\61\2\2\u0250\u025d\7\64\2\2\u0251\u025d\7\65\2\2"+
-		"\u0252\u025d\7\66\2\2\u0253\u025d\7\67\2\2\u0254\u025d\78\2\2\u0255\u025d"+
-		"\79\2\2\u0256\u025d\7:\2\2\u0257\u025d\7<\2\2\u0258\u025d\7=\2\2\u0259"+
-		"\u025d\7>\2\2\u025a\u025d\7?\2\2\u025b\u025d\7@\2\2\u025c\u024a\3\2\2"+
-		"\2\u025c\u024b\3\2\2\2\u025c\u024c\3\2\2\2\u025c\u024d\3\2\2\2\u025c\u024e"+
-		"\3\2\2\2\u025c\u024f\3\2\2\2\u025c\u0250\3\2\2\2\u025c\u0251\3\2\2\2\u025c"+
-		"\u0252\3\2\2\2\u025c\u0253\3\2\2\2\u025c\u0254\3\2\2\2\u025c\u0255\3\2"+
-		"\2\2\u025c\u0256\3\2\2\2\u025c\u0257\3\2\2\2\u025c\u0258\3\2\2\2\u025c"+
-		"\u0259\3\2\2\2\u025c\u025a\3\2\2\2\u025c\u025b\3\2\2\2\u025da\3\2\2\2"+
-		"\u025e\u0260\5d\63\2\u025f\u025e\3\2\2\2\u0260\u0263\3\2\2\2\u0261\u025f"+
-		"\3\2\2\2\u0261\u0262\3\2\2\2\u0262c\3\2\2\2\u0263\u0261\3\2\2\2\u0264"+
-		"\u0265\7K\2\2\u0265\u0266\7\6\2\2\u0266\u0267\5$\23\2\u0267e\3\2\2\2;"+
-		"gn{\u009b\u00ae\u00b6\u00bc\u00cc\u00e6\u00eb\u00f2\u0106\u0109\u0112"+
-		"\u0115\u011a\u0124\u012b\u0133\u013b\u0143\u014b\u0153\u015b\u0163\u016b"+
-		"\u0173\u017b\u0183\u0189\u0192\u0196\u019c\u01a1\u01ae\u01b0\u01b7\u01ca"+
-		"\u01d6\u01d9\u01e0\u01ed\u01f0\u01f7\u01fd\u0210\u0213\u021a\u0224\u0227"+
-		"\u022a\u0233\u0236\u0241\u0244\u025c\u0261";
+		"\2\2\u0247]\3\2\2\2\u0248\u0249\t\r\2\2\u0249_\3\2\2\2\u024a\u024b\t\16"+
+		"\2\2\u024ba\3\2\2\2\u024c\u024e\5d\63\2\u024d\u024c\3\2\2\2\u024e\u0251"+
+		"\3\2\2\2\u024f\u024d\3\2\2\2\u024f\u0250\3\2\2\2\u0250c\3\2\2\2\u0251"+
+		"\u024f\3\2\2\2\u0252\u0253\5F$\2\u0253\u0254\7\6\2\2\u0254\u0255\5$\23"+
+		"\2\u0255e\3\2\2\2:gn{\u009b\u00ae\u00b6\u00bc\u00cc\u00e6\u00eb\u00f2"+
+		"\u0106\u0109\u0112\u0115\u011a\u0124\u012b\u0133\u013b\u0143\u014b\u0153"+
+		"\u015b\u0163\u016b\u0173\u017b\u0183\u0189\u0192\u0196\u019c\u01a1\u01ae"+
+		"\u01b0\u01b7\u01ca\u01d6\u01d9\u01e0\u01ed\u01f0\u01f7\u01fd\u0210\u0213"+
+		"\u021a\u0224\u0227\u022a\u0233\u0236\u0241\u0244\u024f";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

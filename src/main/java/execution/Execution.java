@@ -3,10 +3,12 @@ package execution;
 import execution.state.ExecutionState;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.AlkParser;
+import parser.constants.Constants;
 import parser.env.AlkFunction;
 import parser.env.Environment;
 import parser.env.Store;
 import parser.exceptions.AlkException;
+import parser.visitors.InitVisitor;
 import parser.visitors.MainVisitor;
 import util.*;
 import util.exception.InternalException;
@@ -56,6 +58,23 @@ public class Execution extends Thread
         funcManager = new FuncManager();
     }
 
+    private void initialSetup()
+    {
+        if (config.hasPrecision())
+            Constants.MAX_DECIMALS = config.getPrecision() + 1;
+        if (config.hasInput())
+        {
+            File input = config.getInput();
+            ParseTree tree = AlkParser.executeInit(input);
+
+            ExecutionStack localStack = new ExecutionStack(config, envManager);
+            InitVisitor visitor = new InitVisitor(global, new Payload(this));
+            ExecutionState state =  visitor.visit(tree);
+            localStack.push(state);
+            localStack.run();
+        }
+    }
+
     /**
      * The main method which fires the parsing
      *
@@ -64,20 +83,10 @@ public class Execution extends Thread
      */
     private void execute() throws InternalException
     {
-        ErrorManager em = config.getErrorManager();
+        initialSetup();
 
         // get the main algorithm file and obtain the CharStream in order to be parsed
         File file = config.getAlkFile();
-        CharStream alkFile = null;
-        try
-        {
-            InputStream alkInStr = new FileInputStream(file);
-            alkFile = CharStreams.fromStream(alkInStr);
-        }
-        catch (IOException e)
-        {
-            em.handleError(e, file.getPath());
-        }
 
         /*
             start parsing
@@ -85,8 +94,7 @@ public class Execution extends Thread
          */
         if (stack == null)
         {
-            AlkParser parser = new AlkParser(alkFile);
-            ParseTree tree = parser.execute();
+            ParseTree tree = AlkParser.execute(file);
             MainVisitor visitor = new MainVisitor(global, new Payload(this));
             ExecutionState state = visitor.visit(tree);
             stack = new ExecutionStack(config, envManager);

@@ -72,7 +72,7 @@ public class AlkFloat extends AlkValue
         return this;
     }
 
-    public AlkValue minusminusleft() throws AlkException {
+    public AlkValue minusminusleft() {
         value = value.subtract(new BigDecimal(String.valueOf(1)));
         return this;
     }
@@ -83,7 +83,7 @@ public class AlkFloat extends AlkValue
         return ans;
     }
 
-    public AlkValue minusminusright() throws AlkException {
+    public AlkValue minusminusright()  {
         AlkFloat ans = new AlkFloat(value);
         value = value.subtract(new BigDecimal(String.valueOf(1)));
         return ans;
