@@ -27,24 +27,23 @@ public class AlkConsole implements IOManager, OptionProvider
      */
     public AlkConsole(String[] args)
     {
-
-        Option alk = new Option("a", "alk", true, "algorithm file path");
+        Option alk = new Option("a", "alk", true, "the file including the algorithm to be executed");
         alk.setRequired(true);
         options.addOption(alk);
 
-        Option input = new Option("i", "init", true, "initial configuration");
+        Option input = new Option("i", "init", true, "set initial configuration to <arg> (string or file)");
         input.setRequired(false);
         options.addOption(input);
 
-        Option metadata = new Option("m", "metadata", false, "metadata display");
+        Option metadata = new Option("m", "metadata", false, "display metadata (final configuration)");
         metadata.setRequired(false);
         options.addOption(metadata);
 
-        Option precision = new Option("p", "precision", true, "precision set");
+        Option precision = new Option("p", "precision", true, "set the precision; <arg> represents the number of decimals");
         precision.setRequired(false);
         options.addOption(precision);
 
-        Option complexity = new Option("c", "complexity", false, "complexity display");
+        Option complexity = new Option("c", "complexity", false, "display complexity (inactive)");
         complexity.setRequired(false);
         options.addOption(complexity);
 
@@ -52,11 +51,11 @@ public class AlkConsole implements IOManager, OptionProvider
         output.setRequired(false);
         options.addOption(output);
 
-        Option help = new Option("h", "help", false, "show help");
+        Option help = new Option("h", "help", false, "display help");
         help.setRequired(false);
         options.addOption(help);
 
-        Option size = new Option("z", "size", true, "maximum array size");
+        Option size = new Option("z", "size", true, "set maximum array size to <arg>");
         size.setRequired(false);
         options.addOption(size);
 
@@ -64,19 +63,19 @@ public class AlkConsole implements IOManager, OptionProvider
         version.setRequired(false);
         options.addOption(version);
 
-        Option runtimeverification = new Option("r", "runtimeverification", false, "runtime verification");
+        Option runtimeverification = new Option("r", "runtimeverification", false, "runtime verification (inactive)");
         runtimeverification.setRequired(false);
         options.addOption(runtimeverification);
 
-        Option staticverification = new Option("s", "staticverification", false, "static verification");
+        Option staticverification = new Option("s", "staticverification", false, "static verification (inactive)");
         staticverification.setRequired(false);
         options.addOption(staticverification);
 
-        Option trace = new Option("t", "trace", false, "print stacktrace in case of exception");
+        Option trace = new Option("t", "trace", false, "print stacktrace in case of exception; debugging purposes");
         trace.setRequired(false);
         options.addOption(trace);
 
-        Option exhaustive = new Option("e", "exhaustive", false, "run in exhaustive mode");
+        Option exhaustive = new Option("e", "exhaustive", false, "trigger exhaustive mode");
         trace.setRequired(false);
         options.addOption(exhaustive);
 
@@ -168,10 +167,8 @@ public class AlkConsole implements IOManager, OptionProvider
     }
 
     @Override
-    public File getInput() {
-        if (hasInput())
-            return new File(cmd.getOptionValue("init"));
-        return null;
+    public String getInput() {
+        return cmd.getOptionValue("init");
     }
 
     @Override

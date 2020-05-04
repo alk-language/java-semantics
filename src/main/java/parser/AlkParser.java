@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import parser.exceptions.AlkException;
 import util.exception.InternalException;
 
 import java.io.*;
@@ -18,19 +19,27 @@ public class AlkParser
 {
     /**
      * Main entry point of the parsing process.
-     * @param alkFile
+     * @param input
      *        The input code to be taken in consideration when generating the parse tree.
      * @return
      *        The parse tree resulted from parsing the file.
      */
-    public static ParseTree executeInit(File alkFile)
+    public static ParseTree executeInit(String input)
     {
         try {
-            InputStream alkInStr= new FileInputStream(alkFile);
-            CharStream file = CharStreams.fromStream(alkInStr);
-            return new alkParser(new CommonTokenStream(new alkLexer(file))).configuration();
+            File file = new File(input);
+            InputStream alkInStr= new FileInputStream(file);
+            CharStream stream = CharStreams.fromStream(alkInStr);
+            return new alkParser(new CommonTokenStream(new alkLexer(stream))).configuration();
         } catch (IOException e) {
-            throw new InternalException("Can't find file to parse!");
+            // maybe it is inline
+            try {
+                InputStream alkInStr = new ByteArrayInputStream(input.getBytes());
+                CharStream stream = CharStreams.fromStream(alkInStr);
+                return new alkParser(new CommonTokenStream(new alkLexer(stream))).configuration();
+            } catch (IOException ex) {
+               throw new AlkException("Can't parse input");
+            }
         }
     }
 

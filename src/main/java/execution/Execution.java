@@ -77,7 +77,7 @@ public class Execution extends Thread
             Constants.MAX_DECIMALS = config.getPrecision() + 1;
         if (config.hasInput())
         {
-            File input = config.getInput();
+            String input = config.getInput();
             ParseTree tree = AlkParser.executeInit(input);
 
             ExecutionStack localStack = new ExecutionStack(config, envManager);
@@ -96,17 +96,13 @@ public class Execution extends Thread
      */
     private void execute() throws InternalException
     {
-        initialSetup();
-
-        // get the main algorithm file and obtain the CharStream in order to be parsed
-        File file = config.getAlkFile();
-
-        /*
-            start parsing
-            TODO: call different constructor without predefined environment
-         */
         if (stack == null)
         {
+            initialSetup();
+
+            // get the main algorithm file and obtain the CharStream in order to be parsed
+            File file = config.getAlkFile();
+
             ParseTree tree = AlkParser.execute(file);
             MainVisitor visitor = new MainVisitor(global, new Payload(this));
             ExecutionState state = visitor.visit(tree);

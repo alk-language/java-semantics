@@ -72,7 +72,7 @@ class TestingOptionProvider implements OptionProvider{
     }
 
     @Override
-    public File getInput() {
+    public String getInput() {
         return null;
     }
 

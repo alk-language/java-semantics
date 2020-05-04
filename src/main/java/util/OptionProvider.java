@@ -43,7 +43,7 @@ public interface OptionProvider
 
     boolean hasInput();
 
-    File getInput();
+    String getInput();
 
     boolean hasVersion();
 
