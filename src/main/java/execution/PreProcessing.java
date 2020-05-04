@@ -9,12 +9,14 @@ import parser.exceptions.AlkException;
 import util.exception.InternalException;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
  * Helper for AST manipulation prior to visiting.
  */
-public class PreProcessing {
+public class PreProcessing
+{
 
     public static void expandIncludes(PreProcessingContext context, ParseTree tree)
     {
@@ -23,14 +25,14 @@ public class PreProcessing {
             ParseTree child = tree.getChild(i);
             if (child instanceof alkParser.ToDirectiveContext && child.getChild(0) instanceof alkParser.IncludeContext)
             {
-                String path = getPath(child.getChild(0));
+                String path = getPath(context, child.getChild(0));
 
                 if (context.isLoaded(path))
                     throw new AlkException("Include cycle detected.");
 
                 context.load(path);
                 try {
-                    replaceInclude(context, tree, i);
+                    replaceInclude(context, tree, i, path);
                     expandIncludes(context, tree.getChild(i));
                 }
                 finally {
@@ -44,20 +46,28 @@ public class PreProcessing {
         }
     }
 
-    private static String getPath(ParseTree include)
+    private static String getPath(PreProcessingContext context, ParseTree include)
     {
         alkParser.IncludeContext includeCtx = (alkParser.IncludeContext) include;
         String path = includeCtx.STRING().getText();
-        return path.substring(1, path.length() - 1);
+        path = path.substring(1, path.length() - 1);
+        File file = new File(path);
+        if (file.isAbsolute())
+        {
+            return file.getAbsolutePath();
+        }
+        else
+        {
+            String top = context.peek();
+            String nativeDir = top.substring(0, top.lastIndexOf(File.separator));
+            return Paths.get(nativeDir, path).toString();
+        }
     }
 
-    private static void replaceInclude(PreProcessingContext context, ParseTree stmtseq, int idx)
+    private static void replaceInclude(PreProcessingContext context, ParseTree stmtseq, int idx, String path)
     {
         if (!(stmtseq instanceof alkParser.StatementSeqContext))
             throw new InternalException("Preprocessing failed due to unrecognized include directive wrapped");
-
-        ParseTree include = stmtseq.getChild(idx).getChild(0);
-        String path = getPath(include);
 
         alkParser.StatementSeqContext ctx = (alkParser.StatementSeqContext) stmtseq;
 
@@ -97,26 +107,38 @@ public class PreProcessing {
         return children;
     }
 
-    public static PreProcessingContext newContext() {
-        return new PreProcessingContext();
+    public static PreProcessingContext newContext(String path) {
+        return new PreProcessingContext(path);
     }
 
     public static class PreProcessingContext {
-        private Set<String> loaded = new HashSet<>();
+        private Stack<String> loaded = new Stack<>();
+
+        PreProcessingContext(String path) {
+            load(path);
+        }
+
+        public String peek()
+        {
+            return loaded.peek();
+        }
 
         public boolean isLoaded(String path)
         {
-            return loaded.contains(path);
+            File file = new File(path);
+            return loaded.contains(file.getAbsolutePath());
         }
 
         public void load(String path)
         {
-            loaded.add(path);
+            File file = new File(path);
+            loaded.add(file.getAbsolutePath());
         }
 
         public void unload(String path)
         {
-            loaded.remove(path);
+            File file = new File(path);
+            loaded.remove(file.getAbsolutePath());
         }
     }
 }

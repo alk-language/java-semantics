@@ -2,6 +2,7 @@ package execution;
 
 import execution.state.ExecutionState;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.cli.HelpFormatter;
 import parser.AlkParser;
 import parser.constants.Constants;
 import parser.env.AlkFunction;
@@ -14,6 +15,7 @@ import util.*;
 import util.exception.InternalException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
+import util.exception.OnlyMetaException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,6 +62,17 @@ public class Execution extends Thread
 
     private void initialSetup()
     {
+        if (config.hasVersion())
+        {
+            config.getIOManager().write("The version is " + Constants.VERSION + ".");
+            throw new OnlyMetaException();
+        }
+        if (config.hasHelp())
+        {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp( "alk", config.getOptions());
+            throw new OnlyMetaException();
+        }
         if (config.hasPrecision())
             Constants.MAX_DECIMALS = config.getPrecision() + 1;
         if (config.hasInput())

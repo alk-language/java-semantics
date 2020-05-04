@@ -43,7 +43,7 @@ public class AlkParser
      */
     public static ParseTree execute(File alkFile)
     {
-        return execute(alkFile, PreProcessing.newContext());
+        return execute(alkFile, PreProcessing.newContext(alkFile.getAbsolutePath()));
     }
 
     /**

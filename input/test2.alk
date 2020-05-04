@@ -1,2 +1,1 @@
-a |-> 10
-b |-> [10, 8, 4, 9]
+#include "test/test3.alk"

@@ -3,7 +3,6 @@ package io;
 import org.apache.commons.cli.*;
 import util.OptionProvider;
 import util.exception.AlkParseException;
-import util.types.IntervalValue;
 
 import java.io.File;
 
@@ -17,6 +16,8 @@ public class AlkConsole implements IOManager, OptionProvider
     /* Internal used by the commons library to store information about the command line */
     private CommandLine cmd;
 
+    private Options options = new Options();
+
     /**
      * Constructor based on in line arguments usually provided by a main method
      * TODO: move constructor logic to another function so the parsing of the arguments will be separate
@@ -26,7 +27,6 @@ public class AlkConsole implements IOManager, OptionProvider
      */
     public AlkConsole(String[] args)
     {
-        Options options = new Options();
 
         Option alk = new Option("a", "alk", true, "algorithm file path");
         alk.setRequired(true);
@@ -151,8 +151,10 @@ public class AlkConsole implements IOManager, OptionProvider
     }
 
     @Override
-    public int getPrecision() {
-        return Integer.parseInt(cmd.getOptionValue("precision"));
+    public Integer getPrecision() {
+        if (hasPrecision())
+            return Integer.parseInt(cmd.getOptionValue("precision"));
+        return null;
     }
 
     @Override
@@ -167,7 +169,24 @@ public class AlkConsole implements IOManager, OptionProvider
 
     @Override
     public File getInput() {
-        return new File(cmd.getOptionValue("init"));
+        if (hasInput())
+            return new File(cmd.getOptionValue("init"));
+        return null;
+    }
+
+    @Override
+    public boolean hasVersion() {
+        return cmd.hasOption("version");
+    }
+
+    @Override
+    public Options getOptions() {
+        return options;
+    }
+
+    @Override
+    public boolean hasHelp() {
+        return cmd.hasOption("help");
     }
 
     public IOManager getEndpoint()
