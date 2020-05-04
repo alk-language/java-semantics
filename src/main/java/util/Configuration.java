@@ -14,7 +14,7 @@ public class Configuration implements OptionProvider
     /** The main file to be parsed */
     private File alkFile;
 
-    private File input;
+    private String input;
 
     /** The metadata flag, used to inform an IOManager if the metadata should be printed at the end */
     private boolean metadata;
@@ -77,7 +77,7 @@ public class Configuration implements OptionProvider
     }
 
     @Override
-    public File getInput() {
+    public String getInput() {
         return input;
     }
 

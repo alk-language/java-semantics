@@ -1,6 +1,2 @@
-#include "./test2.alk"
-
-forall i in b
-{
-   print(i);
-}
+a = x;
+print(a);
