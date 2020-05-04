@@ -1,5 +1,7 @@
 package util;
 
+import org.apache.commons.cli.Options;
+
 import java.io.File;
 
 /**
@@ -35,11 +37,17 @@ public interface OptionProvider
      */
     boolean hasDebugMode();
 
-    int getPrecision();
+    Integer getPrecision();
 
     boolean hasPrecision();
 
     boolean hasInput();
 
     File getInput();
+
+    boolean hasVersion();
+
+    Options getOptions();
+
+    boolean hasHelp();
 }

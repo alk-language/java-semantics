@@ -1,8 +1,8 @@
 package util;
 
 import io.IOManager;
+import org.apache.commons.cli.Options;
 
-import java.io.DataOutput;
 import java.io.File;
 
 /**
@@ -21,7 +21,13 @@ public class Configuration implements OptionProvider
 
     private boolean exhaustive;
 
+    private boolean version;
+
     private Integer precision;
+
+    private Options options;
+
+    private boolean help;
 
     /** The debugMode flag, used to print the stach trace in case of one exception*/
     private boolean debugMode;
@@ -56,7 +62,7 @@ public class Configuration implements OptionProvider
     }
 
     @Override
-    public int getPrecision() {
+    public Integer getPrecision() {
         return precision;
     }
 
@@ -73,6 +79,21 @@ public class Configuration implements OptionProvider
     @Override
     public File getInput() {
         return input;
+    }
+
+    @Override
+    public boolean hasVersion() {
+        return version;
+    }
+
+    @Override
+    public Options getOptions() {
+        return options;
+    }
+
+    @Override
+    public boolean hasHelp() {
+        return help;
     }
 
     /**
@@ -128,6 +149,9 @@ public class Configuration implements OptionProvider
         this.exhaustive = op.hasExhaustive();
         this.precision = op.getPrecision();
         this.input = op.getInput();
+        this.version = op.hasVersion();
+        this.options = op.getOptions();
+        this.help = op.hasHelp();
     }
 
     /**

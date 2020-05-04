@@ -1,4 +1,5 @@
-print(a);
+#include "./test2.alk"
+
 forall i in b
 {
    print(i);

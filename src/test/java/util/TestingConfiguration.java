@@ -1,6 +1,7 @@
 package util;
 
 import io.IOManager;
+import org.apache.commons.cli.Options;
 
 import java.io.File;
 
@@ -56,7 +57,7 @@ class TestingOptionProvider implements OptionProvider{
     }
 
     @Override
-    public int getPrecision() {
+    public Integer getPrecision() {
         return 10;
     }
 
@@ -73,6 +74,21 @@ class TestingOptionProvider implements OptionProvider{
     @Override
     public File getInput() {
         return null;
+    }
+
+    @Override
+    public boolean hasVersion() {
+        return false;
+    }
+
+    @Override
+    public Options getOptions() {
+        return null;
+    }
+
+    @Override
+    public boolean hasHelp() {
+        return false;
     }
 }
 
