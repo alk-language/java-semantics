@@ -4,9 +4,12 @@ import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import execution.types.AlkValue;
+import parser.env.LocationMapper;
+import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ShiftExpressionContext.class)
 public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
@@ -16,15 +19,23 @@ public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
-        if (tree.getChild(getSignPos()).getText().equals("<<"))
-            return current.shiftLeft(next);
-        return next.shiftRight(next);
+        try
+        {
+            if (tree.getChild(getSignPos()).getText().equals("<<"))
+                return current.shiftLeft(next);
+            return next.shiftRight(next);
+        }
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
+        return null;
     }
 
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ShiftExpressionState copy = new ShiftExpressionState((alkParser.ShiftExpressionContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        ShiftExpressionState copy = new ShiftExpressionState((alkParser.ShiftExpressionContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

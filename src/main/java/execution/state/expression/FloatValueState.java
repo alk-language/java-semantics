@@ -4,8 +4,10 @@ import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
 import grammar.alkParser;
 import execution.types.alkFloat.AlkFloat;
+import parser.env.LocationMapper;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 import java.math.BigDecimal;
 
@@ -18,8 +20,8 @@ public class FloatValueState extends PrimitiveState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        FloatValueState copy = new FloatValueState((alkParser.DoubleValueContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        FloatValueState copy = new FloatValueState((alkParser.DoubleValueContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

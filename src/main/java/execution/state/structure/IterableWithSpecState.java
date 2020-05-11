@@ -9,6 +9,7 @@ import execution.types.alkArray.AlkArray;
 import parser.exceptions.AlkException;
 import parser.visitors.structure.DataStructureVisitor;
 import util.Payload;
+import util.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -28,7 +29,7 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
     @Override
     protected AlkIterableValue interpretResult(Value value) {
         if (!(value.toRValue() instanceof AlkArray))
-            throw new AlkException(AlkException.ERR_SPEC_ITERABLE_REQUIRED);
+            super.handle(new AlkException(AlkException.ERR_SPEC_ITERABLE_REQUIRED));
 
         AlkArray rightValue = (AlkArray) value.toRValue();
         try {
@@ -36,14 +37,17 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
             iterableValue.addAll(rightValue.toArray(generator));
             return iterableValue;
         } catch (InstantiationException | IllegalAccessException e) {
+            Exception cause = (Exception) e.getCause();
+            if (cause instanceof AlkException)
+                super.handle((AlkException) cause);
             throw new InternalException(e);
         }
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        IterableWithSpecState copy = new IterableWithSpecState(tree, payload, null, clazz);
+    public ExecutionState clone(SplitMapper sm) {
+        IterableWithSpecState copy = new IterableWithSpecState(tree, sm.getPayload(), null, clazz);
 
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 }

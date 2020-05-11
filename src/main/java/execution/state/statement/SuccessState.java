@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.exceptions.SuccessException;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 @CtxState(ctxClass = alkParser.SuccessContext.class)
@@ -20,8 +21,8 @@ public class SuccessState extends PrimitiveState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        SuccessState copy = new SuccessState(ctx, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        SuccessState copy = new SuccessState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

@@ -8,13 +8,11 @@ import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.env.Store;
 import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Invoker;
-import util.NameMapper;
-import util.Payload;
+import util.*;
 import util.exception.InternalException;
 import util.functions.BuiltInFunction;
 import util.functions.BuiltInMethod;
@@ -53,15 +51,14 @@ public class BuiltInMethodState extends GeneratorState<Location, Value>
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        Store store = payload.getExecution().getStore();
-        BuiltInMethodState copy = new BuiltInMethodState(ctx, payload);
-        copy.loc = loc; // this should be mapped
+        BuiltInMethodState copy = new BuiltInMethodState(ctx, sm.getPayload());
+        copy.loc = sm.getLocationMapper().get(this.loc);
         copy.methodName = methodName;
         for (AlkValue value : params)
-            copy.params.add(value.clone(store));
-        return super.decorate(copy);
+            copy.params.add(value.weakClone(sm.getLocationMapper()));
+        return super.decorate(copy, sm);
     }
 
     @Override
@@ -71,7 +68,8 @@ public class BuiltInMethodState extends GeneratorState<Location, Value>
             return (Location) Invoker.invokeMethod(methodName, loc, params, generator);
         }
         catch (AlkException e) {
-            throw new AlkException(ctx.start.getLine(), e.getMessage());
+            super.handle(new AlkException(ctx.start.getLine(), e.getMessage()));
         }
+        return null;
     }
 }

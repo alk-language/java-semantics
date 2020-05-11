@@ -3,9 +3,11 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.GatewaySingleState;
 import grammar.alkParser;
+import parser.env.LocationMapper;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.RefNameFactorContext.class)
 public class RefNameFactorState extends GatewaySingleState {
@@ -18,8 +20,9 @@ public class RefNameFactorState extends GatewaySingleState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        RefNameFactorState copy = new RefNameFactorState(ctx, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm)
+    {
+        RefNameFactorState copy = new RefNameFactorState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

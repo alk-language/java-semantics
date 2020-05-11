@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.function.FunctionCallVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.FunctionCallContext.class)
 public class FunctionCallState extends IndependentSingleState {
@@ -18,8 +19,8 @@ public class FunctionCallState extends IndependentSingleState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        return super.decorate(new FunctionCallState(tree, payload));
+        return super.decorate(new FunctionCallState(tree, sm.getPayload()), sm);
     }
 }

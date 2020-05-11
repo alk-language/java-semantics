@@ -8,6 +8,7 @@ import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.EmptyListContext.class)
 public class EmptyListState extends PrimitiveState {
@@ -20,8 +21,8 @@ public class EmptyListState extends PrimitiveState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        EmptyListState copy =  new EmptyListState(ctx, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        EmptyListState copy =  new EmptyListState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

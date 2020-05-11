@@ -8,6 +8,7 @@ import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ForStructureContext.class)
 public class ForState extends LoopingState
@@ -71,53 +72,12 @@ public class ForState extends LoopingState
 
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        ForState copy = new ForState(ctx, payload);
+        ForState copy = new ForState(ctx, sm.getPayload());
         copy.visitedStart = visitedStart;
         copy.incrementalStep = incrementalStep;
         copy.incrementing = incrementing;
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 }
-
-/*if (returnValue != null || breakFlag || continueFlag) return null;
-        if (ctx.start_assignment()!=null)
-            visit(ctx.start_assignment());
-
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!value.type.equals("Bool"))
-        {
-            AlkException e = new AlkException(ERR_FOR_NOT_BOOL);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        loopLevel++;
-        breakFlag = continueFlag = false;
-        while (((AlkBool)value).getValue())
-        {
-            visit(ctx.statement());
-            continueFlag = false;
-            if (returnValue != null || breakFlag)
-            {
-                breakFlag = false;
-                loopLevel--;
-                return null;
-            }
-
-            if (ctx.assignment()!=null)
-                visit(ctx.assignment());
-            else
-                visit(ctx.increase_decrease());
-
-            value = (AlkValue) exprVisitor.visit(ctx.expression());
-            if (!value.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_FOR_NOT_BOOL);
-                e.printException(ctx.start.getLine());
-                return null;
-            }
-        }
-        loopLevel--;
-        return null;*/

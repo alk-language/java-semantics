@@ -7,6 +7,7 @@ import parser.exceptions.FailureException;
 import parser.exceptions.SuccessException;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.FailureContext.class)
 public class FailureState extends PrimitiveState {
@@ -20,8 +21,8 @@ public class FailureState extends PrimitiveState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        FailureState copy = new FailureState(ctx, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        FailureState copy = new FailureState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

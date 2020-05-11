@@ -3,6 +3,7 @@ package execution.state;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.Payload;
+import util.SplitMapper;
 
 public abstract class FinalCheckLoopingState extends LoopingState
 {
@@ -31,9 +32,9 @@ public abstract class FinalCheckLoopingState extends LoopingState
         return super.makeStep();
     }
 
-    protected FinalCheckLoopingState decorate(FinalCheckLoopingState copy)
+    protected FinalCheckLoopingState decorate(FinalCheckLoopingState copy, SplitMapper sm)
     {
         copy.firstTime = firstTime;
-        return (FinalCheckLoopingState) super.decorate(copy);
+        return (FinalCheckLoopingState) super.decorate(copy, sm);
     }
 }

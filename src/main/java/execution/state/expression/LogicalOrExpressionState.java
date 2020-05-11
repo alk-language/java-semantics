@@ -3,12 +3,14 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import static parser.exceptions.AlkException.ERR_LOGICALOR;
@@ -34,13 +36,21 @@ public class LogicalOrExpressionState extends GuardedGeneratorState<Value>
 
     @Override
     protected AlkValue interpretResult(Value current, Value next) {
-        return ((AlkBool) current).logicalOr((AlkBool) next);
+        try
+        {
+            return ((AlkBool) current).logicalOr((AlkBool) next);
+        }
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
+        return null;
     }
 
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        LogicalOrExpressionState copy = new LogicalOrExpressionState((alkParser.LogicalOrExpressionContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        LogicalOrExpressionState copy = new LogicalOrExpressionState((alkParser.LogicalOrExpressionContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

@@ -4,8 +4,10 @@ import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
 import grammar.alkParser;
 import execution.types.alkInt.AlkInt;
+import parser.env.LocationMapper;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 import java.math.BigInteger;
 
@@ -16,9 +18,9 @@ public class IntValueState extends PrimitiveState {
         super(ctx, payload, new AlkInt(new BigInteger(ctx.INT().toString())));
     }
     @Override
-    public ExecutionState clone(Payload payload) {
-        IntValueState copy = new IntValueState((alkParser.IntValueContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        IntValueState copy = new IntValueState((alkParser.IntValueContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 
 }

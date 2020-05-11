@@ -7,9 +7,11 @@ import execution.types.alkStructure.AlkStructure;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Location;
+import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.RefPointIDContext.class)
 public class RefPointIDState extends ExecutionState {
@@ -35,8 +37,15 @@ public class RefPointIDState extends ExecutionState {
             reference.assign(new AlkStructure());
         }
 
-        Location loc = reference.toRValue().dot(ctx.ID().toString(), generator);
-        result = new ExecutionResult(loc);
+        try
+        {
+            Location loc = reference.toRValue().dot(ctx.ID().toString(), generator);
+            result = new ExecutionResult(loc);
+        }
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
         return null;
     }
 
@@ -51,9 +60,9 @@ public class RefPointIDState extends ExecutionState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        RefPointIDState copy = new RefPointIDState(ctx, payload);
-        copy.reference = reference; // trebuie mappat
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        RefPointIDState copy = new RefPointIDState(ctx, sm.getPayload());
+        copy.reference = sm.getLocationMapper().get(reference);
+        return super.decorate(copy, sm);
     }
 }

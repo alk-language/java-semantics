@@ -7,6 +7,7 @@ import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.ComponentValue;
 import util.types.Value;
 
@@ -28,8 +29,8 @@ public class ComponentDefinitionState extends SingleState <ComponentValue, AlkVa
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ComponentDefinitionState copy = new ComponentDefinitionState((alkParser.ComponentDefinitionContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        ComponentDefinitionState copy = new ComponentDefinitionState((alkParser.ComponentDefinitionContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

@@ -3,12 +3,14 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import static parser.exceptions.AlkException.ERR_LOGICALAND;
@@ -38,15 +40,23 @@ public class LogicalAndExpressionState extends GuardedGeneratorState<Value>
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        LogicalAndExpressionState copy = new LogicalAndExpressionState(ctx, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        LogicalAndExpressionState copy = new LogicalAndExpressionState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 
     @Override
     protected AlkValue interpretResult(Value current, Value next)
     {
-        return ((AlkBool) current).logicalAnd((AlkBool) next);
+        try
+        {
+            return ((AlkBool) current).logicalAnd((AlkBool) next);
+        }
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
+        return null;
     }
 
 }

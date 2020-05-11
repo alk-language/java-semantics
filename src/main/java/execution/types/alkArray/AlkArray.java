@@ -166,14 +166,6 @@ public class AlkArray extends AlkIterableValue {
         return new AlkInt(array.size());
     }
 
-    @Override
-    public AlkValue weakClone(LocationMapper locMapping) {
-        AlkArray copy = new AlkArray();
-        for (Location loc : array)
-            copy.push(locMapping.get(loc));
-        return copy;
-    }
-
     public boolean has(AlkValue operator)
     {
         for (Location loc : array)
@@ -200,10 +192,18 @@ public class AlkArray extends AlkIterableValue {
     }
 
     @Override
-    public AlkArray clone(LocationGenerator generator) {
+    public AlkArray weakClone(LocationMapper locationMapper) {
         AlkArray copy = new AlkArray();
         for (Location i : array)
-            copy.push(generator.generate(i.toRValue().clone(generator)));
+            copy.push(locationMapper.get(i));
+        return copy;
+    }
+
+    @Override
+    public AlkValue clone(LocationGenerator locationGenerator) {
+        AlkArray copy = new AlkArray();
+        for (Location i : array)
+            copy.push(locationGenerator.generate(i.toRValue().clone(locationGenerator)));
         return copy;
     }
 

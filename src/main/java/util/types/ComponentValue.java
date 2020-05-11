@@ -1,7 +1,9 @@
 package util.types;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
+import util.lambda.LocationGenerator;
 
 public class ComponentValue implements Value {
 
@@ -23,8 +25,13 @@ public class ComponentValue implements Value {
     }
 
     @Override
-    public Value clone() {
-        return new ComponentValue(identifier, location.clone());
+    public Value weakClone(LocationMapper locationMapper) {
+        return new ComponentValue(identifier, location.weakClone(locationMapper));
+    }
+
+    @Override
+    public Value clone(LocationGenerator generator) {
+        return new ComponentValue(identifier, location.clone(generator));
     }
 
     @Override

@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.StmtVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.StatementSeqContext.class)
 public class StatementSeqState extends IndependentGeneratorState
@@ -16,8 +17,8 @@ public class StatementSeqState extends IndependentGeneratorState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        StatementSeqState copy = new StatementSeqState((alkParser.StatementSeqContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        StatementSeqState copy = new StatementSeqState((alkParser.StatementSeqContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

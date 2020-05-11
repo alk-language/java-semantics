@@ -4,6 +4,7 @@ import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
@@ -26,5 +27,10 @@ public abstract class IndependentGeneratorState extends GeneratorState {
     @Override
     public Value getFinalResult() {
         return null;
+    }
+
+    protected IndependentGeneratorState decorate(IndependentGeneratorState copy, SplitMapper sm)
+    {
+        return (IndependentGeneratorState) super.decorate(copy, sm);
     }
 }

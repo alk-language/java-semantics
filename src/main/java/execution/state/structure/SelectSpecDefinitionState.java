@@ -11,6 +11,7 @@ import execution.types.alkArray.AlkArray;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, Value> {
         if (source == null)
         {
             if (!(resultVal instanceof AlkIterableValue))
-                throw new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
+                super.handle(new AlkException(ERR_SPEC_ITERABLE_REQUIRED));
 
             source = ((AlkIterableValue) resultVal).toArray(generator);
             step = 0;
@@ -63,41 +64,21 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, Value> {
         else
         {
             if (!(resultVal instanceof AlkValue))
-                throw new AlkException("An iterable should be filled only with AlkValues.");
+                super.handle(new AlkException("An iterable should be filled only with AlkValues."));
 
             array.push(getStore().malloc().assign(((AlkValue) resultVal).clone(generator)));
         }
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        SelectSpecDefinitionState copy = new SelectSpecDefinitionState(ctx, payload);
+    public ExecutionState clone(SplitMapper sm) {
+        SelectSpecDefinitionState copy = new SelectSpecDefinitionState(ctx, sm.getPayload());
         for (Location value : source)
         {
-            copy.source.add(generator.generate(value.toRValue().clone(generator)));
+            copy.source.add(sm.getLocationMapper().get(value));
         }
-        copy.array = array.clone(generator);
+        copy.array = array.weakClone(sm.getLocationMapper());
         copy.step = step;
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 }
-
-/*
-        String iterator = ctx.ID().toString();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        ArrayList<AlkValue> array = new ArrayList<>();
-        AlkValue source = (AlkValue) expVisitor.visit(ctx.expression(1));
-        if (!source.isIterable)
-        {
-            AlkException e = new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
-            e.printException(ctx.start.getLine());
-            return array;
-        }
-        ArrayList<AlkValue> src = ((AlkIterableValue)source).toArray();
-        for (AlkValue x : src)
-        {
-            env.update(iterator, x);
-            AlkValue result = (AlkValue) expVisitor.visit(ctx.expression(0));
-            array.add(result);
-        }
-        return array;*/

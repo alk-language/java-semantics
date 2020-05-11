@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.MainVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.StartPointContext.class)
 public class MainState extends IndependentSingleState
@@ -15,8 +16,8 @@ public class MainState extends IndependentSingleState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        MainState copy = new MainState((alkParser.StartPointContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        MainState copy = new MainState((alkParser.StartPointContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

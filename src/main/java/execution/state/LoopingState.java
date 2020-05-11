@@ -9,6 +9,7 @@ import parser.exceptions.BreakException;
 import parser.exceptions.ContinueException;
 import parser.exceptions.UnwindException;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 public abstract class LoopingState extends ExecutionState
@@ -71,7 +72,7 @@ public abstract class LoopingState extends ExecutionState
             Value decide = result.getValue().toRValue();
             if (!(decide instanceof AlkBool))
             {
-                throw new AlkException("Condition in loop must be boolean.");
+                super.handle(new AlkException("Condition in loop must be boolean."));
             }
 
             AlkBool bool = (AlkBool) decide;
@@ -101,10 +102,11 @@ public abstract class LoopingState extends ExecutionState
         return false;
     }
 
-    protected LoopingState decorate(LoopingState copy)
+    protected LoopingState decorate(LoopingState copy, SplitMapper sm)
     {
         copy.checkedCondition = checkedCondition;
         copy.validCondition = validCondition;
-        return (LoopingState) super.decorate(copy);
+        copy.broke = broke;
+        return (LoopingState) super.decorate(copy, sm);
     }
 }

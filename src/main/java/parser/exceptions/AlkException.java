@@ -313,13 +313,18 @@ public class AlkException extends InternalException
         super(u.getMessage());
     }
 
-    public void printException() {
-        System.out.println("[ERROR] " + getMessage());
-        // throw new RuntimeException();
-    }
-
     public void printException(int line) {
         System.out.println("Error at line "+line+": " + getMessage());
-        // throw new RuntimeException();
+    }
+
+    public int getLine()
+    {
+        if (this.line == 0)
+            throw new InternalException("Can't identify error line!");
+        return this.line;
+    }
+
+    public boolean isUnsigned() {
+        return line == 0;
     }
 }

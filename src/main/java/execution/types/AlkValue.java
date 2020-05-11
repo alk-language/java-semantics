@@ -83,20 +83,14 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     @Override
     public abstract String toString();
 
-
-    @Override
-    public Value clone()
-    {
-        throw new AlkException("Can't clone without a LocationGenerator");
-    }
-
     /**
      * All children should implement the clone method, as they are immutable
      * @return
      * A value representing a copy of the value
      */
-    public abstract AlkValue clone(LocationGenerator generator);
+    public abstract AlkValue weakClone(LocationMapper locationMapper);
 
+    public abstract AlkValue clone(LocationGenerator locationGenerator);
 
     /**
      * Handles the logical or operation (||) over a value.
@@ -848,6 +842,4 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     {
         throw new AlkException("Can't obtain a reference out of this expression");
     }
-
-    public abstract AlkValue weakClone(LocationMapper locMapping);
 }

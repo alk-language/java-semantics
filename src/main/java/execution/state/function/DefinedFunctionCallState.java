@@ -4,10 +4,7 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.types.AlkValue;
 import grammar.alkParser;
-import parser.env.AlkFunction;
-import parser.env.Environment;
-import parser.env.Location;
-import parser.env.Store;
+import parser.env.*;
 import parser.exceptions.AlkException;
 import parser.exceptions.ReturnException;
 import parser.exceptions.UnwindException;
@@ -15,6 +12,7 @@ import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.functions.Parameter;
 import util.types.Value;
 
@@ -37,7 +35,7 @@ public class DefinedFunctionCallState extends ExecutionState {
         function = getFuncManager().getFunction(ctx.ID().getText());
         env = new Environment(getStore());
         if (ctx.expression().size() != function.countParams())
-            throw new AlkException(ctx.start.getLine(), "Invalid number of arguments passed to the function");
+            super.handle(new AlkException(ctx.start.getLine(), "Invalid number of arguments passed to the function"));
     }
 
     @Override
@@ -95,20 +93,16 @@ public class DefinedFunctionCallState extends ExecutionState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        Store store = payload.getExecution().getStore();
-        DefinedFunctionCallState copy = new DefinedFunctionCallState(ctx, payload);
+    public ExecutionState clone(SplitMapper sm) {
+        DefinedFunctionCallState copy = new DefinedFunctionCallState(ctx, sm.getPayload());
         for (Value param : params)
         {
-            if (param instanceof AlkValue)
-                copy.params.add(((AlkValue)param).clone(store));
-            else
-                copy.params.add(param); // this should be mapped to the new location
+            copy.params.add(param.weakClone(sm.getLocationMapper()));
         }
-        copy.function = function;
+        copy.function = function.clone(sm);
         copy.step = step;
         copy.executed = executed;
-        copy.env = env; // this should be mapped
-        return super.decorate(copy);
+        copy.env = sm.getEnvironmentMapper().get(this.env);
+        return super.decorate(copy, sm);
     }
 }

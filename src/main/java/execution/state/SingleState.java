@@ -1,11 +1,10 @@
 package execution.state;
 
 import execution.ExecutionResult;
-import execution.types.AlkValue;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import util.Cloner;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 /**
@@ -51,12 +50,10 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
 
     protected abstract T interpretResult(Value value);
 
-    public SingleState decorate(SingleState copy) {
+    public SingleState decorate(SingleState copy, SplitMapper sm) {
         if (this.localResult != null)
-            copy.localResult = this.localResult.clone();
+            copy.localResult = this.localResult.weakClone(sm.getLocationMapper());
         copy.visited = this.visited;
-        copy.dependency = this.dependency;
-        copy.visitor = this.visitor;
-        return (SingleState) super.decorate(copy);
+        return (SingleState) super.decorate(copy, sm);
     }
 }

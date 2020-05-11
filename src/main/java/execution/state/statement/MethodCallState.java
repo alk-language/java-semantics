@@ -10,6 +10,7 @@ import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.MethodCallContext.class)
 public class MethodCallState extends ExecutionState
@@ -53,10 +54,10 @@ public class MethodCallState extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        MethodCallState copy = new MethodCallState(ctx, payload);
-        copy.reference = reference; // mapping should be done
-        copy.solution = solution; // mapping should be done
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        MethodCallState copy = new MethodCallState(ctx, sm.getPayload());
+        copy.reference = sm.getLocationMapper().get(reference);
+        copy.solution = sm.getLocationMapper().get(solution);
+        return super.decorate(copy, sm);
     }
 }

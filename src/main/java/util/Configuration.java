@@ -23,6 +23,8 @@ public class Configuration implements OptionProvider
 
     private boolean version;
 
+    private boolean hasPrecision;
+
     private Integer precision;
 
     private Options options;
@@ -68,7 +70,7 @@ public class Configuration implements OptionProvider
 
     @Override
     public boolean hasPrecision() {
-        return precision != null;
+        return hasPrecision;
     }
 
     @Override
@@ -147,6 +149,7 @@ public class Configuration implements OptionProvider
         this.alkFile = op.getAlkFile();
         this.debugMode = op.hasDebugMode();
         this.exhaustive = op.hasExhaustive();
+        this.hasPrecision = op.hasPrecision();
         this.precision = op.getPrecision();
         this.input = op.getInput();
         this.version = op.hasVersion();

@@ -1,8 +1,11 @@
 package execution;
 
+import execution.types.AlkValue;
+import parser.env.LocationMapper;
+import util.lambda.LocationGenerator;
 import util.types.Value;
 
-public class ExecutionResult<T extends Value> implements Cloneable
+public class ExecutionResult<T extends Value>
 {
     private T value;
 
@@ -21,15 +24,8 @@ public class ExecutionResult<T extends Value> implements Cloneable
         return value.toString();
     }
 
-    public ExecutionResult clone()
+    public ExecutionResult clone(LocationMapper locationMapper)
     {
-        try {
-            ExecutionResult clone = (ExecutionResult) super.clone();
-            clone.value = value;
-            return clone;
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return new ExecutionResult(this.value.weakClone(locationMapper));
     }
 }

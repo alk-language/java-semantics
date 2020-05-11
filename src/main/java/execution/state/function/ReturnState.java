@@ -9,6 +9,7 @@ import parser.exceptions.ReturnException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 @CtxState(ctxClass = alkParser.ReturnStmtContext.class)
@@ -37,14 +38,14 @@ public class ReturnState extends ExecutionState
     @Override
     public void assign(ExecutionResult result)
     {
-        value = ((AlkValue)result.getValue().toRValue()).clone(generator);
+        value = (AlkValue) result.getValue().toRValue().clone(generator);
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        ReturnState copy = new ReturnState(ctx, payload);
-        copy.value = value.clone(payload.getExecution().getStore());
-        return super.decorate(copy);
+        ReturnState copy = new ReturnState(ctx, sm.getPayload());
+        copy.value = value.weakClone(sm.getLocationMapper());
+        return super.decorate(copy, sm);
     }
 }

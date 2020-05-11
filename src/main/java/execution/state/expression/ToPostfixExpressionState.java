@@ -3,9 +3,11 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.GatewaySingleState;
 import grammar.alkParser;
+import parser.env.LocationMapper;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToPostfixExpressionContext.class)
 public class ToPostfixExpressionState extends GatewaySingleState {
@@ -18,8 +20,8 @@ public class ToPostfixExpressionState extends GatewaySingleState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ToPostfixExpressionState copy = new ToPostfixExpressionState(ctx, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        ToPostfixExpressionState copy = new ToPostfixExpressionState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

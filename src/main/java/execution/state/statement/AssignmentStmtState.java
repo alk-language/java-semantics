@@ -6,9 +6,11 @@ import grammar.alkParser;
 import parser.env.Location;
 import execution.types.AlkValue;
 import parser.env.Store;
+import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.exception.UnimplementedException;
 
 @CtxState(ctxClass = alkParser.AssignmentStmtContext.class)
@@ -39,24 +41,30 @@ public class AssignmentStmtState extends ExecutionState
             return super.request(ExpressionVisitor.class, ctx.ref_name());
         }
 
-        AlkValue leftValue = leftSide.getValue();
-        switch (operator)
-        {
-            case "=": break;
-            case "+=": rightSide = leftValue.add(rightSide); break;
-            case "-=": rightSide = leftValue.subtract(rightSide); break;
-            case "*=": rightSide = leftValue.multiply(rightSide); break;
-            case "/=": rightSide = leftValue.divide(rightSide); break;
-            case "%=": rightSide = leftValue.mod(rightSide); break;
-            case "<<=": rightSide = leftValue.shiftLeft(rightSide); break;
-            case ">>=": rightSide = leftValue.shiftRight(rightSide); break;
-            case "|=": rightSide = leftValue.bitwiseOr(rightSide); break;
-            case "&=": rightSide = leftValue.bitwiseAnd(rightSide); break;
-            default:
-                throw new UnimplementedException("Unimplemented assignment operator: " + operator);
-        }
+        try {
+            AlkValue leftValue = leftSide.getValue();
+            switch (operator)
+            {
+                case "=": break;
+                case "+=": rightSide = leftValue.add(rightSide); break;
+                case "-=": rightSide = leftValue.subtract(rightSide); break;
+                case "*=": rightSide = leftValue.multiply(rightSide); break;
+                case "/=": rightSide = leftValue.divide(rightSide); break;
+                case "%=": rightSide = leftValue.mod(rightSide); break;
+                case "<<=": rightSide = leftValue.shiftLeft(rightSide); break;
+                case ">>=": rightSide = leftValue.shiftRight(rightSide); break;
+                case "|=": rightSide = leftValue.bitwiseOr(rightSide); break;
+                case "&=": rightSide = leftValue.bitwiseAnd(rightSide); break;
+                default:
+                    throw new UnimplementedException("Unimplemented assignment operator: " + operator);
+            }
 
-        leftSide.assign(rightSide.clone(generator));
+            leftSide.assign(rightSide.clone(generator));
+        }
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
         return null;
     }
 
@@ -74,13 +82,10 @@ public class AssignmentStmtState extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        Store store = payload.getExecution().getStore();
-        AssignmentStmtState copy = new AssignmentStmtState((alkParser.AssignmentStmtContext) tree, payload);
-        copy.rightSide = rightSide.clone(store);
-
-        // TODO: Location doesn't clone fine as it doesn't know the new store (is this however mandatory?)
-        copy.leftSide = leftSide.clone();
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        AssignmentStmtState copy = new AssignmentStmtState((alkParser.AssignmentStmtContext) tree, sm.getPayload());
+        copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
+        copy.leftSide = sm.getLocationMapper().get(leftSide);
+        return super.decorate(copy, sm);
     }
 }

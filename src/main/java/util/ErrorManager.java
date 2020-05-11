@@ -43,7 +43,7 @@ public class ErrorManager
     }
 
     public void handleError(AlkException ex) {
-        io.write("[ERROR]: " + ex.getMessage());
+        io.write("[ERROR at line " + ex.getLine() + "]: " + ex.getMessage());
     }
 
     public ErrorManager getEndpoint() {

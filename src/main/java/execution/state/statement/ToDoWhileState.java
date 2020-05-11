@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.StmtVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToDoWhileContext.class)
 public class ToDoWhileState extends IndependentSingleState
@@ -16,8 +17,8 @@ public class ToDoWhileState extends IndependentSingleState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ToDoWhileState copy = new ToDoWhileState((alkParser.ToDoWhileContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        ToDoWhileState copy = new ToDoWhileState((alkParser.ToDoWhileContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.env.Environment;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.RefIDContext.class)
 public class RefIDState extends ExecutionState
@@ -32,7 +33,6 @@ public class RefIDState extends ExecutionState
             result = new ExecutionResult(env.define(this.id));
         }
 
-
         return null;
     }
 
@@ -43,10 +43,10 @@ public class RefIDState extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        RefIDState copy = new RefIDState(ctx, payload);
+        RefIDState copy = new RefIDState(ctx, sm.getPayload());
         copy.id = id;
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 }

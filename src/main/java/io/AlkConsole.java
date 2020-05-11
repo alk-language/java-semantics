@@ -47,9 +47,9 @@ public class AlkConsole implements IOManager, OptionProvider
         complexity.setRequired(false);
         options.addOption(complexity);
 
-        Option output = new Option("o", "output", true, "output file name");
+        /*Option output = new Option("o", "output", true, "output file name");
         output.setRequired(false);
-        options.addOption(output);
+        options.addOption(output);*/
 
         Option help = new Option("h", "help", false, "display help");
         help.setRequired(false);
