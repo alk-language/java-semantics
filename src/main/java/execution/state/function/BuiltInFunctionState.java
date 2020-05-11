@@ -4,12 +4,14 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
 import grammar.alkParser;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.NameMapper;
 import util.Payload;
+import util.SplitMapper;
 import util.exception.InternalException;
 import util.functions.BuiltInFunction;
 import util.functions.Functions;
@@ -57,25 +59,29 @@ public class BuiltInFunctionState extends GeneratorState<AlkValue, Value>
 
             return (AlkValue) method.invoke(functions, params);
         } catch (NoSuchMethodException e) {
-            throw new AlkException(ERR_FUNCTION_UNDEFINED);
+            super.handle(new AlkException(ERR_FUNCTION_UNDEFINED));
         }
         catch (IllegalAccessException | InvocationTargetException e )
         {
+            Exception cause = (Exception) e.getCause();
+            if (cause instanceof AlkException)
+                super.handle((AlkException) cause);
             throw new InternalException((Exception) e.getCause());
         }
+        return null;
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
+    public ExecutionState clone(SplitMapper sm) {
 
-        BuiltInFunctionState copy = new BuiltInFunctionState((alkParser.BuiltinFunctionContext) tree, payload);
+        BuiltInFunctionState copy = new BuiltInFunctionState((alkParser.BuiltinFunctionContext) tree, sm.getPayload());
 
         for (AlkValue value : this.params)
         {
-            copy.params.add(value.clone(payload.getExecution().getStore()));
+            copy.params.add(value.weakClone(sm.getLocationMapper()));
         }
         copy.functionName = functionName;
 
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 }

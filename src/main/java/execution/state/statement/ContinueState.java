@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.exceptions.ContinueException;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ContinueStmtContext.class)
 public class ContinueState extends ExecutionState
@@ -31,9 +32,9 @@ public class ContinueState extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        ContinueState copy = new ContinueState(ctx, payload);
-        return super.decorate(copy);
+        ContinueState copy = new ContinueState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

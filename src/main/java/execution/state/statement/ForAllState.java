@@ -11,6 +11,7 @@ import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class ForAllState extends LoopingState
         {
             Value value = result.getValue().toRValue();
             if (!(value instanceof AlkIterableValue))
-                throw new AlkException(ERR_FORALL_ITERABLE_REQUIRED);
+                super.handle(new AlkException(ERR_FORALL_ITERABLE_REQUIRED));
 
             source = ((AlkIterableValue) value).toArray(generator);
         }
@@ -62,7 +63,11 @@ public class ForAllState extends LoopingState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        return null;
+    public ExecutionState clone(SplitMapper sm) {
+        ForAllState copy = new ForAllState(ctx, sm.getPayload());
+        copy.step = this.step;
+        for (Location loc : source)
+            copy.source.add(sm.getLocationMapper().get(loc));
+        return super.decorate(copy, sm);
     }
 }

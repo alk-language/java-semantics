@@ -1,8 +1,10 @@
 package util.types;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.alkInt.AlkInt;
+import util.lambda.LocationGenerator;
 
 import java.util.Iterator;
 
@@ -21,8 +23,13 @@ public class IntervalValue implements Value, Iterable<AlkInt> {
     }
 
     @Override
-    public Value clone() {
-        return new IntervalValue((AlkInt)left.clone(), (AlkInt)right.clone());
+    public Value clone(LocationGenerator locationGenerator) {
+        return new IntervalValue((AlkInt) left.clone(locationGenerator), (AlkInt) right.clone(locationGenerator));
+    }
+
+    @Override
+    public Value weakClone(LocationMapper locationMapper) {
+        return new IntervalValue((AlkInt) left.weakClone(locationMapper), (AlkInt) right.weakClone(locationMapper));
     }
 
     @Override

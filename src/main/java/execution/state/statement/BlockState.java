@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.StmtVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.BlockContext.class)
 public class BlockState extends IndependentSingleState
@@ -20,9 +21,9 @@ public class BlockState extends IndependentSingleState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        BlockState copy = new BlockState(ctx, payload);
-        return super.decorate(copy);
+        BlockState copy = new BlockState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

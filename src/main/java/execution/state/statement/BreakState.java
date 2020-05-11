@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.exceptions.BreakException;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.BreakStmtContext.class)
 public class BreakState extends ExecutionState
@@ -30,9 +31,9 @@ public class BreakState extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        BreakState copy = new BreakState(ctx, payload);
-        return super.decorate(copy);
+        BreakState copy = new BreakState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

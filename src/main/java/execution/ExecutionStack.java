@@ -1,12 +1,10 @@
 package execution;
 
 import execution.state.ExecutionState;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.exceptions.UnwindException;
-import util.Configuration;
-import util.EnvironmentManager;
-import util.ErrorManager;
-import util.Payload;
+import util.*;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -19,8 +17,6 @@ public class ExecutionStack implements Cloneable
     private EnvironmentManager envManager;
 
     private Configuration config;
-
-    private ExecutionResult result;
 
     private Stack< ExecutionState<? extends Value, ? extends Value> > stack = new Stack<>();
 
@@ -88,19 +84,11 @@ public class ExecutionStack implements Cloneable
                 top = stack.peek();
                 top.assign(result);
             }
-            else
-            {
-                this.result = result;
-            }
         }
         else
         {
             push(next);
         }
-    }
-
-    public ExecutionResult getResult() {
-        return result;
     }
 
     void nullifyLast()
@@ -113,34 +101,23 @@ public class ExecutionStack implements Cloneable
             top = stack.peek();
             top.assign(result);
         }
-        else
-        {
-            this.result = result;
-        }
     }
 
-    Map<ExecutionState, ExecutionState> cloneStates(Execution master) {
-        Map<ExecutionState, ExecutionState> mapping = new HashMap<>();
+    StateMapper cloneStates(Execution master, LocationMapper locMapping, EnvironmentMapper envMapper) {
+        StateMapper mapping = new StateMapper();
 
         for (ExecutionState<? extends Value, ? extends Value> state : stack)
         {
-            Payload payload = new Payload(master);
-            if (state == null || mapping == null)
-            {
-                int aci = 0;
-            }
-            mapping.put(state, state.clone(payload));
+            SplitMapper sm = new SplitMapper(new Payload(master), locMapping, envMapper);
+            mapping.put(state, state.clone(sm));
         }
 
         return mapping;
     }
 
-    ExecutionStack makeClone(Execution master, Map<ExecutionState, ExecutionState> stateMapping)
+    ExecutionStack makeClone(Execution master, StateMapper stateMapping)
     {
         ExecutionStack clone = new ExecutionStack(master.getConfiguration(), master.getEnvManager());
-
-        if (result != null)
-            clone.result = result.clone();
 
         for (ExecutionState<? extends Value, ? extends Value> state : stack)
         {

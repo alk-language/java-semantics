@@ -20,6 +20,8 @@ import execution.types.alkNotAValue.AlkNotAValue;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 import util.Payload;
+import util.SplitMapper;
+import util.exception.InternalException;
 
 import java.util.ArrayList;
 
@@ -415,8 +417,8 @@ public class StmtVisitor extends alkBaseVisitor {
     @Override public Object visitToDirective(alkParser.ToDirectiveContext ctx) {
         return new PrimitiveState(ctx.directive(), payload, null) {
             @Override
-            public ExecutionState clone(Payload payload) {
-                return null;
+            public ExecutionState clone(SplitMapper sm) {
+                throw new InternalException("Can't clone ToDirective state.");
             }
         };
     }

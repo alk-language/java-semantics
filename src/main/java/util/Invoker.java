@@ -42,7 +42,10 @@ public class Invoker {
             throw new AlkException(ERR_METHOD);
         }
         catch (IllegalAccessException | InvocationTargetException e) {
-            throw new InternalException(e);
+            Exception cause = (Exception) e.getCause();
+            if (cause instanceof AlkException)
+                throw (AlkException) cause;
+            throw new InternalException((Exception) e.getCause());
         }
 
     }

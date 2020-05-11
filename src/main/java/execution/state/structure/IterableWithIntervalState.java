@@ -9,6 +9,7 @@ import execution.types.alkInt.AlkInt;
 import parser.exceptions.AlkException;
 import parser.visitors.structure.DataStructureVisitor;
 import util.Payload;
+import util.SplitMapper;
 import util.exception.InternalException;
 import util.types.IntervalValue;
 import util.types.Value;
@@ -49,14 +50,16 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
             }
             return iterableValue;
         } catch (InstantiationException | IllegalAccessException e) {
+            Exception cause = (Exception) e.getCause();
+            if (cause instanceof AlkException)
+                super.handle((AlkException) cause);
             throw new InternalException(e);
         }
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        IterableWithIntervalState copy = new IterableWithIntervalState(tree, payload, null, clazz);
-
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        IterableWithIntervalState copy = new IterableWithIntervalState(tree, sm.getPayload(), null, clazz);
+        return super.decorate(copy, sm);
     }
 }

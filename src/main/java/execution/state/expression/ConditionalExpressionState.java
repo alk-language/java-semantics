@@ -3,11 +3,13 @@ package execution.state.expression;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import static parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;
@@ -46,7 +48,7 @@ public class ConditionalExpressionState extends ExecutionState {
         queryExpression = queryExpression.toRValue();
         if (!(queryExpression instanceof AlkBool))
         {
-            throw new AlkException(ERR_CONDITIONAL_NO_BOOL);
+            super.handle(new AlkException(ERR_CONDITIONAL_NO_BOOL));
         }
 
         if (((AlkBool) queryExpression).isTrue())
@@ -74,9 +76,9 @@ public class ConditionalExpressionState extends ExecutionState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ConditionalExpressionState copy = new ConditionalExpressionState(ctx, payload);
-        copy.queryExpression = queryExpression.clone();
-        return copy;
+    public ExecutionState clone(SplitMapper sm) {
+        ConditionalExpressionState copy = new ConditionalExpressionState(ctx, sm.getPayload());
+        copy.queryExpression = queryExpression.weakClone(sm.getLocationMapper());
+        return super.decorate(copy, sm);
     }
 }

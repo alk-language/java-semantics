@@ -10,6 +10,7 @@ import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.RefPointMethodContext.class)
 public class RefPointMethodState extends ExecutionState
@@ -51,19 +52,15 @@ public class RefPointMethodState extends ExecutionState
         }
         else if (solution == null)
         {
-            if (result == null)
-            {
-                int aci = 0;
-            }
             solution = result.getValue().toLValue();
         }
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        RefPointMethodState copy = new RefPointMethodState(ctx, payload);
-        copy.reference = reference; // should be mapped
-        copy.solution = solution; // should be mapped
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        RefPointMethodState copy = new RefPointMethodState(ctx, sm.getPayload());
+        copy.reference = sm.getLocationMapper().get(reference);
+        copy.solution = sm.getLocationMapper().get(solution);
+        return super.decorate(copy, sm);
     }
 }

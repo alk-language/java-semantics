@@ -6,6 +6,7 @@ import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.functions.Parameter;
 import util.types.Value;
 
@@ -20,8 +21,8 @@ public class ParamDefinitionState extends PrimitiveState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ParamDefinitionState copy = new ParamDefinitionState(ctx, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        ParamDefinitionState copy = new ParamDefinitionState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

@@ -49,8 +49,8 @@ public class EnvironmentManager {
         return state2env.get(state);
     }
 
-    public Map<Environment, Environment> cloneEnvironments(LocationMapper locMapping, Store store) {
-        Map<Environment, Environment> mapping = new HashMap<>();
+    public EnvironmentMapper cloneEnvironments(LocationMapper locMapping, Store store) {
+        EnvironmentMapper mapping = new EnvironmentMapper();
         for (Environment env : env2state.keySet())
         {
             Environment copy = env.makeClone(locMapping, store);
@@ -59,10 +59,8 @@ public class EnvironmentManager {
         return mapping;
     }
 
-    public EnvironmentManager makeClone(Execution copy,
-                                        Map<ExecutionState, ExecutionState> stateMapping,
-                                        Map<Environment, Environment> envMapping,
-                                        Store copyStore) {
+    public EnvironmentManager makeClone(StateMapper stateMapping,
+                                        EnvironmentMapper envMapping) {
 
         EnvironmentManager clone = new EnvironmentManager();
 

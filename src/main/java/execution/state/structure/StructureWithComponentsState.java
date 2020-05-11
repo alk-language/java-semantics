@@ -8,12 +8,12 @@ import execution.types.alkStructure.AlkStructure;
 import parser.visitors.structure.DataStructureVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.ComponentValue;
 
 @CtxState(ctxClass = alkParser.StructureWithComponentsContext.class)
 public class StructureWithComponentsState extends GeneratorState<AlkStructure, ComponentValue>
 {
-
     private AlkStructure struct = new AlkStructure();
 
     alkParser.StructureWithComponentsContext ctx;
@@ -35,9 +35,9 @@ public class StructureWithComponentsState extends GeneratorState<AlkStructure, C
         return struct;
     }
     @Override
-    public ExecutionState clone(Payload payload) {
-        StructureWithComponentsState copy = new StructureWithComponentsState(ctx, payload);
-        copy.struct = (AlkStructure) this.struct.clone();
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        StructureWithComponentsState copy = new StructureWithComponentsState(ctx, sm.getPayload());
+        copy.struct = (AlkStructure) this.struct.weakClone(sm.getLocationMapper());
+        return super.decorate(copy, sm);
     }
 }

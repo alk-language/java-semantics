@@ -1,7 +1,9 @@
 package util.functions;
 
 import parser.env.Location;
+import parser.env.LocationMapper;
 import util.exception.InternalException;
+import util.lambda.LocationGenerator;
 import util.types.Value;
 
 public class Parameter implements Value {
@@ -15,8 +17,14 @@ public class Parameter implements Value {
     }
 
     @Override
-    public Value clone() {
-        return this;
+    public Value clone(LocationGenerator generator)
+    {
+        return new Parameter(name, out);
+    }
+
+    @Override
+    public Value weakClone(LocationMapper locationMapper) {
+        return new Parameter(name, out);
     }
 
     @Override

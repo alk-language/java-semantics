@@ -4,9 +4,11 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
 import parser.env.Location;
+import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.MinusMinusStmtContext.class)
 public class MinusMinusStmtState extends ExecutionState
@@ -27,7 +29,14 @@ public class MinusMinusStmtState extends ExecutionState
         {
             return request(ExpressionVisitor.class, ctx.ref_name());
         }
-        ref.toRValue().minusminusleft();
+        try
+        {
+            ref.toRValue().minusminusleft();
+        }
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
         return null;
     }
 
@@ -38,10 +47,10 @@ public class MinusMinusStmtState extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        MinusMinusStmtState copy = new MinusMinusStmtState(ctx, payload);
-        copy.ref = ref; // mapping should be done
-        return super.decorate(copy);
+        MinusMinusStmtState copy = new MinusMinusStmtState(ctx, sm.getPayload());
+        copy.ref = sm.getLocationMapper().get(ref);
+        return super.decorate(copy, sm);
     }
 }

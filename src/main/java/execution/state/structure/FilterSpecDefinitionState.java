@@ -12,6 +12,7 @@ import execution.types.alkBool.AlkBool;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
             AlkValue resultVal = (AlkValue) result.getValue().toRValue();
 
             if (!(resultVal instanceof AlkIterableValue))
-                throw new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
+                super.handle(new AlkException(ERR_SPEC_ITERABLE_REQUIRED));
 
             source = ((AlkIterableValue) resultVal).toArray(generator);
             step = 0;
@@ -66,53 +67,22 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
         else
         {
             if (!(result.getValue().toRValue() instanceof AlkBool))
-                throw new AlkException(ERR_SPEC_BOOL);
+                super.handle(new AlkException(ERR_SPEC_BOOL));
             if (((AlkBool) result.getValue().toRValue()).isTrue())
                 array.push(generator.generate(validatingValue));
         }
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        FilterSpecDefinitionState copy = new FilterSpecDefinitionState((alkParser.FilterSpecDefinitionContext) tree, payload);
+    public ExecutionState clone(SplitMapper sm) {
+        FilterSpecDefinitionState copy = new FilterSpecDefinitionState((alkParser.FilterSpecDefinitionContext) tree, sm.getPayload());
         for (Location value : source)
         {
-            copy.source.add(generator.generate(value.toRValue().clone(generator)));
+            copy.source.add(sm.getLocationMapper().get(value));
         }
         copy.step = step;
-        for (Location value : array)
-        {
-            copy.array.push(generator.generate(value.toRValue().clone(generator)));
-        }
-        copy.validatingValue = this.validatingValue.clone(generator);
-        return super.decorate(copy);
+        copy.array = array.weakClone(sm.getLocationMapper());
+        copy.validatingValue = this.validatingValue.weakClone(sm.getLocationMapper());
+        return super.decorate(copy, sm);
     }
 }
-
-/*
-        String iterator = ctx.ID().toString();
-        ArrayList<AlkValue> array = new ArrayList<>();
-        ExpressionVisitor expVisitor = new ExpressionVisitor(env);
-        AlkValue source = (AlkValue) expVisitor.visit(ctx.expression(0));
-        if (!source.isIterable)
-        {
-            AlkException e = new AlkException(ERR_SPEC_ITERABLE_REQUIRED);
-            e.printException(ctx.start.getLine());
-            return array;
-        }
-
-        ArrayList<AlkValue> src = ((AlkIterableValue)source).toArray();
-        for (AlkValue x : src)
-        {
-            env.update(iterator, x);
-            AlkValue result = (AlkValue) expVisitor.visit(ctx.expression(1));
-            if (!result.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_SPEC_BOOL);
-                e.printException(ctx.start.getLine());
-                return array;
-            }
-            if (((AlkBool)result).getValue())
-                array.add(x);
-        }
-        return array;*/

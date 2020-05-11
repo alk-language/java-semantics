@@ -5,9 +5,11 @@ import execution.state.ExecutionState;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Location;
+import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.PlusPlusStmtContext.class)
 public class PlusPlusStmtState extends ExecutionState
@@ -29,7 +31,14 @@ public class PlusPlusStmtState extends ExecutionState
         {
             return request(ExpressionVisitor.class, ctx.ref_name());
         }
-        ref.toRValue().plusplusleft();
+        try
+        {
+            ref.toRValue().plusplusleft();
+        }
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
         return null;
     }
 
@@ -40,10 +49,10 @@ public class PlusPlusStmtState extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        PlusPlusStmtState copy = new PlusPlusStmtState(ctx, payload);
-        copy.ref = ref; //mapping should be done
-        return super.decorate(copy);
+        PlusPlusStmtState copy = new PlusPlusStmtState(ctx, sm.getPayload());
+        copy.ref = sm.getLocationMapper().get(ref);
+        return super.decorate(copy, sm);
     }
 }

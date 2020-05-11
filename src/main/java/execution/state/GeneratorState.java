@@ -3,7 +3,9 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
+import parser.env.LocationMapper;
 import util.Payload;
+import util.SplitMapper;
 import util.lambda.Validator;
 import util.types.Value;
 
@@ -56,12 +58,11 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
         this.preValidator = preValidator;
     }
 
-    protected GeneratorState decorate(GeneratorState copy)
+    protected GeneratorState decorate(GeneratorState copy, SplitMapper sm)
     {
         copy.step = step;
-        copy.children.clear();
-        copy.children.addAll(children);
-        return (GeneratorState) super.decorate(copy);
+        copy.preValidator = preValidator;
+        return (GeneratorState) super.decorate(copy, sm);
     }
 
 }

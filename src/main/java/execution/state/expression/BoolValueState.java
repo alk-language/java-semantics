@@ -4,8 +4,10 @@ import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
 import grammar.alkParser;
 import execution.types.alkBool.AlkBool;
+import parser.env.LocationMapper;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.BoolValueContext.class)
 public class BoolValueState extends PrimitiveState {
@@ -14,8 +16,8 @@ public class BoolValueState extends PrimitiveState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        BoolValueState copy = new BoolValueState((alkParser.BoolValueContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        BoolValueState copy = new BoolValueState((alkParser.BoolValueContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

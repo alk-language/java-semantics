@@ -3,7 +3,9 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
+import parser.env.LocationMapper;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
@@ -52,10 +54,10 @@ public abstract class GuardedGeneratorState<T extends Value> extends GeneratorSt
         return localResult;
     }
 
-    protected GuardedGeneratorState decorate(GuardedGeneratorState copy)
+    protected GuardedGeneratorState decorate(GuardedGeneratorState copy, SplitMapper sm)
     {
-        copy.localResult = localResult.clone();
-        return (GuardedGeneratorState) super.decorate(copy);
+        copy.localResult = localResult.weakClone(sm.getLocationMapper());
+        return (GuardedGeneratorState) super.decorate(copy, sm);
     }
 
 }

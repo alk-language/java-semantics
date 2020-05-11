@@ -3,15 +3,16 @@ package execution.state;
 import execution.Execution;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
+import parser.env.LocationMapper;
 import parser.env.Store;
 import execution.types.AlkValue;
+import parser.exceptions.AlkException;
 import parser.exceptions.UnwindException;
-import util.Configuration;
-import util.FuncManager;
-import util.Payload;
-import util.VisitorFactory;
+import util.*;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 
@@ -47,12 +48,13 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     public abstract void assign(ExecutionResult<S> result);
 
-    public abstract ExecutionState clone(Payload payload);
+    public abstract ExecutionState clone(SplitMapper sm);
 
     protected Environment getEnv()
     {
         return payload.getEnvManager().getEnv(this);
     }
+
     protected Store getStore()
     {
         return payload.getExecution().getStore();
@@ -67,11 +69,11 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
     protected Environment getGlobal() { return payload.getExecution().getGlobal(); }
 
 
-    protected ExecutionState decorate(ExecutionState copy)
+    protected ExecutionState decorate(ExecutionState copy, SplitMapper sm)
     {
         if (result != null)
         {
-            copy.result = result.clone();
+            copy.result = result.clone(sm.getLocationMapper());
         }
         return copy;
     }
@@ -106,5 +108,13 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
     public boolean handle(UnwindException u)
     {
         return false;
+    }
+
+    public boolean handle(AlkException e)
+    {
+        ParserRuleContext prc = (ParserRuleContext) tree;
+        if (e.isUnsigned())
+            throw new AlkException(prc.start.getLine(), e.getMessage());
+        throw e;
     }
 }

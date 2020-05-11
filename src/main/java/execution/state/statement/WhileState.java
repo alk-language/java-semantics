@@ -7,6 +7,7 @@ import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.WhileStructureContext.class)
 public class WhileState extends LoopingState
@@ -20,43 +21,9 @@ public class WhileState extends LoopingState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        WhileState copy = new WhileState(ctx, payload);
-        return super.decorate(copy);
+        WhileState copy = new WhileState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }
-
-/*
-        if (returnValue != null || breakFlag || continueFlag)
-            return null;
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!value.type.equals("Bool"))
-        {
-            AlkException e = new AlkException(ERR_WHILE_NOT_BOOL);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        loopLevel++;
-        breakFlag = continueFlag = false;
-        while (((AlkBool)value).getValue())
-        {
-            visit(ctx.statement());
-            continueFlag = false;
-            if (returnValue != null || breakFlag)
-            {
-                breakFlag = false;
-                loopLevel--;
-                return null;
-            }
-            value = (AlkValue) exprVisitor.visit(ctx.expression());
-            if (!value.type.equals("Bool"))
-            {
-                AlkException e = new AlkException(ERR_WHILE_NOT_BOOL);
-                e.printException(ctx.start.getLine());
-                return null;
-            }
-        }
-        loopLevel--;
-        return null;*/

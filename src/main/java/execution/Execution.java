@@ -74,7 +74,9 @@ public class Execution extends Thread
             throw new OnlyMetaException();
         }
         if (config.hasPrecision())
+        {
             Constants.MAX_DECIMALS = config.getPrecision() + 1;
+        }
         if (config.hasInput())
         {
             String input = config.getInput();

@@ -6,6 +6,8 @@ import grammar.alkParser;
 import parser.visitors.InitVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
+import util.exception.InternalException;
 
 @CtxState(ctxClass = alkParser.ConfigContext.class)
 public class InitState extends IndependentGeneratorState {
@@ -17,7 +19,7 @@ public class InitState extends IndependentGeneratorState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        return null;
+    public ExecutionState clone(SplitMapper sm) {
+        throw new InternalException("The InitState shouldn't be cloned.");
     }
 }

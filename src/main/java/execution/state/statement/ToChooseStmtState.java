@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.StmtVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToChooseStmtContext.class)
 public class ToChooseStmtState extends IndependentSingleState
@@ -17,8 +18,8 @@ public class ToChooseStmtState extends IndependentSingleState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ToChooseStmtState copy = new ToChooseStmtState((alkParser.ToChooseStmtContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        ToChooseStmtState copy = new ToChooseStmtState((alkParser.ToChooseStmtContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

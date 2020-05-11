@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.StmtVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToRepeatContext.class)
 public class ToRepeatState extends IndependentSingleState
@@ -16,8 +17,8 @@ public class ToRepeatState extends IndependentSingleState
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ToRepeatState copy = new ToRepeatState((alkParser.ToRepeatContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        ToRepeatState copy = new ToRepeatState((alkParser.ToRepeatContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

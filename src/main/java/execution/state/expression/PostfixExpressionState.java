@@ -5,10 +5,12 @@ import execution.state.SingleState;
 import execution.types.AlkValue;
 import grammar.alkParser;
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -21,29 +23,35 @@ public class PostfixExpressionState extends SingleState<Value, Value> {
 
     @Override
     protected Value interpretResult(Value value) {
-        Value result = value;
+        try {
+            Value result = value;
 
-        for (int i=1; i<tree.getChildCount(); i++)
-        {
-            switch (tree.getChild(i).getText()) {
-                case "++":
-                    result = ((AlkValue) result.toRValue()).plusplusright();
-                    break;
-                case "--":
-                    result = ((AlkValue) result.toRValue()).minusminusright();
-                    break;
-                default:
-                    throw new InternalException("Unknown postfix operator used.");
+            for (int i=1; i<tree.getChildCount(); i++)
+            {
+                switch (tree.getChild(i).getText()) {
+                    case "++":
+                        result = ((AlkValue) result.toRValue()).plusplusright();
+                        break;
+                    case "--":
+                        result = ((AlkValue) result.toRValue()).minusminusright();
+                        break;
+                    default:
+                        throw new InternalException("Unknown postfix operator used.");
+                }
             }
+            return result;
         }
-
-        return result;
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
+        return null;
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 
 }

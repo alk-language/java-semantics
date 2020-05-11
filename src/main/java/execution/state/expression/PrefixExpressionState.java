@@ -4,11 +4,13 @@ import execution.state.ExecutionState;
 import execution.state.SingleState;
 import grammar.alkParser;
 import parser.env.Location;
+import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -22,28 +24,35 @@ public class PrefixExpressionState extends SingleState<Value, Value> {
 
     @Override
     protected Value interpretResult(Value value) {
-        Value result = value;
+        try {
+            Value result = value;
 
-        switch (tree.getChild(0).getText())
-        {
-            case "++":
-                result = ((AlkValue) result.toRValue()).plusplusleft(); break;
-            case "--":
-                result = ((AlkValue) result.toRValue()).minusminusleft(); break;
-            case "++%":
-                result = ((AlkValue) result.toRValue()).plusplusmod(); break;
-            case "--%":
-                result = ((AlkValue) result.toRValue()).minusminusmod(); break;
-            default:
-                throw new InternalException("Unknown prefix operator used.");
+            switch (tree.getChild(0).getText())
+            {
+                case "++":
+                    result = ((AlkValue) result.toRValue()).plusplusleft(); break;
+                case "--":
+                    result = ((AlkValue) result.toRValue()).minusminusleft(); break;
+                case "++%":
+                    result = ((AlkValue) result.toRValue()).plusplusmod(); break;
+                case "--%":
+                    result = ((AlkValue) result.toRValue()).minusminusmod(); break;
+                default:
+                    throw new InternalException("Unknown prefix operator used.");
+            }
+
+            return result;
         }
-
-        return result;
+        catch (AlkException e)
+        {
+            super.handle(e);
+        }
+        return null;
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

@@ -13,9 +13,9 @@ import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import execution.helpers.NonDeterministic;
-import util.Cloner;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,6 @@ public class ChooseStmtState extends ExecutionState
             return super.request(ExpressionVisitor.class, ctx.expression(1));
         }
 
-        // TODO: de reimplementat cu choose + if
         if (ctx.SOTHAT() == null)
         {
             values = array;
@@ -92,7 +91,7 @@ public class ChooseStmtState extends ExecutionState
             }
             else
             {
-                throw new AlkException(ERR_CHOOSE_NOT_ITERABLE);
+                super.handle(new AlkException(ERR_CHOOSE_NOT_ITERABLE));
             }
         }
         else
@@ -105,50 +104,21 @@ public class ChooseStmtState extends ExecutionState
             }
             else
             {
-                throw new AlkException(ERR_CHOSE_ST_BOOL);
+                super.handle(new AlkException(ERR_CHOSE_ST_BOOL));
             }
         }
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, payload);
+    public ExecutionState clone(SplitMapper sm) {
+        ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, sm.getPayload());
         copy.step = step;
-        //copy.array = Cloner.clone(array, generator);
-        //copy.values = Cloner.clone(values, generator);
-        return super.decorate(copy);
+        if (this.array != null)
+            copy.array = new ArrayList<>();
+        for (Location loc : array)
+            copy.array.add(sm.getLocationMapper().get(loc));
+        for (Location loc : values)
+            copy.values.add(sm.getLocationMapper().get(loc));
+        return super.decorate(copy, sm);
     }
 }
-
-/*
-        ExpressionVisitor expressionVisitor = new ExpressionVisitor(env);
-        AlkValue struct = (AlkValue)expressionVisitor.visit(ctx.expression(0));
-        if (!struct.isIterable)
-        {
-            AlkException e = new AlkException(ERR_CHOOSE_NOT_ITERABLE);
-            e.printException(ctx.start.getLine());
-        }
-        AlkIterableValue val = (AlkIterableValue) struct;
-
-        if (val.toArray().size()==0)
-        {
-            AlkException e = new AlkException(ERR_CHOSE_RESULT);
-            e.printException(ctx.start.getLine());
-        }
-
-        if (ctx.SOTHAT()==null)
-        {
-            AlkValue value = NonDeterministic.choose(val);
-            env.update(ctx.ID().getText(), value.clone());
-        }
-        else
-        {
-            AlkValue value = null;
-            try {
-                value = NonDeterministic.chooseST(ctx.ID().getText(), val, ctx.expression(1), env);
-            } catch (AlkException e) {
-                e.printException(ctx.start.getLine());
-            }
-            env.update(ctx.ID().getText(), value.clone());
-        }
-        return null;*/

@@ -119,12 +119,12 @@ public class AlkInt extends AlkValue {
     }
 
     @Override
-    public AlkValue weakClone(LocationMapper locMapping) {
-        return clone(null);
+    public AlkValue clone(LocationGenerator locationGenerator) {
+        return new AlkInt(value);
     }
 
     @Override
-    public AlkValue clone(LocationGenerator generator) {
+    public AlkValue weakClone(LocationMapper locationMapper) {
         return new AlkInt(value);
     }
 

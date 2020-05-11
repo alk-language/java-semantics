@@ -9,6 +9,7 @@ import parser.visitors.StmtVisitor;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.Value;
 
 import static parser.exceptions.AlkException.ERR_IF_NOT_BOOL;
@@ -63,7 +64,7 @@ public class IfStmtState extends ExecutionState {
             Value value = result.getValue().toRValue();
             if (!(value instanceof AlkBool))
             {
-                throw new AlkException(ERR_IF_NOT_BOOL);
+                super.handle(new AlkException(ERR_IF_NOT_BOOL));
             }
 
             condition = (AlkBool) value;
@@ -71,32 +72,10 @@ public class IfStmtState extends ExecutionState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        IfStmtState copy = new IfStmtState(ctx, payload);
-        copy.condition = (AlkBool) condition.clone();
+    public ExecutionState clone(SplitMapper sm) {
+        IfStmtState copy = new IfStmtState(ctx, sm.getPayload());
+        copy.condition = (AlkBool) condition.weakClone(sm.getLocationMapper());
         copy.executed = executed;
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 }
-
-/*
-        ExpressionVisitor exprVisitor = new ExpressionVisitor(env);
-        AlkValue value = (AlkValue) exprVisitor.visit(ctx.expression());
-        if (!value.type.equals("Bool"))
-        {
-
-            AlkException e = new AlkException(ERR_IF_NOT_BOOL);
-            e.printException(ctx.start.getLine());
-            return null;
-        }
-        if (((AlkBool)value).getValue())
-            return visit(ctx.statement(0));
-        else
-        {
-            if (ctx.statement().size()>1)
-            {
-                return visit(ctx.statement(1));
-            }
-        }
-        return null;
-*/

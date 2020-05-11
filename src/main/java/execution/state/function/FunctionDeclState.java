@@ -3,12 +3,11 @@ package execution.state.function;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.AlkFunction;
 import parser.visitors.StmtVisitor;
-import util.Cloner;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.exception.InternalException;
 import util.functions.Parameter;
 import util.types.Value;
@@ -55,14 +54,13 @@ public class FunctionDeclState extends ExecutionState {
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        FunctionDeclState copy = new FunctionDeclState(ctx, payload);
+        FunctionDeclState copy = new FunctionDeclState(ctx, sm.getPayload());
         copy.step = step;
-        copy.params.addAll(params);
         for (Parameter param : params)
-            copy.params.add((Parameter) param.clone());
+            copy.params.add((Parameter) param.weakClone(sm.getLocationMapper()));
         copy.modifies.addAll(modifies);
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 }

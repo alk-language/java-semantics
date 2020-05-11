@@ -10,6 +10,7 @@ import execution.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 import util.types.IntervalValue;
 import util.types.Value;
 
@@ -40,22 +41,22 @@ public class IntervalDefinitionState extends GeneratorState<IntervalValue, Value
         AlkValue y = limits.get(1);
 
         if (!(x instanceof AlkInt && y instanceof AlkInt))
-            throw new AlkException(ERR_NOINT_INTERVAL);
+            super.handle(new AlkException(ERR_NOINT_INTERVAL));
 
         if ((x.greater(y)).getValue())
-            throw new AlkException(ERR_LIMIT);
+            super.handle(new AlkException(ERR_LIMIT));
 
         return new IntervalValue((AlkInt) x, (AlkInt) y);
     }
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        IntervalDefinitionState copy = new IntervalDefinitionState((alkParser.IntervalDefinitionContext) tree, payload);
+    public ExecutionState clone(SplitMapper sm) {
+        IntervalDefinitionState copy = new IntervalDefinitionState((alkParser.IntervalDefinitionContext) tree, sm.getPayload());
         for (AlkValue value : limits)
         {
-            copy.limits.add(value.clone(generator));
+            copy.limits.add(value.weakClone(sm.getLocationMapper()));
         }
-        return super.decorate(copy);
+        return super.decorate(copy, sm);
     }
 
 }

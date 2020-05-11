@@ -6,6 +6,7 @@ import grammar.alkParser;
 import parser.visitors.StmtVisitor;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToIncreaseDecreaseContext.class)
 public class ToIncreaseDecreaseState extends IndependentSingleState
@@ -20,9 +21,9 @@ public class ToIncreaseDecreaseState extends IndependentSingleState
     }
 
     @Override
-    public ExecutionState clone(Payload payload)
+    public ExecutionState clone(SplitMapper sm)
     {
-        ToIncreaseDecreaseState copy = new ToIncreaseDecreaseState(ctx, payload);
-        return copy;
+        ToIncreaseDecreaseState copy = new ToIncreaseDecreaseState(ctx, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }

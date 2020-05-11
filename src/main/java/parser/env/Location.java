@@ -1,6 +1,9 @@
 package parser.env;
 
 import execution.types.AlkValue;
+import parser.exceptions.AlkException;
+import util.exception.InternalException;
+import util.lambda.LocationGenerator;
 import util.types.Value;
 
 public class Location implements Value {
@@ -23,8 +26,13 @@ public class Location implements Value {
     }
 
     @Override
-    public Location clone() {
-        return new Location(store);
+    public Location clone(LocationGenerator generator) {
+        throw new InternalException("Can't deep clone a location");
+    }
+
+    @Override
+    public Location weakClone(LocationMapper locationMapper) {
+        return locationMapper.get(this);
     }
 
     @Override

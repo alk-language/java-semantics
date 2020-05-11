@@ -28,7 +28,7 @@ public class TestingConfiguration extends Configuration {
     }
 }
 
-class TestingOptionProvider implements OptionProvider{
+class TestingOptionProvider implements OptionProvider {
 
     String alkFile;
 

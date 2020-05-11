@@ -4,8 +4,10 @@ import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
 import grammar.alkParser;
 import execution.types.alkString.AlkString;
+import parser.env.LocationMapper;
 import util.CtxState;
 import util.Payload;
+import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.StringValueContext.class)
 public class StringValueState extends PrimitiveState {
@@ -15,8 +17,8 @@ public class StringValueState extends PrimitiveState {
 
 
     @Override
-    public ExecutionState clone(Payload payload) {
-        StringValueState copy = new StringValueState((alkParser.StringValueContext) tree, payload);
-        return super.decorate(copy);
+    public ExecutionState clone(SplitMapper sm) {
+        StringValueState copy = new StringValueState((alkParser.StringValueContext) tree, sm.getPayload());
+        return super.decorate(copy, sm);
     }
 }
