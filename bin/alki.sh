@@ -1,7 +1,7 @@
 #!/bin/bash
 
 jardir="$(dirname "$BASH_SOURCE")"
-# echo $jardir
+#echo $jardir
 
 java -jar $jardir/alk.jar ${@:1}
 exit 0
