@@ -48,6 +48,11 @@ public class LogicalAndExpressionState extends GuardedGeneratorState<Value>
     @Override
     protected AlkValue interpretResult(Value current, Value next)
     {
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in logical and expression.");
+        }
+
         try
         {
             return ((AlkBool) current).logicalAnd((AlkBool) next);

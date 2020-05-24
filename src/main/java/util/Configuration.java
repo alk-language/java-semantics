@@ -4,12 +4,13 @@ import io.IOManager;
 import org.apache.commons.cli.Options;
 
 import java.io.File;
+import java.math.BigDecimal;
 
 /**
  * Responsible for registering important details regarding one execution.
  * I also serves as an option provider.
  */
-public class Configuration implements OptionProvider
+public class Configuration implements OptionProvider, AlgorithmTypeDetector, ProbabilityComputer
 {
     /** The main file to be parsed */
     private File alkFile;
@@ -181,5 +182,39 @@ public class Configuration implements OptionProvider
         newEm.attach(newIO);
         copy.attach(newEm);
         return copy;
+    }
+
+    boolean probabilistic;
+    boolean nonDeterministic;
+    BigDecimal probability = BigDecimal.ONE;
+
+    @Override
+    public boolean isProbabilistic() {
+        return probabilistic;
+    }
+
+    @Override
+    public boolean nonDeterministic() {
+        return nonDeterministic && !probabilistic;
+    }
+
+    @Override
+    public void setProbabilistic(boolean probabilistic) {
+        this.probabilistic = probabilistic;
+    }
+
+    @Override
+    public void setNonDeterministic(boolean nonDeterministic) {
+        this.nonDeterministic = nonDeterministic;
+    }
+
+    @Override
+    public void interpretProbability(BigDecimal probab) {
+        probability = probability.multiply(probab);
+    }
+
+    @Override
+    public BigDecimal getProbability() {
+        return probability;
     }
 }

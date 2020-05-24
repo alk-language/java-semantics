@@ -14,12 +14,21 @@ import util.SplitMapper;
 @CtxState(ctxClass = alkParser.InExpressionContext.class)
 public class InExpressionState extends GuardedGeneratorState<AlkValue> {
 
+    private alkParser.InExpressionContext ctx;
+
     public InExpressionState(alkParser.InExpressionContext tree, Payload payload) {
         super(tree, payload, tree.equality_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
+
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used for in expression.");
+        }
+
         try
         {
             return current.in(next);

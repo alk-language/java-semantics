@@ -2,6 +2,7 @@ package execution.state.init;
 
 import execution.state.ExecutionState;
 import execution.state.IndependentGeneratorState;
+import execution.state.IndependentSingleState;
 import grammar.alkParser;
 import parser.visitors.InitVisitor;
 import util.CtxState;
@@ -10,12 +11,12 @@ import util.SplitMapper;
 import util.exception.InternalException;
 
 @CtxState(ctxClass = alkParser.ConfigContext.class)
-public class InitState extends IndependentGeneratorState {
+public class InitState extends IndependentSingleState {
 
     public InitState(alkParser.ConfigContext tree,
                         Payload payload)
     {
-        super(tree, payload, tree.variable(), InitVisitor.class);
+        super(tree, payload, tree.var_def_seq(), InitVisitor.class);
     }
 
     @Override

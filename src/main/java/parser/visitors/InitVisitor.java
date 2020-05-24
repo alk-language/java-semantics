@@ -3,6 +3,7 @@ package parser.visitors;
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
 import execution.state.init.InitState;
+import execution.state.init.VarSeqState;
 import execution.state.init.VarState;
 import execution.state.statement.BlockState;
 import execution.types.AlkValue;
@@ -26,6 +27,11 @@ public class InitVisitor extends alkBaseVisitor<ExecutionState>  {
     @Override public ExecutionState visitConfig(alkParser.ConfigContext ctx)
     {
         return StateFactory.create(InitState.class, ctx, payload, env);
+    }
+
+    @Override public ExecutionState visitVarSeq(alkParser.VarSeqContext ctx)
+    {
+        return StateFactory.create(VarSeqState.class, ctx, payload, env);
     }
 
     @Override public ExecutionState visitVar(alkParser.VarContext ctx)

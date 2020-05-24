@@ -196,7 +196,7 @@ public class StmtVisitor extends alkBaseVisitor {
         return StateFactory.create(ToRepeatState.class, ctx, payload, env);
     }
 
-    @Override public Object visitToForAll(alkParser.ToForAllContext ctx) {
+    @Override public Object visitToForEach(alkParser.ToForEachContext ctx) {
         return StateFactory.create(ToForAllState.class, ctx, payload, env);
     }
 
@@ -285,7 +285,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * the statement inside will be executed. If after an iteration the returnValue is set, the execution terminates instantly.
      * @param ctx A ForAll Strcuture node in the execution tree meant to be parsed.
      */
-    @Override public Object visitForAllStructure(alkParser.ForAllStructureContext ctx) {
+    @Override public Object visitForEachStructure(alkParser.ForEachStructureContext ctx) {
         return StateFactory.create(ForAllState.class, ctx, payload, env);
     }
 

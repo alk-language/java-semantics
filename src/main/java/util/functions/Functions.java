@@ -4,6 +4,7 @@ import execution.types.AlkValue;
 import execution.helpers.Convertors;
 import execution.helpers.MathHelper;
 import execution.helpers.NonDeterministic;
+import execution.types.alkInt.AlkInt;
 import execution.types.alkNotAValue.AlkNotAValue;
 import execution.types.alkSet.AlkSet;
 import io.IOManager;
@@ -11,6 +12,8 @@ import parser.env.Location;
 import util.Configuration;
 import util.lambda.LocationGenerator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class Functions {
@@ -84,13 +87,6 @@ public class Functions {
         return MathHelper.abs(ParamHelper.getFloat(params, 0));
     }
 
-
-    @BuiltInFunction(paramNumber = 1)
-    public static AlkValue random(List<AlkValue> params)
-    {
-        return NonDeterministic.getRandom(ParamHelper.getValue(params, 0));
-    }
-
     @BuiltInFunction(paramNumber = 1)
     public static AlkValue len(List<AlkValue> params)
     {
@@ -128,5 +124,14 @@ public class Functions {
     {
         Location loc = generator.generate(ParamHelper.getValue(params, 0));
         return new AlkSet().insert(loc);
+    }
+
+    @BuiltInFunction(paramNumber = 1)
+    public AlkValue random(List<AlkValue> params)
+    {
+        BigDecimal total = new BigDecimal(((AlkInt) ParamHelper.getValue(params, 0)).value);
+        config.interpretProbability(BigDecimal.ONE.divide(total));
+        config.setProbabilistic(true);
+        return NonDeterministic.getRandom(ParamHelper.getValue(params, 0));
     }
 }

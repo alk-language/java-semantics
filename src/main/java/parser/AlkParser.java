@@ -74,7 +74,7 @@ public class AlkParser
             PreProcessing.expandIncludes(context, tree);
             return tree;
         } catch (IOException e) {
-            throw new InternalException("Can't find file to parse!");
+            throw new AlkException("Can't find file to parse!");
         }
     }
 }

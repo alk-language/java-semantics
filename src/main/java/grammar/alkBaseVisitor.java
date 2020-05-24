@@ -159,7 +159,7 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitToForAll(alkParser.ToForAllContext ctx) { return visitChildren(ctx); }
+	@Override public T visitToForEach(alkParser.ToForEachContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -292,7 +292,7 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitForAllStructure(alkParser.ForAllStructureContext ctx) { return visitChildren(ctx); }
+	@Override public T visitForEachStructure(alkParser.ForEachStructureContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -699,6 +699,13 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitConfig(alkParser.ConfigContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitVarSeq(alkParser.VarSeqContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

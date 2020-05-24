@@ -18,14 +18,14 @@ import java.util.List;
 
 import static parser.exceptions.AlkException.ERR_FORALL_ITERABLE_REQUIRED;
 
-@CtxState(ctxClass = alkParser.ForAllStructureContext.class)
+@CtxState(ctxClass = alkParser.ForEachStructureContext.class)
 public class ForAllState extends LoopingState
 {
-    private alkParser.ForAllStructureContext ctx;
+    private alkParser.ForEachStructureContext ctx;
     private List<Location> source;
     private int step = 0;
 
-    public ForAllState(alkParser.ForAllStructureContext tree, Payload payload) {
+    public ForAllState(alkParser.ForEachStructureContext tree, Payload payload) {
         super(tree, payload, null, null, null, null);
         this.ctx = tree;
     }

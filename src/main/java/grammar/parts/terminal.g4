@@ -19,7 +19,6 @@ fragment NONZERODIGIT: [1-9];
 
 TO: '|->';
 
-
 //Keywords
 
 IF : 'if';
@@ -27,7 +26,7 @@ ELSE : 'else';
 WHILE : 'while';
 DO : 'do';
 FOR : 'for';
-FORALL : 'forall';
+FOREACH : 'foreach';
 IN : 'in';
 FROM : 'from';
 OUT : 'out';

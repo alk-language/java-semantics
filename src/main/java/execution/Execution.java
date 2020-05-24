@@ -60,34 +60,44 @@ public class Execution extends Thread
         funcManager = new FuncManager();
     }
 
-    private void initialSetup()
+    private boolean initialSetup()
     {
-        if (config.hasVersion())
-        {
-            config.getIOManager().write("The version is " + Constants.VERSION + ".");
-            throw new OnlyMetaException();
-        }
-        if (config.hasHelp())
+        if (config.getAlkFile() == null || config.hasHelp())
         {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "alk", config.getOptions());
-            throw new OnlyMetaException();
+            return false;
         }
+
+        if (config.hasVersion())
+        {
+            config.getIOManager().write("The version is " + Constants.VERSION + ".");
+            return false;
+        }
+
         if (config.hasPrecision())
         {
             Constants.MAX_DECIMALS = config.getPrecision() + 1;
         }
+
         if (config.hasInput())
         {
-            String input = config.getInput();
-            ParseTree tree = AlkParser.executeInit(input);
+            try {
+                String input = config.getInput();
+                ParseTree tree = AlkParser.executeInit(input);
 
-            ExecutionStack localStack = new ExecutionStack(config, envManager);
-            InitVisitor visitor = new InitVisitor(global, new Payload(this));
-            ExecutionState state =  visitor.visit(tree);
-            localStack.push(state);
-            localStack.run();
+                ExecutionStack localStack = new ExecutionStack(config, envManager);
+                InitVisitor visitor = new InitVisitor(global, new Payload(this));
+                ExecutionState state =  visitor.visit(tree);
+                localStack.push(state);
+                localStack.run();
+            }
+            catch (Throwable e)
+            {
+                throw new AlkException("Invalid input syntax. (try not using spaces)");
+            }
         }
+        return true;
     }
 
     /**
@@ -100,7 +110,8 @@ public class Execution extends Thread
     {
         if (stack == null)
         {
-            initialSetup();
+            if (!initialSetup())
+                return;
 
             // get the main algorithm file and obtain the CharStream in order to be parsed
             File file = config.getAlkFile();
@@ -117,6 +128,17 @@ public class Execution extends Thread
         if (config.hasMetadata())
         {
             config.getIOManager().write(global.toString());
+        }
+
+        if (config.nonDeterministic())
+        {
+            config.getIOManager().write("Note that the executed algorithm is nondeterministic.");
+        }
+
+        if (config.isProbabilistic())
+        {
+            config.getIOManager().write("Note that the executed algorithm is probabilistic.");
+            config.getIOManager().write("The probability for this execution is: " + config.getProbability());
         }
     }
 

@@ -28,7 +28,6 @@ statement //statement
     | increase_decrease SEMICOLON                                                                                       #ToIncreaseDecrease
     | statement_block                                                                                                   #ToBlock
 
-    //directives
     | directive                                                                                                         #ToDirective
 
     | repeat_struct SEMICOLON                                                                                           #ToRepeat
@@ -36,7 +35,7 @@ statement //statement
     | do_while_struct SEMICOLON                                                                                         #ToDoWhile
     | if_struct                                                                                                         #ToIf
     | for_struct                                                                                                        #ToFor
-    | forall_struct                                                                                                     #ToForAll
+    | foreach_struct                                                                                                    #ToForEach
 ;
 
 directive
@@ -100,9 +99,9 @@ start_assignment:
     assignment                                                                                                          #ForStart
 ;
 
-forall_struct
+foreach_struct
 :
-    FORALL ID IN expression statement                                                                                   #ForAllStructure
+    FOREACH ID IN expression statement                                                                                   #ForEachStructure
 ;
 
 function_decl

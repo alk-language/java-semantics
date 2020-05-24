@@ -13,12 +13,22 @@ import util.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ShiftExpressionContext.class)
 public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
+
+    private alkParser.ShiftExpressionContext ctx;
+
     public ShiftExpressionState(alkParser.ShiftExpressionContext tree, Payload payload) {
         super(tree, payload, tree.additive_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
+
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in shift expression.");
+        }
+
         try
         {
             if (tree.getChild(getSignPos()).getText().equals("<<"))

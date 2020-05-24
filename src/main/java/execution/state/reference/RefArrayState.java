@@ -41,7 +41,7 @@ public class RefArrayState extends ExecutionState
             return request(ExpressionVisitor.class, ctx.expression());
         }
 
-        if (reference.isEmpty())
+        if (reference.isUnknown())
         {
             reference.assign(new AlkArray());
         }

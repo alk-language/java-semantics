@@ -18,9 +18,12 @@ import static parser.exceptions.AlkException.ERR_LOGICALOR;
 @CtxState(ctxClass = alkParser.LogicalOrExpressionContext.class)
 public class LogicalOrExpressionState extends GuardedGeneratorState<Value>
 {
+    private alkParser.LogicalOrExpressionContext ctx;
+
     public LogicalOrExpressionState(alkParser.LogicalOrExpressionContext tree, Payload payload)
     {
         super(tree, payload, tree.logical_and_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
         setPreValidator(() -> {
             if (getLocalResult() != null)
             {
@@ -36,6 +39,12 @@ public class LogicalOrExpressionState extends GuardedGeneratorState<Value>
 
     @Override
     protected AlkValue interpretResult(Value current, Value next) {
+
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in logical or expression.");
+        }
+
         try
         {
             return ((AlkBool) current).logicalOr((AlkBool) next);

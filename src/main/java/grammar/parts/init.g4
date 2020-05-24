@@ -2,8 +2,14 @@ grammar init;
 
 import expression;
 
+
+
 configuration:
-    (variable)*                                                                                                         #Config
+    var_def_seq? EOF                                                                                                    #Config
+;
+
+var_def_seq:
+    variable+                                                                                                           #VarSeq
 ;
 
 variable:

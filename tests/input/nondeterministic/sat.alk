@@ -13,7 +13,7 @@ f(x) {
          (!x[1] || !x[2] || x[3]);
 }
 
-x = [ false | i in 0 .. n-1 ];
+x = [ false | i from [0 .. n-1] ];
 for (i = 0; i < n; ++i) {
   choose z in {false, true};
   x[i] = z;

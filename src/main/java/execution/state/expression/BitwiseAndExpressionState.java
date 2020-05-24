@@ -24,6 +24,11 @@ public class BitwiseAndExpressionState extends GuardedGeneratorState<AlkValue>
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in bitwise and expression.");
+        }
+
         try
         {
             return current.bitwiseAnd(next);

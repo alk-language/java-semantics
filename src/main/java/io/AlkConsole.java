@@ -5,6 +5,7 @@ import util.OptionProvider;
 import util.exception.AlkParseException;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Basic class for IO interaction with console
@@ -28,7 +29,7 @@ public class AlkConsole implements IOManager, OptionProvider
     public AlkConsole(String[] args)
     {
         Option alk = new Option("a", "alk", true, "the file including the algorithm to be executed");
-        alk.setRequired(true);
+        alk.setRequired(false);
         options.addOption(alk);
 
         Option input = new Option("i", "init", true, "set initial configuration to <arg> (string or file)");
@@ -55,9 +56,9 @@ public class AlkConsole implements IOManager, OptionProvider
         help.setRequired(false);
         options.addOption(help);
 
-        Option size = new Option("z", "size", true, "set maximum array size to <arg>");
+        /*Option size = new Option("z", "size", true, "set maximum array size to <arg>");
         size.setRequired(false);
-        options.addOption(size);
+        options.addOption(size);*/
 
         Option version = new Option("v", "version", false, "display version");
         version.setRequired(false);
@@ -135,6 +136,8 @@ public class AlkConsole implements IOManager, OptionProvider
      */
     @Override
     public File getAlkFile() {
+        if (cmd.getOptionValue("alk") == null)
+            return null;
         return new File(cmd.getOptionValue("alk"));
     }
 
