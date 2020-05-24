@@ -14,14 +14,22 @@ import util.SplitMapper;
 @CtxState(ctxClass = alkParser.RelationalExpressionContext.class)
 public class RelationalExpressionState extends GuardedGeneratorState<AlkValue>
 {
+    private alkParser.RelationalExpressionContext ctx;
+
     public RelationalExpressionState(alkParser.RelationalExpressionContext tree, Payload payload)
     {
         super(tree, payload, tree.set_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next)
     {
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in relational expression.");
+        }
+
         try
         {
             switch (tree.getChild(getSignPos()).getText()) {

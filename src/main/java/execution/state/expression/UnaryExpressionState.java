@@ -15,14 +15,22 @@ import util.types.Value;
 @CtxState(ctxClass = alkParser.UnaryExpressionContext.class)
 public class UnaryExpressionState extends SingleState<Value, Value>
 {
+    private alkParser.UnaryExpressionContext ctx;
+
     public UnaryExpressionState(alkParser.UnaryExpressionContext tree, Payload payload)
     {
         super(tree, payload, tree.unary_expression(), ExpressionVisitor.class);
-        this.visitor = ExpressionVisitor.class;
+        this.ctx = tree;
     }
 
     @Override
     protected Value interpretResult(Value value) {
+
+        if (value.toRValue() == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in relational expression.");
+        }
+
         try
         {
             AlkValue alkValue = (AlkValue) value.toRValue();

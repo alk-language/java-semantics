@@ -2,6 +2,7 @@ package execution.state.statement;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.types.alkNotAValue.AlkNotAValue;
 import grammar.alkParser;
 import parser.env.Location;
 import execution.types.AlkValue;
@@ -74,6 +75,10 @@ public class AssignmentStmtState extends ExecutionState
         if (rightSide == null)
         {
             rightSide = (AlkValue) result.getValue().toRValue();
+            if (rightSide == null || rightSide instanceof AlkNotAValue)
+            {
+                throw new AlkException(ctx.start.getLine(), "Undefined variable used in assignment.");
+            }
         }
         else if (leftSide == null)
         {

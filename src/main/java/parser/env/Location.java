@@ -1,6 +1,7 @@
 package parser.env;
 
 import execution.types.AlkValue;
+import execution.types.alkNotAValue.AlkNotAValue;
 import parser.exceptions.AlkException;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
@@ -50,8 +51,7 @@ public class Location implements Value {
         return this;
     }
 
-    public boolean isEmpty()
-    {
-        return getValue() == null;
+    public boolean isUnknown() {
+        return getValue() == null || getValue() instanceof AlkNotAValue;
     }
 }

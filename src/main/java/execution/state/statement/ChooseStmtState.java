@@ -35,6 +35,7 @@ public class ChooseStmtState extends ExecutionState
     {
         super(ctx, payload);
         this.ctx = ctx;
+        getAlgorithmTypeDetector().setNonDeterministic(true);
     }
 
     @Override

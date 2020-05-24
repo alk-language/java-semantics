@@ -68,6 +68,8 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     protected Environment getGlobal() { return payload.getExecution().getGlobal(); }
 
+    protected AlgorithmTypeDetector getAlgorithmTypeDetector() { return payload.getExecution().getConfiguration(); }
+
 
     protected ExecutionState decorate(ExecutionState copy, SplitMapper sm)
     {

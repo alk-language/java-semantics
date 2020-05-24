@@ -17,15 +17,22 @@ import util.types.Value;
 @CtxState(ctxClass = alkParser.PrefixExpressionContext.class)
 public class PrefixExpressionState extends SingleState<Value, Value> {
 
+    private alkParser.PrefixExpressionContext ctx;
 
     public PrefixExpressionState(alkParser.PrefixExpressionContext tree, Payload payload) {
         super(tree, payload, tree.unary_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
     protected Value interpretResult(Value value) {
         try {
             Value result = value;
+
+            if (result.toRValue() == null)
+            {
+                throw new AlkException(ctx.start.getLine(), "Undefined variable used in prefix expression.");
+            }
 
             switch (tree.getChild(0).getText())
             {

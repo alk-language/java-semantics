@@ -8,17 +8,17 @@ import util.CtxState;
 import util.Payload;
 import util.SplitMapper;
 
-@CtxState(ctxClass = alkParser.ToForAllContext.class)
+@CtxState(ctxClass = alkParser.ToForEachContext.class)
 public class ToForAllState extends IndependentSingleState
 {
-    public ToForAllState(alkParser.ToForAllContext tree, Payload payload)
+    public ToForAllState(alkParser.ToForEachContext tree, Payload payload)
     {
-        super(tree, payload, tree.forall_struct(), StmtVisitor.class);
+        super(tree, payload, tree.foreach_struct(), StmtVisitor.class);
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ToForAllState copy = new ToForAllState((alkParser.ToForAllContext) tree, sm.getPayload());
+        ToForAllState copy = new ToForAllState((alkParser.ToForEachContext) tree, sm.getPayload());
         return super.decorate(copy, sm);
     }
 }

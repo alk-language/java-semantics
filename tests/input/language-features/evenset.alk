@@ -1,5 +1,5 @@
 a = {1, 2, 3, 4};
 s = { 0 };
-forall x in a   // a is a input set
+foreach x in a   // a is a input set
    if (x % 2 == 0) s = s U singletonSet(x);
 print(s);

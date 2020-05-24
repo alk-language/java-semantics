@@ -23,6 +23,11 @@ public class MultiplicativeExpressionState extends GuardedGeneratorState<AlkValu
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in multiplicative expression.");
+        }
+
         try {
             switch (tree.getChild(getSignPos()).getText()) {
                 case "*":

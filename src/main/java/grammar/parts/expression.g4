@@ -2,7 +2,6 @@ grammar expression;
 
 import terminal;
 
-
 //Arithmetic expressions
 
 expression

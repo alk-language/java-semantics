@@ -15,13 +15,21 @@ import util.SplitMapper;
 public class EqualityExpressionState extends GuardedGeneratorState<AlkValue>
 {
 
+    private alkParser.EqualityExpressionContext ctx;
+
     public EqualityExpressionState(alkParser.EqualityExpressionContext tree, Payload payload)
     {
         super(tree, payload, tree.relational_expression(), ExpressionVisitor.class);
+        this.ctx = tree;
     }
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in equality expression.");
+        }
+
         try {
             if (tree.getChild(getSignPos()).getText().equals("=="))
                 return current.equal(next);

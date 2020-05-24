@@ -153,12 +153,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToFor(alkParser.ToForContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToForAll}
+	 * Visit a parse tree produced by the {@code ToForEach}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitToForAll(alkParser.ToForAllContext ctx);
+	T visitToForEach(alkParser.ToForEachContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Include}
 	 * labeled alternative in {@link alkParser#directive}.
@@ -286,12 +286,12 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForStart(alkParser.ForStartContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ForAllStructure}
-	 * labeled alternative in {@link alkParser#forall_struct}.
+	 * Visit a parse tree produced by the {@code ForEachStructure}
+	 * labeled alternative in {@link alkParser#foreach_struct}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForAllStructure(alkParser.ForAllStructureContext ctx);
+	T visitForEachStructure(alkParser.ForEachStructureContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FunctionDecl}
 	 * labeled alternative in {@link alkParser#function_decl}.
@@ -695,6 +695,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConfig(alkParser.ConfigContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VarSeq}
+	 * labeled alternative in {@link alkParser#var_def_seq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarSeq(alkParser.VarSeqContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link alkParser#variable}.

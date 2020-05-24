@@ -319,8 +319,6 @@ public class AlkException extends InternalException
 
     public int getLine()
     {
-        if (this.line == 0)
-            throw new InternalException("Can't identify error line!");
         return this.line;
     }
 

@@ -32,7 +32,7 @@ public class RefPointIDState extends ExecutionState {
             return request(ExpressionVisitor.class, ctx.ref_name());
         }
 
-        if (reference.isEmpty())
+        if (reference.isUnknown())
         {
             reference.assign(new AlkStructure());
         }

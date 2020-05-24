@@ -23,6 +23,11 @@ public class BitwiseOrExpressionState extends GuardedGeneratorState<AlkValue> {
 
     @Override
     protected AlkValue interpretResult(AlkValue current, AlkValue next) {
+        if (current == null || next == null)
+        {
+            throw new AlkException(ctx.start.getLine(), "Undefined variable used in bitwise or expression.");
+        }
+
         try{
             if (tree.getChild(getSignPos()).getText().equals("|"))
                 return current.bitwiseOr(next);
