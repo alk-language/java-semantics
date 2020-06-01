@@ -1,0 +1,40 @@
+body {
+    font-family: Roboto, sans-serif;
+    line-height: 1.6;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: justify;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000c67;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+section {
+    margin-bottom: 5%;
+}
+
+#mvc-pic {
+    width: 45%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#toc_container {
+    display: table;
+    font-size: 95%;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: none ;
+}
+
+footer {
+    line-height: 0.5;
+    color: #000c67;
+}
