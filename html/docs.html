@@ -1,0 +1,541 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
+    <title>Alk Reference Manual</title>
+</head>
+
+<body>
+
+    <h1> Alk Reference Manual </h1>
+    
+     <div id="toc_container">
+        <ul class="toc_list">
+            <li><a href="#introduction">1 Introduction</a>
+              <ul>
+                <li><a href="#introduction_1">1.1 Language motivation</a></li>
+                <li><a href="#introduction_2">1.2 Configuration Principle</a></li>
+              </ul>
+            </li>
+            <li><a href="#language">2 Language</a>
+              <ul>
+                <li><a href="#keywords">2.1 Keywords</a></li>
+                <li><a href="#preprocessing">2.2 Preprocessing</a></li>
+                <li><a href="#expressions">2.3 Expressions</a>
+                  <ul>
+                    <li><a href="#data-types">2.3.1 Data types </a>
+                      <ul>
+                        <li><a href="#simple-types">2.3.1a Simple data types </a>
+                          <ul>
+                            <li><a href="#integer">2.3.1a.1 Integer </a></li>
+                            <li><a href="#float">2.3.1a.2 Float </a></li>
+                            <li><a href="#bool">2.3.1a.3 Bool </a></li>
+                            <li><a href="#string">2.3.1a.4 String </a></li>
+                          </ul>
+                        </li>
+                        <li><a href="#compound-types">2.3.1b Compound data types </a>
+                          <ul>
+                            <li><a href="#array">2.3.1b.1 Array </a></li>
+                            <li><a href="#list">2.3.1b.2 List </a></li>
+                            <li><a href="#set">2.3.1b.3 Set </a></li>
+                            <li><a href="#structure">2.3.1b.3 Structure </a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a href="#operators">2.3.2 Operators</a>
+                      <ul>
+                        <li><a href="#id-operator">2.3.2.1 Increment/Decrement </a></li>
+                        <li><a href="#artihmetic-operator">2.3.2.2 Arithmetic </a></li>
+                        <li><a href="#bitwise-operator">2.3.2.3 Bitwise </a></li>
+                        <li><a href="#logical-operator">2.3.2.4 Logical </a></li>
+                        <li><a href="#relational-operator">2.3.2.5 Relational </a></li>
+                        <li><a href="#setwise-operator">2.3.2.6 Setwise </a></li>
+                        <li><a href="#other-operator">2.3.2.7 Others </a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#builtin-functions">2.3.3 Builtin Functions</a>
+                      <ul>
+                        <li><a href="#mathematical-functions">2.3.3.1 Mathematical </a></li>
+                        <li><a href="#conversion-functions">2.3.3.2 Conversion </a></li>
+                        <li><a href="#other-functions">2.3.3.3 Others </a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#builtin-methods">2.3.4 Builtin Methods</a></li>
+                  </ul>
+                </li>
+                <li><a href="#declarations_initializations">2.4 Declarations and Initializations</a>
+                  <ul>
+                    <li><a href="#default-initialization">2.4.1 Default initializaiton values</a></li>
+                    <li><a href="#dynamic-allocation">2.4.2 Dynamic allocation </a></li>
+                  </ul>
+                </li>
+                <li><a href="#function">2.5 Functions</a>
+                  <ul>
+                    <li><a href="#function-declaration">2.5.1 Function declaration</a></li>
+                    <li><a href="#function-parameters">2.5.2 Function parameters</a></li>
+                    <li><a href="#function-call">2.5.3 Function call</a></li>
+                    <li><a href="#return-call">2.5.4 Return call</a></li>
+                  </ul>
+                </li>
+                <li><a href="#intructions">2.6 Instructions</a>
+                  <ul>
+                    <li><a href="#simple-instructions">2.6.1 Simple intructions</a>
+                      <ul>
+                        <li><a href="#assignment">2.6.1.1 Assignment</a></li>
+                        <li><a href="#function-call">2.6.1.2 Function Call</a></li>
+                        <li><a href="#method-call">2.6.1.3 Method Call</a></li>
+                        <li><a href="#id-instruction">2.6.1.4 Increment/Decrement</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#compound-intructions">2.6.2 Compound instructions</a></li>
+                    <li><a href="#conditional-instruction">2.6.3 Conditional instruction - if/else</a></li>
+                    <li><a href="#repetitive-instrictions">2.6.4 Repetitve instructions</a>
+                      <ul>
+                        <li><a href="#while-instruction">2.6.4.1 While instruction</a></li>
+                        <li><a href="#do-while-intruction">2.6.4.2 Do while instruction</a></li>
+                        <li><a href="#repreat-until">2.6.4.3 Repeat until instruction</a></li>
+                        <li><a href="#for-instruction">2.6.4.4 For instruction</a></li>
+                        <li><a href="#foreach-instruction">2.6.4.5 Foreach instruction</a></li>
+                        <li><a href="#break-continue">2.6.4.6 Break and continue instructions</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#nondeterministic-instruction">2.6.5 Nondeterministic instructions</a>
+                      <ul>
+                        <li><a href="#choose-instruction">2.6.5.1 Choose/s.t. instruction</a></li>
+                        <li><a href="#success-failure">2.6.5.2 Success and failure instructions</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#probabilistic-instruction">2.6.6 Probabilistic instructions</a>
+                      <ul>
+                        <li><a href="#random-function">2.6.6.1 Random builtin function</a></li>
+                        <li><a href="#uniform-instruction">2.6.6.2 Uniform instruction</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#executions">3 Executions</a>
+                <ul>
+                    <li><a href="#deterministic-executions">3.1 Deterministic executions</a></li>
+                    <li><a href="#nondeterministic-executions">3.2 Nondeterministic executions</a>
+                      <ul>
+                        <li><a href="#exhaustive-execution">3.2.1 Exhaustive execution principle</a></li>
+                        <li><a href="#nondeterministic-algorithm">3.2.2 Nondeterministic algorithm structure</a></li>
+                        <li><a href="#final-configuration">3.2.3 Final configuration</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#probabilistic-execution">3.3 Probabilistic executions</a></li>
+                </ul>
+            </li>
+            <li><a href="#error-undestanding">4 Error understanding</a>
+                <ul>
+                    <li><a href="#error-format">4.1 Error format </a></li>
+                    <li><a href="#debug-technique">4.2 Debug techniques </a></li>
+                </ul>
+            </li>
+            <li><a href="#options">5 Options</a>
+                <ul>
+                    <li><a href="#option-a">5.1 Setting the algorithm to be run </a></li>
+                    <li><a href="#option-i">5.2 Setting the initial configuration </a></li>
+                    <li><a href="#option-p">5.3 Setting the precision</a></li>
+                    <li><a href="#option-m">5.4 Show the metadata</a></li>
+                    <li><a href="#option-e">5.5 Trigger exhaustive execution</a></li>
+                    <li><a href="#option-h">5.6 Help and version</a></li>
+                    <li><a href="#option-t">5.7 Trigger debug mode</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <section id="introduction">
+        <h1> 1 Introduction </h1>
+        <section id="introduction_1">
+          <h2> 1.1 Language motivation </h2>
+          ...
+        </section>
+        <section id="introduction_2">
+          <h2> 1.2 Configuration principle </h2>
+          ...
+        </section>
+    </section>
+
+    <section id="language">
+        <h1> 2 Language </h1>
+
+        <section id="keywords">
+          <h2> 2.1 Keywords </h2>
+          ...
+        </section>
+
+        <section id="preprocessing">
+          <h2> 2.2 Preprocessing </h2>
+          ...
+        </section>
+
+        <section id="expressions">
+          <h2> 2.3 Expressions </h2>
+
+          <section id="data-types">
+            <h3> 2.3.1 Data types </h3>
+
+            <section id="simple-types">
+              <h4> 2.3.1a Simple data types </h4>
+
+              <section id="integer">
+                <h5> 2.3.1a.1 Integer</h5>
+                ...
+              </section>
+
+              <section id="float">
+                <h5> 2.3.1a.2 Float</h5>
+                ...
+              </section>
+
+              <section id="bool">
+                <h5> 2.3.1a.3 Bool</h5>
+                ...
+              </section>
+
+              <section id="string">
+                <h5> 2.3.1a.4 String</h5>
+                ...
+              </section>
+
+            </section>
+
+            <section id="compound-types">
+              <h4> 2.3.1b Compound data types </h4>
+
+              <section id="array">
+                <h5> 2.3.1b.1 Array</h5>
+                ...
+              </section>
+
+              <section id="list">
+                <h5> 2.3.1b.2 List</h5>
+                ...
+              </section>
+
+              <section id="set">
+                <h5> 2.3.1b.3 Set</h5>
+                ...
+              </section>
+
+              <section id="structure">
+                <h5> 2.3.1b.4 Structure</h5>
+                ...
+              </section>
+
+            </section>
+
+          </section>
+
+          <section id="operators">
+            <h3> 2.3.2 Operators</h3>
+
+            <section id="id-operator">
+              <h4> 2.3.2.1 Increment/Decrement</h4>
+              ...
+            </section>
+
+            <section id="artihmetic-operator">
+              <h4> 2.3.2.2 Arithmetic</h4>
+              ...
+            </section>
+
+            <section id="bitwise-operator">
+              <h4> 2.3.2.3 Bitwise</h4>
+              ...
+            </section>
+
+            <section id="logical-operator">
+              <h4> 2.3.3.4 Logical</h4>
+              ...
+            </section>
+
+            <section id="relational-operator">
+              <h4> 2.3.3.5 Relational</h4>
+              ...
+            </section>
+
+            <section id="setwise-operator">
+              <h4> 2.3.3.6 Setwise</h4>
+              ...
+            </section>
+
+            <section id="other-operator">
+              <h4> 2.3.3.7 Others</h4>
+              ...
+            </section>
+
+          </section>
+
+          <section id="builtin-functions">
+            <h3> 2.3.3 Builtin Functions</h3>
+
+            <section id="mathematical-functions">
+              <h4> 2.3.3.1 Mathematical</h4>
+              ...
+            </section>
+
+            <section id="conversion-functions">
+              <h4> 2.3.3.2 Conversion</h4>
+              ...
+            </section>
+
+            <section id="other-functions">
+              <h4> 2.3.3.3 Others</h4>
+              ...
+            </section>
+
+          </section>
+
+          <section id="builtin-methods">
+            <h3> 2.3.4 Builtin Methods </h3>
+          </section>
+
+        </section>
+
+        <section id="declarations_initializations">
+          <h2> 2.4 Declarations and Initializations </h2>
+          
+          <section id="default-initialization">
+            <h3> 2.4.1 Default initializaiton values </h3>
+          </section>
+
+          <section id="dynamic-allocation">
+            <h3> 2.4.2 Dynamic allocation </h3>
+          </section>
+
+        </section>
+
+        <section id="functions">
+          <h2> 2.5 Functions </h2>
+          
+          <section id="function-declaration">
+            <h3> 2.5.1 Function declaration </h3>
+          </section>
+          
+          <section id="function-parameters">
+            <h3> 2.5.2 Function parameters </h3>
+          </section>
+          
+          <section id="function-call">
+            <h3> 2.5.3 Function call </h3>
+          </section>
+
+          <section id="return-call">
+            <h3> 2.5.4 Return call </h3>
+          </section>
+
+        </section>
+
+        <section id="instructions">
+          <h2> 2.6 Instructions </h2>
+          
+          <section id="simple-instructions">
+            <h3> 2.6.1 Simple instructions</h3>
+
+            <section id="assignment">
+              <h4> 2.6.1.1 Assignment</h4>
+              ...
+            </section>
+
+            <section id="function-call">
+              <h4> 2.6.1.2 Function Call</h4>
+              ...
+            </section>
+
+            <section id="method-call">
+              <h4> 2.6.1.3 Method Call</h4>
+              ...
+            </section>
+
+            <section id="id-instruction">
+              <h4> 2.6.1.4 Increment/Decrement</h4>
+              ...
+            </section>
+
+          </section>
+          
+          <section id="compound-intructions">
+            <h3> 2.6.2 Compound instructions </h3>
+          </section>
+          
+          <section id="conditional-instruction">
+            <h3> 2.6.3 Conditional instruction - if/else </h3>
+          </section>
+          
+          <section id="repetitive-instrictions">
+            <h3> 2.6.4 Repetitve instructions</h3>
+
+            <section id="while-instruction">
+              <h4> 2.6.4.1 While instruction</h4>
+              ...
+            </section>
+
+            <section id="do-while-intruction">
+              <h4> 2.6.4.2 Do while instruction</h4>
+              ...
+            </section>
+
+            <section id="repreat-until instruction">
+              <h4> 2.6.4.3 Repeat until intruction</h4>
+              ...
+            </section>
+
+            <section id="for-instruction">
+              <h4> 2.6.4.4 For instruction</h4>
+              ...
+            </section>
+
+            <section id="foreach-instruction">
+              <h4> 2.6.4.5 Foreach instruction</h4>
+              ...
+            </section>
+
+            <section id="break-continue">
+              <h4> 2.6.4.6 Break and continue instruction</h4>
+              ...
+            </section>
+
+          </section>
+          
+          <section id="nondeterministic-instruction">
+            <h3> 2.6.5 Nondeterministic instructions </h3>
+
+            <section id="choose-instruction">
+              <h4> 2.6.5.1 Choose/s.t. instruction</h4>
+              ...
+            </section>
+
+            <section id="success-failure">
+              <h4> 2.6.5.2 Success and failure instructions</h4>
+              ...
+            </section>
+
+          </section>
+          
+          <section id="probabilistic-instruction">
+            <h3> 2.6.6 Probabilistic instructions </h3>
+
+            <section id="random-function">
+              <h4> 2.6.1 Random builtin function</h4>
+              ...
+            </section>
+
+            <section id="uniform-instruction">
+              <h4> 2.6.2 Uniform instruction</h4>
+              ...
+            </section>
+
+          </section>
+
+        </section>
+
+    </section>
+
+    <section id="executions">
+      <h1> 3 Executions</h1>
+
+      <section id="deterministic-executions">
+        <h2> 3.1 Deterministic executions</h2>
+        ...
+      </section>
+
+      <section id="nondeterministic-executions">
+        <h2> 3.2 Nondeterministic executions</h2>
+        
+        <section id="exhaustive-execution">
+          <h3> 3.2.1 Exhaustive execution principle</h3>
+          ...
+        </section>
+
+        <section id="nondeterministic-algorithm">
+          <h3> 3.2.2 Nondeterministic algorithm structure</h3>
+          ...
+        </section>
+
+        <section id="final-configuration">
+          <h3> 3.2.3 Final configuration</h3>
+          ...
+        </section>
+
+      </section>
+
+      <section id="probabilistic-execution">
+        <h2> 3.3 Probabilistic executions</h2>
+        ...
+      </section>
+
+    </section>
+
+    <section id="error-undestanding">
+      <h1> 4 Error understanding</h1>
+
+      <section id="error-format">
+        <h2> 4.1 Error format</h2>
+        ...
+      </section>
+
+      <section id="debug-technique">
+        <h2> 4.2 Debug techniques</h2>
+        ...
+      </section>
+
+    </section>
+
+    <section id="options">
+      <h1> 5 Options</h1>
+
+      <section id="option-a">
+        <h2> 5.1 Setting the algorithm to be run</h2>
+        ...
+      </section>
+
+      <section id="option-i">
+        <h2> 5.2 Setting the initial configuration</h2>
+        ...
+      </section>
+
+      <section id="option-p">
+        <h2> 5.3 Setting the precision</h2>
+        ...
+      </section>
+
+      <section id="option-m">
+        <h2> 5.4 Show the metadata</h2>
+        ...
+      </section>
+
+      <section id="option-e">
+        <h2> 5.5 Trigger exhaustive execution</h2>
+        ...
+      </section>
+
+      <section id="option-h">
+        <h2> 5.6 Help and version</h2>
+        ...
+      </section>
+
+      <section id="option-t">
+        <h2> 5.7 Trigger debug mode</h2>
+        ...
+      </section>
+
+    </section>
+    
+    <footer>
+        <p> <b> Alk Reference Manual </b> </p>
+        <p> written by Lungu Alexandru-Ioan </p>
+        <p> collaborating with Prof. dr. Lucanu Dorel </p>
+        <p> Faculty of Computer Science, UAIC Iasi </p>
+    </footer>
+
+</body>
+
+</html>
