@@ -1,5 +1,6 @@
 package execution.types.alkArray;
 
+import execution.types.alkList.AlkList;
 import execution.types.alkNotAValue.AlkNotAValue;
 import parser.env.Location;
 import parser.env.LocationMapper;
@@ -125,8 +126,21 @@ public class AlkArray extends AlkIterableValue {
     {
         if (!operand.type.equals("Array"))
             throw new AlkException(ERR_EQUAL_ARR);
-        AlkArray op = (AlkArray) operand;
-        return new AlkBool(this.toString().equals(op.toString()));
+        AlkArray opArray = (AlkArray) operand;
+
+        if (!size().equals(opArray.size()))
+        {
+            return new AlkBool(false);
+        }
+
+        boolean isEqual = true;
+        int sz = array.size();
+        for (int i = 0; i < sz; i++)
+        {
+            isEqual = isEqual && array.get(i).toRValue().equal(opArray.array.get(i).toRValue()).isTrue();
+        }
+
+        return new AlkBool(isEqual);
     }
 
     @Override
@@ -170,8 +184,12 @@ public class AlkArray extends AlkIterableValue {
     {
         for (Location loc : array)
         {
-            if (loc.toRValue().getClass().equals(operator.getClass()) && loc.toRValue().equals(operator))
-                return true;
+            try {
+                if (loc.toRValue().equals(operator))
+                    return true;
+                //TODO: Create can't compare exception
+            }
+            catch (AlkException ignored) {}
         }
         return false;
     }

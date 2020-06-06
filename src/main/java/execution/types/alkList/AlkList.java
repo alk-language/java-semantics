@@ -155,15 +155,30 @@ public class AlkList extends AlkIterableValue
     }
 
     @Override
-    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand)
+    {
         if (!operand.type.equals("List"))
             throw new AlkException(ERR_EQUAL_LIST);
-        AlkList op = (AlkList) operand;
-        return new AlkBool(this.toString().equals(op.toString()));
+
+        AlkList opList = (AlkList) operand;
+
+        if (!size().equals(opList.size()))
+        {
+            return new AlkBool(false);
+        }
+
+        boolean isEqual = true;
+        int sz = list.size();
+        for (int i = 0; i < sz; i++)
+        {
+            isEqual = isEqual && list.get(i).toRValue().equal(opList.list.get(i).toRValue()).isTrue();
+        }
+
+        return new AlkBool(isEqual);
     }
 
     @Override
-    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lower(AlkValue operand) throws AlkException {
         if (!operand.type.equals("List"))
             throw new AlkException(ERR_LOWER_LIST);
         AlkList op = (AlkList) operand;
@@ -188,10 +203,13 @@ public class AlkList extends AlkIterableValue
     {
         for (Location loc : list)
         {
-            if ((loc.toRValue().equal(operand)).isTrue())
-                return true;
+            try {
+                if (loc.toRValue().equals(operand))
+                    return true;
+                //TODO: Create can't compare exception
+            }
+            catch (AlkException ignored) {}
         }
-
         return false;
     }
 

@@ -1,5 +1,6 @@
 package execution.types.alkSet;
 
+import execution.types.alkList.AlkList;
 import parser.env.Location;
 import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
@@ -138,8 +139,25 @@ public class AlkSet extends AlkIterableValue  {
     {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_EQUAL_SET);
-        AlkSet op = (AlkSet) operand;
-        return new AlkBool(this.toString().equals(op.toString()));
+
+        AlkSet opSet = (AlkSet) operand;
+
+        if (!size().equals(opSet.size()))
+        {
+            return new AlkBool(false);
+        }
+
+        boolean isEqual = true;
+        for (Location loc : set)
+        {
+            isEqual = isEqual && opSet.has(loc.toRValue());
+        }
+        for (Location loc : opSet)
+        {
+            isEqual = isEqual && this.has(loc.toRValue());
+        }
+
+        return new AlkBool(isEqual);
     }
 
     @Override
@@ -196,10 +214,13 @@ public class AlkSet extends AlkIterableValue  {
     {
         for (Location loc : set)
         {
-            if (loc.toRValue().getClass().equals(operand.getClass()) && (loc.toRValue().equals(operand)))
-                return true;
+            try {
+                if (loc.toRValue().equals(operand))
+                    return true;
+                //TODO: Create can't compare exception
+            }
+            catch (AlkException ignored) {}
         }
-
         return false;
     }
 
