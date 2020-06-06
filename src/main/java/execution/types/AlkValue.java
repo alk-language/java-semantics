@@ -64,14 +64,9 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     @Override
     public int compareTo(AlkValue operand)
     {
-        try {
-            if (equal(operand).getValue()) return 0;
-            if (lower(operand).getValue()) return -1;
-            return 1;
-        } catch (AlkException e) {
-            e.printException(0);
-            return 0;
-        }
+        if (equal(operand).getValue()) return 0;
+        if (lower(operand).getValue()) return -1;
+        return 1;
     }
 
     /**

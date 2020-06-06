@@ -53,7 +53,9 @@
                         <li><a href="#logical-operator">2.3.2.4 Logical </a></li>
                         <li><a href="#relational-operator">2.3.2.5 Relational </a></li>
                         <li><a href="#setwise-operator">2.3.2.6 Setwise </a></li>
-                        <li><a href="#other-operator">2.3.2.7 Others </a></li>
+                        <li><a href="#conditional-operator">2.3.2.7 Conditional </a></li>
+                        <li><a href="#inclusive-operator">2.3.2.8 Inclusive </a></li>
+                        <li><a href="#unary-operator">2.3.2.9 Unary </a></li>
                       </ul>
                     </li>
                     <li><a href="#builtin-functions">2.3.3 Builtin Functions</a>
@@ -187,22 +189,66 @@
 
               <section id="integer">
                 <h5> 2.3.1a.1 Integer</h5>
-                ...
+                The integer data type is a numeric type which allows storing data in form of integer numbers. There is no fixed bound for the dimension
+                of one integer, as it is backed by an unlimited data structure designed for numeric usage. The complexity of the operations is dependent
+                upon the size of the integer, thus not all computations should be considered to be working in constant time. <br>
+                To represent an integer, one should just simply write it in the decimal base - as this is the only way Alk can interpret it.
+                For negative integers, the unary operator <code>-</code> should be used in the representation. <br>
+                <ul>
+                  <b>Examples:</b>
+                  <li>Small sized integer: <code>123456789</code></li>
+                  <li>Large sized integer: <code>1234567891011121314151617181920</code></li>
+                  <li>Negative integer: <code>-123</code></li>
+                  <li>Zero integer: <code>0</code></li>
+                </ul>
               </section>
 
               <section id="float">
                 <h5> 2.3.1a.2 Float</h5>
-                ...
+                The float data type is a numeric type which allows storing data in form of numbers with floating point. There is no fixed bound for the dimension
+                of the integer part, while the fractional part is limited by a <i>precision</i> constant. By default, the precision is set to 10 decimals after
+                the floating point and rounded after a <i>HALF_EVEN</i> strategy. However this can be changed at the command line using the <code>-p</code> option.
+                The complexity of the operations is dependent upon the size of the float, thus not all computations should be considered to be working in constant time. <br>
+                To represent a float, one should write it in the decimal base using a floating point which separates the integer part from the fractional part. 
+                These two parts should not be empty. The fractional part shouldn't necessarily respect the precision - it will be automatically trimmed. For negative 
+                integers, the unary operator <code>-</code> should be used in the representation. <br>
+                <ul>
+                  <b>Examples:</b>
+                  <li>Small sized float: <code>1234.098765</code></li>
+                  <li>Large sized float: <code>123456789.201918171615141312111</code></li>
+                  <li>Negative float: <code>-123.456</code></li>
+                  <li>Float with 0 integer part: <code>0.123</code></li>
+                  <li>Float with 0 fractional part: <code>123.0</code></li>
+                  <li>Zero float: <code>0.0</code></li>
+                </ul>                
               </section>
 
               <section id="bool">
                 <h5> 2.3.1a.3 Bool</h5>
-                ...
+                The bool data type is a logical type which allows storing data in form of logical primitives. Therefore, a bool can have one out of the two possible
+                values: <code>true</code> or <code>false</code>. The complexity of the operations with such types should be considered constant. <br>
+                To represent a bool, one should write it in form of the <code>true</code> or <code>false</code> keywords. <br>
+                <ul>
+                  <b>Examples:</b>
+                  <li>True bool: <code>true</code></li>
+                  <li>False bool: <code>false</code></li>
+                </ul>                 
               </section>
 
               <section id="string">
                 <h5> 2.3.1a.4 String</h5>
-                ...
+                The string data type is a character type which allows storing data in form of character strings. There is no fixed bound for the length of the string
+                and can be used as a single character representation when its size is one or the empty string when its size is zero. The complexity of the operations 
+                is dependent upon the size of the string, thus not all computations should be considered to be working in constant time. <br>
+                To represent a string, one should enclose a character sequence in double quotes. For the empty string, provide an empty sequence inside the
+                double quotes pair. <br>
+                <ul>
+                  <b>Examples:</b>
+                  <li>Simple string: <code>"abcxyz"</code></li>
+                  <li>Complex string: <code>"a1%x]\0 and &p./?"</code></li>
+                  <li>Single character string: <code>"a"</code></li>
+                  <li>Empty string: <code>""</code></li>
+                </ul>       
               </section>
 
             </section>
@@ -212,22 +258,70 @@
 
               <section id="array">
                 <h5> 2.3.1b.1 Array</h5>
-                ...
+                An array is a heterogeneous compound data type which can store multiple values in a sequential way with continious allocation. The array is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum. <br>
+                The types of values contained in one array can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
+                a unlimited number of values inside the array. The complexities are either liniar or constant, depending on the operations. <br>
+                To represent an array, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
+                expression based one, as is the most comprehensive.<br>
+                <ul>
+                  <b>Examples:</b>
+                  <li>Expression based representation: <code>[1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x->2 y->3}]</code></li>
+                  <li>Interval based representation: <code>[1..5]</code></li>
+                  <li>Filter specification: <code>[x from [1..5] | x % 2 == 1]</code></li>
+                  <li>Map specification: <code>[2 * x | x from [1..5]]</code></li>
+                  <li>Empty array: <code>[]</code></li>
+                </ul>
               </section>
 
               <section id="list">
                 <h5> 2.3.1b.2 List</h5>
-                ...
+                A list is a heterogeneous compound data type which can store multiple values in a sequential way with discontinuous allocation. The list is limited  in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum. <br>
+                The types of values contained in one list can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
+                a unlimited number of values inside the list. The complexities are either liniar or constant, depending on the operations. <br>
+                To represent a list, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
+                expression based one, as is the most comprehensive. In order to represent the empty list, use the <code>emptyList</code> keyword, or the simple
+                <i>open/close</i> syntax.<br> 
+                <ul>
+                  <b>Examples:</b>
+                  <li>Expression based representation: <code>< 1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x->2 y->3} ></code></li>
+                  <li>Interval based representation: <code>< 1..5 ></code></li>
+                  <li>Filter specification: <code>< x from [1..5] | x % 2 == 1 ></code></li>
+                  <li>Map specification: <code>< 2 * x | x from [1..5] ></code></li>
+                  <li>Empty list: <code>emptyList</code></li>
+                  <li>Empty list with <i>open/close</i> syntax: <code><  ></code></li>
+                </ul>
               </section>
 
               <section id="set">
                 <h5> 2.3.1b.3 Set</h5>
-                ...
+                A set is a heterogeneous compound data type which can store multiple unique values in a nonsequential way with discontinuous allocation. The set is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum. <br>
+                The types of values contained in one set can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
+                a unlimited number of values inside the set. The complexities are either liniar or constant, depending on the operations. <br>
+                To represent a set, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
+                expression based one, as is the most comprehensive. In order to represent the empty set, use the <code>emptySet</code> keyword, or the simple
+                <i>open/close</i> syntax.<br> 
+                <ul>
+                  <b>Examples:</b>
+                  <li>Expression based representation: <code>{1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x->2 y->3}}</code></li>
+                  <li>Interval based representation: <code>{1..5}</code></li>
+                  <li>Filter specification: <code>{x from [1..5] | x % 2 == 1}</code></li>
+                  <li>Map specification: <code>{2 * x | x from [1..5]}</code></li>
+                  <li>Empty set: <code>emptySet</code></li>
+                  <li>Empty set with <i>open/close</i> syntax: <code>{}</code></li>
+                </ul>
               </section>
 
               <section id="structure">
                 <h5> 2.3.1b.4 Structure</h5>
-                ...
+                A structure is a heterogeneous compound data type which can store multiple values based on a unique identifier. The structure is limited in size by a  <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum.   <br>
+                The types of values contained in one structure can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
+                a unlimited number of values inside the structure. <br>
+                To represent a structure, one should enclose in curly braces a sequence of space separated <i>pair components</i> which are of form <code>key -> value</code>. An empty structure can't be defined, so it should contain at least one component. <br> 
+                <ul>
+                  <b>Examples:</b>
+                  <li>Simple structure with two components: <code>{x->2 y->5}</code></li>
+                  <li>Complex structure: <code>{a -> 0.5 b -> [1, 2, 3, 4, 5] c -> < "a", "b" > d -> {0.5, 0.6} e -> {x -> 2 y -> 3} x -> 1 y -> "abc" z -> true}</code></li>
+                </ul>
               </section>
 
             </section>
@@ -239,37 +333,215 @@
 
             <section id="id-operator">
               <h4> 2.3.2.1 Increment/Decrement</h4>
-              ...
+              There are four types of operators to easily increment or decrement a numeric value. The table below explains the behavior of the operators when a
+              numeric value <i>x</i> is used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Postfix increment</td><td><code>x++</code></td><td>Increases the value of x by 1, but the old value is used in the current expression</td></tr>
+                <tr><td>Postfix decrement</td><td><code>x--</code></td><td>Decreseas the value of x by 1, but the old value is used in the current expression</td></tr>
+                <tr><td>Prefix increment</td><td><code>++x</code></td><td>Increases the value of x by 1 and the new value is used in the current expression</td></tr>
+                <tr><td>Prefix decrement</td><td><code>--x</code></td><td>Decreases the value of x by 1 and the new value is used in the current expression</td></tr>
+              </table>
+
+              There is a difference between a postfix and prefix operator:
+              <ul>
+                <li>The prefix operator changes the value of the operand and the expression continues to work with the updated value.</li>
+                <li>The postfix operator changes the value of the operand, but the expression continues to work with its old value.</li>
+              </ul>
+              Note that only numeric values are valid for this kind of operations. Also, the result is always the same type as the initial value. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type</th><th>Postfix increment</th><th>Postfix decrement</th><th>Prefix increment</th><th>Prefix decrement</th></tr>
+                <tr><td>Integer</td><td><code>3++ is 3</code></td><td><code>3-- is 3</code></td><td><code>++3 is 4</code></td><td><code>--3 is 2</code></td></tr>
+                <tr><td>Float</td><td><code>3.2++ is 3.2</code></td><td><code>3.2-- is 3.2</code></td><td><code>++3.2 is 4.2</code></td><td><code>--3.2 is 2.2</code></td></tr>
+              </table>
             </section>
 
             <section id="artihmetic-operator">
               <h4> 2.3.2.2 Arithmetic</h4>
-              ...
+              There are two subcategories of arithmetic operators: additive (+, -) and multiplicative (*, /, %). <br>
+              The table below explains the behavior of the operators when two numeric values <i>a</i> and <i>b</i> are used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Addition</td><td><code>a + b</code></td><td>Computes the sum of <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Subtraction</td><td><code>a - b</code></td><td>Computes the difference between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Multiplication</td><td><code>a * b</code></td><td>Computes the product of <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Division</td><td><code>a / b</code></td><td>Computes the division's result of <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Mod operator</td><td><code>a % b</code></td><td>Computes the remainder left over when <i>a</i> is divided by <i>b</i></td></tr>
+              </table>
+
+              The string data type also has an implementation for the addition operator. The table below explains the behavior of the additive operator when two strings <i>a</i> and <i>b</i> are used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Concatenation</td><td><code>a + b</code></td><td>Computes a string representing the concatanation of <i>a</i> and <i>b</i></td></tr>
+              </table>
+
+              The results of these operators is also numeric, but the exact resulted data type is sometimes dependent upon the operands. It means that it is relevant what 
+              data types are used for <i>a</i> and <i>b</i>: either integer or float. The table below ilustrates of what data type the result is depending on the operator and operands. In order to get the quotient of a division, one can use the integer conversion builtin function. To be noted than an error is thrown when the mod operator works with a float operand.
+              <table border = 1>
+                <tr><th>Operator</th><th>Result data type</th><th>Operands data types</th></tr>
+                <tr><td>Concatenation</td><td>string</td><td>string, string</td></tr>
+                <tr><td>Addition / Subtraction / Multiplication</td><td>integer</td><td>integer, integer</td></tr>
+                <tr><td>Addition / Subtraction / Multiplication</td><td>float</td><td>float, integer / integer, float / float, float</td></tr>
+                <tr><td>Division</td><td>float</td><td>integer, integer / float, integer / integer, float / float, float</td></tr>
+                <tr><td>Mod operator</td><td>integer</td><td>integer, integer</td></tr>
+              </table>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type 1</th><th>Data type 2</th><th>Addition / Concatenation</th><th>Subtraction</th><th>Multiplication</th><th>Division</th><th>Mod operator</th></tr>
+                <tr><td>Integer</td><td>Integer</td><td><code>3 + 2 is 5</code></td><td><code>3 - 2 is 1</code></td><td><code>3 * 2 is 6</code></td><td><code>3 / 2 is 1.5</code></td><td><code>3 % 2 is 1</code></td></tr>
+                <tr><td>Integer</td><td>Float</td><td><code>3 + 2.2 is 5.2</code></td><td><code>3 - 2.2 is 0.8</code></td><td><code>3 * 2.2 is 6.6</code></td><td><code>3 / 2.2 is 1.3636363636</code></td><td><code></code></td></tr>
+                <tr><td>Float</td><td>Integer</td><td><code>3.2 + 2 is 5.2</code></td><td><code>3.2 - 2 is 1.2</code></td><td><code>3.2 * 2 is 6.4</code></td><td><code>3.2 / 2 is 1.6</code></td><td><code></code></td></tr>
+                <tr><td>Float</td><td>Float</td><td><code>3.2 + 2.2 is 5.4</code></td><td><code>3.2 - 2.2 is 1.0</code></td><td><code>3.2 * 2.2 is 7.04</code></td><td><code>3.2 / 2.2 is 1.4545454545</code></td><td><code></code></td></tr>
+                <tr><td>String</td><td>String</td><td><code>"abc" + "xyz" is "abcxyz"</code></td><td><code></code></td><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+              </table>
+
             </section>
 
             <section id="bitwise-operator">
               <h4> 2.3.2.3 Bitwise</h4>
-              ...
+              There are five types of operators which work on the bits of integer values. The table below explains the behavior of the operators when the
+              integer values <i>a</i> and <i>b</i> are used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Bitwise and</td><td><code>a & b</code></td><td>Computes the result of a bitwise and operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Bitwise or</td><td><code>a | b</code></td><td>Computes the result of a bitwise or operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Bitwise xor</td><td><code>a xor b</code></td><td>Computes the result of an bitwise xor operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Left shift</td><td><code>a << b</code></td><td>Computes the result after a bit shift of <i>a</i> with <i>b</i> bits to the left</td></tr>
+                <tr><td>Right shift</td><td><code>a >> b</code></td><td>Computes the result after a bit shift of <i>a</i> with <i>b</i> bits to the right</td></tr>
+              </table>
+
+              Note that only integer values are valid for this kind of operations. Also, the result of these operations is always integer. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type 1</th><th>Data type 2</th><th>Bitwise and</th><th>Bitwise or</th><th>Bitwise xor</th><th>Left shift</th><th>Right shift</th></tr>
+                <tr><td>Integer</td><td>Integer</td><td><code>12 & 10 is 8</code></td><td><code>12 | 10 is 14</code></td><td><code>12 xor 10 is 6</code></td><td><code>12 << 10 is 12288</code></td><td><code>12 >> 2 is 3</code></td></tr>
+              </table>
             </section>
 
             <section id="logical-operator">
               <h4> 2.3.3.4 Logical</h4>
-              ...
+              There are three types of operators which work on the bool values in order to evaluate logical expressions. The table below explains the behavior of the operators when the
+              bool values <i>a</i> and <i>b</i> are used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Logical not</td><td><code>!a</code></td><td>Computes the negated value of the <i>a</i> bool</td></tr>
+                <tr><td>Logical and</td><td><code>a && b</code></td><td>Computes the result of a logical and operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Logical or</td><td><code>a || b</code></td><td>Computes the result of a logical or operation between <i>a</i> and <i>b</i></td></tr>
+              </table>
+              Note that only bool values are valid for this kind of operations. Also, the result of these operations is always bool. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type 1</th><th>Data type 2</th><th>Logical not</th><th>Logical and</th><th>Logical or</th></tr>
+                <tr><td>Bool</td><td>Bool</td><td><code>!true is false</code></td><td><code>true && false is false</code></td><td><code>true || false is true</code></td></tr>
+              </table>
             </section>
 
             <section id="relational-operator">
               <h4> 2.3.3.5 Relational</h4>
-              ...
+              There are two subcategories of relational operators: equality (==, !=) and comparing (<, <=, >=, >). <br>
+              There are six types of operators which work on the multiple type fd values in order to evaluate relational expressions. The table below explains the behavior of the operators when the values <i>a</i> and <i>b</i> are used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Equal</td><td><code>a == b</code></td><td>Checks if <i>a</i> and <i>b</i> have equal values</td></tr>
+                <tr><td>Not equal</td><td><code>a != b</code></td><td>Checks if <i>a</i> and <i>b</i> don't have equal values</td></tr>
+                <tr><td>Lower than</td><td><code>a < b</code></td><td>Checks if <i>a</i> has a value lower than <i>b</i> </td></tr>
+                <tr><td>Lower than or equal</td><td><code>a <= b</code></td><td>Checks if <i>a</i> has a value lower than <i>b</i> or if <i>a</i> and <i>b</i> have equal values</td></tr>
+                <tr><td>Greater than or equal</td><td><code>a >= b</code></td><td>Checks if <i>a</i> has a value greater than <i>b</i> or if <i>a</i> and <i>b</i> have equal values</td></tr>
+                <tr><td>Greater than</td><td><code>a > b</code></td><td>Checks if <i>a</i> has a value greater than <i>b</i> </td></tr>
+              </table>
+              These kind of operations have different meanings depending on the data types used for the operands. However, the result is always consistent in data type; these operators always deliver a bool result. The table below describes how these checks are made for each kind of data type.
+              <table border = 1>
+                <tr><th>Operator</th><th>Result data type</th><th>Operands data types</th><th>Description</th></tr>
+                <tr><td>Equality: ==, !=</td><td>bool</td><td>integer, integer / float, integer / integer, float / float, float</td><td>Check if the represented numeric values are equal or not</td></tr>
+                <tr><td>Comparing: <, <=, =>, ></td><td>bool</td><td>integer, integer / float, integer / integer, float / float, float</td><td>Check the relation between the represented numeric values</td></tr>
+                <tr><td>Equality: ==, !=</td><td>bool</td><td>string, string</td><td>Check if the represented character strings are the same or not</td></tr>
+                <tr><td>Comparing: <, <=, =>, ></td><td>bool</td><td>string, string</td><td>Check the lexicographical relation between the represented character strings</td></tr>
+                <tr><td>Equality: ==, !=</td><td>bool</td><td>bool, bool</td><td>Check if both bool have the same truth value or not</td></tr>
+                <tr><td>Equality: ==, !=</td><td>bool</td><td>array, array</td><td>Check if both arrays have the same size. In case they do, check each pair of elements from same positions in the two arrays to detect if they are equal or not. </td></tr>
+                <tr><td>Equality: ==, !=</td><td>bool</td><td>list, list</td><td>Check if both lists have the same size. In case they do, check each pair of elements from same positions in the two lists to detect if they are equal or not. </td></tr>
+                <tr><td>Equality: ==, !=</td><td>bool</td><td>set, set</td><td>Check if both sets have the same size. In case they do, check that both coincide with their intersection or not. </td></tr>
+                <tr><td>Equality: ==, !=</td><td>bool</td><td>structure, structure</td><td>Check if both structures have the same set of identifiers. In case they do, check if the values associated with each identifier in the structures are equal or not. </td></tr>
+              </table>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type 1</th><th>Data type 2</th><th>Equal</th><th>Not equal</th><th>Lower than</th><th>Lower than or equal</th><th>Greater than or equal</th><th>Greater than</th></tr>
+                <tr><td>Integer</td><td>Integer</td><td><code>1 == 5 is false</code></td><td><code>1 != 5 is true</code></td><td><code>1 < 5 is true</code></td><td><code>1 <= 5 is true</code></td><td><code>1 >= 5 is false</code></td><td><code>1 > 5 is false</code></td></tr>
+                <tr><td>Integer</td><td>Float</td><td><code>1 == 1.0 is true</code></td><td><code>1 != 1.0 is false</code></td><td><code>1 < 1.0 is false</code></td><td><code>1 <= 1.0 is true</code></td><td><code>1 >= 1.0 is true</code></td><td><code>1 > 1.0 is false</code></td></tr>
+                <tr><td>Float</td><td>Integer</td><td><code>1.2 == 1 is false</code></td><td><code>1.2 != 1 is true</code></td><td><code>1.2 < 1 is false</code></td><td><code>1.2 <= 1 is false</code></td><td><code>1.2 >= 1 is true</code></td><td><code>1.2 > 1 is true</code></td></tr>
+                <tr><td>Float</td><td>Float</td><td><code>1.2 == 1.3 is false</code></td><td><code>1.2 != 1.3 is true</code></td><td><code>1.2 < 1.3 is true</code></td><td><code>1.2 <= 1.3 is true</code></td><td><code>1.2 >= 1.3 is false</code></td><td><code>1.2 > 1.3 is false</code></td></tr>
+                <tr><td>String</td><td>String</td><td><code>"abc" == "xyz" is false</code></td><td><code>"abc" != "xyz" is true</code></td><td><code>"abc" < "xyz" is true</code></td><td><code>"abc" <= "xyz" is true</code></td><td><code>"abc" >= "xyz" is false</code></td><td><code>"abc" > "xyz" is false</code></td></tr>
+                <tr><td>Bool</td><td>Bool</td><td><code>true == false is false</code></td><td><code>true != false is true</code></td><td><code></code></td><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+                <tr><td>Array</td><td>Array</td><td><code>[1, "abc"] == [1, "abc"] is true</code></td><td><code>[1, "abc"] != [1, "abc"] is false</code></td><td><code></code></td><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+                <tr><td>List</td><td>List</td><td><code><1, "abc"> == <1.1, "abc"> is false</code></td><td><code><1, "abc"> != <1.1, "abc"> is true</code></td><td><code></code></td><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+                <tr><td>Set</td><td>Set</td><td><code>{1, "abc"} == {1, "abc"} is true</code></td><td><code>{1, "abc"} != {1, "abc"} is false</code></td><td><code></code></td><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+                <tr><td>Structure</td><td>Structure</td><td><code>{x->1.1 y->"abc"} == {x->"abc" y->1.1} is false</code></td><td><code>{x->1.1 y->"abc"} != {x->"abc" y->1.1} is true</code></td><td><code></code></td><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+              </table>
+
             </section>
 
             <section id="setwise-operator">
               <h4> 2.3.3.6 Setwise</h4>
-              ...
+              There are three types of operators which work exclusively on sets and represent the mathematical set operators. The table below explains the behavior of the operators when the set values <i>a</i> and <i>b</i> are used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Union</td><td><code>a U b</code></td><td>Computes the union of the represented sets by <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Intersection</td><td><code>a ^ b</code></td><td>Computes the intersection of the represented sets by <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Difference</td><td><code>a \ b</code></td><td>Computes the difference of the represented sets by <i>a</i> and <i>b</i></td></tr>
+              </table>
+              Note that the result of these operators is always a set and the operands are also sets. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type 1</th><th>Data type 2</th><th>Union</th><th>Intersection</th><th>Difference</th></tr>
+                <tr><td>Set</td><td>Set</td><td><code>{1, 2, 3} U {2, 3, 4} is {1, 2, 3, 4}</code></td><td><code>{1, 2, 3} ^ {2, 3, 4} is {2, 3}</code></td><td><code>{1, 2, 3} \ {2, 3, 4} is {1}</code></td></tr>
+              </table>
             </section>
 
-            <section id="other-operator">
-              <h4> 2.3.3.7 Others</h4>
-              ...
+            <section id="conditional-operator">
+              <h4> 2.3.3.7 Conditional</h4>
+              The conditional operator is used as an inline conditional statement and is the only ternary operator by now. The table below explains the behavior of the operator when the bool value <i>a</i> and other values <i>b</i> and <i>c</i> are used.
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Conditional</td><td><code>a ? b : c</code></td><td>Evaluates to <i>b</i> only if <i>a</i> is true, otherwise it evaluates to <i>c</i></td></tr>
+              </table>
+              Note that <i>a</i> should always be a bool value, while there is no restriction over the data types of <i>b</i> and <i>c</i>. The data type of the result is either the same as <i>b</i>'s type or <i>c</i>'s type. In fact the result is either <i>b</i> or <i>c</i>.<br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type 1</th><th>Data type 2</th><th>Data type 3</th><th>Conditional</th></tr>
+                <tr><td>Bool</td><td>Integer</td><td>String</td><td><code>true ? 5 : "abc" is 5</code></td></tr>
+                <tr><td>Bool</td><td>Float</td><td>Bool</td><td><code>false ? 2.5 : true is true</code></td></tr>
+                <tr><td>Bool</td><td>Array</td><td>List</td><td><code>true ? [1, 2, 3] : <4, 5, 6> is [1, 2, 3]</code></td></tr>
+                <tr><td>Bool</td><td>Set</td><td>Structure</td><td><code>false ? {1, 2, 3} : {x->2 y->3} is {x->2 y->3}</code></td></tr>
+              </table>
+            </section>
+
+            <section id="inclusive-operator">
+              <h4> 2.3.3.8 Inclusive</h4>
+              The inclusive operator is used in order to detect if a specific element is contained inside an iterable data type. The table below explains the behavior of the inclusive operator when the value <i>a</i> and iterbale value <i>b</i> are used
+              <table border = 1>
+                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Inclusive</td><td><code>a in b</code></td><td>Checks if <i>a</i> is contained in <i>b</i> or not.</td></tr>
+              </table>
+              Note that the inclusive operator always returns a bool value. Also, <i>b</i> should always be an iterable data type. In order to check the inclusion, the equal operator is used. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type 1</th><th>In array</th><th>In list</th><th>In set</th></tr>
+                <tr><td>Integer</td><td><code>4 in [1, 2, 3] is false</code></td><td><code>4 in <1, 2, 3> is false</code></td><td><code>4 in {1, 2, 3} is false</code></td></tr>
+                <tr><td>Float</td><td><code>2.0 in [1, 2, 3] is true</code></td><td><code>2.0 in <1, 2, 3> is true</code></td><td><code>2.0 in {1, 2, 3} is true</code></td></tr>
+                <tr><td>Bool</td><td><code>true in [true, false] is true</code></td><td><code>true in < true, false > is true</code></td><td><code>true in {true, false} is true</code></td></tr>
+                <tr><td>String</td><td><code>"abc" in ["Abc", "xyz"] is false</code></td><td><code>"abc" in <"Abc", "xyz"> is false</code></td><td><code>"abc" in {"Abc", "xyz"} is false</code></td></tr>
+                <tr><td>Array</td><td><code>[1, 2] in [1, [1, 2], 3] is true</code></td><td><code>[1, 2] in <1, [1, 2], 3> is true</code></td><td><code>[1, 2] in {1, [1, 2], 3} is true</code></td></tr>
+                <tr><td>List</td><td><code><1, 2> in [1, <1, 2.0>, 3] is true</code></td><td><code>[1, 2] in <1, {1, 2.2}, 3> is false</code></td><td><code>[1, 2] in {1, {1, 2.2}, 3} is false</code></td></tr>
+                <tr><td>Set</td><td><code>{1, 2} in [1, {1, 2.2}, 3] is false</code></td><td><code>[1, 2] in <1, {1, 2.2}, 3> is false</code></td><td><code>[1, 2] in {1, {1, 2.2}, 3} is false</code></td></tr>
+              </table>
             </section>
 
           </section>

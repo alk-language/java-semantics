@@ -1,8 +1,8 @@
 body {
     font-family: Roboto, sans-serif;
     line-height: 1.6;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
     text-align: justify;
 }
 
@@ -18,13 +18,6 @@ section {
     margin-bottom: 5%;
 }
 
-#mvc-pic {
-    width: 45%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #toc_container {
     display: table;
     font-size: 95%;
@@ -37,4 +30,21 @@ section {
 footer {
     line-height: 0.5;
     color: #000c67;
+}
+
+table {
+    margin: 10px auto 10px auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+td {
+  padding: 8px;
+}
+
+th {
+  padding: 8px;
+  color: white;;
+  background-color: #000c67;
+
 }

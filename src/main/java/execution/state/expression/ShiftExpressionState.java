@@ -33,7 +33,7 @@ public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
         {
             if (tree.getChild(getSignPos()).getText().equals("<<"))
                 return current.shiftLeft(next);
-            return next.shiftRight(next);
+            return current.shiftRight(next);
         }
         catch (AlkException e)
         {
