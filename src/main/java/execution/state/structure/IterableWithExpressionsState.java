@@ -17,7 +17,7 @@ import util.types.Value;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IterableWithExpressionsState extends GeneratorState<AlkIterableValue, Value>
+public class IterableWithExpressionsState extends GeneratorState<Location, Value>
 {
     private ArrayList<AlkValue> array = new ArrayList<>();
     private Class<? extends AlkIterableValue> clazz;
@@ -37,14 +37,15 @@ public class IterableWithExpressionsState extends GeneratorState<AlkIterableValu
     }
 
     @Override
-    public AlkIterableValue getFinalResult() {
+    public Location getFinalResult() {
         try {
             AlkIterableValue iterableVal = clazz.newInstance();
             for (AlkValue value : array)
             {
                 iterableVal.push(generator.generate(value.toRValue().clone(generator)));
             }
-            return iterableVal;
+
+            return generator.generate(iterableVal);
         } catch (InstantiationException | IllegalAccessException e) {
             Exception cause = (Exception) e.getCause();
             if (cause instanceof AlkException)

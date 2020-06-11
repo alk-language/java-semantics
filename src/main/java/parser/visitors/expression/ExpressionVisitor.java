@@ -3,12 +3,9 @@ import execution.state.StateFactory;
 import execution.state.expression.IntValueState;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
-import execution.state.reference.RefArrayState;
-import execution.state.reference.RefPointIDState;
-import execution.state.reference.RefPointMethodState;
+import execution.state.reference.*;
 import parser.env.Environment;
 import grammar.*;
-import execution.state.reference.RefIDState;
 import parser.visitors.function.FunctionCallVisitor;
 import parser.visitors.structure.ArrayVisitor;
 import parser.visitors.structure.ListVisitor;
@@ -127,8 +124,8 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     @Override
-    public ExecutionState visitRefArray(alkParser.RefArrayContext ctx) {
-        return StateFactory.create(RefArrayState.class, ctx, payload, env);
+    public ExecutionState visitFactorArray(alkParser.FactorArrayContext ctx) {
+        return StateFactory.create(FactorArray.class, ctx, payload, env);
     }
 
     @Override
@@ -142,8 +139,13 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     @Override
-    public ExecutionState visitRefPointMethod(alkParser.RefPointMethodContext ctx) {
-        return StateFactory.create(RefPointMethodState.class, ctx, payload, env);
+    public ExecutionState visitFactorPointMethod(alkParser.FactorPointMethodContext ctx) {
+        return StateFactory.create(FactorPointMethod.class, ctx, payload, env);
+    }
+
+    @Override
+    public ExecutionState visitToBaseFactor(alkParser.ToBaseFactorContext ctx) {
+        return StateFactory.create(ToBaseFactor.class, ctx, payload, env);
     }
 
     /// Scalar values

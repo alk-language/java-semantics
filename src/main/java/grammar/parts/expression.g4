@@ -77,6 +77,13 @@ postfix_expression
 
 factor
 :
+    factor POINT builtin_method                                                                                         #FactorPointMethod
+    | factor LBRA expression RBRA                                                                                       #FactorArray
+    | base_factor                                                                                                       #ToBaseFactor
+;
+
+base_factor
+:
     ref_name                                                                                                            #RefNameFactor
     | value                                                                                                             #ValueFactor
     | LPAR expression RPAR                                                                                              #ParanthesesFactor
@@ -100,9 +107,7 @@ scalar_value :
 //Reference name
 ref_name
 :
-    ref_name (POINT|ARROW) builtin_method                                                                               #RefPointMethod
-    | ref_name (POINT|ARROW) ID                                                                                         #RefPointID
-    | ref_name LBRA expression RBRA                                                                                     #RefArray
+    ref_name (POINT|ARROW) ID                                                                                           #RefPointID
     | function_call                                                                                                     #RefFunctionCall
     | ID                                                                                                                #RefID
 ;
