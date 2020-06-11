@@ -25,9 +25,9 @@
                 <li><a href="#preprocessing">2.2 Preprocessing</a></li>
                 <li><a href="#expressions">2.3 Expressions</a>
                   <ul>
-                    <li><a href="#data-types">2.3.1 Data types </a>
+                    <li><a href="#data-types">2.3.1 Data type values </a>
                       <ul>
-                        <li><a href="#simple-types">2.3.1a Simple data types </a>
+                        <li><a href="#simple-types">2.3.1a Simple data type values </a>
                           <ul>
                             <li><a href="#integer">2.3.1a.1 Integer </a></li>
                             <li><a href="#float">2.3.1a.2 Float </a></li>
@@ -35,7 +35,7 @@
                             <li><a href="#string">2.3.1a.4 String </a></li>
                           </ul>
                         </li>
-                        <li><a href="#compound-types">2.3.1b Compound data types </a>
+                        <li><a href="#compound-types">2.3.1b Compound data type values </a>
                           <ul>
                             <li><a href="#array">2.3.1b.1 Array </a></li>
                             <li><a href="#list">2.3.1b.2 List </a></li>
@@ -45,7 +45,7 @@
                         </li>
                       </ul>
                     </li>
-                    <li><a href="#operators">2.3.2 Operators</a>
+                    <li><a href="#operators">2.3.2 Data type operators</a>
                       <ul>
                         <li><a href="#unary-operator">2.3.2.1 Unary </a></li>
                         <li><a href="#id-operator">2.3.2.2 Increment/Decrement </a></li>
@@ -62,16 +62,32 @@
                       <ul>
                         <li><a href="#mathematical-functions">2.3.3.1 Mathematical </a></li>
                         <li><a href="#conversion-functions">2.3.3.2 Conversion </a></li>
-                        <li><a href="#other-functions">2.3.3.3 Others </a></li>
+                        <li><a href="#string-functions">2.3.3.3 String based </a></li>
+                        <li><a href="#io-functions">2.3.3.4 IO </a></li>
+                        <li><a href="#probabilistic-functions">2.3.3.5 Probabilistic </a></li>
+                        <li><a href="#structural-functions">2.3.3.6 Structural </a></li>
                       </ul>
                     </li>
-                    <li><a href="#builtin-methods">2.3.4 Builtin Methods</a></li>
+                    <li><a href="#builtin-methods">2.3.4 Builtin Methods</a>
+                      <ul>
+                        <li><a href="#query-builtin-methods">2.3.4.1 Query </a></li>
+                        <li><a href="#update-builtin-methods">2.3.4.2 Update </a></li>
+                      </ul>
+                    </li>
                   </ul>
                 </li>
                 <li><a href="#declarations_initializations">2.4 Declarations and Initializations</a>
                   <ul>
-                    <li><a href="#default-initialization">2.4.1 Default initializaiton values</a></li>
-                    <li><a href="#dynamic-allocation">2.4.2 Dynamic allocation </a></li>
+                    <li><a href="#dynamic-allocation">2.4.2 Iterable data types definition </a>
+                      <ul>
+                        <li><a href="#expression-representation">2.4.2.1 Expression based definition </a></li>
+                        <li><a href="#interval-representation">2.4.2.2 Interval based definition </a></li>
+                        <li><a href="#filter-representation">2.4.2.3 Filter specification based definition </a></li>
+                        <li><a href="#map-representation">2.4.2.4 Map specification based definition </a></li>
+                        <li><a href="#empty-representation">2.4.2.5 Empty definition </a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#dynamic-allocation">2.4.3 Dynamic allocation </a></li>
                   </ul>
                 </li>
                 <li><a href="#function">2.5 Functions</a>
@@ -145,9 +161,10 @@
                     <li><a href="#option-i">5.2 Setting the initial configuration </a></li>
                     <li><a href="#option-p">5.3 Setting the precision</a></li>
                     <li><a href="#option-m">5.4 Show the metadata</a></li>
-                    <li><a href="#option-e">5.5 Trigger exhaustive execution</a></li>
-                    <li><a href="#option-h">5.6 Help and version</a></li>
-                    <li><a href="#option-t">5.7 Trigger debug mode</a></li>
+                    <li><a href="#option-z">5.5 Increase maximum allocation size</a></li>
+                    <li><a href="#option-e">5.6 Trigger exhaustive execution</a></li>
+                    <li><a href="#option-h">5.7 Help and version</a></li>
+                    <li><a href="#option-t">5.8 Trigger debug mode</a></li>
                 </ul>
             </li>
         </ul>
@@ -182,10 +199,10 @@
           <h2> 2.3 Expressions </h2>
 
           <section id="data-types">
-            <h3> 2.3.1 Data types </h3>
+            <h3> 2.3.1 Data type values </h3>
 
             <section id="simple-types">
-              <h4> 2.3.1a Simple data types </h4>
+              <h4> 2.3.1a Simple data type values </h4>
 
               <section id="integer">
                 <h5> 2.3.1a.1 Integer</h5>
@@ -193,12 +210,12 @@
                 of one integer, as it is backed by an unlimited data structure designed for numeric usage. The complexity of the operations is dependent
                 upon the size of the integer, thus not all computations should be considered to be working in constant time. <br>
                 To represent an integer, one should just simply write it in the decimal base - as this is the only way Alk can interpret it.
-                For negative integers, the unary operator <code>-</code> should be used in the representation. <br>
+                For negative integers, the <a href="#unary-operator">unary operator</a> <code>-</code> should be used in the representation. <br>
                 <ul>
                   <b>Examples:</b>
-                  <li>Small sized integer: <code>123456789</code></li>
-                  <li>Large sized integer: <code>1234567891011121314151617181920</code></li>
-                  <li>Negative integer: <code>-123</code></li>
+                  <li>Integer: <code>123456789</code></li>
+                  <li>Integer with a large number of digits: <code>1234567891011121314151617181920</code></li>
+                  <li>Integer with minus sign: <code>-123</code></li>
                   <li>Zero integer: <code>0</code></li>
                 </ul>
               </section>
@@ -207,16 +224,16 @@
                 <h5> 2.3.1a.2 Float</h5>
                 The float data type is a numeric type which allows storing data in form of numbers with floating point. There is no fixed bound for the dimension
                 of the integer part, while the fractional part is limited by a <i>precision</i> constant. By default, the precision is set to 10 decimals after
-                the floating point and rounded after a <i>HALF_EVEN</i> strategy. However this can be changed at the command line using the <code>-p</code> option.
+                the floating point and rounded after a <i>HALF_EVEN</i> strategy. However this can be changed at the command line using the <a href="#option-p">precision option</a>.
                 The complexity of the operations is dependent upon the size of the float, thus not all computations should be considered to be working in constant time. <br>
                 To represent a float, one should write it in the decimal base using a floating point which separates the integer part from the fractional part. 
                 These two parts should not be empty. The fractional part shouldn't necessarily respect the precision - it will be automatically trimmed. For negative 
-                integers, the unary operator <code>-</code> should be used in the representation. <br>
+                integers, the <a href="#unary-operator">unary operator</a> <code>-</code> should be used in the representation. <br>
                 <ul>
                   <b>Examples:</b>
-                  <li>Small sized float: <code>1234.098765</code></li>
-                  <li>Large sized float: <code>123456789.201918171615141312111</code></li>
-                  <li>Negative float: <code>-123.456</code></li>
+                  <li>Float: <code>1234.098765</code></li>
+                  <li>Float with a large number of digits and decimals: <code>123456789.201918171615141312111</code></li>
+                  <li>Float with minus sign: <code>-123.456</code></li>
                   <li>Float with 0 integer part: <code>0.123</code></li>
                   <li>Float with 0 fractional part: <code>123.0</code></li>
                   <li>Zero float: <code>0.0</code></li>
@@ -244,9 +261,9 @@
                 double quotes pair. <br>
                 <ul>
                   <b>Examples:</b>
-                  <li>Simple string: <code>"abcxyz"</code></li>
-                  <li>Complex string: <code>"a1%x]\0 and &p./?"</code></li>
-                  <li>Single character string: <code>"a"</code></li>
+                  <li>String: <code>"abcxyz"</code></li>
+                  <li>String also containing non-alphanumerical characters: <code>"a1%x]\0 and &p./?"</code></li>
+                  <li>String of size 1 (representation of a single character): <code>"a"</code></li>
                   <li>Empty string: <code>""</code></li>
                 </ul>       
               </section>
@@ -254,28 +271,29 @@
             </section>
 
             <section id="compound-types">
-              <h4> 2.3.1b Compound data types </h4>
+              <h4> 2.3.1b Compound data type values </h4>
 
               <section id="array">
                 <h5> 2.3.1b.1 Array</h5>
-                An array is a heterogeneous compound data type which can store multiple values in a sequential way with continious allocation. The array is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum. <br>
+                An array is a heterogeneous compound data type which can store multiple values in a sequential way with continious allocation. The array is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum.
+                The array is <a href="#dynamic-allocation">dynamically allocated</a>, so there is no need to initialize the array beforehand. <br>
                 The types of values contained in one array can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
                 a unlimited number of values inside the array. The complexities are either liniar or constant, depending on the operations. <br>
                 To represent an array, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
                 expression based one, as is the most comprehensive.<br>
                 <ul>
                   <b>Examples:</b>
-                  <li>Expression based representation: <code>[1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x->2 y->3}]</code></li>
-                  <li>Interval based representation: <code>[1..5]</code></li>
-                  <li>Filter specification: <code>[x from [1..5] | x % 2 == 1]</code></li>
-                  <li>Map specification: <code>[2 * x | x from [1..5]]</code></li>
+                  <li><a href="#expression-representation">Expression based representation</a>: <code>[1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x -> 2 y -> 3}]</code></li>
+                  <li><a href="#interval-representation">Interval based representation</a>: <code>[1..5]</code></li>
+                  <li><a href="#filter-representation">Filter specification</a>: <code>[x from [1..5] | x % 2 == 1]</code></li>
+                  <li><a href="#map-representation">Map specification</a>: <code>[2 * x | x from [1..5]]</code></li>
                   <li>Empty array: <code>[]</code></li>
                 </ul>
               </section>
 
               <section id="list">
                 <h5> 2.3.1b.2 List</h5>
-                A list is a heterogeneous compound data type which can store multiple values in a sequential way with discontinuous allocation. The list is limited  in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum. <br>
+                A list is a heterogeneous compound data type which can store multiple values in a sequential way with discontinuous allocation. The list is limited  in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum. <br>
                 The types of values contained in one list can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
                 a unlimited number of values inside the list. The complexities are either liniar or constant, depending on the operations. <br>
                 To represent a list, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
@@ -283,10 +301,10 @@
                 <i>open/close</i> syntax.<br> 
                 <ul>
                   <b>Examples:</b>
-                  <li>Expression based representation: <code>< 1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x->2 y->3} ></code></li>
-                  <li>Interval based representation: <code>< 1..5 ></code></li>
-                  <li>Filter specification: <code>< x from [1..5] | x % 2 == 1 ></code></li>
-                  <li>Map specification: <code>< 2 * x | x from [1..5] ></code></li>
+                  <li><a href="#expression-representation">Expression based representation</a>: <code>< 1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x -> 2 y -> 3} ></code></li>
+                  <li><a href="#interval-representation">Interval based representation</a>: <code>< 1..5 ></code></li>
+                  <li><a href="#filter-representation">Filter specification</a>: <code>< x from [1..5] | x % 2 == 1 ></code></li>
+                  <li><a href="#map-representation">Map specification</a>: <code>< 2 * x | x from [1..5] ></code></li>
                   <li>Empty list: <code>emptyList</code></li>
                   <li>Empty list with <i>open/close</i> syntax: <code><  ></code></li>
                 </ul>
@@ -294,7 +312,7 @@
 
               <section id="set">
                 <h5> 2.3.1b.3 Set</h5>
-                A set is a heterogeneous compound data type which can store multiple unique values in a nonsequential way with discontinuous allocation. The set is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum. <br>
+                A set is a heterogeneous compound data type which can store multiple unique values in a nonsequential way with discontinuous allocation. The set is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum. <br>
                 The types of values contained in one set can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
                 a unlimited number of values inside the set. The complexities are either liniar or constant, depending on the operations. <br>
                 To represent a set, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
@@ -302,10 +320,10 @@
                 <i>open/close</i> syntax.<br> 
                 <ul>
                   <b>Examples:</b>
-                  <li>Expression based representation: <code>{1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x->2 y->3}}</code></li>
-                  <li>Interval based representation: <code>{1..5}</code></li>
-                  <li>Filter specification: <code>{x from [1..5] | x % 2 == 1}</code></li>
-                  <li>Map specification: <code>{2 * x | x from [1..5]}</code></li>
+                  <li><a href="#expression-representation">Expression based representation</a>: <code>{1, "abc", true, 0.5, [1..5], < "a", "b" >, {0.5, 0.6}, {x -> 2 y -> 3}}</code></li>
+                  <li><a href="#interval-representation">Interval based representation</a>: <code>{1..5}</code></li>
+                  <li><a href="#filter-representation">Filter specification</a>: <code>{x from [1..5] | x % 2 == 1}</code></li>
+                  <li><a href="#map-representation">Map specification</a>: <code>{2 * x | x from [1..5]}</code></li>
                   <li>Empty set: <code>emptySet</code></li>
                   <li>Empty set with <i>open/close</i> syntax: <code>{}</code></li>
                 </ul>
@@ -313,13 +331,13 @@
 
               <section id="structure">
                 <h5> 2.3.1b.4 Structure</h5>
-                A structure is a heterogeneous compound data type which can store multiple values based on a unique identifier. The structure is limited in size by a  <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <code>-z</code> option providing another maximum.   <br>
+                A structure is a heterogeneous compound data type which can store multiple values based on a unique identifier. The structure is limited in size by a  <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum. The structure is <a href="#dynamic-allocation">dynamically allocated</a>, so there is no need to initialize the structure beforehand.<br>
                 The types of values contained in one structure can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
                 a unlimited number of values inside the structure. <br>
                 To represent a structure, one should enclose in curly braces a sequence of space separated <i>pair components</i> which are of form <code>key -> value</code>. An empty structure can't be defined, so it should contain at least one component. <br> 
                 <ul>
                   <b>Examples:</b>
-                  <li>Simple structure with two components: <code>{x->2 y->5}</code></li>
+                  <li>Simple structure with two components: <code>{x -> 2 y -> 5}</code></li>
                   <li>Complex structure: <code>{a -> 0.5 b -> [1, 2, 3, 4, 5] c -> < "a", "b" > d -> {0.5, 0.6} e -> {x -> 2 y -> 3} x -> 1 y -> "abc" z -> true}</code></li>
                 </ul>
               </section>
@@ -329,7 +347,7 @@
           </section>
 
           <section id="operators">
-            <h3> 2.3.2 Operators</h3>
+            <h3> 2.3.2 Data type operators</h3>
 
             The majority of the operators are C-like. However there are new sets of operators meant to simplify the operations between certain data types (setwise operators, inclusive operators). In this section, each operator will be explained in terms of behavior, data types and the result of the evaluation. Below it is a table meant to ilustrate the priority of operators inside an expression. <br>
             In the table, if the number in the priority column is lower than the operator will be executed quicker. For example, the conditional operator will be evaluated at the end. The ones which share the same priority, are executed in the order they appear in the expression. In order to suppress this order of evaluation, one can use the round paranthesis (for example: <code>(2 + 3) * 4</code> will result in <code>20</code>).<br>
@@ -337,47 +355,58 @@
             the evaluation will consider that there is a postfix operator and a plus sign: <code>(2++) + 3</code>. In case of <code>+++2</code>, there is a prefix operator and a unary plus sign: <code>++(+2)</code>.
             <table border = 1>
               <tr><th>Priority</th><th>Operator set</th><th>Operators</th></tr>
-              <tr><td>1</td><td>Increment / Decrement</td><td><code>++ (post), -- (post)</code></td></tr>
-              <tr><td>2</td><td>Unary</td><td><code>+ (unary), - (unary)</code></td></tr>
-              <tr><td>3</td><td>Increment / Decrement</td><td><code>++ (pre), -- (pre)</code></td></tr>
-              <tr><td>4</td><td>Arithmetic</td><td><code>*, /, %</code></td></tr>
-              <tr><td>5</td><td>Arithmetic</td><td><code>+, -</code></td></tr>
-              <tr><td>6</td><td>Bitwise</td><td><code><<, >></code></td></tr>
-              <tr><td>7</td><td>Bitwise</td><td><code>&</code></td></tr>
-              <tr><td>8</td><td>Bitwise</td><td><code>|, xor</code></td></tr>
-              <tr><td>9</td><td>Setwise</td><td><code>U, ^, \</code></td></tr>
-              <tr><td>10</td><td>Relational</td><td><code><, >, <=, >=</code></td></tr>
-              <tr><td>11</td><td>Relational</td><td><code>==, !=</code></td></tr>
-              <tr><td>12</td><td>Inclusive</td><td><code>in</code></td></tr>
-              <tr><td>13</td><td>Logical</td><td><code>&&</code></td></tr>
-              <tr><td>14</td><td>Logical</td><td><code>||</code></td></tr>
-              <tr><td>15</td><td>Conditional</td><td><code>?:</code></td></tr>
+              <tr><td>1</td><td>Unary</td><td><code>[], .</code></td></tr>
+              <tr><td>2</td><td>Increment / Decrement</td><td><code>++ (post), -- (post)</code></td></tr>
+              <tr><td>3</td><td>Unary</td><td><code>+ (unary), - (unary), !</code></td></tr>
+              <tr><td>4</td><td>Increment / Decrement</td><td><code>++ (pre), -- (pre)</code></td></tr>
+              <tr><td>5</td><td>Arithmetic</td><td><code>*, /, %</code></td></tr>
+              <tr><td>6</td><td>Arithmetic</td><td><code>+, -</code></td></tr>
+              <tr><td>7</td><td>Bitwise</td><td><code><<, >></code></td></tr>
+              <tr><td>8</td><td>Bitwise</td><td><code>&</code></td></tr>
+              <tr><td>9</td><td>Bitwise</td><td><code>|, xor</code></td></tr>
+              <tr><td>10</td><td>Setwise</td><td><code>U, ^, \</code></td></tr>
+              <tr><td>11</td><td>Relational</td><td><code><, >, <=, >=</code></td></tr>
+              <tr><td>12</td><td>Relational</td><td><code>==, !=</code></td></tr>
+              <tr><td>13</td><td>Inclusive</td><td><code>in</code></td></tr>
+              <tr><td>14</td><td>Logical</td><td><code>&&</code></td></tr>
+              <tr><td>15</td><td>Logical</td><td><code>||</code></td></tr>
+              <tr><td>16</td><td>Conditional</td><td><code>?:</code></td></tr>
             </table>
 
 
             <section id="unary-operator">
               <h4> 2.3.3.1 Unary</h4>
-              Some unary operators are used in order to suggest the mathematic representations of positive and negative numeric values. The complexity of these operations is constant. The table below explains the behavior of the unary operators when the numeric value <i>a</i> is used.
+              Some unary operators are used in order to suggest the mathematic representations of positive and negative numeric values. Other operators are used for data access (over arrays or structures). The complexity of these operations is constant. The table below explains the behavior of the unary operators when the value <i>a</i> and value <i>x</i> are used. Note that in the example below we consider <i>id</i> as a literal identifier.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Positive</td><td><code>+a</code></td><td>Keeps the sign of <i>a</i></td></tr>
                 <tr><td>Negative</td><td><code>-a</code></td><td>Changes the sign of <i>a</i></td></tr>
-              </table>
-              Note that the unary operators above always evaluate to a numeric value which in absolute value is the same as the original. Also, <i>a</i> should always evaluate to a numeric data type. <br>
-
-              Another type of unary operator is the not operator which represents the negation of a bool value. The complexity for this is also constant. The table below explains the behavior of the unary operator when the bool value <i>a</i> is used.
-
-              <table border = 1>
-                <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Not</td><td><code>!a</code></td><td>Changes the truth value of the bool value <i>a</i></td></tr>
+                <tr><td>Bracket</td><td><code>a[x]</code></td><td>Access the xth element of <i>a</i></td></tr>
+                <tr><td>Dot</td><td><code>a.id</code></td><td>Access the element stored under the <i>id</i> identifier inside <i>a</i></td></tr>
               </table>
+
+              Depending on the operator used and the types of the operands, there can be several return types described in the table below:
+              <table border = 1>
+                <tr><th>Operator</th><th>Data type 1</th><th>Data type 2</th><th>Return type</th></tr>
+                <tr><td>Positive</td><td>integer</td><td></td><td>integer</td></tr>
+                <tr><td>Positive</td><td>float</td><td></td><td>float</td></tr>
+                <tr><td>Negative</td><td>integer</td><td></td><td>integer</td></tr>
+                <tr><td>Negative</td><td>float</td><td></td><td>float</td></tr>
+                <tr><td>Not</td><td>boolean</td><td></td><td>boolean</td></tr>
+                <tr><td>Bracket</td><td>array</td><td>integer greater or equal to 0 and less than the size of the array</td><td>data type of the element on the xth position</td></tr>
+                <tr><td>Dot</td><td>structure</td><td></td><td>data type of the element stored at the specified identifier</td></tr>
+              </table>
+
 
               <b>Examples:</b>
               <table border = 1>
-                <tr><th>Data type</th><th>Positive</th><th>Negative</th><th>Not</th></tr>
-                <tr><td>Integer</td><td><code>+(-2) is -2</code></td><td><code>-(-2) is 2</code></td><td></td></tr>
-                <tr><td>Float</td><td><code>-(+2) is -2.2</code></td><td><code>+(+2.2) is 2.2</code></td><td></td></tr>
-                <tr><td>Not</td><td></td><td></td><td><code>!true is false</code></td></tr>
+                <tr><th>Data type</th><th>Positive</th><th>Negative</th><th>Not</th><th>Bracket</th><th>Dot</th></tr>
+                <tr><td>Integer</td><td><code>+(-2) is -2</code></td><td><code>-(-2) is 2</code></td><td></td><td></td><td></td></tr>
+                <tr><td>Float</td><td><code>-(+2) is -2.2</code></td><td><code>+(+2.2) is 2.2</code></td><td></td><td></td><td></td></tr>
+                <tr><td>Bool</td><td></td><td></td><td><code>!true is false</code></td><td></td><td></td></tr>
+                <tr><td>Array</td><td></td><td></td><td></td><td><code>[1, 2, 3][2] is 3</code></td><td></td></tr>
+                <tr><td>Structure</td><td></td><td></td><td></td><td></td><td><code>{x -> 2 y -> 3}.x is 2</code></td></tr>
               </table>
             </section>
 
@@ -599,26 +628,237 @@
 
           <section id="builtin-functions">
             <h3> 2.3.3 Builtin Functions</h3>
+            The builin functions have the highest priority as long as they can be seen as predicates. An important aspect is that there can't be custom defined functions with the same name as the builtin functions.
 
             <section id="mathematical-functions">
               <h4> 2.3.3.1 Mathematical</h4>
-              ...
+              There are several mathematical builtin functions. All of them work with numeric types and also evaluate to numeric values. The table below explains the behavior of the methematical builtin functions when the numeric values <i>a</i> and <i>b</i> are used.
+              <table border = 1>
+                <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Sin</td><td><code>sin(a)</code></td><td>Returns the sine of <i>a</i>, where <i>a</i> is a numeric value representing radian units</td></tr>
+                <tr><td>Cos</td><td><code>cos(a)</code></td><td>Returns the cosine of <i>a</i>, where <i>a</i> is a numeric value representing radian units</td></tr>
+                <tr><td>Tan</td><td><code>tan(a)</code></td><td>Returns the tangent of <i>a</i>, where <i>a</i> is a numeric value representing radian units</td></tr>
+                <tr><td>Asin</td><td><code>asin(a)</code></td><td>Returns the inverse sine of <i>a</i>, where <i>a</i> is a numeric value which should be in <i>[-1, 1]</i> interval</td></tr>
+                <tr><td>Acos</td><td><code>acos(a)</code></td><td>Returns the inverse cosine of <i>a</i>, where <i>a</i> is a numeric value which should be in <i>[-1, 1]</i> interval</td></tr>
+                <tr><td>Atan</td><td><code>atan(a)</code></td><td>Returns the inverse tangent of <i>a</i>, where <i>a</i> is a numeric value which should be in <i>[-1, 1]</i> interval</td></tr>
+                <tr><td>Log</td><td><code>log(a)</code></td><td>Returns the natural logarithm of <i>a</i>, where <i>a</i> is a positive numeric value</td></tr>
+                <tr><td>Pow</td><td><code>pow(a, b)</code></td><td>Returns <i>a</i> power <i>b</i></td></tr>
+                <tr><td>Sqrt</td><td><code>sqrt(a)</code></td><td>Returns the square root of <i>a</i> </td></tr>
+                <tr><td>Pi</td><td><code>pi()</code></td><td>Returns the value of <i>π</i> </td></tr>
+                <tr><td>Abs</td><td><code>abs(a)</code></td><td>Returns the absolute value of <i>a</i> </td></tr>
+              </table>
+              Note that all the functions above are working with numeric type values: integer or float. The result of these functions are all float, no matter the operands' types. In the examples section we presume that the precision was set to 3 decimals after the floating point.<br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Operand 1</th><th>Operand 2</th><th>Sin</th><th>Cos</th><th>Tan</th><th>Asin</th><th>Acos</th><th>Atan</th><th>Log</th><th>Pow</th><th>Sqrt</th><th>Pi</th><th>Abs</th></tr>
+                <tr><td>Integer</td><td>Integer</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><code>pow(2, 3) is 8.0</code></td><td></td><td></td><td></td></tr>
+                <tr><td>Integer</td><td>Float</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><code>pow(2, 3.2) is 11.313</code></td><td></td><td></td><td></td></tr>
+                <tr><td>Float</td><td>Integer</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><code>pow(2.5, 3) is 15.625</code></td><td></td><td></td><td></td></tr>
+                <tr><td>Float</td><td>Float</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><code>pow(2.5, 3.5) is 24.705</code></td><td></td><td></td><td></td></tr>
+                <tr><td>Integer</td><td></td><td><code>sin(2) is 0.909</code></td><td><code>cos(2) is -0.412</code></td><td><code>tan(2) is -2.185</code></td><td><code>asin(1) is 1.570</code></td><td><code>acos(-1) is 3.141</code></td><td><code>atan(1) is 0.785</code></td><td><code>log(2) is 0.693</code></td><td></td><td><code>sqrt(2) is 1.414</code></td><td></td><td><code>abs(2) is 2.0</code></td></tr>
+                <tr><td>Float</td><td></td><td><code>sin(-2.5) is -0.598</code></td><td><code>cos(-2.5) is -0.801</code></td><td><code>tan(-2.5) is 0.747</code></td><td><code>asin(-0.5) is -0.523</code></td><td><code>acos(-0.5) is 2.094</code></td><td><code>atan(-0.5) is -0.463</code></td><td><code>log(0.5) is -0.693</code></td><td></td><td><code>sqrt(0.5) is 0.707</code></td><td></td><td><code>abs(-0.5) is 0.5</code></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><code>pi() is 3.141</code></td><td></td></tr>
+              </table>
+
             </section>
 
             <section id="conversion-functions">
               <h4> 2.3.3.2 Conversion</h4>
-              ...
+              There are only two conversion builtin functions while are used in order to change the data type of one numerical value from float to integer or from integer to float. The table below explains the behavior of the conversion builtin functions when the numeric value <i>a</i> is used.
+
+              <table border = 1>
+                <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Int</td><td><code>int(a)</code></td><td>Converts the numeric value of <i>a</i> to an integer representation. </td></tr>
+                <tr><td>Float</td><td><code>float(a)</code></td><td>Converts the numeric value of <i>a</i> to a float representation. </td></tr>
+              </table>
+              Note that the int function can produce data loss if <i>a</i> has a non-zero fractional part. Also, the only data type allowed for <i>a</i> is either float or integer. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type</th><th>Int</th><th>Float</th></tr>
+                <tr><td>Integer</td><td><code>int(2) is 2</code></td><td><code>float(2) is 2.0</code></td></tr>
+                <tr><td>Float</td><td><code>int(2.5) is 2</code></td><td><code>float(2.5) is 2.5</code></td></tr>
+              </table>              
+
             </section>
 
-            <section id="other-functions">
-              <h4> 2.3.3.3 Others</h4>
-              ...
+            <section id="string-functions">
+              <h4> 2.3.3.3 String based</h4>
+              There is only one string based function which is used in order to determine the size of a string. The table below explains the behavior of the string based builtin function when the string value <i>a</i> is used.
+
+              <table border = 1>
+                <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Len</td><td><code>len(a)</code></td><td>Returns the size of the string <i>a</i> in number of characters. </td></tr>
+              </table>
+              Note that the len builtin function returns a positive integer and the only valid operand data type is string. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type</th><th>Len</th></tr>
+                <tr><td>String</td><td><code>len("abc") is 3</code></td></tr>
+              </table>  
+            </section>
+
+            <section id="io-functions">
+              <h4> 2.3.3.4 IO</h4>
+              There is only one IO function which is used in order to print to the terminal a provided value. The table below explains the behavior of the IO builtin function when the value <i>a</i> is used.
+              <table border = 1>
+                <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Print</td><td><code>print(a)</code></td><td>Writes to the terminal a string which represents the value <i>a</i> </td></tr>
+              </table>
+              Note than any kind of value is valid for the print function as all kind of data type do have a string representation. This can't be used inside an expression as it doesn't return any value. It can however be used as a standalone function call.<br>
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type</th><th>Print</th></tr>
+                <tr><td>Integer</td><td><code>print(2) prints 2</code></td></tr>
+                <tr><td>Float</td><td><code>print(2.5) prints 2.5</code></td></tr>
+                <tr><td>Bool</td><td><code>print(true) prints true</code></td></tr>
+                <tr><td>String</td><td><code>print("abc") prints true</code></td></tr>
+                <tr><td>Array</td><td><code>print([1, 2, 3]) prints [1, 2, 3]</code></td></tr>
+                <tr><td>List</td><td><code>print(< 1, 2, 3 >) prints < 1, 2, 3 ></code></td></tr>
+                <tr><td>Set</td><td><code>print({1, 2, 3}) prints {1, 2, 3}</code></td></tr>
+                <tr><td>Structure</td><td><code>print({x -> 2 y -> 5}) prints {x -> 2 y -> 5}</code></td></tr>
+              </table>  
+            </section>
+
+            <section id="probabilistic-functions">
+              <h4> 2.3.3.5 Probabilistic</h4>
+              There is only one probabilistic function which is used to randomly generate an integer value using a uniform distribution. The table below explains the behavior of the probabilistic builtin function when the integer value <i>a</i> is used.
+              <table border = 1>
+                <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Random</td><td><code>random(a)</code></td><td>Returns a random integer number which is strictly less than <i>a</i> and greater than or equal to 0 </td></tr>
+              </table>
+              Note than only integer values are valid for the operand. Also, the use of this function triggers the probabilistic execution type. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type</th><th>Print</th></tr>
+                <tr><td>Integer</td><td><code>random(4) returns a value in {0, 1, 2, 3} with uniform probability</code></td></tr>
+              </table>  
+            </section>
+
+            <section id="structural-functions">
+              <h4> 2.3.3.6 Structural</h4>
+              There is only one structural function which is used to compute a set containing a single element. The table below explains the behavior of the structural builtin function when the value <i>a</i> is used.
+              <table border = 1>
+                <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>SingletonSet</td><td><code>singletonSet(a)</code></td><td>Returns a set containing a single element <i>a</i> </td></tr>
+              </table>
+              Note that this function always return a set and the operand data type is irelevant. This can also be reproduced with a simplier syntax <code>{a}</code>, where a is the only element in the set.<br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type</th><th>SingletonSet</th></tr>
+                <tr><td>Integer</td><td><code>singletonSet(2) is {2}</code></td></tr>
+                <tr><td>Float</td><td><code>singletonSet(2.5) is {2.5}</code></td></tr>
+                <tr><td>Bool</td><td><code>singletonSet(true) is {true}</code></td></tr>
+                <tr><td>String</td><td><code>singletonSet("abc") is {"abc"}</code></td></tr>
+                <tr><td>Array</td><td><code>singletonSet([1, 2, 3]) is {[1, 2, 3]}</code></td></tr>
+                <tr><td>List</td><td><code>singletonSet(<1, 2, 3>) is {<1, 2, 3>}</code></td></tr>
+                <tr><td>Set</td><td><code>singletonSet({1, 2, 3}) is {{1, 2, 3}}</code></td></tr>
+                <tr><td>Structure</td><td><code>singletonSet({x -> 2 y -> 3}) is {{x -> 2 y -> 3}}</code></td></tr>
+              </table> 
             </section>
 
           </section>
 
           <section id="builtin-methods">
             <h3> 2.3.4 Builtin Methods </h3>
+            The builtin methods have a high priority; in fact they have the same priority as the dot operator and the bracket operator. However, the order of these operators is relevant in execution. Also the paranthesis can override these rules. 
+
+            <section id="query-builtin-methods">
+              <h4> 2.3.4.1 Query</h4>
+              There are several query methods which are used in order to get information about some values (strings or compound). They do not modify the value. The table below explains the behavior of the query builtin methods when the target value <i>a</i>, the integer value <i>x</i> and the string value <i>y</i> are used.
+              <table border = 1>
+                <tr><th>Builtin Method</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>At</td><td><code>a.at(x)</code></td><td>Evaluates to the element on the xth position in the compound value <i>a</i>. <i>x</i> should be greater than 0 and less than the size </td></tr>
+                <tr><td>Size</td><td><code>a.size()</code></td><td>Computes the size of <i>a</i> in constant time</td></tr>
+                <tr><td>TopBack</td><td><code>a.topBack()</code></td><td>Evaluates to the last element in the value <i>a</i> </td></tr>
+                <tr><td>TopFront</td><td><code>a.topFront()</code></td><td>Evaluates to the first element in the value <i>a</i> </td></tr>
+                <tr><td>Split</td><td><code>a.split()</code></td><td>Returns an array of characters resulted after spliting the string <i>a</i> </td></tr>
+                <tr><td>Split with regex</td><td><code>a.split(y)</code></td><td>Returns an array of strings resulted after spliting the string <i>a</i> with a regular expression <i>y</i> </td></tr>
+              </table>
+
+              Note that all these methods are returning different kind of data types (depending on the operand and method). Also, not all compound data types are eligible for all these methods. The table below illustrates these aspects.
+              <table border = 1>
+                <tr><th>Builtin Method</th><th>Data type</th><th>Return</th><th>Return Type</th></tr>
+                <tr><td>At</td><td>string, array or list</td><td>the element on the xth position in the value</td><td>the data type of the element at the xth position</td></tr>
+                <tr><td>Size</td><td>array, list or set</td><td>the number of values nested in the value</td><td>integer</td></tr>
+                <tr><td>Size</td><td>string</td><td>the number of characters in the string</td><td>integer</td></tr>
+                <tr><td>TopBack</td><td>list</td><td>the last element in the value</td><td>the data type of the last element in the value</td></tr>
+                <tr><td>TopFront</td><td>list</td><td>the first element in the value</td><td>the data type of the first element in the value</td></tr>
+                <tr><td>TopFront</td><td>list</td><td>the first element in the value</td><td>the data type of the first element in the value</td></tr>
+                <tr><td>Split</td><td>string</td><td>the characters which can be found in the string</td><td>an array of characters</td></tr>
+                <tr><td>Split with regex</td><td>string</td><td>the strings resulted after splitting the string with a regex</td><td>an array of strings</td></tr>
+              </table>
+              For the at method, one should provide a valid integer value <i>x</i>. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Data type</th><th>At</th><th>Size</th><th>TopBack</th><th>TopFront</th><th>Split</th><th>Split with regex</th></tr>
+                <tr><td>String</td><td><code>"abc".at(2) is "c"</code></td><td><code>"abc".size() is 3</code></td><td></td><td></td><td><code>"abc".split() is ["a", "b", "c"]</code></td><td><code>"a c".split(" ") is ["a", "c"]</code></td></tr>
+                <tr><td>Array</td><td><code>[5, 7, 10].at(1) is 7</code></td><td><code>[5, 7, 10].size() is 3</code></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>List</td><td><code><5, 7, 10>.at(1) is 7</code></td><td><code><5, 7, 10>.size() is 3</code></td><td><code><5, 7, 10>.topBack() is 10</code></td><td><code><5, 7, 10>.topFront() is 6</code></td><td></td><td></td></tr>
+                <tr><td>Set</td><td></td><td><code>{5, 7, 10}.size() is 3</code></td><td></td><td></td><td></td><td></td></tr>
+              </table> 
+
+            </section>
+
+            <section id="update-builtin-methods">
+              <h4> 2.3.4.2 Update</h4>
+              There are several update methods which are used in order to modify some values (string or compound). They do modify the value and return a reference to the modified object. The table below explains the behavior of the query builtin methods when the target value <i>a</i> and values <i>x</i>, <i>y</i> are used.
+              
+              <table border = 1>
+                <tr><th>Builtin Method</th><th>Representation</th><th>Description</th></tr>
+                <tr><td>Non-Sequential Insert</td><td><code>a.insert(x)</code></td><td>Insert value <i>x</i> into a non-sequential value <i>a</i> </td></tr>
+                <tr><td>Sequential Insert</td><td><code>a.insert(x, y)</code></td><td>Insert value <i>y</i> into a sequential value <i>a</i> at position <i>x</i> </td></tr>
+                <tr><td>PopBack</td><td><code>a.popBack()</code></td><td>Remove the last element in a sequential value <i>a</i> </td></tr>
+                <tr><td>PopFront</td><td><code>a.popFront()</code></td><td>Remove the first element in a sequential value <i>a</i> </td></tr>
+                <tr><td>PushBack</td><td><code>a.pushBack(x)</code></td><td>Add the value <i>x</i> as the last element of a sequential value <i>a</i> </td></tr>
+                <tr><td>PushFront</td><td><code>a.pushFront(x)</code></td><td>Add the value <i>x</i> as the first element of a sequential value <i>a</i> </td></tr>
+                <tr><td>Remove</td><td><code>a.remove(x)</code></td><td>Removes value <i>x</i> from a non-sequential value <i>a</i> </td></tr>
+                <tr><td>RemoveAt</td><td><code>a.removeAt(x)</code></td><td>Removes the element at position <i>x</i> from a sequential value <i>a</i> </td></tr>
+                <tr><td>RemoveAllEqTo</td><td><code>a.removeAllEqTo(x)</code></td><td>Removes all elements equal to <i>x</i> from value <i>a</i> </td></tr>
+                <tr><td>Update</td><td><code>a.update(x, y)</code></td><td>Updates the value from position <i>x</i> to value <i>y</i> inside the sequential value <i>a</i> </td></tr>
+              </table>
+
+              Note that there is a distinction between the sequential (array, list) values and non-sequential values (set). Also, there are restrictions on the values of <i>x</i> and <i>y</i>. All of these are described in the table below.
+              
+              <table border = 1>
+                <tr><th>Builtin Method</th><th>Data type</th><th>First parameter</th><th>Second parameter</th></tr>
+                <tr><td>Non-Sequential Insert</td><td>set</td><td>Any kind of value</td><td></td></tr>
+                <tr><td>Sequential Insert</td><td>array, list</td><td>An integer greater or equal to 0 and less or equal to the size of the target value</td><td>Any kind of value</td></tr>
+                <tr><td>PopBack</td><td>array, list</td><td></td><td></td></tr>
+                <tr><td>PopFront</td><td>array, list</td><td></td><td></td></tr>
+                <tr><td>PushBack</td><td>array, list</td><td>Any kind of value</td><td></td></tr>
+                <tr><td>PushFront</td><td>array, list</td><td>Any kind of value</td><td></td></tr>
+                <tr><td>Remove</td><td>set</td><td>Any kind of value</td><td></td></tr>
+                <tr><td>RemoveAt</td><td>array, list</td><td>An integer greater or equal to 0 and less than the size of the target value</td><td></td></tr>
+                <tr><td>RemoveAllEqTo</td><td>array, list</td><td>Any kind of value</td><td></td></tr>
+                <tr><td>Update</td><td>array, list</td><td>An integer greater or equal to 0 and less than the size of the target value</td><td>Any kind of value</td></tr>
+              </table>
+
+              Note that all these methods return the modified value (which is the same as the target value used). This means that multiple methods can be chained: <code>a.pushBack(x).popBack()</code> is a valid expression. <br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Method</th><th>Array</th><th>List</th><th>Set</th></tr>
+                <tr><td>Non-Sequential Insert</td><td><code></code></td><td><code></code></td><td><code>{1, 2, 3}.insert(4) is {1, 2, 3, 4}</code></td></tr>
+                <tr><td>Insert</td><td><code>[1, 2, 3].insert(1, 4) is [1, 4, 2, 3]</code></td><td><code><1, 2, 3>.insert(1, 4) is <1, 4, 2, 3></code></td><td><code></code></td></tr>
+                <tr><td>PopBack</td><td><code>[1, 2, 3].popBack() is [1, 2]</code></td><td><code><1, 2, 3>.popBack() is <1, 2></code></td><td><code></code></td></tr>
+                <tr><td>PopFront</td><td><code>[1, 2, 3].popFront() is [2, 3]</code></td><td><code><1, 2, 3>.popFront() is <2, 3></code></td><td><code></code></td></tr>
+                <tr><td>PushBack</td><td><code>[1, 2, 3].pushBack(4) is [1, 2, 3, 4]</code></td><td><code><1, 2, 3>.pushBack(4) is <1, 2, 3, 4></code></td><td><code></code></td></tr>
+                <tr><td>PushFront</td><td><code>[1, 2, 3].pushFront(4) is [4, 1, 2, 3]</code></td><td><code><1, 2, 3>.pushFront(4) is <4, 1, 2, 3></code></td><td><code></code></td></tr>
+                <tr><td>Remove</td><td><code></code></td><td><code></code></td><td><code>{1, 2, 3}.remove(2) is {1, 3}</code></td></tr>
+                <tr><td>RemoveAt</td><td><code>[1, 2, 3].removeAt(1) is [1, 3]</code></td><td><code><1, 2, 3>.removeAt(1) is <1, 3></code></td><td><code></code></td></tr>
+                <tr><td>RemoveAllEqTo</td><td><code>[1, 2, 1].removeAllEqTo(1) is [2]</code></td><td><code><1, 2, 1>.removeAllEqTo(1) is <2></code></td><td><code></code></td></tr>
+                <tr><td>Update</td><td><code>[1, 2, 3].update(1, 4) is [1, 4, 3]</code></td><td><code><1, 2, 3>.update(1, 4) is <1, 4, 3></code></td><td><code></code></td></tr>
+              </table> 
+              
+            </section>
+
+
           </section>
 
         </section>
@@ -835,18 +1075,23 @@
         ...
       </section>
 
+      <section id="option-z">
+        <h2> 5.5 Increase maximum allocation size</h2>
+        ...
+      </section>
+
       <section id="option-e">
-        <h2> 5.5 Trigger exhaustive execution</h2>
+        <h2> 5.6 Trigger exhaustive execution</h2>
         ...
       </section>
 
       <section id="option-h">
-        <h2> 5.6 Help and version</h2>
+        <h2> 5.7 Help and version</h2>
         ...
       </section>
 
       <section id="option-t">
-        <h2> 5.7 Trigger debug mode</h2>
+        <h2> 5.8 Trigger debug mode</h2>
         ...
       </section>
 

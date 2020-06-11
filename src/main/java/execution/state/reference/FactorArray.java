@@ -2,11 +2,9 @@ package execution.state.reference;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import grammar.alkParser;
 import parser.env.Location;
-import parser.env.Store;
 import parser.exceptions.AlkException;
 import execution.types.alkInt.AlkInt;
 import parser.visitors.expression.ExpressionVisitor;
@@ -15,14 +13,14 @@ import util.Payload;
 import util.SplitMapper;
 import util.types.Value;
 
-@CtxState(ctxClass = alkParser.RefArrayContext.class)
-public class RefArrayState extends ExecutionState
+@CtxState(ctxClass = alkParser.FactorArrayContext.class)
+public class FactorArray extends ExecutionState
 {
-    private alkParser.RefArrayContext ctx;
+    private alkParser.FactorArrayContext ctx;
     private AlkInt index;
     private Location reference;
 
-    public RefArrayState(alkParser.RefArrayContext ctx, Payload payload)
+    public FactorArray(alkParser.FactorArrayContext ctx, Payload payload)
     {
         super(ctx, payload);
         this.ctx = ctx;
@@ -33,7 +31,7 @@ public class RefArrayState extends ExecutionState
     {
         if (reference == null)
         {
-            return request(ExpressionVisitor.class, ctx.ref_name());
+            return request(ExpressionVisitor.class, ctx.factor());
         }
 
         if (index == null)
@@ -83,7 +81,7 @@ public class RefArrayState extends ExecutionState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        RefArrayState copy = new RefArrayState(ctx, sm.getPayload());
+        FactorArray copy = new FactorArray(ctx, sm.getPayload());
         copy.index = (AlkInt) index.weakClone(sm.getLocationMapper());
         copy.reference = sm.getLocationMapper().get(reference);
         return super.decorate(copy, sm);

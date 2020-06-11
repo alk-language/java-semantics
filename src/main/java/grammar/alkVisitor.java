@@ -419,22 +419,43 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPostfixExpression(alkParser.PostfixExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code RefNameFactor}
+	 * Visit a parse tree produced by the {@code FactorArray}
 	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorArray(alkParser.FactorArrayContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToBaseFactor}
+	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToBaseFactor(alkParser.ToBaseFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FactorPointMethod}
+	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorPointMethod(alkParser.FactorPointMethodContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RefNameFactor}
+	 * labeled alternative in {@link alkParser#base_factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitRefNameFactor(alkParser.RefNameFactorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ValueFactor}
-	 * labeled alternative in {@link alkParser#factor}.
+	 * labeled alternative in {@link alkParser#base_factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitValueFactor(alkParser.ValueFactorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ParanthesesFactor}
-	 * labeled alternative in {@link alkParser#factor}.
+	 * labeled alternative in {@link alkParser#base_factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -480,20 +501,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRefFunctionCall(alkParser.RefFunctionCallContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RefPointMethod}
-	 * labeled alternative in {@link alkParser#ref_name}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRefPointMethod(alkParser.RefPointMethodContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RefArray}
-	 * labeled alternative in {@link alkParser#ref_name}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRefArray(alkParser.RefArrayContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code RefID}
 	 * labeled alternative in {@link alkParser#ref_name}.

@@ -2,9 +2,7 @@ package execution.state.reference;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import execution.state.GeneratorState;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Location;
 import parser.visitors.expression.ExpressionVisitor;
 import parser.visitors.function.FunctionCallVisitor;
@@ -12,15 +10,15 @@ import util.CtxState;
 import util.Payload;
 import util.SplitMapper;
 
-@CtxState(ctxClass = alkParser.RefPointMethodContext.class)
-public class RefPointMethodState extends ExecutionState
+@CtxState(ctxClass = alkParser.FactorPointMethodContext.class)
+public class FactorPointMethod extends ExecutionState
 {
 
-    alkParser.RefPointMethodContext ctx;
+    alkParser.FactorPointMethodContext ctx;
     private Location reference;
     private Location solution;
 
-    public RefPointMethodState(alkParser.RefPointMethodContext ctx, Payload payload)
+    public FactorPointMethod(alkParser.FactorPointMethodContext ctx, Payload payload)
     {
         super(ctx, payload);
         this.ctx = ctx;
@@ -31,7 +29,7 @@ public class RefPointMethodState extends ExecutionState
     {
         if (reference == null)
         {
-            return request(ExpressionVisitor.class, ctx.ref_name());
+            return request(ExpressionVisitor.class, ctx.factor());
         }
 
         if (solution == null)
@@ -58,7 +56,7 @@ public class RefPointMethodState extends ExecutionState
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        RefPointMethodState copy = new RefPointMethodState(ctx, sm.getPayload());
+        FactorPointMethod copy = new FactorPointMethod(ctx, sm.getPayload());
         copy.reference = sm.getLocationMapper().get(reference);
         copy.solution = sm.getLocationMapper().get(solution);
         return super.decorate(copy, sm);

@@ -15,6 +15,7 @@ public class Methods {
         return loc.toRValue().at(params.get(0), generator);
     }
 
+    /*
     @BuiltInMethod(paramNumber = 1)
     public static Location delete(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
@@ -22,7 +23,7 @@ public class Methods {
         return loc;
     }
 
-    /*
+
     @BuiltInMethod(paramNumber = 1)
     public static Location first(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
