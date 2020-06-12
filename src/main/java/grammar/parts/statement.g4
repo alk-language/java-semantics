@@ -72,7 +72,7 @@ increase_decrease
 
 assignment
 :
-    ref_name ASSIGNMENT_OPERATOR expression                                                                             #AssignmentStmt
+    factor ASSIGNMENT_OPERATOR expression                                                                               #AssignmentStmt
 ;
 
 while_struct

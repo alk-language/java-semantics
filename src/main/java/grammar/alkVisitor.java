@@ -419,6 +419,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPostfixExpression(alkParser.PostfixExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FactorPointID}
+	 * labeled alternative in {@link alkParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorPointID(alkParser.FactorPointIDContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code FactorArray}
 	 * labeled alternative in {@link alkParser#factor}.
 	 * @param ctx the parse tree
@@ -508,13 +515,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRefID(alkParser.RefIDContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RefPointID}
-	 * labeled alternative in {@link alkParser#ref_name}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRefPointID(alkParser.RefPointIDContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayValue}
 	 * labeled alternative in {@link alkParser#data_structure}.

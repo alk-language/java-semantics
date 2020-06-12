@@ -5,6 +5,7 @@ import execution.state.ExecutionState;
 import execution.state.GeneratorState;
 import grammar.alkParser;
 import execution.types.alkStructure.AlkStructure;
+import parser.env.Location;
 import parser.visitors.structure.DataStructureVisitor;
 import util.CtxState;
 import util.Payload;
@@ -12,7 +13,7 @@ import util.SplitMapper;
 import util.types.ComponentValue;
 
 @CtxState(ctxClass = alkParser.StructureWithComponentsContext.class)
-public class StructureWithComponentsState extends GeneratorState<AlkStructure, ComponentValue>
+public class StructureWithComponentsState extends GeneratorState<Location, ComponentValue>
 {
     private AlkStructure struct = new AlkStructure();
 
@@ -30,9 +31,9 @@ public class StructureWithComponentsState extends GeneratorState<AlkStructure, C
     }
 
     @Override
-    public AlkStructure getFinalResult()
+    public Location getFinalResult()
     {
-        return struct;
+        return generator.generate(struct);
     }
     @Override
     public ExecutionState clone(SplitMapper sm) {
