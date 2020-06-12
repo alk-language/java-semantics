@@ -129,8 +129,8 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
     @Override
-    public ExecutionState visitRefPointID(alkParser.RefPointIDContext ctx) {
-        return StateFactory.create(RefPointIDState.class, ctx, payload, env);
+    public ExecutionState visitFactorPointID(alkParser.FactorPointIDContext ctx) {
+        return StateFactory.create(FactorPointID.class, ctx, payload, env);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class AssignmentStmtState extends ExecutionState
 
         if (leftSide == null)
         {
-            return super.request(ExpressionVisitor.class, ctx.ref_name());
+            return super.request(ExpressionVisitor.class, ctx.factor());
         }
 
         try {
