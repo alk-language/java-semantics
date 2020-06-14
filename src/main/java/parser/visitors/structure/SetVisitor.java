@@ -2,13 +2,13 @@ package parser.visitors.structure;
 
 import execution.state.ExecutionState;
 import execution.state.StateFactory;
-import execution.state.PrimitiveState;
 import execution.state.structure.EmptySetState;
 import execution.state.structure.IterableWithExpressionsState;
 import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import execution.types.alkSet.AlkSet;
 import util.Payload;
 

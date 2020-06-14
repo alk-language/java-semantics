@@ -56,7 +56,8 @@ public abstract class GuardedGeneratorState<T extends Value> extends GeneratorSt
 
     protected GuardedGeneratorState decorate(GuardedGeneratorState copy, SplitMapper sm)
     {
-        copy.localResult = localResult.weakClone(sm.getLocationMapper());
+        if (localResult != null)
+            copy.localResult = localResult.weakClone(sm.getLocationMapper());
         return (GuardedGeneratorState) super.decorate(copy, sm);
     }
 

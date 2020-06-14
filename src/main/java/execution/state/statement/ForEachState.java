@@ -19,13 +19,13 @@ import java.util.List;
 import static parser.exceptions.AlkException.ERR_FORALL_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.ForEachStructureContext.class)
-public class ForAllState extends LoopingState
+public class ForEachState extends LoopingState
 {
     private alkParser.ForEachStructureContext ctx;
     private List<Location> source;
     private int step = 0;
 
-    public ForAllState(alkParser.ForEachStructureContext tree, Payload payload) {
+    public ForEachState(alkParser.ForEachStructureContext tree, Payload payload) {
         super(tree, payload, null, null, null, null);
         this.ctx = tree;
     }
@@ -33,6 +33,11 @@ public class ForAllState extends LoopingState
     @Override
     public ExecutionState makeStep()
     {
+        if (broke)
+        {
+            return null;
+        }
+
         if (source == null)
         {
             return request(ExpressionVisitor.class, ctx.expression());
@@ -64,7 +69,7 @@ public class ForAllState extends LoopingState
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ForAllState copy = new ForAllState(ctx, sm.getPayload());
+        ForEachState copy = new ForEachState(ctx, sm.getPayload());
         copy.step = this.step;
         for (Location loc : source)
             copy.source.add(sm.getLocationMapper().get(loc));

@@ -31,7 +31,8 @@ public class ForState extends LoopingState
         {
             return null;
         }
-        if (!visitedStart)
+
+        if (ctx.start_assignment() != null && !visitedStart)
         {
             return request(StmtVisitor.class, ctx.start_assignment());
         }

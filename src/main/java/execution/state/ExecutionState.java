@@ -4,10 +4,9 @@ import execution.Execution;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.env.Environment;
-import parser.env.LocationMapper;
+import parser.env.EnvironmentImpl;
 import parser.env.Store;
 import execution.types.AlkValue;
 import parser.exceptions.AlkException;
@@ -82,12 +81,17 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
 
     protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree)
     {
-        return request(visitor, parseTree, null);
+        return request(visitor, parseTree, (Value) null);
     }
 
     protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree, Value value)
     {
         return request(visitor, parseTree, getEnv(), value);
+    }
+
+    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree, Environment env)
+    {
+        return request(visitor, parseTree, env, (Value) null);
     }
 
     protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor,

@@ -33,7 +33,7 @@ public class DefinedFunctionCallState extends ExecutionState {
         super(ctx, payload);
         this.ctx = ctx;
         function = getFuncManager().getFunction(ctx.ID().getText());
-        env = new Environment(getStore());
+        env = new EnvironmentImpl(getStore());
         if (ctx.expression().size() != function.countParams())
             super.handle(new AlkException(ctx.start.getLine(), "Invalid number of arguments passed to the function"));
     }
@@ -63,7 +63,7 @@ public class DefinedFunctionCallState extends ExecutionState {
                 env.setLocation(modify, getGlobal().getLocation(modify));
             }
 
-            return request(StmtVisitor.class, function.getBody(), env, (Value) null);
+            return request(StmtVisitor.class, function.getBody(), env);
         }
         return null;
     }

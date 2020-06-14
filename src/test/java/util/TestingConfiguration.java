@@ -9,10 +9,10 @@ public class TestingConfiguration extends Configuration {
 
     StringBuilder sb = new StringBuilder();
 
-    public TestingConfiguration(String alkFile) {
+    public TestingConfiguration(String alkFile, int precision) {
         super();
         IOManager io = new TestingIO(sb);
-        OptionProvider op = new TestingOptionProvider(alkFile);
+        OptionProvider op = new TestingOptionProvider(alkFile, precision);
 
         ErrorManager em = new ErrorManager();
         em.attach(io);
@@ -31,9 +31,11 @@ public class TestingConfiguration extends Configuration {
 class TestingOptionProvider implements OptionProvider {
 
     String alkFile;
+    int precision = 10;
 
-    public TestingOptionProvider(String alkFile) {
+    public TestingOptionProvider(String alkFile, int precision) {
         this.alkFile = alkFile;
+        this.precision = precision;
     }
 
     @Override
@@ -58,7 +60,7 @@ class TestingOptionProvider implements OptionProvider {
 
     @Override
     public Integer getPrecision() {
-        return 10;
+        return precision;
     }
 
     @Override

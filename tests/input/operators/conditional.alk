@@ -1,0 +1,4 @@
+print(true ? 5 : "abc");
+print(false ? 2.5 : true);
+print(true ? [1, 2, 3] : <4, 5, 6>);
+print(false ? {1, 2, 3} : {x->2 y->3});

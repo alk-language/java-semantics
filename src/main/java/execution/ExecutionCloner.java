@@ -1,15 +1,11 @@
 package execution;
 
-import execution.state.ExecutionState;
 import execution.types.AlkValue;
-import parser.env.Environment;
 import parser.env.Location;
 import parser.env.LocationMapper;
 import parser.env.Store;
 import util.*;
-import util.types.Value;
 
-import java.util.Map;
 import java.util.Set;
 
 class ExecutionCloner {

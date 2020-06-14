@@ -1,8 +1,8 @@
 package util;
 
-import execution.Execution;
 import execution.state.ExecutionState;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import parser.env.LocationMapper;
 import parser.env.Store;
 import util.exception.InternalException;

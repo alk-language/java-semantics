@@ -12,7 +12,7 @@ statement_sequence
 
 statement //statement
 :
-    ref_name (POINT|ARROW) builtin_method SEMICOLON                                                                     #MethodCall
+    factor POINT builtin_method SEMICOLON                                                                               #MethodCall
     | function_call SEMICOLON                                                                                           #FunctionCall
     | function_decl                                                                                                     #ToFunctionDecl
     | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
@@ -62,12 +62,12 @@ choose:
 
 increase_decrease
 :
-    PLUSPLUS ref_name                                                                                                   #PlusPlusStmt
-    | ref_name PLUSPLUS                                                                                                 #StmtPlusPlus
-    | MINUSMINUS ref_name                                                                                               #MinusMinusStmt
-    | ref_name MINUSMINUS                                                                                               #StmtMinusMinus
-    | PLUSPLUSMOD ref_name                                                                                              #PlusPlusModStmt
-    | MINUSMINUSMOD ref_name                                                                                            #MinusMinusModStmt
+    PLUSPLUS factor                                                                                                     #PlusPlusStmt
+    | factor PLUSPLUS                                                                                                   #StmtPlusPlus
+    | MINUSMINUS factor                                                                                                 #MinusMinusStmt
+    | factor MINUSMINUS                                                                                                 #StmtMinusMinus
+    | PLUSPLUSMOD factor                                                                                                #PlusPlusModStmt
+    | MINUSMINUSMOD factor                                                                                              #MinusMinusModStmt
 ;
 
 assignment

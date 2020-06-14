@@ -5,6 +5,7 @@ import execution.state.ExecutionState;
 import execution.state.expression.*;
 import execution.state.reference.*;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import grammar.*;
 import parser.visitors.function.FunctionCallVisitor;
 import parser.visitors.structure.ArrayVisitor;

@@ -312,15 +312,14 @@ public class alkParser extends Parser {
 		}
 	}
 	public static class MethodCallContext extends StatementContext {
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
 		}
+		public TerminalNode POINT() { return getToken(alkParser.POINT, 0); }
 		public Builtin_methodContext builtin_method() {
 			return getRuleContext(Builtin_methodContext.class,0);
 		}
 		public TerminalNode SEMICOLON() { return getToken(alkParser.SEMICOLON, 0); }
-		public TerminalNode POINT() { return getToken(alkParser.POINT, 0); }
-		public TerminalNode ARROW() { return getToken(alkParser.ARROW, 0); }
 		public MethodCallContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -510,17 +509,9 @@ public class alkParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(114);
-				ref_name();
+				factor(0);
 				setState(115);
-				_la = _input.LA(1);
-				if ( !(_la==ARROW || _la==POINT) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
+				match(POINT);
 				setState(116);
 				builtin_method();
 				setState(117);
@@ -1023,8 +1014,8 @@ public class alkParser extends Parser {
 		}
 	}
 	public static class StmtMinusMinusContext extends Increase_decreaseContext {
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
 		}
 		public TerminalNode MINUSMINUS() { return getToken(alkParser.MINUSMINUS, 0); }
 		public StmtMinusMinusContext(Increase_decreaseContext ctx) { copyFrom(ctx); }
@@ -1036,8 +1027,8 @@ public class alkParser extends Parser {
 	}
 	public static class PlusPlusStmtContext extends Increase_decreaseContext {
 		public TerminalNode PLUSPLUS() { return getToken(alkParser.PLUSPLUS, 0); }
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
 		}
 		public PlusPlusStmtContext(Increase_decreaseContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1048,8 +1039,8 @@ public class alkParser extends Parser {
 	}
 	public static class PlusPlusModStmtContext extends Increase_decreaseContext {
 		public TerminalNode PLUSPLUSMOD() { return getToken(alkParser.PLUSPLUSMOD, 0); }
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
 		}
 		public PlusPlusModStmtContext(Increase_decreaseContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1060,8 +1051,8 @@ public class alkParser extends Parser {
 	}
 	public static class MinusMinusStmtContext extends Increase_decreaseContext {
 		public TerminalNode MINUSMINUS() { return getToken(alkParser.MINUSMINUS, 0); }
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
 		}
 		public MinusMinusStmtContext(Increase_decreaseContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1071,8 +1062,8 @@ public class alkParser extends Parser {
 		}
 	}
 	public static class StmtPlusPlusContext extends Increase_decreaseContext {
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
 		}
 		public TerminalNode PLUSPLUS() { return getToken(alkParser.PLUSPLUS, 0); }
 		public StmtPlusPlusContext(Increase_decreaseContext ctx) { copyFrom(ctx); }
@@ -1084,8 +1075,8 @@ public class alkParser extends Parser {
 	}
 	public static class MinusMinusModStmtContext extends Increase_decreaseContext {
 		public TerminalNode MINUSMINUSMOD() { return getToken(alkParser.MINUSMINUSMOD, 0); }
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
+		public FactorContext factor() {
+			return getRuleContext(FactorContext.class,0);
 		}
 		public MinusMinusModStmtContext(Increase_decreaseContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1109,7 +1100,7 @@ public class alkParser extends Parser {
 				setState(192);
 				match(PLUSPLUS);
 				setState(193);
-				ref_name();
+				factor(0);
 				}
 				break;
 			case 2:
@@ -1117,7 +1108,7 @@ public class alkParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(194);
-				ref_name();
+				factor(0);
 				setState(195);
 				match(PLUSPLUS);
 				}
@@ -1129,7 +1120,7 @@ public class alkParser extends Parser {
 				setState(197);
 				match(MINUSMINUS);
 				setState(198);
-				ref_name();
+				factor(0);
 				}
 				break;
 			case 4:
@@ -1137,7 +1128,7 @@ public class alkParser extends Parser {
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(199);
-				ref_name();
+				factor(0);
 				setState(200);
 				match(MINUSMINUS);
 				}
@@ -1149,7 +1140,7 @@ public class alkParser extends Parser {
 				setState(202);
 				match(PLUSPLUSMOD);
 				setState(203);
-				ref_name();
+				factor(0);
 				}
 				break;
 			case 6:
@@ -1159,7 +1150,7 @@ public class alkParser extends Parser {
 				setState(204);
 				match(MINUSMINUSMOD);
 				setState(205);
-				ref_name();
+				factor(0);
 				}
 				break;
 			}
@@ -4982,23 +4973,23 @@ public class alkParser extends Parser {
 		"\n\60\f\60\16\60\u0249\13\60\5\60\u024b\n\60\3\60\3\60\3\61\3\61\3\62"+
 		"\3\62\3\63\5\63\u0254\n\63\3\63\3\63\3\64\6\64\u0259\n\64\r\64\16\64\u025a"+
 		"\3\65\3\65\3\65\3\65\3\65\2\3@\66\2\4\6\b\n\f\16\20\22\24\26\30\32\34"+
-		"\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfh\2\17\4\2CCll\3\2WX"+
-		"\3\2SV\3\2EG\4\2\35\35hh\3\2ab\4\2OPZ[\3\2\\^\4\2LMQR\4\2Z\\ee\3\2LM\7"+
-		"\2\36)\60\60\62\63;;AA\b\2**,,./\61\61\64:<@\2\u0286\2k\3\2\2\2\4p\3\2"+
-		"\2\2\6\u009f\3\2\2\2\b\u00a1\3\2\2\2\n\u00a5\3\2\2\2\f\u00b2\3\2\2\2\16"+
-		"\u00c0\3\2\2\2\20\u00d0\3\2\2\2\22\u00d2\3\2\2\2\24\u00d6\3\2\2\2\26\u00dc"+
-		"\3\2\2\2\30\u00e3\3\2\2\2\32\u00ec\3\2\2\2\34\u00fb\3\2\2\2\36\u00fd\3"+
-		"\2\2\2 \u0103\3\2\2\2\"\u011e\3\2\2\2$\u0122\3\2\2\2&\u012a\3\2\2\2(\u0132"+
-		"\3\2\2\2*\u013a\3\2\2\2,\u0142\3\2\2\2.\u014a\3\2\2\2\60\u0152\3\2\2\2"+
-		"\62\u015a\3\2\2\2\64\u0162\3\2\2\2\66\u016a\3\2\2\28\u0172\3\2\2\2:\u017a"+
+		"\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfh\2\16\3\2WX\3\2SV\3"+
+		"\2EG\4\2\35\35hh\3\2ab\4\2OPZ[\3\2\\^\4\2LMQR\4\2Z\\ee\3\2LM\7\2\36)\60"+
+		"\60\62\63;;AA\b\2**,,./\61\61\64:<@\2\u0286\2k\3\2\2\2\4p\3\2\2\2\6\u009f"+
+		"\3\2\2\2\b\u00a1\3\2\2\2\n\u00a5\3\2\2\2\f\u00b2\3\2\2\2\16\u00c0\3\2"+
+		"\2\2\20\u00d0\3\2\2\2\22\u00d2\3\2\2\2\24\u00d6\3\2\2\2\26\u00dc\3\2\2"+
+		"\2\30\u00e3\3\2\2\2\32\u00ec\3\2\2\2\34\u00fb\3\2\2\2\36\u00fd\3\2\2\2"+
+		" \u0103\3\2\2\2\"\u011e\3\2\2\2$\u0122\3\2\2\2&\u012a\3\2\2\2(\u0132\3"+
+		"\2\2\2*\u013a\3\2\2\2,\u0142\3\2\2\2.\u014a\3\2\2\2\60\u0152\3\2\2\2\62"+
+		"\u015a\3\2\2\2\64\u0162\3\2\2\2\66\u016a\3\2\2\28\u0172\3\2\2\2:\u017a"+
 		"\3\2\2\2<\u0187\3\2\2\2>\u0189\3\2\2\2@\u0190\3\2\2\2B\u01a9\3\2\2\2D"+
 		"\u01ad\3\2\2\2F\u01b3\3\2\2\2H\u01b7\3\2\2\2J\u01bd\3\2\2\2L\u01bf\3\2"+
 		"\2\2N\u01d0\3\2\2\2P\u01e6\3\2\2\2R\u01fd\3\2\2\2T\u01ff\3\2\2\2V\u0207"+
 		"\3\2\2\2X\u0220\3\2\2\2Z\u0230\3\2\2\2\\\u0232\3\2\2\2^\u0240\3\2\2\2"+
 		"`\u024e\3\2\2\2b\u0250\3\2\2\2d\u0253\3\2\2\2f\u0258\3\2\2\2h\u025c\3"+
 		"\2\2\2jl\5\4\3\2kj\3\2\2\2kl\3\2\2\2lm\3\2\2\2mn\7\2\2\3n\3\3\2\2\2oq"+
-		"\5\6\4\2po\3\2\2\2qr\3\2\2\2rp\3\2\2\2rs\3\2\2\2s\5\3\2\2\2tu\5H%\2uv"+
-		"\t\2\2\2vw\5^\60\2wx\7f\2\2x\u00a0\3\2\2\2yz\5Z.\2z{\7f\2\2{\u00a0\3\2"+
+		"\5\6\4\2po\3\2\2\2qr\3\2\2\2rp\3\2\2\2rs\3\2\2\2s\5\3\2\2\2tu\5@!\2uv"+
+		"\7l\2\2vw\5^\60\2wx\7f\2\2x\u00a0\3\2\2\2yz\5Z.\2z{\7f\2\2{\u00a0\3\2"+
 		"\2\2|\u00a0\5 \21\2}\177\7\23\2\2~\u0080\5$\23\2\177~\3\2\2\2\177\u0080"+
 		"\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u00a0\7f\2\2\u0082\u0083\5\16\b\2\u0083"+
 		"\u0084\7f\2\2\u0084\u00a0\3\2\2\2\u0085\u0086\7\24\2\2\u0086\u00a0\7f"+
@@ -5024,10 +5015,10 @@ public class alkParser extends Parser {
 		"\7B\2\2\u00b9\u00bb\5$\23\2\u00ba\u00b8\3\2\2\2\u00ba\u00bb\3\2\2\2\u00bb"+
 		"\u00c1\3\2\2\2\u00bc\u00bd\7\21\2\2\u00bd\u00be\7K\2\2\u00be\u00bf\7\r"+
 		"\2\2\u00bf\u00c1\5$\23\2\u00c0\u00b4\3\2\2\2\u00c0\u00bc\3\2\2\2\u00c1"+
-		"\17\3\2\2\2\u00c2\u00c3\7L\2\2\u00c3\u00d1\5H%\2\u00c4\u00c5\5H%\2\u00c5"+
-		"\u00c6\7L\2\2\u00c6\u00d1\3\2\2\2\u00c7\u00c8\7M\2\2\u00c8\u00d1\5H%\2"+
-		"\u00c9\u00ca\5H%\2\u00ca\u00cb\7M\2\2\u00cb\u00d1\3\2\2\2\u00cc\u00cd"+
-		"\7Q\2\2\u00cd\u00d1\5H%\2\u00ce\u00cf\7R\2\2\u00cf\u00d1\5H%\2\u00d0\u00c2"+
+		"\17\3\2\2\2\u00c2\u00c3\7L\2\2\u00c3\u00d1\5@!\2\u00c4\u00c5\5@!\2\u00c5"+
+		"\u00c6\7L\2\2\u00c6\u00d1\3\2\2\2\u00c7\u00c8\7M\2\2\u00c8\u00d1\5@!\2"+
+		"\u00c9\u00ca\5@!\2\u00ca\u00cb\7M\2\2\u00cb\u00d1\3\2\2\2\u00cc\u00cd"+
+		"\7Q\2\2\u00cd\u00d1\5@!\2\u00ce\u00cf\7R\2\2\u00cf\u00d1\5@!\2\u00d0\u00c2"+
 		"\3\2\2\2\u00d0\u00c4\3\2\2\2\u00d0\u00c7\3\2\2\2\u00d0\u00c9\3\2\2\2\u00d0"+
 		"\u00cc\3\2\2\2\u00d0\u00ce\3\2\2\2\u00d1\21\3\2\2\2\u00d2\u00d3\5@!\2"+
 		"\u00d3\u00d4\7Y\2\2\u00d4\u00d5\5$\23\2\u00d5\23\3\2\2\2\u00d6\u00d7\7"+
@@ -5064,29 +5055,29 @@ public class alkParser extends Parser {
 		"\u0137\3\2\2\2\u013a\u013f\5,\27\2\u013b\u013c\7\r\2\2\u013c\u013e\5,"+
 		"\27\2\u013d\u013b\3\2\2\2\u013e\u0141\3\2\2\2\u013f\u013d\3\2\2\2\u013f"+
 		"\u0140\3\2\2\2\u0140+\3\2\2\2\u0141\u013f\3\2\2\2\u0142\u0147\5.\30\2"+
-		"\u0143\u0144\t\3\2\2\u0144\u0146\5.\30\2\u0145\u0143\3\2\2\2\u0146\u0149"+
+		"\u0143\u0144\t\2\2\2\u0144\u0146\5.\30\2\u0145\u0143\3\2\2\2\u0146\u0149"+
 		"\3\2\2\2\u0147\u0145\3\2\2\2\u0147\u0148\3\2\2\2\u0148-\3\2\2\2\u0149"+
-		"\u0147\3\2\2\2\u014a\u014f\5\60\31\2\u014b\u014c\t\4\2\2\u014c\u014e\5"+
+		"\u0147\3\2\2\2\u014a\u014f\5\60\31\2\u014b\u014c\t\3\2\2\u014c\u014e\5"+
 		"\60\31\2\u014d\u014b\3\2\2\2\u014e\u0151\3\2\2\2\u014f\u014d\3\2\2\2\u014f"+
 		"\u0150\3\2\2\2\u0150/\3\2\2\2\u0151\u014f\3\2\2\2\u0152\u0157\5\62\32"+
-		"\2\u0153\u0154\t\5\2\2\u0154\u0156\5\62\32\2\u0155\u0153\3\2\2\2\u0156"+
+		"\2\u0153\u0154\t\4\2\2\u0154\u0156\5\62\32\2\u0155\u0153\3\2\2\2\u0156"+
 		"\u0159\3\2\2\2\u0157\u0155\3\2\2\2\u0157\u0158\3\2\2\2\u0158\61\3\2\2"+
-		"\2\u0159\u0157\3\2\2\2\u015a\u015f\5\64\33\2\u015b\u015c\t\6\2\2\u015c"+
+		"\2\u0159\u0157\3\2\2\2\u015a\u015f\5\64\33\2\u015b\u015c\t\5\2\2\u015c"+
 		"\u015e\5\64\33\2\u015d\u015b\3\2\2\2\u015e\u0161\3\2\2\2\u015f\u015d\3"+
 		"\2\2\2\u015f\u0160\3\2\2\2\u0160\63\3\2\2\2\u0161\u015f\3\2\2\2\u0162"+
 		"\u0167\5\66\34\2\u0163\u0164\7N\2\2\u0164\u0166\5\66\34\2\u0165\u0163"+
 		"\3\2\2\2\u0166\u0169\3\2\2\2\u0167\u0165\3\2\2\2\u0167\u0168\3\2\2\2\u0168"+
-		"\65\3\2\2\2\u0169\u0167\3\2\2\2\u016a\u016f\58\35\2\u016b\u016c\t\7\2"+
+		"\65\3\2\2\2\u0169\u0167\3\2\2\2\u016a\u016f\58\35\2\u016b\u016c\t\6\2"+
 		"\2\u016c\u016e\58\35\2\u016d\u016b\3\2\2\2\u016e\u0171\3\2\2\2\u016f\u016d"+
 		"\3\2\2\2\u016f\u0170\3\2\2\2\u0170\67\3\2\2\2\u0171\u016f\3\2\2\2\u0172"+
-		"\u0177\5:\36\2\u0173\u0174\t\b\2\2\u0174\u0176\5:\36\2\u0175\u0173\3\2"+
+		"\u0177\5:\36\2\u0173\u0174\t\7\2\2\u0174\u0176\5:\36\2\u0175\u0173\3\2"+
 		"\2\2\u0176\u0179\3\2\2\2\u0177\u0175\3\2\2\2\u0177\u0178\3\2\2\2\u0178"+
-		"9\3\2\2\2\u0179\u0177\3\2\2\2\u017a\u017f\5<\37\2\u017b\u017c\t\t\2\2"+
+		"9\3\2\2\2\u0179\u0177\3\2\2\2\u017a\u017f\5<\37\2\u017b\u017c\t\b\2\2"+
 		"\u017c\u017e\5<\37\2\u017d\u017b\3\2\2\2\u017e\u0181\3\2\2\2\u017f\u017d"+
 		"\3\2\2\2\u017f\u0180\3\2\2\2\u0180;\3\2\2\2\u0181\u017f\3\2\2\2\u0182"+
-		"\u0183\t\n\2\2\u0183\u0188\5<\37\2\u0184\u0185\t\13\2\2\u0185\u0188\5"+
-		"<\37\2\u0186\u0188\5> \2\u0187\u0182\3\2\2\2\u0187\u0184\3\2\2\2\u0187"+
-		"\u0186\3\2\2\2\u0188=\3\2\2\2\u0189\u018d\5@!\2\u018a\u018c\t\f\2\2\u018b"+
+		"\u0183\t\t\2\2\u0183\u0188\5<\37\2\u0184\u0185\t\n\2\2\u0185\u0188\5<"+
+		"\37\2\u0186\u0188\5> \2\u0187\u0182\3\2\2\2\u0187\u0184\3\2\2\2\u0187"+
+		"\u0186\3\2\2\2\u0188=\3\2\2\2\u0189\u018d\5@!\2\u018a\u018c\t\13\2\2\u018b"+
 		"\u018a\3\2\2\2\u018c\u018f\3\2\2\2\u018d\u018b\3\2\2\2\u018d\u018e\3\2"+
 		"\2\2\u018e?\3\2\2\2\u018f\u018d\3\2\2\2\u0190\u0191\b!\1\2\u0191\u0192"+
 		"\5B\"\2\u0192\u01a0\3\2\2\2\u0193\u0194\f\6\2\2\u0194\u0195\7l\2\2\u0195"+
@@ -5149,8 +5140,8 @@ public class alkParser extends Parser {
 		"\5$\23\2\u0243\u0244\7k\2\2\u0244\u0246\5$\23\2\u0245\u0243\3\2\2\2\u0246"+
 		"\u0249\3\2\2\2\u0247\u0245\3\2\2\2\u0247\u0248\3\2\2\2\u0248\u024b\3\2"+
 		"\2\2\u0249\u0247\3\2\2\2\u024a\u0242\3\2\2\2\u024a\u024b\3\2\2\2\u024b"+
-		"\u024c\3\2\2\2\u024c\u024d\7`\2\2\u024d_\3\2\2\2\u024e\u024f\t\r\2\2\u024f"+
-		"a\3\2\2\2\u0250\u0251\t\16\2\2\u0251c\3\2\2\2\u0252\u0254\5f\64\2\u0253"+
+		"\u024c\3\2\2\2\u024c\u024d\7`\2\2\u024d_\3\2\2\2\u024e\u024f\t\f\2\2\u024f"+
+		"a\3\2\2\2\u0250\u0251\t\r\2\2\u0251c\3\2\2\2\u0252\u0254\5f\64\2\u0253"+
 		"\u0252\3\2\2\2\u0253\u0254\3\2\2\2\u0254\u0255\3\2\2\2\u0255\u0256\7\2"+
 		"\2\3\u0256e\3\2\2\2\u0257\u0259\5h\65\2\u0258\u0257\3\2\2\2\u0259\u025a"+
 		"\3\2\2\2\u025a\u0258\3\2\2\2\u025a\u025b\3\2\2\2\u025bg\3\2\2\2\u025c"+

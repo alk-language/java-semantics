@@ -27,7 +27,7 @@ public class MinusMinusStmtState extends ExecutionState
     {
         if (ref == null)
         {
-            return request(ExpressionVisitor.class, ctx.ref_name());
+            return request(ExpressionVisitor.class, ctx.factor());
         }
         try
         {

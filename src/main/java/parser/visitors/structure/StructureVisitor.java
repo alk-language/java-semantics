@@ -5,6 +5,7 @@ import execution.state.StateFactory;
 import execution.state.structure.StructureWithComponentsState;
 import grammar.alkParser;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import util.Payload;
 
 public class StructureVisitor extends DataStructureVisitor {

@@ -5,12 +5,10 @@ import execution.state.StateFactory;
 import execution.state.init.InitState;
 import execution.state.init.VarSeqState;
 import execution.state.init.VarState;
-import execution.state.statement.BlockState;
-import execution.types.AlkValue;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.env.Environment;
-import parser.visitors.expression.ExpressionVisitor;
+import parser.env.EnvironmentImpl;
 import util.Payload;
 
 public class InitVisitor extends alkBaseVisitor<ExecutionState>  {

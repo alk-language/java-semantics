@@ -1,0 +1,7 @@
+print(+(-2));
+print(-(-2));
+print(-(+2.2));
+print(+(+2.2));
+print(!true);
+print([1, 2, 3][2]);
+print({x -> 2 y -> 3}.x);

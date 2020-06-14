@@ -6,6 +6,7 @@ import execution.state.structure.*;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import util.Payload;
 
 public class DataStructureVisitor extends alkBaseVisitor
