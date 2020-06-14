@@ -51,7 +51,7 @@ public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        RelationalExpressionState copy = new RelationalExpressionState((alkParser.RelationalExpressionContext) tree, sm.getPayload());
+        SetExpressionState copy = new SetExpressionState((alkParser.SetExpressionContext) tree, sm.getPayload());
         return super.decorate(copy, sm);
     }
 }

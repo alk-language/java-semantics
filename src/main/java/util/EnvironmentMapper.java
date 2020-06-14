@@ -1,6 +1,7 @@
 package util;
 
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 
 import java.util.HashMap;
 import java.util.Map;

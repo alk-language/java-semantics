@@ -29,7 +29,7 @@ public class MethodCallState extends ExecutionState
     {
         if (reference == null)
         {
-            return request(ExpressionVisitor.class, ctx.ref_name());
+            return request(ExpressionVisitor.class, ctx.factor());
         }
         if (solution == null)
         {

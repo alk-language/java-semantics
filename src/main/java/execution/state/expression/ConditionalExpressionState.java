@@ -78,7 +78,10 @@ public class ConditionalExpressionState extends ExecutionState {
     @Override
     public ExecutionState clone(SplitMapper sm) {
         ConditionalExpressionState copy = new ConditionalExpressionState(ctx, sm.getPayload());
-        copy.queryExpression = queryExpression.weakClone(sm.getLocationMapper());
+        if (queryExpression != null)
+        {
+            copy.queryExpression = queryExpression.weakClone(sm.getLocationMapper());
+        }
         return super.decorate(copy, sm);
     }
 }

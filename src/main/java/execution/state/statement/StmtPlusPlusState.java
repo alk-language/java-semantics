@@ -28,7 +28,7 @@ public class StmtPlusPlusState extends ExecutionState
     {
         if (ref == null)
         {
-            return request(ExpressionVisitor.class, ctx.ref_name());
+            return request(ExpressionVisitor.class, ctx.factor());
         }
         try {
             ref.toRValue().plusplusright();

@@ -1,0 +1,55 @@
+print(1 == 5);
+print(1 != 5);
+print(1 < 5);
+print(1 <= 5);
+print(1 >= 5);
+print(1 > 5);
+
+print(1 == 1.0);
+print(1 != 1.0);
+print(1 < 1.0);
+print(1 <= 1.0);
+print(1 >= 1.0);
+print(1 > 1.0);
+
+print(1.2 == 1);
+print(1.2 != 1);
+print(1.2 < 1);
+print(1.2 <= 1);
+print(1.2 >= 1);
+print(1.2 > 1);
+
+print(1.2 == 1.3);
+print(1.2 != 1.3);
+print(1.2 < 1.3);
+print(1.2 <= 1.3);
+print(1.2 >= 1.3);
+print(1.2 > 1.3);
+
+print("abc" == "xyz");
+print("abc" != "xyz");
+print("abc" < "xyz");
+print("abc" <= "xyz");
+print("abc" >= "xyz");
+print("abc" > "xyz");
+
+print(true == false);
+print(true != false);
+
+print([1, "abc"] == [1, "abc"]);
+print([1, "abc"] != [1, "abc"]);
+
+print(<1, "abc"> == <1.1, "abc">);
+print(<1, "abc"> != <1.1, "abc">);
+
+print({1, "abc"} == {1, "abc"});
+print({1, "abc"} != {1, "abc"});
+
+print({x->1.1 y->"abc"} == {x->"abc" y->1.1});
+print({x->1.1 y->"abc"} != {x->"abc" y->1.1});
+
+
+
+
+
+

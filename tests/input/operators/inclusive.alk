@@ -1,0 +1,31 @@
+print(2 in [1, 2, 3]);
+print(4 in <1, 2, 3>);
+print(4 in {1, 2, 3});
+
+print(2.2 in [1, 2, 3]);
+print(2.0 in <1, 2, 3>);
+print(2.0 in {1, 2, 3});
+
+print(true in [false]);
+print(true in <true, false>);
+print(true in {true, false});
+
+print("abc" in ["abc", "xyz"]);
+print("abc" in <"Abc", "xyz">);
+print("abc" in {"Abc", "xyz"});
+
+print([1, 2] in [1, [1, 2.2], 3]);
+print([1, 2] in <1, [1, 2.0], 3>);
+print([1, 2] in {1, [1, 2], 3});
+
+print(<1, 2> in [1, <1, 2.2>, 3]);
+print(<1, 2> in <1, <1, 2.0>, 3>);
+print(<1, 2> in {1, <1, 2>, 3});
+
+print({1, 2} in [1, {1, 2.2}, 3]);
+print({1, 2} in <1, {1, 2.0}, 3>);
+print({1, 2} in {1, {1, 2}, 3});
+
+print({x->2 y->3} in [1, {x->2.2 y->3}, 3]);
+print({x->2 y->3} in <1, {x->2.0 y->3}, 3>);
+print({x->2 y->3} in {1, {x->2 y->3}, 3});

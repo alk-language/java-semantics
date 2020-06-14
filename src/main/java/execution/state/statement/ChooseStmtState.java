@@ -4,6 +4,7 @@ import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
+import parser.env.EnvironmentProxy;
 import parser.env.Location;
 import parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
@@ -30,6 +31,7 @@ public class ChooseStmtState extends ExecutionState
     private List<Location> array;
     private List<Location> values = new ArrayList<>();
     private int step = 0;
+    private EnvironmentProxy env;
 
     public ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
     {
@@ -48,8 +50,9 @@ public class ChooseStmtState extends ExecutionState
 
         if (ctx.SOTHAT() != null && step < array.size())
         {
-            getEnv().update(ctx.ID().getText(), array.get(step).toRValue().clone(generator));
-            return super.request(ExpressionVisitor.class, ctx.expression(1));
+            env = new EnvironmentProxy(getEnv());
+            env.addTempEntry(ctx.ID().getText(), array.get(step).toRValue().clone(generator));
+            return super.request(ExpressionVisitor.class, ctx.expression(1), env);
         }
 
         if (ctx.SOTHAT() == null)
@@ -114,12 +117,22 @@ public class ChooseStmtState extends ExecutionState
     public ExecutionState clone(SplitMapper sm) {
         ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, sm.getPayload());
         copy.step = step;
+
         if (this.array != null)
+        {
             copy.array = new ArrayList<>();
-        for (Location loc : array)
-            copy.array.add(sm.getLocationMapper().get(loc));
-        for (Location loc : values)
-            copy.values.add(sm.getLocationMapper().get(loc));
+            for (Location loc : array)
+                copy.array.add(sm.getLocationMapper().get(loc));
+        }
+
+        if (values != null)
+        {
+            for (Location loc : values)
+                copy.values.add(sm.getLocationMapper().get(loc));
+        }
+
+        copy.env = (EnvironmentProxy) sm.getEnvironmentMapper().get(this.env);
+
         return super.decorate(copy, sm);
     }
 }

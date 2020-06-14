@@ -2,9 +2,7 @@ package preprocessing;
 
 import grammar.alkLexer;
 import grammar.alkParser;
-import parser.env.Environment;
 import parser.exceptions.AlkException;
-import parser.visitors.MainVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

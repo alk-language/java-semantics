@@ -2,6 +2,7 @@ package util;
 
 import grammar.alkBaseVisitor;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import util.exception.InternalException;
 
 import java.lang.reflect.InvocationTargetException;

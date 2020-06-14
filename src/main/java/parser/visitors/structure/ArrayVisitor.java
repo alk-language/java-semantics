@@ -7,6 +7,7 @@ import execution.state.structure.IterableWithIntervalState;
 import execution.state.structure.IterableWithSpecState;
 import grammar.alkParser;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import execution.types.alkArray.AlkArray;
 import util.Payload;
 

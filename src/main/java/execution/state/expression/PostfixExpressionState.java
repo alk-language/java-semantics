@@ -59,7 +59,7 @@ public class PostfixExpressionState extends SingleState<Value, Value> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, sm.getPayload());
+        PostfixExpressionState copy = new PostfixExpressionState((alkParser.PostfixExpressionContext) tree, sm.getPayload());
         return super.decorate(copy, sm);
     }
 

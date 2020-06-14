@@ -5,24 +5,16 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.HelpFormatter;
 import parser.AlkParser;
 import parser.constants.Constants;
-import parser.env.AlkFunction;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import parser.env.Store;
 import parser.exceptions.AlkException;
 import parser.visitors.InitVisitor;
 import parser.visitors.MainVisitor;
 import util.*;
 import util.exception.InternalException;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import util.exception.OnlyMetaException;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The main class responsible for one alk file execution. It is implemented
@@ -56,7 +48,7 @@ public class Execution extends Thread
         this.config = config;
         envManager = new EnvironmentManager();
         store = new Store();
-        global = new Environment(store);
+        global = new EnvironmentImpl(store);
         funcManager = new FuncManager();
     }
 

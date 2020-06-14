@@ -7,10 +7,8 @@ import execution.state.main.StatementSeqState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.env.Environment;
-import util.EnvironmentManager;
+import parser.env.EnvironmentImpl;
 import util.Payload;
-
-import java.util.Stack;
 
 
 /**

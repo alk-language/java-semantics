@@ -9,6 +9,7 @@ import execution.state.function.DefinedFunctionCallState;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.env.Environment;
+import parser.env.EnvironmentImpl;
 import util.Payload;
 
 public class FunctionCallVisitor extends alkBaseVisitor {

@@ -87,10 +87,40 @@ public class AlkStructure extends AlkValue
     @Override
     public AlkBool equal(AlkValue operand)
     {
-        if (!operand.type.equals("Structure"))
+        if (!(operand instanceof AlkStructure))
             throw new AlkException(ERR_EQUAL_STRUCT);
+
         AlkStructure op = (AlkStructure) operand;
-        return new AlkBool(this.toString().equals(op.toString()));
+
+        if (map.size() != op.map.size())
+        {
+            return new AlkBool(false);
+        }
+
+        for (String key : map.keySet())
+        {
+            if (!op.has(key))
+            {
+                return new AlkBool(false);
+            }
+
+            AlkValue a = map.get(key).toRValue();
+            AlkValue b = op.map.get(key).toRValue();
+
+            try
+            {
+                if (!a.equal(b).isTrue())
+                {
+                    return new AlkBool(false);
+                }
+            }
+            catch (AlkException e)
+            {
+                return new AlkBool(false);
+            }
+        }
+
+        return new AlkBool(true);
     }
 
     @Override

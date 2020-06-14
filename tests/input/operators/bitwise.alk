@@ -1,0 +1,5 @@
+print(12 & 10);
+print(12 | 10);
+print(12 xor 10);
+print(12 << 10);
+print(12 >> 2);

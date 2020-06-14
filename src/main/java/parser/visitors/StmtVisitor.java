@@ -9,24 +9,12 @@ import execution.state.function.ReturnState;
 import execution.state.main.StatementSeqState;
 import execution.state.statement.*;
 import grammar.*;
-import parser.Pair;
-import parser.env.AlkFunction;
 import parser.env.Environment;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
-import execution.types.AlkIterableValue;
+import parser.env.EnvironmentImpl;
 import execution.types.AlkValue;
-import execution.types.alkNotAValue.AlkNotAValue;
-import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.function.FunctionCallVisitor;
 import util.Payload;
 import util.SplitMapper;
 import util.exception.InternalException;
-
-import java.util.ArrayList;
-
-import static parser.constants.Constants.DEBUG;
-import static parser.exceptions.AlkException.*;
 
 /**
  * This class is responsible for the visiting of the statements.
@@ -286,7 +274,7 @@ public class StmtVisitor extends alkBaseVisitor {
      * @param ctx A ForAll Strcuture node in the execution tree meant to be parsed.
      */
     @Override public Object visitForEachStructure(alkParser.ForEachStructureContext ctx) {
-        return StateFactory.create(ForAllState.class, ctx, payload, env);
+        return StateFactory.create(ForEachState.class, ctx, payload, env);
     }
 
 

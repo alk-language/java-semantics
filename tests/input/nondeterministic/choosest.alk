@@ -3,11 +3,3 @@ odd(x) {
 }
 
 choose x1 in { 1 .. 5 } s.t. odd(x1);
-choose x2 in { 1 .. 5 } s.t. !odd(x2);
-/*
-choose x3 in { 1 .. 5 } s.t. odd(x3);
-choose x4 in { 1 .. 5 } s.t. odd(x4);
-choose x5 in { 1 .. 5 } s.t. odd(x5);
-choose x6 in { 1 .. 5 } s.t. odd(x6);
-choose x7 in { 1 .. 5 } s.t. odd(x7);
-*/
