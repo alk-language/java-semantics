@@ -3,6 +3,7 @@ package execution.state.structure;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
+import parser.env.EnvironmentProxy;
 import parser.env.Location;
 import parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
@@ -20,14 +21,15 @@ import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 // TODO: make use of temporary environment once there exists an environment stack
 @CtxState(ctxClass = alkParser.SelectSpecDefinitionContext.class)
-public class SelectSpecDefinitionState extends ExecutionState<AlkArray, Value> {
+public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
 
     private List<Location> source;
     private alkParser.SelectSpecDefinitionContext ctx;
     private AlkArray array = new AlkArray();
     private int step;
+    private EnvironmentProxy env;
 
-    public SelectSpecDefinitionState(alkParser.SelectSpecDefinitionContext tree, Payload payload) {
+    public MapSpecDefinitionState(alkParser.SelectSpecDefinitionContext tree, Payload payload) {
         super(tree, payload);
         ctx = tree;
     }
@@ -46,8 +48,9 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, Value> {
             return null;
         }
 
-        getEnv().update(ctx.ID().toString(), source.get(step++).toRValue());
-        return super.request(ExpressionVisitor.class, ctx.expression(0));
+        env = new EnvironmentProxy(getEnv());
+        env.addTempEntry(ctx.ID().toString(), source.get(step++).toRValue());
+        return super.request(ExpressionVisitor.class, ctx.expression(0), env);
     }
 
     @Override
@@ -72,13 +75,22 @@ public class SelectSpecDefinitionState extends ExecutionState<AlkArray, Value> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        SelectSpecDefinitionState copy = new SelectSpecDefinitionState(ctx, sm.getPayload());
-        for (Location value : source)
+        MapSpecDefinitionState copy = new MapSpecDefinitionState(ctx, sm.getPayload());
+        if (source != null)
         {
-            copy.source.add(sm.getLocationMapper().get(value));
+            for (Location value : source)
+            {
+                copy.source.add(sm.getLocationMapper().get(value));
+            }
         }
+
         copy.array = array.weakClone(sm.getLocationMapper());
         copy.step = step;
+
+        if (this.env != null)
+        {
+            copy.env = (EnvironmentProxy) sm.getEnvironmentMapper().get(env);
+        }
         return super.decorate(copy, sm);
     }
 }

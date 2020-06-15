@@ -1,1 +1,6 @@
-print(sin(2));
+A = [1, 2, 3];
+foreach x in A
+{
+    print(x);
+    A.popBack();
+}
