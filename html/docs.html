@@ -1153,7 +1153,7 @@
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>for (initial-assign; bool-expression; intermediary-assign) statement</code></td></tr>
-                <tr><td><code>for (initial-assign; bool-expression; increade/decrease) statement</code></td></tr>
+                <tr><td><code>for (initial-assign; bool-expression; increase/decrease) statement</code></td></tr>
               </table>
               <b>Bool-expression:</b><br>
               The bool-expression component refers to the condition used for the for instruction. It is clear the fact that this expression should evaluate to a bool value. At first, the <code>initial-assign</code> is executed. Before the first iteration, the expression is evaluated. In case it evaluates to <code>true</code> then the statement is executed. Otherwise the process is halted and the while instruction is skipped. After each iteration, the condition is re-evaluated following the same behavior: if the condition evaluates to <code>true</code> the next iteration is triggered. Otherwise, the looping process ends and the while instruction is skipped. Note that before the expression is re-evaluated, the <code>intermediary-assign</code> is executed.<br>
@@ -1187,7 +1187,7 @@
 
               <table border = 1>
                 <tr><th>Syntax</th></tr>
-                <tr><td><code>foeach id in iterable statement</code></td></tr>
+                <tr><td><code>foreach id in iterable statement</code></td></tr>
               </table>
 
               <b>Id:</b><br>
@@ -1289,7 +1289,7 @@
 
             <section id="random-function">
               <h4> 2.6.1 Random builtin function</h4>
-              ...
+              Besides the classic <a href="#builtin-functions">builtin functions</a> which are used in deterministic executions, the <code>random</code> builtin function is the main way to trigger a probabilistic execution. It is used to get a number in a specified range with uniform distribution. That being said, this is a returning function so it should be used inside expressions.<br>
             </section>
 
             <section id="uniform-instruction">

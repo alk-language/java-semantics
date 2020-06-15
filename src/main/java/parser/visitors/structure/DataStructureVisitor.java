@@ -6,7 +6,6 @@ import execution.state.structure.*;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import parser.env.Environment;
-import parser.env.EnvironmentImpl;
 import util.Payload;
 
 public class DataStructureVisitor extends alkBaseVisitor
@@ -30,7 +29,7 @@ public class DataStructureVisitor extends alkBaseVisitor
 
     public ExecutionState visitSelectSpecDefinition(alkParser.SelectSpecDefinitionContext ctx)
     {
-        return StateFactory.create(SelectSpecDefinitionState.class, ctx, payload, env);
+        return StateFactory.create(MapSpecDefinitionState.class, ctx, payload, env);
     }
 
     public ExecutionState visitFilterSpecDefinition(alkParser.FilterSpecDefinitionContext ctx) {

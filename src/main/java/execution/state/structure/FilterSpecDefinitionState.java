@@ -3,6 +3,8 @@ package execution.state.structure;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
+import parser.env.Environment;
+import parser.env.EnvironmentProxy;
 import parser.env.Location;
 import parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
@@ -29,6 +31,7 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
     private alkParser.FilterSpecDefinitionContext ctx;
     private AlkArray array = new AlkArray();
     private AlkValue validatingValue;
+    private EnvironmentProxy env;
 
     public FilterSpecDefinitionState(alkParser.FilterSpecDefinitionContext tree, Payload payload) {
         super(tree, payload);
@@ -48,8 +51,10 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
         }
 
         validatingValue = source.get(step++).toRValue();
-        getEnv().update(ctx.ID().toString(), validatingValue);
-        return super.request(ExpressionVisitor.class, ctx.expression(1));
+
+        env = new EnvironmentProxy(getEnv());
+        env.addTempEntry(ctx.ID().toString(), validatingValue);
+        return super.request(ExpressionVisitor.class, ctx.expression(1), env);
     }
 
     @Override
@@ -76,13 +81,31 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
     @Override
     public ExecutionState clone(SplitMapper sm) {
         FilterSpecDefinitionState copy = new FilterSpecDefinitionState((alkParser.FilterSpecDefinitionContext) tree, sm.getPayload());
-        for (Location value : source)
-        {
-            copy.source.add(sm.getLocationMapper().get(value));
-        }
         copy.step = step;
-        copy.array = array.weakClone(sm.getLocationMapper());
-        copy.validatingValue = this.validatingValue.weakClone(sm.getLocationMapper());
+
+        if (source != null)
+        {
+            for (Location value : source)
+            {
+                copy.source.add(sm.getLocationMapper().get(value));
+            }
+        }
+
+
+        if (array != null)
+        {
+            copy.array = array.weakClone(sm.getLocationMapper());
+        }
+
+        if (this.validatingValue != null)
+        {
+            copy.validatingValue = this.validatingValue.weakClone(sm.getLocationMapper());
+        }
+
+        if (this.env != null)
+        {
+            copy.env = (EnvironmentProxy) sm.getEnvironmentMapper().get(this.env);
+        }
         return super.decorate(copy, sm);
     }
 }
