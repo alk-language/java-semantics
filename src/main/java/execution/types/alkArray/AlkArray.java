@@ -195,8 +195,9 @@ public class AlkArray extends AlkIterableValue {
     }
 
     @Override
-    public List<Location> toArray(LocationGenerator generator) {
-        return array;
+    public List<Location> toArray(LocationGenerator generator)
+    {
+        return new ArrayList<>(array);
     }
 
     @Override

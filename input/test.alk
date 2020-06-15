@@ -1,7 +1,6 @@
-A = [1..10];
-x = 100;
-B = [2 * x | x from A];
-
-choose y in [1..3];
-
-B = [5 * y | y from A];
+A = [1, 2, 3];
+foreach i in A
+{
+    print(i);
+    A.popBack();
+}

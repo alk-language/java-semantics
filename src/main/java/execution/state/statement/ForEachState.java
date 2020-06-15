@@ -59,10 +59,15 @@ public class ForEachState extends LoopingState
         if (source == null)
         {
             Value value = result.getValue().toRValue();
-            if (!(value instanceof AlkIterableValue))
+            if (value instanceof AlkIterableValue)
+            {
+                source = ((AlkIterableValue) value).toArray(generator);
+            }
+            else
+            {
                 super.handle(new AlkException(ERR_FORALL_ITERABLE_REQUIRED));
+            }
 
-            source = ((AlkIterableValue) value).toArray(generator);
         }
 
     }
