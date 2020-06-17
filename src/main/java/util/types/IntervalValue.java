@@ -1,5 +1,6 @@
 package util.types;
 
+import execution.types.AlkValue;
 import parser.env.Location;
 import parser.env.LocationMapper;
 import parser.exceptions.AlkException;
@@ -44,17 +45,15 @@ public class IntervalValue implements Value, Iterable<AlkInt> {
 
     class PairValueIterator implements Iterator<AlkInt> {
 
-        private AlkInt index = left;
+        private AlkInt index = new AlkInt(left.value);
 
-        public boolean hasNext() {
+        public boolean hasNext()
+        {
             return index.lowereq(right).isTrue();
         }
 
         public AlkInt next() {
-            // TODO: reimplement after post ++ is implemented
-            AlkInt value = index;
-            index = (AlkInt) index.add(new AlkInt(1));
-            return value;
+            return (AlkInt) index.plusplusright();
         }
     }
 }

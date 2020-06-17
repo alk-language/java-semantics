@@ -143,6 +143,6 @@ public class AlkIterator extends AlkValue
 
     @Override
     public String toString() {
-        return "iterator"; // TODO scrie si el ceva sa fie aici, practic nu se poate scrie un iterator
+        return "iterator"; // TODO prctic nu se poate scrie un iterator
     }
 }

@@ -17,7 +17,6 @@ import static parser.exceptions.AlkException.*;
 //TODO: implement bracket operator
 public class AlkList extends AlkIterableValue
 {
-
     private LinkedList<Location> list;
 
     public AlkList() {
@@ -42,7 +41,7 @@ public class AlkList extends AlkIterableValue
 
     public AlkIterator end()
     {
-        return new AlkIterator(list.listIterator(list.size()), this); // TODO de optimizat
+        return new AlkIterator(list.listIterator(list.size()), this);
     }
 
     public AlkValue insert(AlkValue position, Location value)

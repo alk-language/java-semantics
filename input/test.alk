@@ -1,6 +1,2 @@
-A = [1, 2, 3];
-foreach i in A
-{
-    print(i);
-    A.popBack();
-}
+a = 1;
+A = [a..5];

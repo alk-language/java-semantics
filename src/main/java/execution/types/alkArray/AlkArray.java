@@ -80,12 +80,7 @@ public class AlkArray extends AlkIterableValue {
     @Override
     public AlkValue pushFront(Location loc)
     {
-        // TODO: in-place to increase efficiency
-        List<Location> copy = new ArrayList<>();
-        copy.add(loc);
-        copy.addAll(array);
-        array.clear();
-        array.addAll(copy);
+        array.add(0, loc);
         return this;
     }
 
@@ -107,14 +102,20 @@ public class AlkArray extends AlkIterableValue {
         return this;
     }
 
-    // TODO: Arrays are not homogeneous, so failed equals should be skipped
     @Override
     public AlkValue removeAllEqTo(AlkValue value)
     {
         List<Location> in = new ArrayList<>();
         for (Location location : array) {
-            if (location.toRValue().notequal(value).isTrue())
+            try
+            {
+                if (location.toRValue().notequal(value).isTrue())
+                    in.add(location);
+            }
+            catch (AlkException e)
+            {
                 in.add(location);
+            }
         }
         array.clear();
         array.addAll(in);

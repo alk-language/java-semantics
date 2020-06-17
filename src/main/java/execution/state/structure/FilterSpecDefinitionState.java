@@ -22,7 +22,6 @@ import java.util.List;
 import static parser.exceptions.AlkException.ERR_SPEC_BOOL;
 import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
-// TODO: make use of temporary environment once there exists an environment stack
 @CtxState(ctxClass = alkParser.FilterSpecDefinitionContext.class)
 public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
 

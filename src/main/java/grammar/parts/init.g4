@@ -13,5 +13,5 @@ var_def_seq:
 ;
 
 variable:
-    ref_name TO expression                                                                                              #Var
+    ID TO expression                                                                                                    #Var
 ;

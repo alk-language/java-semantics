@@ -30,12 +30,7 @@ public class VarState extends ExecutionState {
             return super.request(ExpressionVisitor.class, ctx.expression());
         }
 
-        if (leftSide == null)
-        {
-            return super.request(ExpressionVisitor.class, ctx.ref_name());
-        }
-
-        leftSide.assign(rightSide.clone(generator));
+        getEnv().update(ctx.ID().getText(), rightSide.clone(generator));
         return null;
     }
 
@@ -45,10 +40,6 @@ public class VarState extends ExecutionState {
         if (rightSide == null)
         {
             rightSide = (AlkValue) result.getValue().toRValue();
-        }
-        else if (leftSide == null)
-        {
-            leftSide = result.getValue().toLValue();
         }
     }
 
