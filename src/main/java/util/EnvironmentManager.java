@@ -15,8 +15,6 @@ import java.util.*;
 public class EnvironmentManager {
 
     private Map<ExecutionState, Environment> state2env = new HashMap<>();
-
-    //TODO: can be removed?
     private Map<Environment, List<ExecutionState> > env2state = new HashMap<>();
 
     public void unlink(ExecutionState<? extends Value,? extends Value> state)

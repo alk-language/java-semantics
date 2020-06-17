@@ -10,11 +10,6 @@ import util.types.Value;
 
 import java.util.List;
 
-/**
- * TODO: reimplement so that the children can exploit more restrictive generic
- * @param <T>
- *        The type of value which will be returned
- */
 public abstract class GuardedGeneratorState<T extends Value> extends GeneratorState<T, T>
 {
     private T localResult;

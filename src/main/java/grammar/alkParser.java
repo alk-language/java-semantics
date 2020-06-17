@@ -4773,7 +4773,7 @@ public class alkParser extends Parser {
 			setState(593);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 28)) & ~0x3f) == 0 && ((1L << (_la - 28)) & ((1L << (ABS - 28)) | (1L << (ACOS - 28)) | (1L << (ASIN - 28)) | (1L << (ATAN - 28)) | (1L << (COS - 28)) | (1L << (LOG - 28)) | (1L << (PI - 28)) | (1L << (POW - 28)) | (1L << (SIN - 28)) | (1L << (SQRT - 28)) | (1L << (TAN - 28)) | (1L << (LEN - 28)) | (1L << (FLOAT - 28)) | (1L << (INTEGER - 28)) | (1L << (PRINT - 28)) | (1L << (SINGLETONSET - 28)) | (1L << (RANDOM - 28)) | (1L << (ID - 28)))) != 0)) {
+			if (_la==ID) {
 				{
 				setState(592);
 				var_def_seq();
@@ -4842,7 +4842,7 @@ public class alkParser extends Parser {
 				setState(600); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 28)) & ~0x3f) == 0 && ((1L << (_la - 28)) & ((1L << (ABS - 28)) | (1L << (ACOS - 28)) | (1L << (ASIN - 28)) | (1L << (ATAN - 28)) | (1L << (COS - 28)) | (1L << (LOG - 28)) | (1L << (PI - 28)) | (1L << (POW - 28)) | (1L << (SIN - 28)) | (1L << (SQRT - 28)) | (1L << (TAN - 28)) | (1L << (LEN - 28)) | (1L << (FLOAT - 28)) | (1L << (INTEGER - 28)) | (1L << (PRINT - 28)) | (1L << (SINGLETONSET - 28)) | (1L << (RANDOM - 28)) | (1L << (ID - 28)))) != 0) );
+			} while ( _la==ID );
 			}
 		}
 		catch (RecognitionException re) {
@@ -4868,9 +4868,7 @@ public class alkParser extends Parser {
 		}
 	}
 	public static class VarContext extends VariableContext {
-		public Ref_nameContext ref_name() {
-			return getRuleContext(Ref_nameContext.class,0);
-		}
+		public TerminalNode ID() { return getToken(alkParser.ID, 0); }
 		public TerminalNode TO() { return getToken(alkParser.TO, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -4891,7 +4889,7 @@ public class alkParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(602);
-			ref_name();
+			match(ID);
 			setState(603);
 			match(TO);
 			setState(604);
@@ -5145,8 +5143,8 @@ public class alkParser extends Parser {
 		"\u0252\3\2\2\2\u0253\u0254\3\2\2\2\u0254\u0255\3\2\2\2\u0255\u0256\7\2"+
 		"\2\3\u0256e\3\2\2\2\u0257\u0259\5h\65\2\u0258\u0257\3\2\2\2\u0259\u025a"+
 		"\3\2\2\2\u025a\u0258\3\2\2\2\u025a\u025b\3\2\2\2\u025bg\3\2\2\2\u025c"+
-		"\u025d\5H%\2\u025d\u025e\7\6\2\2\u025e\u025f\5$\23\2\u025fi\3\2\2\2;k"+
-		"r\177\u009f\u00b2\u00ba\u00c0\u00d0\u00ea\u00ef\u00f6\u010a\u010d\u0116"+
+		"\u025d\7K\2\2\u025d\u025e\7\6\2\2\u025e\u025f\5$\23\2\u025fi\3\2\2\2;"+
+		"kr\177\u009f\u00b2\u00ba\u00c0\u00d0\u00ea\u00ef\u00f6\u010a\u010d\u0116"+
 		"\u0119\u011e\u0128\u012f\u0137\u013f\u0147\u014f\u0157\u015f\u0167\u016f"+
 		"\u0177\u017f\u0187\u018d\u019e\u01a0\u01a9\u01ad\u01b3\u01b7\u01bd\u01d0"+
 		"\u01dc\u01df\u01e6\u01f3\u01f6\u01fd\u0203\u0216\u0219\u0220\u022a\u022d"+

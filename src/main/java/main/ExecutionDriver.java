@@ -37,7 +37,6 @@ public class ExecutionDriver
 
     /**
      * Method used for initializing and linking the managers
-     * TODO: let the managers be enabled by each execution, avoid using static context
      *
      * @param args
      * The command line arguments. Useful when constructing the OptionProvider.
