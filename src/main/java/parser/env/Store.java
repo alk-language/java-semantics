@@ -30,14 +30,6 @@ public class Store implements LocationGenerator
         return newLocation;
     }
 
-    public Store makeClone()
-    {
-        Store copyStore = new Store();
-        for (Location key : store.keySet())
-            copyStore.generate(store.get(key));
-        return copyStore;
-    }
-
     public Set<Location> getLocations()
     {
         return store.keySet();

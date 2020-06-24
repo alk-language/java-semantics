@@ -15,6 +15,7 @@ import java.io.IOException;
 public class ErrorManager
 {
     private IOManager io;
+
     private OptionProvider op;
 
     public void attach(IOManager io) {

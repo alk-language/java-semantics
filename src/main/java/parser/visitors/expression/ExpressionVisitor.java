@@ -73,7 +73,8 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
 
-    @Override public ExecutionState visitBitwiseAndExpression(alkParser.BitwiseAndExpressionContext ctx) {
+    @Override
+    public ExecutionState visitBitwiseAndExpression(alkParser.BitwiseAndExpressionContext ctx) {
         return StateFactory.create(BitwiseAndExpressionState.class, ctx, payload, env);
     }
 
@@ -83,7 +84,9 @@ public class ExpressionVisitor extends alkBaseVisitor {
     }
 
 
-    @Override public ExecutionState visitAdditiveExpression(alkParser.AdditiveExpressionContext ctx) {
+    @Override
+    public ExecutionState visitAdditiveExpression(alkParser.AdditiveExpressionContext ctx)
+    {
         return StateFactory.create(AdditiveExpressionState.class, ctx, payload, env);
     }
 

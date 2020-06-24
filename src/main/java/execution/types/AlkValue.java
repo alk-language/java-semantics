@@ -29,12 +29,6 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     @Deprecated
     public boolean isDataStructure;
 
-    /** Flag to indicate if the current value is iterable
-     * TODO: replace with instance of iterable value checker
-     */
-    @Deprecated
-    public boolean isIterable;
-
     /**
      * Standard override of the equals method
      * TODO: Why is the value of type Object?
@@ -129,7 +123,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      */
     public AlkValue in(AlkValue operand)
     {
-        if (!operand.isIterable)
+        if (!(operand instanceof AlkIterableValue))
             throw new AlkException(ERR_IN);
 
         return new AlkBool(((AlkIterableValue)operand).has(this));
