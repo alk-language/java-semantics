@@ -114,6 +114,7 @@ public class Execution extends Thread
             stack = new ExecutionStack(config, envManager);
             stack.push(state);
         }
+
         stack.run();
 
         // if the metadata flag is set, print the global environment

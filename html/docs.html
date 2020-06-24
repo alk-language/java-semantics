@@ -78,28 +78,27 @@
                 </li>
                 <li><a href="#declarations_initializations">2.4 Declarations and Initializations</a>
                   <ul>
-                    <li><a href="#dynamic-typing">2.4.1 Dynamic typing </a></li>
-                    <li><a href="#dynamic-allocation">2.4.2 Iterable data types definition </a>
+                    <li><a href="#default-initialization">2.4.1 Default initialization values </a></li>
+                    <li><a href="#dynamic-allocation">2.4.2 Dynamic allocation  </a></li>
+                    <li><a href="#iterable-data-types">2.4.3 Iterable data types definition </a>
                       <ul>
-                        <li><a href="#expression-representation">2.4.2.1 Expression based definition </a></li>
-                        <li><a href="#interval-representation">2.4.2.2 Interval based definition </a></li>
-                        <li><a href="#filter-representation">2.4.2.3 Filter specification based definition </a></li>
-                        <li><a href="#map-representation">2.4.2.4 Map specification based definition </a></li>
-                        <li><a href="#empty-representation">2.4.2.5 Empty definition </a></li>
+                        <li><a href="#expression-representation">2.4.3.1 Expression based definition </a></li>
+                        <li><a href="#interval-representation">2.4.3.2 Interval based definition </a></li>
+                        <li><a href="#filter-representation">2.4.3.3 Filter specification based definition </a></li>
+                        <li><a href="#map-representation">2.4.3.4 Map specification based definition </a></li>
+                        <li><a href="#empty-representation">2.4.3.5 Empty definition </a></li>
                       </ul>
                     </li>
-                    <li><a href="#dynamic-allocation">2.4.3 Dynamic allocation </a></li>
                   </ul>
                 </li>
-                <li><a href="#function">2.5 Functions</a>
+                <li><a href="#functions">2.5 Functions</a>
                   <ul>
                     <li><a href="#function-declaration">2.5.1 Function declaration</a></li>
-                    <li><a href="#function-parameters">2.5.2 Function parameters</a></li>
-                    <li><a href="#function-call">2.5.3 Function call</a></li>
-                    <li><a href="#return-call">2.5.4 Return call</a></li>
+                    <li><a href="#function-call-stmt">2.5.2 Function call</a></li>
+                    <li><a href="#return-call">2.5.3 Return call</a></li>
                   </ul>
                 </li>
-                <li><a href="#intructions">2.6 Instructions</a>
+                <li><a href="#instructions">2.6 Instructions</a>
                   <ul>
                     <li><a href="#simple-instructions">2.6.1 Simple intructions</a>
                       <ul>
@@ -115,7 +114,7 @@
                       <ul>
                         <li><a href="#while-instruction">2.6.4.1 While instruction</a></li>
                         <li><a href="#do-while-intruction">2.6.4.2 Do while instruction</a></li>
-                        <li><a href="#repreat-until">2.6.4.3 Repeat until instruction</a></li>
+                        <li><a href="#repeat-until">2.6.4.3 Repeat until instruction</a></li>
                         <li><a href="#for-instruction">2.6.4.4 For instruction</a></li>
                         <li><a href="#foreach-instruction">2.6.4.5 Foreach instruction</a></li>
                         <li><a href="#break-continue">2.6.4.6 Break and continue instructions</a></li>
@@ -137,7 +136,7 @@
                 </li>
               </ul>
             </li>
-            <li><a href="#executions">3 Executions</a>
+            <!--<li><a href="#executions">3 Executions</a>
                 <ul>
                     <li><a href="#deterministic-executions">3.1 Deterministic executions</a></li>
                     <li><a href="#nondeterministic-executions">3.2 Nondeterministic executions</a>
@@ -155,17 +154,16 @@
                     <li><a href="#error-format">4.1 Error format </a></li>
                     <li><a href="#debug-technique">4.2 Debug techniques </a></li>
                 </ul>
-            </li>
-            <li><a href="#options">5 Options</a>
+            </li>-->
+            <li><a href="#options">3 Options</a>
                 <ul>
-                    <li><a href="#option-a">5.1 Setting the algorithm to be run </a></li>
-                    <li><a href="#option-i">5.2 Setting the initial configuration </a></li>
-                    <li><a href="#option-p">5.3 Setting the precision</a></li>
-                    <li><a href="#option-m">5.4 Show the metadata</a></li>
-                    <li><a href="#option-z">5.5 Increase maximum allocation size</a></li>
-                    <li><a href="#option-e">5.6 Trigger exhaustive execution</a></li>
-                    <li><a href="#option-h">5.7 Help and version</a></li>
-                    <li><a href="#option-t">5.8 Trigger debug mode</a></li>
+                    <li><a href="#option-a">3.1 Setting the algorithm to be run </a></li>
+                    <li><a href="#option-i">3.2 Setting the initial configuration </a></li>
+                    <li><a href="#option-p">3.3 Setting the precision</a></li>
+                    <li><a href="#option-m">3.4 Show the metadata</a></li>
+                    <li><a href="#option-z">3.5 Increase maximum allocation size</a></li>
+                    <li><a href="#option-e">3.6 Trigger exhaustive execution</a></li>
+                    <li><a href="#option-h">3.7 Help and version</a></li>
                 </ul>
             </li>
         </ul>
@@ -175,11 +173,33 @@
         <h1> 1 Introduction </h1>
         <section id="introduction_1">
           <h2> 1.1 Language motivation </h2>
-          ...
+          Alk is a programming language developed by the Alk Language Community, mainly formed by developers and professors of Faculty of Computer Science, University "Alexandru Ioan Cuza" University, Iasi. It firstly came out as an educational tool in 2016, meant to be used by the freshmen in order to develop and run specific algorithms. <br>
+
+          Its main purpose is to deliver a system easy to use and platform-independent, as its main user target is the students. Due to its educational reasons, Alk should display as many theoretical principles as possible in a light-weighted environment: no heavy dependencies, allow a flexible syntax and intuitive semantics.
         </section>
         <section id="introduction_2">
           <h2> 1.2 Configuration principle </h2>
-          ...
+          A configuration refers to a set of mappings between ids and values. Semantically, this represents an environment state at a given moment. Its main usage is related to Alk's input configuration and eventually the final metadata. Note than a configuration can have more than one such mapping. In case multiple mappings are defined, they should be space separated. It is recommended to keep these cells on separate lines where possible to increase visibility.<br>
+
+          <table border = 1>
+            <tr><th>Syntax</th></tr>
+            <tr><td><code>var-name |-> value</code></td></tr>
+            <tr><td><code>var-name1 |-> value1 <br> var-name2 |-> value2</code></td></tr>
+          </table>
+
+          <b>Var-name:</b><br>
+          This refers to the variable name to which the given value will be assigned. <br>
+          <b>Value:</b><br>
+          The value can be represented in any way. When an initial configuration is used, the Alk interpreter will parse the value as it does inside a normal Alk algorithm, which means that any kind of representation can be used (for example the interval or specification representations for an iterable data type value). <br>
+
+          Alk allows the initialization of the environment through an input configuration, which can be specified by using the <a href="#option-i">input option (-i)</a>. Also, if the <a href = "#option-m">metadata option (-m)</a> is used, the final configuration will be printed.
+          <ul>
+            <b>Examples:</b>
+            <li>Configuration with only one component: <code>a |-> 5</code></li>
+            <li>Configuration with multiple components: <code>a |-> 5 b |-> 6.5 c |-> "abc" d |-> true e |-> [1, 2, 3] f |-> <1, 2, 3> g |-> {1, 2, 3} h |-> {x -> 1 y -> 2}</code></li>
+            <li>Configuration making use of the Alk interpreter for parsing complex representations: <code>a |-> [2 * x | x from [1..10]]</code></li>
+          </ul>
+
         </section>
     </section>
 
@@ -188,12 +208,55 @@
 
         <section id="keywords">
           <h2> 2.1 Keywords </h2>
-          ...
+          Below there is a table of all the keywords which can be interpreted. Alongside, there is a short description containing links to the topics which exploit those keywords.
+          <table border = 1>
+            <tr><th>Keyword</th><th>Description</th></tr>
+            <tr><td><code>break</code></td><td>Part of the <a href="#break-continue">break statement</a></td></tr>
+            <tr><td><code>choose</code></td><td>Part of the <a href="#choose-instruction">choose statement</a></td></tr>
+            <tr><td><code>continue</code></td><td>Part of the <a href="#break-continue">continue statement</a></td></tr>
+            <tr><td><code>do</code></td><td>Part of the <a href="#do-while-intruction">do-while statement</a></td></tr>
+            <tr><td><code>else</code></td><td>Part of the <a href="#conditional-instruction">conditional statement</a></td></tr>
+            <tr><td><code>emptyList</code></td><td>Used to defined empty <a href="#list">list</a></td></tr>
+            <tr><td><code>emptySet</code></td><td>Used to defined empty <a href="#set">set</a></td></tr>
+            <tr><td><code>for</code></td><td>Part of the <a href="#for-instruction">for statement</a></td></tr>
+            <tr><td><code>foreach</code></td><td>Part of the <a href="#foreach-instruction">foreach statement</a></td></tr>
+            <tr><td><code>from</code></td><td>Used to represent <a href="#iterable-data-types">specifications</a></td></tr>
+            <tr><td><code>failure</code></td><td>Part of the <a href="#success-failure">failure statement</a></td></tr>
+            <tr><td><code>if</code></td><td>Part of the <a href="#conditional-instruction">conditional statement</a></td></tr>
+            <tr><td><code>in</code></td><td>Used as <a href="#inclusive-operator">inclusive operator</a></td></tr>
+            <tr><td><code>include</code></td><td>Part of the <a href="#preprocessing">include directive</a></td></tr>
+            <tr><td><code>modifies</code></td><td>Used to represent <a href="#functions">global references inside functions</a></td></tr>
+            <tr><td><code>out</code></td><td>Used to represent <a href="#functions">output parameters</a></td></tr>
+            <tr><td><code>repeat</code></td><td>Part of the <a href="#repeat-until">repeat-until statement</a></td></tr>
+            <tr><td><code>return</code></td><td>Part of the <a href="#return-call">return statement</a></td></tr>
+            <tr><td><code>s.t.</code></td><td>Part of the <a href="#choose-instruction">choose statement</a></td></tr>
+            <tr><td><code>success</code></td><td>Part of the <a href="#success-failure">success statement</a></td></tr>
+            <tr><td><code>uniform</code></td><td>Part of the <a href="#uniform-instruction">uniform statement</a></td></tr>
+            <tr><td><code>until</code></td><td>Part of the <a href="#repeat-until">repeat-until statement</a></td></tr>
+            <tr><td><code>while</code></td><td>Part of the <a href="#while-instruction">while statement</a></td></tr>
+            <tr><td><code>xor</code></td><td>Used as <a href="#bitwise-operator">xor operator</a></td></tr>
+          </table>
         </section>
 
         <section id="preprocessing">
           <h2> 2.2 Preprocessing </h2>
-          ...
+          The preprocessing is a stage before the visiting one, which handles the directives. The only directive supported now is the include directive which allows the user to attach an external file into the current code-base. These directives are processed recursively, so the final generated program should have no include node. In case a cycle is detected, the Alk interpreter will report this and abort the execution. <br>
+
+          <table border = 1>
+            <tr><th>Syntax</th></tr>
+            <tr><td><code>#include "file-path"</code></td></tr>
+          </table>
+
+          <b>File-path:</b><br>
+          The file path should point to a file which should be included in this current code. The inclusion will be done where the directive is used. In fact, this directive will be automatically replaced with the content of the file specified. The path can be absolute or relative. If the relative path is used, the origin is the file which includes it, not the initial file which is used in the -a option.<br>
+
+          <b>Examples: </b>
+          <table border = 1>
+            <tr><th>Initial file</th><th>Secondary file (<code>side.alk</code>)</th><th>Final configuration</th></tr>
+            <tr><td><code>#include "side.alk"<br>b = a + 2;</code></td><td><code>a = 5;</code></td><td><code>a |-> 5<br>b |-> 7</code></td></tr>
+            <tr><td><code>a = 9;<br>#include "side.alk"<br>b = a + 2;</code></td><td><code>a++;</code></td><td><code>a |-> 10<br>b |-> 12</code></td>
+            <tr><td><code>a = 9;<br>b = a + 2;<br>#include "side.alk"</code></td><td><code>a++;</code></td><td><code>a |-> 10<br>b |-> 11</code></td></tr>
+          </table>
         </section>
 
         <section id="expressions">
@@ -210,7 +273,7 @@
                 The integer data type is a numeric type which allows storing data in form of integer numbers. There is no fixed bound for the dimension
                 of one integer, as it is backed by an unlimited data structure designed for numeric usage. The complexity of the operations is dependent
                 upon the size of the integer, thus not all computations should be considered to be working in constant time. <br>
-                To represent an integer, one should just simply write it in the decimal base - as this is the only way Alk can interpret it.
+                To represent an integer, one should just simply write it in the decimal base, as this is the only way Alk can interpret it.
                 For negative integers, the <a href="#unary-operator">unary operator</a> <code>-</code> should be used in the representation. <br>
                 <ul>
                   <b>Examples:</b>
@@ -228,8 +291,8 @@
                 the floating point and rounded after a <i>HALF_EVEN</i> strategy. However this can be changed at the command line using the <a href="#option-p">precision option</a>.
                 The complexity of the operations is dependent upon the size of the float, thus not all computations should be considered to be working in constant time. <br>
                 To represent a float, one should write it in the decimal base using a floating point which separates the integer part from the fractional part. 
-                These two parts should not be empty. The fractional part shouldn't necessarily respect the precision - it will be automatically trimmed. For negative 
-                integers, the <a href="#unary-operator">unary operator</a> <code>-</code> should be used in the representation. <br>
+                These two parts should not be empty. The fractional part shouldn't necessarily respect the precision, it will be automatically trimmed. For negative 
+                floats, the <a href="#unary-operator">unary operator</a> <code>-</code> should be used in the representation. <br>
                 <ul>
                   <b>Examples:</b>
                   <li>Float: <code>1234.098765</code></li>
@@ -245,7 +308,7 @@
                 <h5> 2.3.1a.3 Bool</h5>
                 The bool data type is a logical type which allows storing data in form of logical primitives. Therefore, a bool can have one out of the two possible
                 values: <code>true</code> or <code>false</code>. The complexity of the operations with such types should be considered constant. <br>
-                To represent a bool, one should write it in form of the <code>true</code> or <code>false</code> keywords. <br>
+                To represent a bool, one should write it using the <code>true</code> or <code>false</code> keywords. <br>
                 <ul>
                   <b>Examples:</b>
                   <li>True bool: <code>true</code></li>
@@ -256,7 +319,7 @@
               <section id="string">
                 <h5> 2.3.1a.4 String</h5>
                 The string data type is a character type which allows storing data in form of character strings. There is no fixed bound for the length of the string
-                and can be used as a single character representation when its size is one or the empty string when its size is zero. The complexity of the operations 
+                and can be used as a single character representation when its size is one, or the empty string when its size is zero. The complexity of the operations 
                 is dependent upon the size of the string, thus not all computations should be considered to be working in constant time. <br>
                 To represent a string, one should enclose a character sequence in double quotes. For the empty string, provide an empty sequence inside the
                 double quotes pair. <br>
@@ -276,11 +339,11 @@
 
               <section id="array">
                 <h5> 2.3.1b.1 Array</h5>
-                An array is a heterogeneous compound data type which can store multiple values in a sequential way with continious allocation. The array is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum.
+                An array is a heterogeneous compound data type which can store multiple values in a sequential way with contiguous allocation. The array is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum.
                 The array is <a href="#dynamic-allocation">dynamically allocated</a>, so there is no need to initialize the array beforehand. <br>
                 The types of values contained in one array can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
-                a unlimited number of values inside the array. The complexities are either liniar or constant, depending on the operations. <br>
-                To represent an array, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
+                a unlimited number of values inside the array. The complexities are either linear or constant, depending on the operations. <br>
+                To represent an array, one should choose out of the four possible ways to define an iterable data type. The canonical representation is the
                 expression based one, as is the most comprehensive.<br>
                 <ul>
                   <b>Examples:</b>
@@ -296,8 +359,8 @@
                 <h5> 2.3.1b.2 List</h5>
                 A list is a heterogeneous compound data type which can store multiple values in a sequential way with discontinuous allocation. The list is limited  in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum. <br>
                 The types of values contained in one list can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
-                a unlimited number of values inside the list. The complexities are either liniar or constant, depending on the operations. <br>
-                To represent a list, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
+                a unlimited number of values inside the list. The complexities are either linear or constant, depending on the operations. <br>
+                To represent a list, one should choose out of the four possible ways to define an iterable data type. The canonical representation is the
                 expression based one, as is the most comprehensive. In order to represent the empty list, use the <code>emptyList</code> keyword, or the simple
                 <i>open/close</i> syntax.<br> 
                 <ul>
@@ -313,10 +376,10 @@
 
               <section id="set">
                 <h5> 2.3.1b.3 Set</h5>
-                A set is a heterogeneous compound data type which can store multiple unique values in a nonsequential way with discontinuous allocation. The set is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum. <br>
+                A set is a heterogeneous compound data type which can store multiple unique values in a non-sequential way with discontinuous allocation. The set is limited in size by a <i>MAX_SIZE</i> constant which is initially set to one billion. This can be however altered by the <a href="#option-z">size option</a> providing another maximum. <br>
                 The types of values contained in one set can be both simple or compound. Also, it doesn't have a limit in the nesting depth, so one can enclose
-                a unlimited number of values inside the set. The complexities are either liniar or constant, depending on the operations. <br>
-                To represent a set, one should choose one out of the four possible ways to define an iterable data type. The canonical representation is the
+                a unlimited number of values inside the set. The complexities are either linear or constant, depending on the operations. <br>
+                To represent a set, one should choose out of the four possible ways to define an iterable data type. The canonical representation is the
                 expression based one, as is the most comprehensive. In order to represent the empty set, use the <code>emptySet</code> keyword, or the simple
                 <i>open/close</i> syntax.<br> 
                 <ul>
@@ -350,8 +413,8 @@
           <section id="operators">
             <h3> 2.3.2 Data type operators</h3>
 
-            The majority of the operators are C-like. However there are new sets of operators meant to simplify the operations between certain data types (setwise operators, inclusive operators). In this section, each operator will be explained in terms of behavior, data types and the result of the evaluation. Below it is a table meant to ilustrate the priority of operators inside an expression. <br>
-            In the table, if the number in the priority column is lower than the operator will be executed quicker. For example, the conditional operator will be evaluated at the end. The ones which share the same priority, are executed in the order they appear in the expression. In order to suppress this order of evaluation, one can use the round paranthesis (for example: <code>(2 + 3) * 4</code> will result in <code>20</code>).<br>
+            The majority of the operators are C-like. However there are new sets of operators meant to simplify the operations between certain data types (setwise operators, inclusive operators). In this section, each operator will be explained in terms of behavior, data types and the result of the evaluation. Below it is a table meant to illustrate the priority of operators inside an expression. <br>
+            In the table, if the number in the priority column is lower, then the operator will be executed quicker. For example, the conditional operator will be evaluated at the end. The ones which share the same priority, are executed in the order they appear in the expression. In order to suppress this order of evaluation, one can use the round parenthesis (for example: <code>(2 + 3) * 4</code> will result in <code>20</code>).<br>
             To eliminate the confusion, in case of multiple <code>++</code> or <code>--</code> signs, they are parsed from left to right, which means that in an expression like <code>2+++3</code>,
             the evaluation will consider that there is a postfix operator and a plus sign: <code>(2++) + 3</code>. In case of <code>+++2</code>, there is a prefix operator and a unary plus sign: <code>++(+2)</code>.
             <table border = 1>
@@ -376,8 +439,8 @@
 
 
             <section id="unary-operator">
-              <h4> 2.3.3.1 Unary</h4>
-              Some unary operators are used in order to suggest the mathematic representations of positive and negative numeric values. Other operators are used for data access (over arrays or structures). The complexity of these operations is constant. The table below explains the behavior of the unary operators when the value <i>a</i> and value <i>x</i> are used. Note that in the example below we consider <i>id</i> as a literal identifier.
+              <h4> 2.3.2.1 Unary</h4>
+              Some unary operators are used in order to suggest the mathematical representations of positive and negative numeric values. Other operators are used for data access (over arrays or structures). The complexity of these operations is constant. The table below explains the behavior of the unary operators when the values <i>a</i> and <i>x</i> are used. Note that in the example below we consider <i>id</i> as a literal identifier.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Positive</td><td><code>+a</code></td><td>Keeps the sign of <i>a</i></td></tr>
@@ -440,7 +503,7 @@
 
             <section id="artihmetic-operator">
               <h4> 2.3.2.3 Arithmetic</h4>
-              There are two subcategories of arithmetic operators: additive (+, -) and multiplicative (*, /, %). The complexity of those operators are theoretically constant. However, the size of the numbers can matter, so the real complexity is in fact <code>O(N + M)</code> for additive operators and <code>O(N * M)</code> for the multiplicative operators, where <code>N</code> and <code>M</code> are the number of digits of the operands. <br>
+              There are two subcategories of arithmetic operators: additive (+, -) and multiplicative (*, /, %). The complexity of those operators are theoretically constant. However, the size of the numbers can matter, so the real complexity is in fact <code>O(N + M)</code> for additive operators, and <code>O(N * M)</code> for the multiplicative operators, where <code>N</code> and <code>M</code> are the number of digits in the operands. <br>
               The table below explains the behavior of the operators when two numeric values <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
@@ -454,11 +517,11 @@
               The string data type also has an implementation for the addition operator. The complexity of such operation is <code>O(N) + O(M)</code>, where <code>N</code> and <code>M</code> are the lengths of the string operands. The table below explains the behavior of the additive operator when two strings <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
-                <tr><td>Concatenation</td><td><code>a + b</code></td><td>Computes a string representing the concatanation of <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Concatenation</td><td><code>a + b</code></td><td>Computes a string representing the concatenation of <i>a</i> and <i>b</i></td></tr>
               </table>
 
               The results of these first operators are numeric, but the exact resulted data type is sometimes dependent upon the operands. It means that it is relevant what 
-              data types <i>a</i> and <i>b</i> have: either integer or float. The table below ilustrates of what data type the result is depending on the operator and operands. In order to get the quotient of a division, one can use the integer conversion builtin function. To be noted than an error is thrown when the mod operator works with a float operand.
+              data types <i>a</i> and <i>b</i> have: either integer or float. The table below illustrates of what data type the result is depending on the operator and operands. To be noted than an error is thrown when the mod operator works with a float operand.
               <table border = 1>
                 <tr><th>Operator</th><th>Result data type</th><th>Operands data types</th></tr>
                 <tr><td>Concatenation</td><td>string</td><td>string, string</td></tr>
@@ -482,7 +545,7 @@
 
             <section id="bitwise-operator">
               <h4> 2.3.2.4 Bitwise</h4>
-              There are five types of operators which work on the bits of integer values. The complexity of these operators is theoretically constant. However, it can be severly influenced by the size of the numbers used. Therefore we can assume that the real complexity is in fact <code>max(log(N), log(M))</code>, where <code>N</code> and <code>M</code> are the operands. The table below explains the behavior of the operators when the
+              There are five types of operators which work on the bits of integer values. The complexity of these operators is theoretically constant. However, it can be severely influenced by the size of the numbers used. Therefore we can assume that the real complexity is in fact <code>max(log(N), log(M))</code>, where <code>N</code> and <code>M</code> are the operands. The table below explains the behavior of the operators when the
               integer values <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
@@ -503,7 +566,7 @@
             </section>
 
             <section id="setwise-operator">
-              <h4> 2.3.3.5 Setwise</h4>
+              <h4> 2.3.2.5 Setwise</h4>
               There are three types of operators which work exclusively on sets and represent the mathematical set operators. The complexity of these operators is linear, so we can consider the complexity class <code>O(max(|A|, |B|))</code>, where <code>A</code> and <code>B</code> are the set operands. The table below explains the behavior of the operators when the set values <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
@@ -511,7 +574,7 @@
                 <tr><td>Intersection</td><td><code>a ^ b</code></td><td>Computes the intersection of the represented sets by <i>a</i> and <i>b</i></td></tr>
                 <tr><td>Difference</td><td><code>a \ b</code></td><td>Computes the difference of the represented sets by <i>a</i> and <i>b</i></td></tr>
               </table>
-              Note that the result of these operators is always a set and the operands should be evaluated to sets. <br>
+              Note that the result of these operators is always a set and the operands should be evaluated to set. <br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -521,9 +584,9 @@
             </section>
 
             <section id="relational-operator">
-              <h4> 2.3.3.6 Relational</h4>
+              <h4> 2.3.2.6 Relational</h4>
               There are two subcategories of relational operators: equality (==, !=) and comparing (<, <=, >=, >). <br>
-              There are six types of operators which work on multiple type of values in order to evaluate relational expressions. The complexity of these operators are linear over the size of the operands. For some simple data types, the complexity is <code>O(max(N, M))</code> where <code>N</code> and <code>M</code> are the number of digits of the numeric operands or the length of the string operands. In case of bool types the complexity is linear. For compound structures, the complexity is the same, but it multiplies with the complexity of cheking for the equality of each member. The table below explains the behavior of the operators when the values <i>a</i> and <i>b</i> are used.
+              There are six types of operators which work on multiple type of values in order to evaluate relational expressions. The complexity of these operators is linear over the size of the operands. For some simple data types, the complexity is <code>O(max(N, M))</code> where <code>N</code> and <code>M</code> are the number of digits in the numeric operands or the length of the string operands. In case of bool types, the complexity is linear. For compound structures, the complexity is the same, but it multiplies with the complexity of checking for the equality of each member. The table below explains the behavior of the operators when the values <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Equal</td><td><code>a == b</code></td><td>Checks if <i>a</i> and <i>b</i> have equal values</td></tr>
@@ -565,8 +628,8 @@
             </section>
 
             <section id="inclusive-operator">
-              <h4> 2.3.3.7 Inclusive</h4>
-              The inclusive operator is used in order to detect if a specific element is contained by an iterable data type. The complexity is linear as each element in the iterable structure is checked against the probe, so we can consider <code>O(N * X)</code>, where <code>N</code> is the size of the structure and <code>X</code> is the complexity to test equality. The table below explains the behavior of the inclusive operator when the value <i>a</i> and iterabale value <i>b</i> are used.
+              <h4> 2.3.2.7 Inclusive</h4>
+              The inclusive operator is used in order to detect if a specific element is contained by an iterable data type. The complexity is linear as each element in the iterable structure is checked against the probe, so we can consider <code>O(N * X)</code>, where <code>N</code> is the size of the structure and <code>X</code> is the complexity to test equality. The table below explains the behavior of the inclusive operator when the value <i>a</i> and iterable value <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Inclusive</td><td><code>a in b</code></td><td>Checks if <i>a</i> is contained in <i>b</i> or not.</td></tr>
@@ -588,7 +651,7 @@
             </section>
 
             <section id="logical-operator">
-              <h4> 2.3.3.8 Logical</h4>
+              <h4> 2.3.2.8 Logical</h4>
               There are three types of operators which work on the bool values in order to evaluate logical expressions. The complexity for these operands is constant. The table below explains the behavior of the operators when the
               bool values <i>a</i> and <i>b</i> are used.
               <table border = 1>
@@ -606,8 +669,8 @@
             </section>
 
             <section id="conditional-operator">
-              <h4> 2.3.3.9 Conditional</h4>
-              The conditional operator is used as an inline conditional statement and is the only ternary operator by now. The complexity for these operands is constant. The table below explains the behavior of the operator when the bool value <i>a</i> and other values <i>b</i> and <i>c</i> are used.
+              <h4> 2.3.2.9 Conditional</h4>
+              The conditional operator is used as an inline conditional statement and is the only ternary operator by now. The complexity for this operator is constant. The table below explains the behavior of the operator when the bool value <i>a</i> and other values <i>b</i> and <i>c</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Conditional</td><td><code>a ? b : c</code></td><td>Evaluates to <i>b</i> only if <i>a</i> is true, otherwise it evaluates to <i>c</i></td></tr>
@@ -629,11 +692,11 @@
 
           <section id="builtin-functions">
             <h3> 2.3.3 Builtin Functions</h3>
-            The builin functions have the highest priority as long as they can be seen as predicates. An important aspect is that there can't be custom defined functions with the same name as the builtin functions.
+            The builtin functions have the highest priority as long as they can be seen as predicates. An important aspect is that there can't be custom defined functions with the same name as the builtin functions.
 
             <section id="mathematical-functions">
               <h4> 2.3.3.1 Mathematical</h4>
-              There are several mathematical builtin functions. All of them work with numeric types and also evaluate to numeric values. The table below explains the behavior of the methematical builtin functions when the numeric values <i>a</i> and <i>b</i> are used.
+              There are several mathematical builtin functions. All of them work with numeric types and also evaluate to numeric values. The table below explains the behavior of the mathematical builtin functions when the numeric values <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Sin</td><td><code>sin(a)</code></td><td>Returns the sine of <i>a</i>, where <i>a</i> is a numeric value representing radian units</td></tr>
@@ -708,7 +771,7 @@
                 <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Print</td><td><code>print(a)</code></td><td>Writes to the terminal a string which represents the value <i>a</i> </td></tr>
               </table>
-              Note than any kind of value is valid for the print function as all kind of data type do have a string representation. This can't be used inside an expression as it doesn't return any value. It can however be used as a standalone function call.<br>
+              Note than any kind of value is valid for the print function as all data types do have a string representation. This can't be used inside an expression as it doesn't return any value. It can however be used as a standalone function call.<br>
               <b>Examples:</b>
               <table border = 1>
                 <tr><th>Data type</th><th>Print</th></tr>
@@ -725,12 +788,12 @@
 
             <section id="probabilistic-functions">
               <h4> 2.3.3.5 Probabilistic</h4>
-              There is only one probabilistic function which is used to randomly generate an integer value using a uniform distribution. The table below explains the behavior of the probabilistic builtin function when the integer value <i>a</i> is used.
+              There is only one probabilistic function which is used to randomly generate an integer value using an uniform distribution. The table below explains the behavior of the probabilistic builtin function when the integer value <i>a</i> is used.
               <table border = 1>
                 <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Random</td><td><code>random(a)</code></td><td>Returns a random integer number which is strictly less than <i>a</i> and greater than or equal to 0 </td></tr>
               </table>
-              Note than only integer values are valid for the operand. Also, the use of this function triggers the probabilistic execution type. <br>
+              Note than only integer values are valid for the operand. Also, the use of this function triggers an probabilistic execution. <br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -746,7 +809,7 @@
                 <tr><th>Builtin Function</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>SingletonSet</td><td><code>singletonSet(a)</code></td><td>Returns a set containing a single element <i>a</i> </td></tr>
               </table>
-              Note that this function always return a set and the operand data type is irelevant. This can also be reproduced with a simplier syntax <code>{a}</code>, where a is the only element in the set.<br>
+              Note that this function always return a set and the operand data type is irrelevant. This can also be reproduced with a simpler syntax <code>{a}</code>, where a is the only element in the set.<br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -766,20 +829,20 @@
 
           <section id="builtin-methods">
             <h3> 2.3.4 Builtin Methods </h3>
-            The builtin methods have a high priority; in fact they have the same priority as the dot operator and the bracket operator. However, the order of these operators is relevant in execution. Also, the paranthesis can override these rules.
+            The builtin methods have a high priority; in fact they have the same priority as the dot operator and the bracket operator. However, the order of these operators is relevant in execution. Also, the parenthesis can override these rules.
 
-            In order to call a builtin method, there is a special synatax which should be used.
+            In order to call a builtin method, there is a special syntax which should be used.
             <table border = 1>
               <tr><th>Syntax for method-call</th></tr>
               <tr><td><code>reference.method-name(method-parameters)</code></td></tr>
             </table> 
 
             <b>Reference:</b> <br>
-            The reference usually has to point to a specific location should be already created (the dynamic allocation doesn't activate in this scenario). The most basic type of reference is an identifier which already exists or will be automatically created in the environemnt. A more complex reference is composed out of an identifier and a sequence of brackets and dot operators to indicate a specific location inside a compound data type value. <br>
+            The reference usually has to point to a specific location which should be already created (the dynamic allocation doesn't activate in this scenario). The most basic type of reference is an identifier, which already exists or will be automatically created in the environment. A more complex reference is composed out of an identifier and a sequence of brackets and dot operators to indicate a specific location inside a compound data type value. <br>
             <b>Method-name:</b> <br>
             The methods are all builtin, meaning that the method-name should be chosen from a predefined list of names, depending upon the desired behavior. Custom methods are not supported at the moment. <br>
             <b>Method-parameters:</b> <br>
-            The method parameters component is a list of comma separated expressions. The number of expressions should match the number of parameters requested by the builtin method. Also, depending on the method, the evaluation data type values should match the parameters contraints (ex: <code>at</code> method works only with specific integers) <br>
+            The method-parameters component is a list of comma separated expressions. The number of expressions should match the number of parameters requested by the builtin method. Also, depending on the method, the evaluation data type values should match the parameters constraints (ex: <code>at</code> method works only with specific integers) <br>
 
 
             <section id="query-builtin-methods">
@@ -792,7 +855,7 @@
                 <tr><td>TopBack</td><td><code>a.topBack()</code></td><td>Evaluates to the last element in the value <i>a</i> </td></tr>
                 <tr><td>TopFront</td><td><code>a.topFront()</code></td><td>Evaluates to the first element in the value <i>a</i> </td></tr>
                 <tr><td>Split</td><td><code>a.split()</code></td><td>Returns an array of characters resulted after spliting the string <i>a</i> </td></tr>
-                <tr><td>Split with regex</td><td><code>a.split(y)</code></td><td>Returns an array of strings resulted after spliting the string <i>a</i> with a regular expression <i>y</i> </td></tr>
+                <tr><td>Split with regex</td><td><code>a.split(y)</code></td><td>Returns an array of strings resulted after splitting the string <i>a</i> with a regular expression <i>y</i> </td></tr>
               </table>
 
               Note that all these methods are returning different kind of data types (depending on the operand and method). Also, not all compound data types are eligible for all these methods. The table below illustrates these aspects.
@@ -881,12 +944,108 @@
           <h2> 2.4 Declarations and Initializations </h2>
           
           <section id="default-initialization">
-            <h3> 2.4.1 Default initializaiton values </h3>
+            <h3> 2.4.1 Default initialization values </h3>
+
+            In the context of using Alk, the variables should not be declared, so there is no concept alike the default initialization. This is due to the fact that, Alk does not create pristine variables which do have a default value (or a garbage value). The variables created are in fact spawned because they are needed into an assign, so no intermediary value is used. <br>
+
+            However, there is a similar concept to the default values present in Alk. The idea of unknown value is used when dealing with non-returning functions inside expressions or empty spaces inside dynamically allocated arrays. The next section will show that this unknown value is.
+
           </section>
 
           <section id="dynamic-allocation">
             <h3> 2.4.2 Dynamic allocation </h3>
+
+            There is an important feature of Alk regarding the allocation. Due to the fact that one wants to use uninitialized compound data values, Alk offers support for dynamically allocation arrays/structures such that the references used do make sense and point to a valid memory address.<br>
+
+            For this matter, imagine the following example: <code>a[2].x = 5;</code>. Note that this is the only instruction in the parsed algorithm. As variables should not be declared, this statement should work without any other specifications. For this job, Alk will automatically assign to the variable <code>a</code> an array data type value, which will have the size of 3, in order to allow the use of the bracket operator. Furthermore, at the index 2, a structure should be allocated in order to match the dot operator. Finally, after those two enclosed values were created, the assignment will work as Alk will automatically allocate a component with id <code>x</code> which will be assigned to 5.
+
+            However, the process above has a practical flow: what happens to the extra allocated space? In the example above, what values will be assigned to <code>a[0]</code> and <code>a[1]</code>. For this matter, Alk uses a special kind of representation, the <code>?</code> character which will symbolize that the specified additional space is unusable in the current state. So any usage of <code>a[0]</code> or <code>a[1]</code> will result in an error. However, one can assign new values to these references in order to properly access them afterwards. <br>
+
+            <b>Examples:</b>
+            <table border="1">
+              <tr><th>Assignment statement</th><th>Final configuration</th></tr>
+              <tr><td><code>a[2][3].x.y[1].z = 2;</code></td><td><code>a |-> [?, ?, [?, ?, ?, {x -> {y -> [?, {z -> 2}]}}]]</code></td></tr>
+              <tr><td><code>a[0][1][2][3][4] = 2;</code></td><td><code>a |-> [[?, [?, ?, [?, ?, ?, [?, ?, ?, ?, 2]]]]]</code></td></tr>
+              <tr><td><code>a.x.y.z = 2;</code></td><td><code>a |-> {x -> {y -> {z -> 2}}}</code></td></tr>
+            </table>
+
           </section>
+
+
+          <section id="iterable-data-types">
+            <h3>2.4.3 Iterable data types definition</h3>
+
+            <section id="expression-representation">
+              <h4> 2.4.3.1 Expression based definition </h4>
+              The expression based definitions are the basic way to define one iterable data type value. It allows one to enclose between specific characters, a series of comma separated expressions. Each expression will be evaluated and the result will be considered to be contained by the specified data type in the order provided. Note that a set can change the order of the elements. <br>
+
+              <b>Examples:</b>
+              <table border="1">
+                <tr><th>Representation</th><th>Final configuration</th></tr>
+                <tr><td><code>a = [1+1, {1, 2, 3} U {2, 3, 4}, 1.2/2];</code></td><td><code>a |-> [2, {1, 2, 3, 4}, 0.6]</code></td></tr>
+                <tr><td><code>a = <1+1, {1, 2, 3} U {2, 3, 4}, 1.2/2>;</code></td><td><code>a |-> <2, {1, 2, 3, 4}, 0.6></code></td></tr>
+                <tr><td><code>a = {1+1, {1, 2, 3} U {2, 3, 4}, 1.2/2};</code></td><td><code>a |-> {0.6, 2, {1, 2, 3, 4}}</code></td></tr>
+              </table>
+
+            </section>
+
+            <section id="interval-representation">
+              <h4> 2.4.3.2 Interval based definition </h4>
+              The interval based definition provides a way to easily instantiate an iterable data type value with a sequence of integers contained in a specified interval. The order of the elements will be ascending. <br>
+
+              <b>Examples:</b>
+              <table border="1">
+                <tr><th>Representation</th><th>Final configuration</th></tr>
+                <tr><td><code>a = [1..5];</code></td><td><code>a |-> [1, 2, 3, 4, 5]</code></td></tr>
+                <tr><td><code>a = <1..5>;</code></td><td><code>a |-> <1, 2, 3, 4, 5></code></td></tr>
+                <tr><td><code>a = {1..5};</code></td><td><code>a |-> {1, 2, 3, 4, 5}</code></td></tr>
+              </table>
+
+            </section>
+
+            <section id="filter-representation">
+              <h4> 2.4.3.3 Filter specification based definition </h4>
+              This type of representation is well suited in scenarios in which one wants to apply a certain filtering over the elements of a container. The filtering specification has a boolean expression provided which will be run using each element in a source value in order to detect if the chosen element shall pass the filtering or not. This depends on the result of the boolean expression. <br>
+
+              <b>Examples:</b>
+              <table border="1">
+                <tr><th>Representation</th><th>Final configuration</th></tr>
+                <tr><td><code>a = [x from [1..5] | x % 2 == 0];</code></td><td><code>a |-> [2, 4]</code></td></tr>
+                <tr><td><code>a = < x from [1..5] | x % 2 == 1 >;</code></td><td><code>a |-> <1, 3, 5></code></td></tr>
+                <tr><td><code>a = {x from [1..5] | x % 2 == 0};</code></td><td><code>a |-> {2, 4}</code></td></tr>
+              </table>
+
+            </section>
+
+            <section id="map-representation">
+              <h4> 2.4.3.4 Map specification based definition </h4>
+              This type of representation is well suited in scenarios in which one wants to apply a certain mapping function over all elements in a source value. The mapping process has an expression whose resulting values will be contained inside the final value.<br>
+
+              <b>Examples:</b>
+              <table border="1">
+                <tr><th>Representation</th><th>Final configuration</th></tr>
+                <tr><td><code>a = [2 * x | x from [1..5]];</code></td><td><code>a |-> [2, 4, 6, 8, 10]</code></td></tr>
+                <tr><td><code>a = <2 * x | x from [1..5]>;</code></td><td><code>a |-> <2, 4, 6, 8, 10></code></td></tr>
+                <tr><td><code>a = {2 * x | x from [1..5]};</code></td><td><code>a |-> {2, 4, 6, 8, 10}</code></td></tr>
+              </table>
+
+            </section>
+
+            <section id="empty-representation">
+              <h4> 2.4.3.5 Empty definition </h4>
+              There are several ways to instantiate an empty iterable data type value. Note that for some of those there are special keywords which automatically evaluated to an empty specified compound value.<br>
+
+              <b>Examples:</b>
+              <table border="1">
+                <tr><th>Representation</th><th>Final configuration</th></tr>
+                <tr><td><code>a = [];</code></td><td><code>a |-> []</code></td></tr>
+                <tr><td><code>a = <  >;</code></td><td><code>a |-> <  ></code></td></tr>
+                <tr><td><code>a = {};</code></td><td><code>a |-> {}</code></td></tr>
+                <tr><td><code>a = emptyList;</code></td><td><code>a |-> <  ></code></td></tr>
+                <tr><td><code>a = emptySet;</code></td><td><code>a |-> {}</code></td></tr>
+              </table>
+
+            </section>
 
         </section>
 
@@ -895,18 +1054,64 @@
           
           <section id="function-declaration">
             <h3> 2.5.1 Function declaration </h3>
+            Functions can be declared anywhere inside the algorithm and their score is global. This is due to the fact that function declarations are statements, so they can be used inside any sequence of statements. Note that it is recommended to declare the functions to the global scope anyway.
+            <table border = 1>
+              <tr><th>Syntax</th></tr>
+              <tr><td><code>function-name(param-list) modifies global-list</code></td></tr>
+              <tr><td><code>function-name(param-list)</code></td></tr>
+              <tr><td><code>function-name()</code></td></tr>
+              <tr><td><code>function-name() modifies global-list</code></td></tr>
+            </table> 
+
+            <b>Function-name:</b><br>
+            The function name should be an id after which the function will be identified and eventually be called.<br>
+            <b>Param-list:</b><br>
+            The parameters list is a component which should be replaced with a list of comma separated parameters. These can belong to a set of two types: input and output parameters. The input parameters can be changed, but the modifications won't be reflected in the calling state (so this parameters are in fact copies of the arguments used). The output parameters reference however the values provided at the function call, so any modification over these values will be made on the argument values as well. In order to mark which are the output parameters and which are not, the following syntax is used:
+            <table border = 1>
+              <tr><th>Syntax</th><th>Meaning</th></tr>
+              <tr><td><code>param-name</code></td><td>input parameter</td></tr>
+              <tr><td><code>out param-name</code></td><td>Output parameter</td></tr>
+            </table> 
+            The param-name component should be an id with which the value given will be referenced. Note that functions open separate environments, so any variable used here should not affect the ones in the outer scope - so the same id can be used for different values. <br>
+
+            <b>Global-list:</b><br>
+            The list which is after the modifies keyword is a list of variables from the global scope which can be changed by this function. This syntax is used in order to allow the reuse of some ids which were initially used in the global scope. Note that all the parameters which come after the modifies keyword are output parameters, so any change on those will reflect in the global scope.<br>
+            <b>Examples:</b><br>
+            <table border="1">
+              <tr><th>Algorithm</th><th>Output</th></tr>
+              <tr><td><code>func(a, b, c)<br>{<br>&nbsp;&nbsp; c = a + b;<br>&nbsp;&nbsp; print(c);<br>}<br>a = 2;<br>b = 3;<br>c = 4;<br>func(a, b, c);<br>print(c);</code></td><td><code>5<br>4</code></td></tr>
+              <tr><td><code>func(a, b, out c)<br>{<br>&nbsp;&nbsp; c = a + b;<br>&nbsp;&nbsp; print(c);<br>}<br>a = 2;<br>b = 3;<br>c = 4;<br>func(a, b, c);<br>print(c);</code></td><td><code>5<br>5</code></td></tr>
+              <tr><td><code>func(a, b) modifies c<br>{<br>&nbsp;&nbsp; c = a + b;<br>&nbsp;&nbsp; print(c);<br>}<br>a = 2;<br>b = 3;<br>c = 4;<br>func(a, b);<br>print(c);</code></td><td><code>5<br>5</code></td></tr>
+              <tr><td><code>func(a, b)<br>{<br>&nbsp;&nbsp; c = a + b;<br>&nbsp;&nbsp; print(c);<br>}<br>a = 2;<br>b = 3;<br>c = 4;<br>func(a, b);<br>print(c);</code></td><td><code>5<br>4</code></td></tr>
+            </table>
           </section>
           
-          <section id="function-parameters">
-            <h3> 2.5.2 Function parameters </h3>
-          </section>
-          
-          <section id="function-call">
-            <h3> 2.5.3 Function call </h3>
+          <section id="function-call-stmt">
+            <h3> 2.5.2 Function call </h3>
+            The function call is the main way to trigger the code inside a declared function. Note that a function can be called only after it was defined. The number of parameters should match, and the modifies list should have only ids of variables which are already in the global environment. Also, an important fact is that the output parameters can't take expressions or static values as argument. Therefore, the argument for an output parameter can be only an id (a reference). <br>
+            A function call can be used inside a single function call statement. This kind of function should not necessarily return, as the returning value will be lost. The other use case is function calls inside expressions. For this scenario, the functions should return, otherwise an error will be shown.<br>
+            There are already examples of function calls inside single statements in the previous section. Function calls inside expressions are shown in the next section.
           </section>
 
           <section id="return-call">
-            <h3> 2.5.4 Return call </h3>
+            <h3> 2.5.3 Return call </h3>
+            In order to make a function return a value, the return statement should be used. This will take a computed value and return it to the calling context. Note that the execution of the function is halted at this point, so no other statement after the return will execute.
+            <table border = 1>
+              <tr><th>Syntax</th></tr>
+              <tr><td><code>return;</code></td></tr>
+              <tr><td><code>return expression;</code></td></tr>
+            </table> 
+
+            Note that there can be no return value. In this case, the return call is used only to trigger the stopping of the function. If a value is used however, the value will be propagated to the calling context.<br>
+            <b>Expression:</b><br>
+            The expression component should evaluate to a valid value which is meant to be sent to the calling context.<br>
+            <b>Examples:</b><br>
+            <table border="1">
+              <tr><th>Algorithm</th><th>Output</th></tr>
+              <tr><td><code>func(a, b)<br>{<br>&nbsp;&nbsp; return a + b;<br>}<br>a = 2;<br>b = 3;<br>print(func(a, b));</code></td><td><code>5</code></td></tr>
+              <tr><td><code>func() modifies a<br>{<br>&nbsp;&nbsp; return 2 * a;<br>}<br>a = 2;<br>a += func() * 2;<br>print(a);</code></td><td><code>10</code></td></tr>
+              <tr><td><code>func(out a, out b)<br>{<br>&nbsp;&nbsp; a = 2<br>&nbsp;&nbsp; return ;<br>&nbsp;&nbsp; b = 2;<br>}<br>a = 5;<br>b = 5;<br>func(a, b);<br>print(a);<br>print(b);</code></td><td><code>2<br>5</code></td></tr>
+            </table>
           </section>
 
         </section>
@@ -919,17 +1124,17 @@
 
             <section id="assignment">
               <h4> 2.6.1.1 Assignment</h4>
-              The assignment statement is a way to directly assign a specific value to a reference. The value can be of any kind as the variable can change types at the runtime according to <a href="#dynamic-typing">dynamic typing</a>. The reference can be a simple identifier or a more complex reference which will be eventually subject to <a href="#dynamic-allocation">dynamic allocation</a>.
+              The assignment statement is a way to directly assign a specific value to a reference. The value can be of any kind as the variable can change types at the runtime according to <a href="#dynamic-allocation">dynamic typing</a>. The reference can be a simple identifier or a more complex reference which will be eventually subject to <a href="#dynamic-allocation">dynamic allocation</a>.
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>reference assignment-operator expression;</code></td></tr>
               </table> 
 
               <b>Reference:</b> <br>
-              The reference usually has to point to a specific location in the store which eventually can be created by the <a href="#dynamic-allocation">dynamic allocation</a> procedure for arrays and structures. The most basic type of reference is an identifier which already exists or will be automatically created in the environemnt. A more complex reference is composed out of an identifier and a sequence of brackets and dot operators to indicate a specific location inside a compound data type value. <br>
+              The reference usually has to point to a specific location in the store which eventually can be created by the <a href="#dynamic-allocation">dynamic allocation</a> procedure for arrays and structures. The most basic type of reference is an identifier which already exists or will be automatically created in the environment. A more complex reference is composed out of an identifier and a sequence of brackets and dot operators to indicate a specific location inside a compound data type value. <br>
 
               <b>Assignment-operator:</b> <br>
-              There are several assignment operators which behave suggestively to their representation. The most basic assignment operator is represented through an equal sign <code>=</code>, denoting that the value in the right part will be simply copied to the location suggested by the reference. The table below shows all the assignment operators and their behavior:
+              There are several assignment operators which behave suggestively to their representation. The most basic assignment operator is represented through an equal sign <code>=</code>, denoting that the value in the right side will be simply copied to the location suggested by the reference in the left side. The table below shows all the assignment operators and their behaviors:
               <table border = 1>
                 <tr><th>Assignment operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Simple assign</td><td><code>=</code></td><td>Assigns the value without modifing it</td></tr>
@@ -945,7 +1150,7 @@
               </table> 
 
               <b>Expression:</b> <br>
-              The expression should evaluate to the value which is desired to be assigned to the specified reference. As previously stated, the data type of the result shouldn't respect any limitations due to the <a href="#dynamic-typing">dynamic typing</a> feature. <br>
+              The expression should evaluate to the value which is desired to be assigned to the specified reference. As previously stated, the data type of the result shouldn't respect any limitations due to the <a href="#dynamic-allocation">dynamic allocation</a> feature. <br>
 
               <b>Examples:</b> <br>
               <table border = 1>
@@ -971,13 +1176,13 @@
 
             <section id="function-call">
               <h4> 2.6.1.2 Function Call</h4>
-              The function call statement is used in order to execute a specific function whose return value is not intended to be used in any expression. It is recommended to run in this way only the functions which do not return values. As any function call, this should respect the norms described in the <a href="#function-call"> function-call </a> section: match the name of the function, the number of parameters and pass only references to output parameters. Note that this statement can be used in order to also call <a href="#builtin-functions">builtin functions</a> like <code>print</code>.
+              The function call statement is used in order to execute a specific function whose return value is not intended to be used in any expression. It is recommended to run in this way only the functions which do not return values. As any function call, this should respect the norms described in the <a href="#function-call-stmt"> function-call </a> section: match the name of the function, the number of parameters and pass only references to output parameters. Note that this statement can be used in order to also call <a href="#builtin-functions">builtin functions</a> like <code>print</code>.
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>function-call;</code></td></tr>
               </table> 
               <b>Function-call:</b> <br>
-              This is the only part of the statement which should be defined. The definition is already described in the <a href="#function-call">function call</a>  section. <br>
+              This is the only part of the statement which should be defined. The definition is already described in the <a href="#function-declaration">function declaration</a> section. <br>
               <b>Examples:</b> <br>
               <table border = 1>
                 <tr><th>Initial configuration</th><th>Function Call</th><th>Description</th><th>Final configuration</th></tr>
@@ -1054,7 +1259,7 @@
           
           <section id="conditional-instruction">
             <h3> 2.6.3 Conditional instruction - if/else </h3>
-            The conditional instruction is used in order to conditionate the execution of a statement (or implicitly a sequence of statements if the compound instruction is used). The conditioning is made based on an expression which should evaluate to a bool value (any other kind of data type value will result into an error). In case the execution should choose between two statements based on a condition, the <code>if</code> and <code>else</code> keywords should be used. Otherwise, meaning that only one statement should be be executed or not, it is enough to use only the <code>if</code> keyword.
+            The conditional instruction is used in order to put a condition over the execution of a statement (or implicitly a sequence of statements if the compound instruction is used). The conditioning is based on an expression which should evaluate to a bool value (the use of any other kind of data type value will result into an error). In case the execution should choose between two statements based on a condition, the <code>if</code> and <code>else</code> keywords should be used. Otherwise, meaning that only one statement should be be executed or not, it is enough to use only the <code>if</code> keyword.
             <table border = 1>
               <tr><th>Syntax</th></tr>
               <tr><td><code>if (bool-expression) statement1</code></td></tr>
@@ -1082,13 +1287,13 @@
 
             <section id="while-instruction">
               <h4> 2.6.4.1 While instruction</h4>
-              The while instrucion is a repetitive statement with initial check which will execute a specific statement multiple times until a given condition evaluates to <code>false</code>. Note that the condition provided should always evaluate to a bool value, otherwise an error will be displayed. The statement can be of any type as there is no restriction over it (the statement can be even a compound instruction which is in fact recommended).
+              The while instruction is a repetitive statement with initial check which will execute a specific statement multiple times until a given condition evaluates to <code>false</code>. Note that the condition provided should always evaluate to a bool value, otherwise an error will be displayed. The statement can be of any type as there is no restriction over it (the statement can be even a compound instruction which is in fact recommended).
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>while (bool-expression) statement</code></td></tr>
               </table>
               <b>Bool-expression:</b><br>
-              The bool-expression component refers to the condition used for the while instruction. It is clear the fact that this expression should evaluate to a bool value. Before the first iteration, the expression is evaluated. In case it evaluates to <code>true</code> then the statement is executed. Otherwise the process is halted and the while instruction is skipped. After each iteration, the condition is re-evaluated following the same behavior: if the condition evaluates to <code>true</code> the next iteration is triggered. Otherwise, the looping process ends and the while instruction is skipped. <br>
+              The bool-expression component refers to the condition used for the while instruction. It is clear that this expression should evaluate to a bool value. Before the first iteration, the expression is evaluated. In case it evaluates to <code>true</code> then the statement is executed. Otherwise the process is halted and the while instruction is skipped. After each iteration, the condition is re-evaluated following the same behavior: if the condition evaluates to <code>true</code> the next iteration is triggered. Otherwise, the looping process ends and the while instruction is skipped. <br>
               <b>Statement:</b><br>
               Statement refers to the component which should be executed every time the expression evaluates to <code>true</code>. Note that the statement can be of any kind. Due to instruction's definition, there are cases in which this statement will never be executed.<br>
 
@@ -1125,9 +1330,9 @@
               </table> 
             </section>
 
-            <section id="repreat-until instruction">
+            <section id="repeat-until">
               <h4> 2.6.4.3 Repeat-until intruction</h4>
-              The repeat-until instrucion is a repetitive statement with final check which will execute a specific statement multiple times until a given condition evaluates to <code>true</code>. Note that the condition provided should always evaluate to a bool value, otherwise an error will be displayed. The statement can be of any type as there is no restriction over it (the statement can be even a compound instruction which is in fact recommended). Comparing to a do-while instruction, the do-while is halted when the condition evaluates to <code>false</code>. The repeat-until statement is halted when the condition is evaluated to <code>true</code>
+              The repeat-until instruction is a repetitive statement with final check which will execute a specific statement multiple times until a given condition evaluates to <code>true</code>. Note that the condition provided should always evaluate to a bool value, otherwise an error will be displayed. The statement can be of any type as there is no restriction over it (the statement can be even a compound instruction which is in fact recommended). Comparing to a do-while instruction, the do-while is halted when the condition evaluates to <code>false</code>. The repeat-until statement is halted when the condition is evaluated to <code>true</code>
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>repeat statement until (bool-expression);</code></td></tr>
@@ -1149,14 +1354,14 @@
 
             <section id="for-instruction">
               <h4> 2.6.4.4 For instruction</h4>
-              The for instrucion is a repetitive statement with initial check which will execute a specific statement multiple times until a given condition evaluates to <code>true</code>. Note that the condition provided should always evaluate to a bool value, otherwise an error will be displayed. The statement can be of any type as there is no restriction over it (the statement can be even a compound instruction which is in fact recommended). Comparing to a while instruction, the for instruction also provides support for initial assignment (oftenly used for initializing an iterator) and support for intermediary assignment or increase/decrease (oftenly used to change the iterator).
+              The for instruction is a repetitive statement with initial check which will execute a specific statement multiple times until a given condition evaluates to <code>true</code>. Note that the condition provided should always evaluate to a bool value, otherwise an error will be displayed. The statement can be of any type as there is no restriction over it (the statement can be even a compound instruction which is in fact recommended). Comparing to a while instruction, the for instruction also provides support for initial assignment (oftenly used for initializing an iterator) and support for intermediary assignment or increase/decrease (oftenly used to change the iterator).
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>for (initial-assign; bool-expression; intermediary-assign) statement</code></td></tr>
                 <tr><td><code>for (initial-assign; bool-expression; increase/decrease) statement</code></td></tr>
               </table>
               <b>Bool-expression:</b><br>
-              The bool-expression component refers to the condition used for the for instruction. It is clear the fact that this expression should evaluate to a bool value. At first, the <code>initial-assign</code> is executed. Before the first iteration, the expression is evaluated. In case it evaluates to <code>true</code> then the statement is executed. Otherwise the process is halted and the while instruction is skipped. After each iteration, the condition is re-evaluated following the same behavior: if the condition evaluates to <code>true</code> the next iteration is triggered. Otherwise, the looping process ends and the while instruction is skipped. Note that before the expression is re-evaluated, the <code>intermediary-assign</code> is executed.<br>
+              The bool-expression component refers to the condition used for the for instruction. It is clear the fact that this expression should evaluate to a bool value. At first, the <code>initial-assign</code> is executed. Before the first iteration, the expression is evaluated. In case it evaluates to <code>true</code> then the statement is executed. Otherwise the process is halted and the for instruction is skipped. After each iteration, the condition is re-evaluated following the same behavior: if the condition evaluates to <code>true</code> the next iteration is triggered. Otherwise, the looping process ends and the while instruction is skipped. Note that before the expression is re-evaluated, the <code>intermediary-assign</code> is executed.<br>
               <b>Initial-assign:</b><br>
               The initial assign is used in order to assign to an eventual iterator a value. This will be executed before anything else. Note that the initial assign can be omitted.<br>
 
@@ -1183,7 +1388,7 @@
 
             <section id="foreach-instruction">
               <h4> 2.6.4.5 Foreach instruction</h4>
-              The foreach instrucion is a repetitive statement which does not depend upon a given conditional expression. The foreach instruction is meant to be used when one wants to sequentially access the elements of an iterable compound data type value. The statement will assign a given variable to each element from the collection given and afterwards will execute the underlying statement. Note that the values do not reference the original ones inside the data type value (this means that any modification on the foreach variable won't take effect in the original structure).
+              The foreach instruction is a repetitive statement which does not depend upon a given conditional expression. The foreach instruction is meant to be used when one wants to sequentially access the elements of an iterable compound data type value. The statement will assign a given variable to each element from the collection given and afterwards will execute the underlying statement. Note that the values do not reference the original ones inside the data type value (this means that any modification on the foreach variable won't take effect in the original structure).
 
               <table border = 1>
                 <tr><th>Syntax</th></tr>
@@ -1193,7 +1398,7 @@
               <b>Id:</b><br>
               The id represent the variable which is meant to be used in order to access the given iterable. This variable can be used afterwards in the underlying statement. The denoted variable shouldn't be necessarily initialized in any way - it will be dynamically assigned if not already in the environment.<br>
               <b>Iterable:</b><br>
-              The iterable component represent the value which is meant to be iterated. There are only three data type values which are eligible for this operation: array, list and set. The order in which the elements will be iterated depends upon the way in which they are stored. For the array and list data types, the elements will be iterated normally from the lower index to the higher index. The sets howevered are iterated randomly (however, multiple iterations can iterate the set in the same order).<br>
+              The iterable component represent the value which is meant to be iterated. There are only three data type values which are eligible for this operation: array, list and set. The order in which the elements will be iterated depends upon the way in which they are stored. For the array and list data types, the elements will be iterated normally from the lower index to the higher index. The sets however are iterated randomly (however, multiple iterations can iterate the set in the same order).<br>
               <b>Statement:</b><br>
               Statement refers to the component which will be executed multiple types. Note that there is no limitation on the type of the statement (it can be a compound instruction). The number of executions is equal to the size of the iterated value. Each iteration will change the environment (as the iterator itself will be changed) so the statement will work on different values of <code>id</code> each time. <br>
 
@@ -1210,7 +1415,7 @@
 
             <section id="break-continue">
               <h4> 2.6.4.6 Break and continue instruction</h4>
-              The break and continue instructions are not repetitive statements theirselvs. They are controlling the looping in a sense in which a continue statement can halt the execution of a loop while the break statement halts the execution of the entire lopping structure itself. They should be used when only inside of a looping statement (but not necessarily directly inside - it can be enclosed in a conditional statement for example). These only take effect on the closest looping statement, while the outter ones are not effected.
+              The break and continue instructions are not repetitive statements themselves. They are controlling the looping in a sense in which a continue statement can halt the execution of a loop while the break statement halts the execution of the entire lopping structure itself. They should be used when only inside of a looping statement (but not necessarily directly inside - it can be enclosed in a conditional statement for example). These only take effect on the closest looping statement, while the outer ones are not effected.
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>continue;</code></td></tr>
@@ -1247,9 +1452,9 @@
               <b>Id:</b><br>
               The id is the component which defines the variable which will be used to store the chosen value selected by the choose statement from the iterable value.<br>
               <b>Iterable:</b><br>
-              The iterable is a compound data type value which can be normally iterated and is valid for such operation: array, list and set. The data type used for this is totally irelevant. However, an empty iterable will always cause a failure in the execution. For the choose to succeed, one should provide a non-empty iterable which eventually has at least one element which satisfies the such that clause.<br>
+              The iterable is a compound data type value which can be normally iterated and is valid for such operation: array, list and set. The data type used for this is totally irrelevant. However, an empty iterable will always cause a failure in the execution. For the choose to succeed, one should provide a non-empty iterable which eventually has at least one element satisfying the such that clause.<br>
               <b>Expression:</b><br>
-              The expression is not mandatory as it can be seen in the first syntax version. If such expression is defined, the choose statement will only assign the given variable a value which also makes the expression evaluate to <code>true</code>. If the expression invalidates all elements from the list, the execution will fail. <br>
+              The expression is not mandatory as it can be seen in the first syntax version. If such expression is defined, the choose statement will only assign the given variable a value which also makes the expression evaluate to <code>true</code>. If the expression invalidates all the elements from the list, the execution will fail. <br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -1288,13 +1493,52 @@
             <h3> 2.6.6 Probabilistic instructions </h3>
 
             <section id="random-function">
-              <h4> 2.6.1 Random builtin function</h4>
-              Besides the classic <a href="#builtin-functions">builtin functions</a> which are used in deterministic executions, the <code>random</code> builtin function is the main way to trigger a probabilistic execution. It is used to get a number in a specified range with uniform distribution. That being said, this is a returning function so it should be used inside expressions.<br>
+              <h4> 2.6.6.1 Random builtin function</h4>
+              Beside the classic <a href="#builtin-functions">builtin functions</a>, which are used in deterministic executions, the <code>random</code> builtin function is the main way to trigger a probabilistic execution. It is used to get a number in a specified range with uniform distribution. That being said, this is a returning function so it should be used inside expressions.<br>
+              <table border = 1>
+                <tr><th>Syntax</th></tr>
+                <tr><td><code>random(right-limit)</code></td></tr>
+              </table>
+
+              <b>Right-limit</b><br>
+              This limit represents the upper bound of the selection interval. Note that the lower bound is always 1.<br>
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Initial configuration</th><th>Random Function</th><th>Final configuration (nondeterministic)</th></tr>
+                <tr><td></td><td><code>x = random(5);</code></td><td><code>x |-> 1 with 20% probability</code></td></tr>
+                <tr><td></td><td><code>x = random(5);</code></td><td><code>x |-> 4 with 20% probability</code></td></tr>
+                <tr><td><code>a |-> 1</code></td><td><code>c = random(a);</code></td><td><code>a |-> 1<br>c |-> 1 with 100% probability</code></td></tr>
+              </table> 
+
             </section>
 
             <section id="uniform-instruction">
-              <h4> 2.6.2 Uniform instruction</h4>
-              ...
+              <h4> 2.6.6.2 Uniform instruction</h4>
+              The uniform instruction is the probabilistic version of the nondeterministic choose statement. The uniform instruction itself has the same syntax as the choose statement, but it used the uniform keyword in the beginning. The major difference is that this uniform statement returns a number from the given source with uniform distribution.<br>
+              <table border = 1>
+                <tr><th>Syntax</th></tr>
+                <tr><td><code>uniform id in iterable;</code></td></tr>
+                <tr><td><code>uniform id in iterable s.t. expression;</code></td></tr>
+              </table>
+
+              We can consider the first syntax version as a sugar syntax for the case when one doesn't want to put constraints on the selected element: <code>uniform id in iterable s.t. true;</code> is equivalent to <code>uniform id in iterable;</code><br>
+              <b>Id:</b><br>
+              The id is the component which defines the variable which will be used to store the value selected by the uniform statement from the iterable value.<br>
+              <b>Iterable:</b><br>
+              The iterable is a compound data type value which can be normally iterated and is valid for such operation: array, list and set. The data type used for this is totally irrelevant. However, an empty iterable will always cause a failure in the execution. For the uniform to succeed, one should provide a non-empty iterable which eventually has at least one element satisfying the such that clause.<br>
+              <b>Expression:</b><br>
+              The expression is not mandatory as it can be seen in the first syntax version. If such expression is defined, the uniform statement will only assign the given variable a value which also makes the expression evaluate to <code>true</code>. If the expression invalidates all elements from the list, the execution will fail. <br>
+
+
+              <b>Examples:</b>
+              <table border = 1>
+                <tr><th>Initial configuration</th><th>Uniform/such that instruction</th><th>Final configuration (probabilistic)</th></tr>
+                <tr><td></td><td><code>uniform x in {1, 2, 3} U {2, 3, 4};</code></td><td><code>x |-> 3 with 25% probability</code></td></tr>
+                <tr><td><code>A |-> [1, 2, 3, 4, 5]</code></td><td><code>uniform x in A;</code></td><td><code>A |-> [1, 2, 3, 4, 5]<br>x |-> 1 with 20% probability</code></td></tr>
+                <tr><td></td><td><code>uniform x in <1..10> s.t. x % 2 == 0;</code></td><td><code>x |-> 6 with 20% probability</code></td></tr>
+                <tr><td></td><td><code>uniform x in <1..10> s.t. x % 2 == 1;</code></td><td><code>x |-> 5 with 20% probability</code></td></tr>
+              </table> 
             </section>
 
           </section>
@@ -1303,7 +1547,7 @@
 
     </section>
 
-    <section id="executions">
+    <!--<section id="executions">
       <h1> 3 Executions</h1>
 
       <section id="deterministic-executions">
@@ -1351,49 +1595,174 @@
         ...
       </section>
 
-    </section>
+    </section> -->
 
     <section id="options">
-      <h1> 5 Options</h1>
+      <h1> 3 Options</h1>
 
       <section id="option-a">
-        <h2> 5.1 Setting the algorithm to be run</h2>
-        ...
+        <h2> 3.1 Setting the algorithm to be run</h2>
+        This option is the most important as it defines the file which should be parsed. One can select a single file as an entry-point. However, if there are several files which are to be taken in consideration, make sure to use the <a href="#preprocessing">include directive</a> in order to copy all the content needed in a single file which will be at the end executed. By copy, one should understand the automatic preprocessing stage done by the Alk interpreter. The files on the disk won't be modified.
+
+        <table border = 1>
+          <tr><th>Syntax</th></tr>
+          <tr><td><code>-a "file-path"</code></td></tr>
+        </table>
+
+        <b>File-path:</b><br>
+        This component should be replaced with a proper path toward a file containing an alk algorithm. The interpreter will consider the file there as the entry-point. The path can be either absolute or relative. In case the path is relative, the origin will be the current working directory.<br>
+        <b>Examples:</b>
+        <table border = 1>
+          <tr><th>Command line</th><th>Description</th></tr>
+          <tr><td><code>./alki.sh -a "main.alk"</code></td><td>the option will tell the interpreter to start interpreting the <code>main.alk</code> file (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -a "/home/user/work/main.alk"</code></td><td>the option will tell the interpreter to start interpreting the <code>/home/user/work/main.alk</code> file (Linux/Mac)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk"</code></td><td>the option will tell the interpreter to start interpreting the <code>main.alk</code> file (Windows)</td></tr>
+          <tr><td><code>alki.bat -a "C:\work\main.alk"</code></td><td>the option will tell the interpreter to start interpreting the <code>C:\work\main.alk</code> file (Windows)</td></tr>
+        </table> 
+
       </section>
 
       <section id="option-i">
-        <h2> 5.2 Setting the initial configuration</h2>
-        ...
+        <h2> 3.2 Setting the initial configuration</h2>
+        The initial configuration option will allow the user to set a starting environment. This should be used when testing an algorithm with specific testcases. These testcases should follow the syntax described in the <a href="#introduction_2">configuration</a> section. The same type of configuration will be eventually showed by the interpreter (if using the <a href="#option-m"> metadata option</a>) and can be used as input for other algorithms.
+
+        <table border = 1>
+          <tr><th>Syntax</th></tr>
+          <tr><td><code>-i "configuration"</code></td></tr>
+          <tr><td><code>-i "file-path"</code></td></tr>
+        </table>
+
+        <b>Configuration:</b><br>
+        The configuration can be written inline. This means that the interpreter will parse the value of the option in order to retrieve the configuration. Note that no spaces should be used inside and the string quotes should be skipped using the backslash character.<br>
+        <b>File-path:</b><br>
+        As an alternative, one can pass the path to a file containing the initial configuration. This is in fact the recommended version as it is more flexible in terms of syntax. The path can be either absolute or relative. If the relative path is used, the origin is the working directory. <br>
+
+        Note that in the examples below, the -a option is required in order to specify an entry-point file and trigger the execution. Also, the extension for the file used as input doesn't matter (in the examples the fictive <code>.in</code> extension is used).<br>
+
+        <b>Examples:</b>
+        <table border = 1>
+          <tr><th>Command line</th><th>Description</th></tr>
+          <tr><td><code>./alki.sh -a "main.alk" -i "a|->12b|->15"</code></td><td>the option will tell the interpreter to use the specified starting configuration (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -a "main.alk" -i "main.in"</code></td><td>the option will tell the interpreter to use the content in the <code>main.in</code> as starting configuration (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -a "main.alk" -i "/home/user/work/main.in"</code></td><td>the option will tell the interpreter to use the content in the <code>/home/user/work/main.in</code> as starting configuration (Linux/Mac)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk" -i "a|->12b|->15"</code></td><td>the option will tell the interpreter to use the specified starting configuration (Windows)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk" -i "main.in"</code></td><td>the option will tell the interpreter to use the content in the <code>main.in</code> as starting configuration (Windows)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk" -i "C:\work\main.in"</code></td><td>the option will tell the interpreter to use the content in the <code>C:\work\main.in</code> as starting configuration (Windows)</td></tr>
+        </table> 
+
       </section>
 
       <section id="option-p">
-        <h2> 5.3 Setting the precision</h2>
-        ...
+        <h2> 3.3 Setting the precision</h2>
+        The precision option is used in order to specify the number of digits which should be used after the floating point when using float operations. If this option is not used, the default of 10 is used. In case the precision is not that important, one can set a lower precision like 1 or 2. If computations with higher precision should be used, one should set this option to numbers greater than 10.
+
+        <table border = 1>
+          <tr><th>Syntax</th></tr>
+          <tr><td><code>-p digits</code></td></tr>
+        </table>
+
+        <b>Digits:</b><br>
+        The digits component should be replaced with a valid positive integer. The number here will represent the number of digits after the floating point when float operations are used.<br>
+
+        <b>Examples:</b>
+        <table border = 1>
+          <tr><th>Command line</th><th>Description</th></tr>
+          <tr><td><code>./alki.sh -a "main.alk" -p 2</code></td><td>the option will tell the interpreter to use a precision of 2 decimals after the floating point (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -a "main.alk" -p 200 </code></td><td>the option will tell the interpreter to use a precision of 200 decimals after the floating point (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -a "main.alk" </code></td><td>the lack of this option will tell the interpreter to use a precision of 10 decimals after the floating point (Linux/Mac)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk" -p 2</code></td><td>the option will tell the interpreter to use a precision of 2 decimals after the floating point (Windows)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk" -p 200</code></td><td>the option will tell the interpreter to use a precision of 200 decimals after the floating point (Windows)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk"</code></td><td>the lack of this option will tell the interpreter to use a precision of 10 decimals after the floating point (Windows)</td></tr>
+        </table> 
+
       </section>
 
       <section id="option-m">
-        <h2> 5.4 Show the metadata</h2>
-        ...
+        <h2> 3.4 Show the metadata</h2>
+        This option is used in order to trigger the metadata showing. The metadata represents the final configuration and eventually information about the execution: if it was deterministic, probabilistic or nondeterminstic. If the execution was probabilistic, the probability will be printed. Note that this is a boolean option, which means that no value should be assigned to the option. The simple presence of this option will trigger the behavior described.
+
+        <table border = 1>
+          <tr><th>Syntax</th></tr>
+          <tr><td><code>-m</code></td></tr>
+        </table>
+
+        <b>Examples:</b>
+        <table border = 1>
+          <tr><th>Algorithm stored in <code>main.alk</code></th><th>Command line</th><th>Platform</th><th>Output</th></tr>
+          <tr><td><code>a = 8;<br> b = 10;<br> c = a * b;<br>print("abc");</code></td><td><code>./alki.sh -a "main.alk" -m</code></td><td>Linux/Mac</td><td><code>"abc"<br>a |-> 8<br>b |-> 10<br>c |-> 80</code></td></tr>
+          <tr><td><code>a = 8;<br> choose x in [1..a];<br>print(x);</code></td><td><code>./alki.sh -a "main.alk" -m</code></td><td>Linux/Mac</td><td><code>5<br>a |-> 8<br>x |-> 5<br>Note that the executed algorithm is nondeterministic.</code></td></tr>
+          <tr><td><code>a = 8;<br> x = random(a);<br>print(x);</code></td><td><code>./alki.sh -a "main.alk" -m</code></td><td>Linux/Mac</td><td><code>5<br>a |-> 8<br>x |-> 5<br>Note that the executed algorithm is probabilistic.<br>The probability for this execution is: 0.125</code></td></tr>
+          <tr><td><code>a = 8;<br> b = 10;<br> c = a * b;<br>print("abc");</code></td><td><code>alki.bat -a "main.alk" -m</code></td><td>Windows</td><td><code>"abc"<br>a |-> 8<br>b |-> 10<br>c |-> 80</code></td></tr>
+          <tr><td><code>a = 8;<br> choose x in [1..a];<br>print(x);</code></td><td><code>alki.bat -a "main.alk" -m</code></td><td>Windows</td><td><code>5<br>a |-> 8<br>x |-> 5<br>Note that the executed algorithm is nondeterministic.</code></td></tr>
+          <tr><td><code>a = 8;<br> x = random(a);<br>print(x);</code></td><td><code>alki.bat -a "main.alk" -m</code></td><td>Windows</td><td><code>5<br>a |-> 8<br>x |-> 5<br>Note that the executed algorithm is probabilistic.<br>The probability for this execution is: 0.125</code></td></tr>
+        </table> 
       </section>
 
       <section id="option-z">
-        <h2> 5.5 Increase maximum allocation size</h2>
-        ...
+        <h2> 3.5 Increase maximum allocation size</h2>
+        This option allows the increasing of the maximum allocation size of one compound data type. All of these dimensions are capped to one billion elements by default, but can be altered through this option. Such capping is a sanity measure to ensure that the dynamic allocation does not overflow. This can somehow limit the memory used by Alk compound data type values.
+
+        <table border = 1>
+          <tr><th>Syntax</th></tr>
+          <tr><td><code>-z size</code></td></tr>
+        </table>
+
+        <b>Size: </b><br>
+        The size component should be replaced with a valid positive integer number which will symbolize the maximum number of elements allowed inside one compound data. Note that this does not refer to physical memory, so this number is not the number of bytes or similar.<br>
+
+        <b>Examples:</b>
+        <table border = 1>
+          <tr><th>Command line</th><th>Description</th></tr>
+          <tr><td><code>./alki.sh -a "main.alk" -z 2</code></td><td>the option will tell the interpreter to allow the compound data values to store at most two elements (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -a "main.alk" -p 2000000000 </code></td><td>the option will tell the interpreter to allow the compound data values to store at most 2 billion elements (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -a "main.alk" </code></td><td>the lac of this option will tell the interpreter to allow the compound data values to store at most 1 billion elements (Linux/Mac)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk" -p 2</code></td><td>the option will tell the interpreter to allow the compound data values to store at most two elements (Windows)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk" -p 2000000000</code></td><td>the option will tell the interpreter to allow the compound data values to store at most 2 billion elements (Windows)</td></tr>
+          <tr><td><code>alki.bat -a "main.alk"</code></td><td>the lack of this option will tell the interpreter to allow the compound data values to store at most 1 billion elements (Windows)</td></tr>
+        </table> 
       </section>
 
       <section id="option-e">
-        <h2> 5.6 Trigger exhaustive execution</h2>
-        ...
+        <h2> 3.6 Trigger exhaustive execution</h2>
+        The exhaustive execution option is a very powerful feature of Alk. It allows the user to generate multiple executions when using nondeterministic algorithms such that the final result is in fact an exhaustive search over all choices. This is highly valuable as it makes use of multithreading, so an efficient way of computing the results for nondeterminstic algorithms. Note that the option is a boolean option, meaning that it should not have any value assigned to it. The simple presence of this option will tell the interpreter to split the execution when a choose statement is found, such that all choice paths are evaluated in parallel.
+
+        <table border = 1>
+          <tr><th>Syntax</th></tr>
+          <tr><td><code>-e</code></td></tr>
+        </table>
+
+        Note that the output is grouped for each execution, this means that the written lines are separated for each execution path. However, they are not sorted in any way. As a common fact, the shorter executions will be written first, while the executions which are way more complex are written at the end (as they end up later).
+
+        <b>Examples:</b>
+        <table border = 1>
+          <tr><th>Algorithm in <code>main.alk</code></th><th>Command line</th><th>Platform</th><th>Output</th></tr>
+          <tr><td><code>a = 4;<br>choose x in [1..a];<br>print(x);</code></td><td><code>./alki.sh -a "main.alk" -e</code></td><td>Linux/Mac</td><td>4<br>Note that the executed algorithm is nondeterministic.<br>2<br>Note that the executed algorithm is nondeterministic.<br>1<br>Note that the executed algorithm is nondeterministic.<br>3<br>Note that the executed algorithm is nondeterministic.</td></tr>
+          <tr><td><code>choose x in [1..3];<br>for (i=0; i < pow(10, 4) * x; i++)<br> &nbsp;&nbsp; continue;<br>print(x);</code></td><td><code>./alki.sh -a "main.alk" -e</code></td><td>Linux/Mac</td><td>1<br>Note that the executed algorithm is nondeterministic.<br>2<br>Note that the executed algorithm is nondeterministic.<br>3<br>Note that the executed algorithm is nondeterministic.</td></tr>
+
+          <tr><td><code>a = 4;<br>choose x in [1..a];<br>print(x);</code></td><td><code>alki.bat -a "main.alk" -e</code></td><td>Windows</td><td>4<br>Note that the executed algorithm is nondeterministic.<br>2<br>Note that the executed algorithm is nondeterministic.<br>1<br>Note that the executed algorithm is nondeterministic.<br>3<br>Note that the executed algorithm is nondeterministic.</td></tr>
+          <tr><td><code>choose x in [1..3];<br>for (i=0; i < pow(10, 4) * x; i++)<br> &nbsp;&nbsp; continue;<br>print(x);</code></td><td><code>alki.bat -a "main.alk" -e</code></td><td>Windows</td><td>1<br>Note that the executed algorithm is nondeterministic.<br>2<br>Note that the executed algorithm is nondeterministic.<br>3<br>Note that the executed algorithm is nondeterministic.</td></tr>
+        </table> 
+
       </section>
 
       <section id="option-h">
-        <h2> 5.7 Help and version</h2>
-        ...
-      </section>
+        <h2> 3.7 Help and version</h2>
+        The help and version options are used in order to retrieve some information not execution related. This is why these are the only options which can be used without providing an entry-point file with the -a option. The help option provides a list of options which can be used and a short description for each of those. The version option will show the current version used of Alk. Note that these are boolean values.
 
-      <section id="option-t">
-        <h2> 5.8 Trigger debug mode</h2>
-        ...
+        <table border = 1>
+          <tr><th>Syntax</th></tr>
+          <tr><td><code>-h</code></td></tr>
+          <tr><td><code>-v</code></td></tr>
+        </table>
+
+        <b>Examples:</b>
+        <table border = 1>
+          <tr><th>Command line</th><th>Description</th></tr>
+          <tr><td><code>./alki.sh -h</code></td><td>this will show the list of options and how they should be used (Linux/Mac)</td></tr>
+          <tr><td><code>./alki.sh -v</code></td><td>this will show the version of the used Alk (Linux/Mac)</td></tr>
+          <tr><td><code>alki.bat -h</code></td><td>this will show the list of options and how they should be used (Windows)</td></tr>
+          <tr><td><code>alki.bat -v</code></td><td>this will show the version of the used Alk (Windows)</td></tr>
+        </table> 
       </section>
 
     </section>
@@ -1401,7 +1770,7 @@
     <footer>
         <p> <b> Alk Reference Manual </b> </p>
         <p> written by Lungu Alexandru-Ioan </p>
-        <p> collaborating with Prof. dr. Lucanu Dorel </p>
+        <p> scientific coordinator Prof. dr. Lucanu Dorel </p>
         <p> Faculty of Computer Science, UAIC Iasi </p>
     </footer>
 

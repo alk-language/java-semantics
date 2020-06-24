@@ -31,7 +31,7 @@ public class TestingConfiguration extends Configuration {
 class TestingOptionProvider implements OptionProvider {
 
     String alkFile;
-    int precision = 10;
+    int precision;
 
     public TestingOptionProvider(String alkFile, int precision) {
         this.alkFile = alkFile;

@@ -9,6 +9,7 @@ import execution.types.alkInt.AlkInt;
 import util.lambda.LocationGenerator;
 import util.types.ComponentValue;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,13 +18,12 @@ import static parser.exceptions.AlkException.*;
 
 public class AlkStructure extends AlkValue
 {
-    private TreeMap<String, Location> map;
+    private Map<String, Location> map;
 
     public AlkStructure() {
         type = "Structure";
         isDataStructure = true;
-        isIterable = false;
-        map = new TreeMap<>();
+        map = new HashMap<>();
     }
 
     public void insert(ComponentValue pair)

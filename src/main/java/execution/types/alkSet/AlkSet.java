@@ -17,7 +17,7 @@ import static parser.exceptions.AlkException.*;
 
 public class AlkSet extends AlkIterableValue  {
 
-    private Set<Location> set = new TreeSet<>(new SetComparator());
+    private Set<Location> set = new HashSet<>();
 
     @Deprecated
     public String contains; //tipuri de date, seturile sunt omogene
@@ -25,7 +25,6 @@ public class AlkSet extends AlkIterableValue  {
     public AlkSet() {
         type = "Set";
         isDataStructure = true;
-        isIterable = true;
     }
 
     @Override
@@ -251,18 +250,5 @@ class ValueComparator implements Comparator<AlkValue>
         if (a.lower(b).isTrue())
             return -1;
         return 1;
-    }
-}
-
-class SetComparator implements Comparator<Location>
-{
-    @Override
-    public int compare(Location a, Location b) {
-        AlkValue aVal = a.toRValue();
-        AlkValue bVal = b.toRValue();
-
-        if (aVal != null && bVal != null && aVal.getClass().equals(bVal.getClass()) && aVal.equals(bVal))
-            return 0;
-        return a.toString().compareTo(b.toString());
     }
 }

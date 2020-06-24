@@ -25,7 +25,6 @@ public class AlkArray extends AlkIterableValue {
     public AlkArray() {
         type = "Array";
         isDataStructure = true;
-        isIterable = true;
         array = new ArrayList<>();
     }
 

@@ -21,10 +21,8 @@ class AdditiveFloatHelper {
         this.value = value;
     }
 
-    AlkValue add(AlkValue operand) throws AlkException, InterpretorException
+    AlkValue add(AlkValue operand)
     {
-        if (operand.isDataStructure)
-            throw new AlkException(ERR_ADD_DATA_STRUCTURE);
         switch(operand.type)
         {
             case "Int": return add(((AlkInt)operand));
@@ -53,7 +51,8 @@ class AdditiveFloatHelper {
         throw new AlkException(ERR_ADD_STRING);
     }
 
-    AlkValue subtract(AlkValue operand) throws AlkException, InterpretorException {
+    AlkValue subtract(AlkValue operand)
+    {
         if (operand.isDataStructure)
             throw new AlkException(ERR_SUB_DATA_STRUCTURE);
         switch(operand.type)

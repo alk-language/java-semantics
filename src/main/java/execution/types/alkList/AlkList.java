@@ -22,7 +22,6 @@ public class AlkList extends AlkIterableValue
     public AlkList() {
         type = "List";
         isDataStructure = true;
-        isIterable = true;
         list = new LinkedList<>();
     }
 
