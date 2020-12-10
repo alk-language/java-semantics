@@ -1,8 +1,9 @@
 package util;
 
+import execution.exhaustive.NameMapper;
 import execution.types.AlkValue;
-import parser.env.Location;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
 import util.exception.InternalException;
 import util.functions.BuiltInMethod;
 import util.functions.Methods;
@@ -13,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 public class Invoker {
 
@@ -29,11 +30,11 @@ public class Invoker {
 
             boolean valid = false;
             for (int paramNumber : method.getAnnotation(BuiltInMethod.class).paramNumber())
-                if (paramNumber == params.size())
-                {
+                if (paramNumber == params.size()) {
                     valid = true;
                     break;
                 }
+
             if (!valid)
                 throw new AlkException(ERR_PARAM_NUMBER);
 

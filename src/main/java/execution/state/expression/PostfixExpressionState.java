@@ -4,13 +4,11 @@ import execution.state.ExecutionState;
 import execution.state.SingleState;
 import execution.types.AlkValue;
 import grammar.alkParser;
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -19,8 +17,8 @@ public class PostfixExpressionState extends SingleState<Value, Value> {
 
     private alkParser.PostfixExpressionContext ctx;
 
-    public PostfixExpressionState(alkParser.PostfixExpressionContext tree, Payload payload) {
-        super(tree, payload, tree.factor(), ExpressionVisitor.class);
+    public PostfixExpressionState(alkParser.PostfixExpressionContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, tree.factor(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
@@ -59,7 +57,7 @@ public class PostfixExpressionState extends SingleState<Value, Value> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        PostfixExpressionState copy = new PostfixExpressionState((alkParser.PostfixExpressionContext) tree, sm.getPayload());
+        PostfixExpressionState copy = new PostfixExpressionState((alkParser.PostfixExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 

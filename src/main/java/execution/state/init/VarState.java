@@ -4,22 +4,23 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.types.AlkValue;
 import grammar.alkParser;
-import parser.env.Location;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.VarContext.class)
-public class VarState extends ExecutionState {
+public class VarState extends ExecutionState<Value, Value> {
 
     private alkParser.VarContext ctx;
     private AlkValue rightSide;
     private Location leftSide;
 
-    public VarState(alkParser.VarContext ctx, Payload payload) {
-        super(ctx, payload);
+    public VarState(alkParser.VarContext ctx, ExecutionPayload executionPayload) {
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -35,11 +36,11 @@ public class VarState extends ExecutionState {
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (rightSide == null)
         {
-            rightSide = (AlkValue) result.getValue().toRValue();
+            rightSide = (AlkValue) executionResult.getValue().toRValue();
         }
     }
 

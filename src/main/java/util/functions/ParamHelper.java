@@ -1,6 +1,6 @@
 package util.functions;
 
-import parser.exceptions.AlkException;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkFloat.AlkFloat;
 import execution.types.alkInt.AlkInt;
@@ -8,7 +8,7 @@ import execution.types.alkInt.AlkInt;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static parser.exceptions.AlkException.ERR_INVALID_PARAM;
+import static execution.parser.exceptions.AlkException.ERR_INVALID_PARAM;
 
 class ParamHelper {
 

@@ -1,6 +1,6 @@
 package execution.types;
 
-import parser.env.Location;
+import execution.parser.env.Location;
 import util.lambda.LocationGenerator;
 
 import java.util.List;

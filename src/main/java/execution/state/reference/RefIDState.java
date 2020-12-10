@@ -3,21 +3,21 @@ package execution.state.reference;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.env.Environment;
-import parser.env.EnvironmentImpl;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Environment;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.RefIDContext.class)
-public class RefIDState extends ExecutionState
+public class RefIDState extends ExecutionState<Value, Value>
 {
     private String id;
     alkParser.RefIDContext ctx;
 
 
-    public RefIDState(alkParser.RefIDContext ctx, Payload payload) {
-        super(ctx, payload);
+    public RefIDState(alkParser.RefIDContext ctx, ExecutionPayload executionPayload) {
+        super(ctx, executionPayload);
         this.ctx = ctx;
         this.id = ctx.ID().toString();
     }
@@ -27,18 +27,18 @@ public class RefIDState extends ExecutionState
         Environment env = getEnv();
         if (env.has(this.id))
         {
-            result = new ExecutionResult(env.getLocation(this.id));
+            setResult(new ExecutionResult(env.getLocation(this.id)));
         }
         else
         {
-            result = new ExecutionResult(env.define(this.id));
+            setResult(new ExecutionResult(env.define(this.id)));
         }
 
         return null;
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         // no-op
     }
@@ -46,7 +46,7 @@ public class RefIDState extends ExecutionState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        RefIDState copy = new RefIDState(ctx, sm.getPayload());
+        RefIDState copy = new RefIDState(ctx, sm.getExecutionPayload());
         copy.id = id;
         return super.decorate(copy, sm);
     }

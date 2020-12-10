@@ -1,7 +1,7 @@
 package util;
 
-import parser.env.AlkFunction;
-import parser.exceptions.AlkException;
+import execution.parser.env.AlkFunction;
+import execution.parser.exceptions.AlkException;
 
 import java.util.HashMap;
 import java.util.Map;

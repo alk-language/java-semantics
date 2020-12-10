@@ -1,1 +1,15 @@
-x |-> 3
+Latice< T > T va fi asociat unui AST
+    relatie de ordine partiala: T x T -> bool
+    LUB, GLB: set<T> -> T
+    top, bottom: () -> T
+
+CFG = (V, E, start, finish)
+
+iota: () -> T
+
+functie de transfer f: AST x T -> T
+
+====================================
+
+Solutie: V -> T
+Implementarea algoritmului worklist care gaseste solutia

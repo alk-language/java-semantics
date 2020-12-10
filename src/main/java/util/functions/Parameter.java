@@ -1,7 +1,7 @@
 package util.functions;
 
-import parser.env.Location;
-import parser.env.LocationMapper;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import util.types.Value;

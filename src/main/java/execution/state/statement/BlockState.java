@@ -3,10 +3,10 @@ package execution.state.statement;
 import execution.state.ExecutionState;
 import execution.state.IndependentSingleState;
 import grammar.alkParser;
-import parser.visitors.StmtVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.StmtVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.BlockContext.class)
 public class BlockState extends IndependentSingleState
@@ -14,16 +14,16 @@ public class BlockState extends IndependentSingleState
 
     private alkParser.BlockContext ctx;
 
-    public BlockState(alkParser.BlockContext tree, Payload payload)
+    public BlockState(alkParser.BlockContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.statement_sequence(), StmtVisitor.class);
+        super(tree, executionPayload, tree.statement_sequence(), StmtVisitor.class);
         ctx = tree;
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        BlockState copy = new BlockState(ctx, sm.getPayload());
+        BlockState copy = new BlockState(ctx, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

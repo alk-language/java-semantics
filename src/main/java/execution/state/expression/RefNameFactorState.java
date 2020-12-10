@@ -3,26 +3,25 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.GatewaySingleState;
 import grammar.alkParser;
-import parser.env.LocationMapper;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.RefNameFactorContext.class)
 public class RefNameFactorState extends GatewaySingleState {
 
     alkParser.RefNameFactorContext ctx;
 
-    public RefNameFactorState(alkParser.RefNameFactorContext tree, Payload payload) {
-        super(tree, payload, tree.ref_name(), ExpressionVisitor.class);
+    public RefNameFactorState(alkParser.RefNameFactorContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, tree.ref_name(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        RefNameFactorState copy = new RefNameFactorState(ctx, sm.getPayload());
+        RefNameFactorState copy = new RefNameFactorState(ctx, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

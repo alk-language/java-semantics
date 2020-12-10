@@ -1,19 +1,20 @@
 package execution.types;
 
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
+import symbolic.SymbolicValue;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 /**
  *  The main abstract class describing a value in Alk.
  *  TODO: Take care with default method behavior if not overridden. Some of the methods there may not be implemented.
  */
-public abstract class AlkValue implements Comparable<AlkValue>, Value {
+public abstract class AlkValue implements Comparable<AlkValue>, Value, SymbolicValue {
     /** Describes the type of the current value, can have one of the following:
      * TODO: replace the type with instance of checker
      * scalar_value - Int, Double, Bool, String
@@ -45,6 +46,12 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
             return false;
         }
         return compareTo((AlkValue) value) == 0;
+    }
+
+    @Override
+    public boolean equals(SymbolicValue value)
+    {
+        return equals((Object) value);
     }
 
     /**
@@ -81,6 +88,8 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
 
     public abstract AlkValue clone(LocationGenerator locationGenerator);
 
+    public AlkValue ifelse(AlkValue expr1, AlkValue expr2) { throw new AlkException(ERR_IFELSE); }
+
     /**
      * Handles the logical or operation (||) over a value.
      * By default, the operation is not supported, thus an error is thrown.
@@ -90,7 +99,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkBool logicalOr(AlkValue operand)
+    public AlkBool logicalor(AlkValue operand)
     {
         throw new AlkException(ERR_LOGICALOR);
     }
@@ -105,7 +114,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkBool logicalAnd(AlkValue operand)
+    public AlkBool logicaland(AlkValue operand)
     {
         throw new AlkException(ERR_LOGICALAND);
     }
@@ -258,7 +267,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue setSubtract(AlkValue operand, LocationGenerator generator)
+    public AlkValue setsubtract(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_SET_SUBTRACT);
     }
@@ -273,7 +282,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue bitwiseOr(AlkValue operand)
+    public AlkValue bitwiseor(AlkValue operand)
     {
         throw new AlkException(ERR_BITWISEOR);
     }
@@ -288,7 +297,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue bitwiseXor(AlkValue operand)
+    public AlkValue bitwisexor(AlkValue operand)
     {
         throw new AlkException(ERR_BITWISEXOR);
     }
@@ -303,7 +312,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue bitwiseAnd(AlkValue operand)
+    public AlkValue bitwiseand(AlkValue operand)
     {
         throw new AlkException(ERR_BITWISEAND);
     }
@@ -318,7 +327,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue shiftLeft(AlkValue operand)
+    public AlkValue shiftleft(AlkValue operand)
     {
         throw new AlkException(ERR_SHIFTLEFT);
     }
@@ -333,7 +342,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue shiftRight(AlkValue operand)
+    public AlkValue shiftright(AlkValue operand)
     {
         throw new AlkException(ERR_SHIFTRIGHT);
     }
@@ -821,14 +830,12 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value {
     }
 
     @Override
-    public AlkValue toRValue()
-    {
+    public AlkValue toRValue() {
         return this;
     }
 
     @Override
-    public Location toLValue()
-    {
-        throw new AlkException("Can't obtain a reference out of this expression");
+    public Location toLValue() {
+        throw new AlkException("Can't obtain a reference out of this value.");
     }
 }

@@ -4,10 +4,10 @@ import execution.state.ExecutionState;
 import execution.state.SingleState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.ComponentValue;
 import util.types.Value;
 
@@ -17,8 +17,8 @@ public class ComponentDefinitionState extends SingleState <ComponentValue, AlkVa
 
     private alkParser.ComponentDefinitionContext ctx;
 
-    public ComponentDefinitionState(alkParser.ComponentDefinitionContext tree, Payload payload) {
-        super(tree, payload, tree.expression(), ExpressionVisitor.class);
+    public ComponentDefinitionState(alkParser.ComponentDefinitionContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, tree.expression(), ExpressionVisitor.class);
         ctx = tree;
     }
 
@@ -30,7 +30,7 @@ public class ComponentDefinitionState extends SingleState <ComponentValue, AlkVa
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ComponentDefinitionState copy = new ComponentDefinitionState((alkParser.ComponentDefinitionContext) tree, sm.getPayload());
+        ComponentDefinitionState copy = new ComponentDefinitionState((alkParser.ComponentDefinitionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

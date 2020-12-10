@@ -1,7 +1,7 @@
 package execution.types.alkFloat;
 
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
@@ -10,9 +10,9 @@ import execution.types.alkString.AlkString;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static parser.constants.Constants.MAX_DECIMALS;
-import static parser.exceptions.AlkException.*;
-import static parser.exceptions.InterpretorException.ERR_VALUE_TYPE_UNRECOGNIZED;
+import static execution.parser.constants.Constants.MAX_DECIMALS;
+import static execution.parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.InterpretorException.ERR_VALUE_TYPE_UNRECOGNIZED;
 
 public class MultiplicativeFloatHelper {
 

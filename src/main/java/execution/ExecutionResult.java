@@ -1,31 +1,22 @@
 package execution;
 
-import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import util.lambda.LocationGenerator;
+import ast.Result;
+import execution.parser.env.LocationMapper;
 import util.types.Value;
 
-public class ExecutionResult<T extends Value>
+public class ExecutionResult<T extends Value> extends Result<T>
 {
-    private T value;
-
     public ExecutionResult(T value) {
-        this.value = value;
+        super(value);
     }
 
-    public T getValue() {
+    public T getValue()
+    {
         return value;
-    }
-
-    @Override
-    public String toString() {
-        if (value == null)
-            return "null";
-        return value.toString();
     }
 
     public ExecutionResult clone(LocationMapper locationMapper)
     {
-        return new ExecutionResult(this.value.weakClone(locationMapper));
+        return new ExecutionResult(super.value.weakClone(locationMapper));
     }
 }

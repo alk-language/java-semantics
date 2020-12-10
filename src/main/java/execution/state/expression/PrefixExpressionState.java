@@ -3,14 +3,12 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.SingleState;
 import grammar.alkParser;
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -19,8 +17,8 @@ public class PrefixExpressionState extends SingleState<Value, Value> {
 
     private alkParser.PrefixExpressionContext ctx;
 
-    public PrefixExpressionState(alkParser.PrefixExpressionContext tree, Payload payload) {
-        super(tree, payload, tree.unary_expression(), ExpressionVisitor.class);
+    public PrefixExpressionState(alkParser.PrefixExpressionContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, tree.unary_expression(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
@@ -59,7 +57,7 @@ public class PrefixExpressionState extends SingleState<Value, Value> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, sm.getPayload());
+        PrefixExpressionState copy = new PrefixExpressionState((alkParser.PrefixExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

@@ -1,10 +1,8 @@
 package execution.types.alkSet;
 
-import execution.types.alkList.AlkList;
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
@@ -13,7 +11,7 @@ import util.lambda.LocationGenerator;
 
 import java.util.*;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 public class AlkSet extends AlkIterableValue  {
 
@@ -61,7 +59,7 @@ public class AlkSet extends AlkIterableValue  {
         AlkSet intersect = new AlkSet();
         for (Location loc : (AlkSet) operand)
         {
-            if (this.has(loc.toRValue()))
+            if (this.has((AlkValue) loc.toRValue()))
             {
                 intersect.insert(generator.generate(loc.toRValue().clone(generator)));
             }
@@ -70,14 +68,14 @@ public class AlkSet extends AlkIterableValue  {
     }
 
     @Override
-    public AlkValue setSubtract(AlkValue operand, LocationGenerator generator)
+    public AlkValue setsubtract(AlkValue operand, LocationGenerator generator)
     {
         if (!operand.type.equals("Set"))
             throw new AlkException(ERR_SET_SUBTRACT_NO_SET);
         AlkSet subtract = new AlkSet();
         for (Location loc : this)
         {
-            if (!((AlkSet) operand).has(loc.toRValue()))
+            if (!((AlkSet) operand).has((AlkValue) loc.toRValue()))
             {
                 subtract.insert(generator.generate(loc.toRValue().clone(generator)));
             }
@@ -99,10 +97,10 @@ public class AlkSet extends AlkIterableValue  {
         Map<Class<? extends AlkValue>, Set<AlkValue>> mapper = new TreeMap<>(Comparator.comparing(Class::toString));
         for (Location loc : set)
         {
-            Class<? extends AlkValue> valueType = loc.toRValue().getClass();
+            Class<? extends AlkValue> valueType = ((AlkValue) loc.toRValue()).getClass();
             if (!mapper.containsKey(valueType) || mapper.get(valueType) == null)
                 mapper.put(valueType, new TreeSet<>(new ValueComparator()));
-            AlkValue val = loc.toRValue();
+            AlkValue val = (AlkValue) loc.toRValue();
             mapper.get(valueType).add(val);
         }
 
@@ -149,11 +147,11 @@ public class AlkSet extends AlkIterableValue  {
         boolean isEqual = true;
         for (Location loc : set)
         {
-            isEqual = isEqual && opSet.has(loc.toRValue());
+            isEqual = isEqual && opSet.has((AlkValue) loc.toRValue());
         }
         for (Location loc : opSet)
         {
-            isEqual = isEqual && this.has(loc.toRValue());
+            isEqual = isEqual && this.has((AlkValue) loc.toRValue());
         }
 
         return new AlkBool(isEqual);

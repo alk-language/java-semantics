@@ -2,24 +2,27 @@ package execution.state.reference;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.types.AlkValue;
 import execution.types.alkStructure.AlkStructure;
 import grammar.alkParser;
-import parser.env.Location;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.FactorPointIDContext.class)
-public class FactorPointID extends ExecutionState {
+public class FactorPointID extends ExecutionState<Value, Value>
+{
 
     alkParser.FactorPointIDContext ctx;
     private Location reference;
 
-    public FactorPointID(alkParser.FactorPointIDContext ctx, Payload payload)
+    public FactorPointID(alkParser.FactorPointIDContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload);
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -37,8 +40,8 @@ public class FactorPointID extends ExecutionState {
 
         try
         {
-            Location loc = reference.toRValue().dot(ctx.ID().toString(), generator);
-            result = new ExecutionResult(loc);
+            Location loc = ((AlkValue) reference.toRValue()).dot(ctx.ID().toString(), generator);
+            setResult(new ExecutionResult(loc));
         }
         catch (AlkException e)
         {
@@ -48,18 +51,18 @@ public class FactorPointID extends ExecutionState {
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (reference == null)
         {
-            reference = result.getValue().toLValue();
+            reference = executionResult.getValue().toLValue();
         }
 
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        FactorPointID copy = new FactorPointID(ctx, sm.getPayload());
+        FactorPointID copy = new FactorPointID(ctx, sm.getExecutionPayload());
         copy.reference = sm.getLocationMapper().get(reference);
         return super.decorate(copy, sm);
     }

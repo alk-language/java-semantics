@@ -24,10 +24,8 @@ public class BufferedIOWrapper implements IOManager
     @Override
     public void flush()
     {
-        synchronized (manager)
-        {
-            for (String text : buffer)
-            {
+        synchronized (manager) {
+            for (String text : buffer) {
                 manager.write(text);
             }
             manager.flush();

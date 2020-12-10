@@ -4,12 +4,11 @@ import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.EqualityExpressionContext.class)
 public class EqualityExpressionState extends GuardedGeneratorState<AlkValue>
@@ -17,9 +16,9 @@ public class EqualityExpressionState extends GuardedGeneratorState<AlkValue>
 
     private alkParser.EqualityExpressionContext ctx;
 
-    public EqualityExpressionState(alkParser.EqualityExpressionContext tree, Payload payload)
+    public EqualityExpressionState(alkParser.EqualityExpressionContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.relational_expression(), ExpressionVisitor.class);
+        super(tree, executionPayload, tree.relational_expression(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
@@ -44,7 +43,7 @@ public class EqualityExpressionState extends GuardedGeneratorState<AlkValue>
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        EqualityExpressionState copy = new EqualityExpressionState((alkParser.EqualityExpressionContext) tree, sm.getPayload());
+        EqualityExpressionState copy = new EqualityExpressionState((alkParser.EqualityExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

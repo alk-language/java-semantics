@@ -3,10 +3,10 @@ package execution.state.statement;
 import execution.state.ExecutionState;
 import execution.state.IndependentSingleState;
 import grammar.alkParser;
-import parser.visitors.StmtVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.StmtVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToIncreaseDecreaseContext.class)
 public class ToIncreaseDecreaseState extends IndependentSingleState
@@ -14,16 +14,16 @@ public class ToIncreaseDecreaseState extends IndependentSingleState
 
     alkParser.ToIncreaseDecreaseContext ctx;
 
-    public ToIncreaseDecreaseState(alkParser.ToIncreaseDecreaseContext ctx, Payload payload)
+    public ToIncreaseDecreaseState(alkParser.ToIncreaseDecreaseContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload, ctx.increase_decrease(), StmtVisitor.class);
+        super(ctx, executionPayload, ctx.increase_decrease(), StmtVisitor.class);
         this.ctx = ctx;
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        ToIncreaseDecreaseState copy = new ToIncreaseDecreaseState(ctx, sm.getPayload());
+        ToIncreaseDecreaseState copy = new ToIncreaseDecreaseState(ctx, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

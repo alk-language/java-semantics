@@ -5,6 +5,7 @@ import org.apache.commons.cli.Options;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Responsible for registering important details regarding one execution.

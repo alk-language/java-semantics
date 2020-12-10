@@ -2,14 +2,13 @@ package execution.state.structure;
 
 import execution.state.ExecutionState;
 import execution.state.SingleState;
-import execution.types.AlkValue;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.types.AlkIterableValue;
 import execution.types.alkArray.AlkArray;
-import parser.exceptions.AlkException;
-import parser.visitors.structure.DataStructureVisitor;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.structure.DataStructureVisitor;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -18,11 +17,11 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
     private final Class<? extends AlkIterableValue> clazz;
 
     public IterableWithSpecState(ParseTree tree,
-                                 Payload payload,
+                                 ExecutionPayload executionPayload,
                                  ParseTree spec,
                                  Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, payload, spec, DataStructureVisitor.class);
+        super(tree, executionPayload, spec, DataStructureVisitor.class);
         this.clazz = clazz;
     }
 
@@ -46,7 +45,7 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        IterableWithSpecState copy = new IterableWithSpecState(tree, sm.getPayload(), null, clazz);
+        IterableWithSpecState copy = new IterableWithSpecState(tree, sm.getExecutionPayload(), null, clazz);
 
         return super.decorate(copy, sm);
     }

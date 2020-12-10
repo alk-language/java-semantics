@@ -2,25 +2,24 @@ package execution.state.statement;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import execution.types.AlkValue;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.Location;
-import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.function.FunctionCallVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import execution.parser.visitors.function.FunctionCallVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.MethodCallContext.class)
-public class MethodCallState extends ExecutionState
+public class MethodCallState extends ExecutionState<Value, Value>
 {
     alkParser.MethodCallContext ctx;
     Location reference;
     Location solution;
 
-    public MethodCallState(alkParser.MethodCallContext ctx, Payload payload) {
-        super(ctx, payload);
+    public MethodCallState(alkParser.MethodCallContext ctx, ExecutionPayload executionPayload) {
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -36,26 +35,26 @@ public class MethodCallState extends ExecutionState
             return request(FunctionCallVisitor.class, ctx.builtin_method(), reference);
         }
 
-        result = new ExecutionResult(solution);
+        setResult(new ExecutionResult(solution));
         return null;
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (reference == null)
         {
-            reference = result.getValue().toLValue();
+            reference = executionResult.getValue().toLValue();
         }
         else if (solution == null)
         {
-            solution = result.getValue().toLValue();
+            solution = executionResult.getValue().toLValue();
         }
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        MethodCallState copy = new MethodCallState(ctx, sm.getPayload());
+        MethodCallState copy = new MethodCallState(ctx, sm.getExecutionPayload());
         copy.reference = sm.getLocationMapper().get(reference);
         copy.solution = sm.getLocationMapper().get(solution);
         return super.decorate(copy, sm);

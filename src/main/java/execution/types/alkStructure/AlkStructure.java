@@ -1,20 +1,19 @@
 package execution.types.alkStructure;
 
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
-import execution.types.alkInt.AlkInt;
 import util.lambda.LocationGenerator;
 import util.types.ComponentValue;
+import util.types.Value;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 public class AlkStructure extends AlkValue
 {
@@ -104,8 +103,8 @@ public class AlkStructure extends AlkValue
                 return new AlkBool(false);
             }
 
-            AlkValue a = map.get(key).toRValue();
-            AlkValue b = op.map.get(key).toRValue();
+            AlkValue a = (AlkValue) map.get(key).toRValue();
+            AlkValue b = (AlkValue) op.map.get(key).toRValue();
 
             try
             {

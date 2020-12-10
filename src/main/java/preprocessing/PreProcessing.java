@@ -2,7 +2,7 @@ package preprocessing;
 
 import grammar.alkLexer;
 import grammar.alkParser;
-import parser.exceptions.AlkException;
+import execution.parser.exceptions.AlkException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -12,8 +12,8 @@ import preprocessing.visitors.PreMainVisitor;
 import java.io.*;
 import java.util.ArrayList;
 
-import static parser.exceptions.AlkException.ERR_INCLUDE;
-import static parser.exceptions.AlkException.ERR_INCLUDE_CYCLE;
+import static execution.parser.exceptions.AlkException.ERR_INCLUDE;
+import static execution.parser.exceptions.AlkException.ERR_INCLUDE_CYCLE;
 
 public class PreProcessing {
 

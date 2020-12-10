@@ -8,7 +8,7 @@ import execution.types.alkInt.AlkInt;
 import execution.types.alkNotAValue.AlkNotAValue;
 import execution.types.alkSet.AlkSet;
 import io.IOManager;
-import parser.env.Location;
+import execution.parser.env.Location;
 import util.Configuration;
 import util.lambda.LocationGenerator;
 
@@ -16,14 +16,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
+import static execution.parser.constants.Constants.MAX_DECIMALS;
+
 public class Functions {
 
     Configuration config;
     LocationGenerator generator;
 
     @BuiltInFunction(paramNumber = 1)
-    public static AlkValue sin(List<AlkValue> params)
-    {
+    public static AlkValue sin(List<AlkValue> params) {
         return MathHelper.sin(ParamHelper.getFloat(params, 0));
     }
 
@@ -130,7 +131,8 @@ public class Functions {
     public AlkValue random(List<AlkValue> params)
     {
         BigDecimal total = new BigDecimal(((AlkInt) ParamHelper.getValue(params, 0)).value);
-        config.interpretProbability(BigDecimal.ONE.divide(total));
+        System.err.println(total);
+        config.interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));
         config.setProbabilistic(true);
         return NonDeterministic.getRandom(ParamHelper.getValue(params, 0));
     }

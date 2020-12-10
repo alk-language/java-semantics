@@ -5,18 +5,18 @@ import execution.state.ExecutionState;
 import execution.state.LoopingState;
 import execution.types.AlkIterableValue;
 import grammar.alkParser;
-import parser.env.Location;
-import parser.exceptions.AlkException;
-import parser.visitors.StmtVisitor;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.StmtVisitor;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
 
-import static parser.exceptions.AlkException.ERR_FORALL_ITERABLE_REQUIRED;
+import static execution.parser.exceptions.AlkException.ERR_FORALL_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.ForEachStructureContext.class)
 public class ForEachState extends LoopingState
@@ -25,8 +25,8 @@ public class ForEachState extends LoopingState
     private List<Location> source;
     private int step = 0;
 
-    public ForEachState(alkParser.ForEachStructureContext tree, Payload payload) {
-        super(tree, payload, null, null, null, null);
+    public ForEachState(alkParser.ForEachStructureContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, null, null, null, null);
         this.ctx = tree;
     }
 
@@ -54,11 +54,11 @@ public class ForEachState extends LoopingState
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (source == null)
         {
-            Value value = result.getValue().toRValue();
+            Value value = executionResult.getValue().toRValue();
             if (value instanceof AlkIterableValue)
             {
                 source = ((AlkIterableValue) value).toArray(generator);
@@ -74,7 +74,7 @@ public class ForEachState extends LoopingState
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ForEachState copy = new ForEachState(ctx, sm.getPayload());
+        ForEachState copy = new ForEachState(ctx, sm.getExecutionPayload());
         copy.step = this.step;
         for (Location loc : source)
             copy.source.add(sm.getLocationMapper().get(loc));

@@ -3,24 +3,24 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import util.Payload;
-import util.SplitMapper;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
 
-public abstract class IndependentGeneratorState extends GeneratorState {
+public abstract class IndependentGeneratorState extends GeneratorState<Value, Value> {
 
     protected IndependentGeneratorState(ParseTree tree,
-                                        Payload payload,
+                                        ExecutionPayload executionPayload,
                                         List<? extends ParseTree> children,
                                         Class<? extends alkBaseVisitor> visitor)
     {
-        super(tree, payload, children, visitor);
+        super(tree, executionPayload, children, visitor);
     }
 
     @Override
-    public void assign(ExecutionResult result) {
+    public void assign(ExecutionResult executionResult) {
         // no-op
     }
 
