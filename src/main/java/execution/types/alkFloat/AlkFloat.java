@@ -1,15 +1,13 @@
 package execution.types.alkFloat;
 
-import execution.types.alkInt.AlkInt;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import util.lambda.LocationGenerator;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class AlkFloat extends AlkValue
 {
@@ -21,48 +19,48 @@ public class AlkFloat extends AlkValue
         this.value = value;
     }
 
-    public AlkBool equal(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool equal(AlkValue operand) throws AlkException {
         EqualityFloatHelper help = new EqualityFloatHelper(value);
         return help.equal(operand);
     }
 
-    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lower(AlkValue operand) throws AlkException {
         RelationalFloatHelper help = new RelationalFloatHelper(value);
         return help.lower(operand);
     }
 
 
-    public AlkValue add(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkValue add(AlkValue operand) throws AlkException {
         AdditiveFloatHelper help = new AdditiveFloatHelper(value);
         return help.add(operand);
     }
 
-    public AlkValue subtract(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkValue subtract(AlkValue operand) throws AlkException {
         AdditiveFloatHelper help = new AdditiveFloatHelper(value);
         return help.subtract(operand);
     }
 
-    public AlkValue multiply(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkValue multiply(AlkValue operand) throws AlkException {
         MultiplicativeFloatHelper help = new MultiplicativeFloatHelper(value);
         return help.multiply(operand);
     }
 
-    public AlkValue divide(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkValue divide(AlkValue operand) throws AlkException {
         MultiplicativeFloatHelper help = new MultiplicativeFloatHelper(value);
         return help.divide(operand);
     }
 
-    public AlkValue mod(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkValue mod(AlkValue operand) throws AlkException {
         MultiplicativeFloatHelper help = new MultiplicativeFloatHelper(value);
         return help.mod(operand);
     }
 
-    public AlkValue positive() throws AlkException, InterpretorException {
+    public AlkValue positive() throws AlkException {
         UnaryFloatHelper help = new UnaryFloatHelper(value);
         return help.positive();
     }
 
-    public AlkValue negative() throws AlkException, InterpretorException {
+    public AlkValue negative() throws AlkException {
         UnaryFloatHelper help = new UnaryFloatHelper(value);
         return help.negative();
     }

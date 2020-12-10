@@ -1,8 +1,7 @@
 package execution.types.alkIterator;
 
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
@@ -11,7 +10,7 @@ import util.lambda.LocationGenerator;
 
 import java.util.ListIterator;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 public class AlkIterator extends AlkValue
 {
@@ -38,7 +37,7 @@ public class AlkIterator extends AlkValue
     }
 
     @Override
-    public AlkBool lower(AlkValue operand) throws AlkException, InterpretorException {
+    public AlkBool lower(AlkValue operand) throws AlkException {
         if (!(operand.type.equals("Iterator")))
             throw new AlkException(ERR_LOWER_ITERATOR);
         AlkIterator op = (AlkIterator) operand;

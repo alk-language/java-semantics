@@ -4,15 +4,15 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.types.AlkValue;
 import grammar.alkParser;
-import parser.env.*;
-import parser.exceptions.AlkException;
-import parser.exceptions.ReturnException;
-import parser.exceptions.UnwindException;
-import parser.visitors.StmtVisitor;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.*;
+import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.ReturnException;
+import execution.parser.exceptions.UnwindException;
+import execution.parser.visitors.StmtVisitor;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.functions.Parameter;
 import util.types.Value;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CtxState(ctxClass = alkParser.DefinedFunctionCallContext.class)
-public class DefinedFunctionCallState extends ExecutionState {
+public class DefinedFunctionCallState extends ExecutionState<Value, Value> {
 
     alkParser.DefinedFunctionCallContext ctx;
     List<Value> params = new ArrayList<>();
@@ -29,8 +29,8 @@ public class DefinedFunctionCallState extends ExecutionState {
     boolean executed = false;
     Environment env;
 
-    public DefinedFunctionCallState(alkParser.DefinedFunctionCallContext ctx, Payload payload) {
-        super(ctx, payload);
+    public DefinedFunctionCallState(alkParser.DefinedFunctionCallContext ctx, ExecutionPayload executionPayload) {
+        super(ctx, executionPayload);
         this.ctx = ctx;
         function = getFuncManager().getFunction(ctx.ID().getText());
         env = new EnvironmentImpl(getStore());
@@ -73,17 +73,17 @@ public class DefinedFunctionCallState extends ExecutionState {
     {
         if (e instanceof ReturnException)
         {
-            result = new ExecutionResult<>(((ReturnException) e).getValue());
+            setResult(new ExecutionResult(((ReturnException) e).getValue()));
             return true;
         }
         return false;
     }
 
     @Override
-    public void assign(ExecutionResult result) {
+    public void assign(ExecutionResult executionResult) {
         if (!executed)
         {
-            Value value = result.getValue();
+            Value value = executionResult.getValue();
             Parameter param = function.getParam(step - 1);
             if (param.isOut())
                 params.add(value.toLValue());
@@ -94,7 +94,7 @@ public class DefinedFunctionCallState extends ExecutionState {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        DefinedFunctionCallState copy = new DefinedFunctionCallState(ctx, sm.getPayload());
+        DefinedFunctionCallState copy = new DefinedFunctionCallState(ctx, sm.getExecutionPayload());
         for (Value param : params)
         {
             copy.params.add(param.weakClone(sm.getLocationMapper()));

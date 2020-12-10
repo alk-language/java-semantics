@@ -3,16 +3,16 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.exceptions.AlkException;
+import execution.parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
-import parser.exceptions.BreakException;
-import parser.exceptions.ContinueException;
-import parser.exceptions.UnwindException;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.BreakException;
+import execution.parser.exceptions.ContinueException;
+import execution.parser.exceptions.UnwindException;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
-public abstract class LoopingState extends ExecutionState
+public abstract class LoopingState extends ExecutionState<Value, Value>
 {
     private Class<? extends alkBaseVisitor> conditionVisitor;
     private Class<? extends alkBaseVisitor> bodyVisitor;
@@ -23,13 +23,13 @@ public abstract class LoopingState extends ExecutionState
     protected boolean broke = false;
 
     public LoopingState(ParseTree tree,
-                        Payload payload,
+                        ExecutionPayload executionPayload,
                         Class<? extends alkBaseVisitor> conditionVisitor,
                         Class<? extends alkBaseVisitor> bodyVisitor,
                         ParseTree condition,
                         ParseTree body)
     {
-        super(tree, payload);
+        super(tree, executionPayload);
         this.conditionVisitor = conditionVisitor;
         this.bodyVisitor = bodyVisitor;
         this.condition = condition;
@@ -51,7 +51,7 @@ public abstract class LoopingState extends ExecutionState
 
         if (!processValidity(validCondition))
         {
-            result = new ExecutionResult<>(null);
+            setResult(new ExecutionResult<>(null));
             return null;
         }
 
@@ -64,12 +64,12 @@ public abstract class LoopingState extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (!checkedCondition)
         {
             checkedCondition = true;
-            Value decide = result.getValue().toRValue();
+            Value decide = executionResult.getValue().toRValue();
             if (!(decide instanceof AlkBool))
             {
                 super.handle(new AlkException("Condition in loop must be boolean."));

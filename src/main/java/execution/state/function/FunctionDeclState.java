@@ -3,11 +3,11 @@ package execution.state.function;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.env.AlkFunction;
-import parser.visitors.StmtVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.AlkFunction;
+import execution.parser.visitors.StmtVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.functions.Parameter;
 import util.types.Value;
@@ -16,15 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CtxState(ctxClass = alkParser.FunctionDeclContext.class)
-public class FunctionDeclState extends ExecutionState {
+public class FunctionDeclState extends ExecutionState<Value, Value> {
 
     alkParser.FunctionDeclContext ctx;
     int step = 0;
     List<Parameter> params = new ArrayList<>();
     List<String> modifies = new ArrayList<>();
 
-    public FunctionDeclState(alkParser.FunctionDeclContext ctx, Payload payload) {
-        super(ctx, payload);
+    public FunctionDeclState(alkParser.FunctionDeclContext ctx, ExecutionPayload executionPayload) {
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -44,8 +44,8 @@ public class FunctionDeclState extends ExecutionState {
     }
 
     @Override
-    public void assign(ExecutionResult result) {
-        Value value = result.getValue().toRValue();
+    public void assign(ExecutionResult executionResult) {
+        Value value = executionResult.getValue().toRValue();
         if (!(value instanceof Parameter))
             throw new InternalException("While evaluating parameters, a non-parameter type was returned");
 
@@ -56,7 +56,7 @@ public class FunctionDeclState extends ExecutionState {
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        FunctionDeclState copy = new FunctionDeclState(ctx, sm.getPayload());
+        FunctionDeclState copy = new FunctionDeclState(ctx, sm.getExecutionPayload());
         copy.step = step;
         for (Parameter param : params)
             copy.params.add((Parameter) param.weakClone(sm.getLocationMapper()));

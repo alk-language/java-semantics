@@ -3,24 +3,25 @@ package execution.state.reference;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.env.Location;
-import parser.visitors.expression.ExpressionVisitor;
-import parser.visitors.function.FunctionCallVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import execution.parser.visitors.function.FunctionCallVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.FactorPointMethodContext.class)
-public class FactorPointMethod extends ExecutionState
+public class FactorPointMethod extends ExecutionState<Value, Value>
 {
 
     alkParser.FactorPointMethodContext ctx;
     private Location reference;
     private Location solution;
 
-    public FactorPointMethod(alkParser.FactorPointMethodContext ctx, Payload payload)
+    public FactorPointMethod(alkParser.FactorPointMethodContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload);
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -37,26 +38,26 @@ public class FactorPointMethod extends ExecutionState
             return request(FunctionCallVisitor.class, ctx.builtin_method(), reference);
         }
 
-        result = new ExecutionResult(solution);
+        setResult(new ExecutionResult(solution));
         return null;
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (reference == null)
         {
-            reference = result.getValue().toLValue();
+            reference = executionResult.getValue().toLValue();
         }
         else if (solution == null)
         {
-            solution = result.getValue().toLValue();
+            solution = executionResult.getValue().toLValue();
         }
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        FactorPointMethod copy = new FactorPointMethod(ctx, sm.getPayload());
+        FactorPointMethod copy = new FactorPointMethod(ctx, sm.getExecutionPayload());
         copy.reference = sm.getLocationMapper().get(reference);
         copy.solution = sm.getLocationMapper().get(solution);
         return super.decorate(copy, sm);

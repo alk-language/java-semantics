@@ -2,27 +2,28 @@ package execution.state.reference;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import grammar.alkParser;
-import parser.env.Location;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
 import execution.types.alkInt.AlkInt;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 @CtxState(ctxClass = alkParser.FactorArrayContext.class)
-public class FactorArray extends ExecutionState
+public class FactorArray extends ExecutionState<Value, Value>
 {
     private alkParser.FactorArrayContext ctx;
     private AlkInt index;
     private Location reference;
 
-    public FactorArray(alkParser.FactorArrayContext ctx, Payload payload)
+    public FactorArray(alkParser.FactorArrayContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload);
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -46,8 +47,8 @@ public class FactorArray extends ExecutionState
 
         try
         {
-            Location loc = reference.toRValue().bracket(index.value.intValueExact(), generator);
-            result = new ExecutionResult(loc);
+            Location loc = ((AlkValue) reference.toRValue()).bracket(index.value.intValueExact(), generator);
+            setResult(new ExecutionResult(loc));
         }
         catch (AlkException e)
         {
@@ -57,17 +58,17 @@ public class FactorArray extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (reference == null)
         {
-            reference = result.getValue().toLValue();
+            reference = executionResult.getValue().toLValue();
             return;
         }
 
         if (index == null)
         {
-            Value value = result.getValue().toRValue();
+            Value value = executionResult.getValue().toRValue();
             if (!(value instanceof AlkInt))
             {
                 super.handle(new AlkException("Array index should be an integer."));
@@ -81,7 +82,7 @@ public class FactorArray extends ExecutionState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        FactorArray copy = new FactorArray(ctx, sm.getPayload());
+        FactorArray copy = new FactorArray(ctx, sm.getExecutionPayload());
         copy.index = (AlkInt) index.weakClone(sm.getLocationMapper());
         copy.reference = sm.getLocationMapper().get(reference);
         return super.decorate(copy, sm);

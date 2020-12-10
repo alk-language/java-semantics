@@ -1,10 +1,12 @@
 package execution;
 
+import execution.exhaustive.EnvironmentMapper;
+import execution.exhaustive.ExecutionStateMapper;
 import execution.types.AlkValue;
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.env.Store;
-import util.*;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.env.StoreImpl;
+import util.types.Value;
 
 import java.util.Set;
 
@@ -12,7 +14,7 @@ class ExecutionCloner {
 
     public static Execution makeClone(Execution source)
     {
-        Store copyStore = new Store();
+        StoreImpl copyStore = new StoreImpl();
         LocationMapper locMapping = new LocationMapper();
 
         Execution copy = new Execution(source.getConfig().clone());
@@ -27,15 +29,15 @@ class ExecutionCloner {
 
         for (Location loc : sourceLocations)
         {
-            AlkValue value = loc.getValue();
-            AlkValue copyValue = value.weakClone(locMapping);
+            Value value = loc.getValue();
+            Value copyValue = value.weakClone(locMapping);
             copyStore.set(locMapping.get(loc), copyValue);
         }
 
         copy.setFuncManager(source.getFuncManager());
 
         EnvironmentMapper envMapping = source.getEnvManager().cloneEnvironments(locMapping, copyStore);
-        StateMapper stateMapping = source.getStack().cloneStates(copy, locMapping, envMapping);
+        ExecutionStateMapper stateMapping = source.getStack().cloneStates(copy, locMapping, envMapping);
 
         EnvironmentManager envManager = source.getEnvManager().makeClone(stateMapping, envMapping);
         copy.setEnvManager(envManager);

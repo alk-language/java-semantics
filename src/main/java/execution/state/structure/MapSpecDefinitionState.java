@@ -3,21 +3,21 @@ package execution.state.structure;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.env.EnvironmentProxy;
-import parser.env.Location;
-import parser.exceptions.AlkException;
+import execution.parser.env.EnvironmentProxy;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
 
-import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
+import static execution.parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.SelectSpecDefinitionContext.class)
 public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
@@ -28,13 +28,13 @@ public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
     private int step;
     private EnvironmentProxy env;
 
-    public MapSpecDefinitionState(alkParser.SelectSpecDefinitionContext tree, Payload payload) {
-        super(tree, payload);
+    public MapSpecDefinitionState(alkParser.SelectSpecDefinitionContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload);
         ctx = tree;
     }
 
     @Override
-    public ExecutionState<Value, Value> makeStep()
+    public ExecutionState makeStep()
     {
         if (source == null)
         {
@@ -43,7 +43,7 @@ public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
 
         if (step == source.size())
         {
-            result = new ExecutionResult<>(array);
+            setResult(new ExecutionResult<>(array));
             return null;
         }
 
@@ -53,8 +53,8 @@ public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
     }
 
     @Override
-    public void assign(ExecutionResult<Value> result) {
-        Value resultVal = result.getValue().toRValue();
+    public void assign(ExecutionResult executionResult) {
+        Value resultVal = executionResult.getValue().toRValue();
         if (source == null)
         {
             if (!(resultVal instanceof AlkIterableValue))
@@ -74,7 +74,7 @@ public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        MapSpecDefinitionState copy = new MapSpecDefinitionState(ctx, sm.getPayload());
+        MapSpecDefinitionState copy = new MapSpecDefinitionState(ctx, sm.getExecutionPayload());
         if (source != null)
         {
             for (Location value : source)

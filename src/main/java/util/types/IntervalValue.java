@@ -1,9 +1,8 @@
 package util.types;
 
-import execution.types.AlkValue;
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.alkInt.AlkInt;
 import util.lambda.LocationGenerator;
 

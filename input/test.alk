@@ -1,11 +1,23 @@
-func(out a, out b)
+a = 12;
+b = 15;
+while (b > 0)
 {
-   a = 2;
-   return;
-   b = 2;
+    r = a % b;
+    a = b;
+    b = r;
 }
-a = 5;
-b = 5;
-func(a, b);
-print(a);
-print(b);
+
+
+/*
+
+output -> {
+{(a -> [1, 2, 3, 4]),
+{(b -> [[1, 2, 3, 4], 1]),
+(c -> Undefined),
+(d -> Overdefined),
+(u -> Undefined),
+(x -> 1),
+(y -> 2),
+(z -> 3)}
+
+*/

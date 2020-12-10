@@ -4,12 +4,11 @@ import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 
 @CtxState(ctxClass = alkParser.SetExpressionContext.class)
@@ -17,8 +16,8 @@ public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
 
     private alkParser.SetExpressionContext ctx;
 
-    public SetExpressionState(alkParser.SetExpressionContext ctx, Payload payload) {
-        super(ctx, payload, ctx.bitwise_or(), ExpressionVisitor.class);
+    public SetExpressionState(alkParser.SetExpressionContext ctx, ExecutionPayload executionPayload) {
+        super(ctx, executionPayload, ctx.bitwise_or(), ExpressionVisitor.class);
         this.ctx = ctx;
     }
 
@@ -37,7 +36,7 @@ public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
                 case "^":
                     return current.intersect(next, generator);
                 case "\\":
-                    return current.setSubtract(next, generator);
+                    return current.setsubtract(next, generator);
                 default:
                     throw new InternalException("Undefined set operator");
             }
@@ -51,7 +50,7 @@ public class SetExpressionState extends GuardedGeneratorState<AlkValue> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        SetExpressionState copy = new SetExpressionState((alkParser.SetExpressionContext) tree, sm.getPayload());
+        SetExpressionState copy = new SetExpressionState((alkParser.SetExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

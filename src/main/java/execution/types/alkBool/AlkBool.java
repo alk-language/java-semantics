@@ -1,13 +1,13 @@
 package execution.types.alkBool;
 
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkComparable;
 import execution.types.AlkValue;
 import util.lambda.LocationGenerator;
 
-import static parser.exceptions.AlkException.ERR_EQUAL_BOOL;
-import static parser.exceptions.AlkException.ERR_LOWER_BOOL;
+import static execution.parser.exceptions.AlkException.ERR_EQUAL_BOOL;
+import static execution.parser.exceptions.AlkException.ERR_LOWER_BOOL;
 
 /**
  * The main and only class responsible for the boolean values.
@@ -56,11 +56,11 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
 
 
     @Override
-    public AlkValue bitwiseXor(AlkValue operand)
+    public AlkValue bitwisexor(AlkValue operand)
     {
         if (operand instanceof AlkBool)
             return new AlkBool(value ^ ((AlkBool) operand).value);
-        return super.bitwiseXor(operand);
+        return super.bitwisexor(operand);
     }
 
 

@@ -1,8 +1,8 @@
 package util.types;
 
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import util.lambda.LocationGenerator;
 
 public class ComponentValue implements Value {
@@ -14,7 +14,6 @@ public class ComponentValue implements Value {
         this.identifier = identifier;
         this.location = location;
     }
-
 
     public Location getLocation() {
         return location;

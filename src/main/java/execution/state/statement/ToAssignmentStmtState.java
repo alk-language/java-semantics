@@ -3,22 +3,22 @@ package execution.state.statement;
 import execution.state.ExecutionState;
 import execution.state.IndependentSingleState;
 import grammar.alkParser;
-import parser.visitors.StmtVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.StmtVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToAssignmentStmtContext.class)
 public class ToAssignmentStmtState extends IndependentSingleState
 {
-    public ToAssignmentStmtState(alkParser.ToAssignmentStmtContext tree, Payload payload)
+    public ToAssignmentStmtState(alkParser.ToAssignmentStmtContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.assignment(), StmtVisitor.class);
+        super(tree, executionPayload, tree.assignment(), StmtVisitor.class);
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ToAssignmentStmtState copy = new ToAssignmentStmtState((alkParser.ToAssignmentStmtContext) tree, sm.getPayload());
+        ToAssignmentStmtState copy = new ToAssignmentStmtState((alkParser.ToAssignmentStmtContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 

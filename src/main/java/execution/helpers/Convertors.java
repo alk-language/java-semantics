@@ -1,13 +1,13 @@
 package execution.helpers;
 
-import parser.exceptions.AlkException;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkFloat.AlkFloat;
 import execution.types.alkInt.AlkInt;
 
 import java.math.BigDecimal;
 
-import static parser.exceptions.AlkException.ERR_INVALID_CONVERSION;
+import static execution.parser.exceptions.AlkException.ERR_INVALID_CONVERSION;
 
 public class Convertors {
 

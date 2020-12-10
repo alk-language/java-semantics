@@ -6,11 +6,11 @@ import execution.state.GeneratorState;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
-import parser.env.Location;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
@@ -23,17 +23,17 @@ public class IterableWithExpressionsState extends GeneratorState<Location, Value
     private Class<? extends AlkIterableValue> clazz;
 
     public IterableWithExpressionsState(ParseTree tree,
-                                        Payload payload,
+                                        ExecutionPayload executionPayload,
                                         List<? extends ParseTree> dependency,
                                         Class<? extends AlkIterableValue> clazz) {
-        super(tree, payload, dependency, ExpressionVisitor.class);
+        super(tree, executionPayload, dependency, ExpressionVisitor.class);
         this.clazz = clazz;
     }
 
     @Override
-    public void assign(ExecutionResult<Value> result)
+    public void assign(ExecutionResult executionResult)
     {
-        array.add((AlkValue) result.getValue().toRValue());
+        array.add((AlkValue) executionResult.getValue().toRValue());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class IterableWithExpressionsState extends GeneratorState<Location, Value
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        IterableWithExpressionsState copy = new IterableWithExpressionsState(tree, sm.getPayload(), null, clazz);
+        IterableWithExpressionsState copy = new IterableWithExpressionsState(tree, sm.getExecutionPayload(), null, clazz);
 
         for (AlkValue value : array)
         {

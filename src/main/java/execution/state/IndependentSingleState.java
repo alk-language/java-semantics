@@ -2,18 +2,18 @@ package execution.state;
 
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import util.Payload;
-import util.SplitMapper;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 public abstract class IndependentSingleState extends SingleState
 {
 
     public IndependentSingleState(ParseTree tree,
-                                  Payload payload,
+                                  ExecutionPayload executionPayload,
                                   ParseTree dependency,
                                   Class<? extends alkBaseVisitor> visitor) {
-        super(tree, payload, dependency, visitor);
+        super(tree, executionPayload, dependency, visitor);
     }
 
     @Override

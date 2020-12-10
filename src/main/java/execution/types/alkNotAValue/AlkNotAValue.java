@@ -1,8 +1,8 @@
 package execution.types.alkNotAValue;
 
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import util.lambda.LocationGenerator;

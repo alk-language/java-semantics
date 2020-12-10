@@ -1,10 +1,8 @@
 package util;
 
-import parser.exceptions.AlkException;
+import execution.parser.exceptions.AlkException;
 import io.IOManager;
-import util.exception.AlkFatalException;
 import util.exception.AlkIOException;
-import util.exception.InternalException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

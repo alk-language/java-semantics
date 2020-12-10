@@ -4,20 +4,19 @@ import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ShiftExpressionContext.class)
 public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
 
     private alkParser.ShiftExpressionContext ctx;
 
-    public ShiftExpressionState(alkParser.ShiftExpressionContext tree, Payload payload) {
-        super(tree, payload, tree.additive_expression(), ExpressionVisitor.class);
+    public ShiftExpressionState(alkParser.ShiftExpressionContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, tree.additive_expression(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
@@ -32,8 +31,8 @@ public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
         try
         {
             if (tree.getChild(getSignPos()).getText().equals("<<"))
-                return current.shiftLeft(next);
-            return current.shiftRight(next);
+                return current.shiftleft(next);
+            return current.shiftright(next);
         }
         catch (AlkException e)
         {
@@ -45,7 +44,7 @@ public class ShiftExpressionState extends GuardedGeneratorState<AlkValue> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ShiftExpressionState copy = new ShiftExpressionState((alkParser.ShiftExpressionContext) tree, sm.getPayload());
+        ShiftExpressionState copy = new ShiftExpressionState((alkParser.ShiftExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

@@ -1,10 +1,9 @@
 package execution.types.alkArray;
 
-import execution.types.alkList.AlkList;
 import execution.types.alkNotAValue.AlkNotAValue;
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
@@ -15,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static parser.constants.Constants.MAX_ARRAY;
-import static parser.exceptions.AlkException.*;
+import static execution.parser.constants.Constants.MAX_ARRAY;
+import static execution.parser.exceptions.AlkException.*;
 
 public class AlkArray extends AlkIterableValue {
 
@@ -31,6 +30,11 @@ public class AlkArray extends AlkIterableValue {
     public void push(Location loc)
     {
         array.add(loc);
+    }
+
+    public void push(AlkValue value, LocationGenerator generator)
+    {
+        array.add(generator.generate(value));
     }
 
     @Override
@@ -108,7 +112,7 @@ public class AlkArray extends AlkIterableValue {
         for (Location location : array) {
             try
             {
-                if (location.toRValue().notequal(value).isTrue())
+                if (((AlkValue) location.toRValue()).notequal(value).isTrue())
                     in.add(location);
             }
             catch (AlkException e)
@@ -137,7 +141,7 @@ public class AlkArray extends AlkIterableValue {
         int sz = array.size();
         for (int i = 0; i < sz; i++)
         {
-            isEqual = isEqual && array.get(i).toRValue().equal(opArray.array.get(i).toRValue()).isTrue();
+            isEqual = isEqual && ((AlkValue) array.get(i).toRValue()).equal((AlkValue) opArray.array.get(i).toRValue()).isTrue();
         }
 
         return new AlkBool(isEqual);

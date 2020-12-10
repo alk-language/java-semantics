@@ -1,18 +1,16 @@
 package execution.helpers;
 
-import parser.env.Location;
-import parser.exceptions.AlkException;
-import execution.types.AlkIterableValue;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkInt.AlkInt;
-import parser.exceptions.FailureException;
+import execution.parser.exceptions.FailureException;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 public class NonDeterministic {
 

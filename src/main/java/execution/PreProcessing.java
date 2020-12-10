@@ -1,11 +1,9 @@
 package execution;
 
 import grammar.alkParser;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.AlkParser;
-import parser.exceptions.AlkException;
+import execution.parser.AlkParser;
+import execution.parser.exceptions.AlkException;
 import util.exception.InternalException;
 
 import java.io.*;

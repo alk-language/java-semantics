@@ -3,26 +3,25 @@ package execution.state.expression;
 import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
-import static parser.exceptions.AlkException.ERR_LOGICALOR;
+import static execution.parser.exceptions.AlkException.ERR_LOGICALOR;
 
 @CtxState(ctxClass = alkParser.LogicalOrExpressionContext.class)
 public class LogicalOrExpressionState extends GuardedGeneratorState<Value>
 {
     private alkParser.LogicalOrExpressionContext ctx;
 
-    public LogicalOrExpressionState(alkParser.LogicalOrExpressionContext tree, Payload payload)
+    public LogicalOrExpressionState(alkParser.LogicalOrExpressionContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.logical_and_expression(), ExpressionVisitor.class);
+        super(tree, executionPayload, tree.logical_and_expression(), ExpressionVisitor.class);
         this.ctx = tree;
         setPreValidator(() -> {
             if (getLocalResult() != null)
@@ -59,7 +58,7 @@ public class LogicalOrExpressionState extends GuardedGeneratorState<Value>
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        LogicalOrExpressionState copy = new LogicalOrExpressionState((alkParser.LogicalOrExpressionContext) tree, sm.getPayload());
+        LogicalOrExpressionState copy = new LogicalOrExpressionState((alkParser.LogicalOrExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

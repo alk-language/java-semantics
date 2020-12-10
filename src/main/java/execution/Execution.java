@@ -3,14 +3,14 @@ package execution;
 import execution.state.ExecutionState;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.HelpFormatter;
-import parser.AlkParser;
-import parser.constants.Constants;
-import parser.env.Environment;
-import parser.env.EnvironmentImpl;
-import parser.env.Store;
-import parser.exceptions.AlkException;
-import parser.visitors.InitVisitor;
-import parser.visitors.MainVisitor;
+import execution.parser.AlkParser;
+import execution.parser.constants.Constants;
+import execution.parser.env.Environment;
+import execution.parser.env.EnvironmentImpl;
+import execution.parser.env.StoreImpl;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.InitVisitor;
+import execution.parser.visitors.MainVisitor;
 import util.*;
 import util.exception.InternalException;
 
@@ -24,7 +24,7 @@ import java.io.File;
 public class Execution extends Thread
 {
 
-    private Store store;
+    private StoreImpl store;
 
     /** The main configuration delivery instance.*/
     private Configuration config;
@@ -47,7 +47,7 @@ public class Execution extends Thread
     public Execution(Configuration config) {
         this.config = config;
         envManager = new EnvironmentManager();
-        store = new Store();
+        store = new StoreImpl();
         global = new EnvironmentImpl(store);
         funcManager = new FuncManager();
     }
@@ -79,7 +79,7 @@ public class Execution extends Thread
                 ParseTree tree = AlkParser.executeInit(input);
 
                 ExecutionStack localStack = new ExecutionStack(config, envManager);
-                InitVisitor visitor = new InitVisitor(global, new Payload(this));
+                InitVisitor visitor = new InitVisitor(global, new ExecutionPayload(this));
                 ExecutionState state =  visitor.visit(tree);
                 localStack.push(state);
                 localStack.run();
@@ -109,7 +109,7 @@ public class Execution extends Thread
             File file = config.getAlkFile();
 
             ParseTree tree = AlkParser.execute(file);
-            MainVisitor visitor = new MainVisitor(global, new Payload(this));
+            MainVisitor visitor = new MainVisitor(global, new ExecutionPayload(this));
             ExecutionState state = visitor.visit(tree);
             stack = new ExecutionStack(config, envManager);
             stack.push(state);
@@ -205,11 +205,11 @@ public class Execution extends Thread
         return global;
     }
 
-    public Store getStore() {
+    public StoreImpl getStore() {
         return store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(StoreImpl store) {
         this.store = store;
     }
 

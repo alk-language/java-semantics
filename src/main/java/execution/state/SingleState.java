@@ -3,8 +3,8 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import util.Payload;
-import util.SplitMapper;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 /**
@@ -16,35 +16,34 @@ import util.types.Value;
  */
 public abstract class SingleState<T extends Value, S extends Value> extends ExecutionState<T, S>
 {
-
-    private Value localResult;
+    private T localResult;
     private boolean visited = false;
     private ParseTree dependency;
     protected Class<? extends alkBaseVisitor> visitor;
 
-    public SingleState(ParseTree tree, Payload payload, ParseTree dependency, Class<? extends alkBaseVisitor> visitor) {
-        super(tree, payload);
+    public SingleState(ParseTree tree, ExecutionPayload executionPayload, ParseTree dependency, Class<? extends alkBaseVisitor> visitor) {
+        super(tree, executionPayload);
         this.dependency = dependency;
         this.visitor = visitor;
     }
 
     @Override
-    public ExecutionState<S, Value> makeStep()
+    public ExecutionState makeStep()
     {
         if (visited)
         {
-            result = new ExecutionResult<>(localResult);
+            setResult(new ExecutionResult<>(localResult));
             return null;
         }
 
-        return super.request(visitor, dependency);
+        return (ExecutionState) super.request(visitor, dependency);
     }
 
     @Override
-    public void assign(ExecutionResult<S> result)
+    public void assign(ExecutionResult executionResult)
     {
-        if (result != null)
-            localResult = interpretResult(result.getValue());
+        if (executionResult != null)
+            localResult = interpretResult(executionResult.getValue());
         visited = true;
     }
 
