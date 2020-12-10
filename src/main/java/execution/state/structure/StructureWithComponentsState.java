@@ -5,11 +5,11 @@ import execution.state.ExecutionState;
 import execution.state.GeneratorState;
 import grammar.alkParser;
 import execution.types.alkStructure.AlkStructure;
-import parser.env.Location;
-import parser.visitors.structure.DataStructureVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.visitors.structure.DataStructureVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.ComponentValue;
 
 @CtxState(ctxClass = alkParser.StructureWithComponentsContext.class)
@@ -19,15 +19,15 @@ public class StructureWithComponentsState extends GeneratorState<Location, Compo
 
     alkParser.StructureWithComponentsContext ctx;
 
-    public StructureWithComponentsState(alkParser.StructureWithComponentsContext tree, Payload payload) {
-        super(tree, payload, tree.component(), DataStructureVisitor.class);
+    public StructureWithComponentsState(alkParser.StructureWithComponentsContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, tree.component(), DataStructureVisitor.class);
         ctx = tree;
     }
 
     @Override
-    public void assign(ExecutionResult<ComponentValue> result)
+    public void assign(ExecutionResult executionResult)
     {
-        struct.insert(result.getValue());
+        struct.insert((ComponentValue) executionResult.getValue());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class StructureWithComponentsState extends GeneratorState<Location, Compo
     }
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        StructureWithComponentsState copy = new StructureWithComponentsState(ctx, sm.getPayload());
+        StructureWithComponentsState copy = new StructureWithComponentsState(ctx, sm.getExecutionPayload());
         copy.struct = (AlkStructure) this.struct.weakClone(sm.getLocationMapper());
         return super.decorate(copy, sm);
     }

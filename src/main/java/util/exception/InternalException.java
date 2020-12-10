@@ -14,6 +14,12 @@ public class InternalException extends RuntimeException
         // no-op
     }
 
+    /*@Override
+    public String getMessage()
+    {
+        return "An unexpected exception occurred; enable trace mode for more details.";
+    }*/
+
     /**
      * Wrapper constructor
      *

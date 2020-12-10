@@ -6,10 +6,10 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkInt.AlkInt;
-import parser.exceptions.AlkException;
-import parser.visitors.structure.DataStructureVisitor;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.structure.DataStructureVisitor;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.types.IntervalValue;
 import util.types.Value;
@@ -22,11 +22,11 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
     private Class<? extends AlkIterableValue> clazz;
 
     public IterableWithIntervalState(ParseTree tree,
-                                     Payload payload,
+                                     ExecutionPayload executionPayload,
                                      ParseTree interval,
                                      Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, payload, interval, DataStructureVisitor.class);
+        super(tree, executionPayload, interval, DataStructureVisitor.class);
         this.clazz = clazz;
     }
 
@@ -59,7 +59,7 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        IterableWithIntervalState copy = new IterableWithIntervalState(tree, sm.getPayload(), null, clazz);
+        IterableWithIntervalState copy = new IterableWithIntervalState(tree, sm.getExecutionPayload(), null, clazz);
         return super.decorate(copy, sm);
     }
 }

@@ -1,9 +1,8 @@
 package execution.types.alkList;
 
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
@@ -12,7 +11,7 @@ import util.lambda.LocationGenerator;
 
 import java.util.*;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 //TODO: implement bracket operator
 public class AlkList extends AlkIterableValue
@@ -169,7 +168,7 @@ public class AlkList extends AlkIterableValue
         int sz = list.size();
         for (int i = 0; i < sz; i++)
         {
-            isEqual = isEqual && list.get(i).toRValue().equal(opList.list.get(i).toRValue()).isTrue();
+            isEqual = isEqual && ((AlkValue) list.get(i).toRValue()).equal((AlkValue) opList.list.get(i).toRValue()).isTrue();
         }
 
         return new AlkBool(isEqual);

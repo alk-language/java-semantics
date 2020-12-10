@@ -52,7 +52,7 @@ var activeTableTab = "activeTableTab";
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?parser/visitors/expression/ExpressionVisitor.html" target="_top">Frames</a></li>
+<li><a href="../../../index.html?execution.parser/visitors/expression/ExpressionVisitor.html" target="_top">Frames</a></li>
 <li><a href="ExpressionVisitor.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">parser.visitors.expression</div>
+<div class="subTitle">execution.parser.visitors.expression</div>
 <h2 title="Class ExpressionVisitor" class="title">Class ExpressionVisitor</h2>
 </div>
 <div class="contentContainer">
@@ -105,7 +105,7 @@ var activeTableTab = "activeTableTab";
 <li>grammar.alkBaseVisitor</li>
 <li>
 <ul class="inheritance">
-<li>parser.visitors.expression.ExpressionVisitor</li>
+<li>execution.parser.visitors.expression.ExpressionVisitor</li>
 </ul>
 </li>
 </ul>
@@ -142,7 +142,7 @@ extends grammar.alkBaseVisitor</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../impl/visitors/expression/ExpressionVisitor.html#ExpressionVisitor-impl.env.Environment-">ExpressionVisitor</a></span>(<a href="../../../impl/env/Environment.html" title="class in parser.env">Environment</a>&nbsp;env)</code>&nbsp;</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../impl/visitors/expression/ExpressionVisitor.html#ExpressionVisitor-impl.env.Environment-">ExpressionVisitor</a></span>(<a href="../../../impl/env/Environment.html" title="class in execution.parser.env">Environment</a>&nbsp;env)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -383,7 +383,7 @@ extends grammar.alkBaseVisitor</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ExpressionVisitor</h4>
-<pre>public&nbsp;ExpressionVisitor(<a href="../../../impl/env/Environment.html" title="class in parser.env">Environment</a>&nbsp;env)</pre>
+<pre>public&nbsp;ExpressionVisitor(<a href="../../../impl/env/Environment.html" title="class in execution.parser.env">Environment</a>&nbsp;env)</pre>
 </li>
 </ul>
 </li>
@@ -405,7 +405,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>ConditionalExpression</code>
  labeled alternative in <code>alkParser.expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -415,7 +415,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -430,7 +430,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>LogicalOrExpression</code>
  labeled alternative in <code>alkParser.logical_or_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -440,7 +440,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -455,7 +455,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>LogicalAndExpression</code>
  labeled alternative in <code>alkParser.logical_and_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -465,7 +465,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -480,7 +480,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>InExpression</code>
  labeled alternative in <code>alkParser.in_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -490,7 +490,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -505,7 +505,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>EqualityExpression</code>
  labeled alternative in <code>alkParser.equality_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -515,7 +515,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -530,7 +530,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>RelationalExpression</code>
  labeled alternative in <code>alkParser.relational_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -540,7 +540,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -555,7 +555,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>SetExpression</code>
  labeled alternative in <code>alkParser.set_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -565,7 +565,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -580,7 +580,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>BitwiseOrExpression</code>
  labeled alternative in <code>alkParser.bitwise_or()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -590,7 +590,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -605,7 +605,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>BitwiseAndExpression</code>
  labeled alternative in <code>alkParser.bitwise_and()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -615,7 +615,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -630,7 +630,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>ShiftExpression</code>
  labeled alternative in <code>alkParser.shift_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -640,7 +640,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -655,7 +655,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>AdditiveExpression</code>
  labeled alternative in <code>alkParser.additive_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -665,7 +665,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -680,7 +680,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>MultiplicativeExpression</code>
  labeled alternative in <code>alkParser.multiplicative_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -690,7 +690,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -705,7 +705,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>PrefixExpression</code>
  labeled alternative in <code>alkParser.unary_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -715,7 +715,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -730,7 +730,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>UnaryExpression</code>
  labeled alternative in <code>alkParser.unary_expression()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -740,7 +740,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -755,7 +755,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>FunctionCallFactor</code>
  labeled alternative in <code>alkParser.factor()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -765,7 +765,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -780,7 +780,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>ParanthesesFactor</code>
  labeled alternative in <code>alkParser.factor()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -790,7 +790,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -805,7 +805,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>RefNameFactor</code>
  labeled alternative in <code>alkParser.factor()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -815,7 +815,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -830,7 +830,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>IntValue</code>
  labeled alternative in <code>alkParser.scalar_value()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -840,7 +840,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -855,7 +855,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>DoubleValue</code>
  labeled alternative in <code>alkParser.scalar_value()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -865,7 +865,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -880,7 +880,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>BoolValue</code>
  labeled alternative in <code>alkParser.scalar_value()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -890,7 +890,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -905,7 +905,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>StringValue</code>
  labeled alternative in <code>alkParser.scalar_value()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -915,7 +915,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -930,7 +930,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>ArrayValue</code>
  labeled alternative in <code>alkParser.data_structure()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -940,7 +940,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -955,7 +955,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>ListValue</code>
  labeled alternative in <code>alkParser.data_structure()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -965,7 +965,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -980,7 +980,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>SetValue</code>
  labeled alternative in <code>alkParser.data_structure()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -990,7 +990,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -1005,7 +1005,7 @@ extends grammar.alkBaseVisitor</pre>
 <div class="block">Visit a parse tree produced by the <code>StructureValue</code>
  labeled alternative in <code>alkParser.data_structure()</code>.
 
- <p>The default implementation returns the result of calling
+ <p>The default implementation returns the executionResult of calling
  <code>AbstractParseTreeVisitor.visitChildren(org.antlr.v4.runtime.tree.RuleNode)</code> on <code>ctx</code>.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -1015,7 +1015,7 @@ extends grammar.alkBaseVisitor</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ctx</code> - the parse tree</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the visitor result</dd>
+<dd>the visitor executionResult</dd>
 </dl>
 </li>
 </ul>
@@ -1050,7 +1050,7 @@ extends grammar.alkBaseVisitor</pre>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?parser/visitors/expression/ExpressionVisitor.html" target="_top">Frames</a></li>
+<li><a href="../../../index.html?execution.parser/visitors/expression/ExpressionVisitor.html" target="_top">Frames</a></li>
 <li><a href="ExpressionVisitor.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

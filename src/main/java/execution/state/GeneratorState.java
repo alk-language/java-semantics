@@ -3,9 +3,8 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.LocationMapper;
-import util.Payload;
-import util.SplitMapper;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.lambda.Validator;
 import util.types.Value;
 
@@ -27,22 +26,22 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
     protected Class<? extends alkBaseVisitor> visitor;
 
     protected GeneratorState(ParseTree tree,
-                             Payload payload,
+                             ExecutionPayload executionPayload,
                              List<? extends ParseTree> children,
                              Class<? extends alkBaseVisitor> visitor)
     {
-        super(tree, payload);
+        super(tree, executionPayload);
         this.children = children;
         this.visitor = visitor;
     }
 
     @Override
-    public ExecutionState<S, Value> makeStep()
+    public ExecutionState makeStep()
     {
         if (step == children.size() ||
             preValidator != null && !preValidator.isValid())
         {
-            result = new ExecutionResult<>(getFinalResult());
+            setResult(new ExecutionResult<>(getFinalResult()));
             return null;
         }
 
@@ -50,7 +49,7 @@ public abstract class GeneratorState<T extends Value, S extends Value> extends E
     }
 
     @Override
-    public abstract void assign(ExecutionResult<S> result);
+    public abstract void assign(ExecutionResult<T> executionResult);
 
     public abstract T getFinalResult();
 

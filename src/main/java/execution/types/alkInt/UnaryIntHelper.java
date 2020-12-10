@@ -1,7 +1,7 @@
 package execution.types.alkInt;
 
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
 
 import java.math.BigInteger;

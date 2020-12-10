@@ -4,20 +4,19 @@ import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.AdditiveExpressionContext.class)
 public class AdditiveExpressionState extends GuardedGeneratorState<AlkValue>
 {
     alkParser.AdditiveExpressionContext ctx;
 
-    public AdditiveExpressionState(alkParser.AdditiveExpressionContext tree, Payload payload) {
-        super(tree, payload, tree.multiplicative_expression(), ExpressionVisitor.class);
+    public AdditiveExpressionState(alkParser.AdditiveExpressionContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload, tree.multiplicative_expression(), ExpressionVisitor.class);
         visitor = ExpressionVisitor.class;
         ctx = tree;
     }
@@ -44,7 +43,7 @@ public class AdditiveExpressionState extends GuardedGeneratorState<AlkValue>
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        AdditiveExpressionState copy = new AdditiveExpressionState(ctx, sm.getPayload());
+        AdditiveExpressionState copy = new AdditiveExpressionState(ctx, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

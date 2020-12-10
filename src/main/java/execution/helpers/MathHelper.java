@@ -1,8 +1,8 @@
 package execution.helpers;
 
 import ch.obermuhlner.math.big.BigDecimalMath;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.InterpretorException;
 import execution.types.AlkValue;
 import execution.types.alkFloat.AlkFloat;
 import execution.types.alkInt.AlkInt;
@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
-import static parser.constants.Constants.MAX_DECIMALS;
-import static parser.exceptions.AlkException.ERR_MATH_INT_OR_DOUBLE;
+import static execution.parser.constants.Constants.MAX_DECIMALS;
+import static execution.parser.exceptions.AlkException.ERR_MATH_INT_OR_DOUBLE;
 
 public class MathHelper {
 

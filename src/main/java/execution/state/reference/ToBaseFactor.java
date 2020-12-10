@@ -3,22 +3,22 @@ package execution.state.reference;
 import execution.state.ExecutionState;
 import execution.state.GatewaySingleState;
 import grammar.alkParser;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.ToBaseFactorContext.class)
 public class ToBaseFactor extends GatewaySingleState {
 
-    public ToBaseFactor(alkParser.ToBaseFactorContext tree, Payload payload)
+    public ToBaseFactor(alkParser.ToBaseFactorContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.base_factor(), ExpressionVisitor.class);
+        super(tree, executionPayload, tree.base_factor(), ExpressionVisitor.class);
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ToBaseFactor copy = new ToBaseFactor((alkParser.ToBaseFactorContext) tree, sm.getPayload());
+        ToBaseFactor copy = new ToBaseFactor((alkParser.ToBaseFactorContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

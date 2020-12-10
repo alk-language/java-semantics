@@ -3,19 +3,20 @@ package execution.state.statement;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.exceptions.ContinueException;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.ContinueException;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.ContinueStmtContext.class)
-public class ContinueState extends ExecutionState
+public class ContinueState extends ExecutionState<Value, Value>
 {
     alkParser.ContinueStmtContext ctx;
 
-    public ContinueState(alkParser.ContinueStmtContext ctx, Payload payload)
+    public ContinueState(alkParser.ContinueStmtContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload);
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -26,7 +27,7 @@ public class ContinueState extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         // no-op
     }
@@ -34,7 +35,7 @@ public class ContinueState extends ExecutionState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        ContinueState copy = new ContinueState(ctx, sm.getPayload());
+        ContinueState copy = new ContinueState(ctx, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

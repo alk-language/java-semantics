@@ -4,21 +4,20 @@ import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.RelationalExpressionContext.class)
 public class RelationalExpressionState extends GuardedGeneratorState<AlkValue>
 {
     private alkParser.RelationalExpressionContext ctx;
 
-    public RelationalExpressionState(alkParser.RelationalExpressionContext tree, Payload payload)
+    public RelationalExpressionState(alkParser.RelationalExpressionContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.set_expression(), ExpressionVisitor.class);
+        super(tree, executionPayload, tree.set_expression(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
@@ -52,7 +51,7 @@ public class RelationalExpressionState extends GuardedGeneratorState<AlkValue>
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        RelationalExpressionState copy = new RelationalExpressionState((alkParser.RelationalExpressionContext) tree, sm.getPayload());
+        RelationalExpressionState copy = new RelationalExpressionState((alkParser.RelationalExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

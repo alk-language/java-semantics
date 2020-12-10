@@ -3,22 +3,22 @@ package execution.state.main;
 import execution.state.ExecutionState;
 import execution.state.IndependentGeneratorState;
 import grammar.alkParser;
-import parser.visitors.StmtVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.StmtVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.StatementSeqContext.class)
 public class StatementSeqState extends IndependentGeneratorState
 {
-    public StatementSeqState(alkParser.StatementSeqContext tree, Payload payload)
+    public StatementSeqState(alkParser.StatementSeqContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.statement(), StmtVisitor.class);
+        super(tree, executionPayload, tree.statement(), StmtVisitor.class);
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        StatementSeqState copy = new StatementSeqState((alkParser.StatementSeqContext) tree, sm.getPayload());
+        StatementSeqState copy = new StatementSeqState((alkParser.StatementSeqContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

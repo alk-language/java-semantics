@@ -1,16 +1,18 @@
 package execution.state;
 
+import ast.State;
+import execution.VisitorFactory;
 import execution.Execution;
+import execution.ExecutionPayload;
 import execution.ExecutionResult;
+import execution.exhaustive.SplitMapper;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.Environment;
-import parser.env.EnvironmentImpl;
-import parser.env.Store;
+import execution.parser.env.Environment;
+import execution.parser.env.StoreImpl;
 import execution.types.AlkValue;
-import parser.exceptions.AlkException;
-import parser.exceptions.UnwindException;
+import execution.parser.exceptions.AlkException;
 import util.*;
 import util.lambda.LocationGenerator;
 import util.types.Value;
@@ -21,31 +23,17 @@ import util.types.Value;
  * @param <S>
  *        The type of value which will be dependent upon
  */
-public abstract class ExecutionState<T extends Value, S extends Value> implements Cloneable
+public abstract class ExecutionState<T extends Value, S extends Value> extends State<ExecutionPayload, ExecutionResult<T>>
 {
-    protected ParseTree tree;
-
-    protected ExecutionResult result = null;
-
-    private Payload payload;
-
     protected LocationGenerator generator;
 
-    public ExecutionState(ParseTree tree, Payload payload)
+    public ExecutionState(ParseTree tree, ExecutionPayload executionPayload)
     {
-        this.tree = tree;
-        this.payload = payload;
-        generator = (AlkValue value) -> getStore().malloc().assign(value);
+        super(tree, executionPayload);
+        generator = (Value value) -> getStore().malloc().assign(value);
     }
 
-    public ExecutionResult getResult()
-    {
-        return result;
-    }
-
-    public abstract ExecutionState<S, ? extends Value> makeStep();
-
-    public abstract void assign(ExecutionResult<S> result);
+    public abstract ExecutionState makeStep();
 
     public abstract ExecutionState clone(SplitMapper sm);
 
@@ -54,32 +42,33 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
         return payload.getEnvManager().getEnv(this);
     }
 
-    protected Store getStore()
+    protected StoreImpl getStore()
     {
-        return payload.getExecution().getStore();
+        return getExec().getStore();
     }
 
     protected Configuration getConfig() { return payload.getConfiguration(); }
 
     protected Execution getExec() { return payload.getExecution(); }
 
-    protected FuncManager getFuncManager() { return payload.getExecution().getFuncManager(); }
+    protected FuncManager getFuncManager() { return getExec().getFuncManager(); }
 
-    protected Environment getGlobal() { return payload.getExecution().getGlobal(); }
+    protected Environment getGlobal() { return getExec().getGlobal(); }
 
-    protected AlgorithmTypeDetector getAlgorithmTypeDetector() { return payload.getExecution().getConfiguration(); }
+    protected AlgorithmTypeDetector getAlgorithmTypeDetector() { return getExec().getConfiguration(); }
 
 
     protected ExecutionState decorate(ExecutionState copy, SplitMapper sm)
     {
-        if (result != null)
+        if (getResult() != null)
         {
-            copy.result = result.clone(sm.getLocationMapper());
+            copy.setResult(getResult().clone(sm.getLocationMapper()));
         }
         return copy;
     }
 
-    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree)
+    @Override
+    public ExecutionState request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree)
     {
         return request(visitor, parseTree, (Value) null);
     }
@@ -99,21 +88,16 @@ public abstract class ExecutionState<T extends Value, S extends Value> implement
                                                Environment env,
                                                Value value)
     {
-        Payload nxt = new Payload(payload.getExecution(), value);
+        ExecutionPayload nxt = new ExecutionPayload(getExec(), value);
         return request(visitor, parseTree, env, nxt);
     }
 
     protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor,
                                                ParseTree parseTree,
                                                Environment env,
-                                               Payload payload)
+                                               ExecutionPayload executionPayload)
     {
-        return (ExecutionState) VisitorFactory.create(visitor, env, payload).visit(parseTree);
-    }
-
-    public boolean handle(UnwindException u)
-    {
-        return false;
+        return (ExecutionState) VisitorFactory.create(visitor, env, executionPayload).visit(parseTree);
     }
 
     public boolean handle(AlkException e)

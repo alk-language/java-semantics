@@ -4,23 +4,22 @@ import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.types.AlkValue;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
-import parser.exceptions.ReturnException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.ReturnException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 @CtxState(ctxClass = alkParser.ReturnStmtContext.class)
-public class ReturnState extends ExecutionState
+public class ReturnState extends ExecutionState<Value, Value>
 {
     alkParser.ReturnStmtContext ctx;
     AlkValue value;
 
-    public ReturnState(alkParser.ReturnStmtContext ctx, Payload payload)
+    public ReturnState(alkParser.ReturnStmtContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload);
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -36,15 +35,15 @@ public class ReturnState extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
-        value = (AlkValue) result.getValue().toRValue().clone(generator);
+        value = (AlkValue) executionResult.getValue().toRValue().clone(generator);
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        ReturnState copy = new ReturnState(ctx, sm.getPayload());
+        ReturnState copy = new ReturnState(ctx, sm.getExecutionPayload());
         copy.value = value.weakClone(sm.getLocationMapper());
         return super.decorate(copy, sm);
     }

@@ -3,9 +3,8 @@ package execution.state;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.LocationMapper;
-import util.Payload;
-import util.SplitMapper;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
@@ -15,17 +14,17 @@ public abstract class GuardedGeneratorState<T extends Value> extends GeneratorSt
     private T localResult;
 
     public GuardedGeneratorState(ParseTree tree,
-                                 Payload payload,
+                                 ExecutionPayload executionPayload,
                                  List<? extends ParseTree> children,
                                  Class<? extends alkBaseVisitor> visitor)
     {
-        super(tree, payload, children, visitor);
+        super(tree, executionPayload, children, visitor);
     }
 
     @Override
-    public void assign(ExecutionResult<T> result)
+    public void assign(ExecutionResult<T> executionResult)
     {
-        T value = result.getValue();
+        T value = executionResult.getValue();
         if (step == 1)
             localResult = value;
         else

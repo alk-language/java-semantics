@@ -4,21 +4,20 @@ import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 
 @CtxState(ctxClass = alkParser.BitwiseAndExpressionContext.class)
 public class BitwiseAndExpressionState extends GuardedGeneratorState<AlkValue>
 {
     alkParser.BitwiseAndExpressionContext ctx;
 
-    public BitwiseAndExpressionState(alkParser.BitwiseAndExpressionContext tree, Payload payload)
+    public BitwiseAndExpressionState(alkParser.BitwiseAndExpressionContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.shift_expression(), ExpressionVisitor.class);
+        super(tree, executionPayload, tree.shift_expression(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
@@ -31,7 +30,7 @@ public class BitwiseAndExpressionState extends GuardedGeneratorState<AlkValue>
 
         try
         {
-            return current.bitwiseAnd(next);
+            return current.bitwiseand(next);
         }
         catch (AlkException e)
         {
@@ -42,7 +41,7 @@ public class BitwiseAndExpressionState extends GuardedGeneratorState<AlkValue>
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        BitwiseAndExpressionState copy = new BitwiseAndExpressionState(ctx, sm.getPayload());
+        BitwiseAndExpressionState copy = new BitwiseAndExpressionState(ctx, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 }

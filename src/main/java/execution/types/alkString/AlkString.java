@@ -1,8 +1,8 @@
 package execution.types.alkString;
 
-import parser.env.Location;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkComparable;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
@@ -10,7 +10,7 @@ import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
 import util.lambda.LocationGenerator;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 
 // TODO: Make strings methods accessible even if they are not at stored

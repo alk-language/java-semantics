@@ -1,11 +1,10 @@
 package util.types;
 
-import parser.env.Location;
-import parser.env.LocationMapper;
+import execution.parser.env.Location;
+import execution.parser.env.LocationMapper;
 import util.lambda.LocationGenerator;
 
 public interface Value {
-
     Value weakClone(LocationMapper locationMapper);
     Value clone(LocationGenerator generator);
     Value toRValue();

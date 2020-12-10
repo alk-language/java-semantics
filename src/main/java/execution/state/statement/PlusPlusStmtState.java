@@ -2,25 +2,26 @@ package execution.state.statement;
 
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.types.AlkValue;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
-import parser.env.Location;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
 @CtxState(ctxClass = alkParser.PlusPlusStmtContext.class)
-public class PlusPlusStmtState extends ExecutionState
+public class PlusPlusStmtState extends ExecutionState<Value, Value>
 {
 
     private alkParser.PlusPlusStmtContext ctx;
     private Location ref;
 
-    public PlusPlusStmtState(alkParser.PlusPlusStmtContext ctx, Payload payload)
+    public PlusPlusStmtState(alkParser.PlusPlusStmtContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload);
+        super(ctx, executionPayload);
         this.ctx = ctx;
     }
 
@@ -33,7 +34,7 @@ public class PlusPlusStmtState extends ExecutionState
         }
         try
         {
-            ref.toRValue().plusplusleft();
+            ((AlkValue) ref.toRValue()).plusplusleft();
         }
         catch (AlkException e)
         {
@@ -43,15 +44,15 @@ public class PlusPlusStmtState extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
-        ref = result.getValue().toLValue();
+        ref = executionResult.getValue().toLValue();
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        PlusPlusStmtState copy = new PlusPlusStmtState(ctx, sm.getPayload());
+        PlusPlusStmtState copy = new PlusPlusStmtState(ctx, sm.getExecutionPayload());
         copy.ref = sm.getLocationMapper().get(ref);
         return super.decorate(copy, sm);
     }

@@ -1,13 +1,13 @@
 package execution.types.alkList;
 
-import parser.env.Location;
-import parser.exceptions.AlkException;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkInt.AlkInt;
 
 import java.util.LinkedList;
 
-import static parser.exceptions.AlkException.*;
+import static execution.parser.exceptions.AlkException.*;
 
 public class FunctionListHelper {
 
@@ -77,7 +77,7 @@ public class FunctionListHelper {
 
     public void removeAllEqTo(AlkValue value)
     {
-        list.removeIf(x -> (x.toRValue().equal(value).isTrue()));
+        list.removeIf(x -> (((AlkValue)x.toRValue()).equal(value).isTrue()));
     }
 
     public void removeAt(AlkValue position)

@@ -4,12 +4,11 @@ import execution.state.ExecutionState;
 import execution.state.SingleState;
 import grammar.alkParser;
 import execution.types.AlkValue;
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.exceptions.AlkException;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 @CtxState(ctxClass = alkParser.UnaryExpressionContext.class)
@@ -17,9 +16,9 @@ public class UnaryExpressionState extends SingleState<Value, Value>
 {
     private alkParser.UnaryExpressionContext ctx;
 
-    public UnaryExpressionState(alkParser.UnaryExpressionContext tree, Payload payload)
+    public UnaryExpressionState(alkParser.UnaryExpressionContext tree, ExecutionPayload executionPayload)
     {
-        super(tree, payload, tree.unary_expression(), ExpressionVisitor.class);
+        super(tree, executionPayload, tree.unary_expression(), ExpressionVisitor.class);
         this.ctx = tree;
     }
 
@@ -55,7 +54,7 @@ public class UnaryExpressionState extends SingleState<Value, Value>
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        UnaryExpressionState copy = new UnaryExpressionState((alkParser.UnaryExpressionContext) tree, sm.getPayload());
+        UnaryExpressionState copy = new UnaryExpressionState((alkParser.UnaryExpressionContext) tree, sm.getExecutionPayload());
         return super.decorate(copy, sm);
     }
 

@@ -4,28 +4,29 @@ import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.env.EnvironmentProxy;
-import parser.env.Location;
-import parser.exceptions.AlkException;
+import execution.parser.env.EnvironmentProxy;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
-import parser.visitors.expression.ExpressionVisitor;
+import execution.parser.visitors.expression.ExpressionVisitor;
 import execution.helpers.NonDeterministic;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static parser.exceptions.AlkException.ERR_CHOOSE_NOT_ITERABLE;
-import static parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
+import static execution.parser.exceptions.AlkException.ERR_CHOOSE_NOT_ITERABLE;
+import static execution.parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 
 @CtxState(ctxClass = alkParser.ChooseStmtContext.class)
-public class ChooseStmtState extends ExecutionState
+public class ChooseStmtState extends ExecutionState<Value, Value>
 {
     private alkParser.ChooseStmtContext ctx;
     private List<Location> array;
@@ -33,9 +34,9 @@ public class ChooseStmtState extends ExecutionState
     private int step = 0;
     private EnvironmentProxy env;
 
-    public ChooseStmtState(alkParser.ChooseStmtContext ctx, Payload payload)
+    public ChooseStmtState(alkParser.ChooseStmtContext ctx, ExecutionPayload executionPayload)
     {
-        super(ctx, payload);
+        super(ctx, executionPayload);
         this.ctx = ctx;
         getAlgorithmTypeDetector().setNonDeterministic(true);
     }
@@ -51,7 +52,7 @@ public class ChooseStmtState extends ExecutionState
         if (ctx.SOTHAT() != null && step < array.size())
         {
             env = new EnvironmentProxy(getEnv());
-            env.addTempEntry(ctx.ID().getText(), array.get(step).toRValue().clone(generator));
+            env.addTempEntry(ctx.ID().getText(), (AlkValue) array.get(step).toRValue().clone(generator));
             return super.request(ExpressionVisitor.class, ctx.expression(1), env);
         }
 
@@ -62,7 +63,7 @@ public class ChooseStmtState extends ExecutionState
 
         AlkArray arr = new AlkArray();
         arr.addAll(values);
-        AlkValue value = NonDeterministic.choose(arr.toArray(generator)).toRValue();
+        AlkValue value = (AlkValue) NonDeterministic.choose(arr.toArray(generator)).toRValue();
 
         if (!getConfig().hasExhaustive())
         {
@@ -85,13 +86,13 @@ public class ChooseStmtState extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult result)
+    public void assign(ExecutionResult executionResult)
     {
         if (array == null)
         {
-            if (result.getValue().toRValue() instanceof AlkIterableValue)
+            if (executionResult.getValue().toRValue() instanceof AlkIterableValue)
             {
-                array = ((AlkIterableValue) result.getValue().toRValue()).toArray(generator);
+                array = ((AlkIterableValue) executionResult.getValue().toRValue()).toArray(generator);
             }
             else
             {
@@ -100,9 +101,9 @@ public class ChooseStmtState extends ExecutionState
         }
         else
         {
-            if (result.getValue().toRValue() instanceof AlkBool)
+            if (executionResult.getValue().toRValue() instanceof AlkBool)
             {
-                if (((AlkBool)result.getValue().toRValue()).isTrue())
+                if (((AlkBool) executionResult.getValue().toRValue()).isTrue())
                     values.add(array.get(step));
                 step++;
             }
@@ -115,7 +116,7 @@ public class ChooseStmtState extends ExecutionState
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, sm.getPayload());
+        ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, sm.getExecutionPayload());
         copy.step = step;
 
         if (this.array != null)

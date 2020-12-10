@@ -1,8 +1,7 @@
 package execution.types.alkInt;
 
-import parser.env.LocationMapper;
-import parser.exceptions.AlkException;
-import parser.exceptions.InterpretorException;
+import execution.parser.env.LocationMapper;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import util.lambda.LocationGenerator;
@@ -41,22 +40,22 @@ public class AlkInt extends AlkValue {
         return help.bitwiseOr(operand);
     }
 
-    public AlkValue bitwiseXor(AlkValue operand) throws AlkException {
+    public AlkValue bitwisexor(AlkValue operand) throws AlkException {
         BitwiseIntHelper help = new BitwiseIntHelper(value);
         return help.bitwiseXor(operand);
     }
 
-    public AlkValue bitwiseAnd(AlkValue operand) throws AlkException {
+    public AlkValue bitwiseand(AlkValue operand) throws AlkException {
         BitwiseIntHelper help = new BitwiseIntHelper(value);
         return help.bitwiseAnd(operand);
     }
 
-    public AlkValue shiftLeft(AlkValue operand) throws AlkException {
+    public AlkValue shiftleft(AlkValue operand) throws AlkException {
         ShiftIntHelper help = new ShiftIntHelper(value);
         return help.shiftLeft(operand);
     }
 
-    public AlkValue shiftRight(AlkValue operand) throws AlkException {
+    public AlkValue shiftright(AlkValue operand) throws AlkException {
         ShiftIntHelper help = new ShiftIntHelper(value);
         return help.shiftRight(operand);
     }

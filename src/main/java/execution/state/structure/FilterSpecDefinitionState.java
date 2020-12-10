@@ -3,24 +3,23 @@ package execution.state.structure;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
-import parser.env.Environment;
-import parser.env.EnvironmentProxy;
-import parser.env.Location;
-import parser.exceptions.AlkException;
+import execution.parser.env.EnvironmentProxy;
+import execution.parser.env.Location;
+import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
-import parser.visitors.expression.ExpressionVisitor;
-import util.CtxState;
-import util.Payload;
-import util.SplitMapper;
+import execution.parser.visitors.expression.ExpressionVisitor;
+import ast.CtxState;
+import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 import java.util.List;
 
-import static parser.exceptions.AlkException.ERR_SPEC_BOOL;
-import static parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
+import static execution.parser.exceptions.AlkException.ERR_SPEC_BOOL;
+import static execution.parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.FilterSpecDefinitionContext.class)
 public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
@@ -32,8 +31,8 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
     private AlkValue validatingValue;
     private EnvironmentProxy env;
 
-    public FilterSpecDefinitionState(alkParser.FilterSpecDefinitionContext tree, Payload payload) {
-        super(tree, payload);
+    public FilterSpecDefinitionState(alkParser.FilterSpecDefinitionContext tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload);
         ctx = tree;
     }
 
@@ -45,11 +44,11 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
 
         if (step == source.size())
         {
-            result = new ExecutionResult<>(array);
+            setResult(new ExecutionResult<>(array));
             return null;
         }
 
-        validatingValue = source.get(step++).toRValue();
+        validatingValue = (AlkValue) source.get(step++).toRValue();
 
         env = new EnvironmentProxy(getEnv());
         env.addTempEntry(ctx.ID().toString(), validatingValue);
@@ -57,10 +56,10 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
     }
 
     @Override
-    public void assign(ExecutionResult<Value> result) {
+    public void assign(ExecutionResult executionResult) {
         if (source == null)
         {
-            AlkValue resultVal = (AlkValue) result.getValue().toRValue();
+            AlkValue resultVal = (AlkValue) executionResult.getValue().toRValue();
 
             if (!(resultVal instanceof AlkIterableValue))
                 super.handle(new AlkException(ERR_SPEC_ITERABLE_REQUIRED));
@@ -70,16 +69,16 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
         }
         else
         {
-            if (!(result.getValue().toRValue() instanceof AlkBool))
+            if (!(executionResult.getValue().toRValue() instanceof AlkBool))
                 super.handle(new AlkException(ERR_SPEC_BOOL));
-            if (((AlkBool) result.getValue().toRValue()).isTrue())
+            if (((AlkBool) executionResult.getValue().toRValue()).isTrue())
                 array.push(generator.generate(validatingValue));
         }
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        FilterSpecDefinitionState copy = new FilterSpecDefinitionState((alkParser.FilterSpecDefinitionContext) tree, sm.getPayload());
+        FilterSpecDefinitionState copy = new FilterSpecDefinitionState((alkParser.FilterSpecDefinitionContext) tree, sm.getExecutionPayload());
         copy.step = step;
 
         if (source != null)

@@ -2,7 +2,60 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
+<style>
+      body {
+    font-family: Roboto, sans-serif;
+    line-height: 1.6;
+    margin-left: 15%;
+    margin-right: 15%;
+    text-align: justify;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000c67;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+section {
+    margin-bottom: 5%;
+}
+
+#toc_container {
+    display: table;
+    font-size: 95%;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: none ;
+}
+
+footer {
+    line-height: 0.5;
+    color: #000c67;
+}
+
+table {
+    margin: 10px auto 10px auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+td {
+  padding: 8px;
+}
+
+th {
+  padding: 8px;
+  color: white;;
+  background-color: #000c67;
+
+}
+
+</style>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
     <title>Alk Reference Manual</title>
 </head>
@@ -413,8 +466,8 @@
           <section id="operators">
             <h3> 2.3.2 Data type operators</h3>
 
-            The majority of the operators are C-like. However there are new sets of operators meant to simplify the operations between certain data types (setwise operators, inclusive operators). In this section, each operator will be explained in terms of behavior, data types and the result of the evaluation. Below it is a table meant to illustrate the priority of operators inside an expression. <br>
-            In the table, if the number in the priority column is lower, then the operator will be executed quicker. For example, the conditional operator will be evaluated at the end. The ones which share the same priority, are executed in the order they appear in the expression. In order to suppress this order of evaluation, one can use the round parenthesis (for example: <code>(2 + 3) * 4</code> will result in <code>20</code>).<br>
+            The majority of the operators are C-like. However there are new sets of operators meant to simplify the operations between certain data types (setwise operators, inclusive operators). In this section, each operator will be explained in terms of behavior, data types and the executionResult of the evaluation. Below it is a table meant to illustrate the priority of operators inside an expression. <br>
+            In the table, if the number in the priority column is lower, then the operator will be executed quicker. For example, the conditional operator will be evaluated at the end. The ones which share the same priority, are executed in the order they appear in the expression. In order to suppress this order of evaluation, one can use the round parenthesis (for example: <code>(2 + 3) * 4</code> will executionResult in <code>20</code>).<br>
             To eliminate the confusion, in case of multiple <code>++</code> or <code>--</code> signs, they are parsed from left to right, which means that in an expression like <code>2+++3</code>,
             the evaluation will consider that there is a postfix operator and a plus sign: <code>(2++) + 3</code>. In case of <code>+++2</code>, there is a prefix operator and a unary plus sign: <code>++(+2)</code>.
             <table border = 1>
@@ -491,7 +544,7 @@
                 <li>The prefix operator changes the value of the operand and the expression continues to work with the updated value.</li>
                 <li>The postfix operator changes the value of the operand, but the expression continues to work with its old value.</li>
               </ul>
-              Note that only numeric values are valid for this kind of operations. Also, the result always has the same type as the initial value. <br>
+              Note that only numeric values are valid for this kind of operations. Also, the executionResult always has the same type as the initial value. <br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -510,7 +563,7 @@
                 <tr><td>Addition</td><td><code>a + b</code></td><td>Computes the sum of <i>a</i> and <i>b</i></td></tr>
                 <tr><td>Subtraction</td><td><code>a - b</code></td><td>Computes the difference between <i>a</i> and <i>b</i></td></tr>
                 <tr><td>Multiplication</td><td><code>a * b</code></td><td>Computes the product of <i>a</i> and <i>b</i></td></tr>
-                <tr><td>Division</td><td><code>a / b</code></td><td>Computes the division's result of <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Division</td><td><code>a / b</code></td><td>Computes the division's executionResult of <i>a</i> and <i>b</i></td></tr>
                 <tr><td>Mod operator</td><td><code>a % b</code></td><td>Computes the remainder left over when <i>a</i> is divided by <i>b</i></td></tr>
               </table>
 
@@ -521,7 +574,7 @@
               </table>
 
               The results of these first operators are numeric, but the exact resulted data type is sometimes dependent upon the operands. It means that it is relevant what 
-              data types <i>a</i> and <i>b</i> have: either integer or float. The table below illustrates of what data type the result is depending on the operator and operands. To be noted than an error is thrown when the mod operator works with a float operand.
+              data types <i>a</i> and <i>b</i> have: either integer or float. The table below illustrates of what data type the executionResult is depending on the operator and operands. To be noted than an error is thrown when the mod operator works with a float operand.
               <table border = 1>
                 <tr><th>Operator</th><th>Result data type</th><th>Operands data types</th></tr>
                 <tr><td>Concatenation</td><td>string</td><td>string, string</td></tr>
@@ -549,14 +602,14 @@
               integer values <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
-                <tr><td>Bitwise and</td><td><code>a & b</code></td><td>Computes the result of a bitwise and operation between <i>a</i> and <i>b</i></td></tr>
-                <tr><td>Bitwise or</td><td><code>a | b</code></td><td>Computes the result of a bitwise or operation between <i>a</i> and <i>b</i></td></tr>
-                <tr><td>Bitwise xor</td><td><code>a xor b</code></td><td>Computes the result of an bitwise xor operation between <i>a</i> and <i>b</i></td></tr>
-                <tr><td>Left shift</td><td><code>a << b</code></td><td>Computes the result after a bit shift of <i>a</i> with <i>b</i> bits to the left</td></tr>
-                <tr><td>Right shift</td><td><code>a >> b</code></td><td>Computes the result after a bit shift of <i>a</i> with <i>b</i> bits to the right</td></tr>
+                <tr><td>Bitwise and</td><td><code>a & b</code></td><td>Computes the executionResult of a bitwise and operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Bitwise or</td><td><code>a | b</code></td><td>Computes the executionResult of a bitwise or operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Bitwise xor</td><td><code>a xor b</code></td><td>Computes the executionResult of an bitwise xor operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Left shift</td><td><code>a << b</code></td><td>Computes the executionResult after a bit shift of <i>a</i> with <i>b</i> bits to the left</td></tr>
+                <tr><td>Right shift</td><td><code>a >> b</code></td><td>Computes the executionResult after a bit shift of <i>a</i> with <i>b</i> bits to the right</td></tr>
               </table>
 
-              Note that only integer operands are valid for this kind of operations. Also, the result of these operations is always integer. <br>
+              Note that only integer operands are valid for this kind of operations. Also, the executionResult of these operations is always integer. <br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -574,7 +627,7 @@
                 <tr><td>Intersection</td><td><code>a ^ b</code></td><td>Computes the intersection of the represented sets by <i>a</i> and <i>b</i></td></tr>
                 <tr><td>Difference</td><td><code>a \ b</code></td><td>Computes the difference of the represented sets by <i>a</i> and <i>b</i></td></tr>
               </table>
-              Note that the result of these operators is always a set and the operands should be evaluated to set. <br>
+              Note that the executionResult of these operators is always a set and the operands should be evaluated to set. <br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -596,7 +649,7 @@
                 <tr><td>Greater than or equal</td><td><code>a >= b</code></td><td>Checks if <i>a</i> has a value greater than <i>b</i> or if <i>a</i> and <i>b</i> have equal values</td></tr>
                 <tr><td>Greater than</td><td><code>a > b</code></td><td>Checks if <i>a</i> has a value greater than <i>b</i> </td></tr>
               </table>
-              These kind of operations have different meanings depending on the data types used for the operands. However, the result is always consistent in data type; these operators always deliver a bool result. The table below describes how these checks are made for each kind of data type.
+              These kind of operations have different meanings depending on the data types used for the operands. However, the executionResult is always consistent in data type; these operators always deliver a bool executionResult. The table below describes how these checks are made for each kind of data type.
               <table border = 1>
                 <tr><th>Operator</th><th>Result data type</th><th>Operands data types</th><th>Description</th></tr>
                 <tr><td>Equality: ==, !=</td><td>bool</td><td>integer, integer / float, integer / integer, float / float, float</td><td>Check if the represented numeric values are equal or not</td></tr>
@@ -656,10 +709,10 @@
               bool values <i>a</i> and <i>b</i> are used.
               <table border = 1>
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
-                <tr><td>Logical and</td><td><code>a && b</code></td><td>Computes the result of a logical and operation between <i>a</i> and <i>b</i></td></tr>
-                <tr><td>Logical or</td><td><code>a || b</code></td><td>Computes the result of a logical or operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Logical and</td><td><code>a && b</code></td><td>Computes the executionResult of a logical and operation between <i>a</i> and <i>b</i></td></tr>
+                <tr><td>Logical or</td><td><code>a || b</code></td><td>Computes the executionResult of a logical or operation between <i>a</i> and <i>b</i></td></tr>
               </table>
-              Note that only bool values are valid for this kind of operations. Also, the result of these operations is always bool. <br>
+              Note that only bool values are valid for this kind of operations. Also, the executionResult of these operations is always bool. <br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -675,7 +728,7 @@
                 <tr><th>Operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Conditional</td><td><code>a ? b : c</code></td><td>Evaluates to <i>b</i> only if <i>a</i> is true, otherwise it evaluates to <i>c</i></td></tr>
               </table>
-              Note that <i>a</i> should always evaluate to a bool value, while there is no restriction over the data types of <i>b</i> and <i>c</i>. The result is either <i>b</i> or <i>c</i>.<br>
+              Note that <i>a</i> should always evaluate to a bool value, while there is no restriction over the data types of <i>b</i> and <i>c</i>. The executionResult is either <i>b</i> or <i>c</i>.<br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -711,7 +764,7 @@
                 <tr><td>Pi</td><td><code>pi()</code></td><td>Returns the value of <i>π</i> </td></tr>
                 <tr><td>Abs</td><td><code>abs(a)</code></td><td>Returns the absolute value of <i>a</i> </td></tr>
               </table>
-              Note that all the functions above are working with numeric type values: integer or float. The result of these functions are all float, no matter the operands' types. In the examples section we presume that the precision was set to 3 decimals after the floating point.<br>
+              Note that all the functions above are working with numeric type values: integer or float. The executionResult of these functions are all float, no matter the operands' types. In the examples section we presume that the precision was set to 3 decimals after the floating point.<br>
 
               <b>Examples:</b>
               <table border = 1>
@@ -959,7 +1012,7 @@
 
             For this matter, imagine the following example: <code>a[2].x = 5;</code>. Note that this is the only instruction in the parsed algorithm. As variables should not be declared, this statement should work without any other specifications. For this job, Alk will automatically assign to the variable <code>a</code> an array data type value, which will have the size of 3, in order to allow the use of the bracket operator. Furthermore, at the index 2, a structure should be allocated in order to match the dot operator. Finally, after those two enclosed values were created, the assignment will work as Alk will automatically allocate a component with id <code>x</code> which will be assigned to 5.
 
-            However, the process above has a practical flow: what happens to the extra allocated space? In the example above, what values will be assigned to <code>a[0]</code> and <code>a[1]</code>. For this matter, Alk uses a special kind of representation, the <code>?</code> character which will symbolize that the specified additional space is unusable in the current state. So any usage of <code>a[0]</code> or <code>a[1]</code> will result in an error. However, one can assign new values to these references in order to properly access them afterwards. <br>
+            However, the process above has a practical flow: what happens to the extra allocated space? In the example above, what values will be assigned to <code>a[0]</code> and <code>a[1]</code>. For this matter, Alk uses a special kind of representation, the <code>?</code> character which will symbolize that the specified additional space is unusable in the current state. So any usage of <code>a[0]</code> or <code>a[1]</code> will executionResult in an error. However, one can assign new values to these references in order to properly access them afterwards. <br>
 
             <b>Examples:</b>
             <table border="1">
@@ -977,7 +1030,7 @@
 
             <section id="expression-representation">
               <h4> 2.4.3.1 Expression based definition </h4>
-              The expression based definitions are the basic way to define one iterable data type value. It allows one to enclose between specific characters, a series of comma separated expressions. Each expression will be evaluated and the result will be considered to be contained by the specified data type in the order provided. Note that a set can change the order of the elements. <br>
+              The expression based definitions are the basic way to define one iterable data type value. It allows one to enclose between specific characters, a series of comma separated expressions. Each expression will be evaluated and the executionResult will be considered to be contained by the specified data type in the order provided. Note that a set can change the order of the elements. <br>
 
               <b>Examples:</b>
               <table border="1">
@@ -1005,7 +1058,7 @@
 
             <section id="filter-representation">
               <h4> 2.4.3.3 Filter specification based definition </h4>
-              This type of representation is well suited in scenarios in which one wants to apply a certain filtering over the elements of a container. The filtering specification has a boolean expression provided which will be run using each element in a source value in order to detect if the chosen element shall pass the filtering or not. This depends on the result of the boolean expression. <br>
+              This type of representation is well suited in scenarios in which one wants to apply a certain filtering over the elements of a container. The filtering specification has a boolean expression provided which will be run using each element in a source value in order to detect if the chosen element shall pass the filtering or not. This depends on the executionResult of the boolean expression. <br>
 
               <b>Examples:</b>
               <table border="1">
@@ -1138,19 +1191,19 @@
               <table border = 1>
                 <tr><th>Assignment operator</th><th>Representation</th><th>Description</th></tr>
                 <tr><td>Simple assign</td><td><code>=</code></td><td>Assigns the value without modifing it</td></tr>
-                <tr><td>Addition assign</td><td><code>+=</code></td><td>Assigns the result from the addition operation between the left-value and the specified right-value</td></tr>
-                <tr><td>Subtraction assign</td><td><code>-=</code></td><td>Assigns the result from the subtraction operation between the left-value and the specified right-value</td></tr>
-                <tr><td>Multiplication assign</td><td><code>*=</code></td><td>Assigns the result from the multiplication operation between the left-value and the specified right-value</td></tr>
-                <tr><td>Division assign</td><td><code>/=</code></td><td>Assigns the result from the division operation between the left-value and the specified right-value</td></tr>
-                <tr><td>Mod assign</td><td><code>%=</code></td><td>Assigns the result from the mod operation between the left-value and right-value</td></tr>
-                <tr><td>Left shift assign</td><td><code><<=</code></td><td>Assigns the result from the left shift operation between the left-value and right-value</td></tr>
-                <tr><td>Right shift assign</td><td><code>>>=</code></td><td>Assigns the result from the right shift operation between the left-value and right-value</td></tr>
-                <tr><td>Bitwise and assign</td><td><code>&=</code></td><td>Assigns the result from the bitwise and operation between the left-value and right-value</td></tr>
-                <tr><td>Bitwise or assign</td><td><code>|=</code></td><td>Assigns the result from the bitwise or operation between the left-value and right-value</td></tr>
+                <tr><td>Addition assign</td><td><code>+=</code></td><td>Assigns the executionResult from the addition operation between the left-value and the specified right-value</td></tr>
+                <tr><td>Subtraction assign</td><td><code>-=</code></td><td>Assigns the executionResult from the subtraction operation between the left-value and the specified right-value</td></tr>
+                <tr><td>Multiplication assign</td><td><code>*=</code></td><td>Assigns the executionResult from the multiplication operation between the left-value and the specified right-value</td></tr>
+                <tr><td>Division assign</td><td><code>/=</code></td><td>Assigns the executionResult from the division operation between the left-value and the specified right-value</td></tr>
+                <tr><td>Mod assign</td><td><code>%=</code></td><td>Assigns the executionResult from the mod operation between the left-value and right-value</td></tr>
+                <tr><td>Left shift assign</td><td><code><<=</code></td><td>Assigns the executionResult from the left shift operation between the left-value and right-value</td></tr>
+                <tr><td>Right shift assign</td><td><code>>>=</code></td><td>Assigns the executionResult from the right shift operation between the left-value and right-value</td></tr>
+                <tr><td>Bitwise and assign</td><td><code>&=</code></td><td>Assigns the executionResult from the bitwise and operation between the left-value and right-value</td></tr>
+                <tr><td>Bitwise or assign</td><td><code>|=</code></td><td>Assigns the executionResult from the bitwise or operation between the left-value and right-value</td></tr>
               </table> 
 
               <b>Expression:</b> <br>
-              The expression should evaluate to the value which is desired to be assigned to the specified reference. As previously stated, the data type of the result shouldn't respect any limitations due to the <a href="#dynamic-allocation">dynamic allocation</a> feature. <br>
+              The expression should evaluate to the value which is desired to be assigned to the specified reference. As previously stated, the data type of the executionResult shouldn't respect any limitations due to the <a href="#dynamic-allocation">dynamic allocation</a> feature. <br>
 
               <b>Examples:</b> <br>
               <table border = 1>
@@ -1259,7 +1312,7 @@
           
           <section id="conditional-instruction">
             <h3> 2.6.3 Conditional instruction - if/else </h3>
-            The conditional instruction is used in order to put a condition over the execution of a statement (or implicitly a sequence of statements if the compound instruction is used). The conditioning is based on an expression which should evaluate to a bool value (the use of any other kind of data type value will result into an error). In case the execution should choose between two statements based on a condition, the <code>if</code> and <code>else</code> keywords should be used. Otherwise, meaning that only one statement should be be executed or not, it is enough to use only the <code>if</code> keyword.
+            The conditional instruction is used in order to put a condition over the execution of a statement (or implicitly a sequence of statements if the compound instruction is used). The conditioning is based on an expression which should evaluate to a bool value (the use of any other kind of data type value will executionResult into an error). In case the execution should choose between two statements based on a condition, the <code>if</code> and <code>else</code> keywords should be used. Otherwise, meaning that only one statement should be be executed or not, it is enough to use only the <code>if</code> keyword.
             <table border = 1>
               <tr><th>Syntax</th></tr>
               <tr><td><code>if (bool-expression) statement1</code></td></tr>
@@ -1441,7 +1494,7 @@
 
             <section id="choose-instruction">
               <h4> 2.6.5.1 Choose/such that instruction</h4>
-              The choose statement is the main tool to trigger a nondeterministic execution. A choose statement nondeterministically chooses an element from a given iterable value and assigns it to a specified variable. One can also specify an expression which should evaluate to a bool value and can be used as a hint for the statement to choose only values validating the expression. If the choose instruction can't find a suitable value, the execution will result in failure.
+              The choose statement is the main tool to trigger a nondeterministic execution. A choose statement nondeterministically chooses an element from a given iterable value and assigns it to a specified variable. One can also specify an expression which should evaluate to a bool value and can be used as a hint for the statement to choose only values validating the expression. If the choose instruction can't find a suitable value, the execution will executionResult in failure.
               <table border = 1>
                 <tr><th>Syntax</th></tr>
                 <tr><td><code>choose id in iterable;</code></td></tr>
@@ -1724,7 +1777,7 @@
 
       <section id="option-e">
         <h2> 3.6 Trigger exhaustive execution</h2>
-        The exhaustive execution option is a very powerful feature of Alk. It allows the user to generate multiple executions when using nondeterministic algorithms such that the final result is in fact an exhaustive search over all choices. This is highly valuable as it makes use of multithreading, so an efficient way of computing the results for nondeterminstic algorithms. Note that the option is a boolean option, meaning that it should not have any value assigned to it. The simple presence of this option will tell the interpreter to split the execution when a choose statement is found, such that all choice paths are evaluated in parallel.
+        The exhaustive execution option is a very powerful feature of Alk. It allows the user to generate multiple executions when using nondeterministic algorithms such that the final executionResult is in fact an exhaustive search over all choices. This is highly valuable as it makes use of multithreading, so an efficient way of computing the results for nondeterminstic algorithms. Note that the option is a boolean option, meaning that it should not have any value assigned to it. The simple presence of this option will tell the interpreter to split the execution when a choose statement is found, such that all choice paths are evaluated in parallel.
 
         <table border = 1>
           <tr><th>Syntax</th></tr>
