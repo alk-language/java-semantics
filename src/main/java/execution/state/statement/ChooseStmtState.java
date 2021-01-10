@@ -38,7 +38,7 @@ public class ChooseStmtState extends ExecutionState<Value, Value>
     {
         super(ctx, executionPayload);
         this.ctx = ctx;
-        getAlgorithmTypeDetector().setNonDeterministic(true);
+        getAlgorithmTypeDetector().setNonDeterministic(ctx.getChild(0).getText().equals("choose"));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ChooseStmtState extends ExecutionState<Value, Value>
         if (ctx.SOTHAT() != null && step < array.size())
         {
             env = new EnvironmentProxy(getEnv());
-            env.addTempEntry(ctx.ID().getText(), (AlkValue) array.get(step).toRValue().clone(generator));
+            env.addTempEntry(ctx.ID().getText(), array.get(step).toRValue().clone(generator));
             return super.request(ExpressionVisitor.class, ctx.expression(1), env);
         }
 
