@@ -1,10 +1,8 @@
 package util;
 
 import execution.types.AlkValue;
-import execution.types.alkInt.AlkInt;
-import execution.types.alkString.AlkString;
 import symbolic.OverdefinedValue;
-import symbolic.SymbolicValue;
+import symbolic.CPValue;
 import symbolic.UndefinedValue;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +13,7 @@ class Expression
     /*
         SymbolicValue = {AlkValue, Undefined, Overdefined}
      */
-    static SymbolicValue operation(BinaryOperator op, SymbolicValue parameter1, SymbolicValue parameter2)
+    static CPValue operation(BinaryOperator op, CPValue parameter1, CPValue parameter2)
     {
         if (parameter1 instanceof OverdefinedValue || parameter2 instanceof OverdefinedValue)
             return new OverdefinedValue();
@@ -30,7 +28,7 @@ class Expression
         try
         {
             Method method = value1.getClass().getMethod(opName, AlkValue.class);
-            return (SymbolicValue) method.invoke(value1, value2);
+            return (CPValue) method.invoke(value1, value2);
         }
         catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e)
         {

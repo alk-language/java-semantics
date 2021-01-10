@@ -23,6 +23,10 @@ public abstract class SingleState<T extends Value, S extends Value> extends Exec
 
     public SingleState(ParseTree tree, ExecutionPayload executionPayload, ParseTree dependency, Class<? extends alkBaseVisitor> visitor) {
         super(tree, executionPayload);
+        if (dependency == null)
+        {
+            int virga2 = 0;
+        }
         this.dependency = dependency;
         this.visitor = visitor;
     }

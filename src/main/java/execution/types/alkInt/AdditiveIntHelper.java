@@ -45,6 +45,7 @@ class AdditiveIntHelper {
         return new AlkInt(value.add(operand.value));
     }
 
+    // this(AlkInt) + AlkFloat = AlkFloat
     private AlkFloat add(AlkFloat operand)
     {
         return new AlkFloat(new BigDecimal(value).add(operand.value));

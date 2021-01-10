@@ -6,10 +6,12 @@ import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 
-public class UndefinedValue implements SymbolicValue {
+public class UndefinedValue
+implements CPValue
+{
 
     @Override
-    public boolean equals(SymbolicValue value) {
+    public boolean equals(CPValue value) {
         return value instanceof UndefinedValue;
     }
 
@@ -37,4 +39,5 @@ public class UndefinedValue implements SymbolicValue {
     public Location toLValue() {
         throw new InternalException("Can't cast Undefined Value to Left Value.");
     }
+
 }

@@ -6,14 +6,14 @@ import util.TestingConfiguration;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-class Testing {
+public class Testing {
     String run(String chapter, String input)
     {
         return run(chapter, input, 10);
     }
 
-    CharStream getCorrect(String chapter, String test) throws IOException {
-        return CharStreams.fromPath(Paths.get("tests/output/"+chapter+"/"+test+".out"));
+    String getCorrect(String chapter, String test) throws IOException {
+        return CharStreams.fromPath(Paths.get("tests/output/"+chapter+"/"+test+".out")).toString().replaceAll("\\r\\n", "\n");
     }
 
     String run(String chapter, String input, int precision)

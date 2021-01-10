@@ -3,7 +3,7 @@ package dataflow.domain;
 import dataflow.Domain;
 import execution.parser.exceptions.AlkException;
 import symbolic.OverdefinedValue;
-import symbolic.SymbolicValue;
+import symbolic.CPValue;
 import symbolic.UndefinedValue;
 import util.exception.InternalException;
 import util.types.Value;
@@ -19,14 +19,14 @@ public class VarValue implements Domain
 
     public static VarValue getAllOverdefined()
     {
-        Map<String, SymbolicValue> mapping = new HashMap<>();
+        Map<String, CPValue> mapping = new HashMap<>();
         allVars.forEach((var) -> mapping.put(var, new OverdefinedValue()));
         return new VarValue(mapping);
     }
 
     public static VarValue getAllUnderdefined()
     {
-        Map<String, SymbolicValue> mapping = new HashMap<>();
+        Map<String, CPValue> mapping = new HashMap<>();
         allVars.forEach((var) -> mapping.put(var, new UndefinedValue()));
         return new VarValue(mapping);
     }
@@ -36,9 +36,9 @@ public class VarValue implements Domain
         allVars.addAll(vars);
     }
 
-    private Map<String, SymbolicValue> mapping = new HashMap<>();
+    private Map<String, CPValue> mapping = new HashMap<>();
 
-    public VarValue(Map<String, SymbolicValue> mapping)
+    public VarValue(Map<String, CPValue> mapping)
     {
         this.mapping.putAll(mapping);
     }
@@ -55,11 +55,11 @@ public class VarValue implements Domain
 
     public VarValue meet(VarValue varValue)
     {
-        Map<String, SymbolicValue> ans = new HashMap<>();
+        Map<String, CPValue> ans = new HashMap<>();
 
         allVars.forEach((var) -> {
-            SymbolicValue now = mapping.get(var);
-            SymbolicValue next = varValue.mapping.get(var);
+            CPValue now = mapping.get(var);
+            CPValue next = varValue.mapping.get(var);
 
             if (now instanceof OverdefinedValue)
                 ans.put(var, next);
@@ -78,8 +78,8 @@ public class VarValue implements Domain
     {
         for (String var : allVars)
         {
-            SymbolicValue now = mapping.get(var);
-            SymbolicValue next = varValue.mapping.get(var);
+            CPValue now = mapping.get(var);
+            CPValue next = varValue.mapping.get(var);
 
             if ((now instanceof UndefinedValue) || (next instanceof OverdefinedValue))
                 continue;
@@ -103,7 +103,7 @@ public class VarValue implements Domain
         return true;
     }
 
-    public void put(String var, SymbolicValue value)
+    public void put(String var, CPValue value)
     {
         if (!allVars.contains(var))
             throw new InternalError("Can't put an unknown variable in VarValue.");
@@ -111,7 +111,7 @@ public class VarValue implements Domain
         if (value instanceof UndefinedValue)
             return;
 
-        SymbolicValue now = mapping.get(var);
+        CPValue now = mapping.get(var);
         if (now instanceof UndefinedValue)
         {
             mapping.put(var, value);
@@ -154,7 +154,7 @@ public class VarValue implements Domain
 
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for (Map.Entry<String, SymbolicValue> entry : mapping.entrySet())
+        for (Map.Entry<String, CPValue> entry : mapping.entrySet())
         {
             sb.append("(").append(entry.getKey()).append(" -> ").append(entry.getValue()).append(")").append(", ");
         }

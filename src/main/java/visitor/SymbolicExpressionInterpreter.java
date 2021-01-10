@@ -1,341 +1,155 @@
 package visitor;
 
+import ast.*;
 import execution.parser.env.Environment;
-import execution.parser.env.EnvironmentProxy;
-import execution.parser.env.Location;
-import execution.parser.exceptions.AlkException;
-import execution.types.AlkIterableValue;
-import execution.types.AlkValue;
-import execution.types.alkArray.AlkArray;
+import execution.types.BaseValue;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkFloat.AlkFloat;
 import execution.types.alkInt.AlkInt;
-import execution.types.alkList.AlkList;
-import execution.types.alkSet.AlkSet;
 import execution.types.alkString.AlkString;
-import execution.types.alkStructure.AlkStructure;
-import symbolic.OverdefinedValue;
 import symbolic.SymbolicValue;
-import symbolic.UndefinedValue;
+import symbolic.SymbolicValueIface;
 import util.Pair;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
-import util.types.ComponentValue;
-import util.types.Value;
 
 import javax.xml.ws.Provider;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class SymbolicExpressionInterpreter implements ExpressionInterpreter<SymbolicValue>
+public class SymbolicExpressionInterpreter
+implements ExpressionInterpreter<SymbolicValueIface>
 {
-    private static Map<String, Method> alkValueOps = new HashMap<>();
+    private static final PrimitiveBuilder primitiveBuilder = new PrimitiveBuilder();
 
-    static {
-        Method[] methods = AlkValue.class.getMethods();
-        for (Method method : methods)
-        {
-            alkValueOps.put(method.getName(), method);
-        }
-    }
+    private final ExpressionInterpreter<BaseValue> basicInterpreter;
 
-    private Environment env;
-    private LocationGenerator locationGenerator;
+    private final Environment env;
+    private final LocationGenerator generator;
 
-    public SymbolicExpressionInterpreter(Environment env, LocationGenerator locationGenerator)
+    SymbolicExpressionInterpreter(Environment env, LocationGenerator generator)
     {
         this.env = env;
-        this.locationGenerator = locationGenerator;
+        this.generator = generator;
+        this.basicInterpreter = new BasicExpressionInterpreter(env, generator);
     }
 
     @Override
-    public SymbolicValue evaluate(Operator op, List<SymbolicValue> values)
+    public SymbolicValueIface evaluate(Operator op, List<SymbolicValueIface> values)
     {
-
-        for (SymbolicValue value : values)
-            if (value instanceof OverdefinedValue)
-                return new OverdefinedValue();
-
-        for (SymbolicValue value : values)
-            if (value instanceof UndefinedValue)
-                return new UndefinedValue();
-
-        String opName = op.toString().toLowerCase();
-
-        try
+        if (!InterpreterHelper.containsSomeValue(values, SymbolicValue.class))
         {
-            Method method = alkValueOps.get(opName);
-
-            if (method == null)
-            {
-                throw new InternalException("Can't find desired operator for AlkValue through reflection");
-            }
-
-            if (values.get(0) == null)
-            {
-                throw new InternalException("First symbolic operand is null.");
-            }
-
-            Class<?>[] paramTypes = method.getParameterTypes();
-            if (paramTypes.length != values.size() - 1)
-            {
-                throw new InternalException("Invalid number of parameters for operator: " + opName);
-            }
-
-            List<Value> params = new ArrayList<>();
-            for (int i=0; i<values.size(); i++)
-                params.add(i, values.get(i).toRValue());
-
-            return (SymbolicValue) method.invoke(params.get(0), params.subList(1, params.size()).toArray());
-        }
-        catch (IllegalAccessException | InvocationTargetException e)
-        {
-            e.printStackTrace();
+            return basicInterpreter.evaluate(op, InterpreterHelper.castToBaseValues(values));
         }
 
+        List<SymbolicValue> symbolicValues = castToSymbolicValues(values);
+        List<AST> children = new ArrayList<>();
+        for (SymbolicValue symbolicValue : symbolicValues)
+        {
+            children.add(symbolicValue.getAst());
+        }
+
+        AST root = getOperatorAST(op, children);
+        return new SymbolicValue(root);
+    }
+
+    @Override
+    public SymbolicValueIface interpretVariable(String id) {
+        return new SymbolicValue(new RefIDAST(id));
+    }
+
+    @Override
+    public SymbolicValueIface interpretPrimitive(Primitive primitive, String value) {
+        return basicInterpreter.interpretPrimitive(primitive, value);
+    }
+
+    @Override
+    public SymbolicValueIface interpretComposite(Primitive primitive, List<SymbolicValueIface> values) {
         return null;
     }
 
     @Override
-    public SymbolicValue interpretVariable(String id)
-    {
-        if (!env.has(id))
-            return new UndefinedValue();
-        return env.getLocation(id);
+    public SymbolicValueIface interpretCompositeInterval(Primitive primitive, SymbolicValueIface left, SymbolicValueIface right) {
+        return null;
     }
 
     @Override
-    public SymbolicValue interpretPrimitive(Primitive primitive, String value)
-    {
-        switch (primitive)
-        {
-            case INT:
-                return new AlkInt(new BigInteger(value));
-            case STRING:
-                return new AlkString(value.substring(1, value.length() - 1));
-            case FLOAT:
-                return new AlkFloat(new BigDecimal(value));
-            case BOOL:
-                return new AlkBool(value.equals("true"));
-            default:
-                throw new InternalException("Unrecognized primitive in Symbolic Expression Interpreter");
-        }
-    }
-
-    private AlkIterableValue getIterableInstance(Primitive primitive)
-    {
-        AlkIterableValue struct;
-        switch (primitive)
-        {
-            case ARRAY:
-                struct = new AlkArray();
-                break;
-            case SET:
-                struct = new AlkSet();
-                break;
-            case LIST:
-                struct = new AlkList();
-                break;
-            default:
-                throw new InternalException("Unidentified iterable alk value type.");
-        }
-        return struct;
+    public SymbolicValueIface interpretCompositeFilterSpec(Primitive primitive, String id, SymbolicValueIface fromExpr, Provider<SymbolicValueIface> suchThat) {
+        return null;
     }
 
     @Override
-    public SymbolicValue interpretComposite(Primitive primitive, List<SymbolicValue> values)
+    public SymbolicValueIface interpretCompositeSelectSpec(Primitive primitive, String id, SymbolicValueIface fromExpr, Provider<SymbolicValueIface> suchThat) {
+        return null;
+    }
+
+    @Override
+    public SymbolicValueIface interpretCompositeComponents(Primitive primitive, List<Pair<String, SymbolicValueIface>> comps) {
+        return null;
+    }
+
+    private List<SymbolicValue> castToSymbolicValues(List<SymbolicValueIface> values)
     {
-        AlkIterableValue struct = getIterableInstance(primitive);
-        if (values == null)
+        List<SymbolicValue> result = new ArrayList<>();
+        for (SymbolicValueIface value : values)
         {
-            return struct;
-        }
-
-        for (SymbolicValue symvalue : values)
-        {
-            Value value = symvalue;
-            if (symvalue instanceof Location)
-            {
-                value = symvalue.toRValue();
-            }
-
-            if (value instanceof AlkValue)
-            {
-                Location loc = locationGenerator.generate(((AlkValue) value).toRValue());
-                struct.push(loc);
-            }
-            else if (value instanceof UndefinedValue)
-            {
-                return new UndefinedValue();
-            }
-            else if (value instanceof OverdefinedValue)
-            {
-                return new OverdefinedValue();
-            }
+            if (value instanceof SymbolicValue)
+                result.add((SymbolicValue) value);
             else
-            {
-                throw new InternalException("Unidentified symbolic value type.");
-            }
+                result.add(primitiveBuilder.accept(value));
         }
-
-        return struct;
+        return result;
     }
 
-    @Override
-    public SymbolicValue interpretCompositeInterval(Primitive primitive, SymbolicValue x, SymbolicValue y)
+    private AST getOperatorAST(Operator op, List<AST> children)
     {
-        Value left = x.toRValue();
-        Value right = y.toRValue();
-
-        if (left instanceof UndefinedValue || right instanceof UndefinedValue)
-            return new UndefinedValue();
-
-        if (left instanceof OverdefinedValue || right instanceof OverdefinedValue)
-            return new OverdefinedValue();
-
-        if (!(left instanceof AlkInt) || !(right instanceof AlkInt))
-            throw new InternalException("Can't make interval if limits are not integers");
-
-        AlkInt a = ((AlkInt) left);
-        AlkInt b = (AlkInt) right;
-
-        if (a.greater(b).isTrue())
-            throw new InternalException("Can't make interval if left limit is greater than right limit");
-
-        AlkIterableValue struct = getIterableInstance(primitive);
-
-        a = (AlkInt) a.clone(null);
-        while (a.lowereq(b).isTrue())
-        {
-            Location loc = locationGenerator.generate(a);
-            struct.push(loc);
-            a = (AlkInt) a.add(new AlkInt(BigInteger.ONE));
+        switch (op) {
+            case LOGICALOR: return LogicalOrAST.createBinary(op, children);
+            case LOGICALAND: return LogicalAndAST.createBinary(op, children);
+            case IN: return InExprAST.createBinary(op, children);
+            case EQUAL: case NOTEQUAL: case LOWER:
+            case LOWEREQ: case GREATER: case GREATEREQ: return EqualityAST.createBinary(op, children);
+            case UNION: case INTERSECT: case SETSUBTRACT: return SetExprAST.createBinary(op, children);
+            case BITWISEOR: case BITWISEXOR: return BitwiseOrAST.createBinary(op, children);
+            case BITWISEAND: return BitwiseAndAST.createBinary(op, children);
+            case SHIFTLEFT: case SHIFTRIGHT: return ShiftAST.createBinary(op, children);
+            case ADD: case SUBTRACT: return AdditiveAST.createBinary(op, children);
+            case MULTIPLY: case DIVIDE: case MOD: return MultiplicativeAST.createBinary(op, children);
+            case PLUSPLUSLEFT: case MINUSMINUSLEFT: return PrefixAST.createUnary(op, children);
+            case POSITIVE: case NEGATIVE: case NOT: return UnaryAST.createUnary(op, children);
+            case PLUSPLUSRIGHT: case MINUSMINUSRIGHT: return PostfixAST.createUnary(op, children);
+            case BRACKET: return BracketAST.createBinary(op, children);
+            default:
+                throw new InternalException("Unrecognized operator when symbolically interpreting an expression: " + op);
         }
-
-        return struct;
     }
+}
 
-    @Override
-    public SymbolicValue interpretCompositeFilterSpec(Primitive primitive, String id, SymbolicValue x, Provider<SymbolicValue> suchThat)
+class PrimitiveBuilder
+{
+    SymbolicValue accept(SymbolicValueIface value)
     {
-        AlkIterableValue struct = getIterableInstance(primitive);
-        Value fromExpr = x.toRValue();
+        // simple data types
+        if (value instanceof AlkBool)
+            return new SymbolicValue(new BoolAST(value.toString()));
+        if (value instanceof AlkInt)
+            return new SymbolicValue(new IntAST(value.toString()));
+        if (value instanceof AlkString)
+            return new SymbolicValue(new StringAST(value.toString()));
+        if (value instanceof AlkFloat)
+            return new SymbolicValue(new FloatAST(value.toString()));
 
-        if (fromExpr instanceof UndefinedValue)
-            return new UndefinedValue();
+        // TODO: implement compound data types
+        /*if (value instanceof AlkBool)
+            return castToSymbolicValue((AlkBool) value);
+        if (value instanceof AlkInt)
+            return castToSymbolicValue((AlkInt) value);
+        if (value instanceof AlkString)
+            return castToSymbolicValue((AlkString) value);
+        if (value instanceof AlkFloat)
+            return castToSymbolicValue((AlkFloat) value);*/
 
-        if (fromExpr instanceof OverdefinedValue)
-            return new OverdefinedValue();
-
-        if (!(fromExpr instanceof AlkIterableValue))
-            throw new AlkException("First expression in filter specification must be an iterable");
-
-        List<Location> locs = new ArrayList<>();
-        for (Location loc : (AlkIterableValue) fromExpr)
-        {
-            locs.add(loc);
-        }
-
-        EnvironmentProxy proxy = new EnvironmentProxy(env);
-        Environment old = env;
-        this.env = proxy;
-        for (Location loc : locs)
-        {
-            proxy.addTempEntry(id, loc.toRValue().clone(locationGenerator));
-            Value eval = suchThat.invoke(null).toRValue();
-
-            if (eval instanceof UndefinedValue)
-                return new UndefinedValue();
-
-            if (eval instanceof OverdefinedValue)
-                return new OverdefinedValue();
-
-            if (!(eval instanceof AlkBool))
-                throw new AlkException("Second expression in filter specification must be a boolean");
-
-            AlkBool condition = (AlkBool) eval;
-            if (condition.isTrue())
-            {
-                struct.push(locationGenerator.generate(loc.toRValue().clone(locationGenerator)));
-            }
-        }
-        this.env = old;
-        return struct;
+        throw new InternalException("Unrecognized value type when converting to symbolic value.");
     }
 
-    @Override
-    public SymbolicValue interpretCompositeSelectSpec(Primitive primitive, String id, SymbolicValue x, Provider<SymbolicValue> suchThat)
-    {
-        AlkIterableValue struct = getIterableInstance(primitive);
-        Value fromExpr = x.toRValue();
-
-        if (fromExpr instanceof UndefinedValue)
-            return new UndefinedValue();
-
-        if (fromExpr instanceof OverdefinedValue)
-            return new OverdefinedValue();
-
-        if (!(fromExpr instanceof AlkIterableValue))
-            throw new AlkException("Second expression in select specification must be an iterable");
-
-        List<Location> locs = new ArrayList<>();
-        for (Location loc : (AlkIterableValue) fromExpr)
-        {
-            locs.add(loc);
-        }
-
-        EnvironmentProxy proxy = new EnvironmentProxy(env);
-        Environment old = env;
-        this.env = proxy;
-        for (Location loc : locs)
-        {
-            proxy.addTempEntry(id, loc.toRValue().clone(locationGenerator));
-            Value eval = suchThat.invoke(null).toRValue();
-
-            if (eval instanceof UndefinedValue)
-                return new UndefinedValue();
-
-            if (eval instanceof OverdefinedValue)
-                return new OverdefinedValue();
-
-            if (!(eval instanceof AlkValue))
-                throw new InternalException("Can't use non-alkvalue in composite select spec");
-
-            struct.push(locationGenerator.generate(eval.clone(locationGenerator)));
-        }
-        this.env = old;
-        return struct;
-    }
-
-    @Override
-    public SymbolicValue interpretCompositeComponents(Primitive primitive, List<Pair<String, SymbolicValue>> comps)
-    {
-        if (primitive != Primitive.STRUCTURE)
-            throw new InternalException("Can't define non-structure type with components");
-
-        AlkStructure struct = new AlkStructure();
-
-        for (Pair<String, SymbolicValue> pair : comps)
-        {
-            Value value = pair.y.toRValue();
-            if (value instanceof UndefinedValue)
-                return new UndefinedValue();
-
-            if (value instanceof OverdefinedValue)
-                return new OverdefinedValue();
-
-            if (!(value instanceof AlkValue))
-                throw new InternalException("Can't use non-alkvalue in composite components spec");
-
-            struct.insert(new ComponentValue(pair.x, locationGenerator.generate(value.clone(locationGenerator))));
-        }
-
-        return struct;
-    }
 }

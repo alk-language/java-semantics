@@ -65,7 +65,7 @@ multiplicative_expression
 
 unary_expression
 :
-    (PLUSPLUS | MINUSMINUS | PLUSPLUSMOD | MINUSMINUSMOD)  unary_expression                                             #PrefixExpression
+    (PLUSPLUS | MINUSMINUS | PLUSPLUSMOD | MINUSMINUSMOD) unary_expression                                              #PrefixExpression
     | (MUL | PLUS | MINUS | NOT) unary_expression                                                                       #UnaryExpression
     | postfix_expression                                                                                                #ToPostfixExpression
 ;

@@ -1,10 +1,10 @@
+a = 15;
+b = 12;
+while (b != 0 )
+{
+    r = a % b;
+    a = b;
+    b = r;
+}
+
 print(a);
-print(pi());
-
-print({<1, 2>, <1, 2>});
-print({} == {});
-
-x = "ana.are.mere";
-print(x.split());
-print(x.split("\."));
-

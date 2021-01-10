@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: SymbolicExpressionTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.024 s <<< FAILURE! - in SymbolicExpressionTests
+integerExprTest  Time elapsed: 0.024 s  <<< ERROR!
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at SymbolicExpressionTests.integerExprTest(SymbolicExpressionTests.java:16)
+
