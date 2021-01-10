@@ -12,84 +12,84 @@ public class LanguageFeaturesTests extends Testing {
     @Test
     void arrofcharsTest() throws IOException {
         String test = "arrofchars";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void assgnsTest() throws IOException {
         String test = "assgns";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void boolopsTest() throws IOException {
         String test = "boolops";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void breakTest() throws IOException {
         String test = "break";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void continueTest() throws IOException {
         String test = "continue";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void convTest() throws IOException {
         String test = "conv";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void eqTest() throws IOException {
         String test = "eq";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void evensetTest() throws IOException {
         String test = "evenset";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void fctcallsTest() throws IOException {
         String test = "fctcalls";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void floatopsTest() throws IOException {
         String test = "floatops";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void globalsTest() throws IOException {
         String test = "globals";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void outparamTest() throws IOException {
         String test = "outparam";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 }

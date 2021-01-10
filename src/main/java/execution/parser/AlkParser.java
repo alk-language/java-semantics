@@ -51,7 +51,31 @@ public class AlkParser
      */
     public static ParseTree execute(File alkFile)
     {
-        return execute(alkFile, PreProcessing.newContext(alkFile.getAbsolutePath()));
+        return execute(alkFile, false);
+    }
+
+    /**
+     * Main entry point of the parsing process.
+     * @param alkFile
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the file.
+     */
+    public static ParseTree execute(File alkFile, PreProcessing.PreProcessingContext context)
+    {
+        return execute(alkFile, false, PreProcessing.newContext(alkFile.getAbsolutePath()));
+    }
+
+    /**
+     * Main entry point of the parsing process.
+     * @param alkFile
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the file.
+     */
+    public static ParseTree execute(File alkFile, boolean forExpression)
+    {
+        return execute(alkFile, forExpression, PreProcessing.newContext(alkFile.getAbsolutePath()));
     }
 
     /**
@@ -64,12 +88,16 @@ public class AlkParser
      * @return
      *        The parse tree resulted from parsing the file.
      */
-    public static ParseTree execute(File alkFile, PreProcessing.PreProcessingContext context)
+    public static ParseTree execute(File alkFile, boolean forExpression, PreProcessing.PreProcessingContext context)
     {
         try {
             InputStream alkInStr= new FileInputStream(alkFile);
             CharStream file = CharStreams.fromStream(alkInStr);
-            ParseTree tree = new alkParser(new CommonTokenStream(new alkLexer(file))).main();
+            ParseTree tree;
+            if (forExpression)
+                tree = new alkParser(new CommonTokenStream(new alkLexer(file))).expression();
+            else
+                tree = new alkParser(new CommonTokenStream(new alkLexer(file))).main();
             PreProcessing.expandIncludes(context, tree);
             return tree;
         } catch (IOException e) {

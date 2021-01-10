@@ -1,15 +1,17 @@
 package execution.parser.env;
 
-import execution.types.AlkValue;
+import execution.types.BaseValue;
 import execution.types.alkNotAValue.AlkNotAValue;
-import symbolic.SymbolicValue;
+import symbolic.CPValue;
+import symbolic.SymbolicValueIface;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 
-public class Location implements SymbolicValue {
-
-    private StoreImpl store;
+public class Location
+implements BaseValue
+{
+    private final StoreImpl store;
 
     public Location(StoreImpl store)
     {
@@ -56,7 +58,7 @@ public class Location implements SymbolicValue {
     }
 
     @Override
-    public boolean equals(SymbolicValue value)
+    public boolean equals(CPValue value)
     {
         return this == value;
     }

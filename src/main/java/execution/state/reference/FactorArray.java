@@ -47,7 +47,7 @@ public class FactorArray extends ExecutionState<Value, Value>
 
         try
         {
-            Location loc = ((AlkValue) reference.toRValue()).bracket(index.value.intValueExact(), generator);
+            Location loc = ((AlkValue) reference.toRValue()).bracket(index, generator);
             setResult(new ExecutionResult(loc));
         }
         catch (AlkException e)

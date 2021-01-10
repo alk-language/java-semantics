@@ -9,9 +9,10 @@ import execution.parser.env.EnvironmentImpl;
 import execution.parser.env.StoreImpl;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
-import symbolic.SymbolicValue;
+import symbolic.CPValue;
 import visitor.ExpressionVisitor;
-import visitor.SymbolicExpressionInterpreter;
+import visitor.CPExpressionInterpreter;
+import visitor.ParseTreeExprVisitor;
 
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class CPropagTransferFunction implements TransferFunction<VarValue>
         alkParser.AssignmentStmtContext assgn = (alkParser.AssignmentStmtContext) tree;
         VarValue ans = VarValue.getAllUnderdefined().join(input);
         String id = getId(assgn.factor());
-        SymbolicValue value = getExpr(assgn.expression());
+        CPValue value = getExpr(assgn.expression());
         ans.put(id, value);
         env.update(id, ans.getValue(id));
         return ans;
@@ -53,9 +54,9 @@ public class CPropagTransferFunction implements TransferFunction<VarValue>
         return vars.iterator().next();
     }
 
-    private SymbolicValue getExpr(alkParser.ExpressionContext exprCtx)
+    private CPValue getExpr(alkParser.ExpressionContext exprCtx)
     {
-        ExpressionVisitor<SymbolicValue> visitor = new ExpressionVisitor<>(new SymbolicExpressionInterpreter(env, store));
-        return visitor.visit(exprCtx);
+        ExpressionVisitor<CPValue> visitor = new ExpressionVisitor<>(new CPExpressionInterpreter(env, store));
+        return new ParseTreeExprVisitor().visit(exprCtx).accept(visitor);
     }
 }

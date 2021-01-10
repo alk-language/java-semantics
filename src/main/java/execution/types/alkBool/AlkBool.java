@@ -41,6 +41,11 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
         return value;
     }
 
+    @Override
+    public AlkValue ifelse(AlkValue expr1, AlkValue expr2)
+    {
+        return isTrue() ? expr1 : expr2;
+    }
 
     /**
      * Basic overload of the AlkValue default logicalOr operation

@@ -16,18 +16,3 @@ public interface ExpressionInterpreter<T>
     T interpretCompositeSelectSpec(Primitive primitive, String id, T fromExpr, Provider<T> suchThat);
     T interpretCompositeComponents(Primitive primitive, List<Pair<String, T>> comps);
 }
-
-// x + 2
-// env: id -> loc
-// store: loc -> Value
-// 123
-
-// old: Value >  AlkValue > AlkInt
-
-// Value > SymbolicValue > AlkValue > AlkInt
-// Value > SymbolicValue > UndefinedValue
-// Value > SymbolicValue > OverdefinedValue
-// Value > Location
-
-// Value.toRValue: this -> Value
-// Value.toLValue: this -> Location
