@@ -131,7 +131,6 @@ public class Functions {
     public AlkValue random(List<AlkValue> params)
     {
         BigDecimal total = new BigDecimal(((AlkInt) ParamHelper.getValue(params, 0)).value);
-        System.err.println(total);
         config.interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));
         config.setProbabilistic(true);
         return NonDeterministic.getRandom(ParamHelper.getValue(params, 0));
