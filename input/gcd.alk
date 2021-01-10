@@ -1,3 +1,68 @@
-D |-> { n -> 10
-        a -> [ < 1, 3 >, < 2 >, < 3, 9 >, < 2, 4 >, <  >, < 1, 7 >, < 5 >, < 6 >, < 0 >, < 0 >] }
-i0 |-> 0
+x = 5;
+a = 6;
+b = y;
+c = 5;
+a = 8;
+
+// AST -> formula Z3 ?
+// ExpressionVisitor (AST, interpreter) -> formula z3
+
+ctx.logical_and_expression(i)
+
+<---sugar-syntax --->
+
+for child in ctx.children:
+    if child instanceof logical_and_expression:
+        return child
+
+public Logical_and_expressionContext logical_and_expression(int i) {
+    return getRuleContext(Logical_and_expressionContext.class, i);
+};
+
+
+ctx ->
+IntContext, Additive, Int, RefName
+
+ctx.logical_and_expression(0) -> eroare
+
+high cohesion
+
+visitor <-> AST (limite la executia buclelor while, in cadrul executiei simbolice) <-> ParseTree (linia, coloana)
+
+// driverul de executie -> stiva de stari, clonari, fabrica de visitori
+// driverul de analiza -> CFG, visitori generici
+// analiza -> limita de executie
+
+AST:
+    ParseTree parseTree;
+    List<AST> children;
+    1) Map<AttributeName, AttributeValue> attributes; // "type" -> int, "formulaZ3" -> ...
+    2) Map<Attribute.class, Attribute>
+
+AdditiveAST, AST:
+
+
+MultiplicativeParseTree:
+e1 * e2 / e3 / e4 % e5 * e6 / e7 : "ops" |-> List<Operator> = [*,/,/,%,*,/]
+
+AdditiveParseTree:
+e1 + e2 + e3 - e4 - e5 + e6 - e7
+
+
+
+
+
+A: antlr.ParseTree -> alk.AST
+B: alk.AST -> Value/SymbolicValue/CPValue
+
+ParseTreeExprVisitor: antlr.ParseTree -> alk.AST
+ExpresionVisitor: alk.AST -> T
+    - BasicExpressionInterpreter:    T = BaseValue
+    - CPExpressionInterpreter:       T = CPValue (BaseValue U UndefinedValue U OverdefinedValue)
+    - SymbolicExpressionInterpreter: T = SymbolicValue
+
+
+1 * 2 + a
+    => Eroare a nu fost initializat
+    => Undefined / Overdefined / BaseValue
+    => plus(multiply(1, 2), a)

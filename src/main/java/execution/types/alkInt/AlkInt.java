@@ -11,6 +11,7 @@ import java.math.BigInteger;
 // TODO: define AlkInt constants for efficiency
 public class AlkInt extends AlkValue {
 
+    public static final AlkInt ONE = new AlkInt(BigInteger.ONE);
     public BigInteger value;
 
     public AlkInt(BigInteger value)
@@ -35,7 +36,7 @@ public class AlkInt extends AlkValue {
         return help.lower(operand);
     }
 
-    public AlkValue bitwiseOr(AlkValue operand) throws AlkException {
+    public AlkValue bitwiseor(AlkValue operand) throws AlkException {
         BitwiseIntHelper help = new BitwiseIntHelper(value);
         return help.bitwiseOr(operand);
     }

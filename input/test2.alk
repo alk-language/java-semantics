@@ -9,7 +9,42 @@ iota: () -> T
 
 functie de transfer f: AST x T -> T
 
++
+functie de rule-break: VAR x T -> T
+
 ====================================
 
 Solutie: V -> T
 Implementarea algoritmului worklist care gaseste solutia
+
+// expresii -> (expresii simbolice) => AST-uri ireductibile
+//
+
+param x, y
+// x |-> x0
+// y |-> y0
+
+a = x + 2;
+b = y + 3;
+// a |-> x + 2
+// b |-> y + 3
+
+c = a * b;
+// c = (x + 2) * (y + 3);
+
+Value -> SymbolicValue -> AlkValue -> AlkInt
+
+if op1 si op2 sunt AlkValue:
+    rez = op1 OP op2
+else
+    AST(op1, OP, op2)
+
+ParseTree <==> AST
+AdditiveContext <==> AST adnotat (are plus in el si doi fii)
+
+if (op == "+")
+    AST = AdditiveContext
+else if (op == "*")
+    AST = MultiplicativeContext
+
+"a*2" "3"

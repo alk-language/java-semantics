@@ -4,9 +4,10 @@ import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
-import symbolic.SymbolicValue;
+import execution.types.alkInt.AlkInt;
+import symbolic.CPValue;
 import util.lambda.LocationGenerator;
-import util.types.Value;
+import visitor.RequiresGenerator;
 
 import static execution.parser.exceptions.AlkException.*;
 
@@ -14,7 +15,10 @@ import static execution.parser.exceptions.AlkException.*;
  *  The main abstract class describing a value in Alk.
  *  TODO: Take care with default method behavior if not overridden. Some of the methods there may not be implemented.
  */
-public abstract class AlkValue implements Comparable<AlkValue>, Value, SymbolicValue {
+public abstract class AlkValue
+implements Comparable<AlkValue>,
+           BaseValue
+{
     /** Describes the type of the current value, can have one of the following:
      * TODO: replace the type with instance of checker
      * scalar_value - Int, Double, Bool, String
@@ -49,7 +53,7 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value, SymbolicV
     }
 
     @Override
-    public boolean equals(SymbolicValue value)
+    public boolean equals(CPValue value)
     {
         return equals((Object) value);
     }
@@ -553,7 +557,8 @@ public abstract class AlkValue implements Comparable<AlkValue>, Value, SymbolicV
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public Location bracket(int operand, LocationGenerator generator)
+    @RequiresGenerator
+    public Location bracket(AlkInt operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_BRACKET);
     }

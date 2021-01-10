@@ -159,10 +159,14 @@ public class AlkArray extends AlkIterableValue {
     public Location get(int index, LocationGenerator generator)
     {
         if (index < 0 || index >= MAX_ARRAY)
+        {
             throw new AlkException(ERR_ARRAY_OUT_OF_BOUNDS);
+        }
 
         while (array.size() <= index)
+        {
             array.add(generator.generate(new AlkNotAValue()));
+        }
 
         return array.get(index);
     }
@@ -210,8 +214,8 @@ public class AlkArray extends AlkIterableValue {
     }
 
     @Override
-    public Location bracket(int operand, LocationGenerator generator) {
-        return get(operand, generator);
+    public Location bracket(AlkInt operand, LocationGenerator generator) {
+        return get(operand.value.intValueExact(), generator);
     }
 
     @Override

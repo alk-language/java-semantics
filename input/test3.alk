@@ -1,0 +1,39 @@
+// dfs.in
+D.n = n0:int;
+D.a = a0:array<list<int>>;
+i0 = x:int;
+
+/*D.n = 3;
+D.a[0] = <1, 2>;
+D.a[1] = <2, 0>;
+D.a[2] = <0>;
+i0=1;*/
+
+
+
+i = 0;
+while (i < D.n) {
+  p[i] = D.a[i];
+  S[i] = 0;
+  i = i + 1;
+}
+SB = emptyList;
+SB.pushFront(i0);
+S[i0] = 1;
+
+while (SB.size() > 0) {
+  i = SB.topFront();
+  if (p[i].size() == 0) {
+    SB.popFront();
+  }
+  else {
+    j = p[i].topFront();
+    p[i].popFront();
+    if (S[j] == 0) {
+      // visit j;
+      S[j] = 1;
+      SB.pushFront(j);
+    }
+  }
+}
+print(S);

@@ -97,6 +97,10 @@ public abstract class ExecutionState<T extends Value, S extends Value> extends S
                                                Environment env,
                                                ExecutionPayload executionPayload)
     {
+        if (parseTree == null)
+        {
+            int virga = 0;
+        }
         return (ExecutionState) VisitorFactory.create(visitor, env, executionPayload).visit(parseTree);
     }
 

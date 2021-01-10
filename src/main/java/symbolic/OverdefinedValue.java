@@ -6,10 +6,10 @@ import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 
-public class OverdefinedValue implements SymbolicValue {
+public class OverdefinedValue implements CPValue {
 
     @Override
-    public boolean equals(SymbolicValue value) {
+    public boolean equals(CPValue value) {
         return value instanceof OverdefinedValue;
     }
 

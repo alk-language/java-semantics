@@ -12,63 +12,63 @@ public class OperatorsTests extends Testing {
     @Test
     void unary() throws IOException {
         String test = "unary";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void incdec() throws IOException {
         String test = "incdec";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void arithmetic() throws IOException {
         String test = "arithmetic";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void bitwise() throws IOException {
         String test = "bitwise";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void setwise() throws IOException {
         String test = "setwise";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void relational() throws IOException {
         String test = "relational";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void inclusive() throws IOException {
         String test = "inclusive";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void logical() throws IOException {
         String test = "logical";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 
     @Test
     void conditional() throws IOException {
         String test = "conditional";
-        CharStream correct = getCorrect(chapter, test);
-        assertEquals(correct.toString(), run(chapter, test));
+        String correct = getCorrect(chapter, test);
+        assertEquals(correct, run(chapter, test));
     }
 }

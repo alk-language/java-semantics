@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="DataStrcuturesTests" time="0.079" tests="10" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="DataStrcuturesTests" time="0.285" tests="10" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="sun.desktop" value="gnome"/>
-    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="file.encoding.pkg" value="sun.io"/>
     <property name="java.specification.version" value="1.8"/>
-    <property name="sun.cpu.isalist" value=""/>
-    <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/alex/IdeaProjects/java-semantics/target/test-classes:/home/alex/IdeaProjects/java-semantics/target/classes:/home/alex/.m2/repository/org/antlr/antlr4/4.7.1/antlr4-4.7.1.jar:/home/alex/.m2/repository/org/antlr/antlr4-runtime/4.7.1/antlr4-runtime-4.7.1.jar:/home/alex/.m2/repository/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar:/home/alex/.m2/repository/org/antlr/ST4/4.0.8/ST4-4.0.8.jar:/home/alex/.m2/repository/org/abego/treelayout/org.abego.treelayout.core/1.0.3/org.abego.treelayout.core-1.0.3.jar:/home/alex/.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar:/home/alex/.m2/repository/com/ibm/icu/icu4j/58.2/icu4j-58.2.jar:/home/alex/.m2/repository/ch/obermuhlner/big-math/2.0.1/big-math-2.0.1.jar:/home/alex/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar:/home/alex/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar:/home/alex/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/alex/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/alex/.m2/repository/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar:/home/alex/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar:/home/alex/.m2/repository/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar:/home/alex/.m2/repository/org/springframework/spring-context/4.3.2.RELEASE/spring-context-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-beans/4.3.2.RELEASE/spring-beans-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-core/4.3.2.RELEASE/spring-core-4.3.2.RELEASE.jar:/home/alex/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/home/alex/.m2/repository/org/springframework/spring-expression/4.3.2.RELEASE/spring-expression-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-context-support/4.3.2.RELEASE/spring-context-support-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-aop/4.3.2.RELEASE/spring-aop-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/aspectj/aspectjrt/1.8.13/aspectjrt-1.8.13.jar:/home/alex/.m2/repository/org/aspectj/aspectjweaver/1.8.13/aspectjweaver-1.8.13.jar:"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="G:\facultate\ALK\java-semantics\target\test-classes;G:\facultate\ALK\java-semantics\target\classes;C:\Users\Alex\.m2\repository\org\antlr\antlr4\4.7.1\antlr4-4.7.1.jar;C:\Users\Alex\.m2\repository\org\antlr\antlr4-runtime\4.7.1\antlr4-runtime-4.7.1.jar;C:\Users\Alex\.m2\repository\org\antlr\antlr-runtime\3.5.2\antlr-runtime-3.5.2.jar;C:\Users\Alex\.m2\repository\org\antlr\ST4\4.0.8\ST4-4.0.8.jar;C:\Users\Alex\.m2\repository\org\abego\treelayout\org.abego.treelayout.core\1.0.3\org.abego.treelayout.core-1.0.3.jar;C:\Users\Alex\.m2\repository\org\glassfish\javax.json\1.0.4\javax.json-1.0.4.jar;C:\Users\Alex\.m2\repository\com\ibm\icu\icu4j\58.2\icu4j-58.2.jar;C:\Users\Alex\.m2\repository\ch\obermuhlner\big-math\2.0.1\big-math-2.0.1.jar;C:\Users\Alex\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar;C:\Users\Alex\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.2\junit-jupiter-api-5.4.2.jar;C:\Users\Alex\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\Alex\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\Alex\.m2\repository\org\junit\platform\junit-platform-commons\1.4.2\junit-platform-commons-1.4.2.jar;C:\Users\Alex\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.2\junit-jupiter-engine-5.4.2.jar;C:\Users\Alex\.m2\repository\org\junit\platform\junit-platform-engine\1.4.2\junit-platform-engine-1.4.2.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-context\4.3.2.RELEASE\spring-context-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-beans\4.3.2.RELEASE\spring-beans-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-core\4.3.2.RELEASE\spring-core-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-expression\4.3.2.RELEASE\spring-expression-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-context-support\4.3.2.RELEASE\spring-context-support-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-aop\4.3.2.RELEASE\spring-aop-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\aspectj\aspectjrt\1.8.13\aspectjrt-1.8.13.jar;C:\Users\Alex\.m2\repository\org\aspectj\aspectjweaver\1.8.13\aspectjweaver-1.8.13.jar;"/>
+    <property name="java.vm.vendor" value="Amazon.com Inc."/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="java.vendor.url" value="http://java.oracle.com/"/>
-    <property name="user.timezone" value=""/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://aws.amazon.com/corretto/"/>
+    <property name="user.timezone" value="Europe/Athens"/>
     <property name="java.vm.specification.version" value="1.8"/>
-    <property name="os.name" value="Linux"/>
+    <property name="os.name" value="Windows 10"/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
-    <property name="sun.java.command" value="/home/alex/IdeaProjects/java-semantics/target/surefire/surefirebooter5213538999958773653.jar /home/alex/IdeaProjects/java-semantics/target/surefire 2020-10-21T14-38-00_893-jvmRun1 surefire693629164024033984tmp surefire_06195304209176761522tmp"/>
-    <property name="surefire.test.class.path" value="/home/alex/IdeaProjects/java-semantics/target/test-classes:/home/alex/IdeaProjects/java-semantics/target/classes:/home/alex/.m2/repository/org/antlr/antlr4/4.7.1/antlr4-4.7.1.jar:/home/alex/.m2/repository/org/antlr/antlr4-runtime/4.7.1/antlr4-runtime-4.7.1.jar:/home/alex/.m2/repository/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar:/home/alex/.m2/repository/org/antlr/ST4/4.0.8/ST4-4.0.8.jar:/home/alex/.m2/repository/org/abego/treelayout/org.abego.treelayout.core/1.0.3/org.abego.treelayout.core-1.0.3.jar:/home/alex/.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar:/home/alex/.m2/repository/com/ibm/icu/icu4j/58.2/icu4j-58.2.jar:/home/alex/.m2/repository/ch/obermuhlner/big-math/2.0.1/big-math-2.0.1.jar:/home/alex/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar:/home/alex/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar:/home/alex/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/alex/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/alex/.m2/repository/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar:/home/alex/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar:/home/alex/.m2/repository/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar:/home/alex/.m2/repository/org/springframework/spring-context/4.3.2.RELEASE/spring-context-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-beans/4.3.2.RELEASE/spring-beans-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-core/4.3.2.RELEASE/spring-core-4.3.2.RELEASE.jar:/home/alex/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/home/alex/.m2/repository/org/springframework/spring-expression/4.3.2.RELEASE/spring-expression-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-context-support/4.3.2.RELEASE/spring-context-support-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/springframework/spring-aop/4.3.2.RELEASE/spring-aop-4.3.2.RELEASE.jar:/home/alex/.m2/repository/org/aspectj/aspectjrt/1.8.13/aspectjrt-1.8.13.jar:/home/alex/.m2/repository/org/aspectj/aspectjweaver/1.8.13/aspectjweaver-1.8.13.jar:"/>
+    <property name="sun.boot.library.path" value="C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\Alex\AppData\Local\Temp\surefire365658947042252805\surefirebooter2277604648905855660.jar C:\Users\Alex\AppData\Local\Temp\surefire365658947042252805 2021-01-10T19-29-01_214-jvmRun1 surefire5081446299498660426tmp surefire_04627725852439495849tmp"/>
+    <property name="surefire.test.class.path" value="G:\facultate\ALK\java-semantics\target\test-classes;G:\facultate\ALK\java-semantics\target\classes;C:\Users\Alex\.m2\repository\org\antlr\antlr4\4.7.1\antlr4-4.7.1.jar;C:\Users\Alex\.m2\repository\org\antlr\antlr4-runtime\4.7.1\antlr4-runtime-4.7.1.jar;C:\Users\Alex\.m2\repository\org\antlr\antlr-runtime\3.5.2\antlr-runtime-3.5.2.jar;C:\Users\Alex\.m2\repository\org\antlr\ST4\4.0.8\ST4-4.0.8.jar;C:\Users\Alex\.m2\repository\org\abego\treelayout\org.abego.treelayout.core\1.0.3\org.abego.treelayout.core-1.0.3.jar;C:\Users\Alex\.m2\repository\org\glassfish\javax.json\1.0.4\javax.json-1.0.4.jar;C:\Users\Alex\.m2\repository\com\ibm\icu\icu4j\58.2\icu4j-58.2.jar;C:\Users\Alex\.m2\repository\ch\obermuhlner\big-math\2.0.1\big-math-2.0.1.jar;C:\Users\Alex\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar;C:\Users\Alex\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.2\junit-jupiter-api-5.4.2.jar;C:\Users\Alex\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\Alex\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\Alex\.m2\repository\org\junit\platform\junit-platform-commons\1.4.2\junit-platform-commons-1.4.2.jar;C:\Users\Alex\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.2\junit-jupiter-engine-5.4.2.jar;C:\Users\Alex\.m2\repository\org\junit\platform\junit-platform-engine\1.4.2\junit-platform-engine-1.4.2.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-context\4.3.2.RELEASE\spring-context-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-beans\4.3.2.RELEASE\spring-beans-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-core\4.3.2.RELEASE\spring-core-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-expression\4.3.2.RELEASE\spring-expression-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-context-support\4.3.2.RELEASE\spring-context-support-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\springframework\spring-aop\4.3.2.RELEASE\spring-aop-4.3.2.RELEASE.jar;C:\Users\Alex\.m2\repository\org\aspectj\aspectjrt\1.8.13\aspectjrt-1.8.13.jar;C:\Users\Alex\.m2\repository\org\aspectj\aspectjweaver\1.8.13\aspectjweaver-1.8.13.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="/home/alex"/>
+    <property name="user.home" value="C:\Users\Alex"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.home" value="/usr/lib/jvm/java-8-oracle/jre"/>
-    <property name="basedir" value="/home/alex/IdeaProjects/java-semantics"/>
-    <property name="file.separator" value="/"/>
+    <property name="java.home" value="C:\Users\Alex\.jdks\corretto-1.8.0_275\jre"/>
+    <property name="basedir" value="G:\facultate\ALK\java-semantics"/>
+    <property name="file.separator" value="\"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/alex/IdeaProjects/java-semantics/target/surefire/surefirebooter5213538999958773653.jar"/>
-    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\Alex\AppData\Local\Temp\surefire365658947042252805\surefirebooter2277604648905855660.jar"/>
+    <property name="sun.boot.class.path" value="C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\resources.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\rt.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\sunrsasign.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\jsse.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\jce.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\charsets.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\jfr.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\classes"/>
+    <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="1.8.0_201-b09"/>
-    <property name="user.name" value="alex"/>
-    <property name="path.separator" value=":"/>
-    <property name="os.version" value="5.3.0-64-generic"/>
-    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/endorsed"/>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
-    <property name="file.encoding" value="UTF-8"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="localRepository" value="/home/alex/.m2/repository"/>
-    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="/tmp"/>
-    <property name="java.version" value="1.8.0_201"/>
-    <property name="user.dir" value="/home/alex/IdeaProjects/java-semantics"/>
+    <property name="java.runtime.version" value="1.8.0_275-b01"/>
+    <property name="user.name" value="Alex"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.endorsed.dirs" value="C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\endorsed"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\Alex\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/corretto/corretto-8/issues/"/>
+    <property name="java.io.tmpdir" value="C:\Users\Alex\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2020.3"/>
+    <property name="java.version" value="1.8.0_275"/>
+    <property name="user.dir" value="G:\facultate\ALK\java-semantics"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
-    <property name="idea.version2019.3.1" value="true"/>
-    <property name="sun.os.patch.level" value="unknown"/>
-    <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\mingw32\bin;E:\utils\antlr-4.9-complete.jar;G:\utils\bin;C:\Users\Alex\AppData\Local\Microsoft\WindowsApps;;E:\utils\Microsoft VS Code\bin;C:\Users\Alex\.dotnet\tools;C:\Users\Alex\go\bin;."/>
     <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="25.201-b09"/>
-    <property name="java.ext.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="java.vendor" value="Amazon.com Inc."/>
+    <property name="java.vm.version" value="25.275-b01"/>
+    <property name="java.ext.dirs" value="C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="specsTest" classname="DataStrcuturesTests" time="0.008"/>
-  <testcase name="intervalsTest" classname="DataStrcuturesTests" time="0.003"/>
-  <testcase name="arraysTest" classname="DataStrcuturesTests" time="0.003"/>
-  <testcase name="sequencesofarraysTest" classname="DataStrcuturesTests" time="0.012"/>
-  <testcase name="structuresofstructuresTest" classname="DataStrcuturesTests" time="0.003"/>
-  <testcase name="arraysofarraysTest" classname="DataStrcuturesTests" time="0.012"/>
-  <testcase name="arraysofsequencesTest" classname="DataStrcuturesTests" time="0.014"/>
-  <testcase name="setsTest" classname="DataStrcuturesTests" time="0.006"/>
-  <testcase name="structuresTest" classname="DataStrcuturesTests" time="0.003"/>
-  <testcase name="seqTest" classname="DataStrcuturesTests" time="0.009"/>
+  <testcase name="specsTest" classname="DataStrcuturesTests" time="0.131"/>
+  <testcase name="intervalsTest" classname="DataStrcuturesTests" time="0.013"/>
+  <testcase name="arraysTest" classname="DataStrcuturesTests" time="0.014"/>
+  <testcase name="sequencesofarraysTest" classname="DataStrcuturesTests" time="0.021"/>
+  <testcase name="structuresofstructuresTest" classname="DataStrcuturesTests" time="0.015"/>
+  <testcase name="arraysofarraysTest" classname="DataStrcuturesTests" time="0.02"/>
+  <testcase name="arraysofsequencesTest" classname="DataStrcuturesTests" time="0.018"/>
+  <testcase name="setsTest" classname="DataStrcuturesTests" time="0.019"/>
+  <testcase name="structuresTest" classname="DataStrcuturesTests" time="0.011"/>
+  <testcase name="seqTest" classname="DataStrcuturesTests" time="0.017"/>
 </testsuite>
