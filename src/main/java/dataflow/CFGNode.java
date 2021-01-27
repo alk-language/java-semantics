@@ -1,7 +1,6 @@
 package dataflow;
 
-import control.ControlFlowGraph;
-import org.antlr.v4.runtime.tree.ParseTree;
+import ast.AST;
 
 import java.util.List;
 
@@ -9,6 +8,6 @@ public interface CFGNode
 {
     List<CFGNode> getInputs();
     List<CFGNode> getOutputs();
-    ParseTree getTree();
+    AST getTree();
     void forceText(String text);
 }

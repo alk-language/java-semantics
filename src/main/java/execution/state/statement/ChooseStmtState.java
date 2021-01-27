@@ -1,9 +1,10 @@
 package execution.state.statement;
 
+import ast.AST;
+import ast.attr.IdASTAttr;
 import execution.Execution;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import grammar.alkParser;
 import execution.parser.env.EnvironmentProxy;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
@@ -12,74 +13,92 @@ import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
-import execution.parser.visitors.expression.ExpressionVisitor;
 import execution.helpers.NonDeterministic;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static execution.parser.constants.Constants.MAX_DECIMALS;
 import static execution.parser.exceptions.AlkException.ERR_CHOOSE_NOT_ITERABLE;
 import static execution.parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 
-@CtxState(ctxClass = alkParser.ChooseStmtContext.class)
-public class ChooseStmtState extends ExecutionState<Value, Value>
+public class ChooseStmtState
+extends ExecutionState
 {
-    private alkParser.ChooseStmtContext ctx;
-    private List<Location> array;
+    private final String id;
+    private final boolean uniform;
+
+    private List<Location> source;
     private List<Location> values = new ArrayList<>();
     private int step = 0;
     private EnvironmentProxy env;
 
-    public ChooseStmtState(alkParser.ChooseStmtContext ctx, ExecutionPayload executionPayload)
+    public ChooseStmtState(AST tree, ExecutionPayload executionPayload, boolean uniform)
     {
-        super(ctx, executionPayload);
-        this.ctx = ctx;
-        getAlgorithmTypeDetector().setNonDeterministic(ctx.getChild(0).getText().equals("choose"));
+        super(tree, executionPayload);
+        if (uniform)
+        {
+            getAlgorithmTypeDetector().setProbabilistic(true);
+        }
+        else
+        {
+            getAlgorithmTypeDetector().setNonDeterministic(true);
+        }
+
+        this.id = tree.getAttribute(IdASTAttr.class).getId();
+        this.uniform = uniform;
     }
 
     @Override
     public ExecutionState makeStep()
     {
-        if (array == null)
+        if (source == null)
         {
-            return super.request(ExpressionVisitor.class, ctx.expression(0));
+            return super.request(tree.getChild(0));
         }
 
-        if (ctx.SOTHAT() != null && step < array.size())
+        if (tree.getChildCount() > 1 && step < source.size())
         {
             env = new EnvironmentProxy(getEnv());
-            env.addTempEntry(ctx.ID().getText(), array.get(step).toRValue().clone(generator));
-            return super.request(ExpressionVisitor.class, ctx.expression(1), env);
+            env.addTempEntry(id, source.get(step).toRValue().clone(generator));
+            return super.request(tree.getChild(1), env);
         }
 
-        if (ctx.SOTHAT() == null)
+        if (tree.getChildCount() == 1)
         {
-            values = array;
+            values = source;
         }
 
         AlkArray arr = new AlkArray();
         arr.addAll(values);
-        AlkValue value = (AlkValue) NonDeterministic.choose(arr.toArray(generator)).toRValue();
+
+        AlkValue value = (AlkValue) NonDeterministic.choose(arr.toArray()).toRValue();
 
         if (!getConfig().hasExhaustive())
         {
-            getEnv().update(ctx.ID().getText(), value.clone(generator));
+            getEnv().update(id, value.clone(generator));
         }
         else
         {
-            int size = ((AlkInt)arr.size()).value.intValueExact();
-            for (int i = 0; i < size - 1; i++)
+            int size = ((AlkInt) arr.size()).value.intValueExact();
+            for (int i = 1; i < size; i++)
             {
                 Execution current = getExec();
-                getEnv().update(ctx.ID().getText(), arr.get(i, generator).toRValue().clone(generator));
+                getEnv().update(id, arr.get(i, generator).toRValue().clone(generator));
                 Execution next = current.clone(true);
                 next.start();
             }
-            getEnv().update(ctx.ID().getText(), arr.get(size-1, generator).toRValue().clone(generator));
+            getEnv().update(id, arr.get(0, generator).toRValue().clone(generator));
+        }
+
+        if (uniform)
+        {
+            BigDecimal total = new BigDecimal(((AlkInt) arr.size()).value);
+            getConfig().interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));
         }
 
         return null;
@@ -88,11 +107,11 @@ public class ChooseStmtState extends ExecutionState<Value, Value>
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        if (array == null)
+        if (source == null)
         {
             if (executionResult.getValue().toRValue() instanceof AlkIterableValue)
             {
-                array = ((AlkIterableValue) executionResult.getValue().toRValue()).toArray(generator);
+                source = ((AlkIterableValue) executionResult.getValue().toRValue()).toArray();
             }
             else
             {
@@ -104,7 +123,9 @@ public class ChooseStmtState extends ExecutionState<Value, Value>
             if (executionResult.getValue().toRValue() instanceof AlkBool)
             {
                 if (((AlkBool) executionResult.getValue().toRValue()).isTrue())
-                    values.add(array.get(step));
+                {
+                    values.add(source.get(step));
+                }
                 step++;
             }
             else
@@ -116,14 +137,14 @@ public class ChooseStmtState extends ExecutionState<Value, Value>
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        ChooseStmtState copy = new ChooseStmtState((alkParser.ChooseStmtContext) tree, sm.getExecutionPayload());
+        ChooseStmtState copy = new ChooseStmtState(tree, payload.clone(sm), uniform);
         copy.step = step;
 
-        if (this.array != null)
+        if (this.source != null)
         {
-            copy.array = new ArrayList<>();
-            for (Location loc : array)
-                copy.array.add(sm.getLocationMapper().get(loc));
+            copy.source = new ArrayList<>();
+            for (Location loc : source)
+                copy.source.add(sm.getLocationMapper().get(loc));
         }
 
         if (values != null)

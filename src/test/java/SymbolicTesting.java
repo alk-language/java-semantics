@@ -1,5 +1,5 @@
 import util.TestingConfiguration;
-import visitor.SymbolicExpressionEvaluator;
+import main.SymbolicExpressionEvaluator;
 
 public class SymbolicTesting extends Testing
 {

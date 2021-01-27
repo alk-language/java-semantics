@@ -3,6 +3,8 @@ package ast;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.UnwindException;
 import util.Configuration;
+import util.exception.InternalException;
+import util.types.Value;
 
 import java.util.Stack;
 
@@ -10,11 +12,11 @@ public class ASTStack<T extends State>
 {
     protected Stack<T> stack = new Stack<>();
 
-    protected Configuration config;
+    protected Configuration conf;
 
-    public ASTStack(Configuration config)
+    public ASTStack(Configuration conf)
     {
-        this.config = config;
+        this.conf = conf;
     }
 
     public void push(T state)
@@ -57,7 +59,7 @@ public class ASTStack<T extends State>
             if (u.isError())
                 throw new AlkException(u);
             else
-                config.getIOManager().write(u.getMessage());
+                conf.getIOManager().write(u.getMessage());
         }
     }
 

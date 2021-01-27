@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.BracketAST;
-import visitor.VisitorIface;
+import ast.expr.BracketAST;
+import visitor.ifaces.VisitorIface;
 
 public interface BracketVisitorIface<T>
 extends VisitorIface<T>

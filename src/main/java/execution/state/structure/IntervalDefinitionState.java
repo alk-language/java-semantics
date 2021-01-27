@@ -1,5 +1,6 @@
 package execution.state.structure;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
@@ -7,12 +8,10 @@ import grammar.alkParser;
 import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkInt.AlkInt;
-import execution.parser.visitors.expression.ExpressionVisitor;
 import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.types.IntervalValue;
-import util.types.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +20,12 @@ import static execution.parser.exceptions.AlkException.ERR_LIMIT;
 import static execution.parser.exceptions.AlkException.ERR_NOINT_INTERVAL;
 
 @CtxState(ctxClass = alkParser.IntervalDefinitionContext.class)
-public class IntervalDefinitionState extends GeneratorState<IntervalValue, Value>
+public class IntervalDefinitionState extends GeneratorState
 {
+    private final List<AlkValue> limits = new ArrayList<>();
 
-    private List<AlkValue> limits = new ArrayList<>();
-
-    public IntervalDefinitionState(alkParser.IntervalDefinitionContext tree, ExecutionPayload executionPayload) {
-        super(tree, executionPayload, tree.expression(), ExpressionVisitor.class);
+    public IntervalDefinitionState(AST tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload);
     }
 
     @Override
@@ -51,7 +49,7 @@ public class IntervalDefinitionState extends GeneratorState<IntervalValue, Value
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        IntervalDefinitionState copy = new IntervalDefinitionState((alkParser.IntervalDefinitionContext) tree, sm.getExecutionPayload());
+        IntervalDefinitionState copy = new IntervalDefinitionState(tree, payload.clone(sm));
         for (AlkValue value : limits)
         {
             copy.limits.add(value.weakClone(sm.getLocationMapper()));

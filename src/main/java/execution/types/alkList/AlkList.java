@@ -211,8 +211,7 @@ public class AlkList extends AlkIterableValue
     }
 
     @Override
-    // TODO: location generator is not needed
-    public ArrayList<Location> toArray(LocationGenerator generator)
+    public ArrayList<Location> toArray()
     {
         return new ArrayList<>(list);
     }

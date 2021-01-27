@@ -1,22 +1,19 @@
 package execution.state.statement;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import grammar.alkParser;
 import execution.parser.exceptions.BreakException;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
 
-@CtxState(ctxClass = alkParser.BreakStmtContext.class)
-public class BreakState extends ExecutionState<Value, Value>
+public class BreakState
+extends ExecutionState
 {
-    alkParser.BreakStmtContext ctx;
 
-    public BreakState(alkParser.BreakStmtContext ctx, ExecutionPayload executionPayload)
+    public BreakState(AST tree, ExecutionPayload executionPayload)
     {
-        super(ctx, executionPayload);
+        super(tree, executionPayload);
     }
 
     @Override
@@ -34,7 +31,7 @@ public class BreakState extends ExecutionState<Value, Value>
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        BreakState copy = new BreakState(ctx, sm.getExecutionPayload());
+        BreakState copy = new BreakState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

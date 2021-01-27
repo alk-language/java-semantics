@@ -1,5 +1,6 @@
 package control;
 
+import ast.AST;
 import dataflow.CFGNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.exception.InternalException;
@@ -11,10 +12,10 @@ public class CFGNodeImpl implements CFGNode
 {
     private List<CFGNode> inputs = new ArrayList<>();
     private List<CFGNode> outputs = new ArrayList<>();
-    private ParseTree tree;
+    private AST tree;
     private String forcedText;
 
-    public CFGNodeImpl(ParseTree tree)
+    public CFGNodeImpl(AST tree)
     {
         this.tree = tree;
     }
@@ -41,7 +42,7 @@ public class CFGNodeImpl implements CFGNode
     }
 
     @Override
-    public ParseTree getTree() {
+    public AST getTree() {
         return tree;
     }
 

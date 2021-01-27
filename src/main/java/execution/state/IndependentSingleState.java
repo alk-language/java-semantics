@@ -1,5 +1,6 @@
 package execution.state;
 
+import ast.AST;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.ExecutionPayload;
@@ -9,11 +10,8 @@ import util.types.Value;
 public abstract class IndependentSingleState extends SingleState
 {
 
-    public IndependentSingleState(ParseTree tree,
-                                  ExecutionPayload executionPayload,
-                                  ParseTree dependency,
-                                  Class<? extends alkBaseVisitor> visitor) {
-        super(tree, executionPayload, dependency, visitor);
+    public IndependentSingleState(AST tree, ExecutionPayload executionPayload, AST dependency) {
+        super(tree, executionPayload, dependency);
     }
 
     @Override

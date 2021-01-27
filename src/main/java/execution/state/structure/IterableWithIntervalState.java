@@ -1,5 +1,6 @@
 package execution.state.structure;
 
+import ast.AST;
 import execution.state.ExecutionState;
 import execution.state.SingleState;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -17,16 +18,16 @@ import util.types.Value;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IterableWithIntervalState extends SingleState<AlkIterableValue, IntervalValue>
+public class IterableWithIntervalState extends SingleState
 {
-    private Class<? extends AlkIterableValue> clazz;
+    private final Class<? extends AlkIterableValue> clazz;
 
-    public IterableWithIntervalState(ParseTree tree,
+    public IterableWithIntervalState(AST tree,
                                      ExecutionPayload executionPayload,
-                                     ParseTree interval,
+                                     AST interval,
                                      Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, executionPayload, interval, DataStructureVisitor.class);
+        super(tree, executionPayload, interval);
         this.clazz = clazz;
     }
 
@@ -59,7 +60,7 @@ public class IterableWithIntervalState extends SingleState<AlkIterableValue, Int
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        IterableWithIntervalState copy = new IterableWithIntervalState(tree, sm.getExecutionPayload(), null, clazz);
+        IterableWithIntervalState copy = new IterableWithIntervalState(tree, payload.clone(sm), null, clazz);
         return super.decorate(copy, sm);
     }
 }

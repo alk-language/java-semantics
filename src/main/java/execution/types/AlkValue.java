@@ -7,7 +7,7 @@ import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
 import symbolic.CPValue;
 import util.lambda.LocationGenerator;
-import visitor.RequiresGenerator;
+import visitor.interpreter.RequiresGenerator;
 
 import static execution.parser.exceptions.AlkException.*;
 
@@ -198,7 +198,7 @@ implements Comparable<AlkValue>,
      */
     public AlkBool lowereq(AlkValue operand)
     {
-        return lower(operand).logicalOr(equal(operand));
+        return lower(operand).logicalor(equal(operand));
     }
 
 
@@ -241,6 +241,7 @@ implements Comparable<AlkValue>,
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
+    @RequiresGenerator
     public AlkValue union(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_UNION);
@@ -256,6 +257,7 @@ implements Comparable<AlkValue>,
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
+    @RequiresGenerator
     public AlkValue intersect(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_INTERSECT);
@@ -271,6 +273,7 @@ implements Comparable<AlkValue>,
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
+    @RequiresGenerator
     public AlkValue setsubtract(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_SET_SUBTRACT);

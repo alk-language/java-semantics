@@ -11,7 +11,10 @@ import java.math.RoundingMode;
  * Responsible for registering important details regarding one execution.
  * I also serves as an option provider.
  */
-public class Configuration implements OptionProvider, AlgorithmTypeDetector, ProbabilityComputer
+public class Configuration
+implements OptionProvider,
+           AlgorithmTypeDetector,
+           ProbabilityComputer
 {
     /** The main file to be parsed */
     private File alkFile;

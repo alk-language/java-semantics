@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.SetAST;
-import visitor.VisitorIface;
+import ast.expr.SetAST;
+import visitor.ifaces.VisitorIface;
 
 public interface SetVisitorIface<T>
         extends VisitorIface<T>

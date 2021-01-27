@@ -1,66 +1,61 @@
 package execution.state.function;
 
+import ast.AST;
+import ast.attr.IdASTAttr;
+import ast.attr.ParamASTAttr;
+import ast.enums.ParamType;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import grammar.alkParser;
 import execution.parser.env.AlkFunction;
-import execution.parser.visitors.StmtVisitor;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.exception.InternalException;
+import util.Pair;
 import util.functions.Parameter;
-import util.types.Value;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CtxState(ctxClass = alkParser.FunctionDeclContext.class)
-public class FunctionDeclState extends ExecutionState<Value, Value> {
+public class FunctionDeclState
+extends ExecutionState
+{
 
-    alkParser.FunctionDeclContext ctx;
-    int step = 0;
-    List<Parameter> params = new ArrayList<>();
-    List<String> modifies = new ArrayList<>();
-
-    public FunctionDeclState(alkParser.FunctionDeclContext ctx, ExecutionPayload executionPayload) {
-        super(ctx, executionPayload);
-        this.ctx = ctx;
+    public FunctionDeclState(AST tree, ExecutionPayload executionPayload)
+    {
+        super(tree, executionPayload);
     }
 
     @Override
-    public ExecutionState makeStep() {
-        if (step < ctx.param().size())
-        {
-            return request(StmtVisitor.class, ctx.param(step++));
-        }
-        for (int i=1; i<ctx.ID().size(); i++)
-        {
-            modifies.add(ctx.ID().get(i).getText());
-        }
+    public ExecutionState makeStep()
+    {
+        String id = tree.getAttribute(IdASTAttr.class).getId();
+        ParamASTAttr attr = tree.getAttribute(ParamASTAttr.class);
+        List<Parameter> params = new ArrayList<>();
+        List<String> modifies = new ArrayList<>();
 
-        getFuncManager().define(new AlkFunction(ctx.ID().get(0).getText(), params, modifies, ctx.statement_block()));
+        for (int i = 0; i < attr.getParamCount(); i++)
+        {
+            Pair<ParamType, String> pair = attr.getParameter(i);
+            switch (pair.x)
+            {
+                case INPUT: params.add(new Parameter(pair.y, false)); break;
+                case OUTPUT: params.add(new Parameter(pair.y, true)); break;
+                case GLOBAL: modifies.add(pair.y); break;
+            }
+        }
+        getFuncManager().define(new AlkFunction(id, params, modifies, tree.getChild(0)));
         return null;
     }
 
     @Override
-    public void assign(ExecutionResult executionResult) {
-        Value value = executionResult.getValue().toRValue();
-        if (!(value instanceof Parameter))
-            throw new InternalException("While evaluating parameters, a non-parameter type was returned");
-
-        Parameter param = (Parameter) value;
-        params.add(param);
+    public void assign(ExecutionResult executionResult)
+    {
+        //
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        FunctionDeclState copy = new FunctionDeclState(ctx, sm.getExecutionPayload());
-        copy.step = step;
-        for (Parameter param : params)
-            copy.params.add((Parameter) param.weakClone(sm.getLocationMapper()));
-        copy.modifies.addAll(modifies);
+        FunctionDeclState copy = new FunctionDeclState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

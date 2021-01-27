@@ -1,22 +1,26 @@
 package execution.exhaustive;
 
+import execution.Execution;
 import execution.parser.env.LocationMapper;
 import execution.ExecutionPayload;
 
-public class SplitMapper {
+public class SplitMapper
+{
 
-    ExecutionPayload executionPayload;
+    Execution newExecution;
     LocationMapper locationMapper;
     EnvironmentMapper environmentMapper;
 
-    public SplitMapper(ExecutionPayload executionPayload, LocationMapper locMapping, EnvironmentMapper envMapper) {
-        this.executionPayload = executionPayload;
+    public SplitMapper(Execution newExecution, LocationMapper locMapping, EnvironmentMapper envMapper)
+    {
+        this.newExecution = newExecution;
         this.locationMapper = locMapping;
         this.environmentMapper = envMapper;
     }
 
-    public ExecutionPayload getExecutionPayload() {
-        return executionPayload;
+    public Execution getNewExecution()
+    {
+        return newExecution;
     }
 
     public LocationMapper getLocationMapper() {

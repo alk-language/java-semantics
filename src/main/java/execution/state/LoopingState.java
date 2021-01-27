@@ -1,5 +1,6 @@
 package execution.state;
 
+import ast.AST;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -12,26 +13,22 @@ import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
-public abstract class LoopingState extends ExecutionState<Value, Value>
+public abstract class LoopingState
+extends ExecutionState
 {
-    private Class<? extends alkBaseVisitor> conditionVisitor;
-    private Class<? extends alkBaseVisitor> bodyVisitor;
-    private ParseTree condition;
-    protected ParseTree body;
+    protected final AST condition;
+    protected final AST body;
+
     protected boolean checkedCondition = false;
     protected boolean validCondition = false;
     protected boolean broke = false;
 
-    public LoopingState(ParseTree tree,
+    public LoopingState(AST tree,
                         ExecutionPayload executionPayload,
-                        Class<? extends alkBaseVisitor> conditionVisitor,
-                        Class<? extends alkBaseVisitor> bodyVisitor,
-                        ParseTree condition,
-                        ParseTree body)
+                        AST condition,
+                        AST body)
     {
         super(tree, executionPayload);
-        this.conditionVisitor = conditionVisitor;
-        this.bodyVisitor = bodyVisitor;
         this.condition = condition;
         this.body = body;
     }
@@ -46,16 +43,16 @@ public abstract class LoopingState extends ExecutionState<Value, Value>
 
         if (!checkedCondition)
         {
-            return request(conditionVisitor, condition);
+            return request(condition);
         }
 
         if (!processValidity(validCondition))
         {
-            setResult(new ExecutionResult<>(null));
+            setResult(new ExecutionResult(null));
             return null;
         }
 
-        return request(bodyVisitor, body);
+        return request(body);
     }
 
     protected boolean processValidity(boolean validCondition)
@@ -70,13 +67,15 @@ public abstract class LoopingState extends ExecutionState<Value, Value>
         {
             checkedCondition = true;
             Value decide = executionResult.getValue().toRValue();
-            if (!(decide instanceof AlkBool))
+            if (decide instanceof AlkBool)
+            {
+                AlkBool bool = (AlkBool) decide;
+                validCondition = bool.isTrue();
+            }
+            else
             {
                 super.handle(new AlkException("Condition in loop must be boolean."));
             }
-
-            AlkBool bool = (AlkBool) decide;
-            validCondition = bool.isTrue();
         }
         else
         {
@@ -90,13 +89,13 @@ public abstract class LoopingState extends ExecutionState<Value, Value>
     {
         if (e instanceof BreakException)
         {
-            assign(new ExecutionResult<>(null));
+            assign(new ExecutionResult(null));
             broke = true;
             return true;
         }
         if (e instanceof ContinueException)
         {
-            assign(new ExecutionResult<>(null));
+            assign(new ExecutionResult(null));
             return true;
         }
         return false;

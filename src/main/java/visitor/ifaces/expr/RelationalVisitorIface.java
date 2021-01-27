@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.RelationalAST;
-import visitor.VisitorIface;
+import ast.expr.RelationalAST;
+import visitor.ifaces.VisitorIface;
 
 public interface RelationalVisitorIface<T>
 extends VisitorIface<T>

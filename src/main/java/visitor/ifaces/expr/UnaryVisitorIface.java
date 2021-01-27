@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.UnaryAST;
-import visitor.VisitorIface;
+import ast.expr.UnaryAST;
+import visitor.ifaces.VisitorIface;
 
 public interface UnaryVisitorIface<T>
 extends VisitorIface<T>

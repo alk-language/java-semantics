@@ -1,32 +1,28 @@
 package execution.state.structure;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
-import org.antlr.v4.runtime.tree.ParseTree;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
-import execution.parser.visitors.expression.ExpressionVisitor;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
-import util.types.Value;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class IterableWithExpressionsState extends GeneratorState<Location, Value>
+public class IterableWithExpressionsState extends GeneratorState
 {
-    private ArrayList<AlkValue> array = new ArrayList<>();
-    private Class<? extends AlkIterableValue> clazz;
+    private final ArrayList<AlkValue> array = new ArrayList<>();
+    private final Class<? extends AlkIterableValue> clazz;
 
-    public IterableWithExpressionsState(ParseTree tree,
+    public IterableWithExpressionsState(AST tree,
                                         ExecutionPayload executionPayload,
-                                        List<? extends ParseTree> dependency,
                                         Class<? extends AlkIterableValue> clazz) {
-        super(tree, executionPayload, dependency, ExpressionVisitor.class);
+        super(tree, executionPayload);
         this.clazz = clazz;
     }
 
@@ -56,7 +52,7 @@ public class IterableWithExpressionsState extends GeneratorState<Location, Value
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        IterableWithExpressionsState copy = new IterableWithExpressionsState(tree, sm.getExecutionPayload(), null, clazz);
+        IterableWithExpressionsState copy = new IterableWithExpressionsState(tree, payload.clone(sm), clazz);
 
         for (AlkValue value : array)
         {

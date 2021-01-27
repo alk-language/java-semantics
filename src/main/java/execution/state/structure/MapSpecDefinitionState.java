@@ -1,5 +1,6 @@
 package execution.state.structure;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
@@ -9,7 +10,6 @@ import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
-import execution.parser.visitors.expression.ExpressionVisitor;
 import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
@@ -20,17 +20,15 @@ import java.util.List;
 import static execution.parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.SelectSpecDefinitionContext.class)
-public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
+public class MapSpecDefinitionState extends ExecutionState {
 
     private List<Location> source;
-    private alkParser.SelectSpecDefinitionContext ctx;
     private AlkArray array = new AlkArray();
     private int step;
     private EnvironmentProxy env;
 
-    public MapSpecDefinitionState(alkParser.SelectSpecDefinitionContext tree, ExecutionPayload executionPayload) {
+    public MapSpecDefinitionState(AST tree, ExecutionPayload executionPayload) {
         super(tree, executionPayload);
-        ctx = tree;
     }
 
     @Override
@@ -38,18 +36,18 @@ public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
     {
         if (source == null)
         {
-            return super.request(ExpressionVisitor.class, ctx.expression(1));
+            return super.request(tree.getChild(1)); // expression
         }
 
         if (step == source.size())
         {
-            setResult(new ExecutionResult<>(array));
+            setResult(new ExecutionResult(array));
             return null;
         }
 
         env = new EnvironmentProxy(getEnv());
-        env.addTempEntry(ctx.ID().toString(), source.get(step++).toRValue());
-        return super.request(ExpressionVisitor.class, ctx.expression(0), env);
+        env.addTempEntry(tree.getText(), source.get(step++).toRValue()); // id
+        return super.request(tree.getChild(0), env); // expression
     }
 
     @Override
@@ -60,7 +58,7 @@ public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
             if (!(resultVal instanceof AlkIterableValue))
                 super.handle(new AlkException(ERR_SPEC_ITERABLE_REQUIRED));
 
-            source = ((AlkIterableValue) resultVal).toArray(generator);
+            source = ((AlkIterableValue) resultVal).toArray();
             step = 0;
         }
         else
@@ -74,7 +72,7 @@ public class MapSpecDefinitionState extends ExecutionState<AlkArray, Value> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        MapSpecDefinitionState copy = new MapSpecDefinitionState(ctx, sm.getExecutionPayload());
+        MapSpecDefinitionState copy = new MapSpecDefinitionState(tree, payload.clone(sm));
         if (source != null)
         {
             for (Location value : source)

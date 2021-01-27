@@ -1,16 +1,14 @@
 package execution.state.function;
 
+import ast.AST;
+import ast.attr.IdASTAttr;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import execution.types.AlkValue;
-import grammar.alkParser;
+import execution.types.alkNotAValue.AlkNotAValue;
 import execution.parser.env.*;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.ReturnException;
 import execution.parser.exceptions.UnwindException;
-import execution.parser.visitors.StmtVisitor;
-import execution.parser.visitors.expression.ExpressionVisitor;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.functions.Parameter;
@@ -19,53 +17,73 @@ import util.types.Value;
 import java.util.ArrayList;
 import java.util.List;
 
-@CtxState(ctxClass = alkParser.DefinedFunctionCallContext.class)
-public class DefinedFunctionCallState extends ExecutionState<Value, Value> {
+public class DefinedFunctionCallState extends ExecutionState {
 
-    alkParser.DefinedFunctionCallContext ctx;
-    List<Value> params = new ArrayList<>();
-    AlkFunction function;
-    int step = 0;
-    boolean executed = false;
-    Environment env;
+    private final List<Value> params = new ArrayList<>();
+    private AlkFunction function;
+    private int step = 0;
+    private boolean executed = false;
+    private Environment env;
 
-    public DefinedFunctionCallState(alkParser.DefinedFunctionCallContext ctx, ExecutionPayload executionPayload) {
-        super(ctx, executionPayload);
-        this.ctx = ctx;
-        function = getFuncManager().getFunction(ctx.ID().getText());
+    public DefinedFunctionCallState(AST tree, ExecutionPayload executionPayload)
+    {
+        super(tree, executionPayload);
+        String id = tree.getAttribute(IdASTAttr.class).getId();
+        function = getFuncManager().getFunction(id);
         env = new EnvironmentImpl(getStore());
-        if (ctx.expression().size() != function.countParams())
-            super.handle(new AlkException(ctx.start.getLine(), "Invalid number of arguments passed to the function"));
+
+        if (tree.getChildCount() != function.countParams())
+        {
+            super.handle(new AlkException( "Invalid number of arguments passed to the function."));
+        }
+
+        setResult(new ExecutionResult(new AlkNotAValue()));
     }
 
     @Override
-    public ExecutionState makeStep() {
-        if (step < ctx.expression().size())
+    public ExecutionState makeStep()
+    {
+        if (step < tree.getChildCount())
         {
-            return request(ExpressionVisitor.class, ctx.expression(step++));
+            return request(tree.getChild(step++));
         }
+
         if (!executed)
         {
             executed = true;
 
-            for (int i=0; i<function.countParams(); i++)
+            for (int i = 0; i < function.countParams(); i++)
             {
                 Parameter param = function.getParam(i);
                 if (param.isOut())
-                    env.setLocation(param.getName(), (Location) params.get(i));
+                {
+                    env.setLocation(param.getName(), params.get(i).toLValue());
+                }
                 else
-                    env.update(param.getName(), (AlkValue) params.get(i));
+                {
+                    env.update(param.getName(), params.get(i).toRValue());
+                }
             }
 
-            for (int i=0; i<function.countModifies(); i++)
+            for (int i = 0; i < function.countModifies(); i++)
             {
                 String modify = function.getModify(i);
                 env.setLocation(modify, getGlobal().getLocation(modify));
             }
 
-            return request(StmtVisitor.class, function.getBody(), env);
+            return request(function.getBody(), env);
         }
+
         return null;
+    }
+
+    @Override
+    public void assign(ExecutionResult executionResult)
+    {
+        if (!executed)
+        {
+            params.add(executionResult.getValue());
+        }
     }
 
     @Override
@@ -80,21 +98,9 @@ public class DefinedFunctionCallState extends ExecutionState<Value, Value> {
     }
 
     @Override
-    public void assign(ExecutionResult executionResult) {
-        if (!executed)
-        {
-            Value value = executionResult.getValue();
-            Parameter param = function.getParam(step - 1);
-            if (param.isOut())
-                params.add(value.toLValue());
-            else
-                params.add(value.toRValue());
-        }
-    }
-
-    @Override
-    public ExecutionState clone(SplitMapper sm) {
-        DefinedFunctionCallState copy = new DefinedFunctionCallState(ctx, sm.getExecutionPayload());
+    public ExecutionState clone(SplitMapper sm)
+    {
+        DefinedFunctionCallState copy = new DefinedFunctionCallState(tree, payload.clone(sm));
         for (Value param : params)
         {
             copy.params.add(param.weakClone(sm.getLocationMapper()));

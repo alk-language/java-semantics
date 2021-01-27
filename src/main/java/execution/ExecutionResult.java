@@ -4,15 +4,12 @@ import ast.Result;
 import execution.parser.env.LocationMapper;
 import util.types.Value;
 
-public class ExecutionResult<T extends Value> extends Result<T>
+public class ExecutionResult
+extends Result<Value>
 {
-    public ExecutionResult(T value) {
-        super(value);
-    }
-
-    public T getValue()
+    public ExecutionResult(Value value)
     {
-        return value;
+        super(value);
     }
 
     public ExecutionResult clone(LocationMapper locationMapper)

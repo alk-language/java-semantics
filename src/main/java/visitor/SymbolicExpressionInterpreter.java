@@ -1,6 +1,8 @@
 package visitor;
 
 import ast.*;
+import ast.enums.BuiltInMethod;
+import ast.expr.*;
 import execution.parser.env.Environment;
 import execution.types.BaseValue;
 import execution.types.alkBool.AlkBool;
@@ -12,26 +14,31 @@ import symbolic.SymbolicValueIface;
 import util.Pair;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
+import ast.enums.Operator;
+import ast.enums.Primitive;
+import visitor.interpreter.base.BaseExpressionInterpreter;
+import visitor.interpreter.SmallStepExpressionInterpreter;
+import visitor.interpreter.InterpreterHelper;
 
 import javax.xml.ws.Provider;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SymbolicExpressionInterpreter
-implements ExpressionInterpreter<SymbolicValueIface>
+implements SmallStepExpressionInterpreter<SymbolicValueIface>
 {
     private static final PrimitiveBuilder primitiveBuilder = new PrimitiveBuilder();
 
-    private final ExpressionInterpreter<BaseValue> basicInterpreter;
+    private final SmallStepExpressionInterpreter<BaseValue> basicInterpreter;
 
     private final Environment env;
     private final LocationGenerator generator;
 
-    SymbolicExpressionInterpreter(Environment env, LocationGenerator generator)
+    public SymbolicExpressionInterpreter(Environment env, LocationGenerator generator)
     {
         this.env = env;
         this.generator = generator;
-        this.basicInterpreter = new BasicExpressionInterpreter(env, generator);
+        this.basicInterpreter = new BaseExpressionInterpreter(env, generator);
     }
 
     @Override
@@ -51,6 +58,13 @@ implements ExpressionInterpreter<SymbolicValueIface>
 
         AST root = getOperatorAST(op, children);
         return new SymbolicValue(root);
+    }
+
+    @Override
+    public SymbolicValueIface evaluateBuiltIn(BuiltInMethod op, SymbolicValueIface factor, List<SymbolicValueIface> params)
+    {
+        // TODO add support
+        return null;
     }
 
     @Override

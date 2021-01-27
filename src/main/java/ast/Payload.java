@@ -1,4 +1,6 @@
 package ast;
 
-public class Payload {
+public class Payload
+{
+
 }

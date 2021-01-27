@@ -1,5 +1,6 @@
 package execution.state.structure;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
@@ -13,15 +14,13 @@ import execution.exhaustive.SplitMapper;
 import util.types.ComponentValue;
 
 @CtxState(ctxClass = alkParser.StructureWithComponentsContext.class)
-public class StructureWithComponentsState extends GeneratorState<Location, ComponentValue>
+public class StructureWithComponentsState
+extends GeneratorState
 {
     private AlkStructure struct = new AlkStructure();
 
-    alkParser.StructureWithComponentsContext ctx;
-
-    public StructureWithComponentsState(alkParser.StructureWithComponentsContext tree, ExecutionPayload executionPayload) {
-        super(tree, executionPayload, tree.component(), DataStructureVisitor.class);
-        ctx = tree;
+    public StructureWithComponentsState(AST tree, ExecutionPayload executionPayload) {
+        super(tree, executionPayload);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class StructureWithComponentsState extends GeneratorState<Location, Compo
     }
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        StructureWithComponentsState copy = new StructureWithComponentsState(ctx, sm.getExecutionPayload());
+        StructureWithComponentsState copy = new StructureWithComponentsState(tree, payload.clone(sm));
         copy.struct = (AlkStructure) this.struct.weakClone(sm.getLocationMapper());
         return super.decorate(copy, sm);
     }

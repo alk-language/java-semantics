@@ -53,7 +53,7 @@ e1 + e2 + e3 - e4 - e5 + e6 - e7
 
 
 A: antlr.ParseTree -> alk.AST
-B: alk.AST -> Value/SymbolicValue/CPValue
+B: alk.AST -> Value / SymbolicValue / CPValue
 
 ParseTreeExprVisitor: antlr.ParseTree -> alk.AST
 ExpresionVisitor: alk.AST -> T
@@ -61,8 +61,66 @@ ExpresionVisitor: alk.AST -> T
     - CPExpressionInterpreter:       T = CPValue (BaseValue U UndefinedValue U OverdefinedValue)
     - SymbolicExpressionInterpreter: T = SymbolicValue
 
-
 1 * 2 + a
     => Eroare a nu fost initializat
     => Undefined / Overdefined / BaseValue
     => plus(multiply(1, 2), a)
+
+- forall ParseTree -> AST (si instructiuni)
+- am inceput sa integrez in executia concreta pattern: visitor + interpretor separati
+
+
+- visitor foloseste un interpretor care livreaza valori (am implementat pana acum)
+- visitor foloseste un interpretor care livreaza stari (merge pe modelul execution stack)
+
+- executia concreta -> stari -> visitor + interpretor nou (pentru expresii si pentru instructiuni)
+
+- 2 visitor (expresii si instructiuni)
+- interpretor -> interpretorul concret pentru expresii si instructiuni
++ interpretor simbolic pentru expresii si instructiuni
+
+- interpretor de expresii care ne livreaza NU valori (AlkValue)
+- trebuie sa obtinem o stare care evalueaza acea expresie (stiva + stari)
+
+1 + 1 -> ExprInterpreter -> 2 X
+                         -> AdditiveState().run() -> 2 V
+
+
+         BaseExprInterpreter -> 2
+         StatefulExprInterpreter -> AdditiveState(AST exprAST).makeStep() -> 2 V
+                                                              .assign()
+
+Executie -> Visitor -> Interpretor -> Valoare
+Executie -> Visitor -> Interpretor -> Stare -> Valoare
+
+1 + 1 -> [] + 1 , 1
+[] + 1, 1 -> 1 + 1
+
+fun functie()
+{
+    choose x in [1..2]; // exhaustiv
+    return x;
+}
+
+x = 1 + functie(); // AdditiveState()
+
+Expresii + Instructiuni + Methode/Functii builtin + Exhaustiv + (Asignarea -> Expresie)
+? Functiile, Instructiunea FOR (expr; expr; expr)
+
+ParseTree -> AST
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

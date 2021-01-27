@@ -1,4 +1,4 @@
-// Generated from /home/alex/IdeaProjects/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from ./../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -26,20 +26,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStatementSeq(alkParser.StatementSeqContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code MethodCall}
-	 * labeled alternative in {@link alkParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMethodCall(alkParser.MethodCallContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code FunctionCall}
-	 * labeled alternative in {@link alkParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionCall(alkParser.FunctionCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToFunctionDecl}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -97,13 +83,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToIncreaseDecrease}
-	 * labeled alternative in {@link alkParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitToIncreaseDecrease(alkParser.ToIncreaseDecreaseContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ToBlock}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
@@ -160,6 +139,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitToForEach(alkParser.ToForEachContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ExpressionStmt}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionStmt(alkParser.ExpressionStmtContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Include}
 	 * labeled alternative in {@link alkParser#directive}.
 	 * @param ctx the parse tree
@@ -181,13 +167,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(alkParser.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code EmptyBlock}
-	 * labeled alternative in {@link alkParser#statement_block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEmptyBlock(alkParser.EmptyBlockContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ChooseStmt}
 	 * labeled alternative in {@link alkParser#choose}.
 	 * @param ctx the parse tree
@@ -201,48 +180,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUniformStmt(alkParser.UniformStmtContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PlusPlusStmt}
-	 * labeled alternative in {@link alkParser#increase_decrease}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code StmtPlusPlus}
-	 * labeled alternative in {@link alkParser#increase_decrease}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code MinusMinusStmt}
-	 * labeled alternative in {@link alkParser#increase_decrease}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code StmtMinusMinus}
-	 * labeled alternative in {@link alkParser#increase_decrease}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PlusPlusModStmt}
-	 * labeled alternative in {@link alkParser#increase_decrease}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPlusPlusModStmt(alkParser.PlusPlusModStmtContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code MinusMinusModStmt}
-	 * labeled alternative in {@link alkParser#increase_decrease}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMinusMinusModStmt(alkParser.MinusMinusModStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AssignmentStmt}
 	 * labeled alternative in {@link alkParser#assignment}.
@@ -278,13 +215,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitForStructure(alkParser.ForStructureContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ForStart}
-	 * labeled alternative in {@link alkParser#start_assignment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitForStart(alkParser.ForStartContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ForEachStructure}
 	 * labeled alternative in {@link alkParser#foreach_struct}.
@@ -702,18 +632,4 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConfig(alkParser.ConfigContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code VarSeq}
-	 * labeled alternative in {@link alkParser#var_def_seq}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVarSeq(alkParser.VarSeqContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Var}
-	 * labeled alternative in {@link alkParser#variable}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVar(alkParser.VarContext ctx);
 }

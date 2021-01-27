@@ -1,5 +1,8 @@
 package execution.state;
 
+import ast.AST;
+import ast.attr.OpsASTAttr;
+import ast.enums.Operator;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -9,41 +12,39 @@ import util.types.Value;
 
 import java.util.List;
 
-public abstract class GuardedGeneratorState<T extends Value> extends GeneratorState<T, T>
+public abstract class GuardedGeneratorState
+extends GeneratorState
 {
-    private T localResult;
+    private Value localResult;
 
-    public GuardedGeneratorState(ParseTree tree,
-                                 ExecutionPayload executionPayload,
-                                 List<? extends ParseTree> children,
-                                 Class<? extends alkBaseVisitor> visitor)
+    public GuardedGeneratorState(AST tree, ExecutionPayload executionPayload)
     {
-        super(tree, executionPayload, children, visitor);
+        super(tree, executionPayload);
     }
 
+    protected abstract Value interpretResult(Operator op, Value current, Value next);
+
     @Override
-    public void assign(ExecutionResult<T> executionResult)
+    public void assign(ExecutionResult executionResult)
     {
-        T value = executionResult.getValue();
+        Value value = executionResult.getValue();
         if (step == 1)
+        {
             localResult = value;
+        }
         else
-            localResult = interpretResult((T) localResult.toRValue(), (T) value.toRValue());
+        {
+            OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
+            localResult = interpretResult(attr.getOp(step - 2), localResult, value);
+        }
     }
 
     @Override
-    public T getFinalResult() {
+    public Value getFinalResult() {
         return localResult;
     }
 
-    protected abstract T interpretResult(T current, T next);
-
-    protected int getSignPos()
-    {
-        return (step-1)*2-1;
-    }
-
-    protected T getLocalResult()
+    protected Value getLocalResult()
     {
         return localResult;
     }

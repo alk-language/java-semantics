@@ -1,5 +1,7 @@
 package execution.state.statement;
 
+import ast.AST;
+import ast.attr.IdASTAttr;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.LoopingState;
@@ -7,8 +9,6 @@ import execution.types.AlkIterableValue;
 import grammar.alkParser;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
-import execution.parser.visitors.StmtVisitor;
-import execution.parser.visitors.expression.ExpressionVisitor;
 import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
@@ -19,15 +19,17 @@ import java.util.List;
 import static execution.parser.exceptions.AlkException.ERR_FORALL_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.ForEachStructureContext.class)
-public class ForEachState extends LoopingState
+public class ForEachState
+extends LoopingState
 {
-    private alkParser.ForEachStructureContext ctx;
     private List<Location> source;
     private int step = 0;
+    private String id;
 
-    public ForEachState(alkParser.ForEachStructureContext tree, ExecutionPayload executionPayload) {
-        super(tree, executionPayload, null, null, null, null);
-        this.ctx = tree;
+    public ForEachState(AST tree, ExecutionPayload executionPayload)
+    {
+        super(tree, executionPayload, tree.getChild(0), tree.getChild(1));
+        this.id = tree.getAttribute(IdASTAttr.class).getId();
     }
 
     @Override
@@ -40,7 +42,7 @@ public class ForEachState extends LoopingState
 
         if (source == null)
         {
-            return request(ExpressionVisitor.class, ctx.expression());
+            return request(tree.getChild(0));
         }
 
         if (step == source.size())
@@ -48,9 +50,9 @@ public class ForEachState extends LoopingState
             return null;
         }
 
-        getEnv().update(ctx.ID().getText(), source.get(step).toRValue().clone(generator));
+        getEnv().update(id, source.get(step).toRValue().clone(generator));
         step++;
-        return request(StmtVisitor.class, ctx.statement());
+        return request(tree.getChild(1));
     }
 
     @Override
@@ -61,7 +63,7 @@ public class ForEachState extends LoopingState
             Value value = executionResult.getValue().toRValue();
             if (value instanceof AlkIterableValue)
             {
-                source = ((AlkIterableValue) value).toArray(generator);
+                source = ((AlkIterableValue) value).toArray();
             }
             else
             {
@@ -73,11 +75,14 @@ public class ForEachState extends LoopingState
     }
 
     @Override
-    public ExecutionState clone(SplitMapper sm) {
-        ForEachState copy = new ForEachState(ctx, sm.getExecutionPayload());
+    public ExecutionState clone(SplitMapper sm)
+    {
+        ForEachState copy = new ForEachState(tree, payload.clone(sm));
         copy.step = this.step;
         for (Location loc : source)
+        {
             copy.source.add(sm.getLocationMapper().get(loc));
+        }
         return super.decorate(copy, sm);
     }
 }

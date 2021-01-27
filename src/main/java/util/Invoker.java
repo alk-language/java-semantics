@@ -18,7 +18,7 @@ import static execution.parser.exceptions.AlkException.*;
 
 public class Invoker {
 
-    public static Value invokeMethod(String methodName, Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Value invokeMethod(String methodName, Location loc, List<Value> params, LocationGenerator generator)
     {
         try
         {

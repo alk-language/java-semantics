@@ -1,19 +1,22 @@
 package execution.exhaustive;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class NameMapper {
 
-    private static Set<String> reservedWords = new HashSet<>();
+    private static final Set<String> RESERVED_KEYWORDS = new HashSet<>();
 
     static {
-        reservedWords.add("int");
-        reservedWords.add("float");
+        RESERVED_KEYWORDS.add("int");
+        RESERVED_KEYWORDS.add("float");
     }
 
-    public static String processBuiltInName(String functionName) {
-        if (reservedWords.contains(functionName))
+    public static String processBuiltInName(String functionName)
+    {
+        functionName = functionName.toLowerCase();
+        if (RESERVED_KEYWORDS.contains(functionName))
             return "_" + functionName;
         return functionName;
     }

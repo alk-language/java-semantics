@@ -2,19 +2,14 @@ grammar statement;
 
 import expression;
 
-
-//Instructions iteration
-
 statement_sequence
 :
     (statement)+                                                                                                        #StatementSeq
 ;
 
-statement //statement
+statement
 :
-    factor POINT builtin_method SEMICOLON                                                                               #MethodCall
-    | function_call SEMICOLON                                                                                           #FunctionCall
-    | function_decl                                                                                                     #ToFunctionDecl
+    function_decl                                                                                                       #ToFunctionDecl
     | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
 
     | choose SEMICOLON                                                                                                  #ToChooseStmt
@@ -25,7 +20,6 @@ statement //statement
     | BREAK SEMICOLON                                                                                                   #BreakStmt
 
     | assignment SEMICOLON                                                                                              #ToAssignmentStmt
-    | increase_decrease SEMICOLON                                                                                       #ToIncreaseDecrease
     | statement_block                                                                                                   #ToBlock
 
     | directive                                                                                                         #ToDirective
@@ -36,6 +30,8 @@ statement //statement
     | if_struct                                                                                                         #ToIf
     | for_struct                                                                                                        #ToFor
     | foreach_struct                                                                                                    #ToForEach
+
+    | expression SEMICOLON                                                                                              #ExpressionStmt
 ;
 
 directive
@@ -50,24 +46,13 @@ repeat_struct
 
 statement_block
 :
-    LCB statement_sequence RCB                                                                                          #Block
-    | LCB RCB                                                                                                           #EmptyBlock
+    LCB (statement_sequence)? RCB                                                                                       #Block
 ;
 
 
 choose:
-    CHOOSE ID IN expression (SOTHAT expression)?                                                                        #ChooseStmt
-    | UNIFORM ID IN expression                                                                                          #UniformStmt
-;
-
-increase_decrease
-:
-    PLUSPLUS factor                                                                                                     #PlusPlusStmt
-    | factor PLUSPLUS                                                                                                   #StmtPlusPlus
-    | MINUSMINUS factor                                                                                                 #MinusMinusStmt
-    | factor MINUSMINUS                                                                                                 #StmtMinusMinus
-    | PLUSPLUSMOD factor                                                                                                #PlusPlusModStmt
-    | MINUSMINUSMOD factor                                                                                              #MinusMinusModStmt
+    CHOOSE ID FROM expression (SOTHAT expression)?                                                                      #ChooseStmt
+    | UNIFORM ID FROM expression                                                                                        #UniformStmt
 ;
 
 assignment
@@ -92,16 +77,12 @@ if_struct
 
 for_struct
 :
-    FOR LPAR start_assignment? SEMICOLON expression SEMICOLON (assignment | increase_decrease) RPAR statement           #ForStructure
-;
-
-start_assignment:
-    assignment                                                                                                          #ForStart
+    FOR LPAR assignment? SEMICOLON expression SEMICOLON expression? RPAR statement                                      #ForStructure
 ;
 
 foreach_struct
 :
-    FOREACH ID IN expression statement                                                                                   #ForEachStructure
+    FOREACH ID FROM expression statement                                                                                #ForEachStructure
 ;
 
 function_decl

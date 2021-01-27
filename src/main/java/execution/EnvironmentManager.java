@@ -6,19 +6,20 @@ import execution.state.ExecutionState;
 import execution.parser.env.Environment;
 import execution.parser.env.LocationMapper;
 import execution.parser.env.StoreImpl;
+import util.Listener;
 import util.exception.InternalException;
 import util.types.Value;
 
 import java.util.*;
 
-
 // Worker responsible for environment management
-public class EnvironmentManager {
-
+public class EnvironmentManager
+implements Listener<ExecutionState>
+{
     private Map<ExecutionState, Environment> state2env = new HashMap<>();
     private Map<Environment, List<ExecutionState> > env2state = new HashMap<>();
 
-    public void unlink(ExecutionState<? extends Value,? extends Value> state)
+    public void unlink(ExecutionState state)
     {
         /*if (!state2env.containsKey(state))
             throw new InternalException("Unsync in the envManager! Can't find state which should be deleted");*/
@@ -32,10 +33,9 @@ public class EnvironmentManager {
 
         state2env.put(state, env);
 
-        if (env2state.get(env) == null)
+        if (!env2state.containsKey(env))
         {
-            List<ExecutionState> list = new LinkedList<>();
-            env2state.put(env, list);
+            env2state.put(env, new LinkedList<>());
         }
 
         env2state.get(env).add(state);
@@ -90,5 +90,11 @@ public class EnvironmentManager {
 
         return clone;
 
+    }
+
+    @Override
+    public void notify(ExecutionState state)
+    {
+        link(state, state.getPayload().getEnv());
     }
 }

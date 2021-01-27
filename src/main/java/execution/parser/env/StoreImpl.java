@@ -35,6 +35,13 @@ public class StoreImpl implements Store
     @Override
     public Location generate(Value value)
     {
-        return malloc().assign(value.clone(this));
+        if (value == null)
+        {
+            return malloc();
+        }
+        else
+        {
+            return malloc().assign(value.clone(this));
+        }
     }
 }

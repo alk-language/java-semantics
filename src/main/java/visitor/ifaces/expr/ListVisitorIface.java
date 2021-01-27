@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.ListAST;
-import visitor.VisitorIface;
+import ast.expr.ListAST;
+import visitor.ifaces.VisitorIface;
 
 public interface ListVisitorIface<T>
 extends VisitorIface<T>
