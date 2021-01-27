@@ -3,8 +3,6 @@ package control;
 import control.parser.CFGPayload;
 import control.parser.CFGStack;
 import control.parser.CFGState;
-import control.parser.visitors.MainVisitor;
-import dataflow.CFGNode;
 import util.Pair;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -13,7 +11,8 @@ import util.exception.InternalException;
 
 import java.util.*;
 
-public class IntraproceduralCFG extends ControlFlowGraph
+public class IntraproceduralCFG
+extends ControlFlowGraph
 {
 
     public static IntraproceduralCFG generate(ParseTree root, Configuration config)
@@ -27,7 +26,9 @@ public class IntraproceduralCFG extends ControlFlowGraph
 
         CFGStack stack = new CFGStack(config);
 
-        MainVisitor visitor = new MainVisitor(new CFGPayload(cfg.getInput()));
+        // TODO properly implement
+
+        /*
         CFGState state = visitor.visit(root);
         stack.push(state);
         stack.run();
@@ -35,7 +36,7 @@ public class IntraproceduralCFG extends ControlFlowGraph
         {
             node.appendOutput(cfg.output);
             cfg.output.appendInput(node);
-        }
+        }*/
 
         return cfg;
     }

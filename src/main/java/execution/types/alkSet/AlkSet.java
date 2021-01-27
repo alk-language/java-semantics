@@ -222,7 +222,7 @@ public class AlkSet extends AlkIterableValue  {
     }
 
     @Override
-    public List<Location> toArray(LocationGenerator generator)
+    public List<Location> toArray()
     {
         return new ArrayList<>(set);
     }

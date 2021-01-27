@@ -1,27 +1,22 @@
 package execution.state.statement;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.state.LoopingState;
-import grammar.alkParser;
-import execution.parser.visitors.StmtVisitor;
-import execution.parser.visitors.expression.ExpressionVisitor;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 
-@CtxState(ctxClass = alkParser.ForStructureContext.class)
-public class ForState extends LoopingState
+public class ForState
+extends LoopingState
 {
-    private alkParser.ForStructureContext ctx;
     private boolean visitedStart = false;
     private boolean incrementalStep = false;
     private boolean incrementing = false;
 
-    public ForState(alkParser.ForStructureContext tree, ExecutionPayload executionPayload)
+    public ForState(AST tree, ExecutionPayload executionPayload)
     {
-        super(tree, executionPayload, ExpressionVisitor.class, StmtVisitor.class, tree.expression(), tree.statement());
-        this.ctx = tree;
+        super(tree, executionPayload, tree.getChild(1), tree.getChild(3));
     }
 
     @Override
@@ -32,19 +27,16 @@ public class ForState extends LoopingState
             return null;
         }
 
-        if (ctx.start_assignment() != null && !visitedStart)
+        if (tree.getChild(0) != null && !visitedStart)
         {
-            return request(StmtVisitor.class, ctx.start_assignment());
+            return request(tree.getChild(0));
         }
 
         if (incrementalStep)
         {
             incrementalStep = false;
             incrementing = true;
-            if (ctx.assignment() != null)
-                return request(StmtVisitor.class, ctx.assignment());
-            else
-                return request(StmtVisitor.class, ctx.increase_decrease());
+            return request(tree.getChild(2));
         }
         else
         {
@@ -75,7 +67,7 @@ public class ForState extends LoopingState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        ForState copy = new ForState(ctx, sm.getExecutionPayload());
+        ForState copy = new ForState(tree, payload.clone(sm));
         copy.visitedStart = visitedStart;
         copy.incrementalStep = incrementalStep;
         copy.incrementing = incrementing;

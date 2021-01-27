@@ -1,27 +1,31 @@
 package execution.state.statement;
 
+import ast.AST;
 import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
-import grammar.alkParser;
 import execution.parser.exceptions.FailureException;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
-@CtxState(ctxClass = alkParser.FailureContext.class)
-public class FailureState extends PrimitiveState {
+public class FailureState
+extends PrimitiveState
+{
+    public FailureState(AST tree, ExecutionPayload executionPayload)
+    {
+        super(tree, executionPayload);
+    }
 
-    alkParser.FailureContext ctx;
-
-    public FailureState(alkParser.FailureContext ctx, ExecutionPayload executionPayload) {
-        super(ctx, executionPayload, null);
-        this.ctx = ctx;
+    @Override
+    protected Value requireResult()
+    {
         throw new FailureException();
     }
 
     @Override
-    public ExecutionState clone(SplitMapper sm) {
-        FailureState copy = new FailureState(ctx, sm.getExecutionPayload());
+    public ExecutionState clone(SplitMapper sm)
+    {
+        FailureState copy = new FailureState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

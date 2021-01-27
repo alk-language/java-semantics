@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.BoolAST;
-import visitor.VisitorIface;
+import ast.expr.BoolAST;
+import visitor.ifaces.VisitorIface;
 
 public interface BoolVisitorIface<T>
 extends VisitorIface<T>

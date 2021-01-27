@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.FloatAST;
-import visitor.VisitorIface;
+import ast.expr.FloatAST;
+import visitor.ifaces.VisitorIface;
 
 public interface FloatVisitorIface<T>
 extends VisitorIface<T>

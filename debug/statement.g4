@@ -56,8 +56,8 @@ statement_block
 
 
 choose:
-    CHOOSE ID IN expression (SOTHAT expression)?                                                                        #ChooseStmt
-    | UNIFORM ID IN expression                                                                                          #UniformStmt
+    CHOOSE ID FROM expression (SOTHAT expression)?                                                                      #ChooseStmt
+    | UNIFORM ID FROM expression                                                                                        #UniformStmt
 ;
 
 increase_decrease
@@ -101,7 +101,7 @@ start_assignment:
 
 foreach_struct
 :
-    FOREACH ID IN expression statement                                                                                   #ForEachStructure
+    FOREACH ID FROM expression statement                                                                                #ForEachStructure
 ;
 
 function_decl

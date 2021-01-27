@@ -1,5 +1,6 @@
 package execution.state;
 
+import ast.AST;
 import ast.State;
 import execution.VisitorFactory;
 import execution.Execution;
@@ -11,35 +12,58 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.parser.env.Environment;
 import execution.parser.env.StoreImpl;
-import execution.types.AlkValue;
 import execution.parser.exceptions.AlkException;
 import util.*;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 
-/**
- * @param <T>
- *        What does the execution state return
- * @param <S>
- *        The type of value which will be dependent upon
- */
-public abstract class ExecutionState<T extends Value, S extends Value> extends State<ExecutionPayload, ExecutionResult<T>>
+public abstract class ExecutionState
+extends State<ExecutionPayload, ExecutionResult>
 {
     protected LocationGenerator generator;
 
-    public ExecutionState(ParseTree tree, ExecutionPayload executionPayload)
+    public ExecutionState(AST tree, ExecutionPayload executionPayload)
     {
-        super(tree, executionPayload);
-        generator = (Value value) -> getStore().malloc().assign(value);
+        super(tree, executionPayload, executionPayload.getExecution().getInterpreterManager());
+        generator = (Value value) -> getStore().generate(value);
+    }
+
+    protected ExecutionState decorate(ExecutionState copy, SplitMapper sm)
+    {
+        if (getResult() != null)
+        {
+            copy.setResult(getResult().clone(sm.getLocationMapper()));
+        }
+        return copy;
     }
 
     public abstract ExecutionState makeStep();
 
     public abstract ExecutionState clone(SplitMapper sm);
 
+    @Override
+    public ExecutionState request(AST tree)
+    {
+        return request(tree, getEnv());
+    }
+
+    protected ExecutionState request(AST tree, Environment env)
+    {
+        return (ExecutionState) super.request(tree, new ExecutionPayload(getExec(), env));
+    }
+
+    public boolean handle(AlkException e)
+    {
+        if (e.isUnsigned())
+        {
+            throw new AlkException(tree.getLine(), e.getMessage());
+        }
+        throw e;
+    }
+
     protected Environment getEnv()
     {
-        return payload.getEnvManager().getEnv(this);
+        return payload.getEnv();
     }
 
     protected StoreImpl getStore()
@@ -56,59 +80,4 @@ public abstract class ExecutionState<T extends Value, S extends Value> extends S
     protected Environment getGlobal() { return getExec().getGlobal(); }
 
     protected AlgorithmTypeDetector getAlgorithmTypeDetector() { return getExec().getConfiguration(); }
-
-
-    protected ExecutionState decorate(ExecutionState copy, SplitMapper sm)
-    {
-        if (getResult() != null)
-        {
-            copy.setResult(getResult().clone(sm.getLocationMapper()));
-        }
-        return copy;
-    }
-
-    @Override
-    public ExecutionState request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree)
-    {
-        return request(visitor, parseTree, (Value) null);
-    }
-
-    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree, Value value)
-    {
-        return request(visitor, parseTree, getEnv(), value);
-    }
-
-    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor, ParseTree parseTree, Environment env)
-    {
-        return request(visitor, parseTree, env, (Value) null);
-    }
-
-    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor,
-                                               ParseTree parseTree,
-                                               Environment env,
-                                               Value value)
-    {
-        ExecutionPayload nxt = new ExecutionPayload(getExec(), value);
-        return request(visitor, parseTree, env, nxt);
-    }
-
-    protected ExecutionState<S, Value> request(Class<? extends alkBaseVisitor> visitor,
-                                               ParseTree parseTree,
-                                               Environment env,
-                                               ExecutionPayload executionPayload)
-    {
-        if (parseTree == null)
-        {
-            int virga = 0;
-        }
-        return (ExecutionState) VisitorFactory.create(visitor, env, executionPayload).visit(parseTree);
-    }
-
-    public boolean handle(AlkException e)
-    {
-        ParserRuleContext prc = (ParserRuleContext) tree;
-        if (e.isUnsigned())
-            throw new AlkException(prc.start.getLine(), e.getMessage());
-        throw e;
-    }
 }

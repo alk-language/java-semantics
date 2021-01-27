@@ -1,22 +1,17 @@
 package execution.state;
 
+import ast.AST;
 import execution.ExecutionResult;
-import grammar.alkBaseVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
-import java.util.List;
+public abstract class IndependentGeneratorState extends GeneratorState
+{
 
-public abstract class IndependentGeneratorState extends GeneratorState<Value, Value> {
-
-    protected IndependentGeneratorState(ParseTree tree,
-                                        ExecutionPayload executionPayload,
-                                        List<? extends ParseTree> children,
-                                        Class<? extends alkBaseVisitor> visitor)
+    protected IndependentGeneratorState(AST tree, ExecutionPayload executionPayload)
     {
-        super(tree, executionPayload, children, visitor);
+        super(tree, executionPayload);
     }
 
     @Override

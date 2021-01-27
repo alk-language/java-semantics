@@ -1,5 +1,6 @@
 package control;
 
+import ast.AST;
 import dataflow.CFG;
 import dataflow.CFGNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -32,7 +33,7 @@ public abstract class ControlFlowGraph implements CSGraph, CFG
     {
         private List<Node> inputs = new ArrayList<>();
         private List<Node> outputs = new ArrayList<>();
-        private ParseTree tree;
+        private AST tree;
         private String forcedText;
 
         static Node getInput()
@@ -49,7 +50,7 @@ public abstract class ControlFlowGraph implements CSGraph, CFG
             return node;
         }
 
-        public Node(ParseTree tree)
+        public Node(AST tree)
         {
             this.tree = tree;
         }
@@ -79,7 +80,7 @@ public abstract class ControlFlowGraph implements CSGraph, CFG
             return new ArrayList<>(inputs);
         }
 
-        public ParseTree getTree()
+        public AST getTree()
         {
             return tree;
         }

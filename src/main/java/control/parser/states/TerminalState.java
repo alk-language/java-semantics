@@ -1,5 +1,6 @@
 package control.parser.states;
 
+import ast.AST;
 import ast.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
@@ -11,7 +12,7 @@ import java.util.Collections;
 
 public class TerminalState extends CFGState
 {
-    public TerminalState(ParseTree tree, CFGPayload payload)
+    public TerminalState(AST tree, CFGPayload payload)
     {
         super(tree, payload);
     }

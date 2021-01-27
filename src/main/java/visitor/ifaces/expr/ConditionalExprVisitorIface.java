@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.ConditionalExprAST;
-import visitor.VisitorIface;
+import ast.expr.ConditionalExprAST;
+import visitor.ifaces.VisitorIface;
 
 public interface ConditionalExprVisitorIface<T>
 extends VisitorIface<T>

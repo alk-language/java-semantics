@@ -6,30 +6,29 @@ import execution.exhaustive.ExecutionStateMapper;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
 import execution.parser.env.LocationMapper;
-import util.*;
 import util.types.Value;
 
 public class ExecutionStack extends ASTStack<ExecutionState>
 {
-    private EnvironmentManager envManager;
+    Execution master;
 
-    ExecutionStack(Configuration config, EnvironmentManager envManager)
+    ExecutionStack(Execution master)
     {
-        super(config);
-        this.envManager = envManager;
+        super(master.config);
+        this.master = master;
     }
 
     @Override
     public ExecutionState pop()
     {
         ExecutionState top = super.pop();
-        envManager.unlink(top);
+        master.getEnvManager().unlink(top);
         return top;
     }
 
     void nullifyLast()
     {
-        ExecutionState<? extends Value, ? extends Value> top = stack.peek();
+        ExecutionState top = stack.peek();
         ExecutionResult executionResult = top.getResult();
         pop();
         if (!stack.empty())
@@ -42,9 +41,10 @@ public class ExecutionStack extends ASTStack<ExecutionState>
     ExecutionStateMapper cloneStates(Execution master, LocationMapper locMapping, EnvironmentMapper envMapper) {
         ExecutionStateMapper mapping = new ExecutionStateMapper();
 
-        for (ExecutionState<? extends Value, ? extends Value> state : stack)
+        for (ExecutionState state : stack)
         {
-            SplitMapper sm = new SplitMapper(new ExecutionPayload(master), locMapping, envMapper);
+            // TODO this is for sure not good, why give bad environment?
+            SplitMapper sm = new SplitMapper(master, locMapping, envMapper);
             mapping.put(state, state.clone(sm));
         }
 
@@ -53,9 +53,9 @@ public class ExecutionStack extends ASTStack<ExecutionState>
 
     ExecutionStack makeClone(Execution master, ExecutionStateMapper stateMapping)
     {
-        ExecutionStack clone = new ExecutionStack(master.getConfiguration(), master.getEnvManager());
+        ExecutionStack clone = new ExecutionStack(master);
 
-        for (ExecutionState<? extends Value, ? extends Value> state : stack)
+        for (ExecutionState state : stack)
         {
             clone.push(stateMapping.get(state));
         }

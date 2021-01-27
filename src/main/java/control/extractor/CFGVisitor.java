@@ -1,5 +1,6 @@
 package control.extractor;
 
+import ast.AST;
 import dataflow.CFG;
 import dataflow.CFGNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -23,7 +24,7 @@ public class CFGVisitor
         {
             CFGNode first = queue.pollFirst();
 
-            ParseTree tree = first.getTree();
+            AST tree = first.getTree();
             if (tree != null)
             {
                 List<Extractor> tmp = extractors.getOrDefault(tree.getClass(), new ArrayList<>());

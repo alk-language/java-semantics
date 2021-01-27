@@ -1,5 +1,6 @@
 package execution.state.structure;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import grammar.alkParser;
@@ -10,11 +11,9 @@ import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
-import execution.parser.visitors.expression.ExpressionVisitor;
 import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
 
 import java.util.List;
 
@@ -22,37 +21,35 @@ import static execution.parser.exceptions.AlkException.ERR_SPEC_BOOL;
 import static execution.parser.exceptions.AlkException.ERR_SPEC_ITERABLE_REQUIRED;
 
 @CtxState(ctxClass = alkParser.FilterSpecDefinitionContext.class)
-public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
+public class FilterSpecDefinitionState extends ExecutionState {
 
     private List<Location> source;
     private int step;
-    private alkParser.FilterSpecDefinitionContext ctx;
     private AlkArray array = new AlkArray();
     private AlkValue validatingValue;
     private EnvironmentProxy env;
 
-    public FilterSpecDefinitionState(alkParser.FilterSpecDefinitionContext tree, ExecutionPayload executionPayload) {
+    public FilterSpecDefinitionState(AST tree, ExecutionPayload executionPayload) {
         super(tree, executionPayload);
-        ctx = tree;
     }
 
     @Override
     public ExecutionState makeStep()
     {
         if (source == null)
-            return super.request(ExpressionVisitor.class, ctx.expression(0));
+            return super.request(tree.getChild(0)); // expression
 
         if (step == source.size())
         {
-            setResult(new ExecutionResult<>(array));
+            setResult(new ExecutionResult(array));
             return null;
         }
 
         validatingValue = (AlkValue) source.get(step++).toRValue();
 
         env = new EnvironmentProxy(getEnv());
-        env.addTempEntry(ctx.ID().toString(), validatingValue);
-        return super.request(ExpressionVisitor.class, ctx.expression(1), env);
+        env.addTempEntry(tree.getText(), validatingValue); // id
+        return super.request(tree.getChild(1), env); // expression
     }
 
     @Override
@@ -61,11 +58,15 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
         {
             AlkValue resultVal = (AlkValue) executionResult.getValue().toRValue();
 
-            if (!(resultVal instanceof AlkIterableValue))
+            if (resultVal instanceof AlkIterableValue)
+            {
+                source = ((AlkIterableValue) resultVal).toArray();
+                step = 0;
+            }
+            else
+            {
                 super.handle(new AlkException(ERR_SPEC_ITERABLE_REQUIRED));
-
-            source = ((AlkIterableValue) resultVal).toArray(generator);
-            step = 0;
+            }
         }
         else
         {
@@ -78,7 +79,7 @@ public class FilterSpecDefinitionState extends ExecutionState<AlkValue, Value> {
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        FilterSpecDefinitionState copy = new FilterSpecDefinitionState((alkParser.FilterSpecDefinitionContext) tree, sm.getExecutionPayload());
+        FilterSpecDefinitionState copy = new FilterSpecDefinitionState(tree, payload.clone(sm));
         copy.step = step;
 
         if (source != null)

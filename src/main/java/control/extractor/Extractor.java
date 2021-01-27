@@ -1,8 +1,8 @@
 package control.extractor;
 
-import org.antlr.v4.runtime.tree.ParseTree;
+import ast.AST;
 
 public interface Extractor
 {
-    void execute(ParseTree tree);
+    void execute(AST tree);
 }

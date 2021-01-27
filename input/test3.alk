@@ -1,1 +1,2 @@
-uniform i in {1..4};
+choose x from {1..5};
+choose y from {1..2};

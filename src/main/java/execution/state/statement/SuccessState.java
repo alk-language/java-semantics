@@ -1,27 +1,32 @@
 package execution.state.statement;
 
+import ast.AST;
 import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
-import grammar.alkParser;
 import execution.parser.exceptions.SuccessException;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import util.types.Value;
 
-@CtxState(ctxClass = alkParser.SuccessContext.class)
-public class SuccessState extends PrimitiveState {
+public class SuccessState
+extends PrimitiveState
+{
 
-    alkParser.SuccessContext ctx;
+    public SuccessState(AST tree, ExecutionPayload executionPayload)
+    {
+        super(tree, executionPayload);
+    }
 
-    public SuccessState(alkParser.SuccessContext ctx, ExecutionPayload executionPayload) {
-        super(ctx, executionPayload, null);
-        this.ctx = ctx;
+    @Override
+    protected Value requireResult()
+    {
         throw new SuccessException();
     }
 
     @Override
-    public ExecutionState clone(SplitMapper sm) {
-        SuccessState copy = new SuccessState(ctx, sm.getExecutionPayload());
+    public ExecutionState clone(SplitMapper sm)
+    {
+        SuccessState copy = new SuccessState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

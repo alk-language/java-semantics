@@ -1,34 +1,30 @@
 package execution.state.statement;
 
+import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
-import grammar.alkParser;
 import execution.parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
-import execution.parser.visitors.StmtVisitor;
-import execution.parser.visitors.expression.ExpressionVisitor;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
 import static execution.parser.exceptions.AlkException.ERR_IF_NOT_BOOL;
 
-@CtxState(ctxClass = alkParser.IfStructureContext.class)
-public class IfStmtState extends ExecutionState<Value, Value> {
+public class IfStmtState extends ExecutionState
+{
 
-    private alkParser.IfStructureContext ctx;
     private AlkBool condition;
     private boolean executed = false;
 
-    public IfStmtState(alkParser.IfStructureContext ctx, ExecutionPayload executionPayload)
+    public IfStmtState(AST tree, ExecutionPayload executionPayload)
     {
-        super(ctx, executionPayload);
-        this.ctx = ctx;
+        super(tree, executionPayload);
     }
 
     @Override
-    public ExecutionState makeStep() {
+    public ExecutionState makeStep()
+    {
         if (executed)
         {
             return null;
@@ -36,19 +32,19 @@ public class IfStmtState extends ExecutionState<Value, Value> {
 
         if (condition == null)
         {
-            return request(ExpressionVisitor.class, ctx.expression());
+            return request(tree.getChild(0));
         }
 
         executed = true;
         if (condition.isTrue())
         {
-            return request(StmtVisitor.class, ctx.statement(0));
+            return request(tree.getChild(1));
         }
         else
         {
-            if (ctx.statement().size() > 1)
+            if (tree.getChildCount() > 2)
             {
-                return request(StmtVisitor.class, ctx.statement(1));
+                return request(tree.getChild(2));
             }
             else
             {
@@ -62,18 +58,21 @@ public class IfStmtState extends ExecutionState<Value, Value> {
         if (condition == null)
         {
             Value value = executionResult.getValue().toRValue();
-            if (!(value instanceof AlkBool))
+            if (value instanceof AlkBool)
+            {
+                condition = (AlkBool) value;
+            }
+            else
             {
                 super.handle(new AlkException(ERR_IF_NOT_BOOL));
             }
-
-            condition = (AlkBool) value;
         }
     }
 
     @Override
-    public ExecutionState clone(SplitMapper sm) {
-        IfStmtState copy = new IfStmtState(ctx, sm.getExecutionPayload());
+    public ExecutionState clone(SplitMapper sm)
+    {
+        IfStmtState copy = new IfStmtState(tree, payload.clone(sm));
         copy.condition = (AlkBool) condition.weakClone(sm.getLocationMapper());
         copy.executed = executed;
         return super.decorate(copy, sm);

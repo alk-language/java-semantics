@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.StructAST;
-import visitor.VisitorIface;
+import ast.expr.StructAST;
+import visitor.ifaces.VisitorIface;
 
 public interface StructVisitorIface<T>
 extends VisitorIface<T>

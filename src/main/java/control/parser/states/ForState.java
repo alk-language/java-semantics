@@ -1,12 +1,12 @@
 package control.parser.states;
 
+import ast.AST;
 import ast.CtxState;
 import ast.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;
 import control.parser.CFGState;
-import control.parser.visitors.StmtVisitor;
 import grammar.alkParser;
 
 import java.util.Collections;
@@ -16,18 +16,16 @@ import java.util.List;
 public class ForState extends CFGState
 {
     ControlFlowGraph.Node initNode, condition, step;
-    alkParser.ForStructureContext ctx;
     private boolean visited = false;
 
-    public ForState(alkParser.ForStructureContext tree, CFGPayload payload)
+    public ForState(AST tree, CFGPayload payload)
     {
         super(tree, payload);
-        initNode = new ControlFlowGraph.Node(tree.start_assignment());
+        initNode = new ControlFlowGraph.Node(tree.getChild(0)); // startassignment
         link(payload.getInputs(), Collections.singletonList(initNode));
-        condition = new ControlFlowGraph.Node(tree.expression());
+        condition = new ControlFlowGraph.Node(tree.getChild(1)); // expression
         link(Collections.singletonList(initNode), Collections.singletonList(condition));
-        step = new ControlFlowGraph.Node(tree.increase_decrease());
-        this.ctx = tree;
+        step = new ControlFlowGraph.Node(tree.getChild(2)); // increasedecrease
     }
 
     @Override
@@ -36,7 +34,7 @@ public class ForState extends CFGState
         if (!visited)
         {
             visited = true;
-            return request(StmtVisitor.class, ctx.statement(), new CFGPayload(condition));
+            return request(tree.getChild(0), new CFGPayload(condition)); // statement
         }
 
         setResult(new CFGResult(condition));

@@ -1,5 +1,7 @@
 package dataflow.lvars;
 
+import ast.AST;
+import ast.stmt.AssignmentAST;
 import control.extractor.VarsBulkExtractor;
 import dataflow.CFGNode;
 import dataflow.TransferFunction;
@@ -15,26 +17,26 @@ public class LVarsTransferFunction implements TransferFunction<VariableSet>
         return get(node.getTree(), input);
     }
 
-    private VariableSet get(ParseTree tree, VariableSet set)
+    private VariableSet get(AST tree, VariableSet set)
     {
         return set.remove(kill(tree)).union(gen(tree));
     }
 
-    private VariableSet gen(ParseTree tree)
+    private VariableSet gen(AST tree)
     {
-        if (!(tree instanceof alkParser.AssignmentStmtContext))
+        if (!(tree instanceof AssignmentAST))
             return VariableSet.getEmptySet();
 
-        alkParser.AssignmentStmtContext assgnTree = (alkParser.AssignmentStmtContext) tree;
-        return new VariableSet(new VarsBulkExtractor().extract(assgnTree.expression()));
+        AssignmentAST assgnTree = (AssignmentAST) tree;
+        return new VariableSet(new VarsBulkExtractor().extract(assgnTree.getChild(0))); // expression
     }
 
-    private VariableSet kill(ParseTree tree)
+    private VariableSet kill(AST tree)
     {
-        if (!(tree instanceof alkParser.AssignmentStmtContext))
+        if (!(tree instanceof AssignmentAST))
             return VariableSet.getEmptySet();
 
-        alkParser.AssignmentStmtContext assgnTree = (alkParser.AssignmentStmtContext) tree;
-        return new VariableSet(new VarsBulkExtractor().extract(assgnTree.factor()));
+        AssignmentAST assgnTree = (AssignmentAST) tree;
+        return new VariableSet(new VarsBulkExtractor().extract(assgnTree.getChild(1))); // factor
     }
 }

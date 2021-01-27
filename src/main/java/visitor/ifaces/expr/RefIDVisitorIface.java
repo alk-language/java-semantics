@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.RefIDAST;
-import visitor.VisitorIface;
+import ast.expr.RefIDAST;
+import visitor.ifaces.VisitorIface;
 
 public interface RefIDVisitorIface<T>
 extends VisitorIface<T>

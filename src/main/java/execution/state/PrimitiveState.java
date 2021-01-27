@@ -1,27 +1,31 @@
 package execution.state;
 
+import ast.AST;
 import execution.ExecutionResult;
-import org.antlr.v4.runtime.tree.ParseTree;
-import execution.types.AlkValue;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.types.Value;
 
-public abstract class PrimitiveState extends ExecutionState<Value, Value> {
+public abstract class PrimitiveState extends ExecutionState
+{
 
-    public PrimitiveState(ParseTree tree, ExecutionPayload executionPayload, Value value) {
+    public PrimitiveState(AST tree, ExecutionPayload executionPayload)
+    {
         super(tree, executionPayload);
-        setResult(new ExecutionResult<>(value));
     }
 
     @Override
-    public ExecutionState<Value, Value> makeStep()
+    public ExecutionState makeStep()
     {
+        setResult(new ExecutionResult(requireResult()));
         return null;
     }
 
+    protected abstract Value requireResult();
+
     @Override
-    public void assign(ExecutionResult executionResult) {
+    public void assign(ExecutionResult executionResult)
+    {
         // no - op
     }
 

@@ -1,9 +1,9 @@
 package control.extractor;
 
+import ast.AST;
 import dataflow.CFG;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.*;
 
@@ -14,19 +14,24 @@ public class VarsBulkExtractor
     {
         CFGVisitor visitor = new CFGVisitor();
         VarsVisitor varsVisitor = new VarsVisitor();
-        visitor.register(null, varsVisitor::visit);
+        // TODO: properly search for variables
+        // visitor.register(null, varsVisitor::visit);
         visitor.extract(cfg);
         return varsVisitor.getVars();
     }
 
-    public Set<String> extract(ParseTree tree)
+    public Set<String> extract(AST tree)
     {
         VarsVisitor visitor = new VarsVisitor();
-        visitor.visit(tree);
+
+        // TODO: properly search for variables
+
+        // tree.accept(visitor);
         return visitor.getVars();
     }
 
-    static class VarsVisitor extends alkBaseVisitor<Object>
+    static class VarsVisitor
+    extends alkBaseVisitor<Object>
     {
         Set<String> vars = new HashSet<>();
 
