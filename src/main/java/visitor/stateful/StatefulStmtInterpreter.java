@@ -1,0 +1,27 @@
+package visitor.stateful;
+
+import ast.AST;
+import ast.Payload;
+import ast.State;
+
+public interface StatefulStmtInterpreter<T extends Payload, S extends State<?, ?>>
+{
+    S interpretAssignment(AST ast, T payload);
+    S interpretBlock(AST ast, T payload);
+    S interpretBreak(AST ast, T payload);
+    S interpretChoose(AST ast, T payload);
+    S interpretContinue(AST ast, T payload);
+    S interpretDoWhile(AST ast, T payload);
+    S interpretExprStmt(AST ast, T payload);
+    S interpretFailure(AST ast, T payload);
+    S interpretFor(AST ast, T payload);
+    S interpretForEach(AST ast, T payload);
+    S interpretFunctionDecl(AST ast, T payload);
+    S interpretIfThen(AST ast, T payload);
+    S interpretRepeatUntil(AST ast, T payload);
+    S interpretReturn(AST ast, T payload);
+    S interpretStmtSeq(AST ast, T payload);
+    S interpretSuccess(AST ast, T payload);
+    S interpretUniform(AST ast, T payload);
+    S interpretWhile(AST ast, T payload);
+}

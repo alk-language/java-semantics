@@ -5,7 +5,6 @@ import io.IOManager;
 import util.Configuration;
 import util.ErrorManager;
 import util.OptionProvider;
-import visitor.SymbolicExpressionEvaluator;
 
 public class SymbolicExpressionDriver
 {

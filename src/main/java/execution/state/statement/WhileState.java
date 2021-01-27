@@ -1,29 +1,23 @@
 package execution.state.statement;
 
+import ast.AST;
 import execution.state.ExecutionState;
 import execution.state.LoopingState;
-import grammar.alkParser;
-import execution.parser.visitors.StmtVisitor;
-import execution.parser.visitors.expression.ExpressionVisitor;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 
-@CtxState(ctxClass = alkParser.WhileStructureContext.class)
-public class WhileState extends LoopingState
+public class WhileState
+extends LoopingState
 {
-    private alkParser.WhileStructureContext ctx;
-
-    public WhileState(alkParser.WhileStructureContext tree, ExecutionPayload executionPayload)
+    public WhileState(AST tree, ExecutionPayload executionPayload)
     {
-        super(tree, executionPayload, ExpressionVisitor.class, StmtVisitor.class, tree.expression(), tree.statement());
-        this.ctx = tree;
+        super(tree, executionPayload, tree.getChild(0), tree.getChild(1));
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        WhileState copy = new WhileState(ctx, sm.getExecutionPayload());
+        WhileState copy = new WhileState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

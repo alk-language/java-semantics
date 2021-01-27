@@ -1,6 +1,8 @@
 package execution;
 
+import ast.AST;
 import execution.state.ExecutionState;
+import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.HelpFormatter;
 import execution.parser.AlkParser;
@@ -9,10 +11,12 @@ import execution.parser.env.Environment;
 import execution.parser.env.EnvironmentImpl;
 import execution.parser.env.StoreImpl;
 import execution.parser.exceptions.AlkException;
-import execution.parser.visitors.InitVisitor;
-import execution.parser.visitors.MainVisitor;
+import parser.ParseTreeGlobals;
 import util.*;
 import util.exception.InternalException;
+import visitor.SmallStepExpressionVisitor;
+import visitor.interpreter.base.BaseExpressionInterpreter;
+import visitor.stateful.StatefulInterpreterManager;
 
 import java.io.File;
 
@@ -21,22 +25,31 @@ import java.io.File;
  * under a thread paradigm to parallelize multiple file interpreting if needed.
  * It also wraps the data necessary for one execution only.
  */
-public class Execution extends Thread
+public class Execution
+extends Thread
 {
+    /** The main configuration delivery instance. */
+    public final Configuration config;
 
+    /** The main store associated with this execution. */
     private StoreImpl store;
 
-    /** The main configuration delivery instance.*/
-    private Configuration config;
-
+    /** The main code stack associated with this execution. */
     private ExecutionStack stack;
 
+    /** The manager responsible for the environments. */
     private EnvironmentManager envManager;
 
-    /* The global environment initially empty */
+    /** The global environment for the execution. */
     private Environment global;
 
+    /** A manager responsible for internal functions / procedures. */
     private FuncManager funcManager;
+
+    private StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
+
+    // -> foloseste interpretorul clasic de instructiuni + expresii
+    // -> foloseste interpretorul simbolic de instructiuni + expresii
 
     /**
      * Constructor with specific configuration
@@ -44,15 +57,21 @@ public class Execution extends Thread
      * @param config
      * The configuration meant to be used for this execution
      */
-    public Execution(Configuration config) {
+    public Execution(Configuration config)
+    {
         this.config = config;
         envManager = new EnvironmentManager();
         store = new StoreImpl();
         global = new EnvironmentImpl(store);
         funcManager = new FuncManager();
+
+        // TODO: get custom interpreter through parameter
+        BaseStatefulInterpreterManager manager = new BaseStatefulInterpreterManager();
+        manager.registerListener(envManager);
+        interpreterManager = manager;
     }
 
-    private boolean initialSetup()
+    private boolean initialize()
     {
         if (config.getAlkFile() == null || config.hasHelp())
         {
@@ -74,19 +93,15 @@ public class Execution extends Thread
 
         if (config.hasInput())
         {
-            try {
-                String input = config.getInput();
-                ParseTree tree = AlkParser.executeInit(input);
+            String input = config.getInput();
+            alkParser.ConfigContext tree = (alkParser.ConfigContext) AlkParser.executeInit(input);
 
-                ExecutionStack localStack = new ExecutionStack(config, envManager);
-                InitVisitor visitor = new InitVisitor(global, new ExecutionPayload(this));
-                ExecutionState state =  visitor.visit(tree);
-                localStack.push(state);
-                localStack.run();
-            }
-            catch (Throwable e)
+            for (int i = 0; i < tree.ID().size(); i++)
             {
-                throw new AlkException("Invalid input syntax. (try not using spaces)");
+                String id = tree.ID(i).getText();
+                ParseTree expr = tree.expression(i);
+                AST exprAST = ParseTreeGlobals.getParseExprVisitor().visit(expr);
+                global.update(id, exprAST.accept(new SmallStepExpressionVisitor<>(new BaseExpressionInterpreter(global, store))));
             }
         }
         return true;
@@ -94,25 +109,24 @@ public class Execution extends Thread
 
     /**
      * The main method which fires the parsing
-     *
-     * @throws InternalException
-     * An AlkException provided by the execution, or a wrapped non-runtime exception
      */
-    private void execute() throws InternalException
+    private void execute()
     {
         if (stack == null)
         {
-            if (!initialSetup())
+            if (!initialize())
                 return;
 
-            // get the main algorithm file and obtain the CharStream in order to be parsed
             File file = config.getAlkFile();
-
             ParseTree tree = AlkParser.execute(file);
-            MainVisitor visitor = new MainVisitor(global, new ExecutionPayload(this));
-            ExecutionState state = visitor.visit(tree);
-            stack = new ExecutionStack(config, envManager);
-            stack.push(state);
+            AST root = ParseTreeGlobals.PARSE_TREE_VISITOR.visit(tree);
+            if (root != null)
+            {
+                ExecutionPayload payload = new ExecutionPayload(this, global);
+                ExecutionState state = interpreterManager.interpret(root, payload);
+                stack = new ExecutionStack(this);
+                stack.push(state);
+            }
         }
 
         stack.run();
@@ -149,8 +163,7 @@ public class Execution extends Thread
         {
             ErrorManager em = config.getErrorManager();
             em.handleError(e);
-            OptionProvider op = config;
-            if (op.hasDebugMode())
+            if (((OptionProvider) config).hasDebugMode())
             {
                 // TODO: make use of em
                 e.printStackTrace();
@@ -158,8 +171,7 @@ public class Execution extends Thread
         }
         catch (InternalException e)
         {
-            OptionProvider op = config;
-            if (op.hasDebugMode())
+            if (((OptionProvider) config).hasDebugMode())
             {
                 // TODO: make use of em
                 e.printStackTrace();
@@ -171,17 +183,6 @@ public class Execution extends Thread
         }
     }
 
-    public EnvironmentManager getEnvManager() {
-        return envManager;
-    }
-
-    public Configuration getConfiguration() {
-        return config;
-    }
-
-    public FuncManager getFuncManager() {
-        return funcManager;
-    }
 
     public Execution clone(boolean nullifyLast)
     {
@@ -193,40 +194,73 @@ public class Execution extends Thread
         return copy;
     }
 
-    Configuration getConfig() {
+    public EnvironmentManager getEnvManager()
+    {
+        return envManager;
+    }
+
+    public Configuration getConfiguration()
+    {
         return config;
     }
 
-    ExecutionStack getStack() {
+    public FuncManager getFuncManager()
+    {
+        return funcManager;
+    }
+
+    public Configuration getConfig()
+    {
+        return config;
+    }
+
+    public ExecutionStack getStack()
+    {
         return stack;
     }
 
-    public Environment getGlobal() {
+    public Environment getGlobal()
+    {
         return global;
     }
 
-    public StoreImpl getStore() {
+    public StoreImpl getStore()
+    {
         return store;
     }
 
-    public void setStore(StoreImpl store) {
+    public void setStore(StoreImpl store)
+    {
         this.store = store;
     }
 
-    public void setGlobal(Environment global) {
+    public void setGlobal(Environment global)
+    {
         this.global = global;
     }
 
-    void setEnvManager(EnvironmentManager envManager) {
+    public void setEnvManager(EnvironmentManager envManager)
+    {
         this.envManager = envManager;
     }
 
-    void setStack(ExecutionStack stack) {
+    public void setStack(ExecutionStack stack)
+    {
         this.stack = stack;
     }
 
-    void setFuncManager(FuncManager funcManager)
+    public void setFuncManager(FuncManager funcManager)
     {
         this.funcManager = funcManager;
+    }
+
+    public void setInterpreterManager(StatefulInterpreterManager interpreterManager)
+    {
+        this.interpreterManager = interpreterManager;
+    }
+
+    public StatefulInterpreterManager getInterpreterManager()
+    {
+        return this.interpreterManager;
     }
 }

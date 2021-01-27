@@ -4,11 +4,13 @@ public class Result <T>
 {
     protected T value;
 
-    public Result(T value) {
+    public Result(T value)
+    {
         this.value = value;
     }
 
-    public T getValue() {
+    public T getValue()
+    {
         return value;
     }
 

@@ -1,5 +1,7 @@
 package visitor;
 
+import ast.enums.Operator;
+
 public class OperatorHelper
 {
     public static Operator parseBinary(String text)
@@ -28,6 +30,24 @@ public class OperatorHelper
             case "*": return Operator.MULTIPLY;
             case "/": return Operator.DIVIDE;
             case "%": return Operator.MOD;
+            default: return null;
+        }
+    }
+
+    public static Operator parseAssign(String text)
+    {
+        switch (text)
+        {
+            case "=": return Operator.ASSIGN;
+            case "+=": return Operator.PLUS_ASSIGN;
+            case "-=": return Operator.MINUS_ASSIGN;
+            case "*=": return Operator.MULTIPLY_ASSIGN;
+            case "/=": return Operator.DIVIDE_ASSIGN;
+            case "%=": return Operator.MOD_ASSIGN;
+            case "<<=": return Operator.LSHIFT_ASSSIGN;
+            case ">>=": return Operator.RSHIFT_ASSIGN;
+            case "|=": return Operator.LOR_ASSIGN;
+            case "&=": return Operator.LAND_ASSIGN;
             default: return null;
         }
     }

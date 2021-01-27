@@ -1,6 +1,6 @@
 package ast.attr;
 
-import visitor.Operator;
+import ast.enums.Operator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,5 +23,10 @@ extends ASTAttr
     public int getOpCount()
     {
         return ops.size();
+    }
+
+    public List<Operator> getOpList()
+    {
+        return ops;
     }
 }

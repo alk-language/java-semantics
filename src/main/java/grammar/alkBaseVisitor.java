@@ -1,4 +1,4 @@
-// Generated from /home/alex/IdeaProjects/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from ./../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -27,20 +27,6 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitStatementSeq(alkParser.StatementSeqContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitMethodCall(alkParser.MethodCallContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitFunctionCall(alkParser.FunctionCallContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -103,13 +89,6 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitToIncreaseDecrease(alkParser.ToIncreaseDecreaseContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitToBlock(alkParser.ToBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -166,6 +145,13 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitExpressionStmt(alkParser.ExpressionStmtContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitInclude(alkParser.IncludeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -187,13 +173,6 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEmptyBlock(alkParser.EmptyBlockContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitChooseStmt(alkParser.ChooseStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -202,48 +181,6 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitUniformStmt(alkParser.UniformStmtContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitPlusPlusStmt(alkParser.PlusPlusStmtContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitStmtPlusPlus(alkParser.StmtPlusPlusContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitMinusMinusStmt(alkParser.MinusMinusStmtContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitStmtMinusMinus(alkParser.StmtMinusMinusContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitPlusPlusModStmt(alkParser.PlusPlusModStmtContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitMinusMinusModStmt(alkParser.MinusMinusModStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -279,13 +216,6 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitForStructure(alkParser.ForStructureContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitForStart(alkParser.ForStartContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -706,18 +636,4 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitConfig(alkParser.ConfigContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitVarSeq(alkParser.VarSeqContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitVar(alkParser.VarContext ctx) { return visitChildren(ctx); }
 }

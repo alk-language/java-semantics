@@ -52,28 +52,28 @@ public class Methods {
     }
 
     @BuiltInMethod(paramNumber = 0)
-    public static Location popBack(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location popback(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         ((AlkValue) loc.toRValue()).popBack();
         return loc;
     }
 
     @BuiltInMethod(paramNumber = 0)
-    public static Location popFront(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location popfront(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         ((AlkValue) loc.toRValue()).popFront();
         return loc;
     }
 
     @BuiltInMethod(paramNumber = 1)
-    public static Location pushBack(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location pushback(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         ((AlkValue) loc.toRValue()).pushBack(generator.generate(params.get(0).clone(generator)));
         return loc;
     }
 
     @BuiltInMethod(paramNumber = 1)
-    public static Location pushFront(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location pushfront(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         ((AlkValue) loc.toRValue()).pushFront(generator.generate(params.get(0).clone(generator)));
         return loc;
@@ -87,14 +87,14 @@ public class Methods {
     }
 
     @BuiltInMethod(paramNumber = 1)
-    public static Location removeAllEqTo(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location removealleqto(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         ((AlkValue) loc.toRValue()).removeAllEqTo(params.get(0).clone(generator));
         return loc;
     }
 
     @BuiltInMethod(paramNumber = 1)
-    public static Location removeAt(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location removeat(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         ((AlkValue) loc.toRValue()).removeAt(params.get(0));
         return loc;
@@ -118,13 +118,13 @@ public class Methods {
     }
 
     @BuiltInMethod(paramNumber = 0)
-    public static Location topBack(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location topback(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         return ((AlkValue) loc.toRValue()).topBack();
     }
 
     @BuiltInMethod(paramNumber = 0)
-    public static Location topFront(Location loc, List<AlkValue> params, LocationGenerator generator)
+    public static Location topfront(Location loc, List<AlkValue> params, LocationGenerator generator)
     {
         return ((AlkValue) loc.toRValue()).topFront();
     }

@@ -1,32 +1,28 @@
 package execution.state.statement;
 
+import ast.AST;
+import ast.attr.OpsASTAttr;
+import ast.enums.Operator;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.types.alkNotAValue.AlkNotAValue;
-import grammar.alkParser;
 import execution.parser.env.Location;
 import execution.types.AlkValue;
 import execution.parser.exceptions.AlkException;
-import execution.parser.visitors.expression.ExpressionVisitor;
-import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.exception.UnimplementedException;
-import util.types.Value;
 
-@CtxState(ctxClass = alkParser.AssignmentStmtContext.class)
-public class AssignmentStmtState extends ExecutionState<Value, Value>
+public class AssignmentStmtState extends ExecutionState
 {
-
-    private alkParser.AssignmentStmtContext ctx;
+    private final Operator op;
     private AlkValue rightSide;
     private Location leftSide;
-    private String operator;
 
-    public AssignmentStmtState(alkParser.AssignmentStmtContext tree, ExecutionPayload executionPayload) {
+    public AssignmentStmtState(AST tree, ExecutionPayload executionPayload)
+    {
         super(tree, executionPayload);
-        ctx = tree;
-        operator = ctx.ASSIGNMENT_OPERATOR().getText();
+        op = tree.getAttribute(OpsASTAttr.class).getOpList().get(0);
     }
 
     @Override
@@ -34,30 +30,30 @@ public class AssignmentStmtState extends ExecutionState<Value, Value>
     {
         if (rightSide == null)
         {
-            return super.request(ExpressionVisitor.class, ctx.expression());
+            return super.request(tree.getChild(1));
         }
 
         if (leftSide == null)
         {
-            return super.request(ExpressionVisitor.class, ctx.factor());
+            return super.request(tree.getChild(0));
         }
 
-        try {
+        try
+        {
             AlkValue leftValue = (AlkValue) leftSide.getValue();
-            switch (operator)
+            switch (op)
             {
-                case "=": break;
-                case "+=": rightSide = leftValue.add(rightSide); break;
-                case "-=": rightSide = leftValue.subtract(rightSide); break;
-                case "*=": rightSide = leftValue.multiply(rightSide); break;
-                case "/=": rightSide = leftValue.divide(rightSide); break;
-                case "%=": rightSide = leftValue.mod(rightSide); break;
-                case "<<=": rightSide = leftValue.shiftleft(rightSide); break;
-                case ">>=": rightSide = leftValue.shiftright(rightSide); break;
-                case "|=": rightSide = leftValue.bitwiseor(rightSide); break;
-                case "&=": rightSide = leftValue.bitwiseand(rightSide); break;
-                default:
-                    throw new UnimplementedException("Unimplemented assignment operator: " + operator);
+                case ASSIGN: break;
+                case PLUS_ASSIGN: rightSide = leftValue.add(rightSide); break;
+                case MINUS_ASSIGN: rightSide = leftValue.subtract(rightSide); break;
+                case MULTIPLY_ASSIGN: rightSide = leftValue.multiply(rightSide); break;
+                case DIVIDE_ASSIGN: rightSide = leftValue.divide(rightSide); break;
+                case MOD_ASSIGN: rightSide = leftValue.mod(rightSide); break;
+                case LSHIFT_ASSSIGN: rightSide = leftValue.shiftleft(rightSide); break;
+                case RSHIFT_ASSIGN: rightSide = leftValue.shiftright(rightSide); break;
+                case LOR_ASSIGN: rightSide = leftValue.bitwiseor(rightSide); break;
+                case LAND_ASSIGN: rightSide = leftValue.bitwiseand(rightSide); break;
+                default: throw new UnimplementedException("Unimplemented assignment operator: " + op);
             }
 
             leftSide.assign(rightSide.clone(generator));
@@ -66,6 +62,7 @@ public class AssignmentStmtState extends ExecutionState<Value, Value>
         {
             super.handle(e);
         }
+
         return null;
     }
 
@@ -77,18 +74,20 @@ public class AssignmentStmtState extends ExecutionState<Value, Value>
             rightSide = (AlkValue) executionResult.getValue().toRValue();
             if (rightSide == null || rightSide instanceof AlkNotAValue)
             {
-                throw new AlkException(ctx.start.getLine(), "Undefined variable used in assignment.");
+                super.handle(new AlkException("Undefined variable used in assignment."));
             }
+            return;
         }
-        else if (leftSide == null)
+        if (leftSide == null)
         {
             leftSide = executionResult.getValue().toLValue();
         }
     }
 
     @Override
-    public ExecutionState clone(SplitMapper sm) {
-        AssignmentStmtState copy = new AssignmentStmtState((alkParser.AssignmentStmtContext) tree, sm.getExecutionPayload());
+    public ExecutionState clone(SplitMapper sm)
+    {
+        AssignmentStmtState copy = new AssignmentStmtState(tree, payload.clone(sm));
         copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
         copy.leftSide = sm.getLocationMapper().get(leftSide);
         return super.decorate(copy, sm);

@@ -1,12 +1,12 @@
 package control.parser.states;
 
+import ast.AST;
 import ast.CtxState;
 import ast.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;
 import control.parser.CFGState;
-import control.parser.visitors.StmtVisitor;
 import grammar.alkParser;
 
 import java.util.ArrayList;
@@ -14,21 +14,19 @@ import java.util.Collections;
 import java.util.List;
 
 @CtxState(ctxClass = alkParser.IfStructureContext.class)
-public class IfStmtState extends CFGState
+public class IfStmtState
+extends CFGState
 {
-
     ControlFlowGraph.Node node;
-    alkParser.IfStructureContext ctx;
     boolean visitedLeft = false, visitedRight = false;
     List<ControlFlowGraph.Node> outputs = new ArrayList<>();
 
-    public IfStmtState(alkParser.IfStructureContext tree, CFGPayload payload)
+    public IfStmtState(AST tree, CFGPayload payload)
     {
         super(tree, payload);
-        node = new ControlFlowGraph.Node(tree.expression());
+        node = new ControlFlowGraph.Node(tree.getChild(0)); // expression
         node.forceText("if (" + node.toString() + ")");
         link(payload.getInputs(), Collections.singletonList(node));
-        this.ctx = tree;
     }
 
     @Override
@@ -37,12 +35,12 @@ public class IfStmtState extends CFGState
         if (!visitedLeft)
         {
             visitedLeft = true;
-            return request(StmtVisitor.class, ctx.statement(0), new CFGPayload(node));
+            return request(tree.getChild(0), new CFGPayload(node));
         }
-        if (ctx.statement().size() > 1 && !visitedRight)
+        if (tree.getChildCount() > 1 && !visitedRight) // statement
         {
             visitedRight = true;
-            return request(StmtVisitor.class, ctx.statement(1), new CFGPayload(node));
+            return request(tree.getChild(1), new CFGPayload(node));
         }
         if (!visitedRight)
         {

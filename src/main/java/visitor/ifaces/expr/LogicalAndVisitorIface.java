@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.LogicalAndAST;
-import visitor.VisitorIface;
+import ast.expr.LogicalAndAST;
+import visitor.ifaces.VisitorIface;
 
 public interface LogicalAndVisitorIface<T>
 extends VisitorIface<T>

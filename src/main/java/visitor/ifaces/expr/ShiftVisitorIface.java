@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.ShiftAST;
-import visitor.VisitorIface;
+import ast.expr.ShiftAST;
+import visitor.ifaces.VisitorIface;
 
 public interface ShiftVisitorIface<T>
 extends VisitorIface<T>

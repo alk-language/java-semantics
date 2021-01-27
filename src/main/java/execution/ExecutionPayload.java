@@ -1,38 +1,46 @@
 package execution;
 
 import ast.Payload;
+import execution.exhaustive.SplitMapper;
+import execution.parser.env.Environment;
 import util.Configuration;
 import util.types.Value;
 
-public class ExecutionPayload extends Payload {
+public class ExecutionPayload
+extends Payload
+{
 
-    private Execution execution;
-    private Value value;
+    private final Execution execution;
+    private final Environment env;
 
-    public ExecutionPayload(Execution execution)
+    public ExecutionPayload(Execution execution, Environment env)
     {
         this.execution = execution;
+        this.env = env;
     }
 
-    public ExecutionPayload(Execution execution, Value value)
+    public EnvironmentManager getEnvManager()
     {
-        this.execution = execution;
-        this.value = value;
-    }
-
-    public EnvironmentManager getEnvManager() {
         return execution.getEnvManager();
     }
 
-    public Execution getExecution() {
+    public Environment getEnv()
+    {
+        return this.env;
+    }
+
+    public Execution getExecution()
+    {
         return execution;
     }
 
-    public Configuration getConfiguration() {
+    public Configuration getConfiguration()
+    {
         return execution.getConfiguration();
     }
 
-    public Value getValue() {
-        return value;
+    public ExecutionPayload clone(SplitMapper sm)
+    {
+        return new ExecutionPayload(sm.getNewExecution(), sm.getEnvironmentMapper().get(this.env));
     }
 }

@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.EqualityAST;
-import visitor.VisitorIface;
+import ast.expr.EqualityAST;
+import visitor.ifaces.VisitorIface;
 
 public interface EqualityVisitorIface<T>
 extends VisitorIface<T>

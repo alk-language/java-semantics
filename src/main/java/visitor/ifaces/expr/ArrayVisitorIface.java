@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.ArrayAST;
-import visitor.VisitorIface;
+import ast.expr.ArrayAST;
+import visitor.ifaces.VisitorIface;
 
 public interface ArrayVisitorIface<T>
 extends VisitorIface<T>

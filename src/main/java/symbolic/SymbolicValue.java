@@ -1,12 +1,8 @@
 package symbolic;
 
 import ast.AST;
-import ast.SimpleToken;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
-import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 import util.lambda.LocationGenerator;
 import util.types.Value;
 

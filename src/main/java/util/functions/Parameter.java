@@ -1,40 +1,14 @@
 package util.functions;
 
-import execution.parser.env.Location;
-import execution.parser.env.LocationMapper;
-import util.exception.InternalException;
-import util.lambda.LocationGenerator;
-import util.types.Value;
-
-public class Parameter implements Value {
-
-    String name;
+public class Parameter
+{
+    String id;
     boolean out;
 
-    public Parameter(String name, boolean out) {
-        this.name = name;
-        this.out = out;
-    }
-
-    @Override
-    public Value clone(LocationGenerator generator)
+    public Parameter(String name, boolean out)
     {
-        return new Parameter(name, out);
-    }
-
-    @Override
-    public Value weakClone(LocationMapper locationMapper) {
-        return new Parameter(name, out);
-    }
-
-    @Override
-    public Value toRValue() {
-        return this;
-    }
-
-    @Override
-    public Location toLValue() {
-        throw new InternalException("Can't get the location of one parameter type.");
+        this.id = name;
+        this.out = out;
     }
 
     public boolean isOut() {
@@ -42,6 +16,6 @@ public class Parameter implements Value {
     }
 
     public String getName() {
-        return name;
+        return id;
     }
 }

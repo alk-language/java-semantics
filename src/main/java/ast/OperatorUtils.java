@@ -1,7 +1,7 @@
 package ast;
 
 import util.exception.InternalException;
-import visitor.Operator;
+import ast.enums.Operator;
 
 public class OperatorUtils
 {

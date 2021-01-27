@@ -1,7 +1,7 @@
 package visitor.ifaces.expr;
 
-import ast.MultiplicativeAST;
-import visitor.VisitorIface;
+import ast.expr.MultiplicativeAST;
+import visitor.ifaces.VisitorIface;
 
 public interface MultiplicativeVisitorIface<T>
 extends VisitorIface<T>

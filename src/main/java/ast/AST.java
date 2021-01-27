@@ -1,12 +1,13 @@
 package ast;
 
 import ast.attr.ASTAttr;
+import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
 import org.antlr.v4.runtime.ParserRuleContext;
 import util.exception.InternalException;
-import visitor.Operator;
-import visitor.Visitable;
-import visitor.VisitorIface;
+import ast.enums.Operator;
+import visitor.ifaces.Visitable;
+import visitor.ifaces.VisitorIface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ implements Visitable
     protected ParserRuleContext ctx;
     protected String text;
 
-    AST(ParserRuleContext ctx)
+    public AST(ParserRuleContext ctx)
     {
         this.ctx = ctx;
     }
@@ -50,7 +51,7 @@ implements Visitable
     protected static String getCSV(AST ast)
     {
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<ast.getChildCount(); i++)
+        for (int i = 0; i < ast.getChildCount(); i++)
         {
             sb.append(ast.getChild(i).toString());
             if (i < ast.getChildCount() - 1)
@@ -63,7 +64,8 @@ implements Visitable
     {
         children.add(child);
     }
-    public void addAttribute(Class<? extends ASTAttr> attrClazz, ASTAttr attr)
+
+    public <T extends ASTAttr> void addAttribute(Class<T> attrClazz, T attr)
     {
         attrs.put(attrClazz, attr);
     }
@@ -71,6 +73,11 @@ implements Visitable
     public AST getChild(int idx)
     {
         return children.get(idx);
+    }
+
+    public List<AST> getChildren()
+    {
+        return children;
     }
 
     public <T> T getAttribute(Class<T> clazz)
@@ -87,7 +94,8 @@ implements Visitable
         return children.size();
     }
 
-    public String getText() {
+    public String getText()
+    {
         if (text != null)
         {
             return text;
@@ -100,12 +108,22 @@ implements Visitable
         return ctx.getText();
     }
 
+    public int getLine()
+    {
+        return ctx.getStart().getLine();
+    }
+
     @Override
     public abstract String toString();
 
     @Override
     public <T> T accept(VisitorIface<T> visitor)
     {
-        throw new InternalException("Can't visit with unspecialized visitor!");
+        throw new InternalException("Can't visit with unspecialized visitor or an unspecialized state!");
+    }
+
+    public boolean hasAttribute(Class<?> clazz)
+    {
+        return attrs.containsKey(clazz);
     }
 }

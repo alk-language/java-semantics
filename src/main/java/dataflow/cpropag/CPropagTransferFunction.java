@@ -1,5 +1,7 @@
 package dataflow.cpropag;
 
+import ast.AST;
+import ast.stmt.AssignmentAST;
 import control.extractor.VarsBulkExtractor;
 import dataflow.CFGNode;
 import dataflow.TransferFunction;
@@ -10,9 +12,9 @@ import execution.parser.env.StoreImpl;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import symbolic.CPValue;
-import visitor.ExpressionVisitor;
-import visitor.CPExpressionInterpreter;
-import visitor.ParseTreeExprVisitor;
+import visitor.SmallStepExpressionVisitor;
+import visitor.interpreter.cp.CPExpressionInterpreter;
+import parser.ParseTreeExprVisitor;
 
 import java.util.Set;
 
@@ -33,30 +35,30 @@ public class CPropagTransferFunction implements TransferFunction<VarValue>
         return get(node.getTree(), input);
     }
 
-    public VarValue get(ParseTree tree, VarValue input)
+    public VarValue get(AST tree, VarValue input)
     {
-        if (!(tree instanceof alkParser.AssignmentStmtContext)) // id = expr;
+        if (!(tree instanceof AssignmentAST)) // id = expr;
             return input;
 
-        alkParser.AssignmentStmtContext assgn = (alkParser.AssignmentStmtContext) tree;
+        AssignmentAST assgn = (AssignmentAST) tree;
         VarValue ans = VarValue.getAllUnderdefined().join(input);
-        String id = getId(assgn.factor());
-        CPValue value = getExpr(assgn.expression());
+        String id = getId(assgn.getChild(0)); // factor
+        CPValue value = getExpr(assgn.getChild(1)); // expresison
         ans.put(id, value);
         env.update(id, ans.getValue(id));
         return ans;
     }
 
-    private String getId(alkParser.FactorContext factorCtx)
+    private String getId(AST tree)
     {
         VarsBulkExtractor extractor = new VarsBulkExtractor();
-        Set<String> vars = extractor.extract(factorCtx);
+        Set<String> vars = extractor.extract(tree);
         return vars.iterator().next();
     }
 
-    private CPValue getExpr(alkParser.ExpressionContext exprCtx)
+    private CPValue getExpr(AST tree)
     {
-        ExpressionVisitor<CPValue> visitor = new ExpressionVisitor<>(new CPExpressionInterpreter(env, store));
-        return new ParseTreeExprVisitor().visit(exprCtx).accept(visitor);
+        SmallStepExpressionVisitor<CPValue> visitor = new SmallStepExpressionVisitor<>(new CPExpressionInterpreter(env, store));
+        return tree.accept(visitor);
     }
 }

@@ -1,8 +1,8 @@
 package execution.state;
 
+import ast.AST;
 import execution.ExecutionResult;
 import grammar.alkBaseVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.lambda.Validator;
@@ -10,50 +10,39 @@ import util.types.Value;
 
 import java.util.List;
 
-/**
- *
- * @param <T>
- *        The type of value which will be returned
- * @param <S>
- *        The type of value which will be dependent upon
- */
-public abstract class GeneratorState<T extends Value, S extends Value> extends ExecutionState<T, S>
+public abstract class GeneratorState
+extends ExecutionState
 {
+    protected final List<AST> children;
+    protected Validator preValidator;
 
     protected int step = 0;
-    private List<? extends ParseTree> children;
-    private Validator preValidator;
-    protected Class<? extends alkBaseVisitor> visitor;
 
-    protected GeneratorState(ParseTree tree,
-                             ExecutionPayload executionPayload,
-                             List<? extends ParseTree> children,
-                             Class<? extends alkBaseVisitor> visitor)
+    protected GeneratorState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload);
-        this.children = children;
-        this.visitor = visitor;
+        this.children = tree.getChildren();
     }
+
+    public abstract Value getFinalResult();
+
+    @Override
+    public abstract void assign(ExecutionResult executionResult);
 
     @Override
     public ExecutionState makeStep()
     {
-        if (step == children.size() ||
-            preValidator != null && !preValidator.isValid())
+        if (step == children.size() || preValidator != null && !preValidator.isValid())
         {
-            setResult(new ExecutionResult<>(getFinalResult()));
+            setResult(new ExecutionResult(getFinalResult()));
             return null;
         }
 
-        return super.request(visitor, children.get(step++));
+        return super.request(children.get(step++));
     }
 
-    @Override
-    public abstract void assign(ExecutionResult<T> executionResult);
-
-    public abstract T getFinalResult();
-
-    protected void setPreValidator(Validator preValidator) {
+    protected void setPreValidator(Validator preValidator)
+    {
         this.preValidator = preValidator;
     }
 

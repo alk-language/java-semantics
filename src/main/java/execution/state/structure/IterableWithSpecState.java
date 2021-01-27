@@ -1,5 +1,6 @@
 package execution.state.structure;
 
+import ast.AST;
 import execution.state.ExecutionState;
 import execution.state.SingleState;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -12,16 +13,18 @@ import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.types.Value;
 
-public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArray> {
+public class IterableWithSpecState
+    extends SingleState
+{
 
     private final Class<? extends AlkIterableValue> clazz;
 
-    public IterableWithSpecState(ParseTree tree,
+    public IterableWithSpecState(AST tree,
                                  ExecutionPayload executionPayload,
-                                 ParseTree spec,
+                                 AST spec,
                                  Class<? extends AlkIterableValue> clazz)
     {
-        super(tree, executionPayload, spec, DataStructureVisitor.class);
+        super(tree, executionPayload, spec);
         this.clazz = clazz;
     }
 
@@ -33,7 +36,7 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
         AlkArray rightValue = (AlkArray) value.toRValue();
         try {
             AlkIterableValue iterableValue = clazz.newInstance();
-            iterableValue.addAll(rightValue.toArray(generator));
+            iterableValue.addAll(rightValue.toArray());
             return iterableValue;
         } catch (InstantiationException | IllegalAccessException e) {
             Exception cause = (Exception) e.getCause();
@@ -45,7 +48,7 @@ public class IterableWithSpecState extends SingleState<AlkIterableValue, AlkArra
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        IterableWithSpecState copy = new IterableWithSpecState(tree, sm.getExecutionPayload(), null, clazz);
+        IterableWithSpecState copy = new IterableWithSpecState(tree, payload.clone(sm), null, clazz);
 
         return super.decorate(copy, sm);
     }

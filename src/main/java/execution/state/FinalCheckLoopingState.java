@@ -1,22 +1,17 @@
 package execution.state;
 
-import grammar.alkBaseVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
+import ast.AST;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 
-public abstract class FinalCheckLoopingState extends LoopingState
+public abstract class FinalCheckLoopingState
+extends LoopingState
 {
     private boolean firstTime = true;
 
-    public FinalCheckLoopingState(ParseTree tree,
-                                  ExecutionPayload executionPayload,
-                                  Class<? extends alkBaseVisitor> conditionVisitor,
-                                  Class<? extends alkBaseVisitor> bodyVisitor,
-                                  ParseTree condition,
-                                  ParseTree body)
+    public FinalCheckLoopingState(AST tree, ExecutionPayload executionPayload, AST condition, AST body)
     {
-        super(tree, executionPayload, conditionVisitor, bodyVisitor, condition, body);
+        super(tree, executionPayload, condition, body);
     }
 
     @Override

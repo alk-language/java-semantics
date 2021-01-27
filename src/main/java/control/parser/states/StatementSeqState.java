@@ -1,5 +1,6 @@
 package control.parser.states;
 
+import ast.AST;
 import ast.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
@@ -13,19 +14,16 @@ import java.util.List;
 
 public class StatementSeqState extends CFGState
 {
-    private List<? extends ParseTree> dependencies;
-    private Class<? extends alkBaseVisitor> visitor;
+    private final List<AST> dependencies;
     private List<ControlFlowGraph.Node> currentTerminals;
     private int step = 0;
 
-    public StatementSeqState(ParseTree ctx,
-                             Class<? extends alkBaseVisitor> visitor,
-                             List<? extends ParseTree> dependencies,
+    public StatementSeqState(AST tree,
+                             List<AST> dependencies,
                              CFGPayload payload)
     {
-        super(ctx, payload);
+        super(tree, payload);
         this.dependencies = dependencies;
-        this.visitor = visitor;
         this.currentTerminals = payload.getInputs();
     }
 
@@ -38,7 +36,7 @@ public class StatementSeqState extends CFGState
             return null;
         }
 
-        return request(visitor, dependencies.get(step++), new CFGPayload(currentTerminals));
+        return request(dependencies.get(step++), new CFGPayload(currentTerminals));
     }
 
     @Override

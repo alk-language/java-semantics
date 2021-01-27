@@ -54,9 +54,14 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
      * @return
      * An AlkBool representing the result of the expression
      */
-    public AlkBool logicalOr(AlkBool operand)
+    @Override
+    public AlkBool logicalor(AlkValue operand)
     {
-        return new AlkBool(value || operand.value);
+        if (!(operand instanceof AlkBool))
+        {
+            throw new AlkException("Invalid operands for logical or operation");
+        }
+        return new AlkBool(value || ((AlkBool) operand).value);
     }
 
 
@@ -76,9 +81,14 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
      * @return
      * An AlkBool representing the result of the expression
      */
-    public AlkBool logicalAnd(AlkBool operand)
+    @Override
+    public AlkBool logicaland(AlkValue operand)
     {
-        return new AlkBool(value && operand.value);
+        if (!(operand instanceof AlkBool))
+        {
+            throw new AlkException("Invalid operands for logical and operation");
+        }
+        return new AlkBool(value && ((AlkBool) operand).value);
     }
 
 
