@@ -5,9 +5,8 @@ import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
+import util.Pair;
 import util.lambda.LocationGenerator;
-import util.types.ComponentValue;
-import util.types.Value;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,9 +24,9 @@ public class AlkStructure extends AlkValue
         map = new HashMap<>();
     }
 
-    public void insert(ComponentValue pair)
+    public void put(Pair<String, Location> pair)
     {
-        map.put(pair.getIdentifier(), pair.getLocation());
+        map.put(pair.x, pair.y);
     }
 
     public boolean has(String operand)

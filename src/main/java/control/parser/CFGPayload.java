@@ -1,6 +1,6 @@
 package control.parser;
 
-import ast.Payload;
+import state.Payload;
 import control.ControlFlowGraph;
 
 import java.util.Collections;

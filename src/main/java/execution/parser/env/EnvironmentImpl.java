@@ -2,7 +2,7 @@ package execution.parser.env;
 
 import execution.types.AlkValue;
 import execution.parser.exceptions.IdNotInEnvironmentException;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +42,7 @@ public class EnvironmentImpl implements Environment
         return loc;
     }
 
-    public void update(String id, Value value)
+    public void update(String id, Storable value)
     {
         if (variables.containsKey(id))
             store.set(variables.get(id), value);

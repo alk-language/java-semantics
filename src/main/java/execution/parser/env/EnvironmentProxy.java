@@ -1,7 +1,6 @@
 package execution.parser.env;
 
-import execution.types.AlkValue;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +18,7 @@ public class EnvironmentProxy implements Environment
         this.store = e.getStore();
     }
 
-    public void addTempEntry(String id, Value value)
+    public void addTempEntry(String id, Storable value)
     {
         if (variables.containsKey(id))
             store.set(variables.get(id), value);
@@ -52,7 +51,7 @@ public class EnvironmentProxy implements Environment
     }
 
     @Override
-    public void update(String id, Value value)
+    public void update(String id, Storable value)
     {
         target.update(id, value);
     }

@@ -3,6 +3,7 @@ package parser;
 import ast.*;
 import ast.attr.*;
 import ast.expr.*;
+import ast.expr.AssignmentAST;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -15,6 +16,19 @@ import visitor.OperatorHelper;
 public class ParseTreeExprVisitor
 extends alkBaseVisitor<AST>
 {
+
+    @Override
+    public AST visitAssignExpression(alkParser.AssignExpressionContext ctx)
+    {
+        AST ast = new AssignmentAST(ctx);
+        ast.addChild(this.visit(ctx.factor()));
+        ast.addChild(this.visit(ctx.expression()));
+        OpsASTAttr attr = new OpsASTAttr();
+        attr.add(OperatorHelper.parseAssign(ctx.ASSIGNMENT_OPERATOR().getText()));
+        ast.addAttribute(OpsASTAttr.class, attr);
+        return ast;
+    }
+
     @Override
     public AST visitConditionalExpression(alkParser.ConditionalExpressionContext ctx)
     {

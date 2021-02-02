@@ -1,21 +1,22 @@
 package execution.parser.env;
 
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class StoreImpl implements Store
+public class StoreImpl
+implements Store
 {
-    private Map<Location, Value> store = new HashMap<>();
+    private final Map<Location, Storable> store = new HashMap<>();
 
-    public Value get(Location location)
+    public Storable get(Location location)
     {
         return store.get(location);
     }
 
-    public void set(Location location, Value value)
+    public void set(Location location, Storable value)
     {
         store.put(location, value);
     }
@@ -33,7 +34,7 @@ public class StoreImpl implements Store
     }
 
     @Override
-    public Location generate(Value value)
+    public Location generate(Storable value)
     {
         if (value == null)
         {

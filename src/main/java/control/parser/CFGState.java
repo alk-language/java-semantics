@@ -1,9 +1,8 @@
 package control.parser;
 
 import ast.AST;
-import ast.State;
+import state.State;
 import control.ControlFlowGraph;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.List;
 

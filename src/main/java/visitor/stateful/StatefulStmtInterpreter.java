@@ -1,12 +1,11 @@
 package visitor.stateful;
 
 import ast.AST;
-import ast.Payload;
-import ast.State;
+import state.Payload;
+import state.State;
 
 public interface StatefulStmtInterpreter<T extends Payload, S extends State<?, ?>>
 {
-    S interpretAssignment(AST ast, T payload);
     S interpretBlock(AST ast, T payload);
     S interpretBreak(AST ast, T payload);
     S interpretChoose(AST ast, T payload);

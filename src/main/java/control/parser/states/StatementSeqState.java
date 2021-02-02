@@ -1,13 +1,11 @@
 package control.parser.states;
 
 import ast.AST;
-import ast.State;
+import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;
 import control.parser.CFGState;
-import grammar.alkBaseVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
 import util.exception.InternalException;
 
 import java.util.List;

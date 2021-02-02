@@ -9,7 +9,7 @@ import execution.parser.exceptions.AlkException;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 
 public class BasePostfixOperatorState
 extends SingleState
@@ -23,11 +23,11 @@ extends SingleState
     }
 
     @Override
-    protected Value interpretResult(Value value) {
+    protected Storable interpretResult(Storable value) {
 
         try
         {
-            Value result = value;
+            Storable result = value;
 
             if (result.toRValue() == null)
             {

@@ -11,7 +11,7 @@ import symbolic.UndefinedValue;
 import util.Pair;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
-import util.types.Value;
+import util.types.Storable;
 import ast.enums.Operator;
 import ast.enums.Primitive;
 import visitor.interpreter.SmallStepExpressionInterpreter;
@@ -94,7 +94,7 @@ implements SmallStepExpressionInterpreter<CPValue>
 
         for (CPValue symvalue : values)
         {
-            Value value = symvalue.toRValue();
+            Storable value = symvalue.toRValue();
 
             if (value instanceof AlkValue)
             {
@@ -120,8 +120,8 @@ implements SmallStepExpressionInterpreter<CPValue>
     @Override
     public CPValue interpretCompositeInterval(Primitive primitive, CPValue left, CPValue right)
     {
-        Value lvalue = left.toRValue();
-        Value rvalue = right.toRValue();
+        Storable lvalue = left.toRValue();
+        Storable rvalue = right.toRValue();
 
         if (lvalue instanceof UndefinedValue || rvalue instanceof UndefinedValue)
             return new UndefinedValue();
@@ -135,7 +135,7 @@ implements SmallStepExpressionInterpreter<CPValue>
     @Override
     public CPValue interpretCompositeFilterSpec(Primitive primitive, String id, CPValue fromExpr, Provider<CPValue> suchThat)
     {
-        Value fromValue = fromExpr.toRValue();
+        Storable fromValue = fromExpr.toRValue();
 
         if (fromValue instanceof UndefinedValue)
             return new UndefinedValue();
@@ -152,7 +152,7 @@ implements SmallStepExpressionInterpreter<CPValue>
     @Override
     public CPValue interpretCompositeSelectSpec(Primitive primitive, String id, CPValue fromExpr, Provider<CPValue> suchThat)
     {
-        Value fromValue = fromExpr.toRValue();
+        Storable fromValue = fromExpr.toRValue();
 
         if (fromValue instanceof UndefinedValue)
             return new UndefinedValue();
@@ -174,7 +174,7 @@ implements SmallStepExpressionInterpreter<CPValue>
         {
             String key = pair.x;
             CPValue cpValue = pair.y;
-            Value value = cpValue.toRValue();
+            Storable value = cpValue.toRValue();
 
             if (value instanceof UndefinedValue)
                 return new UndefinedValue();

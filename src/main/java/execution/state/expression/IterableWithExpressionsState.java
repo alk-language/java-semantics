@@ -12,14 +12,14 @@ import execution.types.alkArray.AlkArray;
 import execution.types.alkList.AlkList;
 import execution.types.alkSet.AlkSet;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.ArrayList;
 
 public class IterableWithExpressionsState
 extends GeneratorState
 {
-    private final ArrayList<Value> array = new ArrayList<>();
+    private final ArrayList<Storable> array = new ArrayList<>();
     private final Primitive primitive;
 
     public IterableWithExpressionsState(Primitive primitive, AST tree, ExecutionPayload executionPayload)
@@ -29,10 +29,10 @@ extends GeneratorState
     }
 
     @Override
-    public Value getFinalResult()
+    public Storable getFinalResult()
     {
         AlkIterableValue iterableVal = getPrimitiveInstance();
-        for (Value value : array)
+        for (Storable value : array)
         {
             iterableVal.push(generator.generate(value.toRValue().clone(generator)));
         }
@@ -64,7 +64,7 @@ extends GeneratorState
     {
         IterableWithExpressionsState copy = new IterableWithExpressionsState(primitive, tree, payload.clone(sm));
 
-        for (Value value : array)
+        for (Storable value : array)
         {
             copy.array.add(value.weakClone(sm.getLocationMapper()));
         }

@@ -5,12 +5,12 @@ import execution.ExecutionResult;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.parser.exceptions.AlkException;
-import util.types.Value;
+import util.types.Storable;
 
 public abstract class SingleState extends ExecutionState
 {
     private final AST dependency;
-    private Value localResult;
+    private Storable localResult;
     private boolean visited = false;
 
     public SingleState(AST tree, ExecutionPayload executionPayload, AST dependency)
@@ -19,7 +19,7 @@ public abstract class SingleState extends ExecutionState
         this.dependency = dependency;
     }
 
-    protected abstract Value interpretResult(Value value);
+    protected abstract Storable interpretResult(Storable value);
 
     @Override
     public ExecutionState makeStep()

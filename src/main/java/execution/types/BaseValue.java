@@ -2,10 +2,10 @@ package execution.types;
 
 import symbolic.CPValue;
 import symbolic.SymbolicValueIface;
-import util.types.Value;
+import util.types.Storable;
 
 public interface BaseValue
-extends Value,
+extends Storable,
         CPValue,
         SymbolicValueIface
 {

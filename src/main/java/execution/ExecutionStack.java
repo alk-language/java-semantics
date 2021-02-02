@@ -6,7 +6,6 @@ import execution.exhaustive.ExecutionStateMapper;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
 import execution.parser.env.LocationMapper;
-import util.types.Value;
 
 public class ExecutionStack extends ASTStack<ExecutionState>
 {

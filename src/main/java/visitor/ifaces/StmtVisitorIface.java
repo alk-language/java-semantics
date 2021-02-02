@@ -3,8 +3,7 @@ package visitor.ifaces;
 import visitor.ifaces.stmt.*;
 
 public interface StmtVisitorIface<T>
-extends AssignmentVisitorIface<T>,
-        BlockVisitorIface<T>,
+extends BlockVisitorIface<T>,
         BreakVisitorIface<T>,
         ChooseVisitorIface<T>,
         ContinueVisitorIface<T>,

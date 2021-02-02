@@ -2,11 +2,10 @@ package execution;
 
 import execution.exhaustive.EnvironmentMapper;
 import execution.exhaustive.ExecutionStateMapper;
-import execution.types.AlkValue;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.env.StoreImpl;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.Set;
 
@@ -29,8 +28,8 @@ class ExecutionCloner {
 
         for (Location loc : sourceLocations)
         {
-            Value value = loc.getValue();
-            Value copyValue = value.weakClone(locMapping);
+            Storable value = loc.getValue();
+            Storable copyValue = value.weakClone(locMapping);
             copyStore.set(locMapping.get(loc), copyValue);
         }
 

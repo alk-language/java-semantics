@@ -8,14 +8,14 @@ import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.types.alkBool.AlkBool;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 
 import static execution.parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;
 
 public class BaseConditionalOperatorState
 extends ExecutionState
 {
-    private Value queryExpression;
+    private Storable queryExpression;
     private boolean checkedQuery = false;
 
     public BaseConditionalOperatorState(AST tree, ExecutionPayload executionPayload)

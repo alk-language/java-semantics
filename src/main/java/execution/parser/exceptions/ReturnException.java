@@ -1,7 +1,7 @@
 package execution.parser.exceptions;
 
 import execution.types.AlkValue;
-import util.types.Value;
+import util.types.Storable;
 
 public class ReturnException extends UnwindException
 {
@@ -13,7 +13,7 @@ public class ReturnException extends UnwindException
         this.value = value;
     }
 
-    public Value getValue()
+    public Storable getValue()
     {
         return value;
     }

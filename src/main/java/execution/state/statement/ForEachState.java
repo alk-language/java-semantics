@@ -12,7 +12,7 @@ import execution.parser.exceptions.AlkException;
 import ast.CtxState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ extends LoopingState
     {
         if (source == null)
         {
-            Value value = executionResult.getValue().toRValue();
+            Storable value = executionResult.getValue().toRValue();
             if (value instanceof AlkIterableValue)
             {
                 source = ((AlkIterableValue) value).toArray();

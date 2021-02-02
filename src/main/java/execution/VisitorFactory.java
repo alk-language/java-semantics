@@ -1,9 +1,8 @@
 package execution;
 
-import ast.Payload;
+import state.Payload;
 import grammar.alkBaseVisitor;
 import execution.parser.env.Environment;
-import execution.ExecutionPayload;
 import util.exception.InternalException;
 
 import java.lang.reflect.InvocationTargetException;

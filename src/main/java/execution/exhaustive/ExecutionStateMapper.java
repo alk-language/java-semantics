@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class ExecutionStateMapper
 {
-    private Map<ExecutionState, ExecutionState> mapping = new HashMap<>();
+    private final Map<ExecutionState, ExecutionState> mapping = new HashMap<>();
 
-    public void put(ExecutionState state, ExecutionState newstate) {
-        mapping.put(state, newstate);
+    public void put(ExecutionState state, ExecutionState newState) {
+        mapping.put(state, newState);
     }
 
     public ExecutionState get(ExecutionState state)

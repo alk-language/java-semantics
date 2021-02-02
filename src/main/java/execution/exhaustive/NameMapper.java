@@ -1,14 +1,15 @@
 package execution.exhaustive;
 
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
-public class NameMapper {
+public class NameMapper
+{
 
     private static final Set<String> RESERVED_KEYWORDS = new HashSet<>();
 
-    static {
+    static
+    {
         RESERVED_KEYWORDS.add("int");
         RESERVED_KEYWORDS.add("float");
     }

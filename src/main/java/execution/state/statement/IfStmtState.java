@@ -7,7 +7,7 @@ import execution.parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
+import util.types.Storable;
 
 import static execution.parser.exceptions.AlkException.ERR_IF_NOT_BOOL;
 
@@ -57,7 +57,7 @@ public class IfStmtState extends ExecutionState
     public void assign(ExecutionResult executionResult) {
         if (condition == null)
         {
-            Value value = executionResult.getValue().toRValue();
+            Storable value = executionResult.getValue().toRValue();
             if (value instanceof AlkBool)
             {
                 condition = (AlkBool) value;

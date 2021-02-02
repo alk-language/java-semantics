@@ -1,10 +1,12 @@
 package visitor.ifaces;
 
 import visitor.ifaces.expr.*;
+import visitor.ifaces.stmt.AssignmentVisitorIface;
 
 public interface ExpressionVisitorIface<T>
 extends AdditiveVisitorIface<T>,
         ArrayVisitorIface<T>,
+        AssignmentVisitorIface<T>,
         BitwiseAndVisitorIface<T>,
         BitwiseOrVisitorIface<T>,
         BoolVisitorIface<T>,

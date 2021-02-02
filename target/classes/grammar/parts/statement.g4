@@ -18,8 +18,6 @@ statement
 
     | CONTINUE SEMICOLON                                                                                                #ContinueStmt
     | BREAK SEMICOLON                                                                                                   #BreakStmt
-
-    | assignment SEMICOLON                                                                                              #ToAssignmentStmt
     | statement_block                                                                                                   #ToBlock
 
     | directive                                                                                                         #ToDirective
@@ -55,11 +53,6 @@ choose:
     | UNIFORM ID FROM expression                                                                                        #UniformStmt
 ;
 
-assignment
-:
-    factor ASSIGNMENT_OPERATOR expression                                                                               #AssignmentStmt
-;
-
 while_struct
 :
     WHILE LPAR expression RPAR statement                                                                                #WhileStructure
@@ -77,7 +70,7 @@ if_struct
 
 for_struct
 :
-    FOR LPAR assignment? SEMICOLON expression SEMICOLON expression? RPAR statement                                      #ForStructure
+    FOR LPAR expression SEMICOLON expression SEMICOLON expression RPAR statement                                        #ForStructure
 ;
 
 foreach_struct

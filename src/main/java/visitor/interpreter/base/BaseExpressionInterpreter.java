@@ -14,8 +14,7 @@ import execution.types.alkStructure.AlkStructure;
 import util.Pair;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
-import util.types.ComponentValue;
-import util.types.Value;
+import util.types.Storable;
 import ast.enums.Operator;
 import ast.enums.Primitive;
 import visitor.interpreter.SmallStepExpressionInterpreter;
@@ -142,8 +141,8 @@ implements SmallStepExpressionInterpreter<BaseValue>
     @Override
     public BaseValue interpretCompositeInterval(Primitive primitive, BaseValue x, BaseValue y)
     {
-        Value left = x.toRValue();
-        Value right = y.toRValue();
+        Storable left = x.toRValue();
+        Storable right = y.toRValue();
 
         if (!(left instanceof AlkInt) || !(right instanceof AlkInt))
             throw new InternalException("Can't make interval if limits are not integers");
@@ -173,7 +172,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
                                                   Provider<BaseValue> suchThat)
     {
         AlkIterableValue struct = InterpreterHelper.getIterableInstance(primitive);
-        Value fromExpr = x.toRValue();
+        Storable fromExpr = x.toRValue();
 
         if (!(fromExpr instanceof AlkIterableValue))
             throw new AlkException("First expression in filter specification must be an iterable");
@@ -192,7 +191,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
             for (Location loc : locs)
             {
                 proxy.addTempEntry(id, loc.toRValue().clone(locationGenerator));
-                Value eval = suchThat.invoke(null).toRValue();
+                Storable eval = suchThat.invoke(null).toRValue();
 
                 if (!(eval instanceof AlkBool))
                     throw new AlkException("Second expression in filter specification must be a boolean");
@@ -215,7 +214,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
     public BaseValue interpretCompositeSelectSpec(Primitive primitive, String id, BaseValue x, Provider<BaseValue> suchThat)
     {
         AlkIterableValue struct = InterpreterHelper.getIterableInstance(primitive);
-        Value fromExpr = x.toRValue();
+        Storable fromExpr = x.toRValue();
 
         if (!(fromExpr instanceof AlkIterableValue))
             throw new AlkException("Second expression in select specification must be an iterable");
@@ -232,7 +231,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
         for (Location loc : locs)
         {
             proxy.addTempEntry(id, loc.toRValue().clone(locationGenerator));
-            Value eval = suchThat.invoke(null).toRValue();
+            Storable eval = suchThat.invoke(null).toRValue();
 
             if (!(eval instanceof AlkValue))
                 throw new InternalException("Can't use non-alkvalue in composite select spec");
@@ -253,12 +252,12 @@ implements SmallStepExpressionInterpreter<BaseValue>
 
         for (Pair<String, BaseValue> pair : comps)
         {
-            Value value = pair.y.toRValue();
+            Storable value = pair.y.toRValue();
 
             if (!(value instanceof AlkValue))
                 throw new InternalException("Can't use non-alkvalue in composite components spec");
 
-            struct.insert(new ComponentValue(pair.x, locationGenerator.generate(value.toRValue())));
+            struct.put(new Pair<>(pair.x, locationGenerator.generate(value.toRValue())));
         }
 
         return struct;

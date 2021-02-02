@@ -1,6 +1,6 @@
 package visitor.ifaces.stmt;
 
-import ast.stmt.AssignmentAST;
+import ast.expr.AssignmentAST;
 import visitor.ifaces.VisitorIface;
 
 public interface AssignmentVisitorIface<T>
