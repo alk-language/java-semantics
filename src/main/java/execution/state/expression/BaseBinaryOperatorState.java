@@ -10,7 +10,7 @@ import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 import visitor.interpreter.RequiresGenerator;
 
 import java.lang.reflect.InvocationTargetException;
@@ -40,7 +40,7 @@ extends GuardedGeneratorState
     }
 
     @Override
-    protected Value interpretResult(Operator op, Value current, Value next)
+    protected Storable interpretResult(Operator op, Storable current, Storable next)
     {
         String opName = op.toString().toLowerCase();
 
@@ -87,7 +87,7 @@ extends GuardedGeneratorState
                 throw new InternalException("Invalid number of operands for operator: " + opName);
             }
 
-            return (Value) method.invoke(current, params.toArray());
+            return (Storable) method.invoke(current, params.toArray());
         }
         catch (IllegalAccessException | InvocationTargetException e)
         {

@@ -1,21 +1,17 @@
 package execution.state;
 
 import ast.AST;
-import ast.State;
-import execution.VisitorFactory;
+import state.State;
 import execution.Execution;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
 import execution.exhaustive.SplitMapper;
-import grammar.alkBaseVisitor;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
 import execution.parser.env.Environment;
 import execution.parser.env.StoreImpl;
 import execution.parser.exceptions.AlkException;
 import util.*;
 import util.lambda.LocationGenerator;
-import util.types.Value;
+import util.types.Storable;
 
 public abstract class ExecutionState
 extends State<ExecutionPayload, ExecutionResult>
@@ -25,7 +21,7 @@ extends State<ExecutionPayload, ExecutionResult>
     public ExecutionState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload, executionPayload.getExecution().getInterpreterManager());
-        generator = (Value value) -> getStore().generate(value);
+        generator = (Storable value) -> getStore().generate(value);
     }
 
     protected ExecutionState decorate(ExecutionState copy, SplitMapper sm)

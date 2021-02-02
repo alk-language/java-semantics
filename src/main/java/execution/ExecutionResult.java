@@ -1,13 +1,13 @@
 package execution;
 
-import ast.Result;
+import state.Result;
 import execution.parser.env.LocationMapper;
-import util.types.Value;
+import util.types.Storable;
 
 public class ExecutionResult
-extends Result<Value>
+extends Result<Storable>
 {
-    public ExecutionResult(Value value)
+    public ExecutionResult(Storable value)
     {
         super(value);
     }

@@ -4,7 +4,7 @@ import ast.AST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import util.lambda.LocationGenerator;
-import util.types.Value;
+import util.types.Storable;
 
 public class SymbolicValue
 implements SymbolicValueIface
@@ -16,17 +16,17 @@ implements SymbolicValueIface
     }
 
     @Override
-    public Value weakClone(LocationMapper locationMapper) {
+    public Storable weakClone(LocationMapper locationMapper) {
         return null;
     }
 
     @Override
-    public Value clone(LocationGenerator generator) {
+    public Storable clone(LocationGenerator generator) {
         return null;
     }
 
     @Override
-    public Value toRValue() {
+    public Storable toRValue() {
         return null;
     }
 

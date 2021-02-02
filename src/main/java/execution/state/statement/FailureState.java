@@ -6,7 +6,7 @@ import execution.state.PrimitiveState;
 import execution.parser.exceptions.FailureException;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
+import util.types.Storable;
 
 public class FailureState
 extends PrimitiveState
@@ -17,7 +17,7 @@ extends PrimitiveState
     }
 
     @Override
-    protected Value requireResult()
+    protected Storable requireResult()
     {
         throw new FailureException();
     }

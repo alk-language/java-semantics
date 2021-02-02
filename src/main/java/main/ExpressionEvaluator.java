@@ -11,7 +11,7 @@ import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.ParseTreeExprVisitor;
 import util.Configuration;
-import util.types.Value;
+import util.types.Storable;
 import visitor.SmallStepExpressionVisitor;
 import visitor.interpreter.base.BaseExpressionInterpreter;
 import visitor.interpreter.SmallStepExpressionInterpreter;
@@ -44,7 +44,7 @@ public class ExpressionEvaluator
         SmallStepExpressionInterpreter<BaseValue> interpreter = new BaseExpressionInterpreter(env, store);
         SmallStepExpressionVisitor<BaseValue> visitor = new SmallStepExpressionVisitor<>(interpreter);
 
-        Value value = root.accept(visitor).toRValue();
+        Storable value = root.accept(visitor).toRValue();
         config.getIOManager().write(value.toString());
     }
 }

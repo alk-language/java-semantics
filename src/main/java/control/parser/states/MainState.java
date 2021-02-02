@@ -2,7 +2,7 @@ package control.parser.states;
 
 import ast.AST;
 import ast.CtxState;
-import ast.State;
+import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;

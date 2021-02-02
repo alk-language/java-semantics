@@ -9,27 +9,38 @@ import java.math.BigDecimal;
 
 import static execution.parser.exceptions.AlkException.ERR_INVALID_CONVERSION;
 
-public class Convertors {
+public class Convertors
+{
 
-    public static AlkValue toInt(AlkValue value) throws AlkException {
-        if (value.isDataStructure)
-            throw new AlkException(ERR_INVALID_CONVERSION);
-        switch (value.type)
+    public static AlkInt toInt(AlkValue value)
+    {
+        if (value instanceof AlkInt)
         {
-            case "Int": return value;
-            case "Double": return new AlkInt(((AlkFloat)value).value.toBigInteger());
-            default: throw new AlkException(ERR_INVALID_CONVERSION);
+            return (AlkInt) value;
+        }
+        else if (value instanceof AlkFloat)
+        {
+            return new AlkInt(((AlkFloat) value).value.toBigInteger());
+        }
+        else
+        {
+            throw new AlkException(ERR_INVALID_CONVERSION);
         }
     }
 
-    public static AlkValue toFloat(AlkValue value) throws AlkException {
-        if (value.isDataStructure)
-            throw new AlkException(ERR_INVALID_CONVERSION);
-        switch (value.type)
+    public static AlkFloat toFloat(AlkValue value)
+    {
+        if (value instanceof AlkInt)
         {
-            case "Double": return value;
-            case "Int": return new AlkFloat(new BigDecimal(((AlkInt)value).value));
-            default: throw new AlkException(ERR_INVALID_CONVERSION);
+            return new AlkFloat(new BigDecimal(((AlkInt) value).value));
+        }
+        else if (value instanceof AlkFloat)
+        {
+            return (AlkFloat) value;
+        }
+        else
+        {
+            throw new AlkException(ERR_INVALID_CONVERSION);
         }
     }
 }

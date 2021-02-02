@@ -4,7 +4,7 @@ import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
-import util.types.Value;
+import util.types.Storable;
 
 public class OverdefinedValue implements CPValue {
 
@@ -19,17 +19,17 @@ public class OverdefinedValue implements CPValue {
     }
 
     @Override
-    public Value weakClone(LocationMapper locationMapper) {
+    public Storable weakClone(LocationMapper locationMapper) {
         return new OverdefinedValue();
     }
 
     @Override
-    public Value clone(LocationGenerator generator) {
+    public Storable clone(LocationGenerator generator) {
         return new OverdefinedValue();
     }
 
     @Override
-    public Value toRValue() {
+    public Storable toRValue() {
         return this;
     }
 

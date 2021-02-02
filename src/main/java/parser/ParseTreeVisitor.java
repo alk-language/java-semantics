@@ -55,27 +55,9 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
-    public AST visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx)
-    {
-        return visit(ctx.assignment());
-    }
-
-    @Override
     public AST visitToChooseStmt(alkParser.ToChooseStmtContext ctx)
     {
         return visit(ctx.choose());
-    }
-
-    @Override
-    public AST visitAssignmentStmt(alkParser.AssignmentStmtContext ctx)
-    {
-        AST assignAST = new AssignmentAST(ctx);
-        assignAST.addChild(exprVisitor.visit(ctx.factor()));
-        assignAST.addChild(exprVisitor.visit(ctx.expression()));
-        OpsASTAttr attr = new OpsASTAttr();
-        attr.add(OperatorHelper.parseAssign(ctx.ASSIGNMENT_OPERATOR().getText()));
-        assignAST.addAttribute(OpsASTAttr.class, attr);
-        return assignAST;
     }
 
     @Override
@@ -134,9 +116,9 @@ extends alkBaseVisitor<AST>
     public AST visitForStructure(alkParser.ForStructureContext ctx)
     {
         AST ast = new ForAST(ctx);
-        ast.addChild(ctx.assignment() != null ? visit(ctx.assignment()) : null);
         ast.addChild(exprVisitor.visit(ctx.expression(0)));
-        ast.addChild(ctx.expression().size() > 1 ? exprVisitor.visit(ctx.expression(1)) : null);
+        ast.addChild(exprVisitor.visit(ctx.expression(1)));
+        ast.addChild(exprVisitor.visit(ctx.expression(2)));
         ast.addChild(visit(ctx.statement()));
         return ast;
     }

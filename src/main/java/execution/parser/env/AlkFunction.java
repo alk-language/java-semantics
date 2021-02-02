@@ -1,7 +1,6 @@
 package execution.parser.env;
 
 import ast.AST;
-import org.antlr.v4.runtime.tree.ParseTree;
 import execution.exhaustive.SplitMapper;
 import util.exception.InternalException;
 import util.functions.Parameter;
@@ -11,11 +10,10 @@ import java.util.List;
 
 public class AlkFunction
 {
-
-    String name;
-    List<Parameter> params;
-    List<String> modifies;
-    AST tree;
+    private final String name;
+    private final List<Parameter> params;
+    private final List<String> modifies;
+    private final AST tree;
 
     public AlkFunction(String name, List<Parameter> params, List<String> modifies, AST tree)
     {
@@ -33,7 +31,9 @@ public class AlkFunction
     public Parameter getParam(int idx)
     {
         if (idx < 0 || idx >= params.size())
+        {
             throw new InternalException("Can't retrieve specified parameter");
+        }
         return params.get(idx);
     }
 

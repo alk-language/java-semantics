@@ -1,11 +1,9 @@
 package execution.state;
 
 import ast.AST;
-import grammar.alkBaseVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
+import util.types.Storable;
 
 public abstract class IndependentSingleState extends SingleState
 {
@@ -15,7 +13,7 @@ public abstract class IndependentSingleState extends SingleState
     }
 
     @Override
-    protected Value interpretResult(Value value) {
+    protected Storable interpretResult(Storable value) {
         return null;
     }
 

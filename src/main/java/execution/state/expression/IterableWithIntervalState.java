@@ -15,7 +15,7 @@ import execution.types.alkInt.AlkInt;
 import execution.types.alkList.AlkList;
 import execution.types.alkSet.AlkSet;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import static execution.parser.exceptions.AlkException.ERR_NOINT_INTERVAL;
 public class IterableWithIntervalState
 extends GeneratorState
 {
-    private final List<Value> limits = new ArrayList<>();
+    private final List<Storable> limits = new ArrayList<>();
     private final Primitive primitive;
 
     public IterableWithIntervalState(Primitive primitive, AST tree, ExecutionPayload executionPayload) {
@@ -35,10 +35,10 @@ extends GeneratorState
     }
 
     @Override
-    public Value getFinalResult()
+    public Storable getFinalResult()
     {
-        Value x = limits.get(0);
-        Value y = limits.get(1);
+        Storable x = limits.get(0);
+        Storable y = limits.get(1);
 
         if (!(x instanceof AlkInt && y instanceof AlkInt))
         {
@@ -87,7 +87,7 @@ extends GeneratorState
     @Override
     public ExecutionState clone(SplitMapper sm) {
         IterableWithIntervalState copy = new IterableWithIntervalState(primitive, tree, payload.clone(sm));
-        for (Value value : limits)
+        for (Storable value : limits)
         {
             copy.limits.add(value.weakClone(sm.getLocationMapper()));
         }

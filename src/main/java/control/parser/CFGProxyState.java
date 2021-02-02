@@ -1,6 +1,6 @@
 package control.parser;
 
-import ast.State;
+import state.State;
 
 public class CFGProxyState extends CFGState
 {

@@ -6,6 +6,12 @@ import terminal;
 
 expression
 :
+    factor ASSIGNMENT_OPERATOR expression                                                                               #AssignExpression
+    | conditional_expression                                                                                            #ToConditionalExpr
+;
+
+conditional_expression
+:
     logical_or_expression (QUESTION expression DPOINT expression)?                                                      #ConditionalExpression
 ;
 

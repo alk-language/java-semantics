@@ -1,9 +1,10 @@
 package visitor.stateful;
 
-import ast.Payload;
-import ast.State;
+import state.Payload;
+import state.State;
 import ast.enums.Primitive;
 import ast.expr.*;
+import ast.expr.AssignmentAST;
 import visitor.ifaces.ExpressionVisitorIface;
 
 public class StatefulExpressionVisitor<T extends Payload, S extends State<?, ?>>
@@ -32,6 +33,12 @@ implements ExpressionVisitorIface<S>
     public S visit(ArrayAST tree)
     {
         return expressionInterpreter.interpretComposite(Primitive.ARRAY, tree, payload);
+    }
+
+    @Override
+    public S visit(AssignmentAST tree)
+    {
+        return expressionInterpreter.interpretAssignment(tree, payload);
     }
 
     @Override
@@ -97,7 +104,7 @@ implements ExpressionVisitorIface<S>
     @Override
     public S visit(FunctionCallAST tree)
     {
-        return expressionInterpreter.interpretFunctionCall(tree, payload);
+        return expressionInterpreter.evaluateFunction(tree, payload);
     }
 
     @Override
@@ -195,5 +202,4 @@ implements ExpressionVisitorIface<S>
     {
         return expressionInterpreter.evaluateUnary(tree, payload);
     }
-
 }

@@ -10,7 +10,7 @@ import execution.types.alkArray.AlkArray;
 import execution.types.alkList.AlkList;
 import execution.types.alkSet.AlkSet;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 
 public class EmptyIterableState
 extends PrimitiveState
@@ -24,7 +24,7 @@ extends PrimitiveState
     }
 
     @Override
-    protected Value requireResult()
+    protected Storable requireResult()
     {
         switch (this.primitive) {
             case ARRAY:

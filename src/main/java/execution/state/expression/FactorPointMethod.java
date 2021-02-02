@@ -10,7 +10,7 @@ import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.GeneratorState;
 import util.Invoker;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class FactorPointMethod
 extends GeneratorState
 {
-    private final List<Value> params = new ArrayList<>();
+    private final List<Storable> params = new ArrayList<>();
     private final String methodName;
 
     private Location reference;
@@ -60,7 +60,7 @@ extends GeneratorState
     {
         FactorPointMethod copy = new FactorPointMethod(tree, payload.clone(sm));
         copy.reference = sm.getLocationMapper().get(reference);
-        for (Value value : params)
+        for (Storable value : params)
         {
             copy.params.add(value.weakClone(sm.getLocationMapper()));
         }

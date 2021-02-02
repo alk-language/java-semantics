@@ -4,7 +4,7 @@ import ast.AST;
 import execution.ExecutionResult;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
+import util.types.Storable;
 
 public abstract class IndependentGeneratorState extends GeneratorState
 {
@@ -20,7 +20,7 @@ public abstract class IndependentGeneratorState extends GeneratorState
     }
 
     @Override
-    public Value getFinalResult() {
+    public Storable getFinalResult() {
         return null;
     }
 

@@ -1,6 +1,6 @@
 package control.parser;
 
-import ast.Result;
+import state.Result;
 import control.ControlFlowGraph;
 import util.exception.InternalException;
 

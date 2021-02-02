@@ -6,7 +6,7 @@ import symbolic.OverdefinedValue;
 import symbolic.CPValue;
 import symbolic.UndefinedValue;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -137,7 +137,7 @@ public class VarValue implements Domain
         }
     }
 
-    public Value getValue(String id)
+    public Storable getValue(String id)
     {
         if (!allVars.contains(id))
         {

@@ -76,13 +76,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBreakStmt(alkParser.BreakStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ToAssignmentStmt}
-	 * labeled alternative in {@link alkParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitToAssignmentStmt(alkParser.ToAssignmentStmtContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ToBlock}
 	 * labeled alternative in {@link alkParser#statement}.
 	 * @param ctx the parse tree
@@ -181,13 +174,6 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitUniformStmt(alkParser.UniformStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AssignmentStmt}
-	 * labeled alternative in {@link alkParser#assignment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignmentStmt(alkParser.AssignmentStmtContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code WhileStructure}
 	 * labeled alternative in {@link alkParser#while_struct}.
 	 * @param ctx the parse tree
@@ -237,8 +223,22 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParamDefinition(alkParser.ParamDefinitionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ConditionalExpression}
+	 * Visit a parse tree produced by the {@code AssignExpression}
 	 * labeled alternative in {@link alkParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignExpression(alkParser.AssignExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToConditionalExpr}
+	 * labeled alternative in {@link alkParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToConditionalExpr(alkParser.ToConditionalExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConditionalExpression}
+	 * labeled alternative in {@link alkParser#conditional_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */

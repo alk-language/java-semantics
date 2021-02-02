@@ -2,9 +2,9 @@ package ast;
 
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.UnwindException;
+import state.Result;
+import state.State;
 import util.Configuration;
-import util.exception.InternalException;
-import util.types.Value;
 
 import java.util.Stack;
 

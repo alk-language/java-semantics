@@ -1,9 +1,9 @@
 package symbolic;
 
-import util.types.Value;
+import util.types.Storable;
 
 public interface CPValue
-extends Value
+extends Storable
 {
     boolean equals(CPValue value);
 }

@@ -1,13 +1,11 @@
 package dataflow.lvars;
 
 import ast.AST;
-import ast.stmt.AssignmentAST;
+import ast.expr.AssignmentAST;
 import control.extractor.VarsBulkExtractor;
 import dataflow.CFGNode;
 import dataflow.TransferFunction;
 import dataflow.domain.VariableSet;
-import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 public class LVarsTransferFunction implements TransferFunction<VariableSet>
 {
