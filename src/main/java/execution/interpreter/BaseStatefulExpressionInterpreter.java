@@ -4,7 +4,6 @@ import ast.AST;
 import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
 import ast.attr.RepresentationASTAttr;
-import ast.enums.BuiltInFunction;
 import ast.enums.CompoundValueRepresentation;
 import ast.enums.Operator;
 import ast.enums.Primitive;
@@ -14,6 +13,7 @@ import execution.state.expression.*;
 import execution.state.expression.FactorPointMethod;
 import execution.state.function.BuiltInFunctionState;
 import execution.state.function.DefinedFunctionCallState;
+import execution.state.statement.AssignmentState;
 import util.exception.InternalException;
 import visitor.stateful.StatefulExpressionInterpreter;
 
@@ -24,12 +24,6 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     public ExecutionState interpretRefId(AST ast, ExecutionPayload payload)
     {
         return new BaseRefIdValueState(ast, payload);
-    }
-
-    @Override
-    public ExecutionState interpretFunctionCall(AST ast, ExecutionPayload payload)
-    {
-        return new DefinedFunctionCallState(ast, payload);
     }
 
     @Override
@@ -84,9 +78,14 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
         }
         else
         {
-            return null;
-            // return new CustomFunctionState(ast, payload);
+            return new DefinedFunctionCallState(ast, payload);
         }
+    }
+
+    @Override
+    public ExecutionState interpretAssignment(AST ast, ExecutionPayload payload)
+    {
+        return new AssignmentState(ast, payload);
     }
 
     @Override

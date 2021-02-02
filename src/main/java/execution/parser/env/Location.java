@@ -3,10 +3,9 @@ package execution.parser.env;
 import execution.types.BaseValue;
 import execution.types.alkNotAValue.AlkNotAValue;
 import symbolic.CPValue;
-import symbolic.SymbolicValueIface;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
-import util.types.Value;
+import util.types.Storable;
 
 public class Location
 implements BaseValue
@@ -23,7 +22,7 @@ implements BaseValue
         return this.store;
     }
 
-    public Value getValue()
+    public Storable getValue()
     {
         return store.get(this);
     }
@@ -39,7 +38,7 @@ implements BaseValue
     }
 
     @Override
-    public Value toRValue() {
+    public Storable toRValue() {
         return getValue();
     }
 
@@ -48,7 +47,7 @@ implements BaseValue
         return this;
     }
 
-    public Location assign(Value value) {
+    public Location assign(Storable value) {
         store.set(this, value);
         return this;
     }

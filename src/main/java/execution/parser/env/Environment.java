@@ -1,15 +1,16 @@
 package execution.parser.env;
 
-import util.types.Value;
+import util.types.Storable;
 
 public interface Environment
 {
     Location getLocation(String str);
     void setLocation(String name, Location location);
     Location define(String id);
-    void update(String id, Value value);
+    void update(String id, Storable value);
     boolean has(String id);
-    String toString();
-    Environment makeClone(LocationMapper locMapping, StoreImpl store);
     StoreImpl getStore();
+
+    Environment makeClone(LocationMapper locMapping, StoreImpl store);
+    String toString();
 }

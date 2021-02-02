@@ -16,7 +16,7 @@ import execution.types.alkArray.AlkArray;
 import execution.types.alkList.AlkList;
 import execution.types.alkSet.AlkSet;
 import util.exception.InternalException;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.List;
 
@@ -76,7 +76,7 @@ extends ExecutionState
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        Value resultVal = executionResult.getValue().toRValue();
+        Storable resultVal = executionResult.getValue().toRValue();
         if (source == null)
         {
             if (!(resultVal instanceof AlkIterableValue))

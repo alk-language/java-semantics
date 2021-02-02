@@ -4,7 +4,7 @@ import ast.AST;
 import execution.ExecutionResult;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
+import util.types.Storable;
 
 public abstract class PrimitiveState extends ExecutionState
 {
@@ -21,7 +21,7 @@ public abstract class PrimitiveState extends ExecutionState
         return null;
     }
 
-    protected abstract Value requireResult();
+    protected abstract Storable requireResult();
 
     @Override
     public void assign(ExecutionResult executionResult)

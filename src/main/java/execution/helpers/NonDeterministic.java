@@ -12,28 +12,32 @@ import java.util.Random;
 
 import static execution.parser.exceptions.AlkException.*;
 
-public class NonDeterministic {
+public class NonDeterministic
+{
+    private static final Random RAND = new Random();
 
-    // generated random value
-    public static AlkInt getRandom(AlkValue valmax) throws AlkException {
-        if (!valmax.type.equals("Int"))
+    public static AlkInt getRandom(AlkValue valmax)
+    {
+        if (!(valmax instanceof AlkInt))
             throw new AlkException(ERR_RANDOM_INT);
+
         AlkInt intValue = (AlkInt) valmax;
-        Random rand = new Random();
-        BigInteger result = new BigInteger(intValue.value.bitLength(), rand);
-        while( result.compareTo(intValue.value) >= 0 ) {
-            result = new BigInteger(intValue.value.bitLength(), rand);
+        BigInteger result = new BigInteger(intValue.value.bitLength(), RAND);
+        while( result.compareTo(intValue.value) >= 0)
+        {
+            result = new BigInteger(intValue.value.bitLength(), RAND);
         }
         return new AlkInt(result);
     }
 
-    public static Location choose(List<Location> struct) {
+    public static Location choose(List<Location> struct)
+    {
         if (struct.size() == 0)
         {
             throw new FailureException();
         }
-        Random rand = new Random();
-        int poz = rand.nextInt(struct.size());
+
+        int poz = RAND.nextInt(struct.size());
         return struct.get(poz);
     }
 }

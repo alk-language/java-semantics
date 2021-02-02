@@ -1,6 +1,5 @@
 package visitor.ifaces.stmt;
 
-import ast.stmt.AssignmentAST;
 import ast.stmt.BlockAST;
 import visitor.ifaces.VisitorIface;
 

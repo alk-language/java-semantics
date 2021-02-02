@@ -1,7 +1,7 @@
 package visitor.stateful;
 
-import ast.Payload;
-import ast.State;
+import state.Payload;
+import state.State;
 import ast.stmt.*;
 import visitor.ifaces.StmtVisitorIface;
 
@@ -19,12 +19,6 @@ implements StmtVisitorIface<S>
     public void setPayload(T payload)
     {
         this.payload = payload;
-    }
-
-    @Override
-    public S visit(AssignmentAST tree)
-    {
-        return stmtInterpreter.interpretAssignment(tree, payload);
     }
 
     @Override

@@ -12,14 +12,14 @@ import execution.parser.exceptions.UnwindException;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.functions.Parameter;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DefinedFunctionCallState extends ExecutionState {
 
-    private final List<Value> params = new ArrayList<>();
+    private final List<Storable> params = new ArrayList<>();
     private AlkFunction function;
     private int step = 0;
     private boolean executed = false;
@@ -101,7 +101,7 @@ public class DefinedFunctionCallState extends ExecutionState {
     public ExecutionState clone(SplitMapper sm)
     {
         DefinedFunctionCallState copy = new DefinedFunctionCallState(tree, payload.clone(sm));
-        for (Value param : params)
+        for (Storable param : params)
         {
             copy.params.add(param.weakClone(sm.getLocationMapper()));
         }

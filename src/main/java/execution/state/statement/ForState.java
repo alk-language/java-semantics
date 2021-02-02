@@ -27,7 +27,7 @@ extends LoopingState
             return null;
         }
 
-        if (tree.getChild(0) != null && !visitedStart)
+        if (!visitedStart)
         {
             return request(tree.getChild(0));
         }

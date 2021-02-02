@@ -2,8 +2,6 @@ package execution.state;
 
 import ast.AST;
 import execution.ExecutionResult;
-import grammar.alkBaseVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
 import execution.parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
 import execution.parser.exceptions.BreakException;
@@ -11,7 +9,7 @@ import execution.parser.exceptions.ContinueException;
 import execution.parser.exceptions.UnwindException;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Value;
+import util.types.Storable;
 
 public abstract class LoopingState
 extends ExecutionState
@@ -66,7 +64,7 @@ extends ExecutionState
         if (!checkedCondition)
         {
             checkedCondition = true;
-            Value decide = executionResult.getValue().toRValue();
+            Storable decide = executionResult.getValue().toRValue();
             if (decide instanceof AlkBool)
             {
                 AlkBool bool = (AlkBool) decide;

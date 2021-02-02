@@ -2,11 +2,10 @@ package execution.state;
 
 import ast.AST;
 import execution.ExecutionResult;
-import grammar.alkBaseVisitor;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.lambda.Validator;
-import util.types.Value;
+import util.types.Storable;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ extends ExecutionState
         this.children = tree.getChildren();
     }
 
-    public abstract Value getFinalResult();
+    public abstract Storable getFinalResult();
 
     @Override
     public abstract void assign(ExecutionResult executionResult);

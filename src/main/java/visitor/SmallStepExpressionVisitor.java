@@ -6,8 +6,7 @@ import ast.attr.IdASTAttr;
 import ast.attr.OpsASTAttr;
 import ast.attr.RepresentationASTAttr;
 import ast.expr.*;
-import execution.state.function.DefinedFunctionCallState;
-import util.Invoker;
+import ast.expr.AssignmentAST;
 import util.Pair;
 import util.exception.InternalException;
 import ast.enums.CompoundValueRepresentation;
@@ -262,6 +261,12 @@ implements ExpressionVisitorIface<T>
 
     @Override
     public T visit(FunctionCallAST tree)
+    {
+        return null;
+    }
+
+    @Override
+    public T visit(AssignmentAST ctx)
     {
         return null;
     }

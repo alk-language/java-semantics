@@ -1,8 +1,8 @@
 package symbolic;
 
-import util.types.Value;
+import util.types.Storable;
 
 public interface SymbolicValueIface
-extends Value
+extends Storable
 {
 }

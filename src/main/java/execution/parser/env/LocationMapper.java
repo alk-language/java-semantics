@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class LocationMapper
 {
-    private Map<Location, Location> mapping = new HashMap<>();
+    private final Map<Location, Location> mapping = new HashMap<>();
 
     public LocationMapper()
     {

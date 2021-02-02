@@ -2,15 +2,13 @@ package execution.state.expression;
 
 import ast.AST;
 import ast.attr.IdASTAttr;
-import ast.expr.ComponentAST;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
 import execution.exhaustive.SplitMapper;
+import execution.parser.env.Location;
 import execution.state.ExecutionState;
-import execution.state.GeneratorState;
 import execution.types.alkStructure.AlkStructure;
-import util.types.ComponentValue;
-import util.types.Value;
+import util.Pair;
 
 public class BaseStructWithCompsState
 extends ExecutionState
@@ -41,7 +39,7 @@ extends ExecutionState
     @Override
     public void assign(ExecutionResult result)
     {
-        struct.insert(new ComponentValue(id, generator.generate(result.getValue().toRValue())));
+        struct.put(new Pair<>(id, generator.generate(result.getValue().toRValue())));
     }
 
     @Override

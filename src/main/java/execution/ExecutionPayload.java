@@ -1,10 +1,9 @@
 package execution;
 
-import ast.Payload;
+import state.Payload;
 import execution.exhaustive.SplitMapper;
 import execution.parser.env.Environment;
 import util.Configuration;
-import util.types.Value;
 
 public class ExecutionPayload
 extends Payload

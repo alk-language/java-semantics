@@ -1,9 +1,8 @@
 package util.lambda;
 
 import execution.parser.env.Location;
-import execution.types.AlkValue;
-import util.types.Value;
+import util.types.Storable;
 
 public interface LocationGenerator {
-    Location generate(Value value);
+    Location generate(Storable value);
 }

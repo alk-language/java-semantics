@@ -1,14 +1,13 @@
 package util;
 
 import execution.exhaustive.NameMapper;
-import execution.types.AlkValue;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
 import util.exception.InternalException;
 import util.functions.BuiltInMethod;
 import util.functions.Methods;
 import util.lambda.LocationGenerator;
-import util.types.Value;
+import util.types.Storable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,7 +17,7 @@ import static execution.parser.exceptions.AlkException.*;
 
 public class Invoker {
 
-    public static Value invokeMethod(String methodName, Location loc, List<Value> params, LocationGenerator generator)
+    public static Storable invokeMethod(String methodName, Location loc, List<Storable> params, LocationGenerator generator)
     {
         try
         {
@@ -38,7 +37,7 @@ public class Invoker {
             if (!valid)
                 throw new AlkException(ERR_PARAM_NUMBER);
 
-            return (Value) method.invoke(null, loc, params, generator);
+            return (Storable) method.invoke(null, loc, params, generator);
         } catch (NoSuchMethodException e) {
             throw new AlkException(ERR_METHOD);
         }

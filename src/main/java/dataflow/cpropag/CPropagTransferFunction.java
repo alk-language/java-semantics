@@ -1,7 +1,7 @@
 package dataflow.cpropag;
 
 import ast.AST;
-import ast.stmt.AssignmentAST;
+import ast.expr.AssignmentAST;
 import control.extractor.VarsBulkExtractor;
 import dataflow.CFGNode;
 import dataflow.TransferFunction;
@@ -9,12 +9,9 @@ import dataflow.domain.VarValue;
 import execution.parser.env.Environment;
 import execution.parser.env.EnvironmentImpl;
 import execution.parser.env.StoreImpl;
-import grammar.alkParser;
-import org.antlr.v4.runtime.tree.ParseTree;
 import symbolic.CPValue;
 import visitor.SmallStepExpressionVisitor;
 import visitor.interpreter.cp.CPExpressionInterpreter;
-import parser.ParseTreeExprVisitor;
 
 import java.util.Set;
 

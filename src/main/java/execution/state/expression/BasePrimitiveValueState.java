@@ -6,7 +6,7 @@ import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
-import util.types.Value;
+import util.types.Storable;
 import visitor.interpreter.InterpreterHelper;
 
 public class BasePrimitiveValueState
@@ -21,7 +21,7 @@ extends PrimitiveState
     }
 
     @Override
-    protected Value requireResult()
+    protected Storable requireResult()
     {
         return InterpreterHelper.interpretAsValue(primitive, tree.getText());
     }

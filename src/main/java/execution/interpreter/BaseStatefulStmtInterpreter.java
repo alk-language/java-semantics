@@ -14,12 +14,6 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
 {
 
     @Override
-    public ExecutionState interpretAssignment(AST ast, ExecutionPayload payload)
-    {
-        return new AssignmentStmtState(ast, payload);
-    }
-
-    @Override
     public ExecutionState interpretBlock(AST ast, ExecutionPayload payload)
     {
         return new BlockState(ast, payload);
