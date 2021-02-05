@@ -1,2 +1,0 @@
-true || false ? 10 * 2 : “abc” + “def”
-
