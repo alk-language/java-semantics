@@ -5,6 +5,7 @@ import util.exception.InternalException;
 public class AlkException extends InternalException
 {
     int line;
+    int col;
 
     public final static String ERR_LOGICALOR_DATA_STRUCTURE = "A data structure value is not a valid operand in this logical or expression.";
     public final static String ERR_LOGICALOR_INT = "An int value is not a valid operand in this logical or expression.";
@@ -303,10 +304,11 @@ public class AlkException extends InternalException
         super(text);
     }
 
-    public AlkException(int line, String text)
+    public AlkException(int line, int col, String text)
     {
         super(text);
         this.line = line;
+        this.col = col;
     }
 
     public AlkException(UnwindException u)
@@ -314,8 +316,8 @@ public class AlkException extends InternalException
         super(u.getMessage());
     }
 
-    public void printException(int line) {
-        System.out.println("Error at line "+line+": " + getMessage());
+    public String completeMessage() {
+        return "Error at [" + line + ":" + col + "]: " + getMessage();
     }
 
     public int getLine()
