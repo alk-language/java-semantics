@@ -27,7 +27,7 @@ extends SingleState
 
         if (value.toRValue() == null)
         {
-            throw new AlkException(tree.getLine(), "Undefined variable used in relational expression.");
+            super.handle(new AlkException("Undefined variable used in relational expression."));
         }
 
         try
