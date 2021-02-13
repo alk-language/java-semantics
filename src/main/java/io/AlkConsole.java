@@ -87,8 +87,6 @@ public class AlkConsole implements IOManager, OptionProvider
             for (int i = 0; i < args.length; i++)
             {
                 newArgs[i] = args[i].replace("\\s+", "");
-
-                System.out.println(args[i]);
             }
 
             cmd = cmdparser.parse(options, newArgs);
