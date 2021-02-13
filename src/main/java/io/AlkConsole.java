@@ -5,7 +5,6 @@ import util.OptionProvider;
 import util.exception.AlkParseException;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * Basic class for IO interaction with console
@@ -84,7 +83,15 @@ public class AlkConsole implements IOManager, OptionProvider
 
         try
         {
-            cmd = cmdparser.parse(options, args);
+            String[] newArgs = new String[args.length];
+            for (int i = 0; i < args.length; i++)
+            {
+                newArgs[i] = args[i].replace("\\s+", "");
+
+                System.out.println(args[i]);
+            }
+
+            cmd = cmdparser.parse(options, newArgs);
         }
         catch (ParseException e)
         {

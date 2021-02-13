@@ -31,7 +31,7 @@ extends SingleState
 
             if (result.toRValue() == null)
             {
-                throw new AlkException(tree.getLine(), "Undefined variable used in postfix expression.");
+                super.handle(new AlkException("Undefined variable used in postfix expression."));
             }
 
             switch (op)

@@ -46,7 +46,7 @@ public class ErrorManager
         if (line == 0)
             io.write(ex.getMessage());
         else
-            io.write("[ERROR at line " + line + "]: " + ex.getMessage());
+            io.write(ex.completeMessage());
     }
 
     public ErrorManager getEndpoint() {

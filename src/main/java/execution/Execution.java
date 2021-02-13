@@ -95,6 +95,10 @@ extends Thread
         {
             String input = config.getInput();
             alkParser.ConfigContext tree = (alkParser.ConfigContext) AlkParser.executeInit(input);
+            if (tree == null)
+            {
+                throw new AlkException("Syntax error!");
+            }
 
             for (int i = 0; i < tree.ID().size(); i++)
             {
@@ -119,6 +123,10 @@ extends Thread
 
             File file = config.getAlkFile();
             ParseTree tree = AlkParser.execute(file);
+            if (tree == null)
+            {
+                throw new AlkException("Syntax error!");
+            }
             AST root = ParseTreeGlobals.PARSE_TREE_VISITOR.visit(tree);
             if (root != null)
             {

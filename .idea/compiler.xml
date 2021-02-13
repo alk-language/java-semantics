@@ -11,8 +11,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Alk" />
-        <module name="java-semantics" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Alk (1)" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

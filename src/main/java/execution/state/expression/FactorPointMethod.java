@@ -50,7 +50,7 @@ extends GeneratorState
             return (Location) Invoker.invokeMethod(methodName, reference, params, generator);
         }
         catch (AlkException e) {
-            super.handle(new AlkException(tree.getLine(), e.getMessage()));
+            super.handle(new AlkException(e.getMessage()));
         }
         return null;
     }
