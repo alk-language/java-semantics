@@ -4,6 +4,7 @@ import ast.AST;
 import ast.enums.Operator;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.state.GuardedGeneratorState;
 import execution.types.AlkValue;
@@ -50,8 +51,18 @@ extends GuardedGeneratorState
             current.toLValue().assign(new AlkArray());
         }
 
+        if (current == null || next == null)
+        {
+            super.handle(new AlkException("One of operands can't be evaluated!"));
+        }
+
         current = current.toRValue();
         next = next.toRValue();
+
+        if (current == null || next == null)
+        {
+            super.handle(new AlkException("One of operands can't be evaluated!"));
+        }
 
         // Logical Or has separate behavior
         if (op.equals(Operator.LOGICALOR) && current instanceof AlkBool && ((AlkBool) current).isTrue())
@@ -91,8 +102,11 @@ extends GuardedGeneratorState
         }
         catch (IllegalAccessException | InvocationTargetException e)
         {
-            throw new InternalException(e);
+            if (e.getCause() instanceof AlkException)
+                super.handle(new AlkException(e.getMessage()));
         }
+
+        return null;
     }
 
     @Override

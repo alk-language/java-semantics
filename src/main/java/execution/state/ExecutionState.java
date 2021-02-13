@@ -52,7 +52,7 @@ extends State<ExecutionPayload, ExecutionResult>
     {
         if (e.isUnsigned())
         {
-            throw new AlkException(tree.getLine(), e.getMessage());
+            throw new AlkException(tree.getLine(), tree.getColumn(), e.getMessage());
         }
         throw e;
     }

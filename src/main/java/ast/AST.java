@@ -113,6 +113,11 @@ implements Visitable
         return ctx.getStart().getLine();
     }
 
+    public int getColumn()
+    {
+        return ctx.getStart().getStartIndex();
+    }
+
     @Override
     public abstract String toString();
 

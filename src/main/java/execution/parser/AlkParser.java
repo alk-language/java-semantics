@@ -29,7 +29,13 @@ public class AlkParser
             File file = new File(input);
             InputStream alkInStr= new FileInputStream(file);
             CharStream stream = CharStreams.fromStream(alkInStr);
-            return new alkParser(new CommonTokenStream(new alkLexer(stream))).configuration();
+            alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(stream)));
+            ParseTree tree = parser.configuration();
+            if (parser.getNumberOfSyntaxErrors() != 0)
+            {
+                return null;
+            }
+            return tree;
         } catch (IOException e) {
             // maybe it is inline
             try {
@@ -94,10 +100,16 @@ public class AlkParser
             InputStream alkInStr= new FileInputStream(alkFile);
             CharStream file = CharStreams.fromStream(alkInStr);
             ParseTree tree;
+            alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(file)));
             if (forExpression)
-                tree = new alkParser(new CommonTokenStream(new alkLexer(file))).expression();
+                tree = parser.expression();
             else
-                tree = new alkParser(new CommonTokenStream(new alkLexer(file))).main();
+                tree = parser.main();
+
+            if (parser.getNumberOfSyntaxErrors() != 0)
+            {
+                return null;
+            }
             PreProcessing.expandIncludes(context, tree);
             return tree;
         } catch (IOException e) {
