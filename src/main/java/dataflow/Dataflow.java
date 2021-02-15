@@ -2,7 +2,8 @@ package dataflow;
 
 import java.util.Map;
 
-public abstract class Dataflow<T extends Domain> extends Thread
+public abstract class Dataflow<T extends Domain>
+extends Thread
 {
     protected final Lattice<T> lattice;
     protected final CFG cfg;
