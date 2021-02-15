@@ -36,13 +36,18 @@ Read the [manual](doc/alk.pdf) to learn how to write Alk programs.
 The Java interpreter for Alk is in progress, therefore we strongly advise you to weekly update it.
 
 # Set Alk in PATH system variable
-* Linux/Mac OS:
+* Linux:
   ```
   mkdir -p ~/bin
   ln -s [PATH]/bin/alki.sh ~/bin/alki
   alki -h
   ```
-  Note that ```[PATH]``` is a placeholder for the actual place where ```java-semantics``` is. For example: ```~/Alk/java-semantics```.
+  Note that ```[ALK-PATH]``` is a placeholder for the actual place where ```java-semantics``` is. For example: ```~/Alk/java-semantics```.
+* Linux/Mac OS:
+  ```
+  export PATH=[ALK-PATH]/bin:$PATH
+  ```
+  Note that ```[ALK-PATH]``` is a placeholder for the actual place where ```java-semantics``` is. For example: ```~/Alk/java-semantics```.
 * Windows
   * Search for ```Edit the system environment variables```
   * Open the ```System Properties``` window and press ```Environment variables...```
