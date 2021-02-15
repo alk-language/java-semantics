@@ -2,7 +2,6 @@ package execution.exhaustive;
 
 import execution.Execution;
 import execution.parser.env.LocationMapper;
-import execution.ExecutionPayload;
 
 public class SplitMapper
 {
