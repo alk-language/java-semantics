@@ -245,7 +245,7 @@ print(simplify(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a")));
 */
 
 getState (map, str) {
-  forall pair from map 
+  foreach pair from map 
     if(pair[1] == str)
       return pair[0];
 }
@@ -264,8 +264,8 @@ detAut(ast, Sigma) {
   derSet = { ast };
   do {
     derSet1 = derSet;
-    forall s from Sigma 
-      forall ast from derSet1 {
+    foreach s from Sigma 
+      foreach ast from derSet1 {
         ast1 = simplify(der(ast, s));
         if (!(ast1 in derSet) && ast1 != []) {
           derSet = derSet U { ast1 };
@@ -279,12 +279,12 @@ detAut(ast, Sigma) {
       }	
   } while (derSet != derSet1);
   aut = {};
-  forall p from map
-    forall q from map 
-      forall s from Sigma
+  foreach p from map
+    foreach q from map 
+      foreach s from Sigma
         if (q[1] == simplify(der(p[1], s)))
 	  aut = aut U { < p[0], s, q[0] > };
-  forall p from map
+  foreach p from map
     p[1] = ast2string(p[1]);
   return [aut, map];
 }
@@ -292,17 +292,17 @@ detAut(ast, Sigma) {
 /* tests:
 am = detAut(["a", <>],  ["a", "b", "c"]);
 print(am[0]);
-forall p from am[1]
+foreach p from am[1]
   print(p);
 am = detAut(["_+_", <["_*", <["_+_", <["_._", <["a", <>], ["c", <>]>], ["c", <>]>]>], ["_*", <["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>]>]>], ["a", "b", "c"]); 
 print(am[0]);
-forall p from am[1]
+foreach p from am[1]
   print(p);
 */
 am = detAut(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], ["a", "b", "c"]);
 /*
 print(am[0]);
-forall p from am[1]
+foreach p from am[1]
   print(p);
 */
 
@@ -319,7 +319,7 @@ expected(am, state, a)
 {
   aut = am[0];
   map = am[1];
-  forall trans from aut {
+  foreach trans from aut {
     if (trans.at(0) == state && trans.at(1) == a) { // expected
       newState = trans.at(2);
       return [newState, map.at(newState)[2]];

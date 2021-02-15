@@ -6,7 +6,7 @@
 
 // s = emptySet;
 s = { 0 };
-forall x from a   // a is a input set
+foreach x from a   // a is a input set
   if (x % 2 == 0) 
     s = s U singletonSet(x);
 print(s);
