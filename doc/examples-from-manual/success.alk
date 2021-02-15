@@ -3,5 +3,5 @@ odd(x) {
 }
 
 choose x from { 1 .. 8 };
-if (odd(x)) print("success");
-else print("failure");
+if (odd(x)) success;
+else failure;
