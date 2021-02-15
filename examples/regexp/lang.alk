@@ -29,8 +29,8 @@ print(chld (["_+_", <["_._", <["a", <>], ["a", <>]>], ["b", <>]>], 1));
 // the product of two languages
 prod(L1, L2) {
   L = {};
-  forall s1 from L1
-    forall s2 from L2
+  foreach s1 from L1
+    foreach s2 from L2
         L = L U { s1 + s2 };
   return L;
 }
