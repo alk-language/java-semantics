@@ -1,6 +1,8 @@
 #!/bin/bash
 
 TARGET_FILE=$0
+ORIG=`pwd -P`
+
 
 cd `dirname $TARGET_FILE`
 TARGET_FILE=`basename $TARGET_FILE`
@@ -16,7 +18,6 @@ done
 # Compute the canonicalized name by finding the physical path
 # for the directory we're in and appending the target file.
 PHYS_DIR=`pwd -P`
-echo $PHYS_DIR/alk.jar
-
+cd $ORIG
 java -jar $PHYS_DIR/alk.jar ${@:1}
 exit 0
