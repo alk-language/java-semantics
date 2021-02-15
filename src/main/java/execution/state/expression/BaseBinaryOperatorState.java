@@ -10,6 +10,7 @@ import execution.state.GuardedGeneratorState;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
+import execution.types.alkNotAValue.AlkNotAValue;
 import util.exception.InternalException;
 import util.types.Storable;
 import visitor.interpreter.RequiresGenerator;
@@ -45,7 +46,7 @@ extends GuardedGeneratorState
     {
         String opName = op.toString().toLowerCase();
 
-        if (op.equals(Operator.BRACKET) && current.toRValue() == null)
+        if (op.equals(Operator.BRACKET) && current.toLValue().isUnknown())
         {
             current.toLValue().assign(new AlkArray());
         }
