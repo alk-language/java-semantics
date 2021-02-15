@@ -39,6 +39,7 @@ The Java interpreter for Alk is in progress, therefore we strongly advise you to
 * Linux/Mac OS:
   ```
   export PATH=[ALK-PATH]/bin:$PATH
+  alki.sh -h
   ```
   Note that ```[ALK-PATH]``` is a placeholder for the actual place where ```java-semantics``` is. For example: ```~/Alk/java-semantics```.
 * Windows
