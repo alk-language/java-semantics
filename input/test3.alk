@@ -1,8 +1,5 @@
-// main.alk
-times = 0;
-do {
-   uniform x from [0..1];
-   times++;
-} while (x == 0);
-
-print(times);
+x = 1;
+while (2)
+{
+x++;
+}
