@@ -1,7 +1,6 @@
 package dataflow.worklist;
 
 import dataflow.*;
-import dataflow.domain.VarValue;
 import util.Pair;
 
 import java.util.HashMap;
@@ -9,7 +8,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class WorklistFlow<T extends Domain> extends Dataflow<T>
+public class WorklistFlow<T extends Domain>
+extends Dataflow<T>
 {
     Worklist worklist;
     Map<CFGNode, T> mapping;

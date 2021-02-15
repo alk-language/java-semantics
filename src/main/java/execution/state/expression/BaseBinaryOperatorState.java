@@ -47,7 +47,6 @@ extends GuardedGeneratorState
 
         if (op.equals(Operator.BRACKET) && current.toRValue() == null)
         {
-            // make auto-allocation
             current.toLValue().assign(new AlkArray());
         }
 
