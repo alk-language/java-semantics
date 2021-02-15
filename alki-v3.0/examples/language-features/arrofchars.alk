@@ -1,8 +1,0 @@
-/*
-alki arrofchars.alk
-*/
-s = ["a", "b", "c"];
-s[1] = "z";
-if (s[0] == "a")
-    s[0]="b";
-print(s);
