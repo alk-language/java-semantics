@@ -1,9 +1,0 @@
-L = < 2, 5, 8 >;
-i = 0;
-A = [];
-for (p = L.first(); p != L.end(); ++p) {
-  A[i] = *p ;
-  ++i;
-}
-print(A);
-
