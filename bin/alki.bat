@@ -1,1 +1,1 @@
-java -jar %~dp0\alk.jar %*
+java -jar "%~dp0\alk.jar" %*
