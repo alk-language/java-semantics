@@ -3,4 +3,4 @@
   alki prime.alk 
 */
 
-print(int(sqrt(10)));
+print(int(10.5));
