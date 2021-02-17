@@ -7,6 +7,7 @@ import io.IOManager;
 import util.Configuration;
 import util.ErrorManager;
 import util.OptionProvider;
+import util.exception.AlkParseException;
 
 import java.nio.charset.Charset;
 
@@ -29,7 +30,15 @@ public class ExecutionDriver
      */
     public static void main(String[] args)
     {
-        initManagers(args);
+        try
+        {
+            initManagers(args);
+        }
+        catch (AlkParseException e)
+        {
+            System.out.println(e.getMessage());
+            return;
+        }
 
         Execution exec = new Execution(config);
         exec.start();

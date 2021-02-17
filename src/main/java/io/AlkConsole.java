@@ -94,8 +94,7 @@ public class AlkConsole implements IOManager, OptionProvider
         catch (ParseException e)
         {
             // TODO: find a way to pass this to the ErrorManager
-            write("[ERROR]: The command line couldn't be parsed. " + e.getMessage());
-            throw new AlkParseException(e);
+            throw new AlkParseException("[ERROR]: The command line couldn't be parsed. " + e.getMessage());
         }
     }
 
