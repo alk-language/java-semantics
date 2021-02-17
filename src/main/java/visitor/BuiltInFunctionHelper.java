@@ -17,6 +17,7 @@ public class BuiltInFunctionHelper
             case "FLOAT": return BuiltInFunction.FLOAT;
             case "INTEGER": return BuiltInFunction.INTEGER;
             case "LEN": return BuiltInFunction.LEN;
+            case "INT": return BuiltInFunction.INT;
             case "LOG": return BuiltInFunction.LOG;
             case "PI": return BuiltInFunction.PI;
             case "PRINT": return BuiltInFunction.PRINT;
