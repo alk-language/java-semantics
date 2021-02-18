@@ -9,8 +9,6 @@ import util.ErrorManager;
 import util.OptionProvider;
 import util.exception.AlkParseException;
 
-import java.nio.charset.Charset;
-
 /**
  * An entry point for a basic execution of one single alk file.
  * The configuration is provided by the command line.

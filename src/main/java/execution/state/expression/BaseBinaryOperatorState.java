@@ -100,10 +100,18 @@ extends GuardedGeneratorState
 
             return (Storable) method.invoke(current, params.toArray());
         }
-        catch (IllegalAccessException | InvocationTargetException e)
+        catch (InvocationTargetException e)
         {
             if (e.getCause() instanceof AlkException)
-                super.handle(new AlkException(e.getMessage()));
+                super.handle(new AlkException(e.getCause().getMessage()));
+
+            Throwable tr = e.getTargetException();
+            if (tr instanceof AlkException)
+                super.handle(new AlkException(tr.getMessage()));
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new InternalException(e.getMessage());
         }
 
         return null;

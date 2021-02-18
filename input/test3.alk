@@ -1,6 +1,1 @@
-/*
-  the first N primes 
-  alki prime.alk 
-*/
-
-print(int(10.5));
+print(2 / 0);
