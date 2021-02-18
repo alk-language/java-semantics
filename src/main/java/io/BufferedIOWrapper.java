@@ -7,7 +7,7 @@ public class BufferedIOWrapper implements IOManager
 {
 
     private final IOManager manager;
-    private List<String> buffer = new LinkedList<>();
+    private final List<String> buffer = new LinkedList<>();
 
     public BufferedIOWrapper(IOManager manager)
     {
@@ -17,15 +17,16 @@ public class BufferedIOWrapper implements IOManager
     @Override
     public void write(String text)
     {
-        // manager.write(text);
         buffer.add(text);
     }
 
     @Override
     public void flush()
     {
-        synchronized (manager) {
-            for (String text : buffer) {
+        synchronized (manager)
+        {
+            for (String text : buffer)
+            {
                 manager.write(text);
             }
             manager.flush();
@@ -36,7 +37,9 @@ public class BufferedIOWrapper implements IOManager
     {
         BufferedIOWrapper copy = new BufferedIOWrapper(manager);
         for (String text : buffer)
+        {
             copy.write(text);
+        }
         return copy;
     }
 }

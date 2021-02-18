@@ -74,7 +74,14 @@ public class MultiplicativeIntHelper {
 
     private AlkInt divide(AlkInt operand)
     {
-        return new AlkInt(value.divide(operand.value));
+        try
+        {
+            return new AlkInt(value.divide(operand.value));
+        }
+        catch (ArithmeticException e)
+        {
+            throw new AlkException(ERR_DIV_ZERO);
+        }
     }
 
     private AlkFloat divide(AlkFloat operand)
@@ -114,8 +121,10 @@ public class MultiplicativeIntHelper {
         throw new InterpretorException(ERR_VALUE_TYPE_UNRECOGNIZED);
     }
 
-    private AlkInt mod(AlkInt operand) throws AlkException {
-        try {
+    private AlkInt mod(AlkInt operand)
+    {
+        try
+        {
             return new AlkInt(value.remainder(operand.value));
         }
         catch (ArithmeticException e)
