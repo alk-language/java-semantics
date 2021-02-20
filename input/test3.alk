@@ -1,1 +1,23 @@
-print(2 / 0);
+v = [];
+
+firstPrimes(n)
+{
+    v[1] = 2;
+    ultim = 1;
+    for(i=3; ultim <= n; i++)
+    {
+        for (j=1; j<=ultim && v[j] <=i; j++)
+        {
+            if (i % v[j] == 0)
+            {
+                break;
+            }
+        }
+        if (temp > ultim)
+        {
+            v[++ultim] = i;
+        }
+    }
+}
+
+firstPrimes(100);
