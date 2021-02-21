@@ -3,7 +3,7 @@
 1. Be sure you have installed the latest version of Java. Alk interpreter works now on Java 1.8.
 2. Download the Java interpreter of Alk:
 * if you have git on your system, then the best is to make a clone of the JAVA definition of alk from https://github.com/alk-language/java-semantics
-* otherwise, you may download a zip archive from https://github.com/alk-language/java-semantics/releases/download/v2.0/alki-v2.0.zip
+* otherwise, you may download a zip archive from https://github.com/alk-language/java-semantics/releases/download/v3.0/alki-v3.0.zip
 3. Make sure you have rights to execute the scripts:
   * Linux/Mac OS:
   ```
