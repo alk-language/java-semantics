@@ -34,7 +34,7 @@ public class WhileState extends CFGState
         if (!visited)
         {
             visited = true;
-            return request(ctx.getChild(0), new CFGPayload(node)); // statement
+            return request(ctx.getChild(1), new CFGPayload(node, payload.getInterpreterManager())); // statement
         }
 
         setResult(new CFGResult(node));

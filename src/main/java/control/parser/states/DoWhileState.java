@@ -1,18 +1,15 @@
 package control.parser.states;
 
 import ast.AST;
-import ast.CtxState;
 import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;
 import control.parser.CFGState;
-import grammar.alkParser;
 
 import java.util.Collections;
 import java.util.List;
 
-@CtxState(ctxClass = alkParser.DoWhileStructureContext.class)
 public class DoWhileState
 extends CFGState
 {
@@ -23,9 +20,8 @@ extends CFGState
     public DoWhileState(AST tree, CFGPayload payload)
     {
         super(tree, payload);
-        node = new ControlFlowGraph.Node(tree.getChild(0)); // expression
+        node = new ControlFlowGraph.Node(tree.getChild(0));
         node.forceText("do-while (" + node.toString() + ")");
-        //link(payload.getInputs(), Collections.singletonList(node));
     }
 
     @Override
@@ -34,13 +30,13 @@ extends CFGState
         if (visited == 0)
         {
             visited = 1;
-            return request(tree.getChild(0), payload); // statement
+            return request(tree.getChild(0), payload);
         }
 
         if (visited == 1)
         {
             visited = 2;
-            return request(tree.getChild(1), new CFGPayload(node));
+            return request(tree.getChild(1), new CFGPayload(node, payload.getInterpreterManager()));
         }
 
         setResult(new CFGResult(node));

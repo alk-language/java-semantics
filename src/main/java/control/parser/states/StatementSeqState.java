@@ -10,31 +10,28 @@ import util.exception.InternalException;
 
 import java.util.List;
 
-public class StatementSeqState extends CFGState
+public class StatementSeqState
+extends CFGState
 {
-    private final List<AST> dependencies;
     private List<ControlFlowGraph.Node> currentTerminals;
     private int step = 0;
 
-    public StatementSeqState(AST tree,
-                             List<AST> dependencies,
-                             CFGPayload payload)
+    public StatementSeqState(AST tree, CFGPayload payload)
     {
         super(tree, payload);
-        this.dependencies = dependencies;
         this.currentTerminals = payload.getInputs();
     }
 
     @Override
     public State<CFGPayload, CFGResult> makeStep()
     {
-        if (step == dependencies.size())
+        if (step == tree.getChildCount())
         {
             setResult(new CFGResult(this.currentTerminals));
             return null;
         }
 
-        return request(dependencies.get(step++), new CFGPayload(currentTerminals));
+        return request(tree.getChild(step++), new CFGPayload(currentTerminals, payload.getInterpreterManager()));
     }
 
     @Override

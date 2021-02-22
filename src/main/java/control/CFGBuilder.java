@@ -7,9 +7,10 @@ import util.exception.InternalException;
 
 import java.io.File;
 
-public class CFGBuilder extends Thread
+public class CFGBuilder
+extends Thread
 {
-    private Configuration config;
+    private final Configuration config;
     private ControlFlowGraph cfg;
 
     public CFGBuilder(Configuration config)

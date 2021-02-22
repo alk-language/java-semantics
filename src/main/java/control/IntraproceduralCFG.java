@@ -1,13 +1,17 @@
 package control;
 
-import control.parser.CFGPayload;
-import control.parser.CFGStack;
-import control.parser.CFGState;
+import ast.AST;
+import control.parser.*;
+import dataflow.CFGNode;
+import execution.BaseStatefulInterpreterManager;
+import execution.state.ExecutionState;
+import parser.ParseTreeGlobals;
 import util.Pair;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.Configuration;
 import util.exception.InternalException;
+import visitor.stateful.StatefulInterpreterManager;
 
 import java.util.*;
 
@@ -15,28 +19,32 @@ public class IntraproceduralCFG
 extends ControlFlowGraph
 {
 
-    public static IntraproceduralCFG generate(ParseTree root, Configuration config)
+    public static IntraproceduralCFG generate(ParseTree tree, Configuration config)
     {
-        if (!(root instanceof alkParser.StartPointContext))
+        if (!(tree instanceof alkParser.StartPointContext))
         {
             throw new InternalException("The entry-point for intra-procedural CFG generation is invalid");
         }
 
         IntraproceduralCFG cfg = new IntraproceduralCFG();
-
         CFGStack stack = new CFGStack(config);
+        AST root = ParseTreeGlobals.PARSE_TREE_VISITOR.visit(tree);
 
-        // TODO properly implement
-
-        /*
-        CFGState state = visitor.visit(root);
+        StatefulInterpreterManager<CFGPayload, CFGResult, CFGState> interpreterManager = new BaseStatefulInterpreterManager<>(
+                                                                                         new CFGExprInterpreter(),
+                                                                                         new CFGStmtInterpreter());
+        CFGState state = interpreterManager.interpret(root, new CFGPayload(cfg.getInput(), interpreterManager));
         stack.push(state);
         stack.run();
-        for (Node node : visitor.getTerminals())
+        List<CFGNode> lasts = cfg.getNodes();
+        for (CFGNode node : lasts)
         {
-            node.appendOutput(cfg.output);
-            cfg.output.appendInput(node);
-        }*/
+            if (node.getOutputs().size() == 0)
+            {
+                ((Node) node).appendOutput(cfg.output);
+                cfg.output.appendInput((Node) node);
+            }
+        }
 
         return cfg;
     }
