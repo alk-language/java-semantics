@@ -1,6 +1,8 @@
 package execution;
 
 import ast.AST;
+import execution.interpreter.BaseStatefulExpressionInterpreter;
+import execution.interpreter.BaseStatefulStmtInterpreter;
 import execution.state.ExecutionState;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -65,8 +67,8 @@ extends Thread
         global = new EnvironmentImpl(store);
         funcManager = new FuncManager();
 
-        // TODO: get custom interpreter through parameter
-        BaseStatefulInterpreterManager manager = new BaseStatefulInterpreterManager();
+        BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager =
+                new BaseStatefulInterpreterManager<>(new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
         manager.registerListener(envManager);
         interpreterManager = manager;
     }

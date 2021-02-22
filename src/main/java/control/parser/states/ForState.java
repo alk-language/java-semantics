@@ -1,18 +1,15 @@
 package control.parser.states;
 
 import ast.AST;
-import ast.CtxState;
 import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;
 import control.parser.CFGState;
-import grammar.alkParser;
 
 import java.util.Collections;
 import java.util.List;
 
-@CtxState(ctxClass = alkParser.ForStructureContext.class)
 public class ForState extends CFGState
 {
     ControlFlowGraph.Node initNode, condition, step;
@@ -34,7 +31,7 @@ public class ForState extends CFGState
         if (!visited)
         {
             visited = true;
-            return request(tree.getChild(0), new CFGPayload(condition)); // statement
+            return request(tree.getChild(3), new CFGPayload(condition, payload.getInterpreterManager()));
         }
 
         setResult(new CFGResult(condition));

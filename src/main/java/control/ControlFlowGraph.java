@@ -9,7 +9,8 @@ import util.exception.InternalException;
 
 import java.util.*;
 
-public abstract class ControlFlowGraph implements CSGraph, CFG
+public abstract class ControlFlowGraph
+implements CSGraph, CFG
 {
     protected Node input = Node.getInput();
     protected Node output = Node.getOutput();
@@ -29,7 +30,8 @@ public abstract class ControlFlowGraph implements CSGraph, CFG
     @Override
     public abstract String graphData();
 
-    public static class Node implements CFGNode
+    public static class Node
+    implements CFGNode
     {
         private List<Node> inputs = new ArrayList<>();
         private List<Node> outputs = new ArrayList<>();

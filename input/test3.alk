@@ -1,23 +1,5 @@
-v = [];
-
-firstPrimes(n)
+while (b == 3)
 {
-    v[1] = 2;
-    ultim = 1;
-    for(i=3; ultim <= n; i++)
-    {
-        for (j=1; j<=ultim && v[j] <=i; j++)
-        {
-            if (i % v[j] == 0)
-            {
-                break;
-            }
-        }
-        if (temp > ultim)
-        {
-            v[++ultim] = i;
-        }
-    }
+    a = 2;
 }
-
-firstPrimes(100);
+c = 5;

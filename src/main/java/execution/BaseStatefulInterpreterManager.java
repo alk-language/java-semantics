@@ -2,59 +2,62 @@ package execution;
 
 import ast.AST;
 import ast.expr.ExpressionAST;
-import execution.interpreter.BaseStatefulExpressionInterpreter;
-import execution.interpreter.BaseStatefulStmtInterpreter;
-import execution.state.ExecutionState;
+import state.Payload;
+import state.Result;
+import state.State;
 import util.Listener;
-import visitor.stateful.StatefulInterpreterManager;
-import visitor.stateful.StatefulExpressionVisitor;
-import visitor.stateful.StatefulStmtVisitor;
+import visitor.stateful.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseStatefulInterpreterManager
-implements StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState>
+public class BaseStatefulInterpreterManager<T extends Payload, S extends Result<?>, U extends State<T, S>>
+implements StatefulInterpreterManager<T, S, U>
 {
-    private final StatefulExpressionVisitor<ExecutionPayload, ExecutionState> expressionVisior;
-    private final StatefulStmtVisitor<ExecutionPayload, ExecutionState> stmtVisior;
+    private final StatefulExpressionVisitor<T, U> expressionVisior;
+    private final StatefulStmtVisitor<T, U> stmtVisior;
+    private final List<Listener<U>> listeners = new ArrayList<>();
 
-    private final List<Listener<ExecutionState>> listeners = new ArrayList<>();
-
-    public BaseStatefulInterpreterManager() {
+    public BaseStatefulInterpreterManager(StatefulExpressionInterpreter<T, U> exprInterpreter,
+                                          StatefulStmtInterpreter<T, U> stmtInterpreter)
+    {
         this.expressionVisior = new StatefulExpressionVisitor<>();
+        expressionVisior.setInterpreter(exprInterpreter);
         this.stmtVisior = new StatefulStmtVisitor<>();
+        stmtVisior.setInterpreter(stmtInterpreter);
     }
 
     @Override
-    public ExecutionState interpret(AST tree, ExecutionPayload payload)
+    public U interpret(AST tree, T payload)
     {
-        ExecutionState state;
+        U state;
         if (tree instanceof ExpressionAST)
         {
-            expressionVisior.setInterpreter(new BaseStatefulExpressionInterpreter());
             expressionVisior.setPayload(payload);
             state = tree.accept(expressionVisior);
-
         }
         else
         {
-            stmtVisior.setInterpreter(new BaseStatefulStmtInterpreter());
             stmtVisior.setPayload(payload);
             state = tree.accept(stmtVisior);
+        }
+        if (state == null)
+        {
+            // automatic child aggregate
+            return interpret(tree.getChild(tree.getChildCount() - 1), payload);
         }
         notify(state);
         return state;
     }
 
-    public void registerListener(Listener<ExecutionState> listener)
+    public void registerListener(Listener<U> listener)
     {
         this.listeners.add(listener);
     }
 
-    public void notify(ExecutionState state)
+    public void notify(U state)
     {
-        for (Listener<ExecutionState> listener : listeners)
+        for (Listener<U> listener : listeners)
         {
             listener.notify(state);
         }

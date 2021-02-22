@@ -11,7 +11,7 @@ public abstract class CFGState extends State<CFGPayload, CFGResult>
     public CFGState(AST tree, CFGPayload payload)
     {
         // to be resolved
-        super(tree, payload, null);
+        super(tree, payload, payload.getInterpreterManager());
     }
 
     protected void link(List<ControlFlowGraph.Node> list1, List<ControlFlowGraph.Node> list2)

@@ -1,19 +1,16 @@
 package control.parser.states;
 
 import ast.AST;
-import ast.CtxState;
 import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;
 import control.parser.CFGState;
-import grammar.alkParser;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@CtxState(ctxClass = alkParser.IfStructureContext.class)
 public class IfStmtState
 extends CFGState
 {
@@ -35,12 +32,12 @@ extends CFGState
         if (!visitedLeft)
         {
             visitedLeft = true;
-            return request(tree.getChild(0), new CFGPayload(node));
+            return request(tree.getChild(1), new CFGPayload(node, payload.getInterpreterManager()));
         }
-        if (tree.getChildCount() > 1 && !visitedRight) // statement
+        if (tree.getChildCount() > 2 && !visitedRight) // statement
         {
             visitedRight = true;
-            return request(tree.getChild(1), new CFGPayload(node));
+            return request(tree.getChild(2), new CFGPayload(node, payload.getInterpreterManager()));
         }
         if (!visitedRight)
         {
