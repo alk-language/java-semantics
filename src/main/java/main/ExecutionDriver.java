@@ -30,6 +30,10 @@ public class ExecutionDriver
     {
         try
         {
+            for (String arg : args)
+            {
+                System.out.println(arg);
+            }
             initManagers(args);
         }
         catch (AlkParseException e)

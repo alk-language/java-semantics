@@ -1,5 +1,6 @@
-while (b == 3)
-{
-    a = 2;
-}
-c = 5;
+a = 1;
+b = 2;
+c = 3;
+b = b * c;
+a = c;
+output = a;
