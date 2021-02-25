@@ -19,5 +19,5 @@ done
 # for the directory we're in and appending the target file.
 PHYS_DIR=`pwd -P`
 cd "$ORIG"
-java -jar $PHYS_DIR/alk.jar ${@:1}
+java -jar $PHYS_DIR/alk.jar "${@:1}"
 exit 0
