@@ -1,6 +1,5 @@
 package ast.expr;
 
-import ast.AST;
 import ast.attr.IdASTAttr;
 import grammar.alkParser;
 import visitor.ifaces.VisitorIface;
