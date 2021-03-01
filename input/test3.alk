@@ -1,6 +1,2 @@
-a = [];
-i = 0;
-while (true || a.pushBack(2) != [2])
-{
-    break;
-}
+l = [1, 2, 3];
+x = l[10];

@@ -115,7 +115,7 @@ implements Visitable
 
     public int getColumn()
     {
-        return ctx.getStart().getStartIndex();
+        return ctx.getStart().getCharPositionInLine();
     }
 
     @Override

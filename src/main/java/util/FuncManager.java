@@ -2,6 +2,7 @@ package util;
 
 import execution.parser.env.AlkFunction;
 import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.NoSuchFunctionException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,9 @@ public class FuncManager {
 
     public AlkFunction getFunction(String name) {
         if (!functions.containsKey(name))
-            throw new AlkException(AlkException.ERR_FUNCTION_UNDEFINED);
+        {
+            throw new NoSuchFunctionException(name);
+        }
         return functions.get(name);
     }
 }
