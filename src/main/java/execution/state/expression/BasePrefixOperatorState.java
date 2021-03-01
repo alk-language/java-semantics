@@ -14,7 +14,7 @@ import util.types.Storable;
 public class BasePrefixOperatorState
 extends SingleState
 {
-    private final Operator op;
+    protected final Operator op;
 
     public BasePrefixOperatorState(Operator op, AST tree, ExecutionPayload executionPayload) {
         super(tree, executionPayload, tree.getChild(0));

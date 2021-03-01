@@ -14,7 +14,7 @@ import util.types.Storable;
 public class BaseUnaryOperatorState
 extends SingleState
 {
-    private final Operator op;
+    protected final Operator op;
 
     public BaseUnaryOperatorState(Operator op, AST tree, ExecutionPayload executionPayload)
     {

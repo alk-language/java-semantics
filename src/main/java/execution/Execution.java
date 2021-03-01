@@ -3,6 +3,7 @@ package execution;
 import ast.AST;
 import execution.interpreter.BaseStatefulExpressionInterpreter;
 import execution.interpreter.BaseStatefulStmtInterpreter;
+import execution.interpreter.SymbolicStatefulExpressionInterpreter;
 import execution.state.ExecutionState;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -264,12 +265,7 @@ extends Thread
         this.funcManager = funcManager;
     }
 
-    public void setInterpreterManager(StatefulInterpreterManager interpreterManager)
-    {
-        this.interpreterManager = interpreterManager;
-    }
-
-    public StatefulInterpreterManager getInterpreterManager()
+    public StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ?> getInterpreterManager()
     {
         return this.interpreterManager;
     }

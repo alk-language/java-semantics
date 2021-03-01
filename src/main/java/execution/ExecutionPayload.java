@@ -4,6 +4,7 @@ import state.Payload;
 import execution.exhaustive.SplitMapper;
 import execution.parser.env.Environment;
 import util.Configuration;
+import visitor.stateful.StatefulInterpreterManager;
 
 public class ExecutionPayload
 extends Payload
@@ -16,11 +17,6 @@ extends Payload
     {
         this.execution = execution;
         this.env = env;
-    }
-
-    public EnvironmentManager getEnvManager()
-    {
-        return execution.getEnvManager();
     }
 
     public Environment getEnv()

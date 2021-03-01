@@ -1,1 +1,5 @@
-a |-> [1, 2, 3]
+n |-> $a
+m |-> $b
+
+RefIdAST(n) |-> SymRefIdAST($a)
+RefIdAST(m) |-> SymRefIdAST($b)

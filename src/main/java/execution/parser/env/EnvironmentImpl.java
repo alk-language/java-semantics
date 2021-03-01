@@ -27,7 +27,7 @@ public class EnvironmentImpl implements Environment
             return variables.get(str);
         }
 
-        throw new IdNotInEnvironmentException(ERR_NO_REF + ": " + str);
+        throw new IdNotInEnvironmentException(str);
     }
 
     public void setLocation(String name, Location location)

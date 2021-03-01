@@ -17,6 +17,13 @@ extends ExpressionAST
         super(ctx);
     }
 
+    public static UnaryAST createUnary(Operator op, AST child)
+    {
+        UnaryAST ast = new UnaryAST(null);
+        ast.addChild(child);
+        return AST.addOpsASTAttr(ast, op);
+    }
+
     public static UnaryAST createUnary(Operator op, List<AST> children)
     {
         UnaryAST ast = new UnaryAST(null);

@@ -7,7 +7,8 @@ import execution.exhaustive.SplitMapper;
 import execution.parser.exceptions.AlkException;
 import util.types.Storable;
 
-public abstract class SingleState extends ExecutionState
+public abstract class SingleState
+extends ExecutionState
 {
     private final AST dependency;
     private Storable localResult;

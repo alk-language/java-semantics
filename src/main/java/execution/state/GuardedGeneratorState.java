@@ -19,29 +19,25 @@ extends GeneratorState
     }
 
     protected abstract Storable interpretResult(Operator op, Storable current, Storable next);
+    protected abstract Storable firstAssign(Operator op, Storable current);
 
     @Override
     public void assign(ExecutionResult executionResult)
     {
         Storable value = executionResult.getValue();
+        OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
         if (step == 1)
         {
-            localResult = value;
+            localResult = firstAssign(attr.getOp(0), value);
         }
         else
         {
-            OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
             localResult = interpretResult(attr.getOp(step - 2), localResult, value);
         }
     }
 
     @Override
     public Storable getFinalResult() {
-        return localResult;
-    }
-
-    protected Storable getLocalResult()
-    {
         return localResult;
     }
 

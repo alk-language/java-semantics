@@ -31,19 +31,21 @@ public class ASTStack<T extends State>
         return top;
     }
 
-    public void run()
+    public Result<?> run()
     {
+        Result<?> result = null;
         while (!stack.empty())
         {
             try
             {
-                makeStep();
+                result = makeStep();
             }
             catch (UnwindException u)
             {
                 propagate(u);
             }
         }
+        return result;
     }
 
     private void propagate(UnwindException u)
@@ -63,14 +65,15 @@ public class ASTStack<T extends State>
         }
     }
 
-    private void makeStep()
+    private Result<?> makeStep()
     {
+        Result<?> result = null;
         T top = stack.peek();
         T next = (T) top.makeStep();
 
         if (next == null)
         {
-            Result<?> result = top.getResult();
+            result = top.getResult();
             pop();
             if (!stack.empty())
             {
@@ -82,5 +85,7 @@ public class ASTStack<T extends State>
         {
             push(next);
         }
+
+        return result;
     }
 }
