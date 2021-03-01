@@ -4,6 +4,7 @@ import ast.AST;
 import ast.attr.BuiltInFunctionASTAttr;
 import ast.enums.BuiltInFunction;
 import execution.ExecutionResult;
+import execution.parser.exceptions.NoSuchFunctionException;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
 import execution.parser.exceptions.AlkException;
@@ -20,7 +21,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import static execution.parser.exceptions.AlkException.ERR_FUNCTION_UNDEFINED;
 import static execution.parser.exceptions.AlkException.ERR_PARAM_NUMBER;
 
 public class BuiltInFunctionState extends GeneratorState
@@ -60,7 +60,7 @@ public class BuiltInFunctionState extends GeneratorState
         }
         catch (NoSuchMethodException e)
         {
-            super.handle(new AlkException(ERR_FUNCTION_UNDEFINED + ": " + functionName));
+            super.handle(new NoSuchFunctionException(functionName));
         }
         catch (IllegalAccessException | InvocationTargetException e )
         {

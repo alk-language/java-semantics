@@ -3,6 +3,7 @@ package execution.state.function;
 import ast.AST;
 import ast.attr.IdASTAttr;
 import execution.ExecutionResult;
+import execution.parser.exceptions.NoSuchFunctionException;
 import execution.state.ExecutionState;
 import execution.types.alkNotAValue.AlkNotAValue;
 import execution.parser.env.*;
@@ -31,7 +32,16 @@ extends ExecutionState
     {
         super(tree, executionPayload);
         String id = tree.getAttribute(IdASTAttr.class).getId();
-        function = getFuncManager().getFunction(id);
+
+        try
+        {
+            function = getFuncManager().getFunction(id);
+        }
+        catch (NoSuchFunctionException e)
+        {
+            super.handle(e);
+        }
+
         env = new EnvironmentImpl(getStore());
 
         if (tree.getChildCount() != function.countParams())
