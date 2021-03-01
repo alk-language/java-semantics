@@ -10,7 +10,6 @@ import execution.state.GuardedGeneratorState;
 import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
-import execution.types.alkNotAValue.AlkNotAValue;
 import util.exception.InternalException;
 import util.types.Storable;
 import visitor.interpreter.RequiresGenerator;
@@ -36,9 +35,27 @@ extends GuardedGeneratorState
         }
     }
 
-    public BaseBinaryOperatorState(AST ast, ExecutionPayload executionPayload)
+    public BaseBinaryOperatorState(AST tree, ExecutionPayload executionPayload)
     {
-        super(ast, executionPayload);
+        super(tree, executionPayload);
+    }
+
+    @Override
+    protected Storable firstAssign(Operator op, Storable current)
+    {
+        // Logical Or has separate behavior
+        if (op.equals(Operator.LOGICALOR) && current instanceof AlkBool && ((AlkBool) current).isTrue())
+        {
+            super.stopGenerator();
+        }
+
+        // Logical And has separate behavior
+        if (op.equals(Operator.LOGICALAND) && current instanceof AlkBool && !((AlkBool) current).isTrue())
+        {
+            super.stopGenerator();
+        }
+
+        return current;
     }
 
     @Override

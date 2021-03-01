@@ -11,7 +11,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
 {
     Execution master;
 
-    ExecutionStack(Execution master)
+    public ExecutionStack(Execution master)
     {
         super(master.config);
         this.master = master;

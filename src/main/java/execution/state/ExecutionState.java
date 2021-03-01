@@ -45,7 +45,7 @@ extends State<ExecutionPayload, ExecutionResult>
 
     protected ExecutionState request(AST tree, Environment env)
     {
-        return (ExecutionState) super.request(tree, new ExecutionPayload(getExec(), env));
+        return (ExecutionState) super.request(tree, new ExecutionPayload(getExec() , env));
     }
 
     public boolean handle(AlkException e)

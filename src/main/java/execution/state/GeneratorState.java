@@ -13,7 +13,7 @@ public abstract class GeneratorState
 extends ExecutionState
 {
     protected final List<AST> children;
-    protected Validator preValidator;
+    private boolean stopped = false;
 
     protected int step = 0;
 
@@ -21,6 +21,11 @@ extends ExecutionState
     {
         super(tree, executionPayload);
         this.children = tree.getChildren();
+    }
+
+    protected void stopGenerator()
+    {
+        stopped = true;
     }
 
     public abstract Storable getFinalResult();
@@ -31,7 +36,7 @@ extends ExecutionState
     @Override
     public ExecutionState makeStep()
     {
-        if (step == children.size() || preValidator != null && !preValidator.isValid())
+        if (stopped || step == children.size())
         {
             setResult(new ExecutionResult(getFinalResult()));
             return null;
@@ -40,15 +45,10 @@ extends ExecutionState
         return super.request(children.get(step++));
     }
 
-    protected void setPreValidator(Validator preValidator)
-    {
-        this.preValidator = preValidator;
-    }
-
     protected GeneratorState decorate(GeneratorState copy, SplitMapper sm)
     {
         copy.step = step;
-        copy.preValidator = preValidator;
+        copy.stopped = stopped;
         return (GeneratorState) super.decorate(copy, sm);
     }
 

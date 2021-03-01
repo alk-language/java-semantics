@@ -2,6 +2,7 @@ package main;
 
 import io.AlkConsole;
 import io.IOManager;
+import symbolic.SymbolicExpressionEvaluator;
 import util.Configuration;
 import util.ErrorManager;
 import util.OptionProvider;

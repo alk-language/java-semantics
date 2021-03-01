@@ -17,7 +17,9 @@ import util.types.Storable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefinedFunctionCallState extends ExecutionState {
+public class DefinedFunctionCallState
+extends ExecutionState
+{
 
     private final List<Storable> params = new ArrayList<>();
     private AlkFunction function;
@@ -61,7 +63,7 @@ public class DefinedFunctionCallState extends ExecutionState {
                 }
                 else
                 {
-                    env.update(param.getName(), params.get(i).toRValue());
+                    env.update(param.getName(), params.get(i).toRValue().clone(generator));
                 }
             }
 

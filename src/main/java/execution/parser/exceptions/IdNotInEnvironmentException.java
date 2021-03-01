@@ -3,8 +3,8 @@ package execution.parser.exceptions;
 public class IdNotInEnvironmentException
 extends AlkException
 {
-    public IdNotInEnvironmentException(String text)
+    public IdNotInEnvironmentException(String id)
     {
-        super(text);
+        super("Id '" + id + "' not in environment!");
     }
 }

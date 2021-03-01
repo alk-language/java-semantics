@@ -5,7 +5,8 @@ import symbolic.SymbolicValueIface;
 import util.types.Storable;
 
 public interface BaseValue
-extends Storable,
+extends
+        Storable,
         CPValue,
         SymbolicValueIface
 {
