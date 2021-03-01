@@ -14,7 +14,7 @@ import util.types.Storable;
 public class BasePostfixOperatorState
 extends SingleState
 {
-    private final Operator op;
+    protected final Operator op;
 
     public BasePostfixOperatorState(Operator op, AST tree, ExecutionPayload executionPayload)
     {
