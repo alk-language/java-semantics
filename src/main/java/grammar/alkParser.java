@@ -75,7 +75,7 @@ public class alkParser extends Parser {
 		"'empty'", "'end'", "'first'", "'float'", "'insert'", "'int'", "'print'", 
 		"'popBack'", "'popFront'", "'pushBack'", "'pushFront'", "'remove'", "'removeAllEqTo'", 
 		"'removeAt'", "'singletonSet'", "'size'", "'split'", "'topBack'", "'topFront'", 
-		"'update'", "'random'", "'s.t.'", "'$'", "'->'", "'#'", "'U'", "'^'", 
+		"'update'", "'uniformNat'", "'s.t.'", "'$'", "'->'", "'#'", "'U'", "'^'", 
 		"'\\'", null, null, null, null, "'++'", "'--'", "'&'", "'+%'", "'-%'", 
 		"'++%'", "'--%'", "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", null, 
 		"'-'", "'+'", "'*'", "'/'", "'%'", "'('", "')'", "'<<'", "'>>'", "'||'", 

@@ -62,7 +62,7 @@ null
 'topBack'
 'topFront'
 'update'
-'random'
+'uniformNat'
 's.t.'
 '$'
 '->'

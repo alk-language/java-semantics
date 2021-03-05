@@ -88,7 +88,7 @@ TOPBACK : 'topBack';
 TOPFRONT : 'topFront';
 UPDATE : 'update';
 
-RANDOM : 'random';
+RANDOM : 'uniformNat';
 SOTHAT : 's.t.';
 
 // Symbolic marker
