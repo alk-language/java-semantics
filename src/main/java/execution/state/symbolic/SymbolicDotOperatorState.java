@@ -34,7 +34,7 @@ extends BaseDotOperatorState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        SymbolicDotOperatorState copy = new SymbolicDotOperatorState(tree, payload);
+        SymbolicDotOperatorState copy = new SymbolicDotOperatorState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

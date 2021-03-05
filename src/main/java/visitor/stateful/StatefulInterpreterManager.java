@@ -9,6 +9,5 @@ import util.Listener;
 public interface StatefulInterpreterManager<T extends Payload, S extends Result<?>, U extends State<T, S>>
 {
     U interpret(AST tree, T payload);
-    void registerListener(Listener<U> listener);
-    void notify(U state);
+    StatefulInterpreterManager<T, S, U> makeClone();
 }

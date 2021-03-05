@@ -1,5 +1,6 @@
 package visitor.stateful;
 
+import execution.parser.env.AlkFunction;
 import state.Payload;
 import state.State;
 import ast.stmt.*;
@@ -121,5 +122,10 @@ implements StmtVisitorIface<S>
     public S visit(ReturnAST tree)
     {
         return stmtInterpreter.interpretReturn(tree, payload);
+    }
+
+    public StatefulStmtInterpreter<T, S> getInterpreter()
+    {
+        return this.stmtInterpreter;
     }
 }

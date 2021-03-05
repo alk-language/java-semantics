@@ -53,7 +53,7 @@ extends BasePostfixOperatorState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        SymbolicPostfixOperatorState copy = new SymbolicPostfixOperatorState(super.op, tree, payload);
+        SymbolicPostfixOperatorState copy = new SymbolicPostfixOperatorState(super.op, tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

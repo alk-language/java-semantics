@@ -7,9 +7,8 @@ import util.types.Storable;
 import java.util.HashMap;
 import java.util.Map;
 
-import static execution.parser.exceptions.AlkException.ERR_NO_REF;
-
-public class EnvironmentImpl implements Environment
+public class EnvironmentImpl
+implements Environment
 {
     protected StoreImpl store;
 
@@ -84,7 +83,9 @@ public class EnvironmentImpl implements Environment
     {
         EnvironmentImpl copyEnv = new EnvironmentImpl(store);
         for (Map.Entry<String, Location> entry : variables.entrySet())
+        {
             copyEnv.variables.put(entry.getKey(), locMapping.get(entry.getValue()));
+        }
         return copyEnv;
     }
 
