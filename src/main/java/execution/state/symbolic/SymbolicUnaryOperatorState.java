@@ -23,7 +23,7 @@ extends BaseUnaryOperatorState
     {
         if (value.toRValue() instanceof SymbolicValue)
         {
-            return new SymbolicValue(UnaryAST.createUnary(op, ((SymbolicValue) value.toRValue()).getAst()));
+            return new SymbolicValue(UnaryAST.createUnary(op, ((SymbolicValue) value.toRValue()).toAST()));
         }
         else
         {

@@ -243,7 +243,15 @@ extends alkBaseVisitor<AST>
     public AST visitRefID(alkParser.RefIDContext ctx)
     {
         RefIDAST ast = new RefIDAST(ctx);
-        ast.setId(ctx.getText());
+        ast.setId(ctx.ID().getText());
+        return ast;
+    }
+
+    @Override
+    public AST visitSymID(alkParser.SymIDContext ctx)
+    {
+        SymIDAST ast = new SymIDAST(ctx);
+        ast.setId(ctx.ID().getText());
         return ast;
     }
 

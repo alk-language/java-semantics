@@ -12,13 +12,14 @@ import execution.parser.exceptions.AlkException;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.exception.UnimplementedException;
+import util.types.Storable;
 
 public class AssignmentState
 extends ExecutionState
 {
-    private final Operator op;
-    private AlkValue rightSide;
-    private Location leftSide;
+    protected final Operator op;
+    protected Storable rightSide;
+    protected Location leftSide;
 
     public AssignmentState(AST tree, ExecutionPayload executionPayload)
     {
@@ -42,22 +43,23 @@ extends ExecutionState
         try
         {
             AlkValue leftValue = (AlkValue) leftSide.getValue();
+            AlkValue rightValue = (AlkValue) rightSide.toRValue();
             switch (op)
             {
                 case ASSIGN: break;
-                case PLUS_ASSIGN: rightSide = leftValue.add(rightSide); break;
-                case MINUS_ASSIGN: rightSide = leftValue.subtract(rightSide); break;
-                case MULTIPLY_ASSIGN: rightSide = leftValue.multiply(rightSide); break;
-                case DIVIDE_ASSIGN: rightSide = leftValue.divide(rightSide); break;
-                case MOD_ASSIGN: rightSide = leftValue.mod(rightSide); break;
-                case LSHIFT_ASSSIGN: rightSide = leftValue.shiftleft(rightSide); break;
-                case RSHIFT_ASSIGN: rightSide = leftValue.shiftright(rightSide); break;
-                case LOR_ASSIGN: rightSide = leftValue.bitwiseor(rightSide); break;
-                case LAND_ASSIGN: rightSide = leftValue.bitwiseand(rightSide); break;
+                case PLUS_ASSIGN: rightValue = leftValue.add(rightValue); break;
+                case MINUS_ASSIGN: rightValue = leftValue.subtract(rightValue); break;
+                case MULTIPLY_ASSIGN: rightValue = leftValue.multiply(rightValue); break;
+                case DIVIDE_ASSIGN: rightValue = leftValue.divide(rightValue); break;
+                case MOD_ASSIGN: rightValue = leftValue.mod(rightValue); break;
+                case LSHIFT_ASSSIGN: rightValue = leftValue.shiftleft(rightValue); break;
+                case RSHIFT_ASSIGN: rightValue = leftValue.shiftright(rightValue); break;
+                case LOR_ASSIGN: rightValue = leftValue.bitwiseor(rightValue); break;
+                case LAND_ASSIGN: rightValue = leftValue.bitwiseand(rightValue); break;
                 default: throw new UnimplementedException("Unimplemented assignment operator: " + op);
             }
 
-            leftSide.assign(rightSide.clone(generator));
+            leftSide.assign(rightValue.clone(generator));
             setResult(new ExecutionResult(leftSide));
         }
         catch (AlkException e)
@@ -73,7 +75,7 @@ extends ExecutionState
     {
         if (rightSide == null)
         {
-            rightSide = (AlkValue) executionResult.getValue().toRValue();
+            rightSide = executionResult.getValue().toRValue();
             if (rightSide == null || rightSide instanceof AlkNotAValue)
             {
                 super.handle(new AlkException("Undefined variable used in assignment."));
@@ -90,6 +92,13 @@ extends ExecutionState
     public ExecutionState clone(SplitMapper sm)
     {
         AssignmentState copy = new AssignmentState(tree, payload.clone(sm));
+        copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
+        copy.leftSide = sm.getLocationMapper().get(leftSide);
+        return super.decorate(copy, sm);
+    }
+
+    public ExecutionState decorate(AssignmentState copy, SplitMapper sm)
+    {
         copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
         copy.leftSide = sm.getLocationMapper().get(leftSide);
         return super.decorate(copy, sm);

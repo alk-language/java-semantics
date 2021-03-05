@@ -1,5 +1,7 @@
 package execution.types.alkFloat;
 
+import ast.AST;
+import ast.expr.FloatAST;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.InterpretorException;
@@ -9,7 +11,8 @@ import util.lambda.LocationGenerator;
 
 import java.math.BigDecimal;
 
-public class AlkFloat extends AlkValue
+public class AlkFloat
+extends AlkValue
 {
 
     public BigDecimal value;
@@ -100,5 +103,11 @@ public class AlkFloat extends AlkValue
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    @Override
+    public AST toAST()
+    {
+        return new FloatAST(this.toString());
     }
 }

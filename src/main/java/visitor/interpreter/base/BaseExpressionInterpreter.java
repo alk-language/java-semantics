@@ -5,6 +5,7 @@ import execution.parser.env.Environment;
 import execution.parser.env.EnvironmentProxy;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.BaseValue;
@@ -113,6 +114,12 @@ implements SmallStepExpressionInterpreter<BaseValue>
         }
 
         throw new AlkException("Undeclared variable: " + id);
+    }
+
+    @Override
+    public BaseValue interpretSymId(String id)
+    {
+        throw new InternalException("Can't interpret a symbolic value with a base expression interpreter.");
     }
 
     @Override

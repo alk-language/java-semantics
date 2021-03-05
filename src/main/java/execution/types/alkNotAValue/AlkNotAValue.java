@@ -1,8 +1,10 @@
 package execution.types.alkNotAValue;
 
+import ast.AST;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.InterpretorException;
+import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import util.lambda.LocationGenerator;
@@ -43,5 +45,11 @@ public class AlkNotAValue extends AlkValue
     public AlkValue toRValue()
     {
         throw new AlkException(NO_VALUE);
+    }
+
+    @Override
+    public AST toAST()
+    {
+        throw new NotImplementedException("Can't convert to AST an AlkList");
     }
 }

@@ -1,5 +1,7 @@
 package execution.types.alkInt;
 
+import ast.AST;
+import ast.expr.IntAST;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.types.AlkValue;
@@ -9,7 +11,9 @@ import util.lambda.LocationGenerator;
 import java.math.BigInteger;
 
 // TODO: define AlkInt constants for efficiency
-public class AlkInt extends AlkValue {
+public class AlkInt
+extends AlkValue
+{
 
     public static final AlkInt ONE = new AlkInt(BigInteger.ONE);
     public BigInteger value;
@@ -131,5 +135,11 @@ public class AlkInt extends AlkValue {
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    @Override
+    public AST toAST()
+    {
+        return new IntAST(this.toString());
     }
 }

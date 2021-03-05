@@ -116,6 +116,7 @@ ref_name
 :
     function_call                                                                                                       #RefFunctionCall
     | ID                                                                                                                #RefID
+    | SYM ID                                                                                                            #SymID
 ;
 
 
