@@ -139,13 +139,12 @@ extends alkBaseVisitor<AST>
     public AST visitChooseStmt(alkParser.ChooseStmtContext ctx)
     {
         AST ast = new ChooseAST(ctx);
-        IdASTAttr attr = new IdASTAttr(ctx.ID().getText());
-        ast.addAttribute(IdASTAttr.class, attr);
 
         ast.addChild(exprVisitor.visit(ctx.expression(0)));
-        if (ctx.expression().size() > 1)
+        ast.addChild(exprVisitor.visit(ctx.expression(1)));
+        if (ctx.expression().size() > 2)
         {
-            ast.addChild(exprVisitor.visit(ctx.expression(1)));
+            ast.addChild(exprVisitor.visit(ctx.expression(2)));
         }
         return ast;
     }
@@ -154,9 +153,8 @@ extends alkBaseVisitor<AST>
     public AST visitUniformStmt(alkParser.UniformStmtContext ctx)
     {
         AST ast = new UniformAST(ctx);
-        IdASTAttr attr = new IdASTAttr(ctx.ID().getText());
-        ast.addAttribute(IdASTAttr.class, attr);
-        ast.addChild(exprVisitor.visit(ctx.expression()));
+        ast.addChild(exprVisitor.visit(ctx.expression(0)));
+        ast.addChild(exprVisitor.visit(ctx.expression(1)));
         return ast;
     }
 

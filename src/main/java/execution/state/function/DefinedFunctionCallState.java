@@ -43,6 +43,7 @@ extends ExecutionState
         }
 
         env = new EnvironmentImpl(getStore());
+        getExec().registerEnv(env);
 
         if (tree.getChildCount() != function.countParams())
         {

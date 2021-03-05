@@ -16,7 +16,6 @@ implements StatefulInterpreterManager<T, S, U>
 {
     private final StatefulExpressionVisitor<T, U> expressionVisior;
     private final StatefulStmtVisitor<T, U> stmtVisior;
-    private final List<Listener<U>> listeners = new ArrayList<>();
 
     public BaseStatefulInterpreterManager(StatefulExpressionInterpreter<T, U> exprInterpreter,
                                           StatefulStmtInterpreter<T, U> stmtInterpreter)
@@ -41,25 +40,19 @@ implements StatefulInterpreterManager<T, S, U>
             stmtVisior.setPayload(payload);
             state = tree.accept(stmtVisior);
         }
+
         if (state == null)
         {
             // automatic child aggregate
             return interpret(tree.getChild(tree.getChildCount() - 1), payload);
         }
-        notify(state);
+
         return state;
     }
 
-    public void registerListener(Listener<U> listener)
+    @Override
+    public StatefulInterpreterManager<T, S, U> makeClone()
     {
-        this.listeners.add(listener);
-    }
-
-    public void notify(U state)
-    {
-        for (Listener<U> listener : listeners)
-        {
-            listener.notify(state);
-        }
+        return new BaseStatefulInterpreterManager<>(this.expressionVisior.getInterpreter(), this.stmtVisior.getInterpreter());
     }
 }

@@ -20,21 +20,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
     @Override
     public ExecutionState pop()
     {
-        ExecutionState top = super.pop();
-        master.getEnvManager().unlink(top);
-        return top;
-    }
-
-    void nullifyLast()
-    {
-        ExecutionState top = stack.peek();
-        ExecutionResult executionResult = top.getResult();
-        pop();
-        if (!stack.empty())
-        {
-            top = stack.peek();
-            top.assign(executionResult);
-        }
+        return super.pop();
     }
 
     ExecutionStateMapper cloneStates(Execution master, LocationMapper locMapping, EnvironmentMapper envMapper) {

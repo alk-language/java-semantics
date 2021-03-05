@@ -25,9 +25,9 @@ extends SingleState
     @Override
     protected Storable interpretResult(Storable value) {
 
+        Storable result = value;
         try
         {
-            Storable result = value;
 
             if (result.toRValue() == null)
             {

@@ -1,5 +1,6 @@
 package visitor.stateful;
 
+import execution.parser.env.AlkFunction;
 import state.Payload;
 import state.State;
 import ast.enums.Primitive;
@@ -207,5 +208,10 @@ implements ExpressionVisitorIface<S>
     public S visit(SymIDAST tree)
     {
         return expressionInterpreter.interpretSymId(tree, payload);
+    }
+
+    public StatefulExpressionInterpreter<T, S> getInterpreter()
+    {
+        return this.expressionInterpreter;
     }
 }

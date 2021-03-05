@@ -34,7 +34,7 @@ extends BaseUnaryOperatorState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        SymbolicUnaryOperatorState copy = new SymbolicUnaryOperatorState(super.op, tree, payload);
+        SymbolicUnaryOperatorState copy = new SymbolicUnaryOperatorState(super.op, tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }
