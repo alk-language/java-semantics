@@ -128,7 +128,7 @@ public class Functions {
     }
 
     @BuiltInFunctionImpl(paramNumber = 1)
-    public AlkValue random(List<AlkValue> params)
+    public AlkValue uniformnat(List<AlkValue> params)
     {
         BigDecimal total = new BigDecimal(((AlkInt) ParamHelper.getValue(params, 0)).value);
         config.interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));

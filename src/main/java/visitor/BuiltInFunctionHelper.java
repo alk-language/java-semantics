@@ -22,7 +22,7 @@ public class BuiltInFunctionHelper
             case "PI": return BuiltInFunction.PI;
             case "PRINT": return BuiltInFunction.PRINT;
             case "POW": return BuiltInFunction.POW;
-            case "RANDOM": return BuiltInFunction.RANDOM;
+            case "UNIFORMNAT": return BuiltInFunction.UNIFORMNAT;
             case "SIN": return BuiltInFunction.SIN;
             case "SINGLETONSET": return BuiltInFunction.SINGLETONSET;
             case "SQRT": return BuiltInFunction.SQRT;
