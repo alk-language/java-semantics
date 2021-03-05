@@ -1,5 +1,7 @@
 package execution.types.alkString;
 
+import ast.AST;
+import ast.expr.StringAST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
@@ -14,7 +16,9 @@ import static execution.parser.exceptions.AlkException.*;
 
 
 // TODO: Make strings methods accessible even if they are not at stored
-public class AlkString extends AlkValue implements AlkComparable<AlkString>
+public class AlkString
+extends AlkValue
+implements AlkComparable<AlkString>
 {
 
     private String value;
@@ -190,5 +194,11 @@ public class AlkString extends AlkValue implements AlkComparable<AlkString>
     public AlkBool lower(AlkString operand)
     {
         return new AlkBool(value.compareTo(operand.value) < 0);
+    }
+
+    @Override
+    public AST toAST()
+    {
+        return new StringAST(value);
     }
 }

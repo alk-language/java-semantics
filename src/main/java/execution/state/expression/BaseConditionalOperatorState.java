@@ -15,8 +15,8 @@ import static execution.parser.exceptions.AlkException.ERR_CONDITIONAL_NO_BOOL;
 public class BaseConditionalOperatorState
 extends ExecutionState
 {
-    private Storable queryExpression;
-    private boolean checkedQuery = false;
+    protected Storable queryExpression;
+    protected boolean checkedQuery = false;
 
     public BaseConditionalOperatorState(AST tree, ExecutionPayload executionPayload)
     {

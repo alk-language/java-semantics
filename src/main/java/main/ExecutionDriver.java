@@ -1,6 +1,8 @@
 package main;
 
 import execution.Execution;
+import execution.interpreter.BaseStatefulExpressionInterpreter;
+import execution.interpreter.BaseStatefulStmtInterpreter;
 import io.AlkConsole;
 import io.BufferedIOWrapper;
 import io.IOManager;
@@ -38,7 +40,7 @@ public class ExecutionDriver
             return;
         }
 
-        Execution exec = new Execution(config);
+        Execution exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
         exec.start();
     }
 

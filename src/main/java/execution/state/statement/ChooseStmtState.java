@@ -4,6 +4,7 @@ import ast.AST;
 import ast.attr.IdASTAttr;
 import execution.Execution;
 import execution.ExecutionResult;
+import execution.parser.exceptions.FailureException;
 import execution.state.ExecutionState;
 import execution.parser.env.EnvironmentProxy;
 import execution.parser.env.Location;
@@ -16,6 +17,7 @@ import execution.types.alkInt.AlkInt;
 import execution.helpers.NonDeterministic;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import util.types.Storable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -33,9 +35,8 @@ extends ExecutionState
     private final boolean uniform;
 
     private List<Location> source;
-    private List<Location> values = new ArrayList<>();
-    private int step = 0;
-    private EnvironmentProxy env;
+    private Storable value;
+    private boolean checked = false;
 
     public ChooseStmtState(AST tree, ExecutionPayload executionPayload, boolean uniform)
     {
@@ -61,22 +62,20 @@ extends ExecutionState
             return super.request(tree.getChild(0));
         }
 
-        if (tree.getChildCount() > 1 && step < source.size())
-        {
-            env = new EnvironmentProxy(getEnv());
-            env.addTempEntry(id, source.get(step).toRValue().clone(generator));
-            return super.request(tree.getChild(1), env);
-        }
-
-        if (tree.getChildCount() == 1)
-        {
-            values = source;
-        }
-
         AlkArray arr = new AlkArray();
-        arr.addAll(values);
+        arr.addAll(source);
 
-        AlkValue value = (AlkValue) NonDeterministic.choose(arr.toArray()).toRValue();
+        if (!checked)
+        {
+            value = NonDeterministic.choose(source).toRValue();
+        }
+
+        // such that
+        if (tree.getChildCount() > 1 && !checked)
+        {
+            getEnv().update(id, value.clone(generator));
+            return super.request(tree.getChild(1));
+        }
 
         if (!getConfig().hasExhaustive())
         {
@@ -122,11 +121,11 @@ extends ExecutionState
         {
             if (executionResult.getValue().toRValue() instanceof AlkBool)
             {
-                if (((AlkBool) executionResult.getValue().toRValue()).isTrue())
+                if (!((AlkBool) executionResult.getValue().toRValue()).isTrue())
                 {
-                    values.add(source.get(step));
+                    throw new FailureException();
                 }
-                step++;
+                checked = true;
             }
             else
             {
@@ -136,24 +135,21 @@ extends ExecutionState
     }
 
     @Override
-    public ExecutionState clone(SplitMapper sm) {
+    public ExecutionState clone(SplitMapper sm)
+    {
         ChooseStmtState copy = new ChooseStmtState(tree, payload.clone(sm), uniform);
-        copy.step = step;
 
         if (this.source != null)
         {
             copy.source = new ArrayList<>();
             for (Location loc : source)
+            {
                 copy.source.add(sm.getLocationMapper().get(loc));
+            }
         }
 
-        if (values != null)
-        {
-            for (Location loc : values)
-                copy.values.add(sm.getLocationMapper().get(loc));
-        }
-
-        copy.env = (EnvironmentProxy) sm.getEnvironmentMapper().get(this.env);
+        copy.value = this.value.weakClone(sm.getLocationMapper());
+        copy.checked = this.checked;
 
         return super.decorate(copy, sm);
     }

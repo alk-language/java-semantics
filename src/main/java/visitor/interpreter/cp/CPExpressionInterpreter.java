@@ -78,6 +78,12 @@ implements SmallStepExpressionInterpreter<CPValue>
     }
 
     @Override
+    public CPValue interpretSymId(String id)
+    {
+        return null;
+    }
+
+    @Override
     public CPValue interpretPrimitive(Primitive primitive, String value)
     {
         return basicInterpreter.interpretPrimitive(primitive, value);

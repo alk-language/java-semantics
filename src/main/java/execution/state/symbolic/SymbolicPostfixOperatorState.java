@@ -2,14 +2,18 @@ package execution.state.symbolic;
 
 import ast.AST;
 import ast.enums.Operator;
+import ast.expr.AdditiveAST;
+import ast.expr.IntAST;
 import ast.expr.UnaryAST;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
 import execution.state.expression.BasePostfixOperatorState;
-import execution.state.expression.BasePrefixOperatorState;
 import symbolic.SymbolicValue;
 import util.types.Storable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SymbolicPostfixOperatorState
 extends BasePostfixOperatorState
@@ -24,7 +28,21 @@ extends BasePostfixOperatorState
     {
         if (value.toRValue() instanceof SymbolicValue)
         {
-            return new SymbolicValue(UnaryAST.createUnary(op, ((SymbolicValue) value.toRValue()).getAst()));
+            Storable initial = value.toRValue();
+            List<AST> children = new ArrayList<>();
+            children.add(((SymbolicValue) initial).toAST());
+            children.add(new IntAST("1"));
+
+            SymbolicValue result = null;
+            switch (op)
+            {
+                case PLUSPLUSRIGHT:
+                    result = new SymbolicValue(AdditiveAST.createBinary(Operator.ADD, children)); break;
+                case MINUSMINUSRIGHT:
+                    result = new SymbolicValue(AdditiveAST.createBinary(Operator.SUBTRACT, children)); break;
+            }
+            value.toLValue().assign(result);
+            return initial.clone(generator);
         }
         else
         {

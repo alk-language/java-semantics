@@ -51,6 +51,12 @@ implements StatefulExpressionInterpreter<CFGPayload, CFGState>
     }
 
     @Override
+    public CFGState interpretSymId(AST ast, CFGPayload payload)
+    {
+        return null;
+    }
+
+    @Override
     public CFGState interpretPrimitive(Primitive primitive, AST ast, CFGPayload payload)
     {
         return null;

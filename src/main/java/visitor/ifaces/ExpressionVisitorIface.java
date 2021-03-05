@@ -33,6 +33,7 @@ extends AdditiveVisitorIface<T>,
         ShiftVisitorIface<T>,
         StringVisitorIface<T>,
         StructVisitorIface<T>,
+        SymIDVisitorIface<T>,
         UnaryVisitorIface<T>
 {
 

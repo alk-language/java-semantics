@@ -1,5 +1,7 @@
 package execution.types.alkArray;
 
+import ast.AST;
+import execution.parser.exceptions.NotImplementedException;
 import execution.types.alkNotAValue.AlkNotAValue;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
@@ -251,5 +253,11 @@ public class AlkArray extends AlkIterableValue {
     @Override
     public Iterator<Location> iterator() {
         return array.iterator();
+    }
+
+    @Override
+    public AST toAST()
+    {
+        throw new NotImplementedException("Can't convert to AST an AlkList");
     }
 }

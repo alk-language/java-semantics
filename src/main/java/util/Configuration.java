@@ -1,5 +1,6 @@
 package util;
 
+import execution.parser.constants.Constants;
 import io.IOManager;
 import org.apache.commons.cli.Options;
 
@@ -214,7 +215,7 @@ implements OptionProvider,
 
     @Override
     public void interpretProbability(BigDecimal probab) {
-        probability = probability.multiply(probab);
+        probability = probability.multiply(probab).setScale(Constants.MAX_DECIMALS, BigDecimal.ROUND_HALF_UP);
     }
 
     @Override

@@ -1,5 +1,0 @@
-n |-> $a
-m |-> $b
-
-RefIdAST(n) |-> SymRefIdAST($a)
-RefIdAST(m) |-> SymRefIdAST($b)

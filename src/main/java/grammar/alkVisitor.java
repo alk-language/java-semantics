@@ -446,6 +446,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRefID(alkParser.RefIDContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SymID}
+	 * labeled alternative in {@link alkParser#ref_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSymID(alkParser.SymIDContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ArrayValue}
 	 * labeled alternative in {@link alkParser#data_structure}.
 	 * @param ctx the parse tree

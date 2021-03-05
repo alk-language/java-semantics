@@ -45,7 +45,7 @@ implements Visitable
             if (i < ast.getChildCount() - 1)
                 sb.append(OperatorUtils.toString(attr.getOp(i)));
         }
-        return sb.toString();
+        return "(" + sb.toString() + ")";
     }
 
     protected static String getCSV(AST ast)

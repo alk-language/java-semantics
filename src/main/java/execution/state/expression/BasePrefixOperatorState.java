@@ -34,9 +34,9 @@ extends SingleState
         switch (op)
         {
             case PLUSPLUSLEFT:
-                result = ((AlkValue) result.toRValue()).plusplusleft(); break;
+                result = ((AlkValue) result.toRValue()).plusplusleft(); break; // valoare concreta
             case MINUSMINUSLEFT:
-                result = ((AlkValue) result.toRValue()).minusminusleft(); break;
+                result = ((AlkValue) result.toRValue()).minusminusleft(); break; // valoare concreta
             default:
                 throw new InternalException("Unknown prefix operator used.");
         }

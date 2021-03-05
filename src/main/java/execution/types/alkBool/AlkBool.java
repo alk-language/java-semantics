@@ -1,5 +1,7 @@
 package execution.types.alkBool;
 
+import ast.AST;
+import ast.expr.BoolAST;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.types.AlkComparable;
@@ -13,7 +15,9 @@ import static execution.parser.exceptions.AlkException.ERR_LOWER_BOOL;
  * The main and only class responsible for the boolean values.
  * Overrides specific operations like logicalOr, logicalAnd and not.
  */
-public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
+public class AlkBool
+extends AlkValue
+implements AlkComparable<AlkBool>
 {
 
     /** the main storage which backs the AlkBool type*/
@@ -200,5 +204,11 @@ public class AlkBool extends AlkValue implements AlkComparable<AlkBool>
 
     public boolean isTrue() {
         return value;
+    }
+
+    @Override
+    public AST toAST()
+    {
+        return new BoolAST(value ? "true" : "false");
     }
 }

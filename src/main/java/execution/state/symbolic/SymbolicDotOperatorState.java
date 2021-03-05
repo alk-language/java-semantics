@@ -23,7 +23,7 @@ extends BaseDotOperatorState
     {
         if (value.toRValue() instanceof SymbolicValue)
         {
-            return new SymbolicValue(UnaryAST.createUnary(Operator.DOT, ((SymbolicValue) value.toRValue()).getAst()));
+            return new SymbolicValue(UnaryAST.createUnary(Operator.DOT, ((SymbolicValue) value.toRValue()).toAST()));
         }
         else
         {

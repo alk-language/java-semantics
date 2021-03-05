@@ -1,6 +1,5 @@
 package ast.expr;
 
-import ast.AST;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.IntVisitorIface;

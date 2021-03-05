@@ -27,6 +27,12 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     }
 
     @Override
+    public ExecutionState interpretSymId(AST ast, ExecutionPayload payload)
+    {
+        throw new InternalException("Can't use the base interpreter in order to evaluate symbolic values");
+    }
+
+    @Override
     public ExecutionState interpretPrimitive(Primitive primitive, AST ast, ExecutionPayload payload)
     {
         return new BasePrimitiveValueState(primitive, ast, payload);

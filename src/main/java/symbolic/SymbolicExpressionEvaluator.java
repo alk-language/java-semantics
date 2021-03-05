@@ -20,6 +20,7 @@ import parser.ParseTreeExprVisitor;
 import state.Result;
 import symbolic.SymbolicValueIface;
 import util.Configuration;
+import util.types.Storable;
 import visitor.SmallStepExpressionVisitor;
 import visitor.SymbolicExpressionInterpreter;
 import visitor.interpreter.SmallStepExpressionInterpreter;
@@ -30,14 +31,26 @@ public class SymbolicExpressionEvaluator
 implements Master
 {
     Configuration config;
+
+    Execution exec;
+
     public SymbolicExpressionEvaluator(Configuration config)
     {
         this.config = config;
-        StoreImpl store = new StoreImpl();
+
+        BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager =
+                new BaseStatefulInterpreterManager<>(new SymbolicStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
+
+        this.exec = new Execution(config, manager);
     }
 
     public void run()
     {
+        if (config.hasInput())
+        {
+            InputHelper.readInitial(config, exec.getGlobal(), exec.getInterpreterManager());
+        }
+
         File file = config.getAlkFile();
         ParseTree parseTreeRoot = AlkParser.execute(file, true);
         if (!(parseTreeRoot instanceof alkParser.ExpressionContext))
@@ -47,17 +60,19 @@ implements Master
 
         AST root = new ParseTreeExprVisitor().visit(parseTreeRoot);
 
-        BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager =
-                new BaseStatefulInterpreterManager<>(new SymbolicStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
 
-
-        Execution exec = new Execution(config);
         ExecutionPayload payload = new ExecutionPayload(exec, exec.getGlobal());
-        ExecutionState state = manager.interpret(root, payload);
+        ExecutionState state = exec.getInterpreterManager().interpret(root, payload);
         ASTStack<ExecutionState> stack = new ASTStack<>(config);
         stack.push(state);
         Result<?> result = stack.run();
-        System.out.println(result.getValue().toString());
+        Storable value = (Storable) result.getValue();
+        System.out.println(value.toRValue().toString());
+
+        if (config.hasMetadata())
+        {
+            config.getIOManager().write(exec.getGlobal().toString());
+        }
     }
 
 }
