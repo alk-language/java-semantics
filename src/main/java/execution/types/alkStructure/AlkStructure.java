@@ -1,8 +1,10 @@
 package execution.types.alkStructure;
 
+import ast.AST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import util.Pair;
@@ -128,5 +130,11 @@ public class AlkStructure extends AlkValue
             throw new AlkException(ERR_LOWER_STRUCT);
         AlkStructure op = (AlkStructure) operand;
         return new AlkBool(this.toString().compareTo(op.toString())<0);
+    }
+
+    @Override
+    public AST toAST()
+    {
+        throw new NotImplementedException("Can't convert to AST an AlkList");
     }
 }

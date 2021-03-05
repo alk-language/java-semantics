@@ -1,7 +1,9 @@
 package execution.types.alkIterator;
 
+import ast.AST;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
@@ -143,5 +145,12 @@ public class AlkIterator extends AlkValue
     @Override
     public String toString() {
         return "iterator"; // TODO prctic nu se poate scrie un iterator
+    }
+
+
+    @Override
+    public AST toAST()
+    {
+        throw new NotImplementedException("Can't convert to AST an AlkList");
     }
 }

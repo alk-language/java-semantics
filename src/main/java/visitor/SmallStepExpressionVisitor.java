@@ -126,6 +126,12 @@ implements ExpressionVisitorIface<T>
         return expressionInterpreter.interpretVariable(ctx.getId());
     }
 
+    @Override
+    public T visit(SymIDAST ctx)
+    {
+        return expressionInterpreter.interpretSymId(ctx.getId());
+    }
+
     public T visit(BracketAST ctx)
     {
         List<T> list = new ArrayList<>();

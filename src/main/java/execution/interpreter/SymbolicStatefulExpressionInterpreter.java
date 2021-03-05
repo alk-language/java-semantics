@@ -7,14 +7,7 @@ import ast.enums.Primitive;
 import execution.ExecutionPayload;
 import execution.parser.exceptions.NotImplementedException;
 import execution.state.ExecutionState;
-import execution.state.expression.BaseDotOperatorState;
-import execution.state.expression.BasePostfixOperatorState;
-import execution.state.expression.BasePrefixOperatorState;
-import execution.state.expression.BaseUnaryOperatorState;
-import execution.state.symbolic.SymbolicDotOperatorState;
-import execution.state.symbolic.SymbolicPostfixOperatorState;
-import execution.state.symbolic.SymbolicPrefixOperatorState;
-import execution.state.symbolic.SymbolicUnaryOperatorState;
+import execution.state.symbolic.*;
 import util.exception.InternalException;
 import visitor.stateful.StatefulExpressionInterpreter;
 
@@ -45,37 +38,43 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState evaluateBinary(AST ast, ExecutionPayload payload)
     {
-        return null;
+        return new SymbolicBinaryState(ast, payload);
     }
 
     @Override
     public ExecutionState evaluateTernary(AST ast, ExecutionPayload payload)
     {
-        return null;
+        return new SymbolicConditionalState(ast, payload);
     }
 
     @Override
     public ExecutionState evaluateMethod(AST ast, ExecutionPayload payload)
     {
-        return null;
+        throw new NotImplementedException("Methods can't be symbolically evaluated!");
     }
 
     @Override
     public ExecutionState evaluateFunction(AST ast, ExecutionPayload payload)
     {
-        return null;
+        throw new NotImplementedException("Function calls can't be symbolically evaluated!");
     }
 
     @Override
     public ExecutionState interpretAssignment(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Assignment expressions can't be symbolically evaluated!");
+        return new SymbolicAssignmentState(ast, payload);
     }
 
     @Override
     public ExecutionState interpretRefId(AST ast, ExecutionPayload payload)
     {
         return baseDelegate.interpretRefId(ast, payload);
+    }
+
+    @Override
+    public ExecutionState interpretSymId(AST ast, ExecutionPayload payload)
+    {
+        return new SymbolicIdState(ast, payload);
     }
 
     @Override
@@ -87,6 +86,7 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretComposite(Primitive primitive, AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Composite values can't be symbolically evaluated!");
+        return baseDelegate.interpretComposite(primitive, ast, payload);
+        // throw new NotImplementedException("Composite values can't be symbolically evaluated!");
     }
 }

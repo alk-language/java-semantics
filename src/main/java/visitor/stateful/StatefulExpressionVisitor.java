@@ -202,4 +202,10 @@ implements ExpressionVisitorIface<S>
     {
         return expressionInterpreter.evaluateUnary(tree, payload);
     }
+
+    @Override
+    public S visit(SymIDAST tree)
+    {
+        return expressionInterpreter.interpretSymId(tree, payload);
+    }
 }

@@ -9,14 +9,15 @@ import util.types.Storable;
 
 import java.util.Set;
 
-class ExecutionCloner {
+class ExecutionCloner
+{
 
     public static Execution makeClone(Execution source)
     {
         StoreImpl copyStore = new StoreImpl();
         LocationMapper locMapping = new LocationMapper();
 
-        Execution copy = new Execution(source.getConfig().clone());
+        Execution copy = new Execution(source.getConfig().clone(), source.getInterpreterManager());
         copy.setStore(copyStore);
         Set<Location> sourceLocations = source.getStore().getLocations();
 
@@ -47,5 +48,4 @@ class ExecutionCloner {
 
         return copy;
     }
-
 }

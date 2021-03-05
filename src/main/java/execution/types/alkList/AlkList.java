@@ -1,8 +1,10 @@
 package execution.types.alkList;
 
+import ast.AST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
+import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.types.alkBool.AlkBool;
@@ -14,7 +16,8 @@ import java.util.*;
 import static execution.parser.exceptions.AlkException.*;
 
 //TODO: implement bracket operator
-public class AlkList extends AlkIterableValue
+public class AlkList
+extends AlkIterableValue
 {
     private LinkedList<Location> list;
 
@@ -220,5 +223,11 @@ public class AlkList extends AlkIterableValue
     public void addAll(List<Location> values)
     {
         list.addAll(values);
+    }
+
+    @Override
+    public AST toAST()
+    {
+        throw new NotImplementedException("Can't convert to AST an AlkList");
     }
 }

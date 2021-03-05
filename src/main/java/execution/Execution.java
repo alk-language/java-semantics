@@ -19,7 +19,9 @@ import util.*;
 import util.exception.InternalException;
 import visitor.SmallStepExpressionVisitor;
 import visitor.interpreter.base.BaseExpressionInterpreter;
+import visitor.stateful.StatefulExpressionInterpreter;
 import visitor.stateful.StatefulInterpreterManager;
+import visitor.stateful.StatefulStmtInterpreter;
 
 import java.io.File;
 
@@ -49,6 +51,8 @@ extends Thread
     /** A manager responsible for internal functions / procedures. */
     private FuncManager funcManager;
 
+    private ConditionPath conditionPath;
+
     private StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
 
     // -> foloseste interpretorul clasic de instructiuni + expresii
@@ -60,32 +64,39 @@ extends Thread
      * @param config
      * The configuration meant to be used for this execution
      */
-    public Execution(Configuration config)
+    public Execution(Configuration config,
+                     StatefulExpressionInterpreter<ExecutionPayload, ExecutionState> expressionInterpreter,
+                     StatefulStmtInterpreter<ExecutionPayload, ExecutionState> stmtInterpreter)
+    {
+        this(config, new BaseStatefulInterpreterManager<>(expressionInterpreter, stmtInterpreter));
+    }
+
+
+    public Execution(Configuration config,
+                     StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager)
     {
         this.config = config;
         envManager = new EnvironmentManager();
         store = new StoreImpl();
         global = new EnvironmentImpl(store);
         funcManager = new FuncManager();
-
-        BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager =
-                new BaseStatefulInterpreterManager<>(new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
         manager.registerListener(envManager);
         interpreterManager = manager;
+        conditionPath = new ConditionPath();
     }
 
     private boolean initialize()
     {
+        if (config.hasVersion())
+        {
+            config.getIOManager().write("The version is " + Constants.VERSION + ".");
+            return false;
+        }
+
         if (config.getAlkFile() == null || config.hasHelp())
         {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "alk", config.getOptions());
-            return false;
-        }
-
-        if (config.hasVersion())
-        {
-            config.getIOManager().write("The version is " + Constants.VERSION + ".");
             return false;
         }
 
@@ -96,21 +107,9 @@ extends Thread
 
         if (config.hasInput())
         {
-            String input = config.getInput();
-            alkParser.ConfigContext tree = (alkParser.ConfigContext) AlkParser.executeInit(input);
-            if (tree == null)
-            {
-                throw new AlkException("Syntax error!");
-            }
-
-            for (int i = 0; i < tree.ID().size(); i++)
-            {
-                String id = tree.ID(i).getText();
-                ParseTree expr = tree.expression(i);
-                AST exprAST = ParseTreeGlobals.getParseExprVisitor().visit(expr);
-                global.update(id, exprAST.accept(new SmallStepExpressionVisitor<>(new BaseExpressionInterpreter(global, store))));
-            }
+            InputHelper.readInitial(config, global, interpreterManager);
         }
+
         return true;
     }
 
@@ -265,8 +264,13 @@ extends Thread
         this.funcManager = funcManager;
     }
 
-    public StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ?> getInterpreterManager()
+    public StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> getInterpreterManager()
     {
         return this.interpreterManager;
+    }
+
+    public void setInterpreterManager(BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager)
+    {
+        this.interpreterManager = manager;
     }
 }

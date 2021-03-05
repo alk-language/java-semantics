@@ -1,6 +1,6 @@
 grammar terminal;
 
-
+// SKIPPED CHARACTERS
 WS : [ \t\r\n]+ -> skip;
 COMMENT
 :
@@ -16,11 +16,9 @@ fragment DIGIT: [0-9];
 fragment NONZERODIGIT: [1-9];
 
 //Cofiguration
-
 TO: '|->';
 
 //Keywords
-
 IF : 'if';
 ELSE : 'else';
 WHILE : 'while';
@@ -93,20 +91,19 @@ UPDATE : 'update';
 RANDOM : 'random';
 SOTHAT : 's.t.';
 
+// Symbolic marker
+SYM : '$';
+
 //Structure
 ARROW : '->';
 NUMSIGN : '#';
-
 
 //Set Operators
 UNION : 'U';
 INTERSECT : '^';
 SUBTRACT : '\\';
 
-
-
 //Data types
-
 INT : [0-9]+;
 DOUBLE : [0-9]+ POINT [0-9]+;
 BOOL : 'true'| 'false';
@@ -125,7 +122,6 @@ MINUSMOD : '-%';
 PLUSPLUSMOD : '++%';
 MINUSMINUSMOD : '--%';
 
-
 //Relational Operators
 LOWER : '<';
 GREATER : '>';
@@ -134,25 +130,10 @@ GREATEREQ : '>=';
 ISEQUAL : '==';
 NOTEQUAL : '!=';
 
-
 //Assignment Operators
-
 ASSIGNMENT_OPERATOR: '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '|=';
-/*EQUAL : '=';
-PLUSEQUAL : '+=';
-MINUSEQUAL : '-=';
-MULEQUAL : '*=';
-DIVEQUAL : '/=';
-MODEQUAL : '%=';
-SHIFTLEFTEQUAL : '<<=';
-SHIFTRIGHTEQUAL : '>>=';
-ANDEQUAL : '&=';
-XOREQUAL : '^=';
-OREQUAL : '|=';*/
-
 
 //Arithmetic Operators
-
 MINUS : '-';
 PLUS : '+';
 MUL : '*';
@@ -161,17 +142,14 @@ MOD : '%';
 LPAR : '(';
 RPAR : ')';
 
-
 //Shifts
 LEFTSHIFT : '<<';
 RIGHTSHIFT : '>>';
 
 //Boolean Operators
-
 OR : '||';
 AND : '&&';
 NOT : '!';
-
 
 //Other
 SEMICOLON : ';';
@@ -185,6 +163,5 @@ LBRA : '[';
 RBRA : ']';
 QUOTE : '"';
 QUESTION : '?';
-
 
 STRING : '"' ~('\r' | '\n' | '"')* '"' ;

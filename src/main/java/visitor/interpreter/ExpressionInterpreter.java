@@ -9,6 +9,7 @@ import java.util.List;
 public interface ExpressionInterpreter<T>
 {
     T interpretVariable(String id);
+    T interpretSymId(String id);
     T interpretPrimitive(Primitive primitive, String value);
     T interpretComposite(Primitive primitive, List<T> values);
     T interpretCompositeInterval(Primitive primitive, T left, T right);
