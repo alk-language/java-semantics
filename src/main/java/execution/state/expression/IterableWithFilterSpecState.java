@@ -72,6 +72,7 @@ extends ExecutionState
         validatingValue = (AlkValue) source.get(step++).toRValue();
 
         env = new EnvironmentProxy(getEnv());
+        getExec().registerEnv(env);
         env.addTempEntry(id, validatingValue);
         return super.request(tree.getChild(1), env);
     }

@@ -6,7 +6,8 @@ import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.types.Storable;
 
-public abstract class IndependentGeneratorState extends GeneratorState
+public abstract class IndependentGeneratorState
+extends GeneratorState
 {
 
     protected IndependentGeneratorState(AST tree, ExecutionPayload executionPayload)

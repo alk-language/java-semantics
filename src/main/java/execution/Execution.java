@@ -1,9 +1,11 @@
 package execution;
 
 import ast.AST;
+import execution.exhaustive.EnvironmentMapper;
 import execution.interpreter.BaseStatefulExpressionInterpreter;
 import execution.interpreter.BaseStatefulStmtInterpreter;
 import execution.interpreter.SymbolicStatefulExpressionInterpreter;
+import execution.parser.env.LocationMapper;
 import execution.state.ExecutionState;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -24,6 +26,10 @@ import visitor.stateful.StatefulInterpreterManager;
 import visitor.stateful.StatefulStmtInterpreter;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The main class responsible for one alk file execution. It is implemented
@@ -42,14 +48,13 @@ extends Thread
     /** The main code stack associated with this execution. */
     private ExecutionStack stack;
 
-    /** The manager responsible for the environments. */
-    private EnvironmentManager envManager;
-
     /** The global environment for the execution. */
     private Environment global;
 
     /** A manager responsible for internal functions / procedures. */
     private FuncManager funcManager;
+
+    private final Map<Environment, Boolean> envs = new IdentityHashMap<>();
 
     private ConditionPath conditionPath;
 
@@ -76,11 +81,10 @@ extends Thread
                      StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager)
     {
         this.config = config;
-        envManager = new EnvironmentManager();
         store = new StoreImpl();
         global = new EnvironmentImpl(store);
+        this.registerEnv(global);
         funcManager = new FuncManager();
-        manager.registerListener(envManager);
         interpreterManager = manager;
         conditionPath = new ConditionPath();
     }
@@ -194,19 +198,9 @@ extends Thread
     }
 
 
-    public Execution clone(boolean nullifyLast)
+    public Execution clone()
     {
-        Execution copy = ExecutionCloner.makeClone(this);
-        if (nullifyLast)
-        {
-            copy.stack.nullifyLast();
-        }
-        return copy;
-    }
-
-    public EnvironmentManager getEnvManager()
-    {
-        return envManager;
+        return ExecutionCloner.makeClone(this);
     }
 
     public Configuration getConfiguration()
@@ -246,12 +240,9 @@ extends Thread
 
     public void setGlobal(Environment global)
     {
+        deregisterEnv(this.global);
         this.global = global;
-    }
-
-    public void setEnvManager(EnvironmentManager envManager)
-    {
-        this.envManager = envManager;
+        registerEnv(this.global);
     }
 
     public void setStack(ExecutionStack stack)
@@ -269,8 +260,25 @@ extends Thread
         return this.interpreterManager;
     }
 
-    public void setInterpreterManager(BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager)
+    public void deregisterEnv(Environment environment)
     {
-        this.interpreterManager = manager;
+        envs.remove(environment);
+    }
+
+    public void registerEnv(Environment environment)
+    {
+        envs.put(environment, true);
+    }
+
+    public EnvironmentMapper cloneEnvironments(Execution newExec, LocationMapper locMapping, StoreImpl copyStore)
+    {
+        EnvironmentMapper mapper = new EnvironmentMapper();
+        for (Environment env : envs.keySet())
+        {
+            Environment clone = env.makeClone(locMapping, copyStore);
+            newExec.registerEnv(clone);
+            mapper.put(env, clone);
+        }
+        return mapper;
     }
 }

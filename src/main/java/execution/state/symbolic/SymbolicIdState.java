@@ -25,6 +25,6 @@ extends PrimitiveState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        return new SymbolicIdState(tree, payload);
+        return new SymbolicIdState(tree, payload.clone(sm));
     }
 }

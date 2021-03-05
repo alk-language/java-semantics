@@ -17,7 +17,7 @@ class ExecutionCloner
         StoreImpl copyStore = new StoreImpl();
         LocationMapper locMapping = new LocationMapper();
 
-        Execution copy = new Execution(source.getConfig().clone(), source.getInterpreterManager());
+        Execution copy = new Execution(source.getConfig().clone(), source.getInterpreterManager().makeClone());
         copy.setStore(copyStore);
         Set<Location> sourceLocations = source.getStore().getLocations();
 
@@ -36,11 +36,8 @@ class ExecutionCloner
 
         copy.setFuncManager(source.getFuncManager());
 
-        EnvironmentMapper envMapping = source.getEnvManager().cloneEnvironments(locMapping, copyStore);
+        EnvironmentMapper envMapping = source.cloneEnvironments(copy, locMapping, copyStore);
         ExecutionStateMapper stateMapping = source.getStack().cloneStates(copy, locMapping, envMapping);
-
-        EnvironmentManager envManager = source.getEnvManager().makeClone(stateMapping, envMapping);
-        copy.setEnvManager(envManager);
         copy.setGlobal(envMapping.get(source.getGlobal()));
 
         ExecutionStack stack = source.getStack().makeClone(copy, stateMapping);

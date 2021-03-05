@@ -31,12 +31,14 @@ import static execution.parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 public class ChooseStmtState
 extends ExecutionState
 {
-    private final String id;
     private final boolean uniform;
 
     private List<Location> source;
-    private Storable value;
     private boolean checked = false;
+    private boolean selected = false;
+    private Location target;
+    private boolean firedExhaustive = false;
+
 
     public ChooseStmtState(AST tree, ExecutionPayload executionPayload, boolean uniform)
     {
@@ -50,53 +52,46 @@ extends ExecutionState
             getAlgorithmTypeDetector().setNonDeterministic(true);
         }
 
-        this.id = tree.getAttribute(IdASTAttr.class).getId();
         this.uniform = uniform;
     }
 
     @Override
     public ExecutionState makeStep()
     {
-        if (source == null)
+        if (target == null)
         {
             return super.request(tree.getChild(0));
         }
-
-        AlkArray arr = new AlkArray();
-        arr.addAll(source);
-
-        if (!checked)
+        if (source == null)
         {
-            value = NonDeterministic.choose(source).toRValue();
-        }
-
-        // such that
-        if (tree.getChildCount() > 1 && !checked)
-        {
-            getEnv().update(id, value.clone(generator));
             return super.request(tree.getChild(1));
         }
 
-        if (!getConfig().hasExhaustive())
+        if (!selected && !getConfig().hasExhaustive())
         {
-            getEnv().update(id, value.clone(generator));
+            target.assign(NonDeterministic.choose(source).toRValue().clone(generator));
+            selected = true;
+            if (tree.getChildCount() > 2 && !checked)
+            {
+                return super.request(tree.getChild(2));
+            }
         }
-        else
+        else if (!firedExhaustive && getConfig().hasExhaustive())
         {
-            int size = ((AlkInt) arr.size()).value.intValueExact();
-            for (int i = 1; i < size; i++)
+            firedExhaustive = true;
+            for (int i = 1; i < source.size(); i++)
             {
                 Execution current = getExec();
-                getEnv().update(id, arr.get(i, generator).toRValue().clone(generator));
-                Execution next = current.clone(true);
+                target.assign(source.get(i).toRValue().clone(generator));
+                Execution next = current.clone();
                 next.start();
             }
-            getEnv().update(id, arr.get(0, generator).toRValue().clone(generator));
+            target.assign(source.get(0).toRValue().clone(generator));
         }
 
         if (uniform)
         {
-            BigDecimal total = new BigDecimal(((AlkInt) arr.size()).value);
+            BigDecimal total = new BigDecimal(source.size());
             getConfig().interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));
         }
 
@@ -106,7 +101,11 @@ extends ExecutionState
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        if (source == null)
+        if (target == null)
+        {
+            target = executionResult.getValue().toLValue();
+        }
+        else if (source == null)
         {
             if (executionResult.getValue().toRValue() instanceof AlkIterableValue)
             {
@@ -137,7 +136,7 @@ extends ExecutionState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        ChooseStmtState copy = new ChooseStmtState(tree, payload.clone(sm), uniform);
+        ChooseStmtState copy = new ChooseStmtState(tree, getPayload().clone(sm), uniform);
 
         if (this.source != null)
         {
@@ -148,8 +147,10 @@ extends ExecutionState
             }
         }
 
-        copy.value = this.value.weakClone(sm.getLocationMapper());
         copy.checked = this.checked;
+        copy.selected = this.selected;
+        copy.target = sm.getLocationMapper().get(this.target);
+        copy.firedExhaustive = firedExhaustive;
 
         return super.decorate(copy, sm);
     }

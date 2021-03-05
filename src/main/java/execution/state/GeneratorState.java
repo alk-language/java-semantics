@@ -14,7 +14,6 @@ extends ExecutionState
 {
     protected final List<AST> children;
     private boolean stopped = false;
-
     protected int step = 0;
 
     protected GeneratorState(AST tree, ExecutionPayload executionPayload)

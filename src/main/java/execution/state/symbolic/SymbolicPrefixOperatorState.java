@@ -53,7 +53,7 @@ extends BasePrefixOperatorState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        SymbolicPrefixOperatorState copy = new SymbolicPrefixOperatorState(super.op, tree, payload);
+        SymbolicPrefixOperatorState copy = new SymbolicPrefixOperatorState(super.op, tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

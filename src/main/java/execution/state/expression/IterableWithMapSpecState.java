@@ -69,6 +69,7 @@ extends ExecutionState
         }
 
         env = new EnvironmentProxy(getEnv());
+        getExec().registerEnv(env);
         env.addTempEntry(id, source.get(step++).toRValue());
         return super.request(tree.getChild(0), env);
     }

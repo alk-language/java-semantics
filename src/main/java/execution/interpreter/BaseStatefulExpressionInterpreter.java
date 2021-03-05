@@ -116,4 +116,5 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
                 throw new InternalException("Unrecognized compound data type representation: " + repr);
         }
     }
+
 }

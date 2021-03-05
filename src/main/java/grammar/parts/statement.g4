@@ -49,8 +49,8 @@ statement_block
 
 
 choose:
-    CHOOSE ID FROM expression (SOTHAT expression)?                                                                      #ChooseStmt
-    | UNIFORM ID FROM expression                                                                                        #UniformStmt
+    CHOOSE expression FROM expression (SOTHAT expression)?                                                              #ChooseStmt
+    | UNIFORM expression FROM expression                                                                                #UniformStmt
 ;
 
 while_struct

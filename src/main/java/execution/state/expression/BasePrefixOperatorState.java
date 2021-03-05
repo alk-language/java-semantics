@@ -30,7 +30,6 @@ extends SingleState
         {
             super.handle(new AlkException("Undefined variable used in prefix expression."));
         }
-
         switch (op)
         {
             case PLUSPLUSLEFT:
