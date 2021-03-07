@@ -74,6 +74,10 @@ extends ExecutionState
                 }
                 else
                 {
+                    if (params.get(i).toRValue() == null || params.get(i).toRValue() instanceof AlkNotAValue)
+                    {
+                        super.handle(new AlkException("Undefined variable used as parameter."));
+                    }
                     env.update(param.getName(), params.get(i).toRValue().clone(generator));
                 }
             }

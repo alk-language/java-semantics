@@ -1,1 +1,5 @@
-x = uniformNat(3);
+gcd(x) {
+    print(x);
+}
+
+gcd(n);
