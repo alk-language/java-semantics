@@ -1,6 +1,7 @@
 package execution;
 
 import ast.AST;
+import ast.attr.OpsASTAttr;
 import execution.exhaustive.EnvironmentMapper;
 import execution.interpreter.BaseStatefulExpressionInterpreter;
 import execution.interpreter.BaseStatefulStmtInterpreter;
@@ -56,9 +57,9 @@ extends Thread
 
     private final Map<Environment, Boolean> envs = new IdentityHashMap<>();
 
-    private ConditionPath conditionPath;
+    private final ConditionPath conditionPath;
 
-    private StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
+    private final StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
 
     // -> foloseste interpretorul clasic de instructiuni + expresii
     // -> foloseste interpretorul simbolic de instructiuni + expresii
@@ -149,6 +150,8 @@ extends Thread
         if (config.hasMetadata())
         {
             config.getIOManager().write(global.toString());
+            config.getIOManager().write("Condition path: " + conditionPath.toString());
+            config.getIOManager().write("");
         }
 
         if (config.nonDeterministic())
@@ -280,5 +283,10 @@ extends Thread
             mapper.put(env, clone);
         }
         return mapper;
+    }
+
+    public ConditionPath getConditionPath()
+    {
+        return conditionPath;
     }
 }

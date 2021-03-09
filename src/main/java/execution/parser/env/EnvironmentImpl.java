@@ -76,7 +76,7 @@ implements Environment
         {
             returnable.append(i.getKey()).append(" |-> ").append(store.get(i.getValue())).append('\n');
         }
-        return returnable.toString();
+        return returnable.toString().trim();
     }
 
     public Environment makeClone(LocationMapper locMapping, StoreImpl store)

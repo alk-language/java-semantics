@@ -1,5 +1,16 @@
-gcd(x) {
-    print(x);
+a = $n;
+b = $m;
+if (a < b)
+{
+    if (b > a)
+    {
+        a += 2;
+    }
+    else
+    {
+        b += 3;
+    }
 }
 
-gcd(n);
+a++;
+b++;

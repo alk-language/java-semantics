@@ -28,7 +28,9 @@ public class TestingConfiguration extends Configuration {
     }
 }
 
-class TestingOptionProvider implements OptionProvider {
+class TestingOptionProvider
+implements OptionProvider
+{
 
     String alkFile;
     int precision;
@@ -90,6 +92,12 @@ class TestingOptionProvider implements OptionProvider {
 
     @Override
     public boolean hasHelp() {
+        return false;
+    }
+
+    @Override
+    public boolean hasStaticVerif()
+    {
         return false;
     }
 }

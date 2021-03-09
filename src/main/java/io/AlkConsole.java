@@ -14,9 +14,9 @@ public class AlkConsole implements IOManager, OptionProvider
 {
 
     /* Internal used by the commons library to store information about the command line */
-    private CommandLine cmd;
+    private final CommandLine cmd;
 
-    private Options options = new Options();
+    private final Options options = new Options();
 
     /**
      * Constructor based on in line arguments usually provided by a main method
@@ -191,6 +191,11 @@ public class AlkConsole implements IOManager, OptionProvider
     @Override
     public boolean hasHelp() {
         return cmd.hasOption("help");
+    }
+
+    @Override
+    public boolean hasStaticVerif() {
+        return cmd.hasOption("staticverification");
     }
 
     public IOManager getEndpoint()

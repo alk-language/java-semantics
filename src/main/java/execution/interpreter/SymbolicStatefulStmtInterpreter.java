@@ -4,6 +4,7 @@ import ast.AST;
 import execution.ExecutionPayload;
 import execution.parser.exceptions.NotImplementedException;
 import execution.state.ExecutionState;
+import execution.state.symbolic.SymIfStmtState;
 import visitor.stateful.StatefulStmtInterpreter;
 
 public class SymbolicStatefulStmtInterpreter
@@ -20,25 +21,25 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretBreak(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Can't handle break statements in symbolic execution!");
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
     public ExecutionState interpretChoose(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretChoose(ast, payload);
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
     public ExecutionState interpretContinue(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Can't handle continue statements in symbolic execution!");
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
     public ExecutionState interpretDoWhile(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Can't handle do-while statements in symbolic execution!");
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
@@ -56,13 +57,13 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretFor(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Can't handle for statements in symbolic execution!");
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
     public ExecutionState interpretForEach(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Can't handle for-each statements in symbolic execution!");
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
@@ -74,14 +75,13 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretIfThen(AST ast, ExecutionPayload payload)
     {
-        //return new SymIfStmtState(ast, payload);
-        throw new NotImplementedException("Can't handle if statements in symbolic execution!");
+        return new SymIfStmtState(ast, payload);
     }
 
     @Override
     public ExecutionState interpretRepeatUntil(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Can't handle repeat-until statements in symbolic execution!");
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
@@ -105,12 +105,12 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretUniform(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretUniform(ast, payload);
+        return baseDelegate.interpretReturn(ast, payload);
     }
 
     @Override
     public ExecutionState interpretWhile(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Can't handle while statements in symbolic execution!");
+        return baseDelegate.interpretReturn(ast, payload);
     }
 }

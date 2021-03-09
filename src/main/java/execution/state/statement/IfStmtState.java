@@ -11,11 +11,12 @@ import util.types.Storable;
 
 import static execution.parser.exceptions.AlkException.ERR_IF_NOT_BOOL;
 
-public class IfStmtState extends ExecutionState
+public class IfStmtState
+extends ExecutionState
 {
 
-    private AlkBool condition;
-    private boolean executed = false;
+    protected Storable condition;
+    protected boolean executed = false;
 
     public IfStmtState(AST tree, ExecutionPayload executionPayload)
     {
@@ -36,7 +37,11 @@ public class IfStmtState extends ExecutionState
         }
 
         executed = true;
-        if (condition.isTrue())
+        if (!(condition instanceof AlkBool))
+        {
+            super.handle(new AlkException(ERR_IF_NOT_BOOL));
+        }
+        if (((AlkBool) condition).isTrue())
         {
             return request(tree.getChild(1));
         }
@@ -54,18 +59,11 @@ public class IfStmtState extends ExecutionState
     }
 
     @Override
-    public void assign(ExecutionResult executionResult) {
+    public void assign(ExecutionResult executionResult)
+    {
         if (condition == null)
         {
-            Storable value = executionResult.getValue().toRValue();
-            if (value instanceof AlkBool)
-            {
-                condition = (AlkBool) value;
-            }
-            else
-            {
-                super.handle(new AlkException(ERR_IF_NOT_BOOL));
-            }
+            condition = executionResult.getValue().toRValue();
         }
     }
 
@@ -73,7 +71,7 @@ public class IfStmtState extends ExecutionState
     public ExecutionState clone(SplitMapper sm)
     {
         IfStmtState copy = new IfStmtState(tree, payload.clone(sm));
-        copy.condition = (AlkBool) condition.weakClone(sm.getLocationMapper());
+        copy.condition = condition.weakClone(sm.getLocationMapper());
         copy.executed = executed;
         return super.decorate(copy, sm);
     }
