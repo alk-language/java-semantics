@@ -216,8 +216,13 @@ public class AlkArray extends AlkIterableValue {
     }
 
     @Override
-    public Location bracket(AlkInt operand, LocationGenerator generator) {
-        return get(operand.value.intValueExact(), generator);
+    public Location bracket(AlkValue operand, LocationGenerator generator) {
+        if (!(operand instanceof AlkInt))
+        {
+            throw new AlkException("Can't retrieve record from array at non-integer position!");
+        }
+
+        return get(((AlkInt) operand).value.intValueExact(), generator);
     }
 
     @Override

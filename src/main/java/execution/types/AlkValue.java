@@ -564,7 +564,7 @@ implements Comparable<AlkValue>,
      * A return is valid if overridden, otherwise no-return
      */
     @RequiresGenerator
-    public Location bracket(AlkInt operand, LocationGenerator generator)
+    public Location bracket(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_BRACKET);
     }
