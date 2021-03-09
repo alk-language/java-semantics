@@ -50,4 +50,6 @@ public interface OptionProvider
     Options getOptions();
 
     boolean hasHelp();
+
+    boolean hasStaticVerif();
 }
