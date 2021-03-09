@@ -37,6 +37,8 @@ implements OptionProvider,
 
     private boolean help;
 
+    private boolean staticVerif;
+
     /** The debugMode flag, used to print the stach trace in case of one exception*/
     private boolean debugMode;
 
@@ -104,6 +106,12 @@ implements OptionProvider,
         return help;
     }
 
+    @Override
+    public boolean hasStaticVerif()
+    {
+        return staticVerif;
+    }
+
     /**
      * Used for identifying the metadata flag based on the internal members
      *
@@ -161,6 +169,7 @@ implements OptionProvider,
         this.version = op.hasVersion();
         this.options = op.getOptions();
         this.help = op.hasHelp();
+        this.staticVerif = op.hasStaticVerif();
     }
 
     /**

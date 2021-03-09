@@ -3,6 +3,8 @@ package main;
 import execution.Execution;
 import execution.interpreter.BaseStatefulExpressionInterpreter;
 import execution.interpreter.BaseStatefulStmtInterpreter;
+import execution.interpreter.SymbolicStatefulExpressionInterpreter;
+import execution.interpreter.SymbolicStatefulStmtInterpreter;
 import io.AlkConsole;
 import io.BufferedIOWrapper;
 import io.IOManager;
@@ -40,7 +42,13 @@ public class ExecutionDriver
             return;
         }
 
-        Execution exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
+
+        Execution exec;
+
+        if (config.hasStaticVerif())
+            exec = new Execution(config, new SymbolicStatefulExpressionInterpreter(), new SymbolicStatefulStmtInterpreter());
+        else
+            exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
         exec.start();
     }
 
