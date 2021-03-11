@@ -12,6 +12,7 @@ import execution.types.AlkValue;
 import execution.exhaustive.NameMapper;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import execution.types.alkNotAValue.AlkNotAValue;
 import util.exception.InternalException;
 import util.functions.BuiltInFunctionImpl;
 import util.functions.Functions;
@@ -39,6 +40,10 @@ public class BuiltInFunctionState extends GeneratorState
     @Override
     public void assign(ExecutionResult executionResult)
     {
+        if (executionResult.getValue().toRValue() == null || executionResult.getValue().toRValue() instanceof AlkNotAValue)
+        {
+            super.handle(new AlkException("Undefined variable used as parameter."));
+        }
         params.add((AlkValue) executionResult.getValue().toRValue());
     }
 
