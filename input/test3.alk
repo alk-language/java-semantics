@@ -1,1 +1,6 @@
-print(x);
+fnc() uses x {
+    print(x);
+}
+
+x = 5;
+fnc();
