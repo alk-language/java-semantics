@@ -1,6 +1,2 @@
-fnc() uses x {
-    print(x);
-}
-
-x = 5;
-fnc();
+s = {x -> 10};
+return s.y;

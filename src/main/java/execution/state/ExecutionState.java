@@ -1,6 +1,7 @@
 package execution.state;
 
 import ast.AST;
+import execution.types.alkNotAValue.AlkNotAValue;
 import state.State;
 import execution.Execution;
 import execution.ExecutionPayload;
@@ -76,4 +77,13 @@ extends State<ExecutionPayload, ExecutionResult>
     protected Environment getGlobal() { return getExec().getGlobal(); }
 
     protected AlgorithmTypeDetector getAlgorithmTypeDetector() { return getExec().getConfiguration(); }
+
+    protected void checkNotNull(Storable value)
+    {
+        value = value == null ? null : value.toRValue();
+        if (value == null || value instanceof AlkNotAValue)
+        {
+            handle(new AlkException("Undefined variable used!"));
+        }
+    }
 }
