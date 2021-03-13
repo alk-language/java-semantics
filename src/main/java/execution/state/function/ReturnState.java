@@ -32,6 +32,7 @@ extends ExecutionState
     @Override
     public void assign(ExecutionResult executionResult)
     {
+        checkNotNull(executionResult.getValue());
         value = (AlkValue) executionResult.getValue().toRValue().clone(generator);
     }
 
