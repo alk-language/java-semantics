@@ -43,6 +43,7 @@ EMPTYSET : 'emptySet';
 EMPTYLIST : 'emptyList';
 
 MODIFIES : 'modifies';
+USES : 'uses';
 INCLDUE : 'include';
 
 XOR : 'xor';

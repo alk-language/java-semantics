@@ -80,7 +80,7 @@ foreach_struct
 
 function_decl
 :
-    ID LPAR (param (COMMA param)*)? RPAR (MODIFIES ID (COMMA ID)*)? statement_block                                     #FunctionDecl
+    ID LPAR (param (COMMA param)*)? RPAR ((MODIFIES | USES) ID (COMMA ID)*)? statement_block                                     #FunctionDecl
 ;
 
 param
