@@ -558,6 +558,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStructureWithComponents(alkParser.StructureWithComponentsContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code EmptyStructure}
+	 * labeled alternative in {@link alkParser#structure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmptyStructure(alkParser.EmptyStructureContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ComponentDefinition}
 	 * labeled alternative in {@link alkParser#component}.
 	 * @param ctx the parse tree

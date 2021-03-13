@@ -1,2 +1,3 @@
-s = {x -> 10};
-return s.y;
+x = emptyStructure;
+y = {->};
+print(x == y);

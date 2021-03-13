@@ -101,7 +101,7 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
         CompoundValueRepresentation repr = attr.getRepresentation();
         switch (repr) {
             case EMPTY:
-                return new EmptyIterableState(primitive, ast, payload);
+                return new EmptyCompositeState(primitive, ast, payload);
             case EXPRESSIONS:
                 return new IterableWithExpressionsState(primitive, ast, payload);
             case INTERVAL:

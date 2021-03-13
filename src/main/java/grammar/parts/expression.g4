@@ -162,6 +162,7 @@ list:
 //Structures
 structure:
     LCB (component)+ RCB                                                                                                #StructureWithComponents
+    | (EMPTYSTRUCTURE | LCB ARROW RCB)                                                                                  #EmptyStructure
 ;
 
 component:
