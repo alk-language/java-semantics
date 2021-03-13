@@ -41,6 +41,7 @@ BREAK: 'break';
 
 EMPTYSET : 'emptySet';
 EMPTYLIST : 'emptyList';
+EMPTYSTRUCTURE : 'emptyStructure';
 
 MODIFIES : 'modifies';
 USES : 'uses';

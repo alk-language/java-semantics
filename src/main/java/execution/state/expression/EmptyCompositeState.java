@@ -9,15 +9,16 @@ import execution.state.PrimitiveState;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkList.AlkList;
 import execution.types.alkSet.AlkSet;
+import execution.types.alkStructure.AlkStructure;
 import util.exception.InternalException;
 import util.types.Storable;
 
-public class EmptyIterableState
+public class EmptyCompositeState
 extends PrimitiveState
 {
     Primitive primitive;
 
-    public EmptyIterableState(Primitive primitive, AST tree, ExecutionPayload executionPayload)
+    public EmptyCompositeState(Primitive primitive, AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload);
         this.primitive = primitive;
@@ -33,6 +34,8 @@ extends PrimitiveState
                 return new AlkList();
             case SET:
                 return new AlkSet();
+            case STRUCTURE:
+                return new AlkStructure();
             default:
                 throw new InternalException("Unrecognized primitive type for this compound representation!");
         }
@@ -40,7 +43,7 @@ extends PrimitiveState
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
-        EmptyIterableState copy =  new EmptyIterableState(primitive, tree, payload.clone(sm));
+        EmptyCompositeState copy =  new EmptyCompositeState(primitive, tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

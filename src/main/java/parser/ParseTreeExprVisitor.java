@@ -592,6 +592,15 @@ extends alkBaseVisitor<AST>
             comp.addChild(parseTreeExprVisitor.visit(ctx.expression()));
             return comp;
         }
+
+        @Override
+        public AST visitEmptyStructure(alkParser.EmptyStructureContext ctx)
+        {
+            AST strAST = new StructAST(ctx);
+            RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.EMPTY);
+            strAST.addAttribute(RepresentationASTAttr.class, attr);
+            return strAST;
+        }
     }
 
     static class DataStructureVisitor extends alkBaseVisitor<AST>
