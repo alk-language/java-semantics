@@ -1,6 +1,8 @@
 package execution;
 
+import execution.parser.exceptions.AlkSyntaxException;
 import grammar.alkParser;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.parser.AlkParser;
 import execution.parser.exceptions.AlkException;
@@ -94,6 +96,10 @@ public class PreProcessing
     {
         File file = new File(path);
         ParseTree tree = AlkParser.execute(file, context);
+        if (tree == null)
+        {
+            throw new AlkSyntaxException("Syntax error in: " + path);
+        }
         ParseTree stmtseq = tree.getChild(0);
 
         List<alkParser.StatementContext> children = new ArrayList<>();
