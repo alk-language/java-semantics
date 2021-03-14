@@ -68,19 +68,24 @@ public class AlkStructure extends AlkValue
     public String toString()
     {
         StringBuilder returnable = new StringBuilder("{");
+        if (map.isEmpty())
+        {
+            return "{->}";
+        }
+
         Map.Entry<String, Location> act = null;
         Iterator<Map.Entry<String, Location> > it = map.entrySet().iterator();
-        while (it.hasNext()) {
+        while (it.hasNext())
+        {
             act = it.next();
             if (!it.hasNext()) break;
             returnable.append(act.getKey()).append(" -> ").append(act.getValue().toRValue().toString()).append(" ");
         }
 
-        //TODO: change in proper exception handling
-        assert(act != null);
-
-        if (map.size() > 0)
+        if (map.size() > 0 && act != null)
+        {
             returnable.append(act.getKey()).append(" -> ").append(act.getValue().toRValue().toString());
+        }
         return returnable + "}";
     }
 

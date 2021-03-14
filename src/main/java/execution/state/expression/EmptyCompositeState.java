@@ -29,13 +29,13 @@ extends PrimitiveState
     {
         switch (this.primitive) {
             case ARRAY:
-                return new AlkArray();
+                return getStore().generate(new AlkArray());
             case LIST:
-                return new AlkList();
+                return getStore().generate(new AlkList());
             case SET:
-                return new AlkSet();
+                return getStore().generate(new AlkSet());
             case STRUCTURE:
-                return new AlkStructure();
+                return getStore().generate(new AlkStructure());
             default:
                 throw new InternalException("Unrecognized primitive type for this compound representation!");
         }

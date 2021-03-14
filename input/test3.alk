@@ -1,3 +1,5 @@
 x = emptyStructure;
 y = {->};
+z = emptyStructure;
+(z = {->}).a = 2;
 print(x == y);
