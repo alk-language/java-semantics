@@ -150,8 +150,11 @@ extends Thread
         if (config.hasMetadata())
         {
             config.getIOManager().write(global.toString());
-            config.getIOManager().write("Condition path: " + conditionPath.toString());
-            config.getIOManager().write("");
+            if (config.hasStaticVerif())
+            {
+                config.getIOManager().write("Condition path: " + conditionPath.toString());
+                config.getIOManager().write("");
+            }
         }
 
         if (config.nonDeterministic())
