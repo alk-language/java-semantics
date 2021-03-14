@@ -1,5 +1,9 @@
-x = emptyStructure;
-y = {->};
-z = emptyStructure;
-(z = {->}).a = 2;
-print(x == y);
+a.x = 2;
+a.y = 2;
+a.z = 2;
+a.t = 2;
+a.u = 2;
+a.v = 2;
+a.b = 2;
+a.a = 2;
+a.w = 2;

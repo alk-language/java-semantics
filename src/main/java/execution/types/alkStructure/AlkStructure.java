@@ -12,18 +12,19 @@ import util.lambda.LocationGenerator;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static execution.parser.exceptions.AlkException.*;
 
 public class AlkStructure extends AlkValue
 {
-    private Map<String, Location> map;
+    private final Map<String, Location> map;
 
     public AlkStructure() {
         type = "Structure";
         isDataStructure = true;
-        map = new HashMap<>();
+        map = new LinkedHashMap<>();
     }
 
     public void put(Pair<String, Location> pair)
