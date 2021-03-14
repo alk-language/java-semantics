@@ -74,7 +74,6 @@ extends ExecutionState
                 }
                 else
                 {
-                    checkNotNull(params.get(i));
                     env.update(param.getName(), params.get(i).toRValue().clone(generator));
                 }
             }
@@ -96,6 +95,7 @@ extends ExecutionState
     {
         if (!executed)
         {
+            checkNotNull(executionResult.getValue());
             params.add(executionResult.getValue());
         }
     }

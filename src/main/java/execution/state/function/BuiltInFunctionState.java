@@ -40,10 +40,7 @@ public class BuiltInFunctionState extends GeneratorState
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        if (executionResult.getValue().toRValue() == null || executionResult.getValue().toRValue() instanceof AlkNotAValue)
-        {
-            super.handle(new AlkException("Undefined variable used as parameter."));
-        }
+        checkNotNull(executionResult.getValue());
         params.add((AlkValue) executionResult.getValue().toRValue());
     }
 
