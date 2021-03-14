@@ -1,1 +1,3 @@
-print(1.1/2/0);
+#include "test2.alk"
+
+a = 2;
