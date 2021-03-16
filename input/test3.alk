@@ -1,3 +1,72 @@
-#include "test2.alk"
+swap(out a, i, j) {
+  if (i != j) {
+    temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+  }
+}
 
-a = 2;
+/*
+  Lomuto partition scheme that
+  partition a[p..q] around x = a[q]
+*/
+partition(out a, p, q)
+{
+  pivot = a[q];
+  i = p - 1;
+  for (j = p; j < q; ++j)
+    if (a[j] < pivot) {
+        i = i + 1;
+        swap(a, i , j);
+    }
+  swap(a, i+1, q);
+  return i + 1;
+}
+
+/*
+a1 = [3, 2, 5, 4, 7, 1, 8, 6];
+k1 = partition(a1,0, 7);
+
+a2 = [3, 2, 5, 4, 7, 1, 6, 8];
+k2 = partition(a2,0, 7);
+
+a3 = [3, 2, 5, 4, 7, 6, 8, 1];
+k3 = partition(a3,0, 7);
+*/
+
+/*
+  randomized partition
+*/
+randPartition(out a, p, q) {
+  if (p < q) {
+    i = p + uniformNat(q - p);
+    swap(a, i, q);
+    return partition(a, p, q);
+  }
+}
+
+/*
+a = [3, 2, 5, 4, 7, 1, 8, 6];
+k4 = randPartition(a,0, 7);
+*/
+
+/*
+  randomized select with time
+*/
+time = 0;
+randSelectRec(out a, p, q, k) modifies time
+{
+  time += q-p;
+  j = randPartition(a, p, q);
+  if (j == k) return a[j];
+  if (j < k) return randSelectRec(a, j+1, q, k);
+  return randSelectRec(a, p, j-1, k);
+}
+
+randSelect(out a, k) modifies time
+{
+  return randSelectRec(a, 0, a.size()-1, k);
+}
+
+a = [3, 2, 5, 4, 7, 1, 8, 6];
+k4 = randSelect(a, 4);
