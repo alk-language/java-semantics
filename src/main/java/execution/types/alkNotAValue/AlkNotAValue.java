@@ -44,7 +44,7 @@ public class AlkNotAValue extends AlkValue
     @Override
     public AlkValue toRValue()
     {
-        throw new AlkException(NO_VALUE);
+        return this;
     }
 
     @Override
