@@ -11,11 +11,14 @@ import util.types.Storable;
 public abstract class GuardedGeneratorState
 extends GeneratorState
 {
+    private final OpsASTAttr attr;
+
     private Storable localResult;
 
     public GuardedGeneratorState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload);
+        attr = tree.getAttribute(OpsASTAttr.class);
     }
 
     protected abstract Storable interpretResult(Operator op, Storable current, Storable next);
@@ -25,7 +28,6 @@ extends GeneratorState
     public void assign(ExecutionResult executionResult)
     {
         Storable value = executionResult.getValue();
-        OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
         if (step == 1)
         {
             localResult = firstAssign(attr.getOp(0), value);

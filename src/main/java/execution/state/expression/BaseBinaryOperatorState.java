@@ -63,14 +63,14 @@ extends GuardedGeneratorState
     {
         String opName = op.toString().toLowerCase();
 
-        if (op.equals(Operator.BRACKET) && current.toLValue().isUnknown())
-        {
-            current.toLValue().assign(new AlkArray());
-        }
-
         if (current == null || next == null)
         {
             super.handle(new AlkException("One of operands can't be evaluated!"));
+        }
+
+        if (op.equals(Operator.BRACKET) && current.toLValue().isUnknown())
+        {
+            current.toLValue().assign(new AlkArray());
         }
 
         current = current.toRValue();

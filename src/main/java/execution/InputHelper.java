@@ -28,7 +28,7 @@ public class InputHelper
         alkParser.ConfigContext tree = (alkParser.ConfigContext) AlkParser.executeInit(input);
         if (tree == null)
         {
-            throw new AlkException("Syntax error!");
+            throw new AlkException("Syntax error in initial configuration!");
         }
 
         for (int i = 0; i < tree.ID().size(); i++)

@@ -1,13 +1,12 @@
 package execution.parser.exceptions;
 
-import execution.types.AlkValue;
 import util.types.Storable;
 
 public class ReturnException extends UnwindException
 {
-    AlkValue value;
+    Storable value;
 
-    public ReturnException(String text, AlkValue value)
+    public ReturnException(String text, Storable value)
     {
         super(text);
         this.value = value;

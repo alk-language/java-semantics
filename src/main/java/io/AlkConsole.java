@@ -10,7 +10,9 @@ import java.io.File;
  * Basic class for IO interaction with console
  * Also used as an OptionProvider due to command line acceptability
  */
-public class AlkConsole implements IOManager, OptionProvider
+public class AlkConsole
+implements IOManager,
+           OptionProvider
 {
 
     /* Internal used by the commons library to store information about the command line */
@@ -46,6 +48,10 @@ public class AlkConsole implements IOManager, OptionProvider
         Option complexity = new Option("c", "complexity", false, "display complexity (inactive)");
         complexity.setRequired(false);
         options.addOption(complexity);
+
+        Option pathCondition = new Option("pc", "pathcondition", true, "set the initial path condition");
+        pathCondition.setRequired(false);
+        options.addOption(pathCondition);
 
         /*Option output = new Option("o", "output", true, "output file name");
         output.setRequired(false);
@@ -196,6 +202,12 @@ public class AlkConsole implements IOManager, OptionProvider
     @Override
     public boolean hasStaticVerif() {
         return cmd.hasOption("staticverification");
+    }
+
+    @Override
+    public String getConditionPath()
+    {
+        return cmd.getOptionValue("pathcondition");
     }
 
     public IOManager getEndpoint()

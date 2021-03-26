@@ -19,9 +19,11 @@ import java.util.List;
 import static execution.parser.constants.Constants.MAX_ARRAY;
 import static execution.parser.exceptions.AlkException.*;
 
-public class AlkArray extends AlkIterableValue {
+public class AlkArray
+extends AlkIterableValue
+{
 
-    private ArrayList<Location> array;
+    private final ArrayList<Location> array;
 
     public AlkArray() {
         type = "Array";
@@ -37,6 +39,22 @@ public class AlkArray extends AlkIterableValue {
     public void push(AlkValue value, LocationGenerator generator)
     {
         array.add(generator.generate(value));
+    }
+
+    @Override
+    public AlkValue add(AlkValue operand, LocationGenerator generator)
+    {
+        if (!(operand instanceof AlkArray))
+        {
+            throw new AlkException("Can't add an array with a non-array data type!");
+        }
+        AlkArray array = (AlkArray) operand;
+        AlkArray newArray = (AlkArray) this.clone(generator);
+        for (Location loc : array)
+        {
+            newArray.push(generator.generate(loc.getValue()));
+        }
+        return newArray;
     }
 
     @Override
@@ -237,7 +255,9 @@ public class AlkArray extends AlkIterableValue {
     public AlkValue clone(LocationGenerator locationGenerator) {
         AlkArray copy = new AlkArray();
         for (Location i : array)
-            copy.push(locationGenerator.generate(i.toRValue().clone(locationGenerator)));
+        {
+            copy.push(locationGenerator.generate(i.toRValue()));
+        }
         return copy;
     }
 

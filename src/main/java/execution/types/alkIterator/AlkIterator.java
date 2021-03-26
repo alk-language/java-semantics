@@ -46,7 +46,7 @@ public class AlkIterator extends AlkValue
         return new AlkBool(value.nextIndex()<op.value.nextIndex());
     }
 
-    @Override public AlkValue add(AlkValue operand) throws AlkException {
+    @Override public AlkValue add(AlkValue operand, LocationGenerator generator) throws AlkException {
         if (!(operand.type.equals("Int")))
             throw new AlkException(ERR_ADD_ITERATOR);
         AlkInt times = (AlkInt) operand;

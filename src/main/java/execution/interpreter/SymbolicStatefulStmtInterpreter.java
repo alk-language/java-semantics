@@ -21,25 +21,25 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretBreak(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretBreak(ast, payload);
     }
 
     @Override
     public ExecutionState interpretChoose(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretChoose(ast, payload);
     }
 
     @Override
     public ExecutionState interpretContinue(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretContinue(ast, payload);
     }
 
     @Override
     public ExecutionState interpretDoWhile(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretDoWhile(ast, payload);
     }
 
     @Override
@@ -57,13 +57,13 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretFor(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretFor(ast, payload);
     }
 
     @Override
     public ExecutionState interpretForEach(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretForEach(ast, payload);
     }
 
     @Override
@@ -81,7 +81,7 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretRepeatUntil(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretRepeatUntil(ast, payload);
     }
 
     @Override
@@ -105,12 +105,12 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretUniform(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretUniform(ast, payload);
     }
 
     @Override
     public ExecutionState interpretWhile(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretReturn(ast, payload);
+        return baseDelegate.interpretWhile(ast, payload);
     }
 }

@@ -5,6 +5,7 @@ import util.Pair;
 
 import java.util.LinkedList;
 
-public class Worklist extends LinkedList< Pair<CFGNode, CFGNode> >
+public class Worklist
+extends LinkedList< Pair<CFGNode, CFGNode> >
 {
 }

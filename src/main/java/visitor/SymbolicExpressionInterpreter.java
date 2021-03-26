@@ -4,7 +4,7 @@ import ast.*;
 import ast.enums.BuiltInMethod;
 import ast.expr.*;
 import execution.parser.env.Environment;
-import execution.types.BaseValue;
+import execution.types.ConcreteValue;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkFloat.AlkFloat;
 import execution.types.alkInt.AlkInt;
@@ -29,7 +29,7 @@ implements SmallStepExpressionInterpreter<SymbolicValueIface>
 {
     private static final PrimitiveBuilder primitiveBuilder = new PrimitiveBuilder();
 
-    private final SmallStepExpressionInterpreter<BaseValue> basicInterpreter;
+    private final SmallStepExpressionInterpreter<ConcreteValue> basicInterpreter;
 
     private final Environment env;
     private final LocationGenerator generator;

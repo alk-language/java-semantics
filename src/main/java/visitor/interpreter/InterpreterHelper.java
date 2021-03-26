@@ -2,7 +2,7 @@ package visitor.interpreter;
 
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
-import execution.types.BaseValue;
+import execution.types.ConcreteValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkFloat.AlkFloat;
@@ -37,14 +37,14 @@ public class InterpreterHelper {
         }
     }
 
-    public static List<BaseValue> castToBaseValues(List<?> values)
+    public static List<ConcreteValue> castToBaseValues(List<?> values)
     {
-        List<BaseValue> result = new ArrayList<>();
+        List<ConcreteValue> result = new ArrayList<>();
         for (Object value : values)
         {
-            if (!(value instanceof BaseValue))
+            if (!(value instanceof ConcreteValue))
                 throw new InternalException("Can't cast the current value to AlkValue");
-            result.add((BaseValue) value);
+            result.add((ConcreteValue) value);
         }
         return result;
     }

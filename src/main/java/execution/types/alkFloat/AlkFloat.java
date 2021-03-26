@@ -33,7 +33,7 @@ extends AlkValue
     }
 
 
-    public AlkValue add(AlkValue operand) throws AlkException {
+    public AlkValue add(AlkValue operand, LocationGenerator generator) throws AlkException {
         AdditiveFloatHelper help = new AdditiveFloatHelper(value);
         return help.add(operand);
     }

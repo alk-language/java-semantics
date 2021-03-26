@@ -5,6 +5,7 @@ import execution.parser.exceptions.UnwindException;
 import state.Result;
 import state.State;
 import util.Configuration;
+import util.exception.InternalException;
 
 import java.util.Stack;
 
@@ -44,6 +45,15 @@ public class ASTStack<T extends State>
             {
                 propagate(u);
             }
+            /*
+            catch (InternalException e)
+            {
+                throw e;
+            }
+            catch (Throwable e)
+            {
+                throw new InternalException("Unexpected exception occured!");
+            }*/
         }
         return result;
     }

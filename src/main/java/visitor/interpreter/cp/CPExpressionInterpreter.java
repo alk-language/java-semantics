@@ -4,7 +4,7 @@ import ast.enums.BuiltInMethod;
 import execution.parser.env.Environment;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
-import execution.types.BaseValue;
+import execution.types.ConcreteValue;
 import symbolic.OverdefinedValue;
 import symbolic.CPValue;
 import symbolic.UndefinedValue;
@@ -29,7 +29,7 @@ public class CPExpressionInterpreter
 implements SmallStepExpressionInterpreter<CPValue>
 {
     private static final Map<String, Method> alkValueOps = new HashMap<>();
-    SmallStepExpressionInterpreter<BaseValue> basicInterpreter;
+    SmallStepExpressionInterpreter<ConcreteValue> basicInterpreter;
 
     static
     {
@@ -135,7 +135,7 @@ implements SmallStepExpressionInterpreter<CPValue>
         if (lvalue instanceof OverdefinedValue || rvalue instanceof OverdefinedValue)
             return new OverdefinedValue();
 
-        return basicInterpreter.interpretCompositeInterval(primitive, (BaseValue) lvalue, (BaseValue) rvalue);
+        return basicInterpreter.interpretCompositeInterval(primitive, (ConcreteValue) lvalue, (ConcreteValue) rvalue);
     }
 
     @Override
@@ -151,8 +151,8 @@ implements SmallStepExpressionInterpreter<CPValue>
 
         // TODO: provider may return CPValue
 
-        return basicInterpreter.interpretCompositeFilterSpec(primitive, id, (BaseValue) fromValue, (request) ->
-                (BaseValue) suchThat.invoke(request));
+        return basicInterpreter.interpretCompositeFilterSpec(primitive, id, (ConcreteValue) fromValue, (request) ->
+                (ConcreteValue) suchThat.invoke(request));
     }
 
     @Override
@@ -168,14 +168,14 @@ implements SmallStepExpressionInterpreter<CPValue>
 
         // TODO: provider may return CPValue
 
-        return basicInterpreter.interpretCompositeSelectSpec(primitive, id, (BaseValue) fromValue, (request) ->
-                (BaseValue) suchThat.invoke(request));
+        return basicInterpreter.interpretCompositeSelectSpec(primitive, id, (ConcreteValue) fromValue, (request) ->
+                (ConcreteValue) suchThat.invoke(request));
     }
 
     @Override
     public CPValue interpretCompositeComponents(Primitive primitive, List<Pair<String, CPValue>> comps)
     {
-        List<Pair<String, BaseValue>> tmp = new ArrayList<>();
+        List<Pair<String, ConcreteValue>> tmp = new ArrayList<>();
         for (Pair<String, CPValue> pair : comps)
         {
             String key = pair.x;
@@ -188,7 +188,7 @@ implements SmallStepExpressionInterpreter<CPValue>
             if (value instanceof OverdefinedValue)
                 return new OverdefinedValue();
 
-            tmp.add(new Pair<>(key, (BaseValue) value));
+            tmp.add(new Pair<>(key, (ConcreteValue) value));
         }
 
         return basicInterpreter.interpretCompositeComponents(primitive, tmp);

@@ -15,7 +15,8 @@ import visitor.interpreter.cp.CPExpressionInterpreter;
 
 import java.util.Set;
 
-public class CPropagTransferFunction implements TransferFunction<VarValue>
+public class CPropagTransferFunction
+implements TransferFunction<VarValue>
 {
     StoreImpl store;
     Environment env;
