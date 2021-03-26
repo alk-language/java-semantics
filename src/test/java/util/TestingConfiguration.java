@@ -100,6 +100,12 @@ implements OptionProvider
     {
         return false;
     }
+
+    @Override
+    public String getConditionPath()
+    {
+        return null;
+    }
 }
 
 class TestingIO implements IOManager {

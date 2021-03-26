@@ -26,7 +26,7 @@ extends Dataflow<T>
     public void execute()
     {
         worklist.addAll(cfg.getEdges());
-        cfg.getNodes().forEach((node) -> { mapping.put(node, lattice.getBottom()); });
+        cfg.getNodes().forEach((node) -> mapping.put(node, lattice.getBottom()));
         mapping.put(cfg.getInput(), iota.get());
 
         while (!worklist.isEmpty())
@@ -39,7 +39,7 @@ extends Dataflow<T>
             {
                 Set<T> set = new HashSet<>();
                 set.add(mapping.get(to));
-                set.add(fun.get(from, mapping.get(from)));
+                set.add(fromValue);
                 mapping.put(to, lattice.getLUB(set));
 
                 to.getOutputs().forEach((node) -> {

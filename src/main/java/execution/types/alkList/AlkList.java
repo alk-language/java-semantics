@@ -7,6 +7,7 @@ import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
+import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkIterator.AlkIterator;
 import util.lambda.LocationGenerator;
@@ -19,12 +20,27 @@ import static execution.parser.exceptions.AlkException.*;
 public class AlkList
 extends AlkIterableValue
 {
-    private LinkedList<Location> list;
+    private final LinkedList<Location> list;
 
     public AlkList() {
         type = "List";
         isDataStructure = true;
         list = new LinkedList<>();
+    }
+    @Override
+    public AlkValue add(AlkValue operand, LocationGenerator generator)
+    {
+        if (!(operand instanceof AlkList))
+        {
+            throw new AlkException("Can't add an array with a non-array data type!");
+        }
+        AlkList list = (AlkList) operand;
+        AlkList newlist = (AlkList) this.clone(generator);
+        for (Location loc : list)
+        {
+            newlist.push(generator.generate(loc.getValue()));
+        }
+        return newlist;
     }
 
     @Override

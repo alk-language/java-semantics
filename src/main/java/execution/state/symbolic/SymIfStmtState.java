@@ -39,10 +39,10 @@ extends IfStmtState
                 executed = true;
                 Execution elseExec = getExec().clone();
                 AST ast = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) condition.toRValue()).toAST());
-                elseExec.getConditionPath().add(new SymbolicValue(ast));
+                elseExec.getPathCondition().add(new SymbolicValue(ast));
                 elseExec.start();
 
-                getExec().getConditionPath().add((SymbolicValue) condition.toRValue());
+                getExec().getPathCondition().add((SymbolicValue) condition.toRValue());
                 return request(tree.getChild(1));
             }
             else
@@ -50,12 +50,12 @@ extends IfStmtState
                 shouldExecuteElse = true;
                 Execution elseExec = getExec().clone();
                 AST ast = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) condition.toRValue()).toAST());
-                elseExec.getConditionPath().add(new SymbolicValue(ast));
+                elseExec.getPathCondition().add(new SymbolicValue(ast));
                 elseExec.start();
 
                 shouldExecuteElse = false;
                 executed = true;
-                getExec().getConditionPath().add((SymbolicValue) condition.toRValue());
+                getExec().getPathCondition().add((SymbolicValue) condition.toRValue());
                 return request(tree.getChild(1));
             }
         }

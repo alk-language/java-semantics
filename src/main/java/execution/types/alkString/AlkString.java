@@ -166,7 +166,7 @@ implements AlkComparable<AlkString>
     }
 
     @Override
-    public AlkString add(AlkValue operand)
+    public AlkString add(AlkValue operand, LocationGenerator generator)
     {
         if (!operand.type.equals("String"))
             throw new AlkException(AlkException.ERR_ADD_STRING);

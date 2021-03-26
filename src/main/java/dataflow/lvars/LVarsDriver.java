@@ -20,7 +20,8 @@ public class LVarsDriver
 {
     private static Configuration config;
 
-    public static void main(String[] args) throws InterruptedException
+    public static void main(String[] args)
+    throws InterruptedException
     {
         initManagers(args);
 

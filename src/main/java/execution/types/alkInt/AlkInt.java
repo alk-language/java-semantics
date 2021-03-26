@@ -75,7 +75,7 @@ extends AlkValue
         return help.mod(operand);
     }
 
-    public AlkValue add(AlkValue operand) throws AlkException {
+    public AlkValue add(AlkValue operand, LocationGenerator generator) throws AlkException {
         AdditiveIntHelper help = new AdditiveIntHelper(value);
         return help.add(operand);
     }

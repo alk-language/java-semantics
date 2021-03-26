@@ -56,7 +56,8 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState evaluateFunction(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Function calls can't be symbolically evaluated!");
+        return baseDelegate.evaluateFunction(ast, payload);
+        // throw new NotImplementedException("Function calls can't be symbolically evaluated!");
     }
 
     @Override

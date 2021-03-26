@@ -47,7 +47,7 @@ extends ExecutionState
             switch (op)
             {
                 case ASSIGN: break;
-                case PLUS_ASSIGN: rightValue = leftValue.add(rightValue); break;
+                case PLUS_ASSIGN: rightValue = leftValue.add(rightValue, generator); break;
                 case MINUS_ASSIGN: rightValue = leftValue.subtract(rightValue); break;
                 case MULTIPLY_ASSIGN: rightValue = leftValue.multiply(rightValue); break;
                 case DIVIDE_ASSIGN: rightValue = leftValue.divide(rightValue); break;
@@ -92,14 +92,20 @@ extends ExecutionState
     public ExecutionState clone(SplitMapper sm)
     {
         AssignmentState copy = new AssignmentState(tree, payload.clone(sm));
-        copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
+        if (rightSide != null)
+        {
+            copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
+        }
         copy.leftSide = sm.getLocationMapper().get(leftSide);
         return super.decorate(copy, sm);
     }
 
     public ExecutionState decorate(AssignmentState copy, SplitMapper sm)
     {
-        copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
+        if (rightSide != null)
+        {
+            copy.rightSide = rightSide.weakClone(sm.getLocationMapper());
+        }
         copy.leftSide = sm.getLocationMapper().get(leftSide);
         return super.decorate(copy, sm);
     }

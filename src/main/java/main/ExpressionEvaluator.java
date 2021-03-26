@@ -6,7 +6,7 @@ import execution.parser.env.Environment;
 import execution.parser.env.EnvironmentImpl;
 import execution.parser.env.StoreImpl;
 import execution.parser.exceptions.AlkException;
-import execution.types.BaseValue;
+import execution.types.ConcreteValue;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.ParseTreeExprVisitor;
@@ -41,8 +41,8 @@ public class ExpressionEvaluator
         StoreImpl store = new StoreImpl();
         Environment env = new EnvironmentImpl(store);
 
-        SmallStepExpressionInterpreter<BaseValue> interpreter = new BaseExpressionInterpreter(env, store);
-        SmallStepExpressionVisitor<BaseValue> visitor = new SmallStepExpressionVisitor<>(interpreter);
+        SmallStepExpressionInterpreter<ConcreteValue> interpreter = new BaseExpressionInterpreter(env, store);
+        SmallStepExpressionVisitor<ConcreteValue> visitor = new SmallStepExpressionVisitor<>(interpreter);
 
         Storable value = root.accept(visitor).toRValue();
         config.getIOManager().write(value.toString());

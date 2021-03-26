@@ -1,6 +1,6 @@
 package execution.parser.env;
 
-import execution.types.BaseValue;
+import execution.types.ConcreteValue;
 import execution.types.alkNotAValue.AlkNotAValue;
 import symbolic.CPValue;
 import util.exception.InternalException;
@@ -8,7 +8,7 @@ import util.lambda.LocationGenerator;
 import util.types.Storable;
 
 public class Location
-implements BaseValue
+implements ConcreteValue
 {
     private final StoreImpl store;
 

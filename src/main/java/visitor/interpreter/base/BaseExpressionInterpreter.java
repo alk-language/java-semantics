@@ -5,10 +5,9 @@ import execution.parser.env.Environment;
 import execution.parser.env.EnvironmentProxy;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
-import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
-import execution.types.BaseValue;
+import execution.types.ConcreteValue;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
 import execution.types.alkStructure.AlkStructure;
@@ -31,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BaseExpressionInterpreter
-implements SmallStepExpressionInterpreter<BaseValue>
+implements SmallStepExpressionInterpreter<ConcreteValue>
 {
     private static final Map<String, Method> alkValueOps = new HashMap<>();
 
@@ -54,7 +53,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
     }
 
     @Override
-    public BaseValue evaluate(Operator op, List<BaseValue> values)
+    public ConcreteValue evaluate(Operator op, List<ConcreteValue> values)
     {
         String opName = op.toString().toLowerCase();
 
@@ -88,7 +87,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
                 throw new InternalException("Invalid number of operands for operator: " + opName);
             }
 
-            return (BaseValue) method.invoke(params.get(0), params.subList(1, params.size()).toArray());
+            return (ConcreteValue) method.invoke(params.get(0), params.subList(1, params.size()).toArray());
         }
         catch (IllegalAccessException | InvocationTargetException e)
         {
@@ -99,14 +98,14 @@ implements SmallStepExpressionInterpreter<BaseValue>
     }
 
     @Override
-    public BaseValue evaluateBuiltIn(BuiltInMethod op, BaseValue factor, List<BaseValue> params)
+    public ConcreteValue evaluateBuiltIn(BuiltInMethod op, ConcreteValue factor, List<ConcreteValue> params)
     {
         // TODO add support
         return null;
     }
 
     @Override
-    public BaseValue interpretVariable(String id)
+    public ConcreteValue interpretVariable(String id)
     {
         if (env.has(id))
         {
@@ -117,19 +116,19 @@ implements SmallStepExpressionInterpreter<BaseValue>
     }
 
     @Override
-    public BaseValue interpretSymId(String id)
+    public ConcreteValue interpretSymId(String id)
     {
         throw new InternalException("Can't interpret a symbolic value with a base expression interpreter.");
     }
 
     @Override
-    public BaseValue interpretPrimitive(Primitive primitive, String value)
+    public ConcreteValue interpretPrimitive(Primitive primitive, String value)
     {
         return InterpreterHelper.interpretAsValue(primitive, value);
     }
 
     @Override
-    public BaseValue interpretComposite(Primitive primitive, List<BaseValue> values)
+    public ConcreteValue interpretComposite(Primitive primitive, List<ConcreteValue> values)
     {
         AlkIterableValue struct = InterpreterHelper.getIterableInstance(primitive);
         if (values == null || values.isEmpty())
@@ -137,7 +136,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
             return struct;
         }
 
-        for (BaseValue value : values)
+        for (ConcreteValue value : values)
         {
             struct.push(locationGenerator.generate(value.toRValue()));
         }
@@ -146,7 +145,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
     }
 
     @Override
-    public BaseValue interpretCompositeInterval(Primitive primitive, BaseValue x, BaseValue y)
+    public ConcreteValue interpretCompositeInterval(Primitive primitive, ConcreteValue x, ConcreteValue y)
     {
         Storable left = x.toRValue();
         Storable right = y.toRValue();
@@ -166,17 +165,17 @@ implements SmallStepExpressionInterpreter<BaseValue>
         while (a.lowereq(b).isTrue())
         {
             struct.push(locationGenerator.generate(a));
-            a = (AlkInt) a.add(AlkInt.ONE);
+            a = (AlkInt) a.add(AlkInt.ONE, locationGenerator);
         }
 
         return struct;
     }
 
     @Override
-    public BaseValue interpretCompositeFilterSpec(Primitive primitive,
-                                                  String id,
-                                                  BaseValue x,
-                                                  Provider<BaseValue> suchThat)
+    public ConcreteValue interpretCompositeFilterSpec(Primitive primitive,
+                                                      String id,
+                                                      ConcreteValue x,
+                                                      Provider<ConcreteValue> suchThat)
     {
         AlkIterableValue struct = InterpreterHelper.getIterableInstance(primitive);
         Storable fromExpr = x.toRValue();
@@ -218,7 +217,7 @@ implements SmallStepExpressionInterpreter<BaseValue>
     }
 
     @Override
-    public BaseValue interpretCompositeSelectSpec(Primitive primitive, String id, BaseValue x, Provider<BaseValue> suchThat)
+    public ConcreteValue interpretCompositeSelectSpec(Primitive primitive, String id, ConcreteValue x, Provider<ConcreteValue> suchThat)
     {
         AlkIterableValue struct = InterpreterHelper.getIterableInstance(primitive);
         Storable fromExpr = x.toRValue();
@@ -250,14 +249,14 @@ implements SmallStepExpressionInterpreter<BaseValue>
     }
 
     @Override
-    public BaseValue interpretCompositeComponents(Primitive primitive, List<Pair<String, BaseValue>> comps)
+    public ConcreteValue interpretCompositeComponents(Primitive primitive, List<Pair<String, ConcreteValue>> comps)
     {
         if (primitive != Primitive.STRUCTURE)
             throw new InternalException("Can't define non-structure type with components");
 
         AlkStructure struct = new AlkStructure();
 
-        for (Pair<String, BaseValue> pair : comps)
+        for (Pair<String, ConcreteValue> pair : comps)
         {
             Storable value = pair.y.toRValue();
 

@@ -4,7 +4,6 @@ import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.types.alkBool.AlkBool;
-import execution.types.alkInt.AlkInt;
 import symbolic.CPValue;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
@@ -19,7 +18,7 @@ import static execution.parser.exceptions.AlkException.*;
  */
 public abstract class AlkValue
 implements Comparable<AlkValue>,
-           BaseValue,
+        ConcreteValue,
            ASTRepresentable
 {
     /** Describes the type of the current value, can have one of the following:
@@ -367,7 +366,8 @@ implements Comparable<AlkValue>,
      * The result of the expression
      * A return is valid if overridden, otherwise no-return
      */
-    public AlkValue add(AlkValue operand)
+    @RequiresGenerator
+    public AlkValue add(AlkValue operand, LocationGenerator generator)
     {
         throw new AlkException(ERR_ADD);
     }

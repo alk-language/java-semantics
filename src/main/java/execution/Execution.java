@@ -1,14 +1,9 @@
 package execution;
 
 import ast.AST;
-import ast.attr.OpsASTAttr;
 import execution.exhaustive.EnvironmentMapper;
-import execution.interpreter.BaseStatefulExpressionInterpreter;
-import execution.interpreter.BaseStatefulStmtInterpreter;
-import execution.interpreter.SymbolicStatefulExpressionInterpreter;
 import execution.parser.env.LocationMapper;
 import execution.state.ExecutionState;
-import grammar.alkParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.HelpFormatter;
 import execution.parser.AlkParser;
@@ -20,17 +15,13 @@ import execution.parser.exceptions.AlkException;
 import parser.ParseTreeGlobals;
 import util.*;
 import util.exception.InternalException;
-import visitor.SmallStepExpressionVisitor;
-import visitor.interpreter.base.BaseExpressionInterpreter;
 import visitor.stateful.StatefulExpressionInterpreter;
 import visitor.stateful.StatefulInterpreterManager;
 import visitor.stateful.StatefulStmtInterpreter;
 
 import java.io.File;
-import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * The main class responsible for one alk file execution. It is implemented
@@ -57,7 +48,7 @@ extends Thread
 
     private final Map<Environment, Boolean> envs = new IdentityHashMap<>();
 
-    private final ConditionPath conditionPath;
+    private PathCondition conditionPath;
 
     private final StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
 
@@ -87,7 +78,7 @@ extends Thread
         this.registerEnv(global);
         funcManager = new FuncManager();
         interpreterManager = manager;
-        conditionPath = new ConditionPath();
+        conditionPath = new PathCondition();
     }
 
     private boolean initialize()
@@ -113,6 +104,11 @@ extends Thread
         if (config.hasInput())
         {
             InputHelper.readInitial(config, global, interpreterManager);
+        }
+
+        if (config.getConditionPath() != null)
+        {
+            conditionPath = PathCondition.parse(config.getConditionPath(), interpreterManager);
         }
 
         return true;
@@ -152,7 +148,8 @@ extends Thread
             config.getIOManager().write(global.toString());
             if (config.hasStaticVerif())
             {
-                config.getIOManager().write("Condition path: " + conditionPath.toString());
+                config.getIOManager().write("Note that the execution was symbolic.");
+                config.getIOManager().write("Path condition: " + conditionPath.toString());
                 config.getIOManager().write("");
             }
         }
@@ -288,8 +285,13 @@ extends Thread
         return mapper;
     }
 
-    public ConditionPath getConditionPath()
+    public PathCondition getPathCondition()
     {
         return conditionPath;
+    }
+
+    public void setConditionPath(PathCondition pc)
+    {
+        this.conditionPath = pc;
     }
 }

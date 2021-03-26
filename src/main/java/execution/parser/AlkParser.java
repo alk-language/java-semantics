@@ -25,7 +25,8 @@ public class AlkParser
      */
     public static ParseTree executeInit(String input)
     {
-        try {
+        try
+        {
             File file = new File(input);
             InputStream alkInStr= new FileInputStream(file);
             CharStream stream = CharStreams.fromStream(alkInStr);
@@ -36,13 +37,24 @@ public class AlkParser
                 return null;
             }
             return tree;
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             // maybe it is inline
-            try {
+            try
+            {
                 InputStream alkInStr = new ByteArrayInputStream(input.getBytes());
                 CharStream stream = CharStreams.fromStream(alkInStr);
-                return new alkParser(new CommonTokenStream(new alkLexer(stream))).configuration();
-            } catch (IOException ex) {
+                alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(stream)));
+                ParseTree tree = parser.configuration();
+                if (parser.getNumberOfSyntaxErrors() != 0)
+                {
+                    return null;
+                }
+                return tree;
+            }
+            catch (IOException ex)
+            {
                throw new AlkException("Can't parse input");
             }
         }
@@ -96,7 +108,8 @@ public class AlkParser
      */
     public static ParseTree execute(File alkFile, boolean forExpression, PreProcessing.PreProcessingContext context)
     {
-        try {
+        try
+        {
             InputStream alkInStr= new FileInputStream(alkFile);
             CharStream file = CharStreams.fromStream(alkInStr);
             ParseTree tree;
@@ -112,8 +125,47 @@ public class AlkParser
             }
             PreProcessing.expandIncludes(context, tree);
             return tree;
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new AlkException("Can't find file to parse!");
+        }
+    }
+
+    public static Object executeConditionPath(String conditionPath)
+    {
+        try
+        {
+            File file = new File(conditionPath);
+            InputStream alkInStr= new FileInputStream(file);
+            CharStream stream = CharStreams.fromStream(alkInStr);
+            alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(stream)));
+            ParseTree tree = parser.configuration();
+            if (parser.getNumberOfSyntaxErrors() != 0)
+            {
+                return null;
+            }
+            return tree;
+        }
+        catch (IOException e)
+        {
+            // maybe it is inline
+            try
+            {
+                InputStream alkInStr = new ByteArrayInputStream(conditionPath.getBytes());
+                CharStream stream = CharStreams.fromStream(alkInStr);
+                alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(stream)));
+                ParseTree tree = parser.expression();
+                if (parser.getNumberOfSyntaxErrors() != 0)
+                {
+                    return null;
+                }
+                return tree;
+            }
+            catch (IOException ex)
+            {
+                throw new AlkException("Can't parse condition path");
+            }
         }
     }
 }

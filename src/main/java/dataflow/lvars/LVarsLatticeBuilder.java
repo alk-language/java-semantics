@@ -8,9 +8,10 @@ import dataflow.lattice.LatticeBuilder;
 
 import java.util.Set;
 
-public class LVarsLatticeBuilder extends LatticeBuilder<VariableSet>
+public class LVarsLatticeBuilder
+extends LatticeBuilder<VariableSet>
 {
-    private CFG cfg;
+    private final CFG cfg;
     private Lattice<VariableSet> lattice;
 
     public LVarsLatticeBuilder(CFG cfg)

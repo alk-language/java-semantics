@@ -5,7 +5,8 @@ import dataflow.Domain;
 import java.util.HashSet;
 import java.util.Set;
 
-public class VariableSet implements Domain
+public class VariableSet
+implements Domain
 {
     private static Set<String> allVars = new HashSet<>();
 

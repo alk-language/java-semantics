@@ -88,10 +88,7 @@ extends ExecutionState
         }
         else
         {
-            if (!(resultVal instanceof AlkValue))
-                super.handle(new AlkException("An iterable should be filled only with AlkValues."));
-
-            iterableValue.push(getStore().malloc().assign(((AlkValue) resultVal).clone(generator)));
+            iterableValue.push(getStore().malloc().assign(resultVal.clone(generator)));
         }
     }
 

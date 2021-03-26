@@ -7,11 +7,12 @@ import execution.types.AlkValue;
 import execution.parser.exceptions.ReturnException;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import util.types.Storable;
 
 public class ReturnState
 extends ExecutionState
 {
-    private AlkValue value;
+    private Storable value;
 
     public ReturnState(AST tree, ExecutionPayload executionPayload)
     {
@@ -33,7 +34,7 @@ extends ExecutionState
     public void assign(ExecutionResult executionResult)
     {
         checkNotNull(executionResult.getValue());
-        value = (AlkValue) executionResult.getValue().toRValue().clone(generator);
+        value = executionResult.getValue().toRValue().clone(generator);
     }
 
     @Override

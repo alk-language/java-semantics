@@ -49,7 +49,8 @@ extends GeneratorState
         {
             return (Location) Invoker.invokeMethod(methodName, reference, params, generator);
         }
-        catch (AlkException e) {
+        catch (AlkException e)
+        {
             super.handle(new AlkException(e.getMessage()));
         }
         return null;

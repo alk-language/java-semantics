@@ -2,14 +2,16 @@ package execution.parser.env;
 
 import util.types.Storable;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 public class StoreImpl
 implements Store
 {
-    private final Map<Location, Storable> store = new HashMap<>();
+    private final Map<Location, Storable> store = new WeakHashMap<>();
 
     public Storable get(Location location)
     {
