@@ -1,11 +1,10 @@
 package dataflow.worklist;
 
-import dataflow.CFGNode;
-import util.Pair;
+import dataflow.CFGEdge;
 
 import java.util.LinkedList;
 
 public class Worklist
-extends LinkedList< Pair<CFGNode, CFGNode> >
+extends LinkedList<CFGEdge>
 {
 }

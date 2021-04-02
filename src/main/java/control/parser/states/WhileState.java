@@ -1,30 +1,29 @@
 package control.parser.states;
 
 import ast.AST;
-import ast.CtxState;
+import control.ConditionalEdgeData;
+import control.Edge;
+import control.Node;
 import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
 import control.parser.CFGResult;
 import control.parser.CFGState;
-import grammar.alkParser;
 
-import java.util.Collections;
 import java.util.List;
 
-@CtxState(ctxClass = alkParser.WhileStructureContext.class)
 public class WhileState extends CFGState
 {
     AST ctx;
-    ControlFlowGraph.Node node;
+    Node node;
     boolean visited = false;
 
     public WhileState(AST tree, CFGPayload payload)
     {
         super(tree, payload);
-        node = new ControlFlowGraph.Node(tree.getChild(0)); // expression
+        node = new Node(tree.getChild(0)); // expression
         node.forceText("while (" + node.toString() + ")");
-        link(payload.getInputs(), Collections.singletonList(node));
+        link(payload.getInputs(), node);
         this.ctx = tree;
     }
 
@@ -34,17 +33,21 @@ public class WhileState extends CFGState
         if (!visited)
         {
             visited = true;
-            return request(ctx.getChild(1), new CFGPayload(node, payload.getInterpreterManager())); // statement
+            Edge edge = new Edge(node, null, new ConditionalEdgeData(true));
+            node.appendOutput(edge);
+            return request(ctx.getChild(1), new CFGPayload(edge, payload.getInterpreterManager()));
         }
 
-        setResult(new CFGResult(node));
+        Edge edge = new Edge(node, null, new ConditionalEdgeData(false));
+        node.appendOutput(edge);
+        setResult(new CFGResult(edge));
         return null;
     }
 
     @Override
     public void assign(CFGResult result)
     {
-        List<ControlFlowGraph.Node> outputs = result.getValue();
-        link(outputs, Collections.singletonList(node));
+        List<Edge> outputs = result.getValue();
+        link(outputs, node);
     }
 }

@@ -24,7 +24,8 @@ import java.util.List;
 
 import static execution.parser.exceptions.AlkException.ERR_PARAM_NUMBER;
 
-public class BuiltInFunctionState extends GeneratorState
+public class BuiltInFunctionState
+extends GeneratorState
 {
     private final List<AlkValue> params = new ArrayList<>();
     private final BuiltInFunction function;

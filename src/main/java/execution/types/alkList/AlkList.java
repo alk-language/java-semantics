@@ -87,6 +87,12 @@ extends AlkIterableValue
         pushBack(value);
     }
 
+    @Override
+    public void shuffle()
+    {
+        Collections.shuffle(list);
+    }
+
     public AlkValue pushBack(Location value)
     {
         FunctionListHelper help = new FunctionListHelper(list);

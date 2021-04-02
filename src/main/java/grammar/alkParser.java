@@ -27,15 +27,15 @@ public class alkParser extends Parser {
 		SQRT=39, TAN=40, LEN=41, AT=42, BELONGSTO=43, DELETE=44, EMPTY=45, END=46, 
 		FIRST=47, FLOAT=48, INSERT=49, INTEGER=50, PRINT=51, POPBACK=52, POPFRONT=53, 
 		PUSHBACK=54, PUSHFRONT=55, REMOVE=56, REMOVEALLEQTO=57, REMOVEAT=58, SINGLETONSET=59, 
-		SIZE=60, SPLIT=61, TOPBACK=62, TOPFRONT=63, UPDATE=64, RANDOM=65, SOTHAT=66, 
-		SYM=67, ARROW=68, NUMSIGN=69, UNION=70, INTERSECT=71, SUBTRACT=72, INT=73, 
-		DOUBLE=74, BOOL=75, ID=76, PLUSPLUS=77, MINUSMINUS=78, BITWISE_AND=79, 
-		PLUSMOD=80, MINUSMOD=81, PLUSPLUSMOD=82, MINUSMINUSMOD=83, LOWER=84, GREATER=85, 
-		LOWEREQ=86, GREATEREQ=87, ISEQUAL=88, NOTEQUAL=89, ASSIGNMENT_OPERATOR=90, 
-		MINUS=91, PLUS=92, MUL=93, DIV=94, MOD=95, LPAR=96, RPAR=97, LEFTSHIFT=98, 
-		RIGHTSHIFT=99, OR=100, AND=101, NOT=102, SEMICOLON=103, DPOINT=104, VBAR=105, 
-		LCB=106, RCB=107, COMMA=108, POINT=109, LBRA=110, RBRA=111, QUOTE=112, 
-		QUESTION=113, STRING=114;
+		SIZE=60, SPLIT=61, TOPBACK=62, TOPFRONT=63, UPDATE=64, UNIFORMNAT=65, 
+		FLIP=66, UNIFORMFLOAT=67, UNIFORMPERM=68, SOTHAT=69, SYM=70, ARROW=71, 
+		NUMSIGN=72, UNION=73, INTERSECT=74, SUBTRACT=75, INT=76, DOUBLE=77, BOOL=78, 
+		ID=79, PLUSPLUS=80, MINUSMINUS=81, BITWISE_AND=82, PLUSMOD=83, MINUSMOD=84, 
+		PLUSPLUSMOD=85, MINUSMINUSMOD=86, LOWER=87, GREATER=88, LOWEREQ=89, GREATEREQ=90, 
+		ISEQUAL=91, NOTEQUAL=92, ASSIGNMENT_OPERATOR=93, MINUS=94, PLUS=95, MUL=96, 
+		DIV=97, MOD=98, LPAR=99, RPAR=100, LEFTSHIFT=101, RIGHTSHIFT=102, OR=103, 
+		AND=104, NOT=105, SEMICOLON=106, DPOINT=107, VBAR=108, LCB=109, RCB=110, 
+		COMMA=111, POINT=112, LBRA=113, RBRA=114, QUOTE=115, QUESTION=116, STRING=117;
 	public static final int
 		RULE_main = 0, RULE_statement_sequence = 1, RULE_statement = 2, RULE_directive = 3, 
 		RULE_repeat_struct = 4, RULE_statement_block = 5, RULE_choose = 6, RULE_while_struct = 7, 
@@ -76,11 +76,12 @@ public class alkParser extends Parser {
 		"'insert'", "'int'", "'print'", "'popBack'", "'popFront'", "'pushBack'", 
 		"'pushFront'", "'remove'", "'removeAllEqTo'", "'removeAt'", "'singletonSet'", 
 		"'size'", "'split'", "'topBack'", "'topFront'", "'update'", "'uniformNat'", 
-		"'s.t.'", "'$'", "'->'", "'#'", "'U'", "'^'", "'\\'", null, null, null, 
-		null, "'++'", "'--'", "'&'", "'+%'", "'-%'", "'++%'", "'--%'", "'<'", 
-		"'>'", "'<='", "'>='", "'=='", "'!='", null, "'-'", "'+'", "'*'", "'/'", 
-		"'%'", "'('", "')'", "'<<'", "'>>'", "'||'", "'&&'", "'!'", "';'", "':'", 
-		"'|'", "'{'", "'}'", "','", "'.'", "'['", "']'", "'\"'", "'?'"
+		"'flip'", "'uniformFloat'", "'uniformPerm'", "'s.t.'", "'$'", "'->'", 
+		"'#'", "'U'", "'^'", "'\\'", null, null, null, null, "'++'", "'--'", "'&'", 
+		"'+%'", "'-%'", "'++%'", "'--%'", "'<'", "'>'", "'<='", "'>='", "'=='", 
+		"'!='", null, "'-'", "'+'", "'*'", "'/'", "'%'", "'('", "')'", "'<<'", 
+		"'>>'", "'||'", "'&&'", "'!'", "';'", "':'", "'|'", "'{'", "'}'", "','", 
+		"'.'", "'['", "']'", "'\"'", "'?'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "WS", "COMMENT", "LINE_COMMENT", "TO", "IF", "ELSE", "WHILE", "DO", 
@@ -91,10 +92,11 @@ public class alkParser extends Parser {
 		"LEN", "AT", "BELONGSTO", "DELETE", "EMPTY", "END", "FIRST", "FLOAT", 
 		"INSERT", "INTEGER", "PRINT", "POPBACK", "POPFRONT", "PUSHBACK", "PUSHFRONT", 
 		"REMOVE", "REMOVEALLEQTO", "REMOVEAT", "SINGLETONSET", "SIZE", "SPLIT", 
-		"TOPBACK", "TOPFRONT", "UPDATE", "RANDOM", "SOTHAT", "SYM", "ARROW", "NUMSIGN", 
-		"UNION", "INTERSECT", "SUBTRACT", "INT", "DOUBLE", "BOOL", "ID", "PLUSPLUS", 
-		"MINUSMINUS", "BITWISE_AND", "PLUSMOD", "MINUSMOD", "PLUSPLUSMOD", "MINUSMINUSMOD", 
-		"LOWER", "GREATER", "LOWEREQ", "GREATEREQ", "ISEQUAL", "NOTEQUAL", "ASSIGNMENT_OPERATOR", 
+		"TOPBACK", "TOPFRONT", "UPDATE", "UNIFORMNAT", "FLIP", "UNIFORMFLOAT", 
+		"UNIFORMPERM", "SOTHAT", "SYM", "ARROW", "NUMSIGN", "UNION", "INTERSECT", 
+		"SUBTRACT", "INT", "DOUBLE", "BOOL", "ID", "PLUSPLUS", "MINUSMINUS", "BITWISE_AND", 
+		"PLUSMOD", "MINUSMOD", "PLUSPLUSMOD", "MINUSMINUSMOD", "LOWER", "GREATER", 
+		"LOWEREQ", "GREATEREQ", "ISEQUAL", "NOTEQUAL", "ASSIGNMENT_OPERATOR", 
 		"MINUS", "PLUS", "MUL", "DIV", "MOD", "LPAR", "RPAR", "LEFTSHIFT", "RIGHTSHIFT", 
 		"OR", "AND", "NOT", "SEMICOLON", "DPOINT", "VBAR", "LCB", "RCB", "COMMA", 
 		"POINT", "LBRA", "RBRA", "QUOTE", "QUESTION", "STRING"
@@ -183,7 +185,7 @@ public class alkParser extends Parser {
 			setState(97);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FOREACH) | (1L << CHOOSE) | (1L << UNIFORM) | (1L << REPEAT) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << CONTINUE) | (1L << BREAK) | (1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (NUMSIGN - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FOREACH) | (1L << CHOOSE) | (1L << UNIFORM) | (1L << REPEAT) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << CONTINUE) | (1L << BREAK) | (1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (NUMSIGN - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 				{
 				setState(96);
 				statement_sequence();
@@ -252,7 +254,7 @@ public class alkParser extends Parser {
 				setState(104); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FOREACH) | (1L << CHOOSE) | (1L << UNIFORM) | (1L << REPEAT) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << CONTINUE) | (1L << BREAK) | (1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (NUMSIGN - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FOREACH) | (1L << CHOOSE) | (1L << UNIFORM) | (1L << REPEAT) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << CONTINUE) | (1L << BREAK) | (1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (NUMSIGN - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -481,7 +483,7 @@ public class alkParser extends Parser {
 				setState(109);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 					{
 					setState(108);
 					expression();
@@ -782,7 +784,7 @@ public class alkParser extends Parser {
 			setState(153);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FOREACH) | (1L << CHOOSE) | (1L << UNIFORM) | (1L << REPEAT) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << CONTINUE) | (1L << BREAK) | (1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (NUMSIGN - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << DO) | (1L << FOR) | (1L << FOREACH) | (1L << CHOOSE) | (1L << UNIFORM) | (1L << REPEAT) | (1L << RETURN) | (1L << SUCCESS) | (1L << FAILURE) | (1L << CONTINUE) | (1L << BREAK) | (1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (NUMSIGN - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 				{
 				setState(152);
 				statement_sequence();
@@ -1926,7 +1928,7 @@ public class alkParser extends Parser {
 					{
 					setState(289);
 					_la = _input.LA(1);
-					if ( !(((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (LOWER - 84)) | (1L << (GREATER - 84)) | (1L << (LOWEREQ - 84)) | (1L << (GREATEREQ - 84)))) != 0)) ) {
+					if ( !(((((_la - 87)) & ~0x3f) == 0 && ((1L << (_la - 87)) & ((1L << (LOWER - 87)) | (1L << (GREATER - 87)) | (1L << (LOWEREQ - 87)) | (1L << (GREATEREQ - 87)))) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -2007,12 +2009,12 @@ public class alkParser extends Parser {
 			setState(301);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 70)) & ~0x3f) == 0 && ((1L << (_la - 70)) & ((1L << (UNION - 70)) | (1L << (INTERSECT - 70)) | (1L << (SUBTRACT - 70)))) != 0)) {
+			while (((((_la - 73)) & ~0x3f) == 0 && ((1L << (_la - 73)) & ((1L << (UNION - 73)) | (1L << (INTERSECT - 73)) | (1L << (SUBTRACT - 73)))) != 0)) {
 				{
 				{
 				setState(297);
 				_la = _input.LA(1);
-				if ( !(((((_la - 70)) & ~0x3f) == 0 && ((1L << (_la - 70)) & ((1L << (UNION - 70)) | (1L << (INTERSECT - 70)) | (1L << (SUBTRACT - 70)))) != 0)) ) {
+				if ( !(((((_la - 73)) & ~0x3f) == 0 && ((1L << (_la - 73)) & ((1L << (UNION - 73)) | (1L << (INTERSECT - 73)) | (1L << (SUBTRACT - 73)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2337,7 +2339,7 @@ public class alkParser extends Parser {
 					{
 					setState(329);
 					_la = _input.LA(1);
-					if ( !(((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & ((1L << (PLUSMOD - 80)) | (1L << (MINUSMOD - 80)) | (1L << (MINUS - 80)) | (1L << (PLUS - 80)))) != 0)) ) {
+					if ( !(((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (PLUSMOD - 83)) | (1L << (MINUSMOD - 83)) | (1L << (MINUS - 83)) | (1L << (PLUS - 83)))) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -2425,7 +2427,7 @@ public class alkParser extends Parser {
 					{
 					setState(337);
 					_la = _input.LA(1);
-					if ( !(((((_la - 93)) & ~0x3f) == 0 && ((1L << (_la - 93)) & ((1L << (MUL - 93)) | (1L << (DIV - 93)) | (1L << (MOD - 93)))) != 0)) ) {
+					if ( !(((((_la - 96)) & ~0x3f) == 0 && ((1L << (_la - 96)) & ((1L << (MUL - 96)) | (1L << (DIV - 96)) | (1L << (MOD - 96)))) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -2525,7 +2527,7 @@ public class alkParser extends Parser {
 				{
 				setState(344);
 				_la = _input.LA(1);
-				if ( !(((((_la - 77)) & ~0x3f) == 0 && ((1L << (_la - 77)) & ((1L << (PLUSPLUS - 77)) | (1L << (MINUSMINUS - 77)) | (1L << (PLUSPLUSMOD - 77)) | (1L << (MINUSMINUSMOD - 77)))) != 0)) ) {
+				if ( !(((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & ((1L << (PLUSPLUS - 80)) | (1L << (MINUSMINUS - 80)) | (1L << (PLUSPLUSMOD - 80)) | (1L << (MINUSMINUSMOD - 80)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2546,7 +2548,7 @@ public class alkParser extends Parser {
 				{
 				setState(346);
 				_la = _input.LA(1);
-				if ( !(((((_la - 91)) & ~0x3f) == 0 && ((1L << (_la - 91)) & ((1L << (MINUS - 91)) | (1L << (PLUS - 91)) | (1L << (MUL - 91)) | (1L << (NOT - 91)))) != 0)) ) {
+				if ( !(((((_la - 94)) & ~0x3f) == 0 && ((1L << (_la - 94)) & ((1L << (MINUS - 94)) | (1L << (PLUS - 94)) | (1L << (MUL - 94)) | (1L << (NOT - 94)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2577,7 +2579,10 @@ public class alkParser extends Parser {
 			case INTEGER:
 			case PRINT:
 			case SINGLETONSET:
-			case RANDOM:
+			case UNIFORMNAT:
+			case FLIP:
+			case UNIFORMFLOAT:
+			case UNIFORMPERM:
 			case SYM:
 			case INT:
 			case DOUBLE:
@@ -2919,7 +2924,10 @@ public class alkParser extends Parser {
 			case INTEGER:
 			case PRINT:
 			case SINGLETONSET:
-			case RANDOM:
+			case UNIFORMNAT:
+			case FLIP:
+			case UNIFORMFLOAT:
+			case UNIFORMPERM:
 			case SYM:
 			case ID:
 				_localctx = new RefNameFactorContext(_localctx);
@@ -3576,7 +3584,7 @@ public class alkParser extends Parser {
 				setState(439);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 					{
 					setState(431);
 					expression();
@@ -3726,7 +3734,7 @@ public class alkParser extends Parser {
 				setState(462);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 					{
 					setState(454);
 					expression();
@@ -4046,7 +4054,7 @@ public class alkParser extends Parser {
 				setState(505);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 					{
 					setState(497);
 					expression();
@@ -4166,7 +4174,10 @@ public class alkParser extends Parser {
 			case INTEGER:
 			case PRINT:
 			case SINGLETONSET:
-			case RANDOM:
+			case UNIFORMNAT:
+			case FLIP:
+			case UNIFORMFLOAT:
+			case UNIFORMPERM:
 				_localctx = new ToBuiltinFunctionContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
@@ -4185,7 +4196,7 @@ public class alkParser extends Parser {
 				setState(525);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 					{
 					setState(517);
 					expression();
@@ -4277,7 +4288,7 @@ public class alkParser extends Parser {
 			setState(540);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 				{
 				setState(532);
 				expression();
@@ -4365,7 +4376,7 @@ public class alkParser extends Parser {
 			setState(554);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (RANDOM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EMPTYSET) | (1L << EMPTYLIST) | (1L << EMPTYSTRUCTURE) | (1L << ABS) | (1L << ACOS) | (1L << ASIN) | (1L << ATAN) | (1L << COS) | (1L << LOG) | (1L << PI) | (1L << POW) | (1L << SIN) | (1L << SQRT) | (1L << TAN) | (1L << LEN) | (1L << FLOAT) | (1L << INTEGER) | (1L << PRINT) | (1L << SINGLETONSET))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (UNIFORMNAT - 65)) | (1L << (FLIP - 65)) | (1L << (UNIFORMFLOAT - 65)) | (1L << (UNIFORMPERM - 65)) | (1L << (SYM - 65)) | (1L << (INT - 65)) | (1L << (DOUBLE - 65)) | (1L << (BOOL - 65)) | (1L << (ID - 65)) | (1L << (PLUSPLUS - 65)) | (1L << (MINUSMINUS - 65)) | (1L << (PLUSPLUSMOD - 65)) | (1L << (MINUSMINUSMOD - 65)) | (1L << (LOWER - 65)) | (1L << (MINUS - 65)) | (1L << (PLUS - 65)) | (1L << (MUL - 65)) | (1L << (LPAR - 65)) | (1L << (NOT - 65)) | (1L << (LCB - 65)) | (1L << (LBRA - 65)) | (1L << (STRING - 65)))) != 0)) {
 				{
 				setState(546);
 				expression();
@@ -4409,6 +4420,7 @@ public class alkParser extends Parser {
 		public TerminalNode ACOS() { return getToken(alkParser.ACOS, 0); }
 		public TerminalNode ATAN() { return getToken(alkParser.ATAN, 0); }
 		public TerminalNode COS() { return getToken(alkParser.COS, 0); }
+		public TerminalNode FLIP() { return getToken(alkParser.FLIP, 0); }
 		public TerminalNode FLOAT() { return getToken(alkParser.FLOAT, 0); }
 		public TerminalNode INTEGER() { return getToken(alkParser.INTEGER, 0); }
 		public TerminalNode LEN() { return getToken(alkParser.LEN, 0); }
@@ -4416,11 +4428,13 @@ public class alkParser extends Parser {
 		public TerminalNode PI() { return getToken(alkParser.PI, 0); }
 		public TerminalNode PRINT() { return getToken(alkParser.PRINT, 0); }
 		public TerminalNode POW() { return getToken(alkParser.POW, 0); }
-		public TerminalNode RANDOM() { return getToken(alkParser.RANDOM, 0); }
 		public TerminalNode SIN() { return getToken(alkParser.SIN, 0); }
 		public TerminalNode SINGLETONSET() { return getToken(alkParser.SINGLETONSET, 0); }
 		public TerminalNode SQRT() { return getToken(alkParser.SQRT, 0); }
 		public TerminalNode TAN() { return getToken(alkParser.TAN, 0); }
+		public TerminalNode UNIFORMFLOAT() { return getToken(alkParser.UNIFORMFLOAT, 0); }
+		public TerminalNode UNIFORMNAT() { return getToken(alkParser.UNIFORMNAT, 0); }
+		public TerminalNode UNIFORMPERM() { return getToken(alkParser.UNIFORMPERM, 0); }
 		public Function_nameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -4441,7 +4455,7 @@ public class alkParser extends Parser {
 			{
 			setState(558);
 			_la = _input.LA(1);
-			if ( !(((((_la - 30)) & ~0x3f) == 0 && ((1L << (_la - 30)) & ((1L << (ABS - 30)) | (1L << (ACOS - 30)) | (1L << (ASIN - 30)) | (1L << (ATAN - 30)) | (1L << (COS - 30)) | (1L << (LOG - 30)) | (1L << (PI - 30)) | (1L << (POW - 30)) | (1L << (SIN - 30)) | (1L << (SQRT - 30)) | (1L << (TAN - 30)) | (1L << (LEN - 30)) | (1L << (FLOAT - 30)) | (1L << (INTEGER - 30)) | (1L << (PRINT - 30)) | (1L << (SINGLETONSET - 30)) | (1L << (RANDOM - 30)))) != 0)) ) {
+			if ( !(((((_la - 30)) & ~0x3f) == 0 && ((1L << (_la - 30)) & ((1L << (ABS - 30)) | (1L << (ACOS - 30)) | (1L << (ASIN - 30)) | (1L << (ATAN - 30)) | (1L << (COS - 30)) | (1L << (LOG - 30)) | (1L << (PI - 30)) | (1L << (POW - 30)) | (1L << (SIN - 30)) | (1L << (SQRT - 30)) | (1L << (TAN - 30)) | (1L << (LEN - 30)) | (1L << (FLOAT - 30)) | (1L << (INTEGER - 30)) | (1L << (PRINT - 30)) | (1L << (SINGLETONSET - 30)) | (1L << (UNIFORMNAT - 30)) | (1L << (FLIP - 30)) | (1L << (UNIFORMFLOAT - 30)) | (1L << (UNIFORMPERM - 30)))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -4617,7 +4631,7 @@ public class alkParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3t\u023f\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3w\u023f\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -4659,9 +4673,9 @@ public class alkParser extends Parser {
 		"\13-\5-\u021f\n-\3-\3-\3.\3.\3.\3.\3.\7.\u0228\n.\f.\16.\u022b\13.\5."+
 		"\u022d\n.\3.\3.\3/\3/\3\60\3\60\3\61\3\61\3\61\7\61\u0238\n\61\f\61\16"+
 		"\61\u023b\13\61\3\61\3\61\3\61\2\3<\62\2\4\6\b\n\f\16\20\22\24\26\30\32"+
-		"\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`\2\17\3\2\34\35\3\2Z"+
-		"[\3\2VY\3\2HJ\4\2\37\37kk\3\2de\4\2RS]^\3\2_a\4\2OPTU\4\2]_hh\3\2OP\7"+
-		"\2 +\62\62\64\65==CC\b\2,,..\60\61\63\63\66<>B\2\u0261\2c\3\2\2\2\4h\3"+
+		"\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`\2\17\3\2\34\35\3\2]"+
+		"^\3\2Y\\\3\2KM\4\2\37\37nn\3\2gh\4\2UV`a\3\2bd\4\2RSWX\4\2`bkk\3\2RS\7"+
+		"\2 +\62\62\64\65==CF\b\2,,..\60\61\63\63\66<>B\2\u0261\2c\3\2\2\2\4h\3"+
 		"\2\2\2\6\u008c\3\2\2\2\b\u008e\3\2\2\2\n\u0092\3\2\2\2\f\u0099\3\2\2\2"+
 		"\16\u00ac\3\2\2\2\20\u00ae\3\2\2\2\22\u00b4\3\2\2\2\24\u00bb\3\2\2\2\26"+
 		"\u00c4\3\2\2\2\30\u00ce\3\2\2\2\32\u00d4\3\2\2\2\34\u00ef\3\2\2\2\36\u00f8"+
@@ -4675,55 +4689,55 @@ public class alkParser extends Parser {
 		"\3\2\2\2`\u0239\3\2\2\2bd\5\4\3\2cb\3\2\2\2cd\3\2\2\2de\3\2\2\2ef\7\2"+
 		"\2\3f\3\3\2\2\2gi\5\6\4\2hg\3\2\2\2ij\3\2\2\2jh\3\2\2\2jk\3\2\2\2k\5\3"+
 		"\2\2\2l\u008d\5\32\16\2mo\7\23\2\2np\5\36\20\2on\3\2\2\2op\3\2\2\2pq\3"+
-		"\2\2\2q\u008d\7i\2\2rs\5\16\b\2st\7i\2\2t\u008d\3\2\2\2uv\7\24\2\2v\u008d"+
-		"\7i\2\2wx\7\26\2\2x\u008d\7i\2\2yz\7\27\2\2z\u008d\7i\2\2{|\7\30\2\2|"+
-		"\u008d\7i\2\2}\u008d\5\f\7\2~\u008d\5\b\5\2\177\u0080\5\n\6\2\u0080\u0081"+
-		"\7i\2\2\u0081\u008d\3\2\2\2\u0082\u008d\5\20\t\2\u0083\u0084\5\22\n\2"+
-		"\u0084\u0085\7i\2\2\u0085\u008d\3\2\2\2\u0086\u008d\5\24\13\2\u0087\u008d"+
-		"\5\26\f\2\u0088\u008d\5\30\r\2\u0089\u008a\5\36\20\2\u008a\u008b\7i\2"+
+		"\2\2\2q\u008d\7l\2\2rs\5\16\b\2st\7l\2\2t\u008d\3\2\2\2uv\7\24\2\2v\u008d"+
+		"\7l\2\2wx\7\26\2\2x\u008d\7l\2\2yz\7\27\2\2z\u008d\7l\2\2{|\7\30\2\2|"+
+		"\u008d\7l\2\2}\u008d\5\f\7\2~\u008d\5\b\5\2\177\u0080\5\n\6\2\u0080\u0081"+
+		"\7l\2\2\u0081\u008d\3\2\2\2\u0082\u008d\5\20\t\2\u0083\u0084\5\22\n\2"+
+		"\u0084\u0085\7l\2\2\u0085\u008d\3\2\2\2\u0086\u008d\5\24\13\2\u0087\u008d"+
+		"\5\26\f\2\u0088\u008d\5\30\r\2\u0089\u008a\5\36\20\2\u008a\u008b\7l\2"+
 		"\2\u008b\u008d\3\2\2\2\u008cl\3\2\2\2\u008cm\3\2\2\2\u008cr\3\2\2\2\u008c"+
 		"u\3\2\2\2\u008cw\3\2\2\2\u008cy\3\2\2\2\u008c{\3\2\2\2\u008c}\3\2\2\2"+
 		"\u008c~\3\2\2\2\u008c\177\3\2\2\2\u008c\u0082\3\2\2\2\u008c\u0083\3\2"+
 		"\2\2\u008c\u0086\3\2\2\2\u008c\u0087\3\2\2\2\u008c\u0088\3\2\2\2\u008c"+
-		"\u0089\3\2\2\2\u008d\7\3\2\2\2\u008e\u008f\7G\2\2\u008f\u0090\7\36\2\2"+
-		"\u0090\u0091\7t\2\2\u0091\t\3\2\2\2\u0092\u0093\7\22\2\2\u0093\u0094\5"+
-		"\6\4\2\u0094\u0095\7\25\2\2\u0095\u0096\7b\2\2\u0096\u0097\5\36\20\2\u0097"+
-		"\u0098\7c\2\2\u0098\13\3\2\2\2\u0099\u009b\7l\2\2\u009a\u009c\5\4\3\2"+
+		"\u0089\3\2\2\2\u008d\7\3\2\2\2\u008e\u008f\7J\2\2\u008f\u0090\7\36\2\2"+
+		"\u0090\u0091\7w\2\2\u0091\t\3\2\2\2\u0092\u0093\7\22\2\2\u0093\u0094\5"+
+		"\6\4\2\u0094\u0095\7\25\2\2\u0095\u0096\7e\2\2\u0096\u0097\5\36\20\2\u0097"+
+		"\u0098\7f\2\2\u0098\13\3\2\2\2\u0099\u009b\7o\2\2\u009a\u009c\5\4\3\2"+
 		"\u009b\u009a\3\2\2\2\u009b\u009c\3\2\2\2\u009c\u009d\3\2\2\2\u009d\u009e"+
-		"\7m\2\2\u009e\r\3\2\2\2\u009f\u00a0\7\20\2\2\u00a0\u00a1\5\36\20\2\u00a1"+
-		"\u00a2\7\16\2\2\u00a2\u00a5\5\36\20\2\u00a3\u00a4\7D\2\2\u00a4\u00a6\5"+
+		"\7p\2\2\u009e\r\3\2\2\2\u009f\u00a0\7\20\2\2\u00a0\u00a1\5\36\20\2\u00a1"+
+		"\u00a2\7\16\2\2\u00a2\u00a5\5\36\20\2\u00a3\u00a4\7G\2\2\u00a4\u00a6\5"+
 		"\36\20\2\u00a5\u00a3\3\2\2\2\u00a5\u00a6\3\2\2\2\u00a6\u00ad\3\2\2\2\u00a7"+
 		"\u00a8\7\21\2\2\u00a8\u00a9\5\36\20\2\u00a9\u00aa\7\16\2\2\u00aa\u00ab"+
 		"\5\36\20\2\u00ab\u00ad\3\2\2\2\u00ac\u009f\3\2\2\2\u00ac\u00a7\3\2\2\2"+
-		"\u00ad\17\3\2\2\2\u00ae\u00af\7\t\2\2\u00af\u00b0\7b\2\2\u00b0\u00b1\5"+
-		"\36\20\2\u00b1\u00b2\7c\2\2\u00b2\u00b3\5\6\4\2\u00b3\21\3\2\2\2\u00b4"+
-		"\u00b5\7\n\2\2\u00b5\u00b6\5\6\4\2\u00b6\u00b7\7\t\2\2\u00b7\u00b8\7b"+
-		"\2\2\u00b8\u00b9\5\36\20\2\u00b9\u00ba\7c\2\2\u00ba\23\3\2\2\2\u00bb\u00bc"+
-		"\7\7\2\2\u00bc\u00bd\7b\2\2\u00bd\u00be\5\36\20\2\u00be\u00bf\7c\2\2\u00bf"+
+		"\u00ad\17\3\2\2\2\u00ae\u00af\7\t\2\2\u00af\u00b0\7e\2\2\u00b0\u00b1\5"+
+		"\36\20\2\u00b1\u00b2\7f\2\2\u00b2\u00b3\5\6\4\2\u00b3\21\3\2\2\2\u00b4"+
+		"\u00b5\7\n\2\2\u00b5\u00b6\5\6\4\2\u00b6\u00b7\7\t\2\2\u00b7\u00b8\7e"+
+		"\2\2\u00b8\u00b9\5\36\20\2\u00b9\u00ba\7f\2\2\u00ba\23\3\2\2\2\u00bb\u00bc"+
+		"\7\7\2\2\u00bc\u00bd\7e\2\2\u00bd\u00be\5\36\20\2\u00be\u00bf\7f\2\2\u00bf"+
 		"\u00c2\5\6\4\2\u00c0\u00c1\7\b\2\2\u00c1\u00c3\5\6\4\2\u00c2\u00c0\3\2"+
 		"\2\2\u00c2\u00c3\3\2\2\2\u00c3\25\3\2\2\2\u00c4\u00c5\7\13\2\2\u00c5\u00c6"+
-		"\7b\2\2\u00c6\u00c7\5\36\20\2\u00c7\u00c8\7i\2\2\u00c8\u00c9\5\36\20\2"+
-		"\u00c9\u00ca\7i\2\2\u00ca\u00cb\5\36\20\2\u00cb\u00cc\7c\2\2\u00cc\u00cd"+
-		"\5\6\4\2\u00cd\27\3\2\2\2\u00ce\u00cf\7\f\2\2\u00cf\u00d0\7N\2\2\u00d0"+
+		"\7e\2\2\u00c6\u00c7\5\36\20\2\u00c7\u00c8\7l\2\2\u00c8\u00c9\5\36\20\2"+
+		"\u00c9\u00ca\7l\2\2\u00ca\u00cb\5\36\20\2\u00cb\u00cc\7f\2\2\u00cc\u00cd"+
+		"\5\6\4\2\u00cd\27\3\2\2\2\u00ce\u00cf\7\f\2\2\u00cf\u00d0\7Q\2\2\u00d0"+
 		"\u00d1\7\16\2\2\u00d1\u00d2\5\36\20\2\u00d2\u00d3\5\6\4\2\u00d3\31\3\2"+
-		"\2\2\u00d4\u00d5\7N\2\2\u00d5\u00de\7b\2\2\u00d6\u00db\5\34\17\2\u00d7"+
-		"\u00d8\7n\2\2\u00d8\u00da\5\34\17\2\u00d9\u00d7\3\2\2\2\u00da\u00dd\3"+
+		"\2\2\u00d4\u00d5\7Q\2\2\u00d5\u00de\7e\2\2\u00d6\u00db\5\34\17\2\u00d7"+
+		"\u00d8\7q\2\2\u00d8\u00da\5\34\17\2\u00d9\u00d7\3\2\2\2\u00da\u00dd\3"+
 		"\2\2\2\u00db\u00d9\3\2\2\2\u00db\u00dc\3\2\2\2\u00dc\u00df\3\2\2\2\u00dd"+
 		"\u00db\3\2\2\2\u00de\u00d6\3\2\2\2\u00de\u00df\3\2\2\2\u00df\u00e0\3\2"+
-		"\2\2\u00e0\u00ea\7c\2\2\u00e1\u00e2\t\2\2\2\u00e2\u00e7\7N\2\2\u00e3\u00e4"+
-		"\7n\2\2\u00e4\u00e6\7N\2\2\u00e5\u00e3\3\2\2\2\u00e6\u00e9\3\2\2\2\u00e7"+
+		"\2\2\u00e0\u00ea\7f\2\2\u00e1\u00e2\t\2\2\2\u00e2\u00e7\7Q\2\2\u00e3\u00e4"+
+		"\7q\2\2\u00e4\u00e6\7Q\2\2\u00e5\u00e3\3\2\2\2\u00e6\u00e9\3\2\2\2\u00e7"+
 		"\u00e5\3\2\2\2\u00e7\u00e8\3\2\2\2\u00e8\u00eb\3\2\2\2\u00e9\u00e7\3\2"+
 		"\2\2\u00ea\u00e1\3\2\2\2\u00ea\u00eb\3\2\2\2\u00eb\u00ec\3\2\2\2\u00ec"+
 		"\u00ed\5\f\7\2\u00ed\33\3\2\2\2\u00ee\u00f0\7\17\2\2\u00ef\u00ee\3\2\2"+
-		"\2\u00ef\u00f0\3\2\2\2\u00f0\u00f1\3\2\2\2\u00f1\u00f2\7N\2\2\u00f2\35"+
-		"\3\2\2\2\u00f3\u00f4\5<\37\2\u00f4\u00f5\7\\\2\2\u00f5\u00f6\5\36\20\2"+
+		"\2\u00ef\u00f0\3\2\2\2\u00f0\u00f1\3\2\2\2\u00f1\u00f2\7Q\2\2\u00f2\35"+
+		"\3\2\2\2\u00f3\u00f4\5<\37\2\u00f4\u00f5\7_\2\2\u00f5\u00f6\5\36\20\2"+
 		"\u00f6\u00f9\3\2\2\2\u00f7\u00f9\5 \21\2\u00f8\u00f3\3\2\2\2\u00f8\u00f7"+
-		"\3\2\2\2\u00f9\37\3\2\2\2\u00fa\u0100\5\"\22\2\u00fb\u00fc\7s\2\2\u00fc"+
-		"\u00fd\5\36\20\2\u00fd\u00fe\7j\2\2\u00fe\u00ff\5\36\20\2\u00ff\u0101"+
+		"\3\2\2\2\u00f9\37\3\2\2\2\u00fa\u0100\5\"\22\2\u00fb\u00fc\7v\2\2\u00fc"+
+		"\u00fd\5\36\20\2\u00fd\u00fe\7m\2\2\u00fe\u00ff\5\36\20\2\u00ff\u0101"+
 		"\3\2\2\2\u0100\u00fb\3\2\2\2\u0100\u0101\3\2\2\2\u0101!\3\2\2\2\u0102"+
-		"\u0107\5$\23\2\u0103\u0104\7f\2\2\u0104\u0106\5$\23\2\u0105\u0103\3\2"+
+		"\u0107\5$\23\2\u0103\u0104\7i\2\2\u0104\u0106\5$\23\2\u0105\u0103\3\2"+
 		"\2\2\u0106\u0109\3\2\2\2\u0107\u0105\3\2\2\2\u0107\u0108\3\2\2\2\u0108"+
-		"#\3\2\2\2\u0109\u0107\3\2\2\2\u010a\u010f\5&\24\2\u010b\u010c\7g\2\2\u010c"+
+		"#\3\2\2\2\u0109\u0107\3\2\2\2\u010a\u010f\5&\24\2\u010b\u010c\7j\2\2\u010c"+
 		"\u010e\5&\24\2\u010d\u010b\3\2\2\2\u010e\u0111\3\2\2\2\u010f\u010d\3\2"+
 		"\2\2\u010f\u0110\3\2\2\2\u0110%\3\2\2\2\u0111\u010f\3\2\2\2\u0112\u0117"+
 		"\5(\25\2\u0113\u0114\7\r\2\2\u0114\u0116\5(\25\2\u0115\u0113\3\2\2\2\u0116"+
@@ -4738,7 +4752,7 @@ public class alkParser extends Parser {
 		"\u0130\3\2\2\2\u0130-\3\2\2\2\u0131\u012f\3\2\2\2\u0132\u0137\5\60\31"+
 		"\2\u0133\u0134\t\6\2\2\u0134\u0136\5\60\31\2\u0135\u0133\3\2\2\2\u0136"+
 		"\u0139\3\2\2\2\u0137\u0135\3\2\2\2\u0137\u0138\3\2\2\2\u0138/\3\2\2\2"+
-		"\u0139\u0137\3\2\2\2\u013a\u013f\5\62\32\2\u013b\u013c\7Q\2\2\u013c\u013e"+
+		"\u0139\u0137\3\2\2\2\u013a\u013f\5\62\32\2\u013b\u013c\7T\2\2\u013c\u013e"+
 		"\5\62\32\2\u013d\u013b\3\2\2\2\u013e\u0141\3\2\2\2\u013f\u013d\3\2\2\2"+
 		"\u013f\u0140\3\2\2\2\u0140\61\3\2\2\2\u0141\u013f\3\2\2\2\u0142\u0147"+
 		"\5\64\33\2\u0143\u0144\t\7\2\2\u0144\u0146\5\64\33\2\u0145\u0143\3\2\2"+
@@ -4754,73 +4768,73 @@ public class alkParser extends Parser {
 		"\u0161\u0165\5<\37\2\u0162\u0164\t\f\2\2\u0163\u0162\3\2\2\2\u0164\u0167"+
 		"\3\2\2\2\u0165\u0163\3\2\2\2\u0165\u0166\3\2\2\2\u0166;\3\2\2\2\u0167"+
 		"\u0165\3\2\2\2\u0168\u0169\b\37\1\2\u0169\u016a\5> \2\u016a\u0178\3\2"+
-		"\2\2\u016b\u016c\f\6\2\2\u016c\u016d\7o\2\2\u016d\u0177\5Z.\2\u016e\u016f"+
-		"\f\5\2\2\u016f\u0170\7o\2\2\u0170\u0177\7N\2\2\u0171\u0172\f\4\2\2\u0172"+
-		"\u0173\7p\2\2\u0173\u0174\5\36\20\2\u0174\u0175\7q\2\2\u0175\u0177\3\2"+
+		"\2\2\u016b\u016c\f\6\2\2\u016c\u016d\7r\2\2\u016d\u0177\5Z.\2\u016e\u016f"+
+		"\f\5\2\2\u016f\u0170\7r\2\2\u0170\u0177\7Q\2\2\u0171\u0172\f\4\2\2\u0172"+
+		"\u0173\7s\2\2\u0173\u0174\5\36\20\2\u0174\u0175\7t\2\2\u0175\u0177\3\2"+
 		"\2\2\u0176\u016b\3\2\2\2\u0176\u016e\3\2\2\2\u0176\u0171\3\2\2\2\u0177"+
 		"\u017a\3\2\2\2\u0178\u0176\3\2\2\2\u0178\u0179\3\2\2\2\u0179=\3\2\2\2"+
 		"\u017a\u0178\3\2\2\2\u017b\u0182\5D#\2\u017c\u0182\5@!\2\u017d\u017e\7"+
-		"b\2\2\u017e\u017f\5\36\20\2\u017f\u0180\7c\2\2\u0180\u0182\3\2\2\2\u0181"+
+		"e\2\2\u017e\u017f\5\36\20\2\u017f\u0180\7f\2\2\u0180\u0182\3\2\2\2\u0181"+
 		"\u017b\3\2\2\2\u0181\u017c\3\2\2\2\u0181\u017d\3\2\2\2\u0182?\3\2\2\2"+
 		"\u0183\u0186\5B\"\2\u0184\u0186\5F$\2\u0185\u0183\3\2\2\2\u0185\u0184"+
-		"\3\2\2\2\u0186A\3\2\2\2\u0187\u018c\7K\2\2\u0188\u018c\7L\2\2\u0189\u018c"+
-		"\7M\2\2\u018a\u018c\7t\2\2\u018b\u0187\3\2\2\2\u018b\u0188\3\2\2\2\u018b"+
+		"\3\2\2\2\u0186A\3\2\2\2\u0187\u018c\7N\2\2\u0188\u018c\7O\2\2\u0189\u018c"+
+		"\7P\2\2\u018a\u018c\7w\2\2\u018b\u0187\3\2\2\2\u018b\u0188\3\2\2\2\u018b"+
 		"\u0189\3\2\2\2\u018b\u018a\3\2\2\2\u018cC\3\2\2\2\u018d\u0192\5V,\2\u018e"+
-		"\u0192\7N\2\2\u018f\u0190\7E\2\2\u0190\u0192\7N\2\2\u0191\u018d\3\2\2"+
+		"\u0192\7Q\2\2\u018f\u0190\7H\2\2\u0190\u0192\7Q\2\2\u0191\u018d\3\2\2"+
 		"\2\u0191\u018e\3\2\2\2\u0191\u018f\3\2\2\2\u0192E\3\2\2\2\u0193\u0198"+
 		"\5L\'\2\u0194\u0198\5N(\2\u0195\u0198\5T+\2\u0196\u0198\5P)\2\u0197\u0193"+
 		"\3\2\2\2\u0197\u0194\3\2\2\2\u0197\u0195\3\2\2\2\u0197\u0196\3\2\2\2\u0198"+
-		"G\3\2\2\2\u0199\u019a\5\36\20\2\u019a\u019b\7o\2\2\u019b\u019c\7o\2\2"+
-		"\u019c\u019d\5\36\20\2\u019dI\3\2\2\2\u019e\u019f\7N\2\2\u019f\u01a0\7"+
-		"\16\2\2\u01a0\u01a1\5\36\20\2\u01a1\u01a2\7k\2\2\u01a2\u01a3\5\36\20\2"+
-		"\u01a3\u01ab\3\2\2\2\u01a4\u01a5\5\36\20\2\u01a5\u01a6\7k\2\2\u01a6\u01a7"+
-		"\7N\2\2\u01a7\u01a8\7\16\2\2\u01a8\u01a9\5\36\20\2\u01a9\u01ab\3\2\2\2"+
+		"G\3\2\2\2\u0199\u019a\5\36\20\2\u019a\u019b\7r\2\2\u019b\u019c\7r\2\2"+
+		"\u019c\u019d\5\36\20\2\u019dI\3\2\2\2\u019e\u019f\7Q\2\2\u019f\u01a0\7"+
+		"\16\2\2\u01a0\u01a1\5\36\20\2\u01a1\u01a2\7n\2\2\u01a2\u01a3\5\36\20\2"+
+		"\u01a3\u01ab\3\2\2\2\u01a4\u01a5\5\36\20\2\u01a5\u01a6\7n\2\2\u01a6\u01a7"+
+		"\7Q\2\2\u01a7\u01a8\7\16\2\2\u01a8\u01a9\5\36\20\2\u01a9\u01ab\3\2\2\2"+
 		"\u01aa\u019e\3\2\2\2\u01aa\u01a4\3\2\2\2\u01abK\3\2\2\2\u01ac\u01ad\7"+
-		"p\2\2\u01ad\u01ae\5J&\2\u01ae\u01af\7q\2\2\u01af\u01c1\3\2\2\2\u01b0\u01b9"+
-		"\7p\2\2\u01b1\u01b6\5\36\20\2\u01b2\u01b3\7n\2\2\u01b3\u01b5\5\36\20\2"+
+		"s\2\2\u01ad\u01ae\5J&\2\u01ae\u01af\7t\2\2\u01af\u01c1\3\2\2\2\u01b0\u01b9"+
+		"\7s\2\2\u01b1\u01b6\5\36\20\2\u01b2\u01b3\7q\2\2\u01b3\u01b5\5\36\20\2"+
 		"\u01b4\u01b2\3\2\2\2\u01b5\u01b8\3\2\2\2\u01b6\u01b4\3\2\2\2\u01b6\u01b7"+
 		"\3\2\2\2\u01b7\u01ba\3\2\2\2\u01b8\u01b6\3\2\2\2\u01b9\u01b1\3\2\2\2\u01b9"+
-		"\u01ba\3\2\2\2\u01ba\u01bb\3\2\2\2\u01bb\u01c1\7q\2\2\u01bc\u01bd\7p\2"+
-		"\2\u01bd\u01be\5H%\2\u01be\u01bf\7q\2\2\u01bf\u01c1\3\2\2\2\u01c0\u01ac"+
+		"\u01ba\3\2\2\2\u01ba\u01bb\3\2\2\2\u01bb\u01c1\7t\2\2\u01bc\u01bd\7s\2"+
+		"\2\u01bd\u01be\5H%\2\u01be\u01bf\7t\2\2\u01bf\u01c1\3\2\2\2\u01c0\u01ac"+
 		"\3\2\2\2\u01c0\u01b0\3\2\2\2\u01c0\u01bc\3\2\2\2\u01c1M\3\2\2\2\u01c2"+
-		"\u01d8\7\32\2\2\u01c3\u01c4\7V\2\2\u01c4\u01c5\5J&\2\u01c5\u01c6\7W\2"+
-		"\2\u01c6\u01d8\3\2\2\2\u01c7\u01d0\7V\2\2\u01c8\u01cd\5\36\20\2\u01c9"+
-		"\u01ca\7n\2\2\u01ca\u01cc\5\36\20\2\u01cb\u01c9\3\2\2\2\u01cc\u01cf\3"+
+		"\u01d8\7\32\2\2\u01c3\u01c4\7Y\2\2\u01c4\u01c5\5J&\2\u01c5\u01c6\7Z\2"+
+		"\2\u01c6\u01d8\3\2\2\2\u01c7\u01d0\7Y\2\2\u01c8\u01cd\5\36\20\2\u01c9"+
+		"\u01ca\7q\2\2\u01ca\u01cc\5\36\20\2\u01cb\u01c9\3\2\2\2\u01cc\u01cf\3"+
 		"\2\2\2\u01cd\u01cb\3\2\2\2\u01cd\u01ce\3\2\2\2\u01ce\u01d1\3\2\2\2\u01cf"+
 		"\u01cd\3\2\2\2\u01d0\u01c8\3\2\2\2\u01d0\u01d1\3\2\2\2\u01d1\u01d2\3\2"+
-		"\2\2\u01d2\u01d8\7W\2\2\u01d3\u01d4\7V\2\2\u01d4\u01d5\5H%\2\u01d5\u01d6"+
-		"\7W\2\2\u01d6\u01d8\3\2\2\2\u01d7\u01c2\3\2\2\2\u01d7\u01c3\3\2\2\2\u01d7"+
-		"\u01c7\3\2\2\2\u01d7\u01d3\3\2\2\2\u01d8O\3\2\2\2\u01d9\u01db\7l\2\2\u01da"+
+		"\2\2\u01d2\u01d8\7Z\2\2\u01d3\u01d4\7Y\2\2\u01d4\u01d5\5H%\2\u01d5\u01d6"+
+		"\7Z\2\2\u01d6\u01d8\3\2\2\2\u01d7\u01c2\3\2\2\2\u01d7\u01c3\3\2\2\2\u01d7"+
+		"\u01c7\3\2\2\2\u01d7\u01d3\3\2\2\2\u01d8O\3\2\2\2\u01d9\u01db\7o\2\2\u01da"+
 		"\u01dc\5R*\2\u01db\u01da\3\2\2\2\u01dc\u01dd\3\2\2\2\u01dd\u01db\3\2\2"+
-		"\2\u01dd\u01de\3\2\2\2\u01de\u01df\3\2\2\2\u01df\u01e0\7m\2\2\u01e0\u01e8"+
-		"\3\2\2\2\u01e1\u01e6\7\33\2\2\u01e2\u01e3\7l\2\2\u01e3\u01e4\7F\2\2\u01e4"+
-		"\u01e6\7m\2\2\u01e5\u01e1\3\2\2\2\u01e5\u01e2\3\2\2\2\u01e6\u01e8\3\2"+
+		"\2\u01dd\u01de\3\2\2\2\u01de\u01df\3\2\2\2\u01df\u01e0\7p\2\2\u01e0\u01e8"+
+		"\3\2\2\2\u01e1\u01e6\7\33\2\2\u01e2\u01e3\7o\2\2\u01e3\u01e4\7I\2\2\u01e4"+
+		"\u01e6\7p\2\2\u01e5\u01e1\3\2\2\2\u01e5\u01e2\3\2\2\2\u01e6\u01e8\3\2"+
 		"\2\2\u01e7\u01d9\3\2\2\2\u01e7\u01e5\3\2\2\2\u01e8Q\3\2\2\2\u01e9\u01ea"+
-		"\7N\2\2\u01ea\u01eb\7F\2\2\u01eb\u01ec\5\36\20\2\u01ecS\3\2\2\2\u01ed"+
-		"\u0203\7\31\2\2\u01ee\u01ef\7l\2\2\u01ef\u01f0\5J&\2\u01f0\u01f1\7m\2"+
-		"\2\u01f1\u0203\3\2\2\2\u01f2\u01fb\7l\2\2\u01f3\u01f8\5\36\20\2\u01f4"+
-		"\u01f5\7n\2\2\u01f5\u01f7\5\36\20\2\u01f6\u01f4\3\2\2\2\u01f7\u01fa\3"+
+		"\7Q\2\2\u01ea\u01eb\7I\2\2\u01eb\u01ec\5\36\20\2\u01ecS\3\2\2\2\u01ed"+
+		"\u0203\7\31\2\2\u01ee\u01ef\7o\2\2\u01ef\u01f0\5J&\2\u01f0\u01f1\7p\2"+
+		"\2\u01f1\u0203\3\2\2\2\u01f2\u01fb\7o\2\2\u01f3\u01f8\5\36\20\2\u01f4"+
+		"\u01f5\7q\2\2\u01f5\u01f7\5\36\20\2\u01f6\u01f4\3\2\2\2\u01f7\u01fa\3"+
 		"\2\2\2\u01f8\u01f6\3\2\2\2\u01f8\u01f9\3\2\2\2\u01f9\u01fc\3\2\2\2\u01fa"+
 		"\u01f8\3\2\2\2\u01fb\u01f3\3\2\2\2\u01fb\u01fc\3\2\2\2\u01fc\u01fd\3\2"+
-		"\2\2\u01fd\u0203\7m\2\2\u01fe\u01ff\7l\2\2\u01ff\u0200\5H%\2\u0200\u0201"+
-		"\7m\2\2\u0201\u0203\3\2\2\2\u0202\u01ed\3\2\2\2\u0202\u01ee\3\2\2\2\u0202"+
+		"\2\2\u01fd\u0203\7p\2\2\u01fe\u01ff\7o\2\2\u01ff\u0200\5H%\2\u0200\u0201"+
+		"\7p\2\2\u0201\u0203\3\2\2\2\u0202\u01ed\3\2\2\2\u0202\u01ee\3\2\2\2\u0202"+
 		"\u01f2\3\2\2\2\u0202\u01fe\3\2\2\2\u0203U\3\2\2\2\u0204\u0213\5X-\2\u0205"+
-		"\u0206\7N\2\2\u0206\u020f\7b\2\2\u0207\u020c\5\36\20\2\u0208\u0209\7n"+
+		"\u0206\7Q\2\2\u0206\u020f\7e\2\2\u0207\u020c\5\36\20\2\u0208\u0209\7q"+
 		"\2\2\u0209\u020b\5\36\20\2\u020a\u0208\3\2\2\2\u020b\u020e\3\2\2\2\u020c"+
 		"\u020a\3\2\2\2\u020c\u020d\3\2\2\2\u020d\u0210\3\2\2\2\u020e\u020c\3\2"+
 		"\2\2\u020f\u0207\3\2\2\2\u020f\u0210\3\2\2\2\u0210\u0211\3\2\2\2\u0211"+
-		"\u0213\7c\2\2\u0212\u0204\3\2\2\2\u0212\u0205\3\2\2\2\u0213W\3\2\2\2\u0214"+
-		"\u0215\5\\/\2\u0215\u021e\7b\2\2\u0216\u021b\5\36\20\2\u0217\u0218\7n"+
+		"\u0213\7f\2\2\u0212\u0204\3\2\2\2\u0212\u0205\3\2\2\2\u0213W\3\2\2\2\u0214"+
+		"\u0215\5\\/\2\u0215\u021e\7e\2\2\u0216\u021b\5\36\20\2\u0217\u0218\7q"+
 		"\2\2\u0218\u021a\5\36\20\2\u0219\u0217\3\2\2\2\u021a\u021d\3\2\2\2\u021b"+
 		"\u0219\3\2\2\2\u021b\u021c\3\2\2\2\u021c\u021f\3\2\2\2\u021d\u021b\3\2"+
 		"\2\2\u021e\u0216\3\2\2\2\u021e\u021f\3\2\2\2\u021f\u0220\3\2\2\2\u0220"+
-		"\u0221\7c\2\2\u0221Y\3\2\2\2\u0222\u0223\5^\60\2\u0223\u022c\7b\2\2\u0224"+
-		"\u0229\5\36\20\2\u0225\u0226\7n\2\2\u0226\u0228\5\36\20\2\u0227\u0225"+
+		"\u0221\7f\2\2\u0221Y\3\2\2\2\u0222\u0223\5^\60\2\u0223\u022c\7e\2\2\u0224"+
+		"\u0229\5\36\20\2\u0225\u0226\7q\2\2\u0226\u0228\5\36\20\2\u0227\u0225"+
 		"\3\2\2\2\u0228\u022b\3\2\2\2\u0229\u0227\3\2\2\2\u0229\u022a\3\2\2\2\u022a"+
 		"\u022d\3\2\2\2\u022b\u0229\3\2\2\2\u022c\u0224\3\2\2\2\u022c\u022d\3\2"+
-		"\2\2\u022d\u022e\3\2\2\2\u022e\u022f\7c\2\2\u022f[\3\2\2\2\u0230\u0231"+
+		"\2\2\u022d\u022e\3\2\2\2\u022e\u022f\7f\2\2\u022f[\3\2\2\2\u0230\u0231"+
 		"\t\r\2\2\u0231]\3\2\2\2\u0232\u0233\t\16\2\2\u0233_\3\2\2\2\u0234\u0235"+
-		"\7N\2\2\u0235\u0236\7\6\2\2\u0236\u0238\5\36\20\2\u0237\u0234\3\2\2\2"+
+		"\7Q\2\2\u0235\u0236\7\6\2\2\u0236\u0238\5\36\20\2\u0237\u0234\3\2\2\2"+
 		"\u0238\u023b\3\2\2\2\u0239\u0237\3\2\2\2\u0239\u023a\3\2\2\2\u023a\u023c"+
 		"\3\2\2\2\u023b\u0239\3\2\2\2\u023c\u023d\7\2\2\3\u023da\3\2\2\2:cjo\u008c"+
 		"\u009b\u00a5\u00ac\u00c2\u00db\u00de\u00e7\u00ea\u00ef\u00f8\u0100\u0107"+

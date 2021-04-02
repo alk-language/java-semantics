@@ -5,6 +5,7 @@ import ast.expr.AssignmentAST;
 import ast.expr.ExpressionAST;
 import ast.stmt.ExprStmtAST;
 import control.extractor.VarsBulkExtractor;
+import dataflow.CFGEdge;
 import dataflow.CFGNode;
 import dataflow.TransferFunction;
 import dataflow.domain.VariableSet;
@@ -13,8 +14,9 @@ public class LVarsTransferFunction
 implements TransferFunction<VariableSet>
 {
     @Override
-    public VariableSet get(CFGNode node, VariableSet input)
+    public VariableSet get(CFGEdge edge, VariableSet input)
     {
+        CFGNode node = edge.getInput();
         return get(node.getTree(), input);
     }
 

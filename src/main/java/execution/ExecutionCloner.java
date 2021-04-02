@@ -19,7 +19,7 @@ class ExecutionCloner
 
         Execution copy = new Execution(source.getConfig().clone(), source.getInterpreterManager().makeClone());
         copy.setStore(copyStore);
-        copy.setConditionPath(source.getPathCondition().makeClone());
+        copy.setPathCondition(source.getPathCondition().makeClone());
         Set<Location> sourceLocations = source.getStore().getLocations();
 
         for (Location loc : sourceLocations)

@@ -2,6 +2,7 @@ package control.extractor;
 
 import ast.AST;
 import dataflow.CFG;
+import dataflow.CFGEdge;
 import dataflow.CFGNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -34,8 +35,9 @@ public class CFGVisitor
                 }
             }
 
-            for (CFGNode output : first.getOutputs())
+            for (CFGEdge edge : first.getOutputs())
             {
+                CFGNode output = edge.getOutput();
                 if (visited.contains(output))
                     continue;
                 queue.addLast(output);

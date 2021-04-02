@@ -13,6 +13,7 @@ import execution.types.alkInt.AlkInt;
 import util.lambda.LocationGenerator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,6 +35,12 @@ extends AlkIterableValue
     public void push(Location loc)
     {
         array.add(loc);
+    }
+
+    @Override
+    public void shuffle()
+    {
+        Collections.shuffle(array);
     }
 
     public void push(AlkValue value, LocationGenerator generator)

@@ -2,6 +2,7 @@ package control;
 
 import ast.AST;
 import dataflow.CFG;
+import dataflow.CFGEdge;
 import dataflow.CFGNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import util.Pair;
@@ -30,84 +31,7 @@ implements CSGraph, CFG
     @Override
     public abstract String graphData();
 
-    public static class Node
-    implements CFGNode
-    {
-        private List<Node> inputs = new ArrayList<>();
-        private List<Node> outputs = new ArrayList<>();
-        private AST tree;
-        private String forcedText;
 
-        static Node getInput()
-        {
-            Node node = new Node(null);
-            node.forcedText = "input";
-            return node;
-        }
-
-        public static Node getOutput()
-        {
-            Node node = new Node(null);
-            node.forcedText = "output";
-            return node;
-        }
-
-        public Node(AST tree)
-        {
-            this.tree = tree;
-        }
-
-        public void appendOutput(Node y)
-        {
-            this.outputs.add(y);
-        }
-
-        public void appendInput(Node x)
-        {
-            this.inputs.add(x);
-        }
-
-        public List<Node> getPlainOutputs()
-        {
-            return outputs;
-        }
-
-        public List<CFGNode> getOutputs()
-        {
-            return new ArrayList<>(outputs);
-        }
-
-        public List<CFGNode> getInputs()
-        {
-            return new ArrayList<>(inputs);
-        }
-
-        public AST getTree()
-        {
-            return tree;
-        }
-
-        @Override
-        public String toString()
-        {
-            if (forcedText != null)
-            {
-                return forcedText;
-            }
-
-            if (tree == null)
-            {
-                throw new InternalException("Found CFG node without associated AST tree.");
-            }
-
-            return tree.getText();
-        }
-
-        public void forceText(String text)
-        {
-            forcedText = text;
-        }
-    }
 
     @Override
     public List<CFGNode> getNodes()
@@ -122,8 +46,9 @@ implements CSGraph, CFG
         {
             CFGNode first = queue.pollFirst();
             nodes.add(first);
-            for (CFGNode output : first.getOutputs())
+            for (CFGEdge outEdge : first.getOutputs())
             {
+                CFGNode output = outEdge.getOutput();
                 if (visited.contains(output))
                     continue;
 
@@ -136,9 +61,9 @@ implements CSGraph, CFG
     }
 
     @Override
-    public List<Pair<CFGNode, CFGNode>> getEdges()
+    public List<CFGEdge> getEdges()
     {
-        List<Pair<CFGNode, CFGNode> > edges = new ArrayList<>();
+        List<CFGEdge> edges = new ArrayList<>();
         Deque<CFGNode> queue = new ArrayDeque<>();
         Set<CFGNode> visited = new HashSet<>();
 
@@ -147,11 +72,12 @@ implements CSGraph, CFG
         while (!queue.isEmpty())
         {
             CFGNode first = queue.pollFirst();
-            for (CFGNode output : first.getOutputs())
+            for (CFGEdge outEdge : first.getOutputs())
             {
-                edges.add(new Pair<>(first, output));
+                CFGNode output = outEdge.getOutput();
+                edges.add(outEdge);
 
-                if (visited.contains(output))
+                if (visited.contains(output) || output == null)
                     continue;
 
                 queue.addLast(output);

@@ -1,9 +1,12 @@
 package util.functions;
 
+import execution.parser.exceptions.AlkException;
+import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
 import execution.helpers.Convertors;
 import execution.helpers.MathHelper;
 import execution.helpers.NonDeterministic;
+import execution.types.alkFloat.AlkFloat;
 import execution.types.alkInt.AlkInt;
 import execution.types.alkNotAValue.AlkNotAValue;
 import execution.types.alkSet.AlkSet;
@@ -125,6 +128,35 @@ public class Functions {
     {
         Location loc = generator.generate(ParamHelper.getValue(params, 0));
         return new AlkSet().insert(loc);
+    }
+
+    @BuiltInFunctionImpl(paramNumber = 1)
+    public AlkValue uniformfloat(List<AlkValue> params)
+    {
+        BigDecimal total = new BigDecimal(((AlkInt) ParamHelper.getValue(params, 0)).value);
+        total = total.multiply(new BigDecimal(10).pow(MAX_DECIMALS));
+        config.interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));
+        config.setProbabilistic(true);
+        return NonDeterministic.getRandom(new AlkInt(total.toBigInteger())).divide(new AlkFloat(total));
+    }
+
+    @BuiltInFunctionImpl(paramNumber = 0)
+    public AlkValue flip(List<AlkValue> params)
+    {
+        return NonDeterministic.getRandom(new AlkInt(2));
+    }
+
+    @BuiltInFunctionImpl(paramNumber = 1)
+    public AlkValue uniformperm(List<AlkValue> params)
+    {
+        AlkValue value = ParamHelper.getValue(params, 0);
+        if (!(value instanceof AlkIterableValue))
+        {
+            throw new AlkException("Can't apply uniform perm on non-iterable value!");
+        }
+        AlkIterableValue iterableValue = (AlkIterableValue) value.clone(generator);
+        iterableValue.shuffle();
+        return iterableValue;
     }
 
     @BuiltInFunctionImpl(paramNumber = 1)

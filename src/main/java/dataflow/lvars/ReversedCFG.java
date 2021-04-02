@@ -1,8 +1,10 @@
 package dataflow.lvars;
 
-import control.CFGNodeImpl;
 import control.ControlFlowGraph;
+import control.Edge;
+import control.Node;
 import dataflow.CFG;
+import dataflow.CFGEdge;
 import dataflow.CFGNode;
 import util.Pair;
 
@@ -11,12 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ReversedCFG implements CFG
+public class ReversedCFG
+implements CFG
 {
 
-    Map<CFGNode, CFGNodeImpl> mapping = new HashMap<>();
+    Map<CFGNode, Node> mapping = new HashMap<>();
     List<CFGNode> nodes = new ArrayList<>();
-    List<Pair<CFGNode, CFGNode>> edges = new ArrayList<>();
+    List<CFGEdge> edges = new ArrayList<>();
 
     CFGNode input;
     CFGNode output;
@@ -26,22 +29,23 @@ public class ReversedCFG implements CFG
     {
         for (CFGNode node : cfg.getNodes())
         {
-            CFGNodeImpl newNode = new CFGNodeImpl(node.getTree());
+            Node newNode = new Node(node.getTree());
             mapping.put(node, newNode);
             nodes.add(newNode);
         }
 
-        for (Pair<CFGNode, CFGNode> edge : cfg.getEdges())
+        for (CFGEdge edge : cfg.getEdges())
         {
-            CFGNode a = edge.x;
-            CFGNode b = edge.y;
+            CFGNode a = edge.getInput();
+            CFGNode b = edge.getOutput();
 
-            CFGNodeImpl na = mapping.get(a);
-            CFGNodeImpl nb = mapping.get(b);
+            Node na = mapping.get(a);
+            Node nb = mapping.get(b);
 
-            na.appendInput(nb);
-            nb.appendOutput(na);
-            edges.add(new Pair<>(nb, na));
+            Edge newEdge = new Edge(nb, na, edge.getEdgeData());
+            nb.appendOutput(newEdge);
+            na.appendInput(newEdge);
+            edges.add(newEdge);
         }
 
         this.input = mapping.get(cfg.getOutput());
@@ -66,7 +70,7 @@ public class ReversedCFG implements CFG
     }
 
     @Override
-    public List<Pair<CFGNode, CFGNode>> getEdges() {
+    public List<CFGEdge> getEdges() {
         return edges;
     }
 }

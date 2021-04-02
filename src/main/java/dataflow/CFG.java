@@ -10,5 +10,5 @@ public interface CFG
     CFGNode getOutput();
 
     List< CFGNode > getNodes();
-    List<Pair<CFGNode, CFGNode>> getEdges();
+    List< CFGEdge > getEdges();
 }

@@ -3,6 +3,7 @@ package dataflow.cpropag;
 import ast.AST;
 import ast.expr.AssignmentAST;
 import control.extractor.VarsBulkExtractor;
+import dataflow.CFGEdge;
 import dataflow.CFGNode;
 import dataflow.TransferFunction;
 import dataflow.domain.VarValue;
@@ -28,9 +29,9 @@ implements TransferFunction<VarValue>
     }
 
     @Override
-    public VarValue get(CFGNode node, VarValue input)
+    public VarValue get(CFGEdge edge, VarValue input)
     {
-        return get(node.getTree(), input);
+        return get(edge.getInput().getTree(), input);
     }
 
     public VarValue get(AST tree, VarValue input)

@@ -13,4 +13,5 @@ implements Iterable<Location>
     public abstract List<Location> toArray();
     public abstract void addAll(List<Location> locs);
     public abstract void push(Location loc);
+    public abstract void shuffle();
 }
