@@ -203,6 +203,7 @@ function_name :
     | ACOS
     | ATAN
     | COS
+    | FLIP
     | FLOAT
     | INTEGER
     | LEN
@@ -210,11 +211,13 @@ function_name :
     | PI
     | PRINT
     | POW
-    | RANDOM
     | SIN
     | SINGLETONSET
     | SQRT
     | TAN
+    | UNIFORMFLOAT
+    | UNIFORMNAT
+    | UNIFORMPERM
 ;
 
 //Also builtin function names

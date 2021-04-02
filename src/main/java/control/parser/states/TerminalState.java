@@ -1,6 +1,8 @@
 package control.parser.states;
 
 import ast.AST;
+import control.Edge;
+import control.Node;
 import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
@@ -9,7 +11,8 @@ import control.parser.CFGState;
 
 import java.util.Collections;
 
-public class TerminalState extends CFGState
+public class TerminalState
+extends CFGState
 {
     public TerminalState(AST tree, CFGPayload payload)
     {
@@ -19,9 +22,11 @@ public class TerminalState extends CFGState
     @Override
     public State<CFGPayload, CFGResult> makeStep()
     {
-        ControlFlowGraph.Node node = new ControlFlowGraph.Node(tree);
-        link(payload.getInputs(), Collections.singletonList(node));
-        setResult(new CFGResult(node));
+        Node node = new Node(tree);
+        link(payload.getInputs(), node);
+        Edge edge = new Edge(node, null, null);
+        node.appendOutput(edge);
+        setResult(new CFGResult(edge));
         return null;
     }
 

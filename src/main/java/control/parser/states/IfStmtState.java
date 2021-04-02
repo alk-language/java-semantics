@@ -1,6 +1,9 @@
 package control.parser.states;
 
 import ast.AST;
+import control.ConditionalEdgeData;
+import control.Edge;
+import control.Node;
 import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
@@ -8,22 +11,21 @@ import control.parser.CFGResult;
 import control.parser.CFGState;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class IfStmtState
 extends CFGState
 {
-    ControlFlowGraph.Node node;
+    Node node;
     boolean visitedLeft = false, visitedRight = false;
-    List<ControlFlowGraph.Node> outputs = new ArrayList<>();
+    List<Edge> outputs = new ArrayList<>();
 
     public IfStmtState(AST tree, CFGPayload payload)
     {
         super(tree, payload);
-        node = new ControlFlowGraph.Node(tree.getChild(0)); // expression
+        node = new Node(tree.getChild(0)); // expression
         node.forceText("if (" + node.toString() + ")");
-        link(payload.getInputs(), Collections.singletonList(node));
+        link(payload.getInputs(), node);
     }
 
     @Override
@@ -32,16 +34,22 @@ extends CFGState
         if (!visitedLeft)
         {
             visitedLeft = true;
-            return request(tree.getChild(1), new CFGPayload(node, payload.getInterpreterManager()));
+            Edge edge = new Edge(node, null, new ConditionalEdgeData(true));
+            node.appendOutput(edge);
+            return request(tree.getChild(1), new CFGPayload(edge, payload.getInterpreterManager()));
         }
-        if (tree.getChildCount() > 2 && !visitedRight) // statement
+        if (tree.getChildCount() > 2 && !visitedRight)
         {
             visitedRight = true;
-            return request(tree.getChild(2), new CFGPayload(node, payload.getInterpreterManager()));
+            Edge edge = new Edge(node, null, new ConditionalEdgeData(false));
+            node.appendOutput(edge);
+            return request(tree.getChild(2), new CFGPayload(edge, payload.getInterpreterManager()));
         }
         if (!visitedRight)
         {
-            outputs.add(node);
+            Edge edge = new Edge(node, null, new ConditionalEdgeData(false));
+            node.appendOutput(edge);
+            outputs.add(edge);
         }
         setResult(new CFGResult(outputs));
         return null;

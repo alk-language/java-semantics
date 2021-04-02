@@ -52,9 +52,6 @@ extends Thread
 
     private final StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
 
-    // -> foloseste interpretorul clasic de instructiuni + expresii
-    // -> foloseste interpretorul simbolic de instructiuni + expresii
-
     /**
      * Constructor with specific configuration
      *
@@ -290,7 +287,7 @@ extends Thread
         return conditionPath;
     }
 
-    public void setConditionPath(PathCondition pc)
+    public void setPathCondition(PathCondition pc)
     {
         this.conditionPath = pc;
     }

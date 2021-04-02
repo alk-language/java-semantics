@@ -15,7 +15,9 @@ import java.util.*;
 
 import static execution.parser.exceptions.AlkException.*;
 
-public class AlkSet extends AlkIterableValue  {
+public class AlkSet 
+extends AlkIterableValue
+{
 
     private Set<Location> set = new HashSet<>();
 
@@ -238,6 +240,12 @@ public class AlkSet extends AlkIterableValue  {
     public void push(Location loc)
     {
         insert(loc);
+    }
+
+    @Override
+    public void shuffle()
+    {
+        throw new AlkException("Can't shuffle a set!");
     }
 
     @Override

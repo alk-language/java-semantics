@@ -1,18 +1,21 @@
 package dataflow.domain;
 
 import ast.AST;
-import control.extractor.VarsBulkExtractor;
+import ast.enums.Operator;
+import ast.expr.UnaryAST;
+import control.EdgeData;
 import dataflow.Domain;
 import execution.BaseStatefulInterpreterManager;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
-import execution.interpreter.BaseStatefulStmtInterpreter;
 import execution.interpreter.SymbolicStatefulExpressionInterpreter;
+import execution.interpreter.SymbolicStatefulStmtInterpreter;
 import execution.parser.env.*;
 import execution.state.ExecutionState;
-import execution.utils.ExpressionEvaluator;
+import execution.utils.Stepper;
 import symbolic.SymbolicValue;
 import util.PathCondition;
+import util.exception.InternalException;
 import util.types.Storable;
 
 import java.util.ArrayList;
@@ -59,11 +62,11 @@ implements Domain
         this.paths.addAll(ctx.paths);
     }
 
-    public void notifyExpr(AST tree)
+    public void run(AST tree, EdgeData data)
     {
         for (ExecutionPath path : paths)
         {
-            path.notifyExpr(tree);
+            path.run(tree, data);
         }
     }
 
@@ -115,11 +118,28 @@ class ExecutionPath
         this.pc = path.pc.makeClone();
     }
 
-    public void notifyExpr(AST tree)
+    public void run(AST tree, EdgeData data)
     {
         BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager =
-                new BaseStatefulInterpreterManager<>(new SymbolicStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
-        ExpressionEvaluator.evaluate(tree, env, store, manager);
+                new BaseStatefulInterpreterManager<>(new SymbolicStatefulExpressionInterpreter(), new SymbolicStatefulStmtInterpreter());
+        Storable value = Stepper.run(tree, env, store, this.pc, manager);
+        if (data != null)
+        {
+            if (data.getCondition())
+            {
+                this.pc.add(SymbolicValue.toSymbolic(value));
+            }
+            else
+            {
+                SymbolicValue symVal = SymbolicValue.toSymbolic(value);
+                if (symVal == null)
+                {
+                    throw new InternalException("Unexpected error while symbolically evaluating a basic block!");
+                }
+                AST negatedAst = UnaryAST.createUnary(Operator.NOT, symVal.toAST());
+                this.pc.add(new SymbolicValue(negatedAst));
+            }
+        }
     }
 
     public String toString()

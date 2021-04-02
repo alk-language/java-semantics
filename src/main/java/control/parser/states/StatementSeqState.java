@@ -1,6 +1,7 @@
 package control.parser.states;
 
 import ast.AST;
+import control.Edge;
 import state.State;
 import control.ControlFlowGraph;
 import control.parser.CFGPayload;
@@ -13,7 +14,7 @@ import java.util.List;
 public class StatementSeqState
 extends CFGState
 {
-    private List<ControlFlowGraph.Node> currentTerminals;
+    private List<Edge> currentTerminals;
     private int step = 0;
 
     public StatementSeqState(AST tree, CFGPayload payload)
@@ -37,7 +38,7 @@ extends CFGState
     @Override
     public void assign(CFGResult result)
     {
-        List<ControlFlowGraph.Node> outputs = result.getValue();
+        List<Edge> outputs = result.getValue();
         if (outputs == null)
         {
             throw new InternalException("Null is not a valid value for the CFG.Node outputs");

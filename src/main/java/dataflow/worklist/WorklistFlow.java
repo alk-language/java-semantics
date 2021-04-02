@@ -1,7 +1,6 @@
 package dataflow.worklist;
 
 import dataflow.*;
-import util.Pair;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,10 +30,10 @@ extends Dataflow<T>
 
         while (!worklist.isEmpty())
         {
-            Pair<CFGNode, CFGNode> head = worklist.pollFirst();
-            CFGNode from = head.x;
-            CFGNode to = head.y;
-            T fromValue = fun.get(from, mapping.get(from));
+            CFGEdge head = worklist.pollFirst();
+            CFGNode from = head.getInput();
+            CFGNode to = head.getOutput();
+            T fromValue = fun.get(head, mapping.get(from));
             if (!lattice.compare(fromValue, mapping.get(to)))
             {
                 Set<T> set = new HashSet<>();
@@ -42,10 +41,10 @@ extends Dataflow<T>
                 set.add(fromValue);
                 mapping.put(to, lattice.getLUB(set));
 
-                to.getOutputs().forEach((node) -> {
-                    if (!worklist.contains(new Pair<>(to, node))) // TODO: optimize contains
+                to.getOutputs().forEach((edge) -> {
+                    if (!worklist.contains(edge))
                     {
-                        worklist.add(new Pair<>(to, node));
+                        worklist.add(edge);
                     }
                 });
             }

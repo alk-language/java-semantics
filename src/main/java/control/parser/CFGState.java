@@ -1,9 +1,12 @@
 package control.parser;
 
 import ast.AST;
+import control.Edge;
+import control.Node;
 import state.State;
 import control.ControlFlowGraph;
 
+import java.util.Collections;
 import java.util.List;
 
 public abstract class CFGState extends State<CFGPayload, CFGResult>
@@ -14,15 +17,17 @@ public abstract class CFGState extends State<CFGPayload, CFGResult>
         super(tree, payload, payload.getInterpreterManager());
     }
 
-    protected void link(List<ControlFlowGraph.Node> list1, List<ControlFlowGraph.Node> list2)
+    protected void link(Edge inputEdge, Node node)
     {
-        for (ControlFlowGraph.Node x : list1)
+        link(Collections.singletonList(inputEdge), node);
+    }
+
+    protected void link(List<Edge> inputEdges, Node node)
+    {
+        for (Edge edge : inputEdges)
         {
-            for (ControlFlowGraph.Node y : list2)
-            {
-                x.appendOutput(y);
-                y.appendInput(x);
-            }
+            edge.setOutput(node);
+            node.appendInput(edge);
         }
     }
 }

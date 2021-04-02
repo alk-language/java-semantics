@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface CFGNode
 {
-    List<CFGNode> getInputs();
-    List<CFGNode> getOutputs();
+    List<CFGEdge> getInputs();
+    List<CFGEdge> getOutputs();
     AST getTree();
     void forceText(String text);
 }

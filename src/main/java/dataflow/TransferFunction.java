@@ -2,5 +2,5 @@ package dataflow;
 
 public interface TransferFunction<T extends Domain>
 {
-    T get(CFGNode node, T input);
+    T get(CFGEdge node, T input);
 }

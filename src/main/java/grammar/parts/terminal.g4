@@ -90,7 +90,13 @@ TOPBACK : 'topBack';
 TOPFRONT : 'topFront';
 UPDATE : 'update';
 
-RANDOM : 'uniformNat';
+// Probabilistic functions
+UNIFORMNAT : 'uniformNat';
+FLIP : 'flip';
+UNIFORMFLOAT : 'uniformFloat';
+UNIFORMPERM : 'uniformPerm';
+
+
 SOTHAT : 's.t.';
 
 // Symbolic marker

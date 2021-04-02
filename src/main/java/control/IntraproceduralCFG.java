@@ -2,6 +2,7 @@ package control;
 
 import ast.AST;
 import control.parser.*;
+import dataflow.CFGEdge;
 import dataflow.CFGNode;
 import execution.BaseStatefulInterpreterManager;
 import execution.state.ExecutionState;
@@ -33,16 +34,18 @@ extends ControlFlowGraph
         StatefulInterpreterManager<CFGPayload, CFGResult, CFGState> interpreterManager = new BaseStatefulInterpreterManager<>(
                                                                                          new CFGExprInterpreter(),
                                                                                          new CFGStmtInterpreter());
-        CFGState state = interpreterManager.interpret(root, new CFGPayload(cfg.getInput(), interpreterManager));
+        Edge initialEdge = new Edge(cfg.getInput(), null, null);
+        cfg.getInput().appendOutput(initialEdge);
+        CFGState state = interpreterManager.interpret(root, new CFGPayload(initialEdge, interpreterManager));
         stack.push(state);
         stack.run();
-        List<CFGNode> lasts = cfg.getNodes();
-        for (CFGNode node : lasts)
+        List<CFGEdge> allEdges = cfg.getEdges();
+        for (CFGEdge edge : allEdges)
         {
-            if (node.getOutputs().size() == 0)
+            if (edge.getOutput() == null)
             {
-                ((Node) node).appendOutput(cfg.output);
-                cfg.output.appendInput((Node) node);
+                ((Edge) edge).setOutput(cfg.output);
+                cfg.output.appendInput((Edge) edge);
             }
         }
 
@@ -59,7 +62,7 @@ extends ControlFlowGraph
     public String graphData()
     {
         List<String> nodes = new ArrayList<>();
-        List<Pair<String, String> > edges = new ArrayList<>();
+        List<Edge> edges = new ArrayList<>();
         Deque<Node> queue = new ArrayDeque<>();
         Set<Node> visited = new HashSet<>();
 
@@ -69,9 +72,10 @@ extends ControlFlowGraph
         {
             Node first = queue.pollFirst();
             nodes.add(first.toString());
-            for (Node output : first.getPlainOutputs())
+            for (Edge edge : first.getPlainOutputs())
             {
-                edges.add(new Pair<>(first.toString(), output.toString()));
+                edges.add(edge);
+                Node output = (Node) edge.getOutput();
 
                 if (visited.contains(output))
                     continue;
@@ -85,9 +89,14 @@ extends ControlFlowGraph
         {
             sb.append("\"").append(node).append("\"").append('\n');
         }
-        for (Pair<String, String> edge : edges)
+        for (Edge edge : edges)
         {
-            sb.append("\"").append(edge.x).append("\" \"").append(edge.y).append("\"\n");
+            sb.append("\"").append(edge.getInput().toString()).append("\" \"").append(edge.getOutput().toString()).append("\" ");
+            if (edge.getEdgeData() != null)
+            {
+                sb.append(edge.getEdgeData().toString());
+            }
+            sb.append("\n");
         }
 
         return sb.toString();

@@ -17,7 +17,7 @@ implements StatefulStmtInterpreter<CFGPayload, CFGState>
     @Override
     public CFGState interpretBreak(AST ast, CFGPayload payload)
     {
-        throw new AlkException("Can't generate CFG for algorithms containing break statement.");
+        throw new AlkException("Can't generate CFG for algorithms containing break statement!");
     }
 
     @Override
