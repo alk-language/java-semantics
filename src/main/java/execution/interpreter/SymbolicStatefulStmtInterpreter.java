@@ -4,13 +4,26 @@ import ast.AST;
 import execution.ExecutionPayload;
 import execution.parser.exceptions.NotImplementedException;
 import execution.state.ExecutionState;
-import execution.state.symbolic.SymIfStmtState;
+import execution.state.symbolic.*;
 import visitor.stateful.StatefulStmtInterpreter;
 
 public class SymbolicStatefulStmtInterpreter
 implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
 {
-    private final StatefulStmtInterpreter<ExecutionPayload, ExecutionState> baseDelegate = new BaseStatefulStmtInterpreter();
+    private final StatefulStmtInterpreter<ExecutionPayload, ExecutionState> baseDelegate
+            = new BaseStatefulStmtInterpreter();
+
+    @Override
+    public ExecutionState interpretAssume(AST ast, ExecutionPayload payload)
+    {
+        return new SymbolicAssumeState(ast, payload);
+    }
+
+    @Override
+    public ExecutionState interpretAssert(AST ast, ExecutionPayload payload)
+    {
+        return new SymbolicAssertState(ast, payload);
+    }
 
     @Override
     public ExecutionState interpretBlock(AST ast, ExecutionPayload payload)
@@ -39,7 +52,7 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretDoWhile(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretDoWhile(ast, payload);
+        return baseDelegate.interpretDoWhile(ast, payload); // TODO: do symbolic
     }
 
     @Override
@@ -57,13 +70,13 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretFor(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretFor(ast, payload);
+        return baseDelegate.interpretFor(ast, payload); // TODO: do symbolic
     }
 
     @Override
     public ExecutionState interpretForEach(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretForEach(ast, payload);
+        return baseDelegate.interpretForEach(ast, payload); // TODO: do symbolic
     }
 
     @Override
@@ -81,7 +94,7 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretRepeatUntil(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretRepeatUntil(ast, payload);
+        return baseDelegate.interpretRepeatUntil(ast, payload); // TODO: do symbolic
     }
 
     @Override
@@ -103,6 +116,18 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     }
 
     @Override
+    public ExecutionState interpretSymbolicDecls(AST ast, ExecutionPayload payload)
+    {
+        return new SymbolicDeclsState(ast, payload);
+    }
+
+    @Override
+    public ExecutionState interpretSymbolicIdDecl(AST ast, ExecutionPayload payload)
+    {
+        return new SymbolicIdDeclState(ast, payload);
+    }
+
+    @Override
     public ExecutionState interpretUniform(AST ast, ExecutionPayload payload)
     {
         return baseDelegate.interpretUniform(ast, payload);
@@ -111,6 +136,7 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretWhile(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretWhile(ast, payload);
+        //return baseDelegate.interpretWhile(ast, payload); // TODO: do symbolic
+        return new SymbolicWhileState(ast, payload);
     }
 }

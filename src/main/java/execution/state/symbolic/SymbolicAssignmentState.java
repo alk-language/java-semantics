@@ -3,12 +3,15 @@ package execution.state.symbolic;
 import ast.AST;
 import ast.OperatorUtils;
 import ast.enums.Operator;
+import ast.symbolic.SelectAST;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
 import execution.exhaustive.SplitMapper;
 import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.state.statement.AssignmentState;
+import execution.types.alkNotAValue.AlkNotAValue;
+import symbolic.SymbolicExecutionPayload;
 import symbolic.SymbolicValue;
 import util.exception.UnimplementedException;
 
@@ -32,9 +35,14 @@ extends AssignmentState
     @Override
     public ExecutionState makeStep()
     {
-        if (leftSide == null || rightSide == null)
+        if (rightSide == null)
         {
-            return super.makeStep();
+            return (ExecutionState) super.request(tree.getChild(1), new SymbolicExecutionPayload(getExec(), getEnv(), false));
+        }
+
+        if (leftSide == null)
+        {
+            return (ExecutionState) super.request(tree.getChild(0), new SymbolicExecutionPayload(getExec(), getEnv(), true));
         }
 
         if (resultIsSymbolic())
@@ -42,16 +50,15 @@ extends AssignmentState
             try
             {
                 SymbolicValue rightValue = SymbolicValue.toSymbolic(rightSide.toRValue());
-                SymbolicValue leftValue = SymbolicValue.toSymbolic(leftSide.toRValue());
 
-                if (leftValue == null && op != Operator.ASSIGN)
+                if (leftSide.toRValue() == null && op != Operator.ASSIGN)
                 {
                     super.handle(new AlkException("Undefined variable in compound assignment!"));
                 }
 
-                if (leftValue != null && op != Operator.ASSIGN)
+                if (leftSide.toRValue() != null && op != Operator.ASSIGN)
                 {
-
+                    SymbolicValue leftValue = SymbolicValue.toSymbolic(leftSide.toRValue());
                     List<AST> children = new ArrayList<>();
                     children.add(leftValue.toAST());
                     children.add(rightValue.toAST());
@@ -71,7 +78,7 @@ extends AssignmentState
                     }
                 }
 
-                leftSide.assign(rightValue.clone(generator));
+                leftSide.setValue(rightValue.clone(generator));
                 setResult(new ExecutionResult(leftSide));
             }
             catch (AlkException e)

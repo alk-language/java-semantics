@@ -2,14 +2,16 @@ package parser;
 
 import ast.AST;
 import ast.attr.IdASTAttr;
-import ast.attr.OpsASTAttr;
 import ast.attr.ParamASTAttr;
 import ast.enums.ParamType;
-import ast.expr.FunctionCallAST;
 import ast.stmt.*;
+import ast.symbolic.SymbolicDeclsAST;
+import ast.symbolic.SymbolicIdDeclAST;
+import ast.type.ArrayDataTypeAST;
+import ast.type.FloatDataTypeAST;
+import ast.type.IntDataTypeAST;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import visitor.OperatorHelper;
 
 public class ParseTreeVisitor
 extends alkBaseVisitor<AST>
@@ -53,6 +55,85 @@ extends alkBaseVisitor<AST>
         }
         return stmtSeqAst;
     }
+
+    @Override
+    public AST visitToAssumeStmt(alkParser.ToAssumeStmtContext ctx)
+    {
+        return visit(ctx.assumeStmt());
+    }
+
+    @Override
+    public AST visitToAssertStmt(alkParser.ToAssertStmtContext ctx)
+    {
+        return visit(ctx.assertStmt());
+    }
+
+    @Override
+    public AST visitAssume(alkParser.AssumeContext ctx)
+    {
+        AST exprAST = exprVisitor.visit(ctx.expression());
+        AssumeAST assumeAST = new AssumeAST(ctx);
+        assumeAST.addChild(exprAST);
+        return assumeAST;
+    }
+
+    @Override
+    public AST visitAssert(alkParser.AssertContext ctx)
+    {
+        AST exprAST = exprVisitor.visit(ctx.expression());
+        AssertAST assertAST = new AssertAST(ctx);
+        assertAST.addChild(exprAST);
+        return assertAST;
+    }
+
+    @Override
+    public AST visitSymbolicDeclStmt(alkParser.SymbolicDeclStmtContext ctx)
+    {
+        return visit(ctx.symbolicStmt());
+    }
+
+    @Override
+    public AST visitSymbolicDecls(alkParser.SymbolicDeclsContext ctx)
+    {
+        AST symDeclsAST = new SymbolicDeclsAST(ctx);
+        for (int i = 0; i < ctx.symbolicDeclarator().size(); i++)
+        {
+            symDeclsAST.addChild(visit(ctx.symbolicDeclarator(i)));
+        }
+        return symDeclsAST;
+    }
+
+    @Override
+    public AST visitSymbolicIdDecl(alkParser.SymbolicIdDeclContext ctx)
+    {
+        AST symbIdAST = new SymbolicIdDeclAST(ctx);
+        IdASTAttr attr = new IdASTAttr(ctx.ID().getText());
+        symbIdAST.addAttribute(IdASTAttr.class, attr);
+        AST typeAST = visit(ctx.dataType());
+        symbIdAST.addChild(typeAST);
+        return symbIdAST;
+    }
+
+    @Override
+    public AST visitIntType(alkParser.IntTypeContext ctx)
+    {
+        return new IntDataTypeAST(ctx);
+    }
+
+    @Override
+    public AST visitFloatType(alkParser.FloatTypeContext ctx)
+    {
+        return new FloatDataTypeAST(ctx);
+    }
+
+    @Override
+    public AST visitArrayType(alkParser.ArrayTypeContext ctx)
+    {
+        AST tree = new ArrayDataTypeAST(ctx);
+        tree.addChild(visit(ctx.dataType()));
+        return tree;
+    }
+
 
     @Override
     public AST visitToChooseStmt(alkParser.ToChooseStmtContext ctx)

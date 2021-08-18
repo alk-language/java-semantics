@@ -9,21 +9,23 @@ import util.types.ASTRepresentable;
 import util.types.Storable;
 
 public class SymbolicValue
-implements SymbolicValueIface,
-           ASTRepresentable
+implements ExclusiveSymbolicValue
 {
     AST ast;
+    ASTSimplifier simplifier = new ASTSimplifier();
 
     public SymbolicValue(AST ast)
     {
-        this.ast = ast;
+        this.ast = ast.accept(simplifier);
     }
 
     public static SymbolicValue toSymbolic(Storable value)
     {
+        value = value.toRValue();
+
         if (value == null)
         {
-            return null;
+            throw new InternalException("Value is null when converting to symbolic");
         }
 
         if (value instanceof ASTRepresentable)
@@ -37,13 +39,15 @@ implements SymbolicValueIface,
     @Override
     public Storable weakClone(LocationMapper locationMapper)
     {
-        return new SymbolicValue(this.ast);
+        ASTCloner cloner = new ASTCloner(locationMapper);
+        return new SymbolicValue(this.ast.accept(cloner));
     }
 
     @Override
     public Storable clone(LocationGenerator generator)
     {
-        return new SymbolicValue(this.ast);
+        ASTCloner cloner = new ASTCloner(generator);
+        return new SymbolicValue(this.ast.accept(cloner));
     }
 
     @Override

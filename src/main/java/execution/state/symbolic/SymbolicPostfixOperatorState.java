@@ -4,7 +4,6 @@ import ast.AST;
 import ast.enums.Operator;
 import ast.expr.AdditiveAST;
 import ast.expr.IntAST;
-import ast.expr.UnaryAST;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
@@ -41,7 +40,7 @@ extends BasePostfixOperatorState
                 case MINUSMINUSRIGHT:
                     result = new SymbolicValue(AdditiveAST.createBinary(Operator.SUBTRACT, children)); break;
             }
-            value.toLValue().assign(result);
+            value.toLValue().setValue(result);
             return initial.clone(generator);
         }
         else

@@ -3,7 +3,9 @@ package visitor.ifaces;
 import visitor.ifaces.stmt.*;
 
 public interface StmtVisitorIface<T>
-extends BlockVisitorIface<T>,
+extends AssumeVisitorIface<T>,
+        AssertVisitorIface<T>,
+        BlockVisitorIface<T>,
         BreakVisitorIface<T>,
         ChooseVisitorIface<T>,
         ContinueVisitorIface<T>,
@@ -18,6 +20,8 @@ extends BlockVisitorIface<T>,
         ReturnStmtVisitorIface<T>,
         StmtSeqVisitorIface<T>,
         SuccessVisitorIface<T>,
+        SymbolicDeclsVisitorIface<T>,
+        SymbolicIdDeclVisitorIface<T>,
         UniformVisitorIface<T>,
         WhileVisitorIface<T>
 {

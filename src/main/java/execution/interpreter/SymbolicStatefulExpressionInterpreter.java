@@ -1,12 +1,15 @@
 package execution.interpreter;
 
 import ast.AST;
+import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
 import ast.enums.Operator;
 import ast.enums.Primitive;
 import execution.ExecutionPayload;
 import execution.parser.exceptions.NotImplementedException;
 import execution.state.ExecutionState;
+import execution.state.function.BuiltInFunctionState;
+import execution.state.function.DefinedFunctionCallState;
 import execution.state.symbolic.*;
 import util.exception.InternalException;
 import visitor.stateful.StatefulExpressionInterpreter;
@@ -50,14 +53,20 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState evaluateMethod(AST ast, ExecutionPayload payload)
     {
-        throw new NotImplementedException("Methods can't be symbolically evaluated!");
+        return new SymbolicFactorPointMethodState(ast, payload);
     }
 
     @Override
     public ExecutionState evaluateFunction(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.evaluateFunction(ast, payload);
-        // throw new NotImplementedException("Function calls can't be symbolically evaluated!");
+        if (ast.hasAttribute(BuiltInFunctionASTAttr.class))
+        {
+            return new SymbolicBuiltInFunctionState(ast, payload);
+        }
+        else
+        {
+            return baseDelegate.evaluateFunction(ast, payload);
+        }
     }
 
     @Override
@@ -89,5 +98,11 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     {
         return baseDelegate.interpretComposite(primitive, ast, payload);
         // throw new NotImplementedException("Composite values can't be symbolically evaluated!");
+    }
+
+    @Override
+    public void interpretAnno(AST ast, ExecutionPayload payload)
+    {
+
     }
 }

@@ -23,12 +23,12 @@ public class ExecutionStack extends ASTStack<ExecutionState>
         return super.pop();
     }
 
-    ExecutionStateMapper cloneStates(Execution master, LocationMapper locMapping, EnvironmentMapper envMapper) {
+    ExecutionStateMapper cloneStates(Execution master, LocationMapper locMapping, EnvironmentMapper envMapper)
+    {
         ExecutionStateMapper mapping = new ExecutionStateMapper();
 
         for (ExecutionState state : stack)
         {
-            // TODO this is for sure not good, why give bad environment?
             SplitMapper sm = new SplitMapper(master, locMapping, envMapper);
             mapping.put(state, state.clone(sm));
         }

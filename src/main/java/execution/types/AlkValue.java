@@ -19,7 +19,7 @@ import static execution.parser.exceptions.AlkException.*;
 public abstract class AlkValue
 implements Comparable<AlkValue>,
         ConcreteValue,
-           ASTRepresentable
+        ASTRepresentable
 {
     /** Describes the type of the current value, can have one of the following:
      * TODO: replace the type with instance of checker

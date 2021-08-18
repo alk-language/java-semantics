@@ -1,6 +1,6 @@
 package visitor.stateful;
 
-import execution.parser.env.AlkFunction;
+import ast.AST;
 import state.Payload;
 import state.State;
 import ast.enums.Primitive;
@@ -213,5 +213,10 @@ implements ExpressionVisitorIface<S>
     public StatefulExpressionInterpreter<T, S> getInterpreter()
     {
         return this.expressionInterpreter;
+    }
+
+    public void anno(AST tree)
+    {
+        expressionInterpreter.interpretAnno(tree, payload);
     }
 }

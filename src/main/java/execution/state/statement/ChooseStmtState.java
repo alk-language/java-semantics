@@ -1,23 +1,17 @@
 package execution.state.statement;
 
 import ast.AST;
-import ast.attr.IdASTAttr;
 import execution.Execution;
 import execution.ExecutionResult;
 import execution.parser.exceptions.FailureException;
 import execution.state.ExecutionState;
-import execution.parser.env.EnvironmentProxy;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
 import execution.types.AlkIterableValue;
-import execution.types.AlkValue;
-import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
-import execution.types.alkInt.AlkInt;
 import execution.helpers.NonDeterministic;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import util.types.Storable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -69,7 +63,7 @@ extends ExecutionState
 
         if (!selected && !getConfig().hasExhaustive())
         {
-            target.assign(NonDeterministic.choose(source).toRValue().clone(generator));
+            target.setValue(NonDeterministic.choose(source).toRValue().clone(generator));
             selected = true;
             if (tree.getChildCount() > 2 && !checked)
             {
@@ -82,11 +76,11 @@ extends ExecutionState
             for (int i = 1; i < source.size(); i++)
             {
                 Execution current = getExec();
-                target.assign(source.get(i).toRValue().clone(generator));
+                target.setValue(source.get(i).toRValue().clone(generator));
                 Execution next = current.clone();
                 next.start();
             }
-            target.assign(source.get(0).toRValue().clone(generator));
+            target.setValue(source.get(0).toRValue().clone(generator));
         }
 
         if (uniform)

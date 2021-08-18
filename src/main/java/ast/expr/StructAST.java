@@ -17,7 +17,7 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return "{" + AST.getCSV(this) + "}";
+        return "{" + AST.getSV(this, " ") + "}";
     }
 
     @Override

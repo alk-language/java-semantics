@@ -17,12 +17,16 @@ import static execution.parser.exceptions.AlkException.*;
 
 public class Invoker {
 
-    public static Storable invokeMethod(String methodName, Location loc, List<Storable> params, LocationGenerator generator)
+    public static Storable invokeMethod(String methodName,
+                                        Location loc,
+                                        List<Storable> params,
+                                        LocationGenerator generator,
+                                        FunctionsSolver solver)
     {
         try
         {
             methodName = NameMapper.processBuiltInName(methodName);
-            Method method = Methods.class.getMethod(methodName, Location.class, List.class, LocationGenerator.class);
+            Method method = solver.solve(methodName);
 
             if (method.getAnnotation(BuiltInMethod.class) == null)
                 throw new InternalException("Reflection is calling upon a not built-in annotated method.");
@@ -38,8 +42,6 @@ public class Invoker {
                 throw new AlkException(ERR_PARAM_NUMBER);
 
             return (Storable) method.invoke(null, loc, params, generator);
-        } catch (NoSuchMethodException e) {
-            throw new AlkException(ERR_METHOD);
         }
         catch (IllegalAccessException | InvocationTargetException e) {
             Exception cause = (Exception) e.getCause();

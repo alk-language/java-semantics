@@ -42,24 +42,45 @@ extends ExecutionState
 
         try
         {
-            AlkValue leftValue = (AlkValue) leftSide.getValue();
             AlkValue rightValue = (AlkValue) rightSide.toRValue();
-            switch (op)
+            if (op != Operator.ASSIGN)
             {
-                case ASSIGN: break;
-                case PLUS_ASSIGN: rightValue = leftValue.add(rightValue, generator); break;
-                case MINUS_ASSIGN: rightValue = leftValue.subtract(rightValue); break;
-                case MULTIPLY_ASSIGN: rightValue = leftValue.multiply(rightValue); break;
-                case DIVIDE_ASSIGN: rightValue = leftValue.divide(rightValue); break;
-                case MOD_ASSIGN: rightValue = leftValue.mod(rightValue); break;
-                case LSHIFT_ASSSIGN: rightValue = leftValue.shiftleft(rightValue); break;
-                case RSHIFT_ASSIGN: rightValue = leftValue.shiftright(rightValue); break;
-                case LOR_ASSIGN: rightValue = leftValue.bitwiseor(rightValue); break;
-                case LAND_ASSIGN: rightValue = leftValue.bitwiseand(rightValue); break;
-                default: throw new UnimplementedException("Unimplemented assignment operator: " + op);
+                AlkValue leftValue = (AlkValue) leftSide.getValue();
+                switch (op)
+                {
+                    case PLUS_ASSIGN:
+                        rightValue = leftValue.add(rightValue, generator);
+                        break;
+                    case MINUS_ASSIGN:
+                        rightValue = leftValue.subtract(rightValue);
+                        break;
+                    case MULTIPLY_ASSIGN:
+                        rightValue = leftValue.multiply(rightValue);
+                        break;
+                    case DIVIDE_ASSIGN:
+                        rightValue = leftValue.divide(rightValue);
+                        break;
+                    case MOD_ASSIGN:
+                        rightValue = leftValue.mod(rightValue);
+                        break;
+                    case LSHIFT_ASSSIGN:
+                        rightValue = leftValue.shiftleft(rightValue);
+                        break;
+                    case RSHIFT_ASSIGN:
+                        rightValue = leftValue.shiftright(rightValue);
+                        break;
+                    case LOR_ASSIGN:
+                        rightValue = leftValue.bitwiseor(rightValue);
+                        break;
+                    case LAND_ASSIGN:
+                        rightValue = leftValue.bitwiseand(rightValue);
+                        break;
+                    default:
+                        throw new UnimplementedException("Unimplemented assignment operator: " + op);
+                }
             }
 
-            leftSide.assign(rightValue.clone(generator));
+            leftSide.setValue(rightValue.clone(generator));
             setResult(new ExecutionResult(leftSide));
         }
         catch (AlkException e)
@@ -82,6 +103,7 @@ extends ExecutionState
             }
             return;
         }
+
         if (leftSide == null)
         {
             leftSide = executionResult.getValue().toLValue();

@@ -2,6 +2,7 @@ package parser;
 
 import ast.*;
 import ast.attr.*;
+import ast.enums.Anno;
 import ast.expr.*;
 import ast.expr.AssignmentAST;
 import grammar.alkBaseVisitor;
@@ -9,6 +10,7 @@ import grammar.alkParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.CompoundValueRepresentation;
 import ast.enums.Operator;
+import visitor.AnnoHelper;
 import visitor.BuiltInFunctionHelper;
 import visitor.BuiltInMethodHelper;
 import visitor.OperatorHelper;
@@ -225,6 +227,17 @@ extends alkBaseVisitor<AST>
     public AST visitToPostfixExpression(alkParser.ToPostfixExpressionContext ctx)
     {
         return visit(ctx.postfix_expression());
+    }
+
+    @Override
+    public AST visitAnnoFactor(alkParser.AnnoFactorContext ctx)
+    {
+        AST expr = visit(ctx.expression());
+        String annoText = ctx.anno().getText();
+        AnnoAttr attr = new AnnoAttr();
+        attr.add(AnnoHelper.textToEnum(annoText));
+        expr.addAttribute(AnnoAttr.class, attr);
+        return expr;
     }
 
     @Override

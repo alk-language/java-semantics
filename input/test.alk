@@ -1,1 +1,42 @@
-print(uniformPerm([1..10]));
+symbolic $a : int, $b : int;
+
+a = 2 + $a;
+b = $b;
+if (a > b)
+{
+    a = b;
+}
+
+// Lattice: f(SYM) -> TYPES* U T U B
+// LUB(S): {\forall s \in SYM | s |-> ^(f(s)) \forall f \in S }
+    1) $a |-> {Int, Float}
+    2) $a |-> {Int}
+    $a |-> {Int}
+// Transfer function:
+tf(node):
+    node is expression => extract(expression)
+        s[_] => type(s) \in { Array<T> }
+        s . _ => type(s) \in { Struct }
+        s + _ => type(s) \in { Int, Float, String }
+        s - _, s * _, s / _, s >> _, s << _  => type(s) \in { Int, Float }
+        _[s], s % _ => type(s) \in {Int}
+        s U _, s ^ _, s \ _ => type(s) \in (Set<Top>)
+
+choose x in $a; => $a |-> { Array<type(x)> }
+
+Array, List, Set |-> Array(select, store)
+
+// Iota: f($x) -> T, \forall $x
+    $a |-> T
+    $b |-> T
+
+a = $a;
+a[2]++;
+
+a |-> { Array<T> }
+a |-> B
+
+s[3] + 1
+type(s[3]) \in { Int, Float }
+type(s) \in { Array<Int>, Array<Float> }
+type(3) \int { Int }

@@ -25,6 +25,7 @@ public class ForState extends CFGState
         link(payload.getInputs(), initNode);
 
         condition = new Node(tree.getChild(1)); // condition
+        condition.setLoop(true);
         Edge edge = new Edge(initNode, null, null);
         initNode.appendOutput(edge);
         link(edge, condition);

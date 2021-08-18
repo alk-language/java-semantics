@@ -3,6 +3,7 @@ package util;
 import execution.parser.exceptions.AlkException;
 import io.IOManager;
 import util.exception.AlkIOException;
+import util.exception.InternalException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -54,5 +55,10 @@ public class ErrorManager
         em.attach(io);
         em.attach(op);
         return em;
+    }
+
+    public void handleError(InternalException e)
+    {
+        io.write("Internal exception detected. Please report the error!");
     }
 }

@@ -48,8 +48,8 @@ public class OperatorUtils
             case LOGICALOR: return LogicalOrAST.createBinary(op, children);
             case LOGICALAND: return LogicalAndAST.createBinary(op, children);
             case IN: return InExprAST.createBinary(op, children);
-            case EQUAL: case NOTEQUAL: case LOWER:
-            case LOWEREQ: case GREATER: case GREATEREQ: return EqualityAST.createBinary(op, children);
+            case EQUAL: case NOTEQUAL: return EqualityAST.createBinary(op, children);
+            case LOWER: case LOWEREQ: case GREATER: case GREATEREQ: return RelationalAST.createBinary(op, children);
             case UNION: case INTERSECT: case SETSUBTRACT: return SetExprAST.createBinary(op, children);
             case BITWISEOR: case BITWISEXOR: return BitwiseOrAST.createBinary(op, children);
             case BITWISEAND: return BitwiseAndAST.createBinary(op, children);

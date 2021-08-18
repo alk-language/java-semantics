@@ -8,14 +8,14 @@ import execution.parser.exceptions.NoSuchFunctionException;
 import execution.state.ExecutionState;
 import execution.state.GeneratorState;
 import execution.parser.exceptions.AlkException;
-import execution.types.AlkValue;
 import execution.exhaustive.NameMapper;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
-import execution.types.alkNotAValue.AlkNotAValue;
+import util.FunctionsSolver;
 import util.exception.InternalException;
 import util.functions.BuiltInFunctionImpl;
 import util.functions.Functions;
+import util.types.Storable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,9 +27,10 @@ import static execution.parser.exceptions.AlkException.ERR_PARAM_NUMBER;
 public class BuiltInFunctionState
 extends GeneratorState
 {
-    private final List<AlkValue> params = new ArrayList<>();
-    private final BuiltInFunction function;
-    private final Functions functions;
+    protected final List<Storable> params = new ArrayList<>();
+    protected final BuiltInFunction function;
+    protected final Functions functions;
+    protected FunctionsSolver fSolver;
 
     public BuiltInFunctionState(AST tree, ExecutionPayload executionPayload)
     {
@@ -38,32 +39,59 @@ extends GeneratorState
         functions = new Functions(executionPayload.getConfiguration(), generator);
     }
 
+    public BuiltInFunctionState(BuiltInFunctionState copy, SplitMapper sm)
+    {
+        super(copy, sm);
+        for (Storable value : this.params)
+        {
+            params.add(value.weakClone(sm.getLocationMapper()));
+        }
+        this.function = copy.function;
+        functions = new Functions(payload.getConfiguration(), generator);
+    }
+
     @Override
     public void assign(ExecutionResult executionResult)
     {
         checkNotNull(executionResult.getValue());
-        params.add((AlkValue) executionResult.getValue().toRValue());
+        params.add(executionResult.getValue().toRValue());
+    }
+
+    protected void setDefaultSolver()
+    {
+        fSolver = (functionName) ->
+        {
+            try
+            {
+                return Functions.class.getMethod(functionName, List.class);
+            }
+            catch (NoSuchMethodException e)
+            {
+                super.handle(new NoSuchFunctionException(functionName));
+            }
+            return null;
+        };
     }
 
     @Override
-    public AlkValue getFinalResult()
+    public Storable getFinalResult()
     {
         String functionName = NameMapper.processBuiltInName(function.toString());
         try
         {
-            Method method = Functions.class.getMethod(functionName, List.class);
+            if (fSolver == null)
+            {
+                setDefaultSolver();
+            }
+            Method method = fSolver.solve(functionName);
 
             if (method.getAnnotation(BuiltInFunctionImpl.class) == null)
                 throw new InternalException("Reflection is calling upon a not built-in annotated function.");
 
             if (method.getAnnotation(BuiltInFunctionImpl.class).paramNumber() != params.size())
-                throw new AlkException(ERR_PARAM_NUMBER);
+                super.handle(new AlkException(ERR_PARAM_NUMBER));
 
-            return (AlkValue) method.invoke(functions, params);
-        }
-        catch (NoSuchMethodException e)
-        {
-            super.handle(new NoSuchFunctionException(functionName));
+            return (Storable) method.invoke(functions, params);
         }
         catch (IllegalAccessException | InvocationTargetException e )
         {
@@ -72,14 +100,13 @@ extends GeneratorState
                 super.handle((AlkException) cause);
             throw new InternalException((Exception) e.getCause());
         }
-        return null;
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm) {
 
         BuiltInFunctionState copy = new BuiltInFunctionState(tree, payload.clone(sm));
-        for (AlkValue value : this.params)
+        for (Storable value : this.params)
         {
             copy.params.add(value.weakClone(sm.getLocationMapper()));
         }

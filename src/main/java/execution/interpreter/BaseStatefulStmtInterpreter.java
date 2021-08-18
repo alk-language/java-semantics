@@ -2,16 +2,30 @@ package execution.interpreter;
 
 import ast.AST;
 import execution.ExecutionPayload;
+import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.state.function.FunctionDeclState;
 import execution.state.function.ReturnState;
 import execution.state.statement.StatementSeqState;
 import execution.state.statement.*;
+import util.exception.InternalException;
 import visitor.stateful.StatefulStmtInterpreter;
 
 public class BaseStatefulStmtInterpreter
 implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
 {
+
+    @Override
+    public ExecutionState interpretAssume(AST ast, ExecutionPayload payload)
+    {
+        return new AssumeState(ast, payload);
+    }
+
+    @Override
+    public ExecutionState interpretAssert(AST tree, ExecutionPayload payload)
+    {
+        return new AssertState(tree, payload);
+    }
 
     @Override
     public ExecutionState interpretBlock(AST ast, ExecutionPayload payload)
@@ -101,6 +115,18 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     public ExecutionState interpretSuccess(AST ast, ExecutionPayload payload)
     {
         return new SuccessState(ast, payload);
+    }
+
+    @Override
+    public ExecutionState interpretSymbolicDecls(AST ast, ExecutionPayload payload)
+    {
+        throw new InternalException("Can't interpret symbolic value declaration in concrete execution!");
+    }
+
+    @Override
+    public ExecutionState interpretSymbolicIdDecl(AST ast, ExecutionPayload payload)
+    {
+        throw new InternalException("Can't interpret symbolic value declaration in concrete execution!");
     }
 
     @Override

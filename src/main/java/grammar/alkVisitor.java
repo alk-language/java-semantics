@@ -139,6 +139,76 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpressionStmt(alkParser.ExpressionStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SymbolicDeclStmt}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSymbolicDeclStmt(alkParser.SymbolicDeclStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToAssumeStmt}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToAssumeStmt(alkParser.ToAssumeStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToAssertStmt}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToAssertStmt(alkParser.ToAssertStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Assume}
+	 * labeled alternative in {@link alkParser#assumeStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssume(alkParser.AssumeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Assert}
+	 * labeled alternative in {@link alkParser#assertStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssert(alkParser.AssertContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SymbolicDecls}
+	 * labeled alternative in {@link alkParser#symbolicStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSymbolicDecls(alkParser.SymbolicDeclsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SymbolicIdDecl}
+	 * labeled alternative in {@link alkParser#symbolicDeclarator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSymbolicIdDecl(alkParser.SymbolicIdDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IntType}
+	 * labeled alternative in {@link alkParser#dataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntType(alkParser.IntTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FloatType}
+	 * labeled alternative in {@link alkParser#dataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFloatType(alkParser.FloatTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArrayType}
+	 * labeled alternative in {@link alkParser#dataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayType(alkParser.ArrayTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Include}
 	 * labeled alternative in {@link alkParser#directive}.
 	 * @param ctx the parse tree
@@ -397,6 +467,20 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParanthesesFactor(alkParser.ParanthesesFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AnnoFactor}
+	 * labeled alternative in {@link alkParser#base_factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnnoFactor(alkParser.AnnoFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CountAnno}
+	 * labeled alternative in {@link alkParser#anno}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCountAnno(alkParser.CountAnnoContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alkParser#value}.
 	 * @param ctx the parse tree

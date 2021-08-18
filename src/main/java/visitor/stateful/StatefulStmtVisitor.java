@@ -1,6 +1,7 @@
 package visitor.stateful;
 
-import execution.parser.env.AlkFunction;
+import ast.symbolic.SymbolicDeclsAST;
+import ast.symbolic.SymbolicIdDeclAST;
 import state.Payload;
 import state.State;
 import ast.stmt.*;
@@ -20,6 +21,18 @@ implements StmtVisitorIface<S>
     public void setPayload(T payload)
     {
         this.payload = payload;
+    }
+
+    @Override
+    public S visit(AssumeAST tree)
+    {
+        return stmtInterpreter.interpretAssume(tree, payload);
+    }
+
+    @Override
+    public S visit(AssertAST tree)
+    {
+        return stmtInterpreter.interpretAssert(tree, payload);
     }
 
     @Override
@@ -128,4 +141,18 @@ implements StmtVisitorIface<S>
     {
         return this.stmtInterpreter;
     }
+
+    @Override
+    public S visit(SymbolicDeclsAST tree)
+    {
+        return stmtInterpreter.interpretSymbolicDecls(tree, payload);
+    }
+
+    @Override
+    public S visit(SymbolicIdDeclAST tree)
+    {
+        return stmtInterpreter.interpretSymbolicIdDecl(tree, payload);
+    }
+
+
 }

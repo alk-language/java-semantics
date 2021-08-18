@@ -9,6 +9,7 @@ import execution.parser.env.Environment;
 import execution.parser.env.StoreImpl;
 import execution.state.ExecutionState;
 import state.Result;
+import symbolic.SymbolicExecutionPayload;
 import util.Configuration;
 import util.PathCondition;
 import util.types.Storable;
@@ -27,9 +28,9 @@ public class Stepper
         Execution exec = new Execution(dummyConfig, manager);
         exec.setStore(store);
         exec.setGlobal(env);
-        exec.setPathCondition(pathCondition);
+        exec.setPathCondition(pathCondition == null ? new PathCondition() : pathCondition);
 
-        ExecutionPayload payload = new ExecutionPayload(exec, exec.getGlobal());
+        SymbolicExecutionPayload payload = new SymbolicExecutionPayload(exec, exec.getGlobal(), false);
         ExecutionState state = exec.getInterpreterManager().interpret(root, payload);
         ASTStack<ExecutionState> stack = new ASTStack<>(null);
         stack.push(state);

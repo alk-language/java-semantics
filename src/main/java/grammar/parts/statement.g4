@@ -30,6 +30,37 @@ statement
     | foreach_struct                                                                                                    #ToForEach
 
     | expression SEMICOLON                                                                                              #ExpressionStmt
+    | symbolicStmt SEMICOLON                                                                                            #SymbolicDeclStmt
+
+    | assumeStmt SEMICOLON                                                                                              #ToAssumeStmt
+    | assertStmt SEMICOLON                                                                                              #ToAssertStmt
+;
+
+assumeStmt
+:
+    ASSUME expression                                                                                                   #Assume
+;
+
+assertStmt
+:
+    ASSERT expression                                                                                                   #Assert
+;
+
+symbolicStmt
+:
+    SYMBOLIC symbolicDeclarator (COMMA symbolicDeclarator)*                                                             #SymbolicDecls
+;
+
+symbolicDeclarator
+:
+    SYM ID DPOINT dataType                                                                                              #SymbolicIdDecl
+;
+
+dataType
+:
+    INTEGER                                                                                                             #IntType
+    | FLOAT                                                                                                             #FloatType
+    | ARRAY LOWER dataType GREATER                                                                                      #ArrayType
 ;
 
 directive
@@ -80,7 +111,7 @@ foreach_struct
 
 function_decl
 :
-    ID LPAR (param (COMMA param)*)? RPAR ((MODIFIES | USES) ID (COMMA ID)*)? statement_block                                     #FunctionDecl
+    ID LPAR (param (COMMA param)*)? RPAR ((MODIFIES | USES) ID (COMMA ID)*)? statement_block                            #FunctionDecl
 ;
 
 param

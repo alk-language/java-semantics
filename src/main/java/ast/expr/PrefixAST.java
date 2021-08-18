@@ -1,6 +1,7 @@
 package ast.expr;
 
 import ast.AST;
+import ast.OperatorUtils;
 import ast.attr.OpsASTAttr;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
@@ -31,7 +32,7 @@ extends ExpressionAST
         OpsASTAttr attr = getAttribute(OpsASTAttr.class);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i <attr.getOpCount(); i++)
-            sb.append(attr.getOp(i));
+            sb.append(OperatorUtils.toString(attr.getOp(i)));
         sb.append(super.getChild(0).toString());
         return sb.toString();
     }

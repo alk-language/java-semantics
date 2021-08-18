@@ -11,4 +11,5 @@ public interface CFGNode
     List<CFGEdge> getOutputs();
     AST getTree();
     void forceText(String text);
+    boolean isLoop();
 }

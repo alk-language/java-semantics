@@ -1,6 +1,5 @@
 package ast.expr;
 
-import ast.AST;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.BuiltInFunctionVisitorIface;
@@ -16,7 +15,7 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return "Builtin Function";
+        return "Builtin-Function";
     }
 
     @Override

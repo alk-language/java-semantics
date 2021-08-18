@@ -67,4 +67,10 @@ implements StatefulExpressionInterpreter<CFGPayload, CFGState>
     {
         return null;
     }
+
+    @Override
+    public void interpretAnno(AST ast, CFGPayload payload)
+    {
+
+    }
 }

@@ -1,7 +1,6 @@
 package ast;
 
 import ast.attr.ASTAttr;
-import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
 import org.antlr.v4.runtime.ParserRuleContext;
 import util.exception.InternalException;
@@ -50,14 +49,24 @@ implements Visitable
 
     protected static String getCSV(AST ast)
     {
+        return getSV(ast, ",");
+    }
+
+    protected static String getSV(AST ast, String separator)
+    {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ast.getChildCount(); i++)
         {
             sb.append(ast.getChild(i).toString());
             if (i < ast.getChildCount() - 1)
-                sb.append(",");
+                sb.append(separator);
         }
         return sb.toString();
+    }
+
+    public Map<Class<? extends ASTAttr>, ASTAttr> getAttrs()
+    {
+        return new HashMap<>(attrs);
     }
 
     public void addChild(AST child)
@@ -105,6 +114,7 @@ implements Visitable
         {
             throw new InternalException("Can't get a string representation for this AST");
         }
+
         return ctx.getText();
     }
 
@@ -130,5 +140,25 @@ implements Visitable
     public boolean hasAttribute(Class<?> clazz)
     {
         return attrs.containsKey(clazz);
+    }
+
+    public ParserRuleContext getCtx()
+    {
+        return ctx;
+    }
+
+    public void setAttrs(Map<Class<? extends ASTAttr>, ASTAttr> attrs)
+    {
+        this.attrs = attrs;
+    }
+
+    public void setText(String text)
+    {
+        this.text = text;
+    }
+
+    public boolean hasText()
+    {
+        return text != null || (ctx != null && ctx.getText() != null);
     }
 }
