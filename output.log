@@ -1,11 +1,11 @@
-execution.parser.exceptions.AlkException: No function with this name and this number of parameters is defined: size
-	at execution.state.ExecutionState.handle(ExecutionState.java:62)
-	at execution.state.expression.FactorPointMethodState.getFinalResult(FactorPointMethodState.java:79)
-	at execution.state.expression.FactorPointMethodState.getFinalResult(FactorPointMethodState.java:23)
-	at execution.state.GeneratorState.makeStep(GeneratorState.java:49)
-	at execution.state.GeneratorState.makeStep(GeneratorState.java:13)
-	at ast.ASTStack.makeStep(ASTStack.java:82)
-	at ast.ASTStack.run(ASTStack.java:42)
-	at execution.Execution.execute(Execution.java:145)
-	at execution.Execution.run(Execution.java:180)
-Error at [3:4]: No function with this name and this number of parameters is defined: size
+a |-> $a
+
+Note that the execution was symbolic.
+Path condition: !((select $a 1)==1) ($a : array<int>)
+
+a |-> $a
+x |-> 2
+
+Note that the execution was symbolic.
+Path condition: ((select $a 1)==1) ($a : array<int>)
+

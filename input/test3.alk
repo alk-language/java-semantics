@@ -1,3 +1,6 @@
 symbolic $a : array<int>;
 a = $a;
-x = a.size();
+if (a[1] == 1)
+{
+    x = 2;
+}
