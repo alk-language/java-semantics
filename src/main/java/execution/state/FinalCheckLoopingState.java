@@ -3,6 +3,7 @@ package execution.state;
 import ast.AST;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import execution.types.alkBool.AlkBool;
 
 public abstract class FinalCheckLoopingState
 extends LoopingState
@@ -20,7 +21,7 @@ extends LoopingState
         if (firstTime)
         {
             checkedCondition = true;
-            validCondition = processValidity(true);
+            validCondition = processValidity(new AlkBool(true));
             firstTime = false;
         }
 

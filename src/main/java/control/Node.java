@@ -15,6 +15,7 @@ implements CFGNode
     private final List<Edge> outputs = new ArrayList<>();
     private final AST tree;
     private String forcedText;
+    private boolean loop = false;
 
     static Node getInput()
     {
@@ -84,5 +85,16 @@ implements CFGNode
     public void forceText(String text)
     {
         forcedText = text;
+    }
+
+    public void setLoop(boolean loop)
+    {
+        this.loop = loop;
+    }
+
+    @Override
+    public boolean isLoop()
+    {
+        return loop;
     }
 }

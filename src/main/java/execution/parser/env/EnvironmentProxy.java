@@ -1,10 +1,10 @@
 package execution.parser.env;
 
-import execution.Execution;
 import util.types.Storable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 public class EnvironmentProxy
@@ -25,7 +25,7 @@ implements Environment
         if (variables.containsKey(id))
             store.set(variables.get(id), value);
         else
-            variables.put(id, store.malloc().assign(value));
+            variables.put(id, store.malloc().setValue(value));
     }
 
     @Override
@@ -70,6 +70,24 @@ implements Environment
         for (Map.Entry<String, Location> entry : variables.entrySet())
             copyEnv.variables.put(entry.getKey(), locMapping.get(entry.getValue()));
         return copyEnv;
+    }
+
+    @Override
+    public String toString()
+    {
+        return target.toString();
+    }
+
+    @Override
+    public String toString(int padding)
+    {
+        return target.toString();
+    }
+
+    @Override
+    public Set<String> getVariables()
+    {
+        return target.getVariables();
     }
 
     @Override

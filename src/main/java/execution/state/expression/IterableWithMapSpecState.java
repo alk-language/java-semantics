@@ -11,7 +11,6 @@ import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.types.AlkIterableValue;
-import execution.types.AlkValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkList.AlkList;
 import execution.types.alkSet.AlkSet;
@@ -88,7 +87,7 @@ extends ExecutionState
         }
         else
         {
-            iterableValue.push(getStore().malloc().assign(resultVal.clone(generator)));
+            iterableValue.push(getStore().malloc().setValue(resultVal.clone(generator)));
         }
     }
 

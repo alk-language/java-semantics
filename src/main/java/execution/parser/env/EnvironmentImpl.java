@@ -6,6 +6,7 @@ import util.types.Storable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class EnvironmentImpl
 implements Environment
@@ -46,7 +47,7 @@ implements Environment
         if (variables.containsKey(id))
             store.set(variables.get(id), value);
         else
-            variables.put(id, store.malloc().assign(value));
+            variables.put(id, store.malloc().setValue(value));
     }
 
 
@@ -60,7 +61,7 @@ implements Environment
         if (variables.containsKey(id))
             store.set(variables.get(id), value);
         else
-            variables.put(id, store.malloc().assign(value));
+            variables.put(id, store.malloc().setValue(value));
     }
 
     public boolean has(String id)
@@ -71,12 +72,30 @@ implements Environment
     @Override
     public String toString()
     {
+        return this.toString(0);
+    }
+
+    @Override
+    public String toString(int padding)
+    {
         StringBuilder returnable = new StringBuilder();
+        StringBuilder pad = new StringBuilder();
+        for (int i=0; i < padding; i++)
+        {
+            pad.append(" ");
+        }
         for (Map.Entry<String, Location> i : variables.entrySet())
         {
+            returnable.append(pad);
             returnable.append(i.getKey()).append(" |-> ").append(store.get(i.getValue())).append('\n');
         }
-        return returnable.toString().trim();
+        return pad.append(returnable.toString().trim()).toString();
+    }
+
+    @Override
+    public Set<String> getVariables()
+    {
+        return variables.keySet();
     }
 
     public Environment makeClone(LocationMapper locMapping, StoreImpl store)
@@ -88,6 +107,5 @@ implements Environment
         }
         return copyEnv;
     }
-
 
 }

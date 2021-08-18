@@ -25,6 +25,7 @@ extends CFGState
         super(tree, payload);
         node = new Node(tree.getChild(0));
         node.forceText("do-while (" + node.toString() + ")");
+        node.setLoop(true);
     }
 
     @Override

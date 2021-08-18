@@ -8,6 +8,7 @@ import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
 import execution.state.statement.IfStmtState;
+import smt.SMTHelper;
 import symbolic.SymbolicValue;
 
 public class SymIfStmtState
@@ -40,9 +41,16 @@ extends IfStmtState
                 Execution elseExec = getExec().clone();
                 AST ast = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) condition.toRValue()).toAST());
                 elseExec.getPathCondition().add(new SymbolicValue(ast));
-                elseExec.start();
+                if (SMTHelper.validatePathCondition(elseExec.getConfig(), elseExec.getPathCondition()))
+                {
+                    elseExec.start();
+                }
 
                 getExec().getPathCondition().add((SymbolicValue) condition.toRValue());
+                if (!SMTHelper.validatePathCondition(getExec().getConfig(), getExec().getPathCondition()))
+                {
+                    getExec().halt();
+                }
                 return request(tree.getChild(1));
             }
             else
@@ -51,11 +59,18 @@ extends IfStmtState
                 Execution elseExec = getExec().clone();
                 AST ast = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) condition.toRValue()).toAST());
                 elseExec.getPathCondition().add(new SymbolicValue(ast));
-                elseExec.start();
+                if (SMTHelper.validatePathCondition(elseExec.getConfig(), elseExec.getPathCondition()))
+                {
+                    elseExec.start();
+                }
 
                 shouldExecuteElse = false;
                 executed = true;
                 getExec().getPathCondition().add((SymbolicValue) condition.toRValue());
+                if (!SMTHelper.validatePathCondition(getExec().getConfig(), getExec().getPathCondition()))
+                {
+                    getExec().halt();
+                }
                 return request(tree.getChild(1));
             }
         }

@@ -15,6 +15,10 @@ fragment NONDIGIT: [a-zA-Z_];
 fragment DIGIT: [0-9];
 fragment NONZERODIGIT: [1-9];
 
+ASSERT: 'assert';
+ASSUME: 'assume';
+SYMBOLIC: 'symbolic';
+
 //Cofiguration
 TO: '|->';
 
@@ -65,6 +69,9 @@ TAN : 'tan';
 //String Functions
 LEN : 'len';
 
+//Data types
+ARRAY : 'array';
+
 //Builtin Functions
 AT : 'at';
 BELONGSTO : 'belongsTo';
@@ -105,6 +112,10 @@ SYM : '$';
 //Structure
 ARROW : '->';
 NUMSIGN : '#';
+ANNO : '@';
+
+//Anno Count
+COUNT : 'Count';
 
 //Set Operators
 UNION : 'U';

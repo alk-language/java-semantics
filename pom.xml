@@ -10,6 +10,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.microsoft.z3</groupId>
+            <artifactId>Z3</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/com.microsoft.z3.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4</artifactId>
             <version>4.7.1</version>

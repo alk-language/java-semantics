@@ -1,5 +1,6 @@
 package execution;
 
+import execution.helpers.AnnoHelper;
 import state.Payload;
 import execution.exhaustive.SplitMapper;
 import execution.parser.env.Environment;
@@ -10,8 +11,8 @@ public class ExecutionPayload
 extends Payload
 {
 
-    private final Execution execution;
-    private final Environment env;
+    protected final Execution execution;
+    protected final Environment env;
 
     public ExecutionPayload(Execution execution, Environment env)
     {
@@ -34,8 +35,18 @@ extends Payload
         return execution.getConfiguration();
     }
 
+    public AnnoHelper getAnnoHelper()
+    {
+        return execution.getAnnoHelper();
+    }
+
     public ExecutionPayload clone(SplitMapper sm)
     {
         return new ExecutionPayload(sm.getNewExecution(), sm.getEnvironmentMapper().get(this.env));
+    }
+
+    public ExecutionPayload duplicate(Execution exec, Environment env)
+    {
+        return new ExecutionPayload(exec, env);
     }
 }

@@ -1,6 +1,7 @@
 package execution;
 
 import ast.AST;
+import ast.attr.AnnoAttr;
 import ast.expr.ExpressionAST;
 import state.Payload;
 import state.Result;
@@ -33,6 +34,10 @@ implements StatefulInterpreterManager<T, S, U>
         if (tree instanceof ExpressionAST)
         {
             expressionVisior.setPayload(payload);
+            if (tree.hasAttribute(AnnoAttr.class))
+            {
+                expressionVisior.anno(tree);
+            }
             state = tree.accept(expressionVisior);
         }
         else

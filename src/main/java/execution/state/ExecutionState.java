@@ -25,6 +25,12 @@ extends State<ExecutionPayload, ExecutionResult>
         generator = (Storable value) -> getStore().generate(value);
     }
 
+    public ExecutionState(ExecutionState copy, SplitMapper sm)
+    {
+        super(copy.tree, copy.payload.clone(sm), sm.getNewExecution().getInterpreterManager());
+        generator = (Storable value) -> getStore().generate(value);
+    }
+
     protected ExecutionState decorate(ExecutionState copy, SplitMapper sm)
     {
         if (getResult() != null)
@@ -46,7 +52,7 @@ extends State<ExecutionPayload, ExecutionResult>
 
     protected ExecutionState request(AST tree, Environment env)
     {
-        return (ExecutionState) super.request(tree, new ExecutionPayload(getExec() , env));
+        return (ExecutionState) super.request(tree, payload.duplicate(getExec(), env));
     }
 
     public boolean handle(AlkException e)

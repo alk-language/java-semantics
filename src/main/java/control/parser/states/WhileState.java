@@ -23,6 +23,7 @@ public class WhileState extends CFGState
         super(tree, payload);
         node = new Node(tree.getChild(0)); // expression
         node.forceText("while (" + node.toString() + ")");
+        node.setLoop(true);
         link(payload.getInputs(), node);
         this.ctx = tree;
     }

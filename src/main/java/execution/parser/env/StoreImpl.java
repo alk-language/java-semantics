@@ -2,8 +2,6 @@ package execution.parser.env;
 
 import util.types.Storable;
 
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -44,7 +42,9 @@ implements Store
         }
         else
         {
-            return malloc().assign(value.clone(this));
+            return malloc().setValue(value.clone(this));
         }
     }
 }
+
+// store : Location -> Storable (Value)

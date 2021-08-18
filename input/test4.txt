@@ -1,0 +1,45 @@
+swap(out a, i, j) {
+  temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}
+
+partition(out a, p, q) {
+  x = a[p] ; 
+  i = p + 1;
+  j = q;
+  while (i <= j) {
+    if (a[i] <= x) i = i+1;
+    else if (a[j] >= x) j = j-1;
+    else if (a[i] > x && x > a[j]) {
+      swap(a, i, j);
+      i = i+1;
+      j = j-1;
+    }
+  }
+  k = i-1;
+  a[p] = a[k];
+  a[k] = x;
+  return k;
+}
+
+qsort(out a, p, q) {
+  if (p < q) {
+    k = partition(a, p, q);
+    qsort(a, p, k-1);
+    qsort(a, k+1, q);
+  }
+}
+
+n=3;
+symbolic $b : array<int>;
+b=$b;
+
+qsort(b, 0, n-1);
+
+for (i = 1; i < n; i++)
+{
+    assert b[i - 1] < b[i];
+}
+
+(select array position)

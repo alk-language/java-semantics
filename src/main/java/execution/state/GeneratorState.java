@@ -4,6 +4,7 @@ import ast.AST;
 import execution.ExecutionResult;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import execution.state.function.BuiltInFunctionState;
 import util.lambda.Validator;
 import util.types.Storable;
 
@@ -20,6 +21,14 @@ extends ExecutionState
     {
         super(tree, executionPayload);
         this.children = tree.getChildren();
+    }
+
+    public GeneratorState(GeneratorState copy, SplitMapper sm)
+    {
+        super(copy, sm);
+        this.children = tree.getChildren();
+        step = copy.step;
+        stopped = copy.stopped;
     }
 
     protected void stopGenerator()

@@ -17,6 +17,8 @@ extends ExecutionState
     protected final AST condition;
     protected final AST body;
 
+    protected Storable conditionValue;
+
     protected boolean checkedCondition = false;
     protected boolean validCondition = false;
     protected boolean broke = false;
@@ -36,6 +38,7 @@ extends ExecutionState
     {
         if (broke)
         {
+            setResult(new ExecutionResult(null));
             return null;
         }
 
@@ -44,7 +47,7 @@ extends ExecutionState
             return request(condition);
         }
 
-        if (!processValidity(validCondition))
+        if (!processValidity(conditionValue))
         {
             setResult(new ExecutionResult(null));
             return null;
@@ -53,9 +56,17 @@ extends ExecutionState
         return request(body);
     }
 
-    protected boolean processValidity(boolean validCondition)
+    protected boolean processValidity(Storable conditionValue)
     {
-        return validCondition;
+        if (conditionValue instanceof AlkBool)
+        {
+            AlkBool bool = (AlkBool) conditionValue;
+            return bool.isTrue();
+        }
+        else
+        {
+            return super.handle(new AlkException("Condition in loop must be boolean."));
+        }
     }
 
     @Override
@@ -64,16 +75,7 @@ extends ExecutionState
         if (!checkedCondition)
         {
             checkedCondition = true;
-            Storable decide = executionResult.getValue().toRValue();
-            if (decide instanceof AlkBool)
-            {
-                AlkBool bool = (AlkBool) decide;
-                validCondition = bool.isTrue();
-            }
-            else
-            {
-                super.handle(new AlkException("Condition in loop must be boolean."));
-            }
+            conditionValue = executionResult.getValue().toRValue();
         }
         else
         {

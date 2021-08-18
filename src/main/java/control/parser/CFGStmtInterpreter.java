@@ -9,6 +9,18 @@ public class CFGStmtInterpreter
 implements StatefulStmtInterpreter<CFGPayload, CFGState>
 {
     @Override
+    public CFGState interpretAssume(AST ast, CFGPayload payload)
+    {
+        return new TerminalState(ast, payload);
+    }
+
+    @Override
+    public CFGState interpretAssert(AST tree, CFGPayload payload)
+    {
+        return new TerminalState(tree, payload);
+    }
+
+    @Override
     public CFGState interpretBlock(AST ast, CFGPayload payload)
     {
         return null;
@@ -94,6 +106,18 @@ implements StatefulStmtInterpreter<CFGPayload, CFGState>
 
     @Override
     public CFGState interpretSuccess(AST ast, CFGPayload payload)
+    {
+        return new TerminalState(ast, payload);
+    }
+
+    @Override
+    public CFGState interpretSymbolicDecls(AST ast, CFGPayload payload)
+    {
+        return new TerminalState(ast, payload);
+    }
+
+    @Override
+    public CFGState interpretSymbolicIdDecl(AST ast, CFGPayload payload)
     {
         return new TerminalState(ast, payload);
     }

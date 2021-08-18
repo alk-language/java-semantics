@@ -12,7 +12,7 @@ implements Lattice<ProgramContext>
     @Override
     public boolean compare(ProgramContext a, ProgramContext b)
     {
-        return false; // TODO: a <= b
+        return b.includes(a);
     }
 
     @Override

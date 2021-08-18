@@ -1,21 +1,25 @@
 package execution.interpreter;
 
 import ast.AST;
+import ast.attr.AnnoAttr;
 import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
 import ast.attr.RepresentationASTAttr;
+import ast.enums.Anno;
 import ast.enums.CompoundValueRepresentation;
 import ast.enums.Operator;
 import ast.enums.Primitive;
 import execution.ExecutionPayload;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
-import execution.state.expression.FactorPointMethod;
+import execution.state.expression.FactorPointMethodState;
 import execution.state.function.BuiltInFunctionState;
 import execution.state.function.DefinedFunctionCallState;
 import execution.state.statement.AssignmentState;
 import util.exception.InternalException;
 import visitor.stateful.StatefulExpressionInterpreter;
+
+import java.util.List;
 
 public class BaseStatefulExpressionInterpreter
 implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
@@ -72,7 +76,7 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState evaluateMethod(AST ast, ExecutionPayload payload)
     {
-        return new FactorPointMethod(ast, payload);
+        return new FactorPointMethodState(ast, payload);
     }
 
     @Override
@@ -115,6 +119,20 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
             default:
                 throw new InternalException("Unrecognized compound data type representation: " + repr);
         }
+    }
+
+    @Override
+    public void interpretAnno(AST ast, ExecutionPayload payload)
+    {
+        AnnoAttr attr = ast.getAttribute(AnnoAttr.class);
+        List<Anno> annos = attr.getAnnos();
+        for (Anno anno : annos)
+        {
+            switch (anno) {
+                case COUNT: payload.getAnnoHelper().count(ast); return;
+            }
+        }
+        throw new InternalException("Unidentified or inexistent anno to analyze!");
     }
 
 }

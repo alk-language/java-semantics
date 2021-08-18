@@ -17,4 +17,5 @@ public interface StatefulExpressionInterpreter<T extends Payload, S extends Stat
     S interpretSymId(AST ast, T payload);
     S interpretPrimitive(Primitive primitive, AST ast, T payload);
     S interpretComposite(Primitive primitive, AST ast, T payload);
+    void interpretAnno(AST ast, T payload);
 }

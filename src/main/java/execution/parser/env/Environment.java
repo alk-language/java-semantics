@@ -2,6 +2,8 @@ package execution.parser.env;
 
 import util.types.Storable;
 
+import java.util.Set;
+
 public interface Environment
 {
     Location getLocation(String str);
@@ -12,5 +14,7 @@ public interface Environment
     StoreImpl getStore();
 
     Environment makeClone(LocationMapper locMapping, StoreImpl store);
-    String toString();
+    String toString(int padding);
+
+    Set<String> getVariables();
 }

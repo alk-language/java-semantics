@@ -1,6 +1,6 @@
 package ast.expr;
 
-import ast.AST;
+import ast.attr.IdASTAttr;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.ComponentVisitorIface;
@@ -25,7 +25,8 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return super.getChild(0) + "->" + super.getChild(1);
+        IdASTAttr attr = getAttribute(IdASTAttr.class);
+        return attr.getId() + "->" + super.getChild(0);
     }
 
 }

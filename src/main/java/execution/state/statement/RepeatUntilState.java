@@ -5,6 +5,7 @@ import execution.state.ExecutionState;
 import execution.state.FinalCheckLoopingState;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import util.types.Storable;
 
 public class RepeatUntilState
 extends FinalCheckLoopingState
@@ -15,9 +16,9 @@ extends FinalCheckLoopingState
     }
 
     @Override
-    protected boolean processValidity(boolean validCondition)
+    protected boolean processValidity(Storable validCondition)
     {
-        return !validCondition;
+        return !super.processValidity(validCondition);
     }
 
     @Override

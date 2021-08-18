@@ -2,6 +2,7 @@ package execution;
 
 import ast.AST;
 import execution.exhaustive.EnvironmentMapper;
+import execution.helpers.AnnoHelper;
 import execution.parser.env.LocationMapper;
 import execution.state.ExecutionState;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -15,6 +16,7 @@ import execution.parser.exceptions.AlkException;
 import parser.ParseTreeGlobals;
 import util.*;
 import util.exception.InternalException;
+import util.exception.SymbolicallyImposibleException;
 import visitor.stateful.StatefulExpressionInterpreter;
 import visitor.stateful.StatefulInterpreterManager;
 import visitor.stateful.StatefulStmtInterpreter;
@@ -52,6 +54,8 @@ extends Thread
 
     private final StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
 
+    private AnnoHelper annoHelper;
+
     /**
      * Constructor with specific configuration
      *
@@ -76,6 +80,7 @@ extends Thread
         funcManager = new FuncManager();
         interpreterManager = manager;
         conditionPath = new PathCondition();
+        annoHelper = new AnnoHelper();
     }
 
     private boolean initialize()
@@ -143,6 +148,7 @@ extends Thread
         if (config.hasMetadata())
         {
             config.getIOManager().write(global.toString());
+            config.getIOManager().write(annoHelper.toString());
             if (config.hasStaticVerif())
             {
                 config.getIOManager().write("Note that the execution was symbolic.");
@@ -183,6 +189,9 @@ extends Thread
                 e.printStackTrace();
             }
         }
+        catch (SymbolicallyImposibleException ignored)
+        {
+        }
         catch (InternalException e)
         {
             if (((OptionProvider) config).hasDebugMode())
@@ -190,6 +199,7 @@ extends Thread
                 // TODO: make use of em
                 e.printStackTrace();
             }
+            config.getErrorManager().handleError(e);
         }
         finally
         {
@@ -290,5 +300,15 @@ extends Thread
     public void setPathCondition(PathCondition pc)
     {
         this.conditionPath = pc;
+    }
+
+    public AnnoHelper getAnnoHelper()
+    {
+        return annoHelper;
+    }
+
+    public void halt()
+    {
+        throw new SymbolicallyImposibleException();
     }
 }

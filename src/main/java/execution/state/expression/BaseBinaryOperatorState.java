@@ -70,7 +70,7 @@ extends GuardedGeneratorState
 
         if (op.equals(Operator.BRACKET) && current.toLValue().isUnknown())
         {
-            current.toLValue().assign(new AlkArray());
+            current.toLValue().setValue(new AlkArray());
         }
 
         current = current.toRValue();

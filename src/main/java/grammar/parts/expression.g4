@@ -94,6 +94,12 @@ base_factor
     ref_name                                                                                                            #RefNameFactor
     | value                                                                                                             #ValueFactor
     | LPAR expression RPAR                                                                                              #ParanthesesFactor
+    | ANNO anno LPAR expression RPAR                                                                                    #AnnoFactor
+;
+
+anno
+:
+    COUNT                                                                                                               #CountAnno
 ;
 
 value

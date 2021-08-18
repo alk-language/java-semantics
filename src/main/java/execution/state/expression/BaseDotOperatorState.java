@@ -28,7 +28,7 @@ extends SingleState
         Location reference = value.toLValue();
         if (reference.isUnknown())
         {
-            reference.assign(new AlkStructure());
+            reference.setValue(new AlkStructure());
         }
 
         return ((AlkValue) reference.toRValue()).dot(id, generator);

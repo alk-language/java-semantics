@@ -1,0 +1,111 @@
+symbolic $a : array<int>; // list, set, struct
+symbolic $l : list<int>;
+symbolic $s : set<int>;
+symbolic $st : struct<x : int, y : array<int>>;
+
+st = $st;
+st.x = 2;
+st.y = 2;
+
+
+// size     -> back, top, pushBack, pushFront
+
+x = true ? a : b;
+
+x = 2 in a; // in : (Value, Value) -> Bool
+// choose x from a;
+
+foreach x from a
+{
+    print(x);
+}
+
+g(a, value)
+{
+    return forall i from x :: i < value;
+    return exists i from x :: i < value;
+}
+
+// size($a) > $i && $a == symbArr(a)
+a[$i] = $x;
+// a == (store old(a) $i $x)
+
+// $l == symbArr(l)
+// l |-> (store $l 1 2)
+l.pushBack($x);
+// $l2 == symbArr(l) && l2 == (store l right($l) $x) && left($l2) == left($l) && right($l2) = right($l) + 1
+// l |-> (store (store $l2 1 2) right($l) $x)
+
+// insert
+// $l == symbArr(l)
+l.insert(2, 5); l[2] |-> 5
+// $l2 == symbArr(l) && left($l2) == left($l) && right($l2) = right($l) + 1
+
+
+
+// l = left($l) && r = right($l)
+
+
+a[$i] = a[1];
+a[$j] = a[2];
+x = a[3];
+// pc && a.size() == $i && $i > $j
+// pc && a.size() == $j && $i < $j
+
+assume $a.size() < 10; // pc
+a[11] = $x; // pc && $a.size() > 11
+
+assert a.size() == 4; // 4
+
+// (store (store $a 2 (select $a 1)) 3 (select $a 2))
+// size = pozitia maxima la care se face un store
+
+/*symbolic $a : array<int>;
+
+n = 4;
+a = $a;
+
+for (i = 1; i < n; i++)
+{
+    j = i;
+    while (j - 1 >= 0 && a[j - 1] > a[j])
+    {
+        temp = a[j];
+        a[j] = a[j - 1];
+        a[j - 1] = temp;
+        j--;
+    }
+}
+
+for (i = 1; i < n; i++)
+{
+    assert a[i - 1] <= a[i];
+}*/
+
+// assume expr;
+// C: ignore assume
+// S: pc :: expr
+
+// assert expr;
+// C: daca expr == false atunci "Assert failed."
+// S: pc -> expr este SAT <=> pc && !x este UNSAT
+//     - UNSAT continua executia
+//     - SAT
+
+// 2 ^ n
+// n
+
+
+// assume a[0] > a[1];
+// c = 1;
+// assume $n <= 3; // ignoram in executa concreta -> warning
+
+// assert x; // pc -> x si pc sat
+
+// pc -> x :sat
+// !(pc -> x) :unsat
+// pc && !x :unsat
+
+// a[2] = 5
+
+// (store $a 2 loc)

@@ -27,6 +27,11 @@ implements ConcreteValue
         return store.get(this);
     }
 
+    public Location setValue(Storable value) {
+        store.set(this, value);
+        return this;
+    }
+
     @Override
     public Location clone(LocationGenerator generator) {
         throw new InternalException("Can't deep clone a location");
@@ -44,11 +49,6 @@ implements ConcreteValue
 
     @Override
     public Location toLValue() {
-        return this;
-    }
-
-    public Location assign(Storable value) {
-        store.set(this, value);
         return this;
     }
 
