@@ -37,7 +37,7 @@
     ```
 It is strongly recommended to include the folder `Linux_Mac` or `Windows` in the PATH environment variable. This allow to call the the interpreter without mentioning the path to its location.
     
-Consult the [reference manual](../../wiki/Reference-Manual) to review the Alk syntax.
+Read the [reference manual](../../wiki/Reference-Manual) to review the Alk syntax.
 Also consider the [Alk-by example](../../wiki/Alk-by-examples) wiki to understand how Alk behaves in real-scenarios.
 
 # Set Alk in PATH system variable
