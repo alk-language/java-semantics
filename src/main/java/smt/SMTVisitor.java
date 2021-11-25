@@ -1,35 +1,43 @@
 package smt;
 
+import ast.attr.BuiltInFunctionASTAttr;
+import ast.attr.BuiltInMethodASTAttr;
 import ast.attr.OpsASTAttr;
+import ast.attr.RepresentationASTAttr;
+import ast.enums.BuiltInMethod;
+import ast.enums.CompoundValueRepresentation;
+import ast.enums.Operator;
 import ast.expr.*;
 import ast.symbolic.SelectAST;
 import ast.symbolic.StoreAST;
-import com.microsoft.z3.Context;
-import com.microsoft.z3.Expr;
-import com.microsoft.z3.Goal;
+import ast.symbolic.ValidSelectAST;
+import ast.symbolic.ValidStoreAST;
+import ast.type.ArrayDataTypeAST;
+import ast.type.SetDataTypeAST;
+import com.microsoft.z3.*;
 import execution.parser.exceptions.AlkException;
 import util.exception.InternalException;
+import util.exception.SMTUnexpectedException;
 import util.exception.SMTUnimplementedException;
+import util.types.ASTRepresentable;
 import visitor.ifaces.ExpressionVisitorIface;
 import visitor.ifaces.symbolic.SelectVisitorIface;
 import visitor.ifaces.symbolic.StoreVisitorIface;
-
-import java.util.Map;
+import visitor.ifaces.symbolic.ValidSelectVisitorIface;
+import visitor.ifaces.symbolic.ValidStoreVisitorIface;
 
 public class SMTVisitor
 implements ExpressionVisitorIface<Expr>,
            StoreVisitorIface<Expr>,
-           SelectVisitorIface<Expr>
+           SelectVisitorIface<Expr>,
+           ValidStoreVisitorIface<Expr>,
+           ValidSelectVisitorIface<Expr>
 {
-    private final Context ctx;
-    private final Goal g;
-    private final Map<String, Expr<?>> ids;
+    private final AlkSMTContext alkCtx;
 
-    public SMTVisitor(Context ctx, Goal g, Map<String, Expr<?>> ids)
+    public SMTVisitor(AlkSMTContext alkCtx)
     {
-        this.ctx = ctx;
-        this.ids = ids;
-        this.g = g;
+        this.alkCtx = alkCtx;
     }
 
     @Override
@@ -42,8 +50,8 @@ implements ExpressionVisitorIface<Expr>,
             Expr nxt = tree.getChild(i).accept(this);
             switch (attr.getOp(i - 1))
             {
-                case ADD: expr = ctx.mkAdd(expr, nxt); break;
-                case SUBTRACT: expr = ctx.mkSub(expr, nxt); break;
+                case ADD: expr = alkCtx.ctx.mkAdd(expr, nxt); break;
+                case SUBTRACT: expr = alkCtx.ctx.mkSub(expr, nxt); break;
                 default: throw new InternalException("Can't process unidentified relational operator: " + attr.getOp(i - 1));
             }
         }
@@ -51,9 +59,29 @@ implements ExpressionVisitorIface<Expr>,
     }
 
     @Override
-    public Expr<?> visit(ArrayAST ctx)
+    public Expr<?> visit(ArrayAST tree)
     {
-        throw new SMTUnimplementedException(ArrayAST.class);
+        RepresentationASTAttr attr = tree.getAttribute(RepresentationASTAttr.class);
+
+        if (attr.getRepresentation() != CompoundValueRepresentation.EXPRESSIONS)
+        {
+            throw new SMTUnexpectedException("Can't process array with non-expression compound representation!");
+        }
+
+        ArrayDataTypeAST dataType = tree.getDataType(alkCtx);
+
+        Expr array = alkCtx.getEmptyArray(dataType);
+        for (int i = 0; i < tree.getChildCount(); i++)
+        {
+            if (tree.getChild(i) instanceof UnknownAST) continue;
+            Expr sub = tree.getChild(i).accept(this);
+            array = alkCtx.ctx.mkStore(array, alkCtx.ctx.mkInt(i), sub);
+        }
+
+        AlkSMTSizeMethod solver = (AlkSMTSizeMethod) alkCtx.getBuiltInMethodSolver(BuiltInMethod.SIZE);
+        solver.assumeEquality(array, tree.getChildCount());
+
+        return array;
     }
 
     @Override
@@ -71,7 +99,7 @@ implements ExpressionVisitorIface<Expr>,
     @Override
     public Expr<?> visit(BoolAST tree)
     {
-        return ctx.mkBool(tree.toString().equals("true"));
+        return alkCtx.ctx.mkBool(tree.toString().equals("true"));
     }
 
     @Override
@@ -81,9 +109,16 @@ implements ExpressionVisitorIface<Expr>,
     }
 
     @Override
-    public Expr<?> visit(BuiltinFunctionAST ctx)
+    public Expr<?> visit(BuiltinFunctionAST tree)
     {
-        throw new SMTUnimplementedException(BuiltinFunctionAST.class);
+        BuiltInFunctionASTAttr attr = tree.getAttribute(BuiltInFunctionASTAttr.class);
+        SMTFunctionSolver solver = alkCtx.getBuiltInFunctionSolver(attr.getFunction());
+        Expr[] params = new Expr[tree.getChildCount()];
+        for (int i = 0; i < tree.getChildCount(); i++)
+        {
+            params[i] = tree.getChild(i).accept(this);
+        }
+        return solver.apply(params);
     }
 
     @Override
@@ -98,14 +133,16 @@ implements ExpressionVisitorIface<Expr>,
         OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
         if (attr.getOpCount() != 1)
         {
-            throw new AlkException("Can't process relation expressions with more than one operator: " + ctx.toString());
+            throw new AlkException("Can't process relation expressions with more than one operator: " + alkCtx.ctx.toString());
         }
         switch (attr.getOp(0))
         {
             case EQUAL:
-                return ctx.mkEq(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
+                Expr leftOp = tree.getChild(0).accept(this);
+                Expr rightOp = tree.getChild(1).accept(this);
+                return alkCtx.getOperatorSolver(Operator.EQUAL).apply(tree.isForArray(alkCtx), leftOp, rightOp);
             case NOTEQUAL:
-                return ctx.mkNot(ctx.mkEq(tree.getChild(0).accept(this), tree.getChild(1).accept(this)));
+                return alkCtx.ctx.mkNot(alkCtx.ctx.mkEq(tree.getChild(0).accept(this), tree.getChild(1).accept(this)));
             default: throw new InternalException("Can't process unidentified relational operator: " + attr.getOp(0));
         }
     }
@@ -117,15 +154,23 @@ implements ExpressionVisitorIface<Expr>,
     }
 
     @Override
-    public Expr<?> visit(FactorPointMethodAST ctx)
+    public Expr<?> visit(FactorPointMethodAST tree)
     {
-        throw new SMTUnimplementedException(FactorPointMethodAST.class);
+        BuiltInMethodASTAttr attr = tree.getAttribute(BuiltInMethodASTAttr.class);
+        Expr root = tree.getChild(0).accept(this);
+        SMTMethodSolver solver = alkCtx.getBuiltInMethodSolver(attr.getMethod());
+        Expr[] params = new Expr[tree.getChildCount() - 1];
+        for (int i = 1; i < tree.getChildCount(); i++)
+        {
+            params[i - 1] = tree.getChild(i).accept(this);
+        }
+        return solver.apply(root, params, ((ExpressionAST) tree.getChild(0)).getDataType(alkCtx));
     }
 
     @Override
     public Expr<?> visit(FloatAST tree)
     {
-        return ctx.mkRealConst(tree.getText());
+        return alkCtx.ctx.mkRealConst(tree.getText());
     }
 
     @Override
@@ -143,7 +188,7 @@ implements ExpressionVisitorIface<Expr>,
     @Override
     public Expr<?> visit(IntAST tree)
     {
-        return ctx.mkInt(tree.getText());
+        return alkCtx.ctx.mkInt(tree.getText());
     }
 
     @Override
@@ -160,7 +205,7 @@ implements ExpressionVisitorIface<Expr>,
         {
             exprs[i] = tree.getChild(i).accept(this);
         }
-        return ctx.mkAnd(exprs);
+        return alkCtx.ctx.mkAnd(exprs);
     }
 
     @Override
@@ -171,7 +216,7 @@ implements ExpressionVisitorIface<Expr>,
         {
             exprs[i] = tree.getChild(i).accept(this);
         }
-        return ctx.mkOr(exprs);
+        return alkCtx.ctx.mkOr(exprs);
     }
 
     @Override
@@ -184,9 +229,9 @@ implements ExpressionVisitorIface<Expr>,
             Expr nxt = tree.getChild(i).accept(this);
             switch (attr.getOp(i - 1))
             {
-                case MULTIPLY: expr = ctx.mkMul(expr, nxt); break;
-                case DIVIDE: expr = ctx.mkDiv(expr, nxt); break;
-                case MOD: expr = ctx.mkMod(expr, nxt); break;
+                case MULTIPLY: expr = alkCtx.ctx.mkMul(expr, nxt); break;
+                case DIVIDE: expr = alkCtx.ctx.mkDiv(expr, nxt); break;
+                case MOD: expr = alkCtx.ctx.mkMod(expr, nxt); break;
                 default: throw new InternalException("Can't process unidentified relational operator: " + attr.getOp(i - 1));
             }
         }
@@ -217,28 +262,61 @@ implements ExpressionVisitorIface<Expr>,
         OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
         if (attr.getOpCount() != 1)
         {
-            throw new AlkException("Can't process relation expressions with more than one operator: " + ctx.toString());
+            throw new AlkException("Can't process relation expressions with more than one operator: " + alkCtx.ctx.toString());
         }
         switch (attr.getOp(0))
         {
-            case GREATER: return ctx.mkGt(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
-            case LOWER: return ctx.mkLt(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
-            case LOWEREQ: return ctx.mkLe(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
-            case GREATEREQ: return ctx.mkGe(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
+            case GREATER: return alkCtx.ctx.mkGt(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
+            case LOWER: return alkCtx.ctx.mkLt(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
+            case LOWEREQ: return alkCtx.ctx.mkLe(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
+            case GREATEREQ: return alkCtx.ctx.mkGe(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
             default: throw new InternalException("Can't process unidentified relational operator: " + attr.getOp(0));
         }
     }
 
     @Override
-    public Expr<?> visit(SetExprAST ctx)
+    public Expr<?> visit(SetExprAST tree)
     {
-        throw new SMTUnimplementedException(SetExprAST.class);
+        OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
+        Expr expr = tree.getChild(0).accept(this);
+        for (int i = 1; i < tree.getChildCount(); i++)
+        {
+            Expr nxt = tree.getChild(i).accept(this);
+            switch (attr.getOp(i - 1))
+            {
+                case UNION: expr = alkCtx.ctx.mkSetUnion(expr, nxt); break;
+                case INTERSECT: expr = alkCtx.ctx.mkSetIntersection(expr, nxt); break;
+                case SETSUBTRACT: expr = alkCtx.ctx.mkSetSubset(expr, nxt); break;
+                default: throw new InternalException("Can't process unidentified relational operator: " + attr.getOp(i - 1));
+            }
+        }
+        return expr;
     }
 
     @Override
-    public Expr<?> visit(SetAST ctx)
+    public Expr<?> visit(SetAST tree)
     {
-        throw new SMTUnimplementedException(SetAST.class);
+        RepresentationASTAttr attr = tree.getAttribute(RepresentationASTAttr.class);
+
+        if (attr.getRepresentation() != CompoundValueRepresentation.EXPRESSIONS)
+        {
+            throw new SMTUnexpectedException("Can't process array with non-expression compound representation!");
+        }
+
+        SetDataTypeAST dataType = tree.getDataType(alkCtx);
+
+        Expr set = alkCtx.getEmptySet(dataType);
+        for (int i = 0; i < tree.getChildCount(); i++)
+        {
+            if (tree.getChild(i) instanceof UnknownAST) continue;
+            Expr sub = tree.getChild(i).accept(this);
+            set = alkCtx.ctx.mkStore(set, sub, alkCtx.ctx.mkBool(true));
+        }
+
+        // AlkSMTSizeMethod solver = (AlkSMTSizeMethod) alkCtx.getBuiltInMethodSolver(BuiltInMethod.SIZE);
+        // solver.assumeEquality(set, tree.getChildCount());
+
+        return set;
     }
 
     @Override
@@ -250,7 +328,7 @@ implements ExpressionVisitorIface<Expr>,
     @Override
     public Expr<?> visit(StringAST tree)
     {
-        return ctx.mkString(tree.toString());
+        return alkCtx.ctx.mkString(tree.toString());
     }
 
     @Override
@@ -263,11 +341,11 @@ implements ExpressionVisitorIface<Expr>,
     public Expr<?> visit(SymIDAST tree)
     {
         String id = "$" + tree.getId();
-        if (!ids.containsKey(id))
+        if (!alkCtx.ids.containsKey(id))
         {
             throw new AlkException("Can't detect data type of symbolic value: " + id);
         }
-        return ids.get(id);
+        return alkCtx.ids.get(id);
     }
 
     @Override
@@ -276,7 +354,7 @@ implements ExpressionVisitorIface<Expr>,
         OpsASTAttr attr = tree.getAttribute(OpsASTAttr.class);
         switch (attr.getOp(0))
         {
-            case NOT: return ctx.mkNot(tree.getChild(0).accept(this));
+            case NOT: return alkCtx.ctx.mkNot(tree.getChild(0).accept(this));
             default: throw new InternalException("Can't process unidentified unary operator: " + attr.getOp(0));
         }
     }
@@ -284,18 +362,51 @@ implements ExpressionVisitorIface<Expr>,
     @Override
     public Expr visit(SelectAST tree)
     {
-        return ctx.mkSelect(tree.getChild(0).accept(this), tree.getChild(1).accept(this));
+        Expr target = tree.getChild(0).accept(this);
+        Expr lft = alkCtx.getArraySupport((ArraySort) target.getSort()).getLeft().apply(target);
+        return alkCtx.ctx.mkSelect(target, alkCtx.ctx.mkAdd(lft, tree.getChild(1).accept(this)));
     }
 
     @Override
     public Expr visit(StoreAST tree)
     {
-        return ctx.mkStore(tree.getChild(0).accept(this), tree.getChild(1).accept(this), tree.getChild(2).accept(this));
+        Expr target = tree.getChild(0).accept(this);
+        Expr lft = alkCtx.getArraySupport((ArraySort) target.getSort()).getLeft().apply(target);
+        return alkCtx.ctx.mkStore(tree.getChild(0).accept(this),
+                                  alkCtx.ctx.mkAdd(tree.getChild(1).accept(this), lft),
+                                  tree.getChild(2).accept(this));
     }
 
     @Override
     public Expr visit(AssignmentAST tree)
     {
         throw new SMTUnimplementedException(AssignmentAST.class);
+    }
+
+    @Override
+    public Expr visit(UnknownAST ctx)
+    {
+        throw new AlkException("Can't check path condition if unknown value is used.");
+    }
+
+    @Override
+    public Expr visit(ValidStoreAST tree)
+    {
+        Expr oldValue = tree.getChild(0).accept(this);
+        Expr position = tree.getChild(1).accept(this);
+        Expr value    = tree.getChild(2).accept(this);
+
+        ArraySMTSupport support = alkCtx.getArraySupport((ArraySort) oldValue.getSort());
+        return support.validateStore(oldValue, position, value);
+    }
+
+    @Override
+    public Expr visit(ValidSelectAST tree)
+    {
+        Expr oldValue = tree.getChild(0).accept(this);
+        Expr position = tree.getChild(1).accept(this);
+
+        ArraySMTSupport support = alkCtx.getArraySupport((ArraySort) oldValue.getSort());
+        return support.validateSelect(oldValue, position);
     }
 }

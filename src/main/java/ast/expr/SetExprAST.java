@@ -1,8 +1,12 @@
 package ast.expr;
 
 import ast.AST;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
+import ast.type.SetDataTypeAST;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
+import util.exception.InternalException;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.SetExprVisitorIface;
 
@@ -22,6 +26,11 @@ extends ExpressionAST
         for (AST child : children)
             ast.addChild(child);
         return AST.addOpsASTAttr(ast, op);
+    }
+
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return new SetDataTypeAST(null);
     }
 
     @Override

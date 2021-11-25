@@ -1,6 +1,10 @@
 package ast.expr;
 
 import ast.AST;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
+import ast.type.IntDataTypeAST;
+import execution.parser.exceptions.AlkException;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
 import visitor.ifaces.VisitorIface;
@@ -29,6 +33,16 @@ extends ExpressionAST
         return AST.getBinaryOperationString(this);
     }
 
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        DataTypeAST chld = ((ExpressionAST) getChild(0)).getDataType(dtp);
+        if (chld instanceof IntDataTypeAST)
+        {
+            return chld;
+        }
+        throw new AlkException("Invalid data type for unary expression: " + chld);
+    }
 
     @Override
     public <T> T accept(VisitorIface<T> visitor)

@@ -2,6 +2,7 @@ package ast;
 
 import ast.attr.ASTAttr;
 import ast.attr.OpsASTAttr;
+import ast.type.ArrayDataTypeAST;
 import org.antlr.v4.runtime.ParserRuleContext;
 import util.exception.InternalException;
 import ast.enums.Operator;
@@ -160,5 +161,12 @@ implements Visitable
     public boolean hasText()
     {
         return text != null || (ctx != null && ctx.getText() != null);
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (!(o instanceof AST)) return false;
+        return this.toString().equals(o.toString());
     }
 }

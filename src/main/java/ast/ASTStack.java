@@ -45,15 +45,6 @@ public class ASTStack<T extends State>
             {
                 propagate(u);
             }
-            /*
-            catch (InternalException e)
-            {
-                throw e;
-            }
-            catch (Throwable e)
-            {
-                throw new InternalException("Unexpected exception occured!");
-            }*/
         }
         return result;
     }

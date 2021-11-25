@@ -2,6 +2,9 @@ package ast.expr;
 
 import ast.AST;
 import ast.enums.Operator;
+import ast.type.BoolDataType;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.RelationalVisitorIface;
@@ -22,6 +25,12 @@ extends ExpressionAST
         for (AST child : children)
             ast.addChild(child);
         return AST.addOpsASTAttr(ast, op);
+    }
+
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return new BoolDataType(null);
     }
 
     @Override

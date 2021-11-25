@@ -1,6 +1,9 @@
 package ast.expr;
 
 import ast.AST;
+import ast.type.BoolDataType;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
 import visitor.ifaces.VisitorIface;
@@ -24,6 +27,12 @@ extends ExpressionAST
         return AST.addOpsASTAttr(ast, op);
     }
 
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return new BoolDataType(null);
+    }
+    
     @Override
     public String toString()
     {

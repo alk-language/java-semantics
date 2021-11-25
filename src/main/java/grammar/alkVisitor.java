@@ -209,6 +209,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayType(alkParser.ArrayTypeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SetType}
+	 * labeled alternative in {@link alkParser#dataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetType(alkParser.SetTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Include}
 	 * labeled alternative in {@link alkParser#directive}.
 	 * @param ctx the parse tree
@@ -515,6 +522,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStringValue(alkParser.StringValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnknownValue}
+	 * labeled alternative in {@link alkParser#scalar_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnknownValue(alkParser.UnknownValueContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code RefFunctionCall}
 	 * labeled alternative in {@link alkParser#ref_name}.

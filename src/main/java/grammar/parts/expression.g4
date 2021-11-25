@@ -114,6 +114,7 @@ scalar_value :
     | DOUBLE                                                                                                            #DoubleValue
     | BOOL                                                                                                              #BoolValue
     | STRING                                                                                                            #StringValue
+    | QUESTION                                                                                                          #UnknownValue
 ;
 
 

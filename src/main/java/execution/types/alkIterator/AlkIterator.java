@@ -14,7 +14,8 @@ import java.util.ListIterator;
 
 import static execution.parser.exceptions.AlkException.*;
 
-public class AlkIterator extends AlkValue
+public class AlkIterator
+extends AlkValue
 {
 
     public ListIterator value;
@@ -65,7 +66,8 @@ public class AlkIterator extends AlkValue
         return it;
     }
 
-    @Override public AlkValue subtract(AlkValue operand) throws AlkException {
+    @Override
+    public AlkValue subtract(AlkValue operand) throws AlkException {
         if (!(operand.type.equals("Int")))
             throw new AlkException(ERR_SUBTRACT_ITERATOR);
         AlkInt times = (AlkInt) operand;
@@ -84,7 +86,8 @@ public class AlkIterator extends AlkValue
         return it;
     }
 
-    @Override public AlkValue delete() throws AlkException {
+    @Override
+    public AlkValue delete() throws AlkException {
         value.next();
         value.remove();
         return this;
@@ -95,28 +98,32 @@ public class AlkIterator extends AlkValue
         return clone(null);
     }
 
-    @Override public AlkValue plusplusleft() throws AlkException {
+    @Override
+    public AlkValue plusplusleft() throws AlkException {
         if (!value.hasNext())
             throw new AlkException(ERR_ITERATOR_NO_NEXT);
         value.next();
         return this;
     }
 
-    @Override public AlkValue minusminusleft() throws AlkException {
+    @Override
+    public AlkValue minusminusleft() throws AlkException {
         if (!value.hasPrevious())
             throw new AlkException(ERR_ITERATOR_NO_PREVIOUS);
         value.previous();
         return this;
     }
 
-    @Override public AlkValue minusminusmod() throws AlkException {
+    @Override
+    public AlkValue minusminusmod() throws AlkException {
         if (!value.hasPrevious())
             value = father.end().value;
         value.previous();
         return this;
     }
 
-    @Override public AlkValue plusplusmod() throws AlkException {
+    @Override
+    public AlkValue plusplusmod() throws AlkException {
         if (!value.hasNext())
             throw new AlkException(ERR_ITERATOR_IS_END);
         value.next();
@@ -125,7 +132,8 @@ public class AlkIterator extends AlkValue
         return this;
     }
 
-    @Override public AlkValue star() throws AlkException
+    @Override
+    public AlkValue star() throws AlkException
     {
         if (!value.hasNext())
             throw new AlkException(ERR_ITERATOR_INVALID);
@@ -152,5 +160,11 @@ public class AlkIterator extends AlkValue
     public AST toAST()
     {
         throw new NotImplementedException("Can't convert to AST an AlkList");
+    }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        return true;
     }
 }

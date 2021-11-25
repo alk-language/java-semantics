@@ -372,6 +372,12 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
+    public AST visitUnknownValue(alkParser.UnknownValueContext ctx)
+    {
+        return new UnknownAST(ctx);
+    }
+
+    @Override
     public AST visitArrayValue(alkParser.ArrayValueContext ctx)
     {
         return new ArrayVisitor(this).visit(ctx.array());

@@ -11,7 +11,7 @@ import execution.state.ExecutionState;
 import state.Result;
 import symbolic.SymbolicExecutionPayload;
 import util.Configuration;
-import util.PathCondition;
+import util.pc.PathCondition;
 import util.types.Storable;
 import visitor.stateful.StatefulInterpreterManager;
 
@@ -30,7 +30,7 @@ public class Stepper
         exec.setGlobal(env);
         exec.setPathCondition(pathCondition == null ? new PathCondition() : pathCondition);
 
-        SymbolicExecutionPayload payload = new SymbolicExecutionPayload(exec, exec.getGlobal(), false);
+        SymbolicExecutionPayload payload = new SymbolicExecutionPayload(exec, exec.getGlobal());
         ExecutionState state = exec.getInterpreterManager().interpret(root, payload);
         ASTStack<ExecutionState> stack = new ASTStack<>(null);
         stack.push(state);

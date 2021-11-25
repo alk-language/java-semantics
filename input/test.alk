@@ -1,42 +1,35 @@
-symbolic $a : int, $b : int;
+/*
 
-a = 2 + $a;
-b = $b;
-if (a > b)
+symbolic $n : int;
+
+sum = 0;
+n = $n;
+
+i = 1;
+while (i <= n)
+// invariant sum == i * (i - 1) / 2 && i <= n + 1
 {
-    a = b;
+    sum = sum + i;
+    i++;
 }
 
-// Lattice: f(SYM) -> TYPES* U T U B
-// LUB(S): {\forall s \in SYM | s |-> ^(f(s)) \forall f \in S }
-    1) $a |-> {Int, Float}
-    2) $a |-> {Int}
-    $a |-> {Int}
-// Transfer function:
-tf(node):
-    node is expression => extract(expression)
-        s[_] => type(s) \in { Array<T> }
-        s . _ => type(s) \in { Struct }
-        s + _ => type(s) \in { Int, Float, String }
-        s - _, s * _, s / _, s >> _, s << _  => type(s) \in { Int, Float }
-        _[s], s % _ => type(s) \in {Int}
-        s U _, s ^ _, s \ _ => type(s) \in (Set<Top>)
+*/
 
-choose x in $a; => $a |-> { Array<type(x)> }
+symbolic $n : int;
+symbolic $i : int, $sum : int;
 
-Array, List, Set |-> Array(select, store)
+sum = 0;
+i = 1;
+n = $n;
 
-// Iota: f($x) -> T, \forall $x
-    $a |-> T
-    $b |-> T
+// proof obligation 1: the invariant holds in the initial state of while
+assert sum == i * (i - 1) / 2 && i <= n + 1;
 
-a = $a;
-a[2]++;
-
-a |-> { Array<T> }
-a |-> B
-
-s[3] + 1
-type(s[3]) \in { Int, Float }
-type(s) \in { Array<Int>, Array<Float> }
-type(3) \int { Int }
+// proof obligation 2: check the loop invariant
+i = $i;
+sum = $sum;
+assume i <= n; // conditia
+assume sum == i * (i - 1) / 2 && i <= n + 1; // invariantul
+sum = sum + i;
+i++;
+assert sum == i * (i - 1) / 2 && i <= n + 1; // invariantul

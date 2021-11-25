@@ -3,6 +3,8 @@ package ast.expr;
 import ast.AST;
 import ast.OperatorUtils;
 import ast.attr.OpsASTAttr;
+import ast.type.*;
+import execution.parser.exceptions.AlkException;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
 import visitor.ifaces.VisitorIface;
@@ -31,6 +33,17 @@ extends ExpressionAST
         for (AST child : children)
             ast.addChild(child);
         return AST.addOpsASTAttr(ast, op);
+    }
+
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        DataTypeAST chld = ((ExpressionAST) getChild(0)).getDataType(dtp);
+        if (chld instanceof IntDataTypeAST || chld instanceof FloatDataTypeAST)
+        {
+            return chld;
+        }
+        throw new AlkException("Invalid data type for unary expression: " + chld);
     }
 
     @Override

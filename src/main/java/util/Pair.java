@@ -1,6 +1,8 @@
 package util;
 
-public class Pair<T, S> implements Comparable<Pair<T, S> >{
+public class Pair<T, S>
+implements Comparable<Pair<T, S> >
+{
     public T x;
     public S y;
 

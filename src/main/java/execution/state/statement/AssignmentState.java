@@ -97,10 +97,7 @@ extends ExecutionState
         if (rightSide == null)
         {
             rightSide = executionResult.getValue().toRValue();
-            if (rightSide == null || rightSide instanceof AlkNotAValue)
-            {
-                super.handle(new AlkException("Undefined variable used in assignment."));
-            }
+            checkNotNull(rightSide, true);
             return;
         }
 

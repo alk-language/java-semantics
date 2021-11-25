@@ -219,4 +219,10 @@ implements ExpressionVisitorIface<S>
     {
         expressionInterpreter.interpretAnno(tree, payload);
     }
+
+    @Override
+    public S visit(UnknownAST tree)
+    {
+        return expressionInterpreter.interpretPrimitive(Primitive.UNKNOWN, tree, payload);
+    }
 }

@@ -71,6 +71,7 @@ LEN : 'len';
 
 //Data types
 ARRAY : 'array';
+SET : 'set';
 
 //Builtin Functions
 AT : 'at';

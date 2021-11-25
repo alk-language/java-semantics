@@ -70,7 +70,7 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretFor(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretFor(ast, payload); // TODO: do symbolic
+        return new SymbolicForState(ast, payload);
     }
 
     @Override
@@ -136,7 +136,6 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretWhile(AST ast, ExecutionPayload payload)
     {
-        //return baseDelegate.interpretWhile(ast, payload); // TODO: do symbolic
         return new SymbolicWhileState(ast, payload);
     }
 }

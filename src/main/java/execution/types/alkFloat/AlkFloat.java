@@ -110,4 +110,10 @@ extends AlkValue
     {
         return new FloatAST(this.toString());
     }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        return true;
+    }
 }

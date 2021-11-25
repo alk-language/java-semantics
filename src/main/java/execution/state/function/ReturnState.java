@@ -33,7 +33,7 @@ extends ExecutionState
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        checkNotNull(executionResult.getValue());
+        checkNotNull(executionResult.getValue(), true);
         value = executionResult.getValue().toRValue().clone(generator);
     }
 

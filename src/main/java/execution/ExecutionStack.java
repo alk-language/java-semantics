@@ -30,7 +30,10 @@ public class ExecutionStack extends ASTStack<ExecutionState>
         for (ExecutionState state : stack)
         {
             SplitMapper sm = new SplitMapper(master, locMapping, envMapper);
-            mapping.put(state, state.clone(sm));
+            ExecutionState copyState = state.clone(sm);
+            mapping.put(state, copyState);
+
+            assert copyState.getPayload().getExecution() == master;
         }
 
         return mapping;

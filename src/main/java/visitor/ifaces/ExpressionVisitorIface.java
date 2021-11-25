@@ -34,7 +34,8 @@ extends AdditiveVisitorIface<T>,
         StringVisitorIface<T>,
         StructVisitorIface<T>,
         SymIDVisitorIface<T>,
-        UnaryVisitorIface<T>
+        UnaryVisitorIface<T>,
+        UnknownVisitorIface<T>
 {
 
 }

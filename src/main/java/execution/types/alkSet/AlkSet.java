@@ -1,15 +1,22 @@
 package execution.types.alkSet;
 
 import ast.AST;
+import ast.attr.RepresentationASTAttr;
+import ast.enums.CompoundValueRepresentation;
+import ast.expr.ArrayAST;
+import ast.expr.SetAST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
+import execution.types.ConcreteValue;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
 import util.lambda.LocationGenerator;
+import util.types.ASTRepresentable;
+import util.types.Storable;
 
 import java.util.*;
 
@@ -96,21 +103,21 @@ extends AlkIterableValue
         return copy;
     }
 
-    private List<AlkValue> getOrderedList()
+    private List<Storable> getOrderedList()
     {
-        Map<Class<? extends AlkValue>, Set<AlkValue>> mapper = new TreeMap<>(Comparator.comparing(Class::toString));
+        Map<Class<? extends Storable>, Set<Storable>> mapper = new TreeMap<>(Comparator.comparing(Class::toString));
         for (Location loc : set)
         {
-            Class<? extends AlkValue> valueType = ((AlkValue) loc.toRValue()).getClass();
+            Class<? extends Storable> valueType = loc.toRValue().getClass();
             if (!mapper.containsKey(valueType) || mapper.get(valueType) == null)
                 mapper.put(valueType, new TreeSet<>(new ValueComparator()));
-            AlkValue val = (AlkValue) loc.toRValue();
+            Storable val = loc.toRValue();
             mapper.get(valueType).add(val);
         }
 
-        List<AlkValue> list = new ArrayList<>();
+        List<Storable> list = new ArrayList<>();
 
-        for (Map.Entry<Class<? extends AlkValue>, Set<AlkValue>> e : mapper.entrySet())
+        for (Map.Entry<Class<? extends Storable>, Set<Storable>> e : mapper.entrySet())
         {
             list.addAll(e.getValue());
         }
@@ -122,7 +129,7 @@ extends AlkIterableValue
     public String toString() {
         StringBuilder returnable = new StringBuilder("{");
 
-        List<AlkValue> list = getOrderedList();
+        List<Storable> list = getOrderedList();
 
         for (int i=0; i<list.size(); i++)
         {
@@ -251,18 +258,42 @@ extends AlkIterableValue
     @Override
     public AST toAST()
     {
-        throw new NotImplementedException("Can't convert to AST an AlkList");
+        SetAST ast = new SetAST(null);
+        RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.EXPRESSIONS);
+        ast.addAttribute(RepresentationASTAttr.class, attr);
+        for (Location loc : set)
+        {
+            if (!(loc.toRValue() instanceof ASTRepresentable))
+                throw new NotImplementedException("Can't convert to AST an AlkArray");
+            ast.addChild(((ASTRepresentable) loc.toRValue()).toAST());
+        }
+        return ast;
+    }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        for (Location loc : this)
+        {
+            if (loc.isUnknown()) continue;
+            if (loc.toRValue() instanceof ConcreteValue && ((ConcreteValue) loc.toRValue()).isFullConcrete()) continue;
+            return false;
+        }
+        return true;
     }
 }
 
-class ValueComparator implements Comparator<AlkValue>
+class ValueComparator implements Comparator<Storable>
 {
     @Override
-    public int compare(AlkValue a, AlkValue b) {
+    public int compare(Storable a, Storable b) {
         if (a.equals(b))
             return 0;
-        if (a.lower(b).isTrue())
-            return -1;
+        if (a instanceof AlkValue && b instanceof AlkValue)
+        {
+            if (((AlkValue) a).lower((AlkValue) b).isTrue())
+                return -1;
+        }
         return 1;
     }
 }

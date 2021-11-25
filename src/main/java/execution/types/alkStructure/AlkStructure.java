@@ -6,6 +6,7 @@ import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkValue;
+import execution.types.ConcreteValue;
 import execution.types.alkBool.AlkBool;
 import util.Pair;
 import util.lambda.LocationGenerator;
@@ -17,7 +18,8 @@ import java.util.Map;
 
 import static execution.parser.exceptions.AlkException.*;
 
-public class AlkStructure extends AlkValue
+public class AlkStructure
+extends AlkValue
 {
     private final Map<String, Location> map;
 
@@ -142,5 +144,17 @@ public class AlkStructure extends AlkValue
     public AST toAST()
     {
         throw new NotImplementedException("Can't convert to AST an AlkList");
+    }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        for (Location loc : map.values())
+        {
+            if (loc.isUnknown()) continue;
+            if (loc.toRValue() instanceof ConcreteValue && ((ConcreteValue) loc.toRValue()).isFullConcrete()) continue;
+            return false;
+        }
+        return true;
     }
 }

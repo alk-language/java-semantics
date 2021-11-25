@@ -29,13 +29,42 @@ extends BaseBinaryOperatorState
         super(tree, executionPayload);
     }
 
+    private Storable solveBracket(Storable crv, Storable nrv, Storable current)
+    {
+        StoreAST storeAST = new StoreAST(null);
+        SymbolicValue oldValue = SymbolicValue.toSymbolic(crv);
+        storeAST.addChild(oldValue.toAST());
+        SymbolicValue position = SymbolicValue.toSymbolic(nrv);
+        storeAST.addChild(position.toAST());
+
+        Location loc = getStore().malloc();
+        PointerAST point = new PointerAST(null, loc);
+        storeAST.addChild(point);
+
+        SymbolicValue newValue = new SymbolicValue(storeAST);
+        getExec().getPathCondition().pclh.notifyStore(oldValue, newValue, position, new SymbolicValue(point));
+        current.toLValue().setValue(newValue);
+
+        SelectAST selectAST = new SelectAST(null);
+        SymbolicValue root = SymbolicValue.toSymbolic(crv);
+        selectAST.addChild(root.toAST());
+        SymbolicValue pos = SymbolicValue.toSymbolic(nrv);
+        selectAST.addChild(pos.toAST());
+        loc.setValue(new SymbolicValue(selectAST));
+
+        return loc;
+    }
+
     @Override
     protected Storable interpretResult(Operator op, Storable current, Storable next)
     {
         Storable crv = current.toRValue();
         Storable nrv = next.toRValue();
-        if ((crv instanceof ConcreteValue || crv == null) && nrv instanceof ConcreteValue)
+        if (((crv instanceof ConcreteValue && ((ConcreteValue) crv).isFullConcrete()) || crv == null) &&
+             (nrv instanceof ConcreteValue && ((ConcreteValue) nrv).isFullConcrete()))
+        {
             return super.interpretResult(op, current, next);
+        }
 
         if (op.equals(Operator.BRACKET))
         {
@@ -47,24 +76,7 @@ extends BaseBinaryOperatorState
 
             if (nrv instanceof SymbolicValue || crv instanceof SymbolicValue)
             {
-                if (payload instanceof SymbolicExecutionPayload && ((SymbolicExecutionPayload) payload).isToLValue())
-                {
-                    StoreAST storeAST = new StoreAST(null);
-                    storeAST.addChild(SymbolicValue.toSymbolic(crv).toAST());
-                    storeAST.addChild(SymbolicValue.toSymbolic(nrv).toAST());
-                    Location loc = getStore().malloc();
-                    PointerAST point = new PointerAST(null, loc);
-                    storeAST.addChild(point);
-                    current.toLValue().setValue(new SymbolicValue(storeAST));
-                    return loc;
-                }
-                else
-                {
-                    SelectAST selectAST = new SelectAST(null);
-                    selectAST.addChild(SymbolicValue.toSymbolic(crv).toAST());
-                    selectAST.addChild(SymbolicValue.toSymbolic(nrv).toAST());
-                    return new SymbolicValue(selectAST);
-                }
+                return solveBracket(crv, nrv, current);
             }
         }
 

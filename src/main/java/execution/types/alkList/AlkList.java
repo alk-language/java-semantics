@@ -7,6 +7,7 @@ import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.NotImplementedException;
 import execution.types.AlkIterableValue;
 import execution.types.AlkValue;
+import execution.types.ConcreteValue;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkIterator.AlkIterator;
@@ -251,5 +252,17 @@ extends AlkIterableValue
     public AST toAST()
     {
         throw new NotImplementedException("Can't convert to AST an AlkList");
+    }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        for (Location loc : this)
+        {
+            if (loc.isUnknown()) continue;
+            if (loc.toRValue() instanceof ConcreteValue && ((ConcreteValue) loc.toRValue()).isFullConcrete()) continue;
+            return false;
+        }
+        return true;
     }
 }

@@ -6,9 +6,10 @@ import ast.expr.UnaryAST;
 import execution.Execution;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import execution.parser.env.Location;
+import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import execution.state.statement.IfStmtState;
-import smt.SMTHelper;
 import symbolic.SymbolicValue;
 
 public class SymIfStmtState
@@ -38,16 +39,20 @@ extends IfStmtState
             if (!hasElse)
             {
                 executed = true;
-                Execution elseExec = getExec().clone();
+
                 AST ast = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) condition.toRValue()).toAST());
-                elseExec.getPathCondition().add(new SymbolicValue(ast));
-                if (SMTHelper.validatePathCondition(elseExec.getConfig(), elseExec.getPathCondition()))
+                Location loc = getStore().generate(new SymbolicValue(ast));
+                ExecutionCloneContext cloneCtx = getExec().clone();
+                Execution elseExec = cloneCtx.exec;
+                elseExec.getPathCondition().add((SymbolicValue) cloneCtx.locMapping.get(loc).getValue());
+
+                if (elseExec.getPathCondition().isSatisfiable())
                 {
                     elseExec.start();
                 }
 
-                getExec().getPathCondition().add((SymbolicValue) condition.toRValue());
-                if (!SMTHelper.validatePathCondition(getExec().getConfig(), getExec().getPathCondition()))
+                getExec().getPathCondition().add((SymbolicValue) condition.toRValue().clone(generator));
+                if (!getExec().getPathCondition().isSatisfiable())
                 {
                     getExec().halt();
                 }
@@ -56,18 +61,22 @@ extends IfStmtState
             else
             {
                 shouldExecuteElse = true;
-                Execution elseExec = getExec().clone();
+
                 AST ast = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) condition.toRValue()).toAST());
-                elseExec.getPathCondition().add(new SymbolicValue(ast));
-                if (SMTHelper.validatePathCondition(elseExec.getConfig(), elseExec.getPathCondition()))
+                Location loc = getStore().generate(new SymbolicValue(ast));
+                ExecutionCloneContext cloneCtx = getExec().clone();
+                Execution elseExec = cloneCtx.exec;
+                elseExec.getPathCondition().add((SymbolicValue) cloneCtx.locMapping.get(loc).getValue());
+
+                if (elseExec.getPathCondition().isSatisfiable())
                 {
                     elseExec.start();
                 }
 
                 shouldExecuteElse = false;
                 executed = true;
-                getExec().getPathCondition().add((SymbolicValue) condition.toRValue());
-                if (!SMTHelper.validatePathCondition(getExec().getConfig(), getExec().getPathCondition()))
+                getExec().getPathCondition().add((SymbolicValue) condition.toRValue().clone(generator));
+                if (!getExec().getPathCondition().isSatisfiable())
                 {
                     getExec().halt();
                 }

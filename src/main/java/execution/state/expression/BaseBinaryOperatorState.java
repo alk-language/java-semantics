@@ -125,13 +125,13 @@ extends GuardedGeneratorState
             Throwable tr = e.getTargetException();
             if (tr instanceof AlkException)
                 super.handle(new AlkException(tr.getMessage()));
+
+            throw new InternalException(e);
         }
         catch (IllegalAccessException e)
         {
             throw new InternalException(e.getMessage());
         }
-
-        return null;
     }
 
     @Override

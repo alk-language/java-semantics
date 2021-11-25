@@ -1,6 +1,7 @@
 package execution.types.alkNotAValue;
 
 import ast.AST;
+import ast.expr.UnknownAST;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.InterpretorException;
@@ -12,14 +13,6 @@ import util.lambda.LocationGenerator;
 
 public class AlkNotAValue extends AlkValue
 {
-
-    public static final String NO_VALUE = "Unknown value accessed.";
-
-
-    @Override
-    public AlkValue clone(LocationGenerator generator) {
-        return new AlkNotAValue();
-    }
 
     @Override
     public String toString() {
@@ -42,6 +35,11 @@ public class AlkNotAValue extends AlkValue
     }
 
     @Override
+    public AlkValue clone(LocationGenerator generator) {
+        return new AlkNotAValue();
+    }
+
+    @Override
     public AlkValue toRValue()
     {
         return this;
@@ -50,6 +48,12 @@ public class AlkNotAValue extends AlkValue
     @Override
     public AST toAST()
     {
-        throw new NotImplementedException("Can't convert to AST an AlkList");
+        return new UnknownAST(null);
+    }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        return true;
     }
 }

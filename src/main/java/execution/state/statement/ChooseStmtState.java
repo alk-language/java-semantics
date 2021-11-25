@@ -77,7 +77,7 @@ extends ExecutionState
             {
                 Execution current = getExec();
                 target.setValue(source.get(i).toRValue().clone(generator));
-                Execution next = current.clone();
+                Execution next = current.clone().exec;
                 next.start();
             }
             target.setValue(source.get(0).toRValue().clone(generator));

@@ -1,0 +1,13 @@
+symbolic $a : array<int>, $i : int;
+a = $a;
+assume a.size() == 5;
+o = a;
+a.pushBack($i);
+a.pushBack(2);
+assert a.topBack() == 2;
+a.popBack();
+assert a.size() == o.size() + 1;
+assert a.topBack() == $i;
+a.popBack();
+assert a.size() == o.size();
+assert a[0] == $a[0];

@@ -1,9 +1,10 @@
 package ast.expr;
 
 import ast.attr.IdASTAttr;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import grammar.alkParser;
 import visitor.ifaces.VisitorIface;
-import visitor.ifaces.expr.RefIDVisitorIface;
 import visitor.ifaces.expr.SymIDVisitorIface;
 
 public class SymIDAST
@@ -19,8 +20,14 @@ extends ExpressionAST
     public SymIDAST(String id)
     {
         super(null);
+        assert !id.startsWith("$");
         this.addAttribute(IdASTAttr.class, new IdASTAttr(id));
         super.text = id;
+    }
+
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return dtp.getDataType(getText());
     }
 
     public void setId(String id)
@@ -37,7 +44,7 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return getText();
+        return "$" + getId();
     }
 
     @Override

@@ -158,6 +158,12 @@ implements ExpressionVisitorIface<T>
         return expressionInterpreter.interpretPrimitive(Primitive.BOOL, ctx.getText());
     }
 
+    @Override
+    public T visit(UnknownAST ctx)
+    {
+        return expressionInterpreter.interpretPrimitive(Primitive.UNKNOWN, ctx.getText());
+    }
+
     public T visit(StringAST ctx)
     {
         return expressionInterpreter.interpretPrimitive(Primitive.STRING, ctx.getText());

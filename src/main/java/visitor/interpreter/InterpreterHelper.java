@@ -8,6 +8,7 @@ import execution.types.alkBool.AlkBool;
 import execution.types.alkFloat.AlkFloat;
 import execution.types.alkInt.AlkInt;
 import execution.types.alkList.AlkList;
+import execution.types.alkNotAValue.AlkNotAValue;
 import execution.types.alkSet.AlkSet;
 import execution.types.alkString.AlkString;
 import util.exception.InternalException;
@@ -32,6 +33,8 @@ public class InterpreterHelper {
                 return new AlkFloat(new BigDecimal(value));
             case BOOL:
                 return new AlkBool(value.equals("true"));
+            case UNKNOWN:
+                return new AlkNotAValue();
             default:
                 throw new InternalException("Unrecognized primitive in Symbolic Expression Interpreter");
         }

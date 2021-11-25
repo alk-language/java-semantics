@@ -211,4 +211,10 @@ implements AlkComparable<AlkBool>
     {
         return new BoolAST(value ? "true" : "false");
     }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        return true;
+    }
 }

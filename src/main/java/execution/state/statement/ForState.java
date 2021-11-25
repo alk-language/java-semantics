@@ -63,14 +63,17 @@ extends LoopingState
             super.assign(executionResult);
     }
 
-
-    @Override
-    public ExecutionState clone(SplitMapper sm)
+    public ExecutionState decorate(ForState copy, SplitMapper sm)
     {
-        ForState copy = new ForState(tree, payload.clone(sm));
         copy.visitedStart = visitedStart;
         copy.incrementalStep = incrementalStep;
         copy.incrementing = incrementing;
         return super.decorate(copy, sm);
+    }
+
+    @Override
+    public ExecutionState clone(SplitMapper sm)
+    {
+        return this.decorate(new ForState(tree, payload.clone(sm)), sm);
     }
 }

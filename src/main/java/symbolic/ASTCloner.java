@@ -2,29 +2,28 @@ package symbolic;
 
 import ast.AST;
 import ast.expr.*;
-import ast.symbolic.PointerAST;
-import ast.symbolic.SelectAST;
-import ast.symbolic.StoreAST;
+import ast.symbolic.*;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
+import execution.parser.env.LocationMapperIface;
+import execution.parser.env.StoreImpl;
+import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import visitor.ifaces.ExpressionVisitorIface;
-import visitor.ifaces.symbolic.PointerVisitorIface;
-import visitor.ifaces.symbolic.SelectVisitorIface;
-import visitor.ifaces.symbolic.StoreVisitorIface;
+import visitor.ifaces.symbolic.*;
 
 public class ASTCloner
 implements ExpressionVisitorIface<AST>,
            StoreVisitorIface<AST>,
            SelectVisitorIface<AST>,
-           PointerVisitorIface<AST>
+           PointerVisitorIface<AST>,
+           ValidSelectVisitorIface<AST>,
+           ValidStoreVisitorIface<AST>
 {
-    private LocationMapper mapper;
+    private LocationMapperIface mapper;
     private LocationGenerator generator;
 
-    public ASTCloner() {}
-
-    public ASTCloner(LocationMapper locationMapper)
+    public ASTCloner(LocationMapperIface locationMapper)
     {
         this.mapper = locationMapper;
     }
@@ -109,7 +108,7 @@ implements ExpressionVisitorIface<AST>,
     @Override
     public AST visit(FactorPointMethodAST tree)
     {
-        return process(new FactorPointIdAST(tree.getCtx()), tree);
+        return process(new FactorPointMethodAST(tree.getCtx()), tree);
     }
 
     @Override
@@ -253,6 +252,27 @@ implements ExpressionVisitorIface<AST>,
         else if (generator != null)
             return new PointerAST(null, generator.generate(loc.toRValue()));
         else
-            return tree;
+        {
+            throw new InternalException("Cloning AST without proper generator or mapper!");
+            // return tree;
+        }
+    }
+
+    @Override
+    public AST visit(UnknownAST tree)
+    {
+        return process(new UnknownAST(tree.getCtx()), tree);
+    }
+
+    @Override
+    public AST visit(ValidStoreAST tree)
+    {
+        return process(new ValidStoreAST(tree.getCtx()), tree);
+    }
+
+    @Override
+    public AST visit(ValidSelectAST tree)
+    {
+        return process(new ValidSelectAST(tree.getCtx()), tree);
     }
 }

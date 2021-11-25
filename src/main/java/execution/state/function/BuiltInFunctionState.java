@@ -11,9 +11,11 @@ import execution.parser.exceptions.AlkException;
 import execution.exhaustive.NameMapper;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import execution.state.symbolic.SymbolicBuiltInFunctionState;
 import util.FunctionsSolver;
 import util.exception.InternalException;
 import util.functions.BuiltInFunctionImpl;
+import util.functions.Funcs;
 import util.functions.Functions;
 import util.types.Storable;
 
@@ -29,36 +31,25 @@ extends GeneratorState
 {
     protected final List<Storable> params = new ArrayList<>();
     protected final BuiltInFunction function;
-    protected final Functions functions;
+    protected Funcs functions;
     protected FunctionsSolver fSolver;
 
     public BuiltInFunctionState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload);
         function = tree.getAttribute(BuiltInFunctionASTAttr.class).getFunction();
-        functions = new Functions(executionPayload.getConfiguration(), generator);
-    }
-
-    public BuiltInFunctionState(BuiltInFunctionState copy, SplitMapper sm)
-    {
-        super(copy, sm);
-        for (Storable value : this.params)
-        {
-            params.add(value.weakClone(sm.getLocationMapper()));
-        }
-        this.function = copy.function;
-        functions = new Functions(payload.getConfiguration(), generator);
     }
 
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        checkNotNull(executionResult.getValue());
+        checkNotNull(executionResult.getValue(), true);
         params.add(executionResult.getValue().toRValue());
     }
 
     protected void setDefaultSolver()
     {
+        functions = new Functions(payload.getConfiguration(), generator);
         fSolver = (functionName) ->
         {
             try
@@ -100,6 +91,15 @@ extends GeneratorState
                 super.handle((AlkException) cause);
             throw new InternalException((Exception) e.getCause());
         }
+    }
+
+    public ExecutionState decorate(BuiltInFunctionState copy, SplitMapper sm)
+    {
+        for (Storable value : this.params)
+        {
+            copy.params.add(value.weakClone(sm.getLocationMapper()));
+        }
+        return super.decorate(copy, sm);
     }
 
     @Override

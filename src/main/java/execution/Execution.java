@@ -4,6 +4,7 @@ import ast.AST;
 import execution.exhaustive.EnvironmentMapper;
 import execution.helpers.AnnoHelper;
 import execution.parser.env.LocationMapper;
+import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.HelpFormatter;
@@ -17,6 +18,7 @@ import parser.ParseTreeGlobals;
 import util.*;
 import util.exception.InternalException;
 import util.exception.SymbolicallyImposibleException;
+import util.pc.PathCondition;
 import visitor.stateful.StatefulExpressionInterpreter;
 import visitor.stateful.StatefulInterpreterManager;
 import visitor.stateful.StatefulStmtInterpreter;
@@ -110,7 +112,7 @@ extends Thread
 
         if (config.getConditionPath() != null)
         {
-            conditionPath = PathCondition.parse(config.getConditionPath(), interpreterManager);
+            conditionPath = PathCondition.parse(config.getConditionPath());
         }
 
         return true;
@@ -208,7 +210,7 @@ extends Thread
     }
 
 
-    public Execution clone()
+    public ExecutionCloneContext clone()
     {
         return ExecutionCloner.makeClone(this);
     }

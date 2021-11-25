@@ -1,6 +1,11 @@
 package ast.expr;
 
+import ast.attr.BuiltInFunctionASTAttr;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
+import ast.type.FloatDataTypeAST;
 import org.antlr.v4.runtime.ParserRuleContext;
+import util.exception.InternalException;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.BuiltInFunctionVisitorIface;
 
@@ -15,7 +20,19 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return "Builtin-Function";
+        BuiltInFunctionASTAttr attr = this.getAttribute(BuiltInFunctionASTAttr.class);
+        StringBuilder base = new StringBuilder(attr.getFunction().toString().toLowerCase() + "(");
+        for (int i = 0; i < this.getChildCount(); i++)
+        {
+            if (i > 0) base.append(", ");
+            base.append(this.getChild(i).toString());
+        }
+        return base + ")";
+    }
+
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return new FloatDataTypeAST(null);
     }
 
     @Override

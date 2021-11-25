@@ -14,7 +14,6 @@ import static execution.parser.exceptions.AlkException.ERR_IF_NOT_BOOL;
 public class IfStmtState
 extends ExecutionState
 {
-
     protected Storable condition;
     protected boolean executed = false;
 
