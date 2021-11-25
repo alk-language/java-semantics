@@ -6,9 +6,10 @@ import ast.expr.UnaryAST;
 import execution.Execution;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
+import execution.parser.env.Location;
+import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import execution.state.statement.WhileState;
-import smt.SMTHelper;
 import symbolic.SymbolicValue;
 import util.types.Storable;
 
@@ -29,17 +30,21 @@ extends WhileState
             return super.processValidity(conditionValue);
         }
         broke = true;
-        Execution outExec = getExec().clone();
+
         AST ast = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) conditionValue).toAST());
-        outExec.getPathCondition().add(new SymbolicValue(ast));
-        if (SMTHelper.validatePathCondition(outExec.getConfig(), outExec.getPathCondition()))
+        Location loc = getStore().generate(new SymbolicValue(ast));
+        ExecutionCloneContext cloneCtx = getExec().clone();
+        Execution outExec = cloneCtx.exec;
+        outExec.getPathCondition().add((SymbolicValue) cloneCtx.locMapping.get(loc).getValue());
+
+        if (outExec.getPathCondition().isSatisfiable())
         {
             outExec.start();
         }
         broke = false;
 
-        getExec().getPathCondition().add((SymbolicValue) conditionValue);
-        if (!SMTHelper.validatePathCondition(getExec().getConfig(), getExec().getPathCondition()))
+        getExec().getPathCondition().add((SymbolicValue) conditionValue.clone(generator));
+        if (!getExec().getPathCondition().isSatisfiable())
         {
             getExec().halt();
         }

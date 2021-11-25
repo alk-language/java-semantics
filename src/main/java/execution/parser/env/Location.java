@@ -61,4 +61,10 @@ implements ConcreteValue
     {
         return this == value;
     }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        return true;
+    }
 }

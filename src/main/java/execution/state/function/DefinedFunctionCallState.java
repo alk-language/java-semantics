@@ -95,7 +95,7 @@ extends ExecutionState
     {
         if (!executed)
         {
-            checkNotNull(executionResult.getValue());
+            checkNotNull(executionResult.getValue(), true);
             params.add(executionResult.getValue());
         }
     }

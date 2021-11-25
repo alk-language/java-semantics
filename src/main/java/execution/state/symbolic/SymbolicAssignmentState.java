@@ -28,8 +28,15 @@ extends AssignmentState
 
     private boolean resultIsSymbolic()
     {
-        return rightSide instanceof SymbolicValue ||
-                (!leftSide.toLValue().isUnknown() && SymbolicValue.toSymbolic(leftSide.toRValue()) != null && op != Operator.ASSIGN);
+        if (rightSide instanceof SymbolicValue)
+        {
+            return true;
+        }
+        if (leftSide.toLValue().isUnknown())
+        {
+            return false;
+        }
+        return op != Operator.ASSIGN && leftSide.toRValue() instanceof SymbolicValue;
     }
 
     @Override
@@ -37,12 +44,12 @@ extends AssignmentState
     {
         if (rightSide == null)
         {
-            return (ExecutionState) super.request(tree.getChild(1), new SymbolicExecutionPayload(getExec(), getEnv(), false));
+            return (ExecutionState) super.request(tree.getChild(1), new SymbolicExecutionPayload(getExec(), getEnv()));
         }
 
         if (leftSide == null)
         {
-            return (ExecutionState) super.request(tree.getChild(0), new SymbolicExecutionPayload(getExec(), getEnv(), true));
+            return (ExecutionState) super.request(tree.getChild(0), new SymbolicExecutionPayload(getExec(), getEnv()));
         }
 
         if (resultIsSymbolic())

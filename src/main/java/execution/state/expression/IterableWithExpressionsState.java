@@ -34,7 +34,7 @@ extends GeneratorState
         AlkIterableValue iterableVal = getPrimitiveInstance();
         for (Storable value : array)
         {
-            checkNotNull(value);
+            checkNotNull(value, true);
             iterableVal.push(generator.generate(value.toRValue().clone(generator)));
         }
         return generator.generate(iterableVal);

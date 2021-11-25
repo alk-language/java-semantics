@@ -1,6 +1,7 @@
 package ast.expr;
 
 import ast.AST;
+import ast.type.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
 import visitor.ifaces.VisitorIface;
@@ -25,6 +26,12 @@ extends ExpressionAST
     }
 
     @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return new BoolDataType(null);
+    }
+
+    @Override
     public String toString()
     {
         return AST.getBinaryOperationString(this);
@@ -37,6 +44,16 @@ extends ExpressionAST
             return ((EqualityVisitorIface<T>) visitor).visit(this);
 
         return super.accept(visitor);
+    }
+
+    public boolean isForArray(DataTypeProvider dtp)
+    {
+        return isArray((ExpressionAST) getChild(0), dtp) && isArray((ExpressionAST) getChild(1), dtp);
+    }
+
+    private boolean isArray(ExpressionAST ast, DataTypeProvider dtp)
+    {
+        return ast.getDataType(dtp) instanceof ArrayDataTypeAST;
     }
 
 }

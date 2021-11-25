@@ -17,7 +17,7 @@ extends IndependentGeneratorState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        SymbolicDeclsState copy = new SymbolicDeclsState(tree, payload);
+        SymbolicDeclsState copy = new SymbolicDeclsState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

@@ -61,6 +61,7 @@ dataType
     INTEGER                                                                                                             #IntType
     | FLOAT                                                                                                             #FloatType
     | ARRAY LOWER dataType GREATER                                                                                      #ArrayType
+    | SET LOWER dataType GREATER                                                                                        #SetType
 ;
 
 directive

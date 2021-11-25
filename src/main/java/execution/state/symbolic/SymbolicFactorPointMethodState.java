@@ -1,9 +1,12 @@
 package execution.state.symbolic;
 
 import ast.AST;
+import execution.Execution;
 import execution.ExecutionPayload;
+import execution.exhaustive.SplitMapper;
 import execution.parser.env.Location;
 import execution.parser.exceptions.NoSuchFunctionException;
+import execution.state.ExecutionState;
 import execution.state.expression.FactorPointMethodState;
 import symbolic.ExclusiveSymbolicValue;
 import util.functions.SymbolicMethods;
@@ -46,7 +49,16 @@ extends FactorPointMethodState
                 }
                 catch (NoSuchMethodException e)
                 {
-                    super.handle(new NoSuchFunctionException(methodName));
+                    // maybe it is a stateful method
+                    try
+                    {
+                        return SymbolicMethods.class.getMethod(methodName, Location.class, List.class, LocationGenerator.class,
+                                Execution.class);
+                    }
+                    catch (NoSuchMethodException noSuchMethodException)
+                    {
+                        super.handle(new NoSuchFunctionException(methodName));
+                    }
                 }
                 return null;
             };
@@ -55,5 +67,12 @@ extends FactorPointMethodState
         {
             super.setMethodSolver();
         }
+    }
+
+    @Override
+    public ExecutionState clone(SplitMapper sm)
+    {
+        SymbolicFactorPointMethodState copy = new SymbolicFactorPointMethodState(tree, payload.clone(sm));
+        return super.decorate(copy, sm);
     }
 }

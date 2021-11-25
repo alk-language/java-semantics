@@ -5,6 +5,7 @@ import ast.attr.RepresentationASTAttr;
 import ast.enums.CompoundValueRepresentation;
 import ast.expr.ArrayAST;
 import execution.parser.exceptions.NotImplementedException;
+import execution.types.ConcreteValue;
 import execution.types.alkNotAValue.AlkNotAValue;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
@@ -304,5 +305,17 @@ extends AlkIterableValue
             ast.addChild(((ASTRepresentable) loc.toRValue()).toAST());
         }
         return ast;
+    }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        for (Location loc : this)
+        {
+            if (loc.isUnknown()) continue;
+            if (loc.toRValue() instanceof ConcreteValue && ((ConcreteValue) loc.toRValue()).isFullConcrete()) continue;
+            return false;
+        }
+        return true;
     }
 }

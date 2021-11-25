@@ -1,0 +1,240 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00000000035a7ec0, pid=18492, tid=0x00000000000054cc
+#
+# JRE version: OpenJDK Runtime Environment (8.0_275-b01) (build 1.8.0_275-b01)
+# Java VM: OpenJDK 64-Bit Server VM (25.275-b01 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# 
+[error occurred during error reporting (printing problematic frame), id 0xc0000005]
+
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please include
+# instructions on how to reproduce the bug and visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread is native thread
+
+siginfo: ExceptionCode=0xc0000005, reading address 0xfffffffffffffff0
+
+Registers:
+RAX=0x00000000035a7ec0, RBX=0x00007ff85d919e20, RCX=0x000000002251e908, RDX=0x0000000000000001
+RSP=0x000000000171fca8, RBP=0x0000000000000000, RSI=0x0000000000000000, RDI=0x0000000000000002
+R8 =0x0000000000000002, R9 =0x000000000171fcb8, R10=0x0000000000000013, R11=0x0000000000000246
+R12=0x0000000000000000, R13=0x0000000000000000, R14=0x0000000000000000, R15=0x0000000000000000
+RIP=0x00000000035a7ec0, EFLAGS=0x0000000000010282
+
+Top of Stack: (sp=0x000000000171fca8)
+0x000000000171fca8:   00007ff85d919e46 0000000000000000
+0x000000000171fcb8:   0000000000000000 0000000000000000
+0x000000000171fcc8:   0000000000000000 0000000000000002
+0x000000000171fcd8:   00007ff8b6761564 0000000000000000
+0x000000000171fce8:   0000000000000000 00007ff85d919e20
+0x000000000171fcf8:   0000000000000000 0000000000000003
+0x000000000171fd08:   00007ff8b641b9d3 0000000000000000
+0x000000000171fd18:   0000000000000002 0000000000000000
+0x000000000171fd28:   0000000000000000 0000000000000004
+0x000000000171fd38:   0000000000000000 0000000000000000
+0x000000000171fd48:   0000000000000000 0000000000000000
+0x000000000171fd58:   0000000000000000 0000000000000000
+0x000000000171fd68:   0000000000000000 0000000000000000
+0x000000000171fd78:   0000000000000000 0000000000000000
+0x000000000171fd88:   0000000000000000 0000000000000000
+0x000000000171fd98:   0000000000000000 0000000000000000 
+
+Instructions: (pc=0x00000000035a7ec0)
+0x00000000035a7ea0:   e3 ff 00 00 00 48 8d 24 dc 41 0f b6 5d 05 49 83
+0x00000000035a7eb0:   c5 05 49 ba 30 73 04 6e 00 00 00 00 41 ff 24 da
+0x00000000035a7ec0:   48 8b 65 f0 48 c7 45 f0 00 00 00 00 4c 8b 6d c8
+0x00000000035a7ed0:   4c 8b 75 d0 48 8b 5d e0 48 85 db 0f 84 82 00 00 
+
+
+Register to memory mapping:
+
+RAX=0x00000000035a7ec0 is at code_begin+1664 in an Interpreter codelet
+invoke return entry points  [0x00000000035a7840, 0x00000000035a8220]  2528 bytes
+RBX=0x00007ff85d919e20 is an unknown value
+RCX=0x000000002251e908 is pointing into the stack for thread: 0x0000000022033800
+RDX=0x0000000000000001 is an unknown value
+RSP=0x000000000171fca8 is an unknown value
+RBP=0x0000000000000000 is an unknown value
+RSI=0x0000000000000000 is an unknown value
+RDI=0x0000000000000002 is an unknown value
+R8 =0x0000000000000002 is an unknown value
+R9 =0x000000000171fcb8 is an unknown value
+R10=0x0000000000000013 is an unknown value
+R11=0x0000000000000246 is an unknown value
+R12=0x0000000000000000 is an unknown value
+R13=0x0000000000000000 is an unknown value
+R14=0x0000000000000000 is an unknown value
+R15=0x0000000000000000 is an unknown value
+
+
+Stack: [0x0000000001620000,0x0000000001720000],  sp=0x000000000171fca8,  free space=1023k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+---------------  P R O C E S S  ---------------
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x00000006c4000000, size: 4032 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x00000007c0000000
+
+Heap:
+ PSYoungGen      total 75264K, used 42762K [0x000000076c000000, 0x0000000771400000, 0x00000007c0000000)
+  eden space 64512K, 66% used [0x000000076c000000,0x000000076e9c2930,0x000000076ff00000)
+  from space 10752K, 0% used [0x0000000770980000,0x0000000770980000,0x0000000771400000)
+  to   space 10752K, 0% used [0x000000076ff00000,0x000000076ff00000,0x0000000770980000)
+ ParOldGen       total 172032K, used 0K [0x00000006c4000000, 0x00000006ce800000, 0x000000076c000000)
+  object space 172032K, 0% used [0x00000006c4000000,0x00000006c4000000,0x00000006ce800000)
+ Metaspace       used 8476K, capacity 8660K, committed 8960K, reserved 1056768K
+  class space    used 1119K, capacity 1180K, committed 1280K, reserved 1048576K
+
+Card table byte_map: [0x0000000012960000,0x0000000013150000] byte_map_base: 0x000000000f340000
+
+Marking Bits: (ParMarkBitMap*) 0x000000006e05a830
+ Begin Bits: [0x0000000014390000, 0x0000000018290000)
+ End Bits:   [0x0000000018290000, 0x000000001c190000)
+
+Polling page: 0x00000000013e0000
+
+CodeCache: size=245760Kb used=5942Kb max_used=5954Kb free=239817Kb
+ bounds [0x00000000035a0000, 0x0000000003b80000, 0x00000000125a0000]
+ total_blobs=1420 nmethods=1054 adapters=284
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 73.331 Thread 0x000000001ef8b800 1070       4       java.util.HashMap::get (23 bytes)
+Event: 73.331 Thread 0x000000001efc8000 nmethod 1059 0x0000000003b2efd0 code [0x0000000003b2f1a0, 0x0000000003b2f818]
+Event: 73.331 Thread 0x000000001efcb000 nmethod 1063 0x0000000003b2dcd0 code [0x0000000003b2df00, 0x0000000003b2e9b8]
+Event: 73.331 Thread 0x000000001efcb000 1060       3       symbolic.ASTSimplifier::visit (28 bytes)
+Event: 73.331 Thread 0x000000001efc8000 1071       3       com.microsoft.z3.Native::getAstKind (44 bytes)
+Event: 73.331 Thread 0x000000001efc4000 nmethod 1068 0x0000000003b2d6d0 code [0x0000000003b2d840, 0x0000000003b2dba8]
+Event: 73.331 Thread 0x000000001efc4000 1064       3       ast.ASTStack::makeStep (68 bytes)
+Event: 73.331 Thread 0x000000001efc8800 nmethod 1053 0x0000000003b2bc10 code [0x0000000003b2be80, 0x0000000003b2cf58]
+Event: 73.331 Thread 0x000000001efc8800 1065       3       symbolic.SymbolicValue$$Lambda$2/998693033::get (5 bytes)
+Event: 73.331 Thread 0x000000001efc8800 nmethod 1065 0x0000000003b2b850 code [0x0000000003b2b9a0, 0x0000000003b2bb50]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (10 events):
+Event: 0.398 Thread 0x0000000022033800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00000000039eb998 method=org.antlr.v4.runtime.atn.SingletonPredictionContext.equals(Ljava/lang/Object;)Z @ 21
+Event: 0.398 Thread 0x0000000022033800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00000000039eb998 method=org.antlr.v4.runtime.atn.SingletonPredictionContext.equals(Ljava/lang/Object;)Z @ 21
+Event: 0.403 Thread 0x0000000022033800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000000395e344 method=java.util.HashMap.getNode(ILjava/lang/Object;)Ljava/util/HashMap$Node; @ 129
+Event: 0.403 Thread 0x0000000022033800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00000000039ef79c method=java.util.HashMap.putVal(ILjava/lang/Object;Ljava/lang/Object;ZZ)Ljava/lang/Object; @ 203
+Event: 0.415 Thread 0x0000000022033800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000039ef760 method=java.util.HashMap.putVal(ILjava/lang/Object;Ljava/lang/Object;ZZ)Ljava/lang/Object; @ 81
+Event: 0.415 Thread 0x0000000022033800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000003a08b0c method=java.util.HashMap.putVal(ILjava/lang/Object;Ljava/lang/Object;ZZ)Ljava/lang/Object; @ 81
+Event: 0.425 Thread 0x0000000022033800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000003917780 method=java.lang.String.lastIndexOf([CII[CIII)I @ 66
+Event: 0.431 Thread 0x0000000022033800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000038c8314 method=java.lang.String.indexOf([CII[CIII)I @ 123
+Event: 0.692 Thread 0x0000000022033800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000039501a4 method=java.util.ArrayList.rangeCheck(I)V @ 5
+Event: 9.394 Thread 0x0000000022033800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000000396ce18 method=java.util.ArrayList.rangeCheck(I)V @ 5
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (5 events):
+Event: 0.020 Thread 0x00000000034a4000 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x000000076c008288) thrown at [C:\wsjdk\Corretto8Src\installers\windows\zip\corretto-build\buildRoot
+Event: 0.020 Thread 0x00000000034a4000 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x000000076c008570) thrown at [C:\wsjdk\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\s
+Event: 0.278 Thread 0x0000000022033800 Implicit null exception at 0x0000000003857858 to 0x0000000003857af5
+Event: 0.451 Thread 0x0000000022033800 Exception <a 'java/lang/NoSuchFieldError': method resolution failed> (0x000000076e283eb0) thrown at [C:\wsjdk\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\methodHandles.cpp, line 1169]
+Event: 0.452 Thread 0x0000000022033800 Exception <a 'java/lang/NoSuchFieldError': method resolution failed> (0x000000076e292798) thrown at [C:\wsjdk\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\methodHandles.cpp, line 1169]
+
+Events (10 events):
+Event: 73.308 Executing VM operation: ChangeBreakpoints
+Event: 73.308 Executing VM operation: ChangeBreakpoints done
+Event: 73.308 Executing VM operation: ChangeBreakpoints
+Event: 73.308 Executing VM operation: ChangeBreakpoints done
+Event: 73.308 Executing VM operation: ChangeBreakpoints
+Event: 73.308 Executing VM operation: ChangeBreakpoints done
+Event: 73.308 Thread 0x000000001edec000 Thread exited: 0x000000001edec000
+Event: 73.330 Thread 0x000000001edec000 Thread added: 0x000000001edec000
+Event: 73.330 Executing VM operation: RevokeBias
+Event: 73.330 Executing VM operation: RevokeBias done
+
+
+Dynamic libraries:
+0x00007ff6d1c30000 - 0x00007ff6d1c65000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\bin\java.exe
+0x00007ff8b8a10000 - 0x00007ff8b8c05000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ff8b6e40000 - 0x00007ff8b6efe000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ff8b6390000 - 0x00007ff8b6658000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ff8b8660000 - 0x00007ff8b870c000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ff8b6d40000 - 0x00007ff8b6dde000 	C:\Windows\System32\msvcrt.dll
+0x00007ff8b6f00000 - 0x00007ff8b6f9b000 	C:\Windows\System32\sechost.dll
+0x00007ff8b6fc0000 - 0x00007ff8b70ea000 	C:\Windows\System32\RPCRT4.dll
+0x00007ff8b6ac0000 - 0x00007ff8b6c61000 	C:\Windows\System32\USER32.dll
+0x00007ff8b62b0000 - 0x00007ff8b62d2000 	C:\Windows\System32\win32u.dll
+0x00007ff8b70f0000 - 0x00007ff8b711b000 	C:\Windows\System32\GDI32.dll
+0x00007ff8b67f0000 - 0x00007ff8b68fb000 	C:\Windows\System32\gdi32full.dll
+0x00007ff8b6130000 - 0x00007ff8b61cd000 	C:\Windows\System32\msvcp_win.dll
+0x00007ff8b66f0000 - 0x00007ff8b67f0000 	C:\Windows\System32\ucrtbase.dll
+0x00007ff89dc10000 - 0x00007ff89deaa000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e\COMCTL32.dll
+0x00007ff8b82e0000 - 0x00007ff8b8310000 	C:\Windows\System32\IMM32.DLL
+0x000000006f5c0000 - 0x000000006f692000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\msvcr100.dll
+0x000000006d820000 - 0x000000006e0dc000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\server\jvm.dll
+0x00007ff8b6fb0000 - 0x00007ff8b6fb8000 	C:\Windows\System32\PSAPI.DLL
+0x00007ff89b990000 - 0x00007ff89b999000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ff8ab870000 - 0x00007ff8ab897000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ff8ab860000 - 0x00007ff8ab86a000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ff8b8960000 - 0x00007ff8b89cb000 	C:\Windows\System32\WS2_32.dll
+0x00007ff8b33c0000 - 0x00007ff8b33cf000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\verify.dll
+0x00007ff8b1760000 - 0x00007ff8b1789000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\java.dll
+0x00007ff8b05b0000 - 0x00007ff8b05e5000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\jdwp.dll
+0x00007ff8b1a20000 - 0x00007ff8b1a28000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\npt.dll
+0x00007ff8b0010000 - 0x00007ff8b0033000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\instrument.dll
+0x00007ff8b17b0000 - 0x00007ff8b17c6000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\zip.dll
+0x00007ff8b7ba0000 - 0x00007ff8b82df000 	C:\Windows\System32\SHELL32.dll
+0x00007ff8b3f00000 - 0x00007ff8b4690000 	C:\Windows\SYSTEM32\windows.storage.dll
+0x00007ff8b7350000 - 0x00007ff8b76a5000 	C:\Windows\System32\combase.dll
+0x00007ff8b59d0000 - 0x00007ff8b59fe000 	C:\Windows\SYSTEM32\Wldp.dll
+0x00007ff8b84c0000 - 0x00007ff8b856d000 	C:\Windows\System32\SHCORE.dll
+0x00007ff8b6a60000 - 0x00007ff8b6ab5000 	C:\Windows\System32\shlwapi.dll
+0x00007ff8b6070000 - 0x00007ff8b608f000 	C:\Windows\SYSTEM32\profapi.dll
+0x00007ff8b1890000 - 0x00007ff8b1899000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\dt_socket.dll
+0x00007ff8b57b0000 - 0x00007ff8b581a000 	C:\Windows\system32\mswsock.dll
+0x00007ff8affd0000 - 0x00007ff8affed000 	G:\IdeaProjects\java-semantics\bin\libz3java.dll
+0x00007ff89d360000 - 0x00007ff89d379000 	C:\Windows\SYSTEM32\VCRUNTIME140.dll
+0x00007ff85ce20000 - 0x00007ff85ddb5000 	G:\IdeaProjects\java-semantics\bin\libz3.dll
+0x00007ff89d3d0000 - 0x00007ff89d462000 	C:\Windows\SYSTEM32\MSVCP140.dll
+0x00007ff89ed70000 - 0x00007ff89ed7c000 	C:\Windows\SYSTEM32\VCRUNTIME140_1.dll
+0x00007ff8b07b0000 - 0x00007ff8b07cb000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\net.dll
+0x00007ff8afff0000 - 0x00007ff8b0002000 	C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\bin\nio.dll
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:62731,suspend=y,server=n -javaagent:C:\Users\Alex\AppData\Local\JetBrains\Toolbox\apps\IDEA-C\ch-0\203.5981.155\plugins\java\lib\rt\debugger-agent.jar -Dfile.encoding=UTF-8 
+java_command: main.ExecutionDriver -a G:\IdeaProjects\java-semantics\input\test.alk -m -t -s
+java_class_path (initial): C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\charsets.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\access-bridge-64.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\cldrdata.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\dnsns.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\jaccess.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\jfxrt.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\localedata.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\nashorn.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\sunec.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\sunjce_provider.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\sunmscapi.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\sunpkcs11.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\ext\zipfs.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\jce.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\jfr.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\jfxswt.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\jsse.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\management-agent.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\resources.jar;C:\Users\Alex\.jdks\corretto-1.8.0_275\jre\lib\rt.jar;G:\IdeaProjects\java-semantics\target\classes;G:\IdeaProjects\java-semantics\lib\com.microsoft.z3.jar;C:\Users\Alex\.m2\repository\org\antlr\antlr4\4.7.1\antlr4-4.7.1.jar;C:\Users\Alex\.m2\repository\org\antlr\antlr4-runtime\4.7.1\antlr4-runtime-4.7.1.jar;C:\Users\Alex\.m2\repository\org\antlr\antlr-runtime\3.5.2\antlr-runtime-3.5.2.jar;C:\Users\Alex\.m2\repository\org\antlr\ST4\4.0.8\ST4-4.0.8.jar;C:\Users\Alex\.m2\repository\org\abego\treelayout\org.abego.treelayout.core\1.0.3\org.abego.treelayout.core-1.0.3.jar;C:\Users\Alex\.m2\repository\org\glassfish\javax.json\1.0.4\javax.json-1.0.4.jar;C:\Users\Alex\.m2\repository\com\ibm\icu\icu4j\58.2\icu4j-58.2.jar;C:\Users\Alex\.m2\repository\ch\obermuhlner\big-math\2.0.1\big-
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_271
+PATH=C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\mingw32\bin;G:\utils\bin;C:\Program Files\nodejs\;G:\apache-maven\bin;C:\Program Files\Java\jdk1.8.0_271\bin;G:\IdeaProjects\java-semantics\bin;C:\MinGW\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Python3;C:\Program Files\Kubernetes\Minikube;;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\PuTTY\;C:\Python3\;C:\Python3\Scripts;E:\utils\Microsoft VS Code\bin;C:\Users\Alex\.dotnet\tools;C:\Users\Alex\go\bin;C:\Users\Alex\AppData\Roaming\npm;C:\Users\Alex\AppData\Local\GitHubDesktop\bin;;C:\Users\Alex\AppData\Local\Programs\Microsoft VS Code\bin;G:\VSCODE\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.1.4\bin;
+USERNAME=Alex
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 165 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 19041 (10.0.19041.1348)
+
+CPU:total 16 (initial active 16) (8 cores per cpu, 2 threads per core) family 6 model 165 stepping 5, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+Memory: 4k page, physical 16509896k(9329572k free), swap 26471368k(14742840k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.275-b01) for windows-amd64 JRE (1.8.0_275-b01), built on Nov  5 2020 05:17:06 by "Administrator" with MS VC++ 10.0 (VS2010)
+
+time: Thu Nov 18 14:33:52 2021
+timezone: GTB Standard Time
+elapsed time: 73.337915 seconds (0d 0h 1m 13s)
+

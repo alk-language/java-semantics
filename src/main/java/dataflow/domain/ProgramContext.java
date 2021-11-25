@@ -3,7 +3,6 @@ package dataflow.domain;
 import ast.AST;
 import ast.enums.Operator;
 import ast.expr.UnaryAST;
-import ast.stmt.WhileAST;
 import control.EdgeData;
 import dataflow.Domain;
 import execution.BaseStatefulInterpreterManager;
@@ -15,15 +14,13 @@ import execution.parser.env.*;
 import execution.state.ExecutionState;
 import execution.utils.Stepper;
 import symbolic.SymbolicValue;
-import util.PathCondition;
+import util.pc.PathCondition;
 import util.Recurrence;
 import util.exception.InternalException;
 import util.types.Storable;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class ProgramContext
 implements Domain
@@ -201,7 +198,7 @@ class ExecutionPath
     {
         this.store = new StoreImpl();
 
-        LocationMapper locMapping = new LocationMapper();
+        LocationMapper locMapping = new LocationMapper(path.store, this.store);
         Set<Location> sourceLocations = path.store.getLocations();
 
         for (Location loc : sourceLocations)
@@ -218,7 +215,7 @@ class ExecutionPath
         }
 
         this.env = path.env.makeClone(locMapping, store);
-        this.pc = path.pc.makeClone();
+        this.pc = new PathCondition(path.pc, locMapping);
         this.inside = new HashSet<>(path.inside);
     }
 
@@ -236,10 +233,6 @@ class ExecutionPath
             else
             {
                 SymbolicValue symVal = SymbolicValue.toSymbolic(value);
-                if (symVal == null)
-                {
-                    throw new InternalException("Unexpected error while symbolically evaluating a basic block!");
-                }
                 AST negatedAst = UnaryAST.createUnary(Operator.NOT, symVal.toAST());
                 this.pc.add(new SymbolicValue(negatedAst));
             }

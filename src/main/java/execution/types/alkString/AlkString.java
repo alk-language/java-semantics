@@ -201,4 +201,10 @@ implements AlkComparable<AlkString>
     {
         return new StringAST(value);
     }
+
+    @Override
+    public boolean isFullConcrete()
+    {
+        return true;
+    }
 }

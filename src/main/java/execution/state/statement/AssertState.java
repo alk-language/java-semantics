@@ -40,7 +40,7 @@ extends SingleState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        AssertState copy = new AssertState(tree, payload);
+        AssertState copy = new AssertState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

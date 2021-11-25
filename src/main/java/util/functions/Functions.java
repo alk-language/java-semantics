@@ -21,7 +21,9 @@ import java.util.List;
 
 import static execution.parser.constants.Constants.MAX_DECIMALS;
 
-public class Functions {
+public class Functions
+implements Funcs
+{
 
     Configuration config;
     LocationGenerator generator;

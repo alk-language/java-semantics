@@ -1,11 +1,3 @@
-a |-> $a
-
-Note that the execution was symbolic.
-Path condition: !((select $a 1)==1) ($a : array<int>)
-
-a |-> $a
 x |-> 2
-
-Note that the execution was symbolic.
-Path condition: ((select $a 1)==1) ($a : array<int>)
+y |-> 6
 

@@ -9,5 +9,5 @@ extends Storable,
         CPValue,
         SymbolicValueIface
 {
-
+    boolean isFullConcrete();
 }

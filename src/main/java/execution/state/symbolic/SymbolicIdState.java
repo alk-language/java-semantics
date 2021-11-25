@@ -19,12 +19,12 @@ extends PrimitiveState
     @Override
     protected Storable requireResult()
     {
-        return new SymbolicValue(tree);
+        return generator.generate(new SymbolicValue(tree));
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        return new SymbolicIdState(tree, payload.clone(sm));
+        return super.decorate(new SymbolicIdState(tree, payload.clone(sm)), sm);
     }
 }

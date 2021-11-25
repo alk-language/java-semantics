@@ -1,6 +1,9 @@
 package ast.expr;
 
-import ast.AST;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
+import ast.type.FloatDataTypeAST;
+import ast.type.IntDataTypeAST;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.FloatVisitorIface;
@@ -17,6 +20,12 @@ extends ExpressionAST
     {
         super(null);
         this.text = text;
+    }
+
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return new FloatDataTypeAST(null);
     }
 
     @Override

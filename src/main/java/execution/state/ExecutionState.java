@@ -84,10 +84,10 @@ extends State<ExecutionPayload, ExecutionResult>
 
     protected AlgorithmTypeDetector getAlgorithmTypeDetector() { return getExec().getConfiguration(); }
 
-    protected void checkNotNull(Storable value)
+    protected void checkNotNull(Storable value, boolean unknownAllowed)
     {
         value = value == null ? null : value.toRValue();
-        if (value == null || value instanceof AlkNotAValue)
+        if (value == null || (!unknownAllowed && value instanceof AlkNotAValue))
         {
             handle(new AlkException("Undefined variable used!"));
         }

@@ -12,7 +12,6 @@ public abstract class GuardedGeneratorState
 extends GeneratorState
 {
     private final OpsASTAttr attr;
-
     private Storable localResult;
 
     public GuardedGeneratorState(AST tree, ExecutionPayload executionPayload)

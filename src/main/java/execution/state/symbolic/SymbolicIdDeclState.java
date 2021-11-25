@@ -23,14 +23,14 @@ extends PrimitiveState
     {
         String symId = tree.getAttribute(IdASTAttr.class).getId();
         AST type = tree.getChild(0);
-        getExec().getPathCondition().setType(symId, (DataTypeAST) type);
+        getExec().getPathCondition().setType(symId, (DataTypeAST) type, true);
         return null;
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        SymbolicIdDeclState copy = new SymbolicIdDeclState(tree, payload);
+        SymbolicIdDeclState copy = new SymbolicIdDeclState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

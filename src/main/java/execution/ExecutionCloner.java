@@ -5,6 +5,8 @@ import execution.exhaustive.ExecutionStateMapper;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.env.StoreImpl;
+import execution.state.ExecutionCloneContext;
+import util.pc.PathCondition;
 import util.types.Storable;
 
 import java.util.Set;
@@ -12,14 +14,13 @@ import java.util.Set;
 class ExecutionCloner
 {
 
-    public static Execution makeClone(Execution source)
+    public static ExecutionCloneContext makeClone(Execution source)
     {
         StoreImpl copyStore = new StoreImpl();
-        LocationMapper locMapping = new LocationMapper();
+        LocationMapper locMapping = new LocationMapper(source.getStore(), copyStore);
 
         Execution copy = new Execution(source.getConfig().clone(), source.getInterpreterManager().makeClone());
         copy.setStore(copyStore);
-        copy.setPathCondition(source.getPathCondition().makeClone());
         Set<Location> sourceLocations = source.getStore().getLocations();
 
         for (Location loc : sourceLocations)
@@ -31,7 +32,7 @@ class ExecutionCloner
         for (Location loc : sourceLocations)
         {
             Storable value = loc.getValue();
-            Storable copyValue = value.weakClone(locMapping);
+            Storable copyValue = value == null ? null : value.weakClone(locMapping);
             copyStore.set(locMapping.get(loc), copyValue);
         }
 
@@ -40,10 +41,11 @@ class ExecutionCloner
         EnvironmentMapper envMapping = source.cloneEnvironments(copy, locMapping, copyStore);
         ExecutionStateMapper stateMapping = source.getStack().cloneStates(copy, locMapping, envMapping);
         copy.setGlobal(envMapping.get(source.getGlobal()));
+        copy.setPathCondition(new PathCondition(source.getPathCondition(), locMapping));
 
         ExecutionStack stack = source.getStack().makeClone(copy, stateMapping);
         copy.setStack(stack);
 
-        return copy;
+        return new ExecutionCloneContext(copy, locMapping);
     }
 }

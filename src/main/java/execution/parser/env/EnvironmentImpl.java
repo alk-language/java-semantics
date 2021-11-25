@@ -2,6 +2,8 @@ package execution.parser.env;
 
 import execution.types.AlkValue;
 import execution.parser.exceptions.IdNotInEnvironmentException;
+import symbolic.ASTSimplifier;
+import symbolic.SymbolicValue;
 import util.types.Storable;
 
 import java.util.HashMap;
@@ -86,8 +88,14 @@ implements Environment
         }
         for (Map.Entry<String, Location> i : variables.entrySet())
         {
+            Storable val = store.get(i.getValue());
+            if (val instanceof SymbolicValue)
+            {
+                LocationMapperIface lm = loc -> loc;
+                val = new SymbolicValue(((SymbolicValue) val).toAST().accept(new ASTSimplifier(lm, true)));
+            }
             returnable.append(pad);
-            returnable.append(i.getKey()).append(" |-> ").append(store.get(i.getValue())).append('\n');
+            returnable.append(i.getKey()).append(" |-> ").append(val).append('\n');
         }
         return pad.append(returnable.toString().trim()).toString();
     }

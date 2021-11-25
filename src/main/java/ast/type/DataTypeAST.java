@@ -16,4 +16,12 @@ extends AST
 
     public abstract Expr<?> makeExpr(Context ctx, String id);
     public abstract Sort getSort(Context ctx);
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (!(o instanceof DataTypeAST))
+            return false;
+        return this.toString().equals(o.toString());
+    }
 }

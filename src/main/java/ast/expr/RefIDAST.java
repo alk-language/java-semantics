@@ -8,7 +8,6 @@ import visitor.ifaces.expr.RefIDVisitorIface;
 public class RefIDAST
 extends ExpressionAST
 {
-
     public RefIDAST(alkParser.RefIDContext ctx)
     {
         super(ctx);

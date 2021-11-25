@@ -1,0 +1,28 @@
+swap(out a, out b) {
+    tmp = a;
+    a = b;
+    b = tmp;
+}
+
+sort(out a)
+{
+    ok = false;
+    while (!ok)
+    {
+        ok = true;
+        for (i = 1; i < a.size(); i++)
+        {
+            if (a[i - 1] > a[i])
+            {
+                swap(a[i - 1], a[i]);
+                ok = false;
+            }
+        }
+    }
+}
+
+symbolic $a : array<int>;
+a = $a;
+assume a.size() == 3;
+sort(a);
+assert a[0] <= a[1];

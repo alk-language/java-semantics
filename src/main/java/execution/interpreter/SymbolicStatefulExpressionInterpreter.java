@@ -97,7 +97,6 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     public ExecutionState interpretComposite(Primitive primitive, AST ast, ExecutionPayload payload)
     {
         return baseDelegate.interpretComposite(primitive, ast, payload);
-        // throw new NotImplementedException("Composite values can't be symbolically evaluated!");
     }
 
     @Override

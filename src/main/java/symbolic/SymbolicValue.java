@@ -3,6 +3,7 @@ package symbolic;
 import ast.AST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
+import execution.parser.env.LocationMapperIface;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import util.types.ASTRepresentable;
@@ -11,11 +12,21 @@ import util.types.Storable;
 public class SymbolicValue
 implements ExclusiveSymbolicValue
 {
-    AST ast;
-    ASTSimplifier simplifier = new ASTSimplifier();
+    private final AST ast;
 
     public SymbolicValue(AST ast)
     {
+        this(ast, false);
+    }
+
+    public SymbolicValue(AST ast, boolean fixedLocations)
+    {
+        this(ast, loc -> loc, fixedLocations);
+    }
+
+    public SymbolicValue(AST ast, LocationMapperIface lm, boolean fixedLocations)
+    {
+        ASTSimplifier simplifier = new ASTSimplifier(lm, fixedLocations);
         this.ast = ast.accept(simplifier);
     }
 
@@ -36,11 +47,11 @@ implements ExclusiveSymbolicValue
         throw new InternalException("Can't build symbolic value out of: " + value.toString());
     }
 
+
     @Override
     public Storable weakClone(LocationMapper locationMapper)
     {
-        ASTCloner cloner = new ASTCloner(locationMapper);
-        return new SymbolicValue(this.ast.accept(cloner));
+        return new SymbolicValue(ast, locationMapper, false);
     }
 
     @Override

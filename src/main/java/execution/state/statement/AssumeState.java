@@ -26,7 +26,7 @@ extends SingleState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        AssumeState copy = new AssumeState(tree, payload);
+        AssumeState copy = new AssumeState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 

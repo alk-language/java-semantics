@@ -7,7 +7,6 @@ import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.state.statement.AssumeState;
 import execution.types.alkBool.AlkBool;
-import smt.SMTHelper;
 import symbolic.SymbolicValue;
 import util.types.Storable;
 
@@ -25,8 +24,8 @@ extends AssumeState
         value = value.toRValue();
         if (value instanceof SymbolicValue)
         {
-            getExec().getPathCondition().add((SymbolicValue) value);
-            if (!SMTHelper.validatePathCondition(getExec().getConfig(), getExec().getPathCondition()))
+            getExec().getPathCondition().add((SymbolicValue) value.clone(generator));
+            if (!getExec().getPathCondition().isSatisfiable())
             {
                 getExec().halt();
             }
@@ -53,7 +52,7 @@ extends AssumeState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        SymbolicAssumeState copy = new SymbolicAssumeState(tree, payload);
+        SymbolicAssumeState copy = new SymbolicAssumeState(tree, payload.clone(sm));
         return super.decorate(copy, sm);
     }
 }

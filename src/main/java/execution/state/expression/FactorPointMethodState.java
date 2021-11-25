@@ -10,6 +10,7 @@ import execution.parser.env.Location;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.GeneratorState;
+import execution.state.symbolic.SymbolicFactorPointMethodState;
 import util.FunctionsSolver;
 import util.Invoker;
 import util.exception.InternalException;
@@ -72,13 +73,23 @@ extends GeneratorState
             {
                 setMethodSolver();
             }
-            return (Location) Invoker.invokeMethod(methodName, reference, params, generator, methodSolver);
+            return (Location) Invoker.invokeMethod(methodName, reference, params, generator, methodSolver, getExec());
         }
         catch (AlkException e)
         {
             super.handle(new AlkException(e.getMessage()));
         }
         return null;
+    }
+
+    public ExecutionState decorate(FactorPointMethodState copy, SplitMapper sm)
+    {
+        copy.reference = sm.getLocationMapper().get(reference);
+        for (Storable value : params)
+        {
+            copy.params.add(value.weakClone(sm.getLocationMapper()));
+        }
+        return super.decorate(copy, sm);
     }
 
     @Override

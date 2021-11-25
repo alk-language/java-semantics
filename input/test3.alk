@@ -1,6 +1,86 @@
-symbolic $a : array<int>;
-a = $a;
-if (a[1] == 1)
+/*
+
+symbolic $n : int;
+
+sum = 0;
+n = $n;
+
+j = 1;
+while (j <= n)
+// invariant sum == (j - 1) * (n * (n + 1) / 2)
 {
-    x = 2;
+    i = 1;
+    while (i <= n)
+    // invariant sum == j * (n * (n + 1) / 2) + i * (i - 1) / 2 && i <= n + 1
+    {
+        sum = sum + i;
+        i++;
+    }
+    j++;
 }
+
+*/
+
+
+
+/*
+    while (i <= n)
+    // invariant sum == i * (i - 1) / 2 && i <= n + 1
+    {
+      sum = sum + i;
+      i++;
+    }
+
+symbolic $s0 : int, $n : int;
+
+n = $n;
+sum = $s0;
+i = 1;
+while (i <= n)
+// invariant sum == $s0 + i * (i - 1) / 2 && i <= n + 1
+{
+    sum = sum + i;
+    i++;
+}
+assert !(i <= n) && sum == $s0 + i * (i - 1) / 2 && i <= n + 1;
+*/
+
+symbolic $n : int, $j : int, $sum : int, $sum1 : int, $i : int;
+
+sum = 0;
+n = $n;
+
+j = 1;
+
+// proof obligation 1: the invariant holds in the initial state of while
+assert sum == (j - 1) * (n * (n + 1) / 2);
+
+// proof obligation 2: check the loop invariant
+/*
+
+while (j <= n)
+// invariant sum == (j - 1) * (n * (n + 1) / 2)
+{
+    i = 1;
+    assume !(i <= n) && sum == $sum + i * (i - 1) / 2 && i <= n + 1;
+    j++;
+}
+
+*/
+
+j = $j;
+sum = $sum;
+assume j <= n;
+assume sum == (j - 1) * (n * (n + 1) / 2);
+
+i = 1;
+assume !(i <= n) && sum == $sum + i * (i - 1) / 2 && i <= n + 1;
+j++;
+
+assert sum == $sum + i * (i - 1) / 2 && i <= n + 1;
+
+
+// forall
+// exists
+
+a = exists i s.t. i <= 10;

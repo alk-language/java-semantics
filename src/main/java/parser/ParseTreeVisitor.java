@@ -10,6 +10,7 @@ import ast.symbolic.SymbolicIdDeclAST;
 import ast.type.ArrayDataTypeAST;
 import ast.type.FloatDataTypeAST;
 import ast.type.IntDataTypeAST;
+import ast.type.SetDataTypeAST;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 
@@ -134,6 +135,13 @@ extends alkBaseVisitor<AST>
         return tree;
     }
 
+    @Override
+    public AST visitSetType(alkParser.SetTypeContext ctx)
+    {
+        AST tree = new SetDataTypeAST(ctx);
+        tree.addChild(visit(ctx.dataType()));
+        return tree;
+    }
 
     @Override
     public AST visitToChooseStmt(alkParser.ToChooseStmtContext ctx)

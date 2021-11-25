@@ -4,8 +4,10 @@ import ast.AST;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.parser.exceptions.NoSuchFunctionException;
+import execution.state.ExecutionState;
 import execution.state.function.BuiltInFunctionState;
 import symbolic.ExclusiveSymbolicValue;
+import util.functions.Functions;
 import util.functions.SymbolicFunctions;
 import util.types.Storable;
 
@@ -17,11 +19,6 @@ extends BuiltInFunctionState
     public SymbolicBuiltInFunctionState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload);
-    }
-
-    public SymbolicBuiltInFunctionState(SymbolicBuiltInFunctionState copy, SplitMapper sm)
-    {
-        super(copy, sm);
     }
 
     @Override
@@ -39,6 +36,7 @@ extends BuiltInFunctionState
 
         if (symbolic)
         {
+            functions = new SymbolicFunctions(payload.getConfiguration(), generator);
             fSolver = (functionName) ->
             {
                 try
@@ -58,5 +56,10 @@ extends BuiltInFunctionState
         }
     }
 
-
+    @Override
+    public ExecutionState clone(SplitMapper sm)
+    {
+        SymbolicBuiltInFunctionState copy = new SymbolicBuiltInFunctionState(tree, payload.clone(sm));
+        return super.decorate(copy, sm);
+    }
 }
