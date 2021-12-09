@@ -4,15 +4,13 @@ import ast.AST;
 import ast.attr.IdASTAttr;
 import ast.attr.ParamASTAttr;
 import ast.enums.ParamType;
+import ast.expr.RefIDAST;
 import ast.stmt.*;
 import ast.symbolic.SymbolicDeclsAST;
-import ast.symbolic.SymbolicIdDeclAST;
-import ast.type.ArrayDataTypeAST;
-import ast.type.FloatDataTypeAST;
-import ast.type.IntDataTypeAST;
-import ast.type.SetDataTypeAST;
+import ast.symbolic.IdDeclAST;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class ParseTreeVisitor
 extends alkBaseVisitor<AST>
@@ -70,9 +68,15 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
+    public AST visitToHavocStmt(alkParser.ToHavocStmtContext ctx)
+    {
+        return visit(ctx.havocStmt());
+    }
+
+    @Override
     public AST visitAssume(alkParser.AssumeContext ctx)
     {
-        AST exprAST = exprVisitor.visit(ctx.expression());
+        AST exprAST = exprVisitor.visit(ctx.fol());
         AssumeAST assumeAST = new AssumeAST(ctx);
         assumeAST.addChild(exprAST);
         return assumeAST;
@@ -81,10 +85,21 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitAssert(alkParser.AssertContext ctx)
     {
-        AST exprAST = exprVisitor.visit(ctx.expression());
+        AST exprAST = exprVisitor.visit(ctx.fol());
         AssertAST assertAST = new AssertAST(ctx);
         assertAST.addChild(exprAST);
         return assertAST;
+    }
+
+    @Override
+    public AST visitHavoc(alkParser.HavocContext ctx)
+    {
+        AST havocAST = new HavocAST(ctx);
+        for (TerminalNode nod : ctx.ID())
+        {
+            havocAST.addChild(new RefIDAST(nod.getText()));
+        }
+        return havocAST;
     }
 
     @Override
@@ -107,40 +122,12 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitSymbolicIdDecl(alkParser.SymbolicIdDeclContext ctx)
     {
-        AST symbIdAST = new SymbolicIdDeclAST(ctx);
+        AST symbIdAST = new IdDeclAST(ctx);
         IdASTAttr attr = new IdASTAttr(ctx.ID().getText());
         symbIdAST.addAttribute(IdASTAttr.class, attr);
-        AST typeAST = visit(ctx.dataType());
+        AST typeAST = exprVisitor.visit(ctx.dataType());
         symbIdAST.addChild(typeAST);
         return symbIdAST;
-    }
-
-    @Override
-    public AST visitIntType(alkParser.IntTypeContext ctx)
-    {
-        return new IntDataTypeAST(ctx);
-    }
-
-    @Override
-    public AST visitFloatType(alkParser.FloatTypeContext ctx)
-    {
-        return new FloatDataTypeAST(ctx);
-    }
-
-    @Override
-    public AST visitArrayType(alkParser.ArrayTypeContext ctx)
-    {
-        AST tree = new ArrayDataTypeAST(ctx);
-        tree.addChild(visit(ctx.dataType()));
-        return tree;
-    }
-
-    @Override
-    public AST visitSetType(alkParser.SetTypeContext ctx)
-    {
-        AST tree = new SetDataTypeAST(ctx);
-        tree.addChild(visit(ctx.dataType()));
-        return tree;
     }
 
     @Override
@@ -184,6 +171,18 @@ extends alkBaseVisitor<AST>
     {
         AST ast = new WhileAST(ctx);
         ast.addChild(exprVisitor.visit(ctx.expression()));
+        if (ctx.fol() != null)
+            ast.addChild(exprVisitor.visit(ctx.fol()));
+
+        ParamASTAttr paramAttr = new ParamASTAttr();
+        for (int i = 0; i < ctx.ID().size(); i++)
+        {
+            String mid = ctx.ID(i).getText();
+            paramAttr.addParameter(ParamType.GLOBAL, mid);
+        }
+
+        ast.addAttribute(ParamASTAttr.class, paramAttr);
+
         ast.addChild(visit(ctx.statement()));
         return ast;
     }

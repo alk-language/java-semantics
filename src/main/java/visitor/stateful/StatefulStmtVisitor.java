@@ -1,7 +1,7 @@
 package visitor.stateful;
 
 import ast.symbolic.SymbolicDeclsAST;
-import ast.symbolic.SymbolicIdDeclAST;
+import ast.symbolic.IdDeclAST;
 import state.Payload;
 import state.State;
 import ast.stmt.*;
@@ -102,6 +102,12 @@ implements StmtVisitorIface<S>
     }
 
     @Override
+    public S visit(HavocAST tree)
+    {
+        return stmtInterpreter.interpretHavoc(tree, payload);
+    }
+
+    @Override
     public S visit(RepeatUntilAST tree)
     {
         return stmtInterpreter.interpretRepeatUntil(tree, payload);
@@ -149,10 +155,8 @@ implements StmtVisitorIface<S>
     }
 
     @Override
-    public S visit(SymbolicIdDeclAST tree)
+    public S visit(IdDeclAST tree)
     {
         return stmtInterpreter.interpretSymbolicIdDecl(tree, payload);
     }
-
-
 }

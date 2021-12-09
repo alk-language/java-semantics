@@ -31,6 +31,7 @@ statement
 
     | expression SEMICOLON                                                                                              #ExpressionStmt
     | symbolicStmt SEMICOLON                                                                                            #SymbolicDeclStmt
+    | havocStmt SEMICOLON                                                                                               #ToHavocStmt
 
     | assumeStmt SEMICOLON                                                                                              #ToAssumeStmt
     | assertStmt SEMICOLON                                                                                              #ToAssertStmt
@@ -38,12 +39,17 @@ statement
 
 assumeStmt
 :
-    ASSUME expression                                                                                                   #Assume
+    ASSUME fol                                                                                                          #Assume
 ;
 
 assertStmt
 :
-    ASSERT expression                                                                                                   #Assert
+    ASSERT fol                                                                                                          #Assert
+;
+
+havocStmt
+:
+    HAVOC ID (COMMA ID)*                                                                                                #Havoc
 ;
 
 symbolicStmt
@@ -54,14 +60,6 @@ symbolicStmt
 symbolicDeclarator
 :
     SYM ID DPOINT dataType                                                                                              #SymbolicIdDecl
-;
-
-dataType
-:
-    INTEGER                                                                                                             #IntType
-    | FLOAT                                                                                                             #FloatType
-    | ARRAY LOWER dataType GREATER                                                                                      #ArrayType
-    | SET LOWER dataType GREATER                                                                                        #SetType
 ;
 
 directive
@@ -87,7 +85,7 @@ choose:
 
 while_struct
 :
-    WHILE LPAR expression RPAR statement                                                                                #WhileStructure
+    WHILE LPAR expression RPAR (INVARIANT fol)? ((MODIFIES | USES) ID (COMMA ID)*)? statement                           #WhileStructure
 ;
 
 do_while_struct

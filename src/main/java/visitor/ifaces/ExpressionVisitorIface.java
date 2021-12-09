@@ -2,6 +2,7 @@ package visitor.ifaces;
 
 import visitor.ifaces.expr.*;
 import visitor.ifaces.stmt.AssignmentVisitorIface;
+import visitor.ifaces.stmt.IdDeclVisitorIface;
 
 public interface ExpressionVisitorIface<T>
 extends AdditiveVisitorIface<T>,
@@ -14,10 +15,14 @@ extends AdditiveVisitorIface<T>,
         BuiltInFunctionVisitorIface<T>,
         ConditionalExprVisitorIface<T>,
         EqualityVisitorIface<T>,
+        EquivVisitorIface<T>,
+        ExistsVisitorIface<T>,
         FactorPointIdIface<T>,
         FactorPointMethodVisitorIface<T>,
         FloatVisitorIface<T>,
+        ForAllVisitorIface<T>,
         FunctionCallVisitorIface<T>,
+        ImpliesVisitorIface<T>,
         InExprVisitorIface<T>,
         IntVisitorIface<T>,
         ListVisitorIface<T>,

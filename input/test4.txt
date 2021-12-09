@@ -1,14 +1,21 @@
-symbolic $a : array<int>;
-a = $a;
+symbolic $n : int;
 
-assume a.size() == 5;
+sum = 0;
+n = $n;
+assume $n < 3;
 
-maxim = a[0];
-for (i = 1; i < a.size(); i++)
-// invariant forall j s.t. 0 <= j < i . a[j] <= maxim
+j = 1;
+while (j <= n)
+// invariant sum == (j - 1) * (n * (n + 1) / 2)
 {
-    if (maxim < a[i])
-        maxim = a[i];
+    i = 1;
+    while (i <= n)
+    // invariant sum == j * (n * (n + 1) / 2) + i * (i - 1) / 2 && i <= n + 1
+    {
+        sum = sum + i;
+        i++;
+    }
+    j++;
 }
 
-print(maxim);
+assert sum == (j - 1) * (n * (n + 1) / 2);

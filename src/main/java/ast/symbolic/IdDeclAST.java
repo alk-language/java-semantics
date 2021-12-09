@@ -1,17 +1,15 @@
 package ast.symbolic;
 
 import ast.attr.IdASTAttr;
-import ast.attr.TypeASTAttr;
 import ast.stmt.StmtAST;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
-import visitor.ifaces.stmt.SuccessVisitorIface;
-import visitor.ifaces.stmt.SymbolicIdDeclVisitorIface;
+import visitor.ifaces.stmt.IdDeclVisitorIface;
 
-public class SymbolicIdDeclAST
+public class IdDeclAST
 extends StmtAST
 {
-    public SymbolicIdDeclAST(ParserRuleContext ctx)
+    public IdDeclAST(ParserRuleContext ctx)
     {
         super(ctx);
     }
@@ -19,8 +17,8 @@ extends StmtAST
     @Override
     public <T> T accept(VisitorIface<T> visitor)
     {
-        if (visitor instanceof SymbolicIdDeclVisitorIface)
-            return ((SymbolicIdDeclVisitorIface<T>) visitor).visit(this);
+        if (visitor instanceof IdDeclVisitorIface)
+            return ((IdDeclVisitorIface<T>) visitor).visit(this);
 
         return super.accept(visitor);
     }
@@ -29,6 +27,6 @@ extends StmtAST
     public String toString()
     {
         IdASTAttr idAttr = getAttribute(IdASTAttr.class);
-        return "$" + idAttr.getId() + " : " + getChild(0).toString();
+        return idAttr.getId() + " : " + getChild(0).toString();
     }
 }

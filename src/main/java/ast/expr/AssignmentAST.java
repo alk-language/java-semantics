@@ -2,6 +2,8 @@ package ast.expr;
 
 import ast.AST;
 import ast.expr.ExpressionAST;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.AdditiveVisitorIface;
@@ -14,6 +16,12 @@ extends ExpressionAST
     public AssignmentAST(ParserRuleContext ctx)
     {
         super(ctx);
+    }
+
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return ((ExpressionAST) getRightSide()).getDataType(dtp);
     }
 
     public AST getLeftSide()

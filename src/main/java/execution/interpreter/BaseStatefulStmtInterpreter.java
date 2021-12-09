@@ -94,6 +94,12 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     }
 
     @Override
+    public ExecutionState interpretHavoc(AST ast, ExecutionPayload payload)
+    {
+        throw new InternalException("Can't interpret havoc statement in concrete execution!");
+    }
+
+    @Override
     public ExecutionState interpretRepeatUntil(AST ast, ExecutionPayload payload)
     {
         return new RepeatUntilState(ast, payload);

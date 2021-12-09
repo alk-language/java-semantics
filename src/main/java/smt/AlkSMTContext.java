@@ -25,6 +25,8 @@ import java.util.*;
 public class AlkSMTContext
 implements DataTypeProvider
 {
+    private static int fresh = 0;
+
     private final Map<BuiltInMethod, SMTMethodSolver> bMethods = new HashMap<>();
     private final Map<BuiltInFunction, SMTFunctionSolver> bFunctions = new HashMap<>();
     private final Map<Operator, SMTOperatorSolver> operators = new HashMap<>();
@@ -37,7 +39,6 @@ implements DataTypeProvider
     public final Map<String, Expr> ids = new HashMap<>();
     public final Context ctx;
     public final Solver s;
-    private int fresh = 0;
 
     public AlkSMTContext()
     {
@@ -181,7 +182,7 @@ implements DataTypeProvider
             Status sts = s.check();
             if (sts == Status.UNKNOWN)
             {
-                throw new InternalException("Unknown check on Z3");
+                throw new InternalException("Unknown check on Z3!");
             }
             return sts == Status.UNSATISFIABLE;
         }
@@ -206,6 +207,7 @@ implements DataTypeProvider
     @Override
     public DataTypeAST getDataType(String s)
     {
+        if (!s.startsWith("$")) s = "$" + s;
         return idsDataTypes.get(s);
     }
 
@@ -213,6 +215,12 @@ implements DataTypeProvider
     {
         this.fresh++;
         return "#" + fresh;
+    }
+
+    public String getFresh(String name)
+    {
+        this.fresh++;
+        return "$" + name + "_" + fresh;
     }
 
     public ArraySMTSupport getArraySupport(ArraySort arrayType)
@@ -227,5 +235,10 @@ implements DataTypeProvider
         if (!supportedSet.containsKey(setType))
             supportedSet.put(setType, new SetSMTSupport(this, setType));
         return supportedSet.get(setType);
+    }
+
+    public Expr getExprById(String id)
+    {
+        return ids.get(id);
     }
 }

@@ -7,6 +7,10 @@ import ast.attr.OpsASTAttr;
 import ast.attr.RepresentationASTAttr;
 import ast.expr.*;
 import ast.expr.AssignmentAST;
+import ast.expr.fol.EquivAST;
+import ast.expr.fol.ExistsExprAST;
+import ast.expr.fol.ForAllExprAST;
+import ast.expr.fol.ImpliesAST;
 import util.Pair;
 import util.exception.InternalException;
 import ast.enums.CompoundValueRepresentation;
@@ -274,13 +278,37 @@ implements ExpressionVisitorIface<T>
     @Override
     public T visit(FunctionCallAST tree)
     {
-        return null;
+        throw new InternalException("To be implemented!");
     }
 
     @Override
     public T visit(AssignmentAST ctx)
     {
-        return null;
+        throw new InternalException("To be implemented!");
+    }
+
+    @Override
+    public T visit(EquivAST ctx)
+    {
+        throw new InternalException("To be implemented!");
+    }
+
+    @Override
+    public T visit(ExistsExprAST ctx)
+    {
+        throw new InternalException("To be implemented!");
+    }
+
+    @Override
+    public T visit(ForAllExprAST ctx)
+    {
+        throw new InternalException("To be implemented!");
+    }
+
+    @Override
+    public T visit(ImpliesAST ctx)
+    {
+        throw new InternalException("To be implemented!");
     }
 
     static class DataStructureVisitor<T>

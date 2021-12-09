@@ -1,7 +1,10 @@
 package ast.expr;
 
 import ast.AST;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import org.antlr.v4.runtime.ParserRuleContext;
+import util.exception.InternalException;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.ListVisitorIface;
 
@@ -11,6 +14,12 @@ extends ExpressionAST
     public ListAST(ParserRuleContext ctx)
     {
         super(ctx);
+    }
+
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        throw new InternalException("Can't detect data type for lists!");
     }
 
     @Override

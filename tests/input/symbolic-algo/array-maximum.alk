@@ -1,0 +1,16 @@
+symbolic $a : array<int>;
+a = $a;
+maxim = a[0];
+i = 0;
+while (i < a.size())
+invariant forall j : int :: 0 <= j && j < i ==> a[j] <= maxim
+modifies i, maxim
+{
+    if (a[i] > maxim)
+    {
+        maxim = a[i];
+    }
+    i++;
+}
+
+assert forall j : int :: 0 <= j && j < a.size() ==> a[j] <= maxim;

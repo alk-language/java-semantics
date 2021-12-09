@@ -1,0 +1,18 @@
+symbolic $a : array<int>;
+
+a = $a;
+i = 0;
+minim = a[0];
+
+while (i < a.size())
+invariant forall j : int :: 0 <= j && j < i ==> minim <= a[j]
+modifies i, minim
+{
+    if (a[i] < minim)
+    {
+        minim = a[i];
+    }
+    i++;
+}
+
+assert forall j : int :: 0 <= j && j < a.size() ==> minim <= a[j];

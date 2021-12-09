@@ -6,22 +6,25 @@ sum = 0;
 n = $n;
 
 j = 1;
+
 while (j <= n)
 // invariant sum == (j - 1) * (n * (n + 1) / 2)
 {
+    a[k] = 6;
     i = 1;
     while (i <= n)
+    havoc j, sum;
     // invariant sum == j * (n * (n + 1) / 2) + i * (i - 1) / 2 && i <= n + 1
     {
         sum = sum + i;
         i++;
     }
+    havoc j, sum;
     j++;
 }
 
+havoc i, j, sum;
 */
-
-
 
 /*
     while (i <= n)

@@ -1,5 +1,6 @@
 package util.types;
 
+import ast.type.DataTypeAST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import util.lambda.LocationGenerator;

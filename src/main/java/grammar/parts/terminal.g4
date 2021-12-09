@@ -18,6 +18,14 @@ fragment NONZERODIGIT: [1-9];
 ASSERT: 'assert';
 ASSUME: 'assume';
 SYMBOLIC: 'symbolic';
+INVARIANT : 'invariant';
+
+IMPLIES: '==>';
+EQUIV: '<==>';
+FORALL: 'forall';
+EXISTS: 'exists';
+QUANTIFIER_SEPARATOR: '::';
+
 
 //Cofiguration
 TO: '|->';
@@ -32,6 +40,7 @@ FOREACH : 'foreach';
 IN : 'in';
 FROM : 'from';
 OUT : 'out';
+HAVOC : 'havoc';
 CHOOSE : 'choose';
 UNIFORM : 'uniform';
 REPEAT : 'repeat';
