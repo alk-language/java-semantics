@@ -11,7 +11,10 @@ extends LoopingState
 {
     public WhileState(AST tree, ExecutionPayload executionPayload)
     {
-        super(tree, executionPayload, tree.getChild(0), tree.getChild(1));
+        super(tree, executionPayload,
+              tree.getChildCount() == 3 ? tree.getChild(0) : tree.getChild(0),
+              tree.getChildCount() == 3 ? tree.getChild(1) : null,
+              tree.getChildCount() == 3 ? tree.getChild(2) : tree.getChild(1));
     }
 
     @Override

@@ -8,6 +8,7 @@ import execution.types.alkInt.AlkInt;
 import org.antlr.v4.runtime.ParserRuleContext;
 import symbolic.SymbolicValue;
 import util.exception.IncompleteASTException;
+import util.exception.InternalException;
 import util.types.Storable;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.symbolic.PointerVisitorIface;
@@ -26,6 +27,10 @@ extends ExpressionAST
     @Override
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
+        if (loc == null)
+        {
+            throw new InternalException("Can't detect data type of incomplete AST!");
+        }
         Storable value = loc.toRValue();
         return ((ExpressionAST) SymbolicValue.toSymbolic(value).toAST()).getDataType(dtp);
     }

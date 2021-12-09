@@ -5,6 +5,15 @@ import ast.attr.*;
 import ast.enums.Anno;
 import ast.expr.*;
 import ast.expr.AssignmentAST;
+import ast.expr.fol.EquivAST;
+import ast.expr.fol.ExistsExprAST;
+import ast.expr.fol.ForAllExprAST;
+import ast.expr.fol.ImpliesAST;
+import ast.symbolic.IdDeclAST;
+import ast.type.ArrayDataTypeAST;
+import ast.type.FloatDataTypeAST;
+import ast.type.IntDataTypeAST;
+import ast.type.SetDataTypeAST;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -18,6 +27,76 @@ import visitor.OperatorHelper;
 public class ParseTreeExprVisitor
 extends alkBaseVisitor<AST>
 {
+
+    @Override
+    public AST visitImpliesExpr(alkParser.ImpliesExprContext ctx)
+    {
+        AST ast = new ImpliesAST(ctx);
+        ast.addChild(this.visit(ctx.expression()));
+        ast.addChild(this.visit(ctx.fol()));
+        return ast;
+    }
+
+    @Override
+    public AST visitEquivExpr(alkParser.EquivExprContext ctx)
+    {
+        AST ast = new EquivAST(ctx);
+        ast.addChild(this.visit(ctx.expression()));
+        ast.addChild(this.visit(ctx.fol()));
+        return ast;
+    }
+
+    @Override
+    public AST visitForallExpr(alkParser.ForallExprContext ctx)
+    {
+        AST ast = new ForAllExprAST(ctx);
+        ast.addChild(this.visit(ctx.fol()));
+        for (int i = 0; i < ctx.ID().size(); i++)
+        {
+            String id = ctx.ID(i).getText();
+            AST dataType = this.visit(ctx.dataType(i));
+
+            IdDeclAST idDecl = new IdDeclAST(ctx);
+            IdASTAttr attr = new IdASTAttr(id);
+            idDecl.addAttribute(IdASTAttr.class, attr);
+            idDecl.addChild(dataType);
+
+            ast.addChild(idDecl);
+        }
+        return ast;
+    }
+
+    @Override
+    public AST visitExistsExpr(alkParser.ExistsExprContext ctx)
+    {
+        AST ast = new ExistsExprAST(ctx);
+        ast.addChild(this.visit(ctx.fol()));
+        for (int i = 0; i < ctx.ID().size(); i++)
+        {
+            String id = ctx.ID(i).getText();
+            AST dataType = this.visit(ctx.dataType(i));
+
+            IdDeclAST idDecl = new IdDeclAST(ctx);
+            IdASTAttr attr = new IdASTAttr(id);
+            idDecl.addAttribute(IdASTAttr.class, attr);
+            idDecl.addChild(dataType);
+
+            ast.addChild(idDecl);
+        }
+        return ast;
+    }
+
+    @Override
+    public AST visitParFolExpr(alkParser.ParFolExprContext ctx)
+    {
+        return this.visit(ctx.fol());
+    }
+
+    @Override
+    public AST visitFolToExpr(alkParser.FolToExprContext ctx)
+    {
+        return this.visit(ctx.expression());
+    }
 
     @Override
     public AST visitAssignExpression(alkParser.AssignExpressionContext ctx)
@@ -399,6 +478,34 @@ extends alkBaseVisitor<AST>
     public AST visitStructureValue(alkParser.StructureValueContext ctx)
     {
         return new StructureVisitor(this).visit(ctx.structure());
+    }
+
+    @Override
+    public AST visitIntType(alkParser.IntTypeContext ctx)
+    {
+        return new IntDataTypeAST(ctx);
+    }
+
+    @Override
+    public AST visitFloatType(alkParser.FloatTypeContext ctx)
+    {
+        return new FloatDataTypeAST(ctx);
+    }
+
+    @Override
+    public AST visitArrayType(alkParser.ArrayTypeContext ctx)
+    {
+        AST tree = new ArrayDataTypeAST(ctx);
+        tree.addChild(visit(ctx.dataType()));
+        return tree;
+    }
+
+    @Override
+    public AST visitSetType(alkParser.SetTypeContext ctx)
+    {
+        AST tree = new SetDataTypeAST(ctx);
+        tree.addChild(visit(ctx.dataType()));
+        return tree;
     }
 
     private AST process(ParserRuleContext ctx, AST target)

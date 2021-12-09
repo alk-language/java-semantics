@@ -3,6 +3,7 @@ package execution.interpreter;
 import ast.AST;
 import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
+import ast.enums.FOL;
 import ast.enums.Operator;
 import ast.enums.Primitive;
 import execution.ExecutionPayload;
@@ -97,6 +98,24 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     public ExecutionState interpretComposite(Primitive primitive, AST ast, ExecutionPayload payload)
     {
         return baseDelegate.interpretComposite(primitive, ast, payload);
+    }
+
+    @Override
+    public ExecutionState interpretFol(FOL type, AST ast, ExecutionPayload payload)
+    {
+        switch (type)
+        {
+            case IMPLIES:
+                return new SymbolicImpliesState(ast, payload);
+            case EQUIV:
+                return new SymbolicEquivState(ast, payload);
+            case FORALL:
+                return new SymbolicForAllState(ast, payload);
+            case EXISTS:
+                return new SymbolicExistsState(ast, payload);
+            default:
+                throw new InternalException("Can't recognize this type of FOL operation: " + type);
+        }
     }
 
     @Override

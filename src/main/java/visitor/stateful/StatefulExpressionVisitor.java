@@ -1,6 +1,11 @@
 package visitor.stateful;
 
 import ast.AST;
+import ast.enums.FOL;
+import ast.expr.fol.EquivAST;
+import ast.expr.fol.ExistsExprAST;
+import ast.expr.fol.ForAllExprAST;
+import ast.expr.fol.ImpliesAST;
 import state.Payload;
 import state.State;
 import ast.enums.Primitive;
@@ -224,5 +229,29 @@ implements ExpressionVisitorIface<S>
     public S visit(UnknownAST tree)
     {
         return expressionInterpreter.interpretPrimitive(Primitive.UNKNOWN, tree, payload);
+    }
+
+    @Override
+    public S visit(EquivAST tree)
+    {
+        return expressionInterpreter.interpretFol(FOL.EQUIV, tree, payload);
+    }
+
+    @Override
+    public S visit(ExistsExprAST tree)
+    {
+        return expressionInterpreter.interpretFol(FOL.EXISTS, tree, payload);
+    }
+
+    @Override
+    public S visit(ForAllExprAST tree)
+    {
+        return expressionInterpreter.interpretFol(FOL.FORALL, tree, payload);
+    }
+
+    @Override
+    public S visit(ImpliesAST tree)
+    {
+        return expressionInterpreter.interpretFol(FOL.IMPLIES, tree, payload);
     }
 }

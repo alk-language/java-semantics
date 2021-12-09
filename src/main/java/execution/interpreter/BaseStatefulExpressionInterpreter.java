@@ -5,11 +5,9 @@ import ast.attr.AnnoAttr;
 import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
 import ast.attr.RepresentationASTAttr;
-import ast.enums.Anno;
-import ast.enums.CompoundValueRepresentation;
-import ast.enums.Operator;
-import ast.enums.Primitive;
+import ast.enums.*;
 import execution.ExecutionPayload;
+import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
 import execution.state.expression.FactorPointMethodState;
@@ -33,7 +31,7 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretSymId(AST ast, ExecutionPayload payload)
     {
-        throw new InternalException("Can't use the base interpreter in order to evaluate symbolic values");
+        throw new AlkException("Can't use the concrete execution in order to evaluate symbolic values.");
     }
 
     @Override
@@ -118,6 +116,20 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
                 return new BaseStructWithCompsState(ast, payload);
             default:
                 throw new InternalException("Unrecognized compound data type representation: " + repr);
+        }
+    }
+
+    @Override
+    public ExecutionState interpretFol(FOL type, AST ast, ExecutionPayload payload)
+    {
+        switch (type)
+        {
+            case IMPLIES:
+                return new BaseImpliesState(ast, payload);
+            case EQUIV:
+                return new BaseEquivState(ast, payload);
+            default:
+                throw new AlkException("Can't use " + type + " operator in concrete execution!");
         }
     }
 

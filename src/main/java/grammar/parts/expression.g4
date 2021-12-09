@@ -4,6 +4,16 @@ import terminal;
 
 //Arithmetic expressions
 
+fol
+:
+    expression IMPLIES fol                                                                                              #ImpliesExpr
+    | expression EQUIV   fol                                                                                            #EquivExpr
+    | FORALL (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR fol                                  #ForallExpr
+    | EXISTS (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR fol                                  #ExistsExpr
+    | LPAR fol RPAR                                                                                                     #ParFolExpr
+    | expression                                                                                                        #FolToExpr
+;
+
 expression
 :
     factor ASSIGNMENT_OPERATOR expression                                                                               #AssignExpression
@@ -201,6 +211,15 @@ builtin_function
 builtin_method
 :
     method_name LPAR (expression (COMMA expression)*)? RPAR                                                             #BuiltinMethod
+;
+
+// Data type
+dataType
+:
+    INTEGER                                                                                                             #IntType
+    | FLOAT                                                                                                             #FloatType
+    | ARRAY LOWER dataType GREATER                                                                                      #ArrayType
+    | SET LOWER dataType GREATER                                                                                        #SetType
 ;
 
 //Also builtin function names

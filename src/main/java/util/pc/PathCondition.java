@@ -3,6 +3,7 @@ package util.pc;
 import ast.AST;
 import ast.expr.BoolAST;
 import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import execution.parser.AlkParser;
 import execution.parser.env.LocationMapper;
 import execution.parser.env.LocationMapperIface;
@@ -17,6 +18,7 @@ import util.exception.IncompleteASTException;
 import java.util.*;
 
 public class PathCondition
+implements DataTypeProvider
 {
     public PathConditionListenerHelper pclh;
 
@@ -152,5 +154,12 @@ public class PathCondition
     {
         simplify();
         return alkCtx.asserts(symbolicValue);
+    }
+
+    @Override
+    public DataTypeAST getDataType(String s)
+    {
+        if (!s.startsWith("$")) s = "$" + s;
+        return idTypes.get(s);
     }
 }

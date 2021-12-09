@@ -12,7 +12,7 @@ import util.lambda.LocationGenerator;
 public class ASTSimplifier
 extends ASTCloner
 {
-    private boolean fixedLocations;
+    private final boolean fixedLocations;
 
     public ASTSimplifier(LocationMapperIface lm)
     {

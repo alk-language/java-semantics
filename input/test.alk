@@ -13,6 +13,8 @@ while (i <= n)
     i++;
 }
 
+// sum |->
+// i |->
 */
 
 symbolic $n : int;
@@ -25,11 +27,36 @@ n = $n;
 // proof obligation 1: the invariant holds in the initial state of while
 assert sum == i * (i - 1) / 2 && i <= n + 1;
 
+// general: am ajuns la un while cu annotation de invariant
+assert invariant; // in configuratia curenta
+
 // proof obligation 2: check the loop invariant
-i = $i;
-sum = $sum;
-assume i <= n; // conditia
-assume sum == i * (i - 1) / 2 && i <= n + 1; // invariantul
+havoc i, sum;
+// asignam la variabilele care urmeaza sa fie modificate in while valori simbolice
+
+assume conditia;
+assume invariant;
 sum = sum + i;
 i++;
-assert sum == i * (i - 1) / 2 && i <= n + 1; // invariantul
+// executam simbolic bucla while
+assert invariant;
+
+// dupa executia buclei while
+havoc i, sum;
+
+// asignam la variabilele care urmeaza sa fie modificate in while valori simbolice
+
+assume invariant && !(conditia);
+// continue executia
+
+// \forall 0 <= t < w. $i(t) = $i(t - 1) + 1;
+
+
+// a |-> $a_l0(t)
+// a |-> $a_l1(t)
+
+havoc a, b, c;
+=============
+a = fresh("a", type(a));
+b = fresh("b", type(b));
+c = fresh("c", type(c));

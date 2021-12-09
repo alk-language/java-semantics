@@ -1,7 +1,10 @@
 package ast.expr;
 
 import ast.attr.IdASTAttr;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import grammar.alkParser;
+import util.exception.InternalException;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.RefIDVisitorIface;
 
@@ -45,5 +48,11 @@ extends ExpressionAST
             return ((RefIDVisitorIface<T>) visitor).visit(this);
 
         return super.accept(visitor);
+    }
+
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        throw new InternalException("Can't detect data type for id: " + getId());
     }
 }

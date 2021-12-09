@@ -1,8 +1,14 @@
 package symbolic;
 
 import ast.AST;
+import ast.VirtualAST;
 import ast.expr.*;
+import ast.expr.fol.EquivAST;
+import ast.expr.fol.ExistsExprAST;
+import ast.expr.fol.ForAllExprAST;
+import ast.expr.fol.ImpliesAST;
 import ast.symbolic.*;
+import ast.type.DataTypeAST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.env.LocationMapperIface;
@@ -10,6 +16,8 @@ import execution.parser.env.StoreImpl;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import visitor.ifaces.ExpressionVisitorIface;
+import visitor.ifaces.expr.DataTypeVisitorIface;
+import visitor.ifaces.stmt.IdDeclVisitorIface;
 import visitor.ifaces.symbolic.*;
 
 public class ASTCloner
@@ -18,7 +26,9 @@ implements ExpressionVisitorIface<AST>,
            SelectVisitorIface<AST>,
            PointerVisitorIface<AST>,
            ValidSelectVisitorIface<AST>,
-           ValidStoreVisitorIface<AST>
+           ValidStoreVisitorIface<AST>,
+           IdDeclVisitorIface<AST>,
+           DataTypeVisitorIface<AST>
 {
     private LocationMapperIface mapper;
     private LocationGenerator generator;
@@ -274,5 +284,41 @@ implements ExpressionVisitorIface<AST>,
     public AST visit(ValidSelectAST tree)
     {
         return process(new ValidSelectAST(tree.getCtx()), tree);
+    }
+
+    @Override
+    public AST visit(EquivAST tree)
+    {
+        return process(new EquivAST(tree.getCtx()), tree);
+    }
+
+    @Override
+    public AST visit(ExistsExprAST tree)
+    {
+        return process(new ExistsExprAST(tree.getCtx()), tree);
+    }
+
+    @Override
+    public AST visit(ForAllExprAST tree)
+    {
+        return process(new ForAllExprAST(tree.getCtx()), tree);
+    }
+
+    @Override
+    public AST visit(ImpliesAST tree)
+    {
+        return process(new ImpliesAST(tree.getCtx()), tree);
+    }
+
+    @Override
+    public AST visit(IdDeclAST tree)
+    {
+        return tree;
+    }
+
+    @Override
+    public AST visit(DataTypeAST tree)
+    {
+        return tree;
     }
 }

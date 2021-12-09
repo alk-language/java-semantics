@@ -1,0 +1,24 @@
+symbolic $a : array< array<int> >;
+
+a = $a;
+minim = a[0][0];
+assume minim >= 0;
+
+i = 0;
+while (i < a.size())
+invariant forall k : int :: 0 <= k && k < i ==> forall k2 : int :: 0 <= k2 && k2 < a[k].size() ==> minim <= a[k][k2]
+modifies i, minim
+{
+    j = 0;
+    while (j < a[i].size())
+    invariant forall k : int :: 0 <= k && k < j ==> minim <= a[i][k]
+    modifies j, minim
+    {
+        if (a[i][j] < minim)
+        {
+            minim = a[i][j];
+        }
+        j++;
+    }
+    i++;
+}

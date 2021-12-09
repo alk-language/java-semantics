@@ -92,6 +92,12 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     }
 
     @Override
+    public ExecutionState interpretHavoc(AST ast, ExecutionPayload payload)
+    {
+        return new SymHavocState(ast, payload);
+    }
+
+    @Override
     public ExecutionState interpretRepeatUntil(AST ast, ExecutionPayload payload)
     {
         return baseDelegate.interpretRepeatUntil(ast, payload); // TODO: do symbolic

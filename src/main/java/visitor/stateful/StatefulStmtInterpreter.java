@@ -20,6 +20,7 @@ public interface StatefulStmtInterpreter<T extends Payload, S extends State<?, ?
     S interpretForEach(AST ast, T payload);
     S interpretFunctionDecl(AST ast, T payload);
     S interpretIfThen(AST ast, T payload);
+    S interpretHavoc(AST ast, T payload);
     S interpretRepeatUntil(AST ast, T payload);
     S interpretReturn(AST ast, T payload);
     S interpretStmtSeq(AST ast, T payload);

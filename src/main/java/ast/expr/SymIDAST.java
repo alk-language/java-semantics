@@ -1,5 +1,6 @@
 package ast.expr;
 
+import ast.AST;
 import ast.attr.IdASTAttr;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
@@ -7,9 +8,20 @@ import grammar.alkParser;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.SymIDVisitorIface;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SymIDAST
 extends ExpressionAST
 {
+    private static final Map<String, Integer> counter = new HashMap<>();
+
+    public static SymIDAST generate(String id)
+    {
+        if (!counter.containsKey(id)) counter.put(id, 0);
+        else counter.put(id, counter.get(id) + 1);
+        return new SymIDAST(id + "_" + counter.get(id));
+    }
 
     public SymIDAST(alkParser.SymIDContext ctx)
     {

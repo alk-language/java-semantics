@@ -1,6 +1,7 @@
 package control.parser;
 
 import ast.AST;
+import ast.enums.FOL;
 import ast.enums.Primitive;
 import visitor.stateful.StatefulExpressionInterpreter;
 
@@ -64,6 +65,12 @@ implements StatefulExpressionInterpreter<CFGPayload, CFGState>
 
     @Override
     public CFGState interpretComposite(Primitive primitive, AST ast, CFGPayload payload)
+    {
+        return null;
+    }
+
+    @Override
+    public CFGState interpretFol(FOL equiv, AST ast, CFGPayload payload)
     {
         return null;
     }

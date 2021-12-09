@@ -87,6 +87,12 @@ implements StatefulStmtInterpreter<CFGPayload, CFGState>
     }
 
     @Override
+    public CFGState interpretHavoc(AST ast, CFGPayload payload)
+    {
+        return new TerminalState(ast, payload);
+    }
+
+    @Override
     public CFGState interpretRepeatUntil(AST ast, CFGPayload payload)
     {
         throw new AlkException("Can't support repeat-until on CFG yet.");

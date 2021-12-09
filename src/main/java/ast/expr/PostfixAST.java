@@ -3,6 +3,8 @@ package ast.expr;
 import ast.AST;
 import ast.OperatorUtils;
 import ast.attr.OpsASTAttr;
+import ast.type.DataTypeAST;
+import ast.type.DataTypeProvider;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
 import visitor.ifaces.VisitorIface;
@@ -16,6 +18,12 @@ extends ExpressionAST
     public PostfixAST(ParserRuleContext ctx)
     {
         super(ctx);
+    }
+
+    @Override
+    public DataTypeAST getDataType(DataTypeProvider dtp)
+    {
+        return ((ExpressionAST) getChild(0)).getDataType(dtp);
     }
 
     public static PostfixAST createUnary(Operator op, List<AST> children)

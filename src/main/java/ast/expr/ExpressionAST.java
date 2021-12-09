@@ -15,8 +15,8 @@ extends AST
         super(ctx);
     }
 
-    public DataTypeAST getDataType(DataTypeProvider dtp)
-    {
+    public abstract DataTypeAST getDataType(DataTypeProvider dtp);
+    /*{
         throw new InternalException("Can't identify data type for the specified expression AST");
-    }
+    }*/
 }
