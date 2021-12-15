@@ -7,7 +7,7 @@ import terminal;
 fol
 :
     expression IMPLIES fol                                                                                              #ImpliesExpr
-    | expression EQUIV   fol                                                                                            #EquivExpr
+    | expression EQUIV fol                                                                                              #EquivExpr
     | FORALL (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR fol                                  #ForallExpr
     | EXISTS (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR fol                                  #ExistsExpr
     | LPAR fol RPAR                                                                                                     #ParFolExpr
