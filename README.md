@@ -1,6 +1,6 @@
 # Using the Alk VS Code Extension
 1. Install VS Code from the official [page](https://code.visualstudio.com/download).
-2. In the Extensions tag in the left side, check for the "Alk Visual Studio Code EXtension".
+2. In the Extensions tag in the left side, check for the "Alk Visual Studio Code Extension" and install.
 3. Enter the [Alk VS Code Extension](https://github.com/Andreizabo/alk-vscode-extension) repository and check the usage manual.
 
 # Downloading and Running the Interpreter
