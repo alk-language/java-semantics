@@ -3,7 +3,7 @@ package execution.state.symbolic;
 import ast.AST;
 import ast.expr.ExpressionAST;
 import ast.expr.fol.ImpliesAST;
-import ast.type.BoolDataType;
+import ast.type.BoolDataTypeAST;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
@@ -24,7 +24,7 @@ extends BaseImpliesState
         if (value instanceof SymbolicValue)
         {
             ExpressionAST expressionAST = ((ExpressionAST) ((SymbolicValue) value).toAST());
-            return expressionAST.getDataType(getExec().getPathCondition()) instanceof BoolDataType;
+            return expressionAST.getDataType(getExec().getPathCondition()) instanceof BoolDataTypeAST;
         }
         return super.checkValue(value);
     }

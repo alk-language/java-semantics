@@ -321,4 +321,10 @@ implements ExpressionVisitorIface<AST>,
     {
         return tree;
     }
+
+    @Override
+    public AST visit(ResultAST tree)
+    {
+        return tree;
+    }
 }

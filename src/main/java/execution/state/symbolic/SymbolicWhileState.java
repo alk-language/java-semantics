@@ -6,26 +6,27 @@ import ast.enums.Operator;
 import ast.expr.RefIDAST;
 import ast.expr.UnaryAST;
 import ast.stmt.HavocAST;
-import execution.Execution;
-import execution.ExecutionPayload;
-import execution.ExecutionResult;
+import execution.*;
 import execution.exhaustive.SplitMapper;
 import execution.parser.env.Location;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.InvariantException;
+import execution.parser.exceptions.StopException;
 import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import execution.state.statement.WhileState;
 import symbolic.SymbolicValue;
+import util.exception.InternalException;
+import util.pc.PathCondition;
 import util.types.Storable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class SymbolicWhileState
 extends WhileState
 {
-    private boolean processedInitialInvariant = false;
     private boolean doneInternalHavoc = false;
     private boolean doneInternalAssume = false;
     private boolean checkedInternalInvariant = false;
@@ -36,6 +37,12 @@ extends WhileState
     private boolean checkedExternCondition = false;
     private boolean checkedExternInvariant = false;
     private boolean doneExternal = false;
+    private boolean spawned = false;
+
+    private int firstStepInv = 0;
+    private int middleStepInv = 0;
+
+    private Storable checkingInvariant;
 
     public SymbolicWhileState(AST tree, ExecutionPayload payload)
     {
@@ -56,28 +63,20 @@ extends WhileState
             return null;
         }
 
-        if (!checkedInvariant)
+        if (!checkedInvariant && firstStepInv < invariants.size())
         {
-            return request(invariant);
+            return request(invariants.get(firstStepInv));
         }
 
-        // do initial check (proof check 1)
-        if (!processedInitialInvariant)
-        {
-            try
-            {
-                processInvariant(invariantValue);
-            }
-            catch (InvariantException e)
-            {
-                super.handle(new InvariantException("Loop invariant violated on entry"));
-            }
-            processedInitialInvariant = true;
-        }
-
-        // do havoc
+        // do havoc and check initial invariants
         if (!doneInternalHavoc)
         {
+            for (int i = 0; i < invariants.size(); i++)
+            {
+                processInvariant(invariantValues.get(i), invariants.get(i));
+            }
+            invariantValues.clear();
+
             doHavoc();
             doneInternalHavoc = true;
         }
@@ -89,9 +88,54 @@ extends WhileState
         }
 
         // check invariant
-        if (!checkedInternalInvariant)
+        if (!checkedInternalInvariant && middleStepInv < invariants.size())
         {
-            return request(invariant);
+            return request(invariants.get(middleStepInv));
+        }
+
+        if (!spawned)
+        {
+            ExecutionPool pool = new ExecutionPool((e) -> {
+                if (e.getAnnoHelper().custom != null && !getExec().getOutput().hasError)
+                {
+                    getExec().getConfig().getIOManager().write("Invariant verified at line: " + ((AST) e.getAnnoHelper().custom).getLine());
+                    getExec().getConfig().getIOManager().flush();
+                }
+                else if (e.getAnnoHelper().custom != null)
+                {
+                    getExec().getConfig().getIOManager().write("Invariant at line can't be verified: " + ((AST) e.getAnnoHelper().custom).getLine());
+                    getExec().getConfig().getIOManager().flush();
+                }
+            });
+            spawned = true;
+
+            for (int i = 0; i < invariantValues.size(); i++)
+            {
+                // assume invariant
+                Storable value = invariantValues.get(i);
+                getExec().getPathCondition().add((SymbolicValue) value);
+                this.stepInv = i;
+                if (!getExec().getPathCondition().isSatisfiable())
+                {
+                    super.handle(new AlkException("Can't assume invariant: " + value.toString()));
+                }
+                ExecutionCloneContext ctx = getExec().clone(pool);
+                ctx.exec.getAnnoHelper().custom = invariants.get(i);
+            }
+
+            List<ExecutionOutput> outputs = pool.runAll();
+            for (ExecutionOutput output : outputs)
+            {
+                if (output.hasError)
+                {
+                    super.handle(new AlkException("Can't validate the while statement!"));
+                }
+            }
+
+            getExec().getPathCondition().add(new SymbolicValue(
+                    UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) conditionValue).toAST())));
+
+            return null;
         }
 
         // assume condition and invariant
@@ -101,11 +145,6 @@ extends WhileState
             if (!getExec().getPathCondition().isSatisfiable())
             {
                 super.handle(new AlkException("Can't assume condition!"));
-            }
-            getExec().getPathCondition().add((SymbolicValue) invariantValue.clone(generator));
-            if (!getExec().getPathCondition().isSatisfiable())
-            {
-                super.handle(new AlkException("Can't assume invariant!"));
             }
 
             doneInternalAssume = true;
@@ -118,58 +157,16 @@ extends WhileState
 
         if (!doneFinalInvariant)
         {
-            return request(invariant);
+            return request(invariants.get(stepInv));
         }
 
         if (!checkedFinalInvariant)
         {
-            try
-            {
-                processInvariant(invariantValue);
-            }
-            catch (InvariantException e)
-            {
-                super.handle(e);
-            }
+            processInvariant(checkingInvariant, invariants.get(stepInv));
             checkedFinalInvariant = true;
         }
 
-        if (!doneFinalHavoc)
-        {
-            doHavoc();
-            doneFinalHavoc = true;
-        }
-
-        // check condition
-        if (!checkedExternCondition)
-        {
-            return request(condition);
-        }
-
-        // check invariant
-        if (!checkedExternInvariant)
-        {
-            return request(invariant);
-        }
-
-        if (!doneExternal)
-        {
-            AST negated = UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) conditionValue.toRValue()).toAST());
-            getExec().getPathCondition().add(new SymbolicValue(negated));
-            if (!getExec().getPathCondition().isSatisfiable())
-            {
-                super.handle(new AlkException("Can't assume condition!"));
-            }
-            getExec().getPathCondition().add((SymbolicValue) invariantValue.clone(generator));
-            if (!getExec().getPathCondition().isSatisfiable())
-            {
-                super.handle(new AlkException("Can't assume invariant!"));
-            }
-
-            doneExternal = true;
-        }
-
-
+        getExec().halt();
         return null;
     }
 
@@ -182,7 +179,7 @@ extends WhileState
         {
             for (int i = 0; i < attr.getParamCount(); i++)
             {
-                vars.add(attr.getParameter(i).y);
+                vars.add(attr.getParameter(i).getName());
             }
         }
         else
@@ -206,20 +203,28 @@ extends WhileState
             return;
         }
 
-        if (!checkedInvariant)
+        if (!checkedInvariant && firstStepInv < invariants.size())
         {
-            checkedInvariant = true;
-            invariantValue = executionResult.getValue().toRValue();
+            invariantValues.add(executionResult.getValue().toRValue());
+            firstStepInv++;
+            if (firstStepInv == invariants.size())
+            {
+                checkedInvariant = true;
+            }
         }
         else if (!checkedCondition)
         {
             checkedCondition = true;
             conditionValue = executionResult.getValue().toRValue();
         }
-        else if (!checkedInternalInvariant)
+        else if (!checkedInternalInvariant && middleStepInv < invariants.size())
         {
-            checkedInternalInvariant = true;
-            invariantValue = executionResult.getValue().toRValue();
+            invariantValues.add(executionResult.getValue().toRValue());
+            middleStepInv++;
+            if (middleStepInv == invariants.size())
+            {
+                checkedInternalInvariant = true;
+            }
         }
         else if (!doneBody)
         {
@@ -228,17 +233,12 @@ extends WhileState
         else if (!doneFinalInvariant)
         {
             doneFinalInvariant = true;
-            invariantValue = executionResult.getValue().toRValue();
+            checkingInvariant = executionResult.getValue().toRValue();
         }
         else if (!checkedExternCondition)
         {
             checkedExternCondition = true;
             conditionValue = executionResult.getValue().toRValue();
-        }
-        else if (!checkedExternInvariant)
-        {
-            checkedExternInvariant = true;
-            invariantValue = executionResult.getValue().toRValue();
         }
         else
         {
@@ -280,18 +280,26 @@ extends WhileState
     }
 
     @Override
-    protected boolean processInvariant(Storable invariantValue)
+    protected boolean processInvariant(Storable invariantValue, AST invariant)
     {
         if (invariantValue instanceof SymbolicValue)
         {
-            if (!getExec().getPathCondition().asserts((SymbolicValue) invariantValue))
+            try
             {
-                throw new InvariantException("Loop invariant violation!");
+                if (!getExec().getPathCondition().asserts((SymbolicValue) invariantValue))
+                {
+                    throw new AlkException("Loop invariant violation!");
+                }
+            }
+            catch (InternalException e)
+            {
+                e.sign(invariant.getLine(), invariant.getColumn());
+                throw e;
             }
         }
         else
         {
-            return super.processInvariant(invariantValue);
+            return super.processInvariant(invariantValue, invariant);
         }
 
         return true;
@@ -299,14 +307,14 @@ extends WhileState
 
     private boolean hasInvariant()
     {
-        return super.invariant != null;
+        return super.invariants != null && !super.invariants.isEmpty();
     }
 
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
         SymbolicWhileState copy = new SymbolicWhileState(tree, payload.clone(sm));
-        copy.processedInitialInvariant = processedInitialInvariant;
+
         copy.doneInternalHavoc = doneInternalHavoc;
         copy.doneInternalAssume = doneInternalAssume;
         copy.checkedInternalInvariant = checkedInternalInvariant;
@@ -317,6 +325,14 @@ extends WhileState
         copy.checkedExternCondition = checkedExternCondition;
         copy.checkedExternInvariant = checkedExternInvariant;
         copy.doneExternal = doneExternal;
+
+        copy.firstStepInv = firstStepInv;
+        copy.middleStepInv = middleStepInv;
+        copy.spawned = spawned;
+
+        copy.checkingInvariant = this.checkingInvariant == null ? null :
+                this.checkingInvariant.weakClone(sm.getLocationMapper());
+
         return super.decorate(copy, sm);
     }
 }

@@ -5,6 +5,8 @@ package util.exception;
  */
 public class InternalException extends RuntimeException
 {
+    int line;
+    int col;
 
     /**
      * Implicit constructor
@@ -40,5 +42,25 @@ public class InternalException extends RuntimeException
     public InternalException(String text)
     {
         super(text);
+    }
+
+    public void sign(int line, int column)
+    {
+        this.line = line;
+        this.col = column;
+    }
+
+    public String completeMessage() {
+        return "Error at [" + line + ":" + col + "]: " + getMessage();
+    }
+
+    public int getLine()
+    {
+        return this.line;
+    }
+
+    public String formatMessage(String message)
+    {
+        return "Error at [" + line + ":" + col + "]: " + message;
     }
 }

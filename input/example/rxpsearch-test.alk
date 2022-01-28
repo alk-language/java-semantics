@@ -1,0 +1,37 @@
+#include "rxpsearch.alk"
+#include "parser.alk"
+
+// the alphabet
+sigma = ["a","b","c"];
+// the expression
+input = "(a.b+c)*.(b.a)";
+// the current position in the input
+index = 0;
+// compute the ast
+ast = expression();
+// compute the automaton
+am = detAut(ast, sigma);
+
+/* tests for expected:
+print(expected(am, 0, "a")); 
+print(expected(am, 2, "a")); 
+print(expected(am, 3, "a")); 
+*/
+
+/* tests for occAtPos:
+subj = "cbbaaabbacc";
+s = subj.split();
+print(occAtPos(s, am, 0)); 
+print(occAtPos(s, am, 1)); 
+print(occAtPos(s, am, 2));
+print(occAtPos(s, am, 3)); 
+print(occAtPos(s, am, 4));
+print(occAtPos(s, am, 5)); 
+print(occAtPos(s, am, 6));
+*/
+
+/* tests for searching:*/
+// "(a.b+c)*.(b.a)"
+subj = "bbaaabbacc";
+s = subj.split();
+print(firstOcc(s, am));

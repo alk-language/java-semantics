@@ -1,21 +1,30 @@
 package util.functions;
 
+import ast.enums.ParamType;
+import ast.type.DataTypeAST;
+
 public class Parameter
 {
     String id;
-    boolean out;
+    ParamType type;
+    DataTypeAST dataType;
 
-    public Parameter(String name, boolean out)
+    public Parameter(String name, ParamType type, DataTypeAST dataType)
     {
         this.id = name;
-        this.out = out;
+        this.type = type;
+        this.dataType = dataType;
     }
 
-    public boolean isOut() {
-        return out;
+    public ParamType getType() {
+        return type;
     }
 
     public String getName() {
         return id;
+    }
+
+    public DataTypeAST getDataType() {
+        return dataType;
     }
 }

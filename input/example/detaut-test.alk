@@ -1,0 +1,59 @@
+#include "detaut.alk"
+#include "parser.alk"
+/*
+tests for epsIn:
+print(epsIn(["_._", <["a", <>], ["a", <>]>]));
+print(epsIn(["_+_", <["a", <>], ["", <>]>]));
+*/
+
+/*
+tests:
+print(ast2string(["_._", <["a", <>], ["b", <>]>]));
+print(ast2string(der(["_._", <["a", <>], ["b", <>]>], "a")));
+print(ast2string(["_._", <["a", <>], ["_*", <["_+_", <["a", <>], ["b", <>]>]>], ["_._", <["a", <>], ["b", <>]>]>])); 
+print(ast2string(der(["_._", <["a", <>], ["_*", <["_+_", <["a", <>], ["b", <>]>]>], ["_._", <["a", <>], ["b", <>]>]>], "a")));
+print(ast2string(["_+_", <["a", <>], ["b", <>]>])); 
+print(ast2string(der(["_+_", <["a", <>], ["b", <>]>], "a")));
+print(ast2string(["_*", <["_+_", <["a", <>], ["b", <>]>]>])); 
+print(ast2string(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a"))); 
+*/
+
+
+/*
+tests for der:
+print(der(["_._", <["a", <>], ["b", <>]>], "a"));
+print(simplify(der(["_._", <["a", <>], ["b", <>]>], "a")));
+print(der(["_+_", <["a", <>], ["b", <>]>], "a"));
+print(simplify1(der(["_+_", <["a", <>], ["b", <>]>], "a"))); 
+print(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a"));
+print(simplify(der(["_*", <["_+_", <["a", <>], ["b", <>]>]>], "a")));
+
+print((simplify (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "a")))); 
+print((simplify (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "b")))); 
+print((simplify (der(["_._", <["_*", <["_+_", <["_._", <["a", <>], ["b", <>]>], ["b", <>]>]>], ["b", <>], ["a", <>]>], "c"))));
+*/
+
+/* tests for detaut:
+
+*/
+
+// the alphabet
+sigma = ["a","b","c"];
+// the expression
+//input = "(a.b+c.a)*.(b.a)";
+//input = "a.b.c";
+input = "a.(a+b)*.b";
+// the current position in the input
+index = 0;
+// compute the ast
+ast = expression();
+print(ast2string(simplify(der(ast,"a"))));
+print(ast2string(simplify(der(ast,"b"))));
+/*
+// compute the automaton
+am = detAut(ast, sigma);
+// print the automaton
+print(am[0]);
+foreach p from am[1]
+  print([p[0], ast2string(p[1])]);
+*/

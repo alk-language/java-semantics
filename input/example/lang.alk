@@ -1,0 +1,42 @@
+#include "ast.alk"
+
+// the product of two languages
+prod(L1, L2) {
+  L = {};
+  foreach s1 from L1
+    foreach s2 from L2 {
+      L = L U { s1 + s2 };
+    }
+  return L;
+}
+
+// the bounded language defined by a regular expression
+lang(ast, k) {
+  if (ast == []) L = {};
+  else if (chldNo(ast) == 0)
+    L = {root(ast)}; 
+  else if (root(ast) == "_+_") {
+    L = {};
+    for (i = 0; i < chldNo(ast); ++i)
+      L = L U lang(chld(ast, i),k);
+    }
+  else if (root(ast) == "_._") {
+    L = {""};
+    for (i = 0; i < chldNo(ast); ++i)
+      L = prod(L, lang(chld(ast, i),k));
+    }
+  else if (root(ast) == "_*") {
+    L = {""};
+    Li = {""};
+    L1 = lang(chld(ast, 0), k);   
+    for (i = 0; i < k; ++i) {
+      Li = prod(Li, L1); 
+      L = L U Li;
+    }
+  }
+  else return "undefined";
+  return L;
+}
+
+
+

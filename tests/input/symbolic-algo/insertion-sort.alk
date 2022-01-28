@@ -1,4 +1,5 @@
-swap(out a, out b) {
+swap(out a, out b)
+{
     tmp = a;
     a = b;
     b = tmp;
@@ -15,7 +16,8 @@ sort(out a)
         assume a.size() == 2;
 
         while (j > 0 && a[j - 1] > a[j])
-        invariant forall k : int :: 1 <= k && k < j ==> a[k - 1] <= a[k]
+        invariant (forall k : int :: 1 <= k && k < j ==> a[k - 1] <= a[k])
+        invariant (forall k : int :: j < k && k <= i ==> a[k - 1] <= a[k])
         modifies j, a
         {
             swap(a[j - 1], a[j]);
@@ -26,8 +28,12 @@ sort(out a)
     }
 }
 
-symbolic $a : array<int>;
-a = $a;
-assume a.size() == 2;
-sort(a);
-// assert a[0] <= a[1];
+main()
+requires true
+requires true
+{
+    symbolic $a : array<int>;
+    a = $a;
+    sort(a);
+    assert forall k : int :: 1 <= k && k < a.size() ==> a[k - 1] <= a[k];
+}

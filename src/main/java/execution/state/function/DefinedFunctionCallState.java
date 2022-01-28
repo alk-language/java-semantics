@@ -2,6 +2,7 @@ package execution.state.function;
 
 import ast.AST;
 import ast.attr.IdASTAttr;
+import ast.enums.ParamType;
 import execution.ExecutionResult;
 import execution.parser.exceptions.NoSuchFunctionException;
 import execution.state.ExecutionState;
@@ -22,11 +23,12 @@ public class DefinedFunctionCallState
 extends ExecutionState
 {
 
-    private final List<Storable> params = new ArrayList<>();
-    private AlkFunction function;
-    private int step = 0;
+    protected final List<Storable> params = new ArrayList<>();
+    protected AlkFunction function;
+    protected int step = 0;
+    protected Environment env;
+
     private boolean executed = false;
-    private Environment env;
 
     public DefinedFunctionCallState(AST tree, ExecutionPayload executionPayload)
     {
@@ -58,7 +60,7 @@ extends ExecutionState
     {
         if (step < tree.getChildCount())
         {
-            return request(tree.getChild(step++));
+            return request(tree.getChild(step));
         }
 
         if (!executed)
@@ -68,7 +70,7 @@ extends ExecutionState
             for (int i = 0; i < function.countParams(); i++)
             {
                 Parameter param = function.getParam(i);
-                if (param.isOut())
+                if (param.getType() == ParamType.OUTPUT)
                 {
                     env.setLocation(param.getName(), params.get(i).toLValue());
                 }
@@ -97,6 +99,7 @@ extends ExecutionState
         {
             checkNotNull(executionResult.getValue(), true);
             params.add(executionResult.getValue());
+            step++;
         }
     }
 

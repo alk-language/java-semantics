@@ -4,17 +4,16 @@ import terminal;
 
 //Arithmetic expressions
 
-fol
+expression
 :
-    expression IMPLIES fol                                                                                              #ImpliesExpr
-    | expression EQUIV fol                                                                                              #EquivExpr
-    | FORALL (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR fol                                  #ForallExpr
-    | EXISTS (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR fol                                  #ExistsExpr
-    | LPAR fol RPAR                                                                                                     #ParFolExpr
-    | expression                                                                                                        #FolToExpr
+    assign_expression IMPLIES expression                                                                                #ImpliesExpr
+    | assign_expression EQUIV expression                                                                                #EquivExpr
+    | FORALL (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR expression                           #ForallExpr
+    | EXISTS (ID DPOINT dataType (COMMA ID DPOINT dataType)*) QUANTIFIER_SEPARATOR expression                           #ExistsExpr
+    | assign_expression                                                                                                 #FolToExpr
 ;
 
-expression
+assign_expression
 :
     factor ASSIGNMENT_OPERATOR expression                                                                               #AssignExpression
     | conditional_expression                                                                                            #ToConditionalExpr
@@ -101,7 +100,8 @@ factor
 
 base_factor
 :
-    ref_name                                                                                                            #RefNameFactor
+    RESULT                                                                                                              #ResultFactor
+    | ref_name                                                                                                          #RefNameFactor
     | value                                                                                                             #ValueFactor
     | LPAR expression RPAR                                                                                              #ParanthesesFactor
     | ANNO anno LPAR expression RPAR                                                                                    #AnnoFactor
@@ -217,6 +217,7 @@ builtin_method
 dataType
 :
     INTEGER                                                                                                             #IntType
+    | BOOLEAN                                                                                                           #BoolType
     | FLOAT                                                                                                             #FloatType
     | ARRAY LOWER dataType GREATER                                                                                      #ArrayType
     | SET LOWER dataType GREATER                                                                                        #SetType

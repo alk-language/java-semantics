@@ -2,6 +2,8 @@ package execution.interpreter;
 
 import ast.AST;
 import execution.ExecutionPayload;
+import execution.ExecutionResult;
+import execution.exhaustive.SplitMapper;
 import execution.parser.exceptions.NotImplementedException;
 import execution.state.ExecutionState;
 import execution.state.symbolic.*;
@@ -82,7 +84,27 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretFunctionDecl(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretFunctionDecl(ast, payload);
+        return new ExecutionState(ast, payload)
+        {
+            @Override
+            public ExecutionState makeStep()
+            {
+                return null;
+            }
+
+            @Override
+            public ExecutionState clone(SplitMapper sm)
+            {
+                return null;
+            }
+
+            @Override
+            public void assign(ExecutionResult result)
+            {
+
+            }
+        };
+        //return baseDelegate.interpretFunctionDecl(ast, payload);
     }
 
     @Override

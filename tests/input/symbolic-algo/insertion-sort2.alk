@@ -1,0 +1,32 @@
+swap(out a, out b) {
+    tmp = a;
+    a = b;
+    b = tmp;
+}
+
+sort(out a)
+{
+    i = 0;
+    while (i < a.size())
+    invariant forall j : int :: 1 <= j && j < i ==> a[j - 1] <= a[j]
+    modifies i, a
+    {
+        j = i;
+        assume a.size() == 2;
+
+        while (j > 0 && a[j - 1] > a[j])
+        invariant (forall k : int :: 1 <= k && k < j ==> a[k - 1] <= a[k]) && (forall k : int :: j < k && k <= i ==> a[k - 1] <= a[k])
+        modifies j, a
+        {
+            swap(a[j - 1], a[j]);
+            j--;
+        }
+
+        i++;
+    }
+}
+
+symbolic $a : array<int>;
+a = $a;
+sort(a);
+assert forall k : int :: 1 <= k && k < a.size() ==> a[k - 1] <= a[k];

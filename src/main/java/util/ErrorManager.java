@@ -59,6 +59,6 @@ public class ErrorManager
 
     public void handleError(InternalException e)
     {
-        io.write("Internal exception detected. Please report the error!");
+        io.write(e.formatMessage("Internal exception detected. Please report the error!"));
     }
 }

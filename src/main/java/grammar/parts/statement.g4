@@ -39,12 +39,12 @@ statement
 
 assumeStmt
 :
-    ASSUME fol                                                                                                          #Assume
+    ASSUME expression                                                                                                   #Assume
 ;
 
 assertStmt
 :
-    ASSERT fol                                                                                                          #Assert
+    ASSERT expression                                                                                                   #Assert
 ;
 
 havocStmt
@@ -85,7 +85,7 @@ choose:
 
 while_struct
 :
-    WHILE LPAR expression RPAR (INVARIANT fol)? ((MODIFIES | USES) ID (COMMA ID)*)? statement                           #WhileStructure
+    WHILE LPAR expression RPAR (INVARIANT expression)* ((MODIFIES | USES) ID (COMMA ID)*)? statement                    #WhileStructure
 ;
 
 do_while_struct
@@ -110,10 +110,23 @@ foreach_struct
 
 function_decl
 :
-    ID LPAR (param (COMMA param)*)? RPAR ((MODIFIES | USES) ID (COMMA ID)*)? statement_block                            #FunctionDecl
+    ID LPAR (param (COMMA param)*)? RPAR (DPOINT dataType)? ((MODIFIES | USES) ID (COMMA ID)*)?
+    (REQURIES req_expression)*
+    (ENSURES ens_expression)*
+    statement_block                                                                                                     #FunctionDecl
+;
+
+req_expression
+:
+    expression                                                                                                          #ReqExpression
+;
+
+ens_expression
+:
+    expression                                                                                                          #EnsExpression
 ;
 
 param
 :
-    (OUT)? ID                                                                                                           #ParamDefinition
+    (OUT)? ID (DPOINT dataType)?                                                                                        #ParamDefinition
 ;

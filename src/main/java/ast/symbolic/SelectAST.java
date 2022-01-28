@@ -10,6 +10,8 @@ import visitor.ifaces.symbolic.SelectVisitorIface;
 public class SelectAST
 extends ExpressionAST
 {
+    private static final boolean EXPLICIT_STRING = false;
+
     public SelectAST(ParserRuleContext ctx)
     {
         super(ctx);
@@ -34,7 +36,7 @@ extends ExpressionAST
         }
         else if (subData instanceof SetDataTypeAST)
         {
-            return new BoolDataType(null);
+            return new BoolDataTypeAST(null);
         }
         else throw new AlkException("Can't identify the data type of: " + this);
     }
@@ -42,6 +44,8 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return "(select " + super.getChild(0) + " " + super.getChild(1) + ")";
+        if (EXPLICIT_STRING)
+            return "(select " + super.getChild(0) + " " + super.getChild(1) + ")";
+        return super.getChild(0) + "[" + super.getChild(1) + "]";
     }
 }

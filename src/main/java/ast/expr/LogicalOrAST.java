@@ -1,11 +1,9 @@
 package ast.expr;
 
 import ast.AST;
-import ast.type.BoolDataType;
+import ast.type.BoolDataTypeAST;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
-import ast.type.IntDataTypeAST;
-import execution.parser.exceptions.AlkException;
 import org.antlr.v4.runtime.ParserRuleContext;
 import ast.enums.Operator;
 import visitor.ifaces.VisitorIface;
@@ -38,7 +36,7 @@ extends ExpressionAST
     @Override
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
-        return new BoolDataType(null);
+        return new BoolDataTypeAST(null);
     }
 
     @Override

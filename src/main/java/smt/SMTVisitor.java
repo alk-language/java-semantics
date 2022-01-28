@@ -457,4 +457,10 @@ implements ExpressionVisitorIface<Expr>,
     {
         return alkCtx.ctx.mkImplies(ctx.getChild(0).accept(this), ctx.getChild(1).accept(this));
     }
+
+    @Override
+    public Expr visit(ResultAST ctx)
+    {
+        throw new SMTUnimplementedException(ResultAST.class);
+    }
 }

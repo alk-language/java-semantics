@@ -23,6 +23,5 @@ sort(out a)
 
 symbolic $a : array<int>;
 a = $a;
-assume a.size() == 3;
 sort(a);
-assert a[0] <= a[1];
+assert forall k : int :: 1 <= k && k < a.size() ==> a[k - 1] <= a[k];

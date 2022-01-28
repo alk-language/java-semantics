@@ -45,7 +45,7 @@ implements OptionProvider,
     private boolean debugMode;
 
     /** The IOManager used in the execution linked with this configuration */
-    protected IOManager io;
+    protected IOManager io = new DummyIOManager();
 
     /** The ErrorManager used in the execution linked with this configuration*/
     protected ErrorManager em;

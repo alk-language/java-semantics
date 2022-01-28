@@ -4,6 +4,7 @@ import ast.AST;
 import ast.attr.IdASTAttr;
 import ast.attr.ParamASTAttr;
 import ast.enums.ParamType;
+import ast.stmt.FunctionDeclAST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
 import execution.parser.env.AlkFunction;
@@ -34,15 +35,17 @@ extends ExecutionState
 
         for (int i = 0; i < attr.getParamCount(); i++)
         {
-            Pair<ParamType, String> pair = attr.getParameter(i);
-            switch (pair.x)
-            {
-                case INPUT: params.add(new Parameter(pair.y, false)); break;
-                case OUTPUT: params.add(new Parameter(pair.y, true)); break;
-                case GLOBAL: modifies.add(pair.y); break;
-            }
+            Parameter param = attr.getParameter(i);
+            if (param.getType() == ParamType.GLOBAL)
+                modifies.add(param.getName());
+            else
+                params.add(param);
         }
-        getFuncManager().define(new AlkFunction(id, params, modifies, tree.getChild(0)));
+        getFuncManager().define(new AlkFunction(id, params, modifies,
+                ((FunctionDeclAST) tree).getBody(),
+                ((FunctionDeclAST) tree).getRequires(),
+                ((FunctionDeclAST) tree).getEnsures(),
+                ((FunctionDeclAST) tree).getDataType()));
         return null;
     }
 

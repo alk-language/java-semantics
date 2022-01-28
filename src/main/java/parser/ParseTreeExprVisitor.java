@@ -2,7 +2,6 @@ package parser;
 
 import ast.*;
 import ast.attr.*;
-import ast.enums.Anno;
 import ast.expr.*;
 import ast.expr.AssignmentAST;
 import ast.expr.fol.EquivAST;
@@ -10,10 +9,7 @@ import ast.expr.fol.ExistsExprAST;
 import ast.expr.fol.ForAllExprAST;
 import ast.expr.fol.ImpliesAST;
 import ast.symbolic.IdDeclAST;
-import ast.type.ArrayDataTypeAST;
-import ast.type.FloatDataTypeAST;
-import ast.type.IntDataTypeAST;
-import ast.type.SetDataTypeAST;
+import ast.type.*;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -32,8 +28,8 @@ extends alkBaseVisitor<AST>
     public AST visitImpliesExpr(alkParser.ImpliesExprContext ctx)
     {
         AST ast = new ImpliesAST(ctx);
+        ast.addChild(this.visit(ctx.assign_expression()));
         ast.addChild(this.visit(ctx.expression()));
-        ast.addChild(this.visit(ctx.fol()));
         return ast;
     }
 
@@ -41,8 +37,8 @@ extends alkBaseVisitor<AST>
     public AST visitEquivExpr(alkParser.EquivExprContext ctx)
     {
         AST ast = new EquivAST(ctx);
+        ast.addChild(this.visit(ctx.assign_expression()));
         ast.addChild(this.visit(ctx.expression()));
-        ast.addChild(this.visit(ctx.fol()));
         return ast;
     }
 
@@ -50,7 +46,7 @@ extends alkBaseVisitor<AST>
     public AST visitForallExpr(alkParser.ForallExprContext ctx)
     {
         AST ast = new ForAllExprAST(ctx);
-        ast.addChild(this.visit(ctx.fol()));
+        ast.addChild(this.visit(ctx.expression()));
         for (int i = 0; i < ctx.ID().size(); i++)
         {
             String id = ctx.ID(i).getText();
@@ -70,7 +66,7 @@ extends alkBaseVisitor<AST>
     public AST visitExistsExpr(alkParser.ExistsExprContext ctx)
     {
         AST ast = new ExistsExprAST(ctx);
-        ast.addChild(this.visit(ctx.fol()));
+        ast.addChild(this.visit(ctx.expression()));
         for (int i = 0; i < ctx.ID().size(); i++)
         {
             String id = ctx.ID(i).getText();
@@ -87,15 +83,9 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
-    public AST visitParFolExpr(alkParser.ParFolExprContext ctx)
-    {
-        return this.visit(ctx.fol());
-    }
-
-    @Override
     public AST visitFolToExpr(alkParser.FolToExprContext ctx)
     {
-        return this.visit(ctx.expression());
+        return this.visit(ctx.assign_expression());
     }
 
     @Override
@@ -421,6 +411,12 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
+    public AST visitResultFactor(alkParser.ResultFactorContext ctx)
+    {
+        return new ResultAST(ctx);
+    }
+
+    @Override
     public AST visitToBaseFactor(alkParser.ToBaseFactorContext ctx)
     {
         return visit(ctx.base_factor());
@@ -484,6 +480,12 @@ extends alkBaseVisitor<AST>
     public AST visitIntType(alkParser.IntTypeContext ctx)
     {
         return new IntDataTypeAST(ctx);
+    }
+
+    @Override
+    public AST visitBoolType(alkParser.BoolTypeContext ctx)
+    {
+        return new BoolDataTypeAST(ctx);
     }
 
     @Override

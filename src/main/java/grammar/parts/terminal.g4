@@ -19,6 +19,9 @@ ASSERT: 'assert';
 ASSUME: 'assume';
 SYMBOLIC: 'symbolic';
 INVARIANT : 'invariant';
+REQURIES : 'requires';
+ENSURES : 'ensures';
+RESULT : 'result';
 
 IMPLIES: '==>';
 EQUIV: '<==>';
@@ -92,6 +95,7 @@ FIRST : 'first';
 FLOAT : 'float';
 INSERT : 'insert';
 INTEGER : 'int';
+BOOLEAN : 'boolean';
 PRINT : 'print';
 POPBACK : 'popBack';
 POPFRONT : 'popFront';

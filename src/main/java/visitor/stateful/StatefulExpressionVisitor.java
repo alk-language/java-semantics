@@ -1,6 +1,7 @@
 package visitor.stateful;
 
 import ast.AST;
+import ast.enums.ContextVar;
 import ast.enums.FOL;
 import ast.expr.fol.EquivAST;
 import ast.expr.fol.ExistsExprAST;
@@ -253,5 +254,11 @@ implements ExpressionVisitorIface<S>
     public S visit(ImpliesAST tree)
     {
         return expressionInterpreter.interpretFol(FOL.IMPLIES, tree, payload);
+    }
+
+    @Override
+    public S visit(ResultAST tree)
+    {
+        return expressionInterpreter.interpretContextVar(ContextVar.RESULT, tree, payload);
     }
 }

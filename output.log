@@ -1,5 +1,9 @@
-a |-> $a_3
-
-Note that the execution was symbolic.
-Path condition: ($i_0<$a_0.size()) && forall $j_1 : int :: ((1<=$j_1)&&($j_1<$i_0)) ==> ((select $a_0 ($j_1-1))<=(select $a_0 $j_1)) && ($a_0.size()==2) && (($j_2>0)&&((select $a_1 ($j_2-1))>(select $a_1 $j_2))) && forall $k_1 : int :: ((1<=$k_1)&&($k_1<$j_2)) ==> ((select $a_1 ($k_1-1))<=(select $a_1 $k_1)) && validStore($a_1, ($j_2-1), (select $a_1 $j_2)) && validStore((store $a_1 ($j_2-1) (select $a_1 $j_2)), $j_2, (select $a_1 ($j_2-1))) && !(($j_3>0)&&((select $a_2 ($j_3-1))>(select $a_2 $j_3))) && forall $k_3 : int :: ((1<=$k_3)&&($k_3<$j_3)) ==> ((select $a_2 ($k_3-1))<=(select $a_2 $k_3)) && forall $k_4 : int :: (($j_3<$k_4)&&($k_4<=$i_0)) ==> ((select $a_2 ($k_4-1))<=(select $a_2 $k_4)) && !($i_1<$a_3.size()) && forall $j_5 : int :: ((1<=$j_5)&&($j_5<$i_1)) ==> ((select $a_3 ($j_5-1))<=(select $a_3 $j_5)) ($a_3 : array<int>, $a_2 : array<int>, $j_0 : int, $i_1 : int, $i_0 : int, $j_2 : int, $k_1 : int, $j_1 : int, $k_0 : int, $k_3 : int, $j_4 : int, $k_2 : int, $j_3 : int, $k_4 : int, $j_5 : int, $a : array<int>, $a_1 : array<int>, $a_0 : array<int>)
+1
+sigma |-> ["a", "b", "c"]
+input |-> "(a.b+c)*.(b.a)"
+ast |-> ["_._", < ["_*", < ["_+_", < ["_._", < ["a", <  >], ["b", <  >] >], ["c", <  >] >] >], ["_._", < ["b", <  >], ["a", <  >] >] >]
+s |-> ["b", "b", "a", "a", "a", "b", "b", "a", "c", "c"]
+index |-> 14
+am |-> [{< 0, "a", 1 >, < 0, "b", 2 >, < 0, "c", 0 >, < 1, "b", 0 >, < 2, "a", 3 >}, < [0, ["_._", < ["_*", < ["_+_", < ["_._", < ["a", <  >], ["b", <  >] >], ["c", <  >] >] >], ["_._", < ["b", <  >], ["a", <  >] >] >], "acc"], [1, ["_._", < ["_._", < ["b", <  >], ["_*", < ["_+_", < ["_._", < ["a", <  >], ["b", <  >] >], ["c", <  >] >] >] >], ["_._", < ["b", <  >], ["a", <  >] >] >], ""], [2, ["a", <  >], ""], [3, ["", <  >], "acc"] >]
+subj |-> "bbaaabbacc"
 

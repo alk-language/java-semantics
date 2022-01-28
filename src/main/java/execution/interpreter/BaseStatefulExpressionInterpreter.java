@@ -134,6 +134,12 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     }
 
     @Override
+    public ExecutionState interpretContextVar(ContextVar var, AST ast, ExecutionPayload payload)
+    {
+        throw new AlkException("Can't use context variables in concrete execution: " + var);
+    }
+
+    @Override
     public void interpretAnno(AST ast, ExecutionPayload payload)
     {
         AnnoAttr attr = ast.getAttribute(AnnoAttr.class);

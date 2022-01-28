@@ -3,6 +3,7 @@ package execution.state.function;
 import ast.AST;
 import execution.ExecutionResult;
 import execution.state.ExecutionState;
+import execution.state.symbolic.SymbolicResultState;
 import execution.types.AlkValue;
 import execution.parser.exceptions.ReturnException;
 import execution.ExecutionPayload;
@@ -35,6 +36,11 @@ extends ExecutionState
     {
         checkNotNull(executionResult.getValue(), true);
         value = executionResult.getValue().toRValue().clone(generator);
+        if (!getEnv().has(SymbolicResultState.resultName))
+        {
+            getEnv().define(SymbolicResultState.resultName);
+        }
+        getEnv().getLocation(SymbolicResultState.resultName).setValue(value);
     }
 
     @Override

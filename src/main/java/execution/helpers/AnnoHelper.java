@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class AnnoHelper
 {
+    public Object custom;
+
     private final Map<AST, Integer> counter = new IdentityHashMap<>();
 
     public void count(AST ast)

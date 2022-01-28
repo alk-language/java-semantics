@@ -1,89 +1,101 @@
-/*
-
-symbolic $n : int;
-
-sum = 0;
-n = $n;
-
-j = 1;
-
-while (j <= n)
-// invariant sum == (j - 1) * (n * (n + 1) / 2)
+swap(out a, out b)
+requires true
+ensures old(a) == b && old(b) == a
 {
-    a[k] = 6;
-    i = 1;
-    while (i <= n)
-    havoc j, sum;
-    // invariant sum == j * (n * (n + 1) / 2) + i * (i - 1) / 2 && i <= n + 1
+    tmp = a;
+    a = b;
+    b = tmp;
+}
+
+sorted(a)
+{
+    return sorted2(a, a.size());
+}
+
+sorted2(a, i)
+{
+    return forall k : int :: 0 < k && k < i ==> a[k - 1] <= a[k];
+}
+
+findMin(a, i)
+requires ...
+requires ...
+ensures ...
+ensures ...
+{
+    assume 0 <= i && i < a.size();
+    // requires 0 <= i < a.Length
+    j = i;
+    m = i;
+
+    while(j < a.size())
+        invariant i <= j && j <= a.size()
+               && i <= m && m < a.size()
+               && (forall k : int :: i <= k && k < j ==> a[k] >= a[m])
+        modifies m, j
     {
-        sum = sum + i;
-        i++;
+        if(a[j] < a[m]) m = j;
+        j++;
     }
-    havoc j, sum;
-    j++;
+
+    assert i <= m && m < a.size(); // ensures i <= m < a.Length
+    assert forall k : int :: i <= k && k < a.size() ==> a[k] >= a[m];
+    // ensures forall k :: i <= k < a.Length ==> a[k] >= a[m]
+    return m;
 }
 
-havoc i, j, sum;
-*/
-
-/*
-    while (i <= n)
-    // invariant sum == i * (i - 1) / 2 && i <= n + 1
+insertionSort(out a) uses a
+{
+    c = 0;
+    while(c < a.size())
+        invariant 0 <= c && c <= a.size()
+               && (forall k : int, l : int :: 0 <= k && k < c && c <= l && l < a.size() ==> a[k] <= a[l])
+               && sorted2(a, c)
+        modifies a, c
     {
-      sum = sum + i;
-      i++;
+        m = findMin(a, c);
+        swap(a[m], a[c]);
+        assert forall k : int :: c <= k && k < a.size() ==> a[k] >= a[c];
+        c++;
     }
 
-symbolic $s0 : int, $n : int;
-
-n = $n;
-sum = $s0;
-i = 1;
-while (i <= n)
-// invariant sum == $s0 + i * (i - 1) / 2 && i <= n + 1
-{
-    sum = sum + i;
-    i++;
-}
-assert !(i <= n) && sum == $s0 + i * (i - 1) / 2 && i <= n + 1;
-*/
-
-symbolic $n : int, $j : int, $sum : int, $sum1 : int, $i : int;
-
-sum = 0;
-n = $n;
-
-j = 1;
-
-// proof obligation 1: the invariant holds in the initial state of while
-assert sum == (j - 1) * (n * (n + 1) / 2);
-
-// proof obligation 2: check the loop invariant
-/*
-
-while (j <= n)
-// invariant sum == (j - 1) * (n * (n + 1) / 2)
-{
-    i = 1;
-    assume !(i <= n) && sum == $sum + i * (i - 1) / 2 && i <= n + 1;
-    j++;
+    assert sorted(a);
 }
 
-*/
-
-j = $j;
-sum = $sum;
-assume j <= n;
-assume sum == (j - 1) * (n * (n + 1) / 2);
-
-i = 1;
-assume !(i <= n) && sum == $sum + i * (i - 1) / 2 && i <= n + 1;
-j++;
-
-assert sum == $sum + i * (i - 1) / 2 && i <= n + 1;
+symbolic $a : array<int>;
+a = $a;
+insertionSort(a);
 
 
-// forall
-// exists
 
-a = exists i s.t. i <= 10;
+// findMin(input, output) modifies ... uses ...
+// requires r
+// ensures e
+//    s
+
+// 1) havoc input, output, modifies, uses
+// 2) assume r
+// 3) execute s
+// 4) assert e
+
+
+
+// findMin(input, output)
+
+// 1) evaluare argumente si initializare parametrii de intrare
+// 2) assert r
+// 3) havoc output, modifies
+// 4) assume e
+
+abs(x) ...
+
+b |-> $b
+c |-> $c
+abs(b + c)
+
+
+a |-> (store a m loc)
+loc |-> (select a m)
+======================
+a |-> (store a m loc)
+loc |-> fresh

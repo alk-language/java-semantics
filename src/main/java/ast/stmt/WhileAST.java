@@ -7,6 +7,9 @@ import visitor.ifaces.expr.AdditiveVisitorIface;
 import visitor.ifaces.stmt.BlockVisitorIface;
 import visitor.ifaces.stmt.WhileVisitorIface;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WhileAST
 extends StmtAST
 {
@@ -23,7 +26,7 @@ extends StmtAST
 
     public AST getStatement()
     {
-        return super.getChild(1);
+        return super.getChild(getChildCount() - 1);
     }
 
     @Override
@@ -39,5 +42,15 @@ extends StmtAST
     public String toString()
     {
         return "while (" + this.getCondition().toString() + ")\n" + this.getStatement().toString();
+    }
+
+    public List<AST> getInvariants()
+    {
+        List<AST> invs = new ArrayList<>();
+        for (int i = 1; i < getChildCount() - 1; i++)
+        {
+            invs.add(getChild(i));
+        }
+        return invs;
     }
 }
