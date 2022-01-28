@@ -1,0 +1,14 @@
+#include "ast.alk"
+#include "parser.alk"
+
+// the alphabet
+sigma = ["a","b","c"];
+// the expression
+input = "(a.b+b)*.(b.a)";
+// the current position in the input
+index = 0;
+print(input);
+ast = expression();
+print(ast);
+print(ast2string(ast));
+

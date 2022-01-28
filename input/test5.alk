@@ -1,51 +1,6 @@
-symbolic $a : array<int>;
-
-a = $a;
-assume a.size() == 3;
-
-maxim = a[0];
-i = 0;
-
-a = [i from A | i % 2 == 1];
-
-assert a > 5 ==> a > 2;
-assert a > 5 <==> a > 2;
-
-x = 10;
-a = x > 6 ==> x > 2; // true
-
-a = [1, 2, 3];
-x = forall j : int :: 0 <= j && j < 3 ==> a[j] > 0;
-
-assert fol;
-
-assume fol;
-
-while (expr)
-invariant fol
+a = 0;
+do
 {
+    a++;
+} while (a < 2);
 
-}
-
-
-fol :
-|   expr
-|   expr ==> expr
-|   expr <==> expr
-|   forall lst_var :: fol
-|   exists lst_var :: fol
-;
-
-
-// b -> AST (forall j : int :: 0 <= j && j < 3 ==> a[j] > 0)
-
-while (i < a.size())
-invariant (forall j : float :: ==> 1 < j && j < 2) &&
-modifies maxim, a
-{
-    if (maxim < a[i])
-    {
-        maxim = a[i];
-    }
-    i++;
-}

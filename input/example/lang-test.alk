@@ -1,0 +1,33 @@
+#include "lang.alk"
+#include "parser.alk"
+
+/*
+// tests for prod:
+print(prod({["a", "b"], ["c", "d", "e"]}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({["a", "b"], ["c", "d", "e"]}, {})); 
+print(prod({["a"]}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({["a", "b"], ["c", "d", "e"]}, {["1"]}));
+print(prod({[]}, {["1", "2"], ["3", "4", "5"]})); 
+print(prod({["a", "b"], ["c", "d", "e"]}, {[]}));
+*/
+
+/*
+// tests for lang:
+print(lang(["a", <>], 2));
+print(lang(["_*", <["a", <>]>], 2));
+print(lang(["_._", <["a", <>], ["a", <>]>], 2)); 
+print(lang(["_+_", <["a", <>], ["b", <>]>], 2));
+print(lang(["_*", <["_+_", <["a", <>], ["b", <>]>]>], 3));
+print(lang(["",<>],1));
+*/
+
+// the alphabet
+sigma = ["a","b","c"];
+// the expression
+input = "(a.b+b)*.(b.a)";
+// the current position in the input
+index = 0;
+print(input);
+ast = expression();
+print(lang(ast, 3));

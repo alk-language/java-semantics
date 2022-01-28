@@ -8,14 +8,16 @@ import ast.expr.RefIDAST;
 import ast.stmt.*;
 import ast.symbolic.SymbolicDeclsAST;
 import ast.symbolic.IdDeclAST;
+import ast.type.DataTypeAST;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import util.functions.Parameter;
 
 public class ParseTreeVisitor
 extends alkBaseVisitor<AST>
 {
-    private final alkBaseVisitor<AST> exprVisitor;
+    public final alkBaseVisitor<AST> exprVisitor;
 
     ParseTreeVisitor()
     {
@@ -25,7 +27,7 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitFunctionDecl(alkParser.FunctionDeclContext ctx)
     {
-        return new FunctionVisitor().visit(ctx);
+        return new FunctionVisitor(this, exprVisitor).visit(ctx);
     }
 
     @Override
@@ -76,7 +78,7 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitAssume(alkParser.AssumeContext ctx)
     {
-        AST exprAST = exprVisitor.visit(ctx.fol());
+        AST exprAST = exprVisitor.visit(ctx.expression());
         AssumeAST assumeAST = new AssumeAST(ctx);
         assumeAST.addChild(exprAST);
         return assumeAST;
@@ -85,7 +87,7 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitAssert(alkParser.AssertContext ctx)
     {
-        AST exprAST = exprVisitor.visit(ctx.fol());
+        AST exprAST = exprVisitor.visit(ctx.expression());
         AssertAST assertAST = new AssertAST(ctx);
         assertAST.addChild(exprAST);
         return assertAST;
@@ -170,15 +172,14 @@ extends alkBaseVisitor<AST>
     public AST visitWhileStructure(alkParser.WhileStructureContext ctx)
     {
         AST ast = new WhileAST(ctx);
-        ast.addChild(exprVisitor.visit(ctx.expression()));
-        if (ctx.fol() != null)
-            ast.addChild(exprVisitor.visit(ctx.fol()));
+        for (alkParser.ExpressionContext expr : ctx.expression())
+            ast.addChild(exprVisitor.visit(expr));
 
         ParamASTAttr paramAttr = new ParamASTAttr();
         for (int i = 0; i < ctx.ID().size(); i++)
         {
             String mid = ctx.ID(i).getText();
-            paramAttr.addParameter(ParamType.GLOBAL, mid);
+            paramAttr.addParameter(new Parameter(mid, ParamType.GLOBAL, null));
         }
 
         ast.addAttribute(ParamASTAttr.class, paramAttr);
@@ -293,12 +294,15 @@ extends alkBaseVisitor<AST>
     class FunctionVisitor
     extends alkBaseVisitor<AST>
     {
-        private AST ast;
+        private FunctionDeclAST ast;
+        private final alkBaseVisitor<AST> parent;
+        private final alkBaseVisitor<AST> exprVisitor;
         private final ParamASTAttr paramAttr = new ParamASTAttr();
 
-        FunctionVisitor()
+        FunctionVisitor(alkBaseVisitor<AST> parent, alkBaseVisitor<AST> exprVisitor)
         {
-
+            this.parent = parent;
+            this.exprVisitor = exprVisitor;
         }
 
         @Override
@@ -307,6 +311,10 @@ extends alkBaseVisitor<AST>
             ast = new FunctionDeclAST(ctx);
             String id = ctx.ID(0).getText();
             ast.addAttribute(IdASTAttr.class, new IdASTAttr(id));
+            if (ctx.dataType() != null)
+            {
+                ast.setDataType(exprVisitor.visit(ctx.dataType()));
+            }
 
             for (int i = 0; i < ctx.param().size(); i++)
             {
@@ -316,10 +324,23 @@ extends alkBaseVisitor<AST>
             for (int i = 1; i < ctx.ID().size(); i++)
             {
                 String mid = ctx.ID(i).getText();
-                paramAttr.addParameter(ParamType.GLOBAL, mid);
+                paramAttr.addParameter(new Parameter(mid, ParamType.GLOBAL, null));
             }
 
             ast.addAttribute(ParamASTAttr.class, paramAttr);
+
+            for (int i = 0; i < ctx.req_expression().size(); i++)
+            {
+                AST expr = exprVisitor.visit(ctx.req_expression(i));
+                ast.addRequires(expr);
+            }
+
+            for (int i = 0; i < ctx.ens_expression().size(); i++)
+            {
+                AST expr = exprVisitor.visit(ctx.ens_expression(i));
+                ast.addEnsures(expr);
+            }
+
             ast.addChild(ParseTreeVisitor.this.visit(ctx.statement_block()));
             return ast;
         }
@@ -329,7 +350,8 @@ extends alkBaseVisitor<AST>
         {
             boolean isOut = ctx.OUT() != null;
             String id = ctx.ID().getText();
-            paramAttr.addParameter(isOut ? ParamType.OUTPUT : ParamType.INPUT, id);
+            paramAttr.addParameter(new Parameter(id, isOut ? ParamType.OUTPUT : ParamType.INPUT,
+                    ctx.dataType() != null ? (DataTypeAST) exprVisitor.visit(ctx.dataType()) : null));
             return ast;
         }
     }

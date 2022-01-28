@@ -1,0 +1,20 @@
+fast_exp(a : int, b : int) : int
+requires 0 <= b
+ensures b > 0 ==> result == exp(a, b)
+ensures b == 0 ==> result == 1
+{
+    if (b == 0)
+    {
+        return 1;
+    }
+    assert b >= 1;
+    return a * fast_exp(a, b - 1);
+}
+
+fast_exp(a, b - 1)
+assert 0 <= b - 1
+
+result == $f
+
+assume b - 1 > 0 ==> $f == a * fast_exp(a, b - 1 - 1)
+assume b - 1 == 0 ==> $f == 1

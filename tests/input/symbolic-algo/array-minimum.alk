@@ -1,18 +1,28 @@
-symbolic $a : array<int>;
-
-a = $a;
-i = 0;
-minim = a[0];
-
-while (i < a.size())
-invariant forall j : int :: 0 <= j && j < i ==> minim <= a[j]
-modifies i, minim
+findMin(a : array<int>) : int
+ensures forall j : int :: 0 <= j && j < a.size() ==> result <= a[j]
+ensures exists j : int :: 0 <= j && j < a.size() ==> result == a[j]
 {
-    if (a[i] < minim)
+    i = 0;
+    minim = a[0];
+
+    while (i < a.size())
+    invariant i <= a.size()
+    invariant forall j : int :: 0 <= j && j < i ==> minim <= a[j]
+    modifies i, minim
     {
-        minim = a[i];
+        if (a[i] < minim)
+        {
+            minim = a[i];
+        }
+        i++;
     }
-    i++;
+
+    return minim;
 }
 
-assert forall j : int :: 0 <= j && j < a.size() ==> minim <= a[j];
+symbolic $a : array<int>;
+a = $a;
+findMin(a);
+
+
+

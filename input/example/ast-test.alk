@@ -1,0 +1,30 @@
+#include "ast.alk"
+/* 
+// tests for updatedChld: 
+print(updatedChld(["_+_", <["a", <>], ["", <>]>], 1, ["b", <>])); 
+print(updatedChld(["_+_", <["a", <>], ["", <>]>], 0, ["b", <>])); 
+print(updatedChld(["_+_", <["a", <>], ["", <>]>], 2, ["b", <>])); // Unknown value accessed
+*/
+
+/*
+// tests for simplify1:
+print(simplify1(["_+_", <["a", <>], []>]));
+print(simplify1(["_+_", <[], ["b", <>]>]));
+print(simplify1(["_+_", <[], []>])); 
+print(simplify1(["_._", <[], ["", <>]>])); 
+print(simplify1(["_._", <["", <>], []>])); 
+print(simplify1(["_._", <["a", <>], ["", <>]>])); 
+print(simplify1(["_._", <["", <>], ["b", <>]>])); 
+*/
+
+/*
+// tests for symplify:
+print(["_._", < ["_+_", <[], []>], ["_._", < ["a", <>], ["_._", <["", <>], ["", <>]>] >]>]);
+print(simplify(["_._", < ["_+_", <[], []>], ["_._", < ["a", <>], ["_._", <["", <>], ["", <>]>] >]>]));
+print(simplify1(simplify (["_._", < ["_+_", <[], []>], ["_._", < ["a", <>], ["_._", <["", <>], ["", <>]>] >]>])));
+*/
+
+
+//tests for ast2string:
+print(ast2string(["_._", <["a", <>], ["b", <>]>]));
+print(ast2string(["_._", <["a", <>], ["_*", <["_+_", <["a", <>], ["b", <>]>]>], ["_._", <["a", <>], ["b", <>]>]>])); 

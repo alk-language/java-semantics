@@ -1,7 +1,7 @@
 package ast.symbolic;
 
 import ast.expr.ExpressionAST;
-import ast.type.BoolDataType;
+import ast.type.BoolDataTypeAST;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -19,7 +19,7 @@ extends ExpressionAST
     @Override
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
-        return new BoolDataType(ctx);
+        return new BoolDataTypeAST(ctx);
     }
 
     @Override

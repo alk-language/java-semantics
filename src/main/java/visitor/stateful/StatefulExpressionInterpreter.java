@@ -1,6 +1,7 @@
 package visitor.stateful;
 
 import ast.AST;
+import ast.enums.ContextVar;
 import ast.enums.FOL;
 import ast.expr.fol.EquivAST;
 import state.Payload;
@@ -20,5 +21,6 @@ public interface StatefulExpressionInterpreter<T extends Payload, S extends Stat
     S interpretPrimitive(Primitive primitive, AST ast, T payload);
     S interpretComposite(Primitive primitive, AST ast, T payload);
     S interpretFol(FOL equiv, AST ast, T payload);
+    S interpretContextVar(ContextVar var, AST ast, T payload);
     void interpretAnno(AST ast, T payload);
 }

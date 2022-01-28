@@ -1,0 +1,122 @@
+// the root of an AST
+root(ast) {
+  if (ast.size() > 0) return ast[0];
+}
+
+
+// the number of children
+chldNo(ast) {
+  if (ast.size() > 0) return ast[1].size();
+  return 0;
+}
+
+// the i-th child of an AST
+chld(ast, i) {
+  if (ast.size() > 0 && i < ast[1].size()) {
+    return ast[1].at(i);
+  }
+}
+
+// updates a child
+updatedChld(ast, i, newchld) {
+  if (ast.size() > 0 && ast[1].size() > 0)
+    if (i >= 0 && i < ast[1].size()) {
+      ast[1].update(i, newchld);
+      return ast;
+    }
+}
+
+// removes a child
+removedChld(ast, i) {
+  if (ast.size() > 0 && ast[1].size() > 0)
+    if (i >= 0 && i < ast[1].size()) {
+      ast[1].removeAt(i);
+      return ast;
+    }
+}
+
+
+/*
+  Simplifies an AST using the unit/domination law
+  for empty and eps
+  TODO: add the associativity law for _+_ and _._
+*/
+simplify1(ast) {
+  if (ast == [])   // empty
+    return ast; 
+  if (len(root(ast)) <= 1)  // eps or in Sigma
+    return ast;
+  if (root(ast) == "_+_" ) { // a sum expression
+    for (i = 0; i < chldNo(ast); ++i) {
+      if (chld(ast, i) == [])   //i-th child is empty
+        ast = removedChld(ast, i);
+      else  //i-th child is non-empty
+        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
+    }	
+    if (chldNo(ast) == 0)
+      return [];
+    else if (chldNo(ast) == 1)
+      return chld(ast,0);
+    else
+      return ast;
+  }
+  if (root(ast) == "_._" ) {  // a product expression
+    for (i = 0; i < chldNo(ast); ++i) {
+      if (chld(ast, i) == [])  //i-th child is empty
+        return []; 
+      else if (root(chld(ast, i)) == "")   //i-th child is eps
+        ast = removedChld(ast, i); 
+      else   //i-th child is non-empty or eps
+        ast = updatedChld(ast, i, simplify1((chld(ast, i))));
+    }
+    if (chldNo(ast) == 0) // removed all children
+      return ["", <>];
+    else if (chldNo(ast) == 1) // just one child remained
+      return chld(ast,0);
+    else  // at least two children
+      return ast;
+  }
+  if (root(ast) == "_*") // a star expression
+    if (chld(ast, 0) == []) // empty
+      return [];
+    else
+      return ["_*", < simplify1(chld(ast, 0)) >];
+  return ast;
+}
+
+
+simplify(ast) {
+      do {
+        ast1 = ast;
+        ast = simplify1(ast1);
+      } while (ast != ast1);
+      return ast;
+}
+
+
+// the string representation of an AST
+ast2string(ast) {
+  if (ast == []) str = "∅";
+  else if (root(ast) == "") str = "ε";
+  else if (chldNo(ast) == 0) str = root(ast);
+  else if (root(ast) == "_+_") {
+    str = "(" + ast2string(chld(ast,0));
+    n = chldNo(ast);
+    for (i = 1; i < n; ++i)
+      str = str + " + " + ast2string(chld(ast, i));
+    str = str + ")";
+  }
+  else if (root(ast) == "_._") {
+    str = ast2string(chld(ast,0));
+    n = chldNo(ast);
+    for (i = 1; i < n; ++i)
+      str = str + ast2string(chld(ast, i));
+  }
+  else if (root(ast) == "_*") 
+    str = ast2string(chld(ast, 0)) + "*";
+  else
+    return "undefined";
+  return str;
+}
+
+

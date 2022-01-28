@@ -2,8 +2,10 @@ package state;
 
 import ast.AST;
 import execution.exhaustive.SplitMapper;
+import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.UnwindException;
 import execution.state.ExecutionState;
+import util.exception.InternalException;
 import visitor.stateful.StatefulInterpreterManager;
 
 /**
@@ -34,6 +36,20 @@ public abstract class State<T extends Payload, S extends Result<?>>
     public boolean handle(UnwindException u)
     {
         return false;
+    }
+
+    public boolean handle(AlkException e)
+    {
+        return this.handle((InternalException) e);
+    }
+
+    public boolean handle(InternalException e)
+    {
+        if (e.getLine() == 0)
+        {
+            e.sign(tree.getLine(), tree.getColumn());
+        }
+        throw e;
     }
 
     public State<T, S> request(AST tree)

@@ -279,6 +279,20 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionDecl(alkParser.FunctionDeclContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ReqExpression}
+	 * labeled alternative in {@link alkParser#req_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReqExpression(alkParser.ReqExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EnsExpression}
+	 * labeled alternative in {@link alkParser#ens_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnsExpression(alkParser.EnsExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ParamDefinition}
 	 * labeled alternative in {@link alkParser#param}.
 	 * @param ctx the parse tree
@@ -287,56 +301,49 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	T visitParamDefinition(alkParser.ParamDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ImpliesExpr}
-	 * labeled alternative in {@link alkParser#fol}.
+	 * labeled alternative in {@link alkParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitImpliesExpr(alkParser.ImpliesExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code EquivExpr}
-	 * labeled alternative in {@link alkParser#fol}.
+	 * labeled alternative in {@link alkParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEquivExpr(alkParser.EquivExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ForallExpr}
-	 * labeled alternative in {@link alkParser#fol}.
+	 * labeled alternative in {@link alkParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitForallExpr(alkParser.ForallExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExistsExpr}
-	 * labeled alternative in {@link alkParser#fol}.
+	 * labeled alternative in {@link alkParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExistsExpr(alkParser.ExistsExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ParFolExpr}
-	 * labeled alternative in {@link alkParser#fol}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParFolExpr(alkParser.ParFolExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code FolToExpr}
-	 * labeled alternative in {@link alkParser#fol}.
+	 * labeled alternative in {@link alkParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFolToExpr(alkParser.FolToExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AssignExpression}
-	 * labeled alternative in {@link alkParser#expression}.
+	 * labeled alternative in {@link alkParser#assign_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAssignExpression(alkParser.AssignExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToConditionalExpr}
-	 * labeled alternative in {@link alkParser#expression}.
+	 * labeled alternative in {@link alkParser#assign_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -481,6 +488,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFactorPointMethod(alkParser.FactorPointMethodContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ResultFactor}
+	 * labeled alternative in {@link alkParser#base_factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitResultFactor(alkParser.ResultFactorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code RefNameFactor}
 	 * labeled alternative in {@link alkParser#base_factor}.
@@ -760,6 +774,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIntType(alkParser.IntTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BoolType}
+	 * labeled alternative in {@link alkParser#dataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolType(alkParser.BoolTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FloatType}
 	 * labeled alternative in {@link alkParser#dataType}.

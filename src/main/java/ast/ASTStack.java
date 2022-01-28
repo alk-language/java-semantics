@@ -70,7 +70,16 @@ public class ASTStack<T extends State>
     {
         Result<?> result = null;
         T top = stack.peek();
-        T next = (T) top.makeStep();
+        T next;
+        try
+        {
+            next = (T) top.makeStep();
+        }
+        catch (InternalException e)
+        {
+            top.handle(e);
+            return null;
+        }
 
         if (next == null)
         {

@@ -3,14 +3,11 @@ package execution.interpreter;
 import ast.AST;
 import ast.attr.BuiltInFunctionASTAttr;
 import ast.attr.OpsASTAttr;
-import ast.enums.FOL;
-import ast.enums.Operator;
-import ast.enums.Primitive;
+import ast.attr.RepresentationASTAttr;
+import ast.enums.*;
 import execution.ExecutionPayload;
-import execution.parser.exceptions.NotImplementedException;
 import execution.state.ExecutionState;
-import execution.state.function.BuiltInFunctionState;
-import execution.state.function.DefinedFunctionCallState;
+import execution.state.expression.*;
 import execution.state.symbolic.*;
 import util.exception.InternalException;
 import visitor.stateful.StatefulExpressionInterpreter;
@@ -66,7 +63,7 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
         }
         else
         {
-            return baseDelegate.evaluateFunction(ast, payload);
+            return new SymbolicFunctionCallState(ast, payload);
         }
     }
 
@@ -97,7 +94,25 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretComposite(Primitive primitive, AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretComposite(primitive, ast, payload);
+        RepresentationASTAttr attr = ast.getAttribute(RepresentationASTAttr.class);
+        CompoundValueRepresentation repr = attr.getRepresentation();
+        switch (repr) {
+            case EMPTY:
+            case FILTER_SPEC:
+            case EXPRESSIONS:
+            case COMPONENTS:
+                return baseDelegate.interpretComposite(primitive, ast, payload);
+            case INTERVAL:
+                if (primitive == Primitive.ARRAY)
+                {
+                    return new SymbolicIntervalState(primitive, ast, payload);
+                }
+                return baseDelegate.interpretComposite(primitive, ast, payload);
+            case MAP_SPEC:
+                return new IterableWithMapSpecState(primitive, ast, payload);
+            default:
+                throw new InternalException("Unrecognized compound data type representation: " + repr);
+        }
     }
 
     @Override
@@ -115,6 +130,18 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
                 return new SymbolicExistsState(ast, payload);
             default:
                 throw new InternalException("Can't recognize this type of FOL operation: " + type);
+        }
+    }
+
+    @Override
+    public ExecutionState interpretContextVar(ContextVar var, AST ast, ExecutionPayload payload)
+    {
+        switch (var)
+        {
+            case RESULT:
+                return new SymbolicResultState(ast, payload);
+            default:
+                throw new InternalException("Can't recognize this type of context variable: " + var);
         }
     }
 

@@ -26,8 +26,8 @@ import static execution.parser.exceptions.AlkException.ERR_NOINT_INTERVAL;
 public class IterableWithIntervalState
 extends GeneratorState
 {
-    private final List<Storable> limits = new ArrayList<>();
-    private final Primitive primitive;
+    protected final List<Storable> limits = new ArrayList<>();
+    protected final Primitive primitive;
 
     public IterableWithIntervalState(Primitive primitive, AST tree, ExecutionPayload executionPayload) {
         super(tree, executionPayload);
@@ -70,7 +70,7 @@ extends GeneratorState
         limits.add(result.getValue().toRValue());
     }
 
-    private AlkIterableValue getPrimitiveInstance()
+    protected AlkIterableValue getPrimitiveInstance()
     {
         switch (this.primitive) {
             case ARRAY:

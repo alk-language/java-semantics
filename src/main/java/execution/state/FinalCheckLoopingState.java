@@ -20,9 +20,9 @@ extends LoopingState
     {
         if (firstTime)
         {
-            checkedCondition = true;
-            validCondition = processValidity(new AlkBool(true));
             firstTime = false;
+            checkedCondition = true;
+            return request(body);
         }
 
         return super.makeStep();

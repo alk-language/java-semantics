@@ -1,156 +1,82 @@
-swap(out a, out b) {
-    tmp = a;
-    a = b;
-    b = tmp;
-}
-
-sort(out a)
+all_distinct(a, m)
+// analiza statica la requires/cod -> tipuri de date
+// havoc
+// evaluare requires, adaugare la path condition
+requires a : array<boolean> && m : array<int>
+requires forall i : int :: 0 <= i && i < a.size() ==> 0 <= a[i] && a[i] < m
+ensures  result <==> (forall i : int, j : int :: 0 <= i && i < a.size() ==>
+         (0 <= j && j < a.size() ==> (i != j ==> a[i] != a[j])))
+ensures  result : boolean
 {
-    ok = false;
-    while (!ok)
+    // ap = [false | _ from [0..m-1]];
+    // ap = emptyArray<boolean>;
+
+    ap = [];
+
+    // AlkArray : AlkValue
+    // size, elementele, tip de date ale elementelor
+
+    assume ap : array<boolean>;
+
+    ap = [false];
+    i = 1;
+
+    while (i < m)
+    invariant i <= m
+    invariant i == ap.size()
+    invariant forall k : boolean :: k in ap ==> k == false
+    modifies i, ap
     {
-        ok = true;
-        for (i = 1; i < a.size(); i++)
-        {
-            if (a[i - 1] > a[i])
-            {
-                swap(a[i - 1], a[i]);
-                ok = false;
-            }
-        }
+        ap[i] = false;
+        i++;
     }
+
+    assert ap.size() == m;
+    assert !(true in ap);
+
+    k = 0;
+    ok = true;
+    while (k < a.size())
+    invariant k <= a.size()
+    invariant ok <==> (forall i : int, j : int :: 0 <= i && i < k ==>
+                      (0 <= j && j < k ==> (i != j ==> a[i] != a[j])))
+    modifies ap, ok, k
+    {
+        v = a[k];
+        if (ap[v])
+        {
+            ok = false;
+        }
+        ap[v] = true;
+        k++;
+    }
+
+    assert k == a.size();
+
+    return ok;
 }
 
-symbolic $a : array<int>;
-a = $a;
-assume a.size() == 2;
-sort(a);
-assert a[0] <= a[1];
 
-ar trebui: a |-> $a
-totusi:    a |-> (store (store (store $a 1 (select $a 1)) 0 (select $a 0)) 1 (select $a 1))
-
-a[$i] = $j;
-
-inainte:
-a |-> l0
-l0 |-> (store $a $i l1)
-l1 |-> (select $a $i)
-
-path condition: (store $a $i (select $a $i)).size() < 2
-
----------> simplificare
-
-path condition: $a.size() < 2
-
-dupa:
-a |-> l0
-l0 |-> (store $a $i l1)
-l1 |-> $j
-
----------> simplificare
-path condition: (store $a $i $j).size() < 2
+requires a : array<int>
 
 
-simplificarile le facem inainte de SMT
-: la path condition - copii ale valorilor din executie
+a : array<int>
 
-: la valorile din store
+pc |-> $a == 2 && b && c &&
+pc: $a : array<int>
 
+// ap = [f(x) | x from A];
+// ============================== A -> array/list
+// env: ap |-> $ap_0
+// pc:  $ap_0.size() == A.size() && forall i : int :: 0 <= i && i < A.size() ==> ap[i] == f(A[i])
 
-Exemplu
+// ap = [x..y];
+// ==============================
+// env: ap |-> $ap_0
+// pc:  $ap_0.size() == y - x + 1 && forall i : int :: 0 <= i && i < y - x + 1 ==> $ap_0[i] == x + i
 
-symbolic $a : array<int>;
-fnc(out x)
-{
-    ... -----> simplificarea valorii lui a
-    x = 2;
-}
-
-// a |-> l0
-// l0 |-> (store $a 1 l1)
-// l1 |-> (select $a 1)
-fnc(a[1]);
-// a |-> l0
-// l0 |-> (store $a 1 l1)
-// l1 |-> 2
-
-
-l0 |-> (store $a $i l1)
-l1 |-> (select $a $i)
-
-
-t0 |-> $a
-t0 : l1 |-> (select $a $i)
-
-t1 |-> (store $a $i l1)
-t1 : l1 |-> $j
-
-
-l0 |-> (store x y l1)
-l1 |-> (select x y)
-----------------------
-l0 |-> x
-
-
-// a |-> l0
-// l0 |-> $a
-x = a[0];
-// a |-> l0, x |-> l1
-// l0 |-> (store $a 0 l2)
-// l1 |-> (select $a 0)
-// l2 |-> (select $a 0)
-
-a[0] ~> l1
-a |-> l0
-l0 |-> (store $a 0 l1)
-l1 |-> (select $a 0)
-
-
-a |-> (store (store $a 0 1) $i 2)
-
-a[0] -> validStore/validSelect?
-
-a |-> (store (store (store $a 0 1) $i 2) 0 (select (store $a 0 1) $i 2))
-
-a[$i] = 2; -> validStore(a, $i, 2)
-x = a[$i]; -> validSelect(a, $i)
-
-assume a.size() == 2;
-x = a[10];
-assert a.size() == 11; // validStore(a, 10, 5) => a.size() == 11
-
-a[$i] -> validStore(a, $i)
-
-
-a[3] -> [?, ?, ?, ?]
-
-x = a[3] + 2; // x = (select $a 3) + 2; => Eroare
-
-
-assume a.size() == 5;
-a.pushBack(2);
-a.popBack();
-x = a[5];  // validSelect(a, 5)
-a[10] = x; // validStore(a, 10)
-// z3 : (select a left(a) + 5) == 2
-
-x = a[5];
-
-a ~> l0
-a[5] ~> l1
-+ a[5] ~> l1.toRValue(), pc ++ validSelect(a, 5)
-x = a[5] ~> x |-> l1.toRValue()
-
-a ~> l0
-a[10] ~> l1
-a[10] = x ~> l1.toLValue().setValue(x.toRValue()), pc ++ validStore(a, 10)
-
-validStore(x, y, z) = validSelect(x, y) && =>
-
-
-// simplificare la output si path condition
-// validStore la LValue si validSelect la RValue
-
-(select (store a x y) z) -> y daca x == z
-                            (select a z) altfel
+// ap = [x from A | f(x)];
+// $s_0
+// =====================================
+// env: ap |-> $ap_0
+// pc: $ap_0 ==

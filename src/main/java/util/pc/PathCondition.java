@@ -4,6 +4,7 @@ import ast.AST;
 import ast.expr.BoolAST;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
+import com.microsoft.z3.Z3Exception;
 import execution.parser.AlkParser;
 import execution.parser.env.LocationMapper;
 import execution.parser.env.LocationMapperIface;
@@ -14,6 +15,7 @@ import smt.AlkSMTContext;
 import symbolic.ASTSimplifier;
 import symbolic.SymbolicValue;
 import util.exception.IncompleteASTException;
+import util.exception.InternalException;
 
 import java.util.*;
 
@@ -153,7 +155,14 @@ implements DataTypeProvider
     public boolean asserts(SymbolicValue symbolicValue)
     {
         simplify();
-        return alkCtx.asserts(symbolicValue);
+        try
+        {
+            return alkCtx.asserts(symbolicValue);
+        }
+        catch (Z3Exception e)
+        {
+            throw new InternalException(e);
+        }
     }
 
     @Override

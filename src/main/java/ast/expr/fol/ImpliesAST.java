@@ -1,10 +1,9 @@
 package ast.expr.fol;
 
 import ast.expr.ExpressionAST;
-import ast.type.BoolDataType;
+import ast.type.BoolDataTypeAST;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
-import execution.types.alkBool.AlkBool;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
 import visitor.ifaces.expr.ImpliesVisitorIface;
@@ -21,7 +20,7 @@ extends ExpressionAST
     @Override
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
-        return new BoolDataType(ctx);
+        return new BoolDataTypeAST(ctx);
     }
 
     @Override

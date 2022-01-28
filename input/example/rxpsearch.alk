@@ -1,0 +1,70 @@
+#include "detaut.alk"
+/*
+ if aut = am[0] may consume a in the state,
+ then returns an array consists of
+   - the new state
+   - and a string = "acc" if the new state
+     is an accepting state, = "" otherwise
+ otherwise returns [-1] (invalid state) 
+*/
+expected(am, state, a)
+{
+  aut = am[0];
+  map = am[1];
+  foreach trans from aut {
+    if (trans.at(0) == state && trans.at(1) == a) { // expected
+      newState = trans.at(2);
+      return [newState, map.at(newState)[2]];
+    }
+  }
+  return [-1];
+}
+
+/*
+  @input: a string s[0..n-1],
+          a pair am consisting of
+             an automaton am[0] and a map am[1] with the states
+	     (computed by detAut),
+          a position i, 0 <= i < n
+  @output: true,  if s[i..i+m-1] is accepted by aut,
+           false, otherwise
+*/
+occAtPos(s, am,  i)
+{
+  n = s.size();
+  aut = am[0];
+  state = 0; // the current state is the initial state
+  for (j = 0; true; ++j) {
+    exp = expected (am, state, s[i+j]);
+    if (i + j < n && exp[0] >= 0) { // expected
+      state = exp[0];
+      if (exp[1] == "acc") // accepted
+        return true;
+      // else: expected but not accepted
+    }
+    else
+      return false;  // not expected
+  }
+}
+
+/*
+  @input:  strings s[0..n-1], 
+          a pair am consisting of
+             an automaton am[0] and a map am[1] with the states
+	     (computed by detAut),
+  @ouput:  the first occurence of p in s, if any
+            -1, otherwise
+*/
+firstOcc(s, am)
+{ 
+  n = s.size();
+  for (i = 0; i < n; ++i) {
+    if (occAtPos(s, am, i)) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+

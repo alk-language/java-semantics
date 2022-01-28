@@ -3,13 +3,11 @@ package execution.state.symbolic;
 import ast.AST;
 import ast.expr.ExpressionAST;
 import ast.expr.fol.EquivAST;
-import ast.expr.fol.ImpliesAST;
-import ast.type.BoolDataType;
+import ast.type.BoolDataTypeAST;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
 import execution.state.expression.BaseEquivState;
-import execution.state.expression.BaseImpliesState;
 import symbolic.SymbolicValue;
 import util.types.Storable;
 
@@ -26,7 +24,7 @@ extends BaseEquivState
         if (value instanceof SymbolicValue)
         {
             ExpressionAST expressionAST = ((ExpressionAST) ((SymbolicValue) value).toAST());
-            return expressionAST.getDataType(getExec().getPathCondition()) instanceof BoolDataType;
+            return expressionAST.getDataType(getExec().getPathCondition()) instanceof BoolDataTypeAST;
         }
         return super.checkValue(value);
     }

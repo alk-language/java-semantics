@@ -5,10 +5,10 @@ import com.microsoft.z3.Expr;
 import com.microsoft.z3.Sort;
 import org.antlr.v4.runtime.ParserRuleContext;
 
-public class BoolDataType
+public class BoolDataTypeAST
 extends DataTypeAST
 {
-    public BoolDataType(ParserRuleContext ctx)
+    public BoolDataTypeAST(ParserRuleContext ctx)
     {
         super(ctx);
     }

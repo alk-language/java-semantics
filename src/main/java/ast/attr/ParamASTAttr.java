@@ -1,7 +1,6 @@
 package ast.attr;
 
-import ast.enums.ParamType;
-import util.Pair;
+import util.functions.Parameter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +8,11 @@ import java.util.List;
 public class ParamASTAttr
 extends ASTAttr
 {
-    private final List<Pair<ParamType, String>> params = new ArrayList<>();
+    private final List<Parameter> params = new ArrayList<>();
 
-    public void addParameter(ParamType type, String id)
+    public void addParameter(Parameter param)
     {
-        params.add(new Pair<>(type, id));
+        params.add(param);
     }
 
     public int getParamCount()
@@ -21,7 +20,7 @@ extends ASTAttr
         return params.size();
     }
 
-    public Pair<ParamType, String> getParameter(int idx)
+    public Parameter getParameter(int idx)
     {
         return params.get(idx);
     }

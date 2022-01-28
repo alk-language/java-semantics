@@ -14,6 +14,8 @@ import execution.parser.env.*;
 import execution.state.ExecutionState;
 import execution.utils.Stepper;
 import symbolic.SymbolicValue;
+import util.Configuration;
+import util.FuncManager;
 import util.pc.PathCondition;
 import util.Recurrence;
 import util.exception.InternalException;
@@ -223,7 +225,7 @@ class ExecutionPath
     {
         BaseStatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> manager =
                 new BaseStatefulInterpreterManager<>(new SymbolicStatefulExpressionInterpreter(), new SymbolicStatefulStmtInterpreter());
-        Storable value = Stepper.run(tree, env, store, this.pc, manager);
+        Storable value = Stepper.run(tree, new Configuration(), env, store, this.pc, new FuncManager(), manager);
         if (data != null)
         {
             if (data.getCondition())

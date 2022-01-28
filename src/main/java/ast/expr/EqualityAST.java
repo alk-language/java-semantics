@@ -28,7 +28,7 @@ extends ExpressionAST
     @Override
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
-        return new BoolDataType(null);
+        return new BoolDataTypeAST(null);
     }
 
     @Override

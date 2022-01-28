@@ -14,12 +14,24 @@ import java.util.Set;
 class ExecutionCloner
 {
 
-    public static ExecutionCloneContext makeClone(Execution source)
+    public static ExecutionCloneContext makeClone(Execution source, ExecutionPool pool)
     {
         StoreImpl copyStore = new StoreImpl();
         LocationMapper locMapping = new LocationMapper(source.getStore(), copyStore);
 
-        Execution copy = new Execution(source.getConfig().clone(), source.getInterpreterManager().makeClone());
+        Execution copy;
+        if (pool != null)
+        {
+            copy = pool.createExecution(source.getConfig().clone(), source.getInterpreterManager().makeClone());
+        }
+        else if (source.getPool() != null)
+        {
+            copy = source.getPool().createExecution(source.getConfig().clone(), source.getInterpreterManager().makeClone());
+        }
+        else
+        {
+            copy = new Execution(source.getConfig().clone(), source.getInterpreterManager().makeClone());
+        }
         copy.setStore(copyStore);
         Set<Location> sourceLocations = source.getStore().getLocations();
 

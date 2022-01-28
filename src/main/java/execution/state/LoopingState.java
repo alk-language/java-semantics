@@ -11,16 +11,19 @@ import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import util.types.Storable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class LoopingState
 extends ExecutionState
 {
     protected final AST condition;
-    protected final AST invariant;
+    protected final List<AST> invariants;
     protected final AST body;
 
     protected Storable conditionValue;
-    protected Storable invariantValue;
-    protected Storable preBodyValue;
+    protected List<Storable> invariantValues = new ArrayList<>();
+    protected int stepInv = 0;
 
     protected boolean checkedCondition = false;
     protected boolean checkedInvariant = false;
@@ -32,18 +35,18 @@ extends ExecutionState
                         AST condition,
                         AST body)
     {
-        this(tree, executionPayload, condition, null, body);
+        this(tree, executionPayload, condition, new ArrayList<>(), body);
     }
 
     public LoopingState(AST tree,
                         ExecutionPayload executionPayload,
                         AST condition,
-                        AST invariant,
+                        List<AST> invariants,
                         AST body)
     {
         super(tree, executionPayload);
         this.condition = condition;
-        this.invariant = invariant;
+        this.invariants = invariants;
         this.body = body;
     }
 
@@ -56,14 +59,9 @@ extends ExecutionState
             return null;
         }
 
-        if (invariant != null && !checkedInvariant)
+        if (invariants != null && !checkedInvariant && stepInv < invariants.size())
         {
-            return request(invariant);
-        }
-
-        if (invariant != null)
-        {
-            processInvariant(invariantValue);
+            return request(invariants.get(stepInv));
         }
 
         if (!checkedCondition)
@@ -93,7 +91,7 @@ extends ExecutionState
         }
     }
 
-    protected boolean processInvariant(Storable invariantValue)
+    protected boolean processInvariant(Storable invariantValue, AST invariant)
     {
         if (invariantValue instanceof AlkBool)
         {
@@ -116,10 +114,16 @@ extends ExecutionState
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        if (invariant != null && !checkedInvariant)
+        if (invariants != null && !checkedInvariant && stepInv < invariants.size())
         {
-            checkedInvariant = true;
-            invariantValue = executionResult.getValue().toRValue();
+            stepInv++;
+            if (stepInv == invariants.size())
+            {
+                checkedInvariant = true;
+            }
+            Storable value = executionResult.getValue().toRValue();
+            invariantValues.add(value);
+            processInvariant(value, invariants.get(stepInv - 1));
         }
         else if (!checkedCondition)
         {
@@ -157,6 +161,17 @@ extends ExecutionState
         copy.checkedInvariant = checkedInvariant;
         copy.validCondition = validCondition;
         copy.broke = broke;
+        copy.stepInv = stepInv;
+
+        copy.conditionValue = conditionValue == null ? null : conditionValue.weakClone(sm.getLocationMapper());
+        if (invariantValues != null)
+        {
+            copy.invariantValues = new ArrayList<>();
+            for (Storable storable : invariantValues)
+            {
+                copy.invariantValues.add(storable.weakClone(sm.getLocationMapper()));
+            }
+        }
 
         return (LoopingState) super.decorate(copy, sm);
     }

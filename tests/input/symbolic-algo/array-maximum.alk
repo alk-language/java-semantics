@@ -13,4 +13,4 @@ modifies i, maxim
     i++;
 }
 
-assert forall j : int :: 0 <= j && j < a.size() ==> a[j] <= maxim;
+assert (forall j : int :: 0 <= j && j < a.size() ==> a[j] <= maxim) && (exists j : int :: 0 <= j && j < a.size() ==> a[j] == maxim);

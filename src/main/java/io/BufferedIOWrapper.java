@@ -3,7 +3,8 @@ package io;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BufferedIOWrapper implements IOManager
+public class BufferedIOWrapper
+implements IOManager
 {
 
     private final IOManager manager;

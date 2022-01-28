@@ -1,0 +1,33 @@
+binary_search(a : array<int>, v : int) : int
+requires forall i : int :: 0 < i && i < a.size() ==> a[i - 1] < a[i]
+ensures (0 <= result && result < a.size() && a[result] == v) ||
+        (result == -1 && (forall i : int :: 0 <= i && i < a.size() ==> a[i] != v))
+{
+    l = 0;
+    r = a.size() - 1;
+    while (l <= r)
+    invariant 0 <= l && r < a.size()
+    invariant forall j : int :: 0 <= j && j < l ==> a[j] != v
+    modifies l, r
+    {
+        m = (l + r) / 2;
+        assert l <= m && m <= r;
+        assert 0 <= l && r < a.size();
+        // assert forall j : int :: 0 <= j && j < l ==> a[j] != v;
+
+        if (v < a[m])
+            r = m - 1;
+        else if (a[m] < v)
+            l = m + 1;
+    }
+    return -1;
+}
+
+symbolic $a : array<int>, $x : int;
+a = $a;
+
+assume forall i : int :: 0 < i && i < a.size() ==> a[i - 1] <= a[i];
+assume forall i : int :: 0 <= i && i < a.size() ==> a[i] != $x;
+
+assert binary_search(a, $x) == -1;
+assert binary_search(a, a[4]) == 4;

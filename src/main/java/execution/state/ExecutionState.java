@@ -55,15 +55,6 @@ extends State<ExecutionPayload, ExecutionResult>
         return (ExecutionState) super.request(tree, payload.duplicate(getExec(), env));
     }
 
-    public boolean handle(AlkException e)
-    {
-        if (e.isUnsigned())
-        {
-            throw new AlkException(tree.getLine(), tree.getColumn(), e.getMessage());
-        }
-        throw e;
-    }
-
     protected Environment getEnv()
     {
         return payload.getEnv();

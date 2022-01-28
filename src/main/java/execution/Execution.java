@@ -1,30 +1,37 @@
 package execution;
 
 import ast.AST;
+import ast.ASTHelper;
+import ast.attr.IdASTAttr;
+import ast.attr.ParamASTAttr;
+import ast.enums.ParamType;
+import ast.expr.SymIDAST;
+import ast.stmt.FunctionDeclAST;
 import execution.exhaustive.EnvironmentMapper;
 import execution.helpers.AnnoHelper;
-import execution.parser.env.LocationMapper;
+import execution.parser.env.*;
 import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.HelpFormatter;
 import execution.parser.AlkParser;
 import execution.parser.constants.Constants;
-import execution.parser.env.Environment;
-import execution.parser.env.EnvironmentImpl;
-import execution.parser.env.StoreImpl;
 import execution.parser.exceptions.AlkException;
 import parser.ParseTreeGlobals;
+import symbolic.SymbolicValue;
 import util.*;
 import util.exception.InternalException;
 import util.exception.SymbolicallyImposibleException;
+import util.functions.Parameter;
 import util.pc.PathCondition;
 import visitor.stateful.StatefulExpressionInterpreter;
 import visitor.stateful.StatefulInterpreterManager;
 import visitor.stateful.StatefulStmtInterpreter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,6 +64,10 @@ extends Thread
     private final StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> interpreterManager;
 
     private AnnoHelper annoHelper;
+
+    private ExecutionPool pool;
+
+    private ExecutionOutput output = new ExecutionOutput();
 
     /**
      * Constructor with specific configuration
@@ -118,6 +129,32 @@ extends Thread
         return true;
     }
 
+    private void registerFunction(FunctionDeclAST tree)
+    {
+        String id = tree.getAttribute(IdASTAttr.class).getId();
+        ParamASTAttr attr = tree.getAttribute(ParamASTAttr.class);
+        List<Parameter> params = new ArrayList<>();
+        List<String> modifies = new ArrayList<>();
+
+        for (int i = 0; i < attr.getParamCount(); i++)
+        {
+            Parameter param = attr.getParameter(i);
+            if (param.getType() == ParamType.GLOBAL)
+                modifies.add(param.getName());
+            else
+                params.add(param);
+        }
+
+        AlkFunction function = new AlkFunction(id,
+                params,
+                modifies,
+                tree.getBody(),
+                tree.getRequires(),
+                tree.getEnsures(),
+                tree.getDataType());
+        this.getFuncManager().define(function);
+    }
+
     /**
      * The main method which fires the parsing
      */
@@ -135,6 +172,18 @@ extends Thread
                 throw new AlkException("Syntax error!");
             }
             AST root = ParseTreeGlobals.PARSE_TREE_VISITOR.visit(tree);
+            if (config.hasStaticVerif())
+            {
+                List<FunctionDeclAST> fncs = ASTHelper.getFunctions(root);
+                for (FunctionDeclAST fnc : fncs)
+                {
+                    registerFunction(fnc);
+                }
+                for (AlkFunction fnc : getFuncManager().getFunctions())
+                {
+                    Symbolic.verifyFunction(fnc, this);
+                }
+            }
             if (root != null)
             {
                 ExecutionPayload payload = new ExecutionPayload(this, global);
@@ -179,12 +228,17 @@ extends Thread
     {
         try
         {
+            if (this.pool != null)
+            {
+                this.pool.incrementActive(this);
+            }
             execute();
         }
         catch (AlkException e)
         {
             ErrorManager em = config.getErrorManager();
             em.handleError(e);
+            output.hasError = true;
             if (((OptionProvider) config).hasDebugMode())
             {
                 // TODO: make use of em
@@ -201,18 +255,29 @@ extends Thread
                 // TODO: make use of em
                 e.printStackTrace();
             }
+            output.hasError = true;
             config.getErrorManager().handleError(e);
         }
         finally
         {
             config.getIOManager().flush();
+            if (this.pool != null)
+            {
+                this.pool.decrementActive(this);
+            }
+            output.exec = this;
         }
     }
 
 
     public ExecutionCloneContext clone()
     {
-        return ExecutionCloner.makeClone(this);
+        return clone(null);
+    }
+
+    public ExecutionCloneContext clone(ExecutionPool pool)
+    {
+        return ExecutionCloner.makeClone(this, pool);
     }
 
     public Configuration getConfiguration()
@@ -312,5 +377,20 @@ extends Thread
     public void halt()
     {
         throw new SymbolicallyImposibleException();
+    }
+
+    public void setPool(ExecutionPool pool)
+    {
+        this.pool = pool;
+    }
+
+    public ExecutionPool getPool()
+    {
+        return pool;
+    }
+
+    public ExecutionOutput getOutput()
+    {
+        return output;
     }
 }

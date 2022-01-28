@@ -4,7 +4,9 @@ import execution.parser.env.AlkFunction;
 import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.NoSuchFunctionException;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FuncManager {
@@ -25,5 +27,10 @@ public class FuncManager {
             throw new NoSuchFunctionException(name);
         }
         return functions.get(name);
+    }
+
+    public Collection<AlkFunction> getFunctions()
+    {
+        return functions.values();
     }
 }
