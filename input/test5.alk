@@ -1,6 +1,18 @@
-a = 0;
-do
+a = [1, 2, 3, 4];
+i = 0;
+minim = a[0];
+
+while (i < a.size())
 {
-    a++;
-} while (a < 2);
+    if (a[i] < minim)
+    {
+        minim = a[i];
+    }
+    i++;
+}
+
+print(minim);
+
+
+
 

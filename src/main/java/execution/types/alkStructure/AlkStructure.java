@@ -143,7 +143,7 @@ extends AlkValue
     @Override
     public AST toAST()
     {
-        throw new NotImplementedException("Can't convert to AST an AlkList");
+        throw new NotImplementedException("Can't convert to AST an AlkStructure");
     }
 
     @Override

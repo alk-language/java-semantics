@@ -101,6 +101,7 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
             case FILTER_SPEC:
             case EXPRESSIONS:
             case COMPONENTS:
+            case MAP_SPEC:
                 return baseDelegate.interpretComposite(primitive, ast, payload);
             case INTERVAL:
                 if (primitive == Primitive.ARRAY)
@@ -108,8 +109,6 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
                     return new SymbolicIntervalState(primitive, ast, payload);
                 }
                 return baseDelegate.interpretComposite(primitive, ast, payload);
-            case MAP_SPEC:
-                return new IterableWithMapSpecState(primitive, ast, payload);
             default:
                 throw new InternalException("Unrecognized compound data type representation: " + repr);
         }

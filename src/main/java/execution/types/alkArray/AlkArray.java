@@ -246,7 +246,8 @@ extends AlkIterableValue
     }
 
     @Override
-    public Location bracket(AlkValue operand, LocationGenerator generator) {
+    public Location bracket(AlkValue operand, LocationGenerator generator)
+    {
         if (!(operand instanceof AlkInt))
         {
             throw new AlkException("Can't retrieve record from array at non-integer position!");

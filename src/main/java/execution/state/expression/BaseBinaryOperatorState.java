@@ -120,7 +120,7 @@ extends GuardedGeneratorState
         catch (InvocationTargetException e)
         {
             if (e.getCause() instanceof AlkException)
-                super.handle(new AlkException(e.getCause().getMessage()));
+                super.handle((AlkException) e.getCause());
 
             Throwable tr = e.getTargetException();
             if (tr instanceof AlkException)

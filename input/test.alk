@@ -77,9 +77,3 @@ executia3 -> true
     // 2) assert r
     // 3) havoc output, modifies
     // 4) assume e
-
-
-
-// punem toate instructiunile globale intr-o metoda main cu specificatii (true / true)
-// adaugarea @Trusted
-// linia invariantului in loc de linia while-ului (in cazul mesajelor) -> vezi contextul de parsare

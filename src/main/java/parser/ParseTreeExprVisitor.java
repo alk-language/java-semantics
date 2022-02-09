@@ -477,6 +477,12 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
+    public AST visitMappingValue(alkParser.MappingValueContext ctx)
+    {
+        return new MapVisitor(this).visit(ctx.mapping());
+    }
+
+    @Override
     public AST visitIntType(alkParser.IntTypeContext ctx)
     {
         return new IntDataTypeAST(ctx);
@@ -689,6 +695,7 @@ extends alkBaseVisitor<AST>
             return new DataStructureVisitor(parseTreeExprVisitor, ast).visit(ctx.spec());
         }
     }
+
     static class StructureVisitor extends alkBaseVisitor<AST>
     {
         private final ParseTreeExprVisitor parseTreeExprVisitor;
@@ -725,6 +732,47 @@ extends alkBaseVisitor<AST>
         public AST visitEmptyStructure(alkParser.EmptyStructureContext ctx)
         {
             AST strAST = new StructAST(ctx);
+            RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.EMPTY);
+            strAST.addAttribute(RepresentationASTAttr.class, attr);
+            return strAST;
+        }
+    }
+
+    static class MapVisitor extends alkBaseVisitor<AST>
+    {
+        private final ParseTreeExprVisitor parseTreeExprVisitor;
+
+        public MapVisitor(ParseTreeExprVisitor parseTreeExprVisitor)
+        {
+            this.parseTreeExprVisitor = parseTreeExprVisitor;
+        }
+
+        @Override
+        public AST visitMappingWithComponents(alkParser.MappingWithComponentsContext ctx)
+        {
+            AST strAST = new MapAST(ctx);
+            RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.COMPONENTS);
+            strAST.addAttribute(RepresentationASTAttr.class, attr);
+
+            for (int i = 0; i < ctx.mapping_component().size(); i++)
+                strAST.addChild(visit(ctx.mapping_component(i)));
+
+            return strAST;
+        }
+
+        @Override
+        public AST visitMappingComponentDefinition(alkParser.MappingComponentDefinitionContext ctx)
+        {
+            AST comp = new ComponentAST(ctx);
+            comp.addChild(parseTreeExprVisitor.visit(ctx.expression(0)));
+            comp.addChild(parseTreeExprVisitor.visit(ctx.expression(1)));
+            return comp;
+        }
+
+        @Override
+        public AST visitEmptyMapping(alkParser.EmptyMappingContext ctx)
+        {
+            AST strAST = new MapAST(ctx);
             RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.EMPTY);
             strAST.addAttribute(RepresentationASTAttr.class, attr);
             return strAST;

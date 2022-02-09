@@ -55,6 +55,7 @@ FAILURE : 'failure';
 CONTINUE: 'continue';
 BREAK: 'break';
 
+EMPTYMAP : 'emptyMap';
 EMPTYSET : 'emptySet';
 EMPTYLIST : 'emptyList';
 EMPTYSTRUCTURE : 'emptyStructure';

@@ -1,5 +1,8 @@
 package ast;
 
+import visitor.ifaces.VisitorIface;
+import visitor.ifaces.expr.VirtualVisitorIface;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +19,15 @@ extends AST
             astIdMapping.put(tree, astId++);
         }
         return astIdMapping.get(tree);
+    }
+
+    @Override
+    public <T> T accept(VisitorIface<T> visitor)
+    {
+        if (visitor instanceof VirtualVisitorIface)
+            return ((VirtualVisitorIface<T>) visitor).visit(this);
+
+        return super.accept(visitor);
     }
 
     public static String getMappingAsString()

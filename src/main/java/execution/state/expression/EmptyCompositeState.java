@@ -6,6 +6,7 @@ import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 import execution.state.ExecutionState;
 import execution.state.PrimitiveState;
+import execution.types.AlkMap;
 import execution.types.alkArray.AlkArray;
 import execution.types.alkList.AlkList;
 import execution.types.alkSet.AlkSet;
@@ -36,6 +37,8 @@ extends PrimitiveState
                 return getStore().generate(new AlkSet());
             case STRUCTURE:
                 return getStore().generate(new AlkStructure());
+            case MAP:
+                return getStore().generate(new AlkMap());
             default:
                 throw new InternalException("Unrecognized primitive type for this compound representation!");
         }

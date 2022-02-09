@@ -17,6 +17,7 @@ import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import visitor.ifaces.ExpressionVisitorIface;
 import visitor.ifaces.expr.DataTypeVisitorIface;
+import visitor.ifaces.expr.VirtualVisitorIface;
 import visitor.ifaces.stmt.IdDeclVisitorIface;
 import visitor.ifaces.symbolic.*;
 
@@ -28,7 +29,8 @@ implements ExpressionVisitorIface<AST>,
            ValidSelectVisitorIface<AST>,
            ValidStoreVisitorIface<AST>,
            IdDeclVisitorIface<AST>,
-           DataTypeVisitorIface<AST>
+           DataTypeVisitorIface<AST>,
+           VirtualVisitorIface<AST>
 {
     private LocationMapperIface mapper;
     private LocationGenerator generator;
@@ -324,6 +326,18 @@ implements ExpressionVisitorIface<AST>,
 
     @Override
     public AST visit(ResultAST tree)
+    {
+        return tree;
+    }
+
+    @Override
+    public AST visit(MapAST tree)
+    {
+        return tree;
+    }
+
+    @Override
+    public AST visit(VirtualAST tree)
     {
         return tree;
     }
