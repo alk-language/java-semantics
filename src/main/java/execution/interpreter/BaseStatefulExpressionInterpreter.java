@@ -113,7 +113,12 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
             case MAP_SPEC:
                 return new IterableWithMapSpecState(primitive, ast, payload);
             case COMPONENTS:
-                return new BaseStructWithCompsState(ast, payload);
+            {
+                if (primitive == Primitive.STRUCTURE)
+                    return new BaseStructWithCompsState(ast, payload);
+                else
+                    return new BaseMapWithCompsState(ast, payload);
+            }
             default:
                 throw new InternalException("Unrecognized compound data type representation: " + repr);
         }

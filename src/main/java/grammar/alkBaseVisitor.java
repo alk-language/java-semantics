@@ -628,6 +628,13 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitMappingValue(alkParser.MappingValueContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitIntervalDefinition(alkParser.IntervalDefinitionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -741,6 +748,27 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitSetWithInterval(alkParser.SetWithIntervalContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitEmptyMapping(alkParser.EmptyMappingContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitMappingWithComponents(alkParser.MappingWithComponentsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitMappingComponentDefinition(alkParser.MappingComponentDefinitionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

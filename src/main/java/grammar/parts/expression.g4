@@ -145,6 +145,7 @@ data_structure
     | list                                                                                                              #ListValue
     | set                                                                                                               #SetValue
     | structure                                                                                                         #StructureValue
+    | mapping                                                                                                           #MappingValue
 ;
 
 
@@ -195,6 +196,14 @@ set:
     | LCB interval RCB                                                                                                  #SetWithInterval
 ;
 
+mapping:
+    (EMPTYMAP | LCB TO RCB)                                                                                             #EmptyMapping
+    | LCB (mapping_component)+ RCB                                                                                      #MappingWithComponents
+;
+
+mapping_component:
+    expression TO expression                                                                                            #MappingComponentDefinition
+;
 
 //Function
 function_call

@@ -63,7 +63,16 @@ implements DataTypeProvider
 
     public boolean add(SymbolicValue symbolicValue)
     {
+        return add(symbolicValue, true);
+    }
+
+    public boolean add(SymbolicValue symbolicValue, boolean verify)
+    {
         conditions.add(symbolicValue);
+        if (!verify)
+        {
+            return true;
+        }
         return alkCtx.process(symbolicValue);
     }
 

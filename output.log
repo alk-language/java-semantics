@@ -1,9 +1,114 @@
-1
-sigma |-> ["a", "b", "c"]
-input |-> "(a.b+c)*.(b.a)"
-ast |-> ["_._", < ["_*", < ["_+_", < ["_._", < ["a", <  >], ["b", <  >] >], ["c", <  >] >] >], ["_._", < ["b", <  >], ["a", <  >] >] >]
-s |-> ["b", "b", "a", "a", "a", "b", "b", "a", "c", "c"]
-index |-> 14
-am |-> [{< 0, "a", 1 >, < 0, "b", 2 >, < 0, "c", 0 >, < 1, "b", 0 >, < 2, "a", 3 >}, < [0, ["_._", < ["_*", < ["_+_", < ["_._", < ["a", <  >], ["b", <  >] >], ["c", <  >] >] >], ["_._", < ["b", <  >], ["a", <  >] >] >], "acc"], [1, ["_._", < ["_._", < ["b", <  >], ["_*", < ["_+_", < ["_._", < ["a", <  >], ["b", <  >] >], ["c", <  >] >] >] >], ["_._", < ["b", <  >], ["a", <  >] >] >], ""], [2, ["a", <  >], ""], [3, ["", <  >], "acc"] >]
-subj |-> "bbaaabbacc"
+=======================CFG========================
+
+"input"
+"a=[1,2,3,4];"
+"i=0;"
+"minim=a[0];"
+"while (i<a.size())"
+"if (a[i]<minim)"
+"print(minim);"
+"minim=a[i];"
+"i++;"
+"output"
+"input" "a=[1,2,3,4];" 
+"a=[1,2,3,4];" "i=0;" 
+"i=0;" "minim=a[0];" 
+"minim=a[0];" "while (i<a.size())" 
+"while (i<a.size())" "if (a[i]<minim)" true-edge
+"while (i<a.size())" "print(minim);" false-edge
+"if (a[i]<minim)" "minim=a[i];" true-edge
+"if (a[i]<minim)" "i++;" false-edge
+"print(minim);" "output" 
+"minim=a[i];" "i++;" 
+"i++;" "while (i<a.size())" 
+
+
+
+=====================Dataflow=====================
+
+Exception in thread "Thread-2" util.exception.SMTUnimplementedException: Unimplemented SMT solver for: ast.VirtualAST
+	at smt.SMTVisitor.visit(SMTVisitor.java:479)
+	at smt.SMTVisitor.visit(SMTVisitor.java:33)
+	at ast.VirtualAST.accept(VirtualAST.java:28)
+	at smt.SMTVisitor.visit(SMTVisitor.java:283)
+	at smt.SMTVisitor.visit(SMTVisitor.java:33)
+	at ast.expr.RelationalAST.accept(RelationalAST.java:46)
+	at smt.AlkSMTContext.process(AlkSMTContext.java:155)
+	at util.pc.PathCondition.add(PathCondition.java:76)
+	at util.pc.PathCondition.add(PathCondition.java:66)
+	at util.pc.PathCondition.<init>(PathCondition.java:59)
+	at dataflow.domain.ExecutionPath.<init>(ProgramContext.java:220)
+	at dataflow.domain.ProgramContext.<init>(ProgramContext.java:40)
+	at dataflow.wcet.SeqWCETLattice.getLUB(SeqWCETLattice.java:24)
+	at dataflow.wcet.SeqWCETLattice.getLUB(SeqWCETLattice.java:9)
+	at dataflow.worklist.WorklistFlow.execute(WorklistFlow.java:42)
+	at dataflow.Dataflow.run(Dataflow.java:27)
+minim=a[i]; -> 
+
+i++; -> 
+
+output -> 
+
+minim=a[0]; -> 
+{
+   Environment:
+      a |-> [1, 2, 3, 4]
+      i |-> 0
+   Path Condition:
+      true
+}
+
+input -> 
+{
+   Environment:
+      
+   Path Condition:
+      true
+}
+
+i=0; -> 
+{
+   Environment:
+      a |-> [1, 2, 3, 4]
+   Path Condition:
+      true
+}
+
+a=[1,2,3,4]; -> 
+{
+   Environment:
+      
+   Path Condition:
+      true
+}
+
+print(minim); -> 
+
+if (a[i]<minim) -> 
+
+while (i<a.size()) -> 
+{
+   Environment:
+      a |-> [1, 2, 3, 4]
+      minim |-> 1
+      i |-> 0
+   Path Condition:
+      true
+}
+
+===================Loop mapping===================
+
+line 5 i<a.size() -> l_0
+
+====================Recurrence====================
+
+Loop 0:
+   a:
+      a_l0(0) = [1, 2, 3, 4] when true
+
+   minim:
+      minim_l0(0) = 1 when true
+
+   i:
+      i_l0(0) = 0 when true
 

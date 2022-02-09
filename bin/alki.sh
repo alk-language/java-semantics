@@ -1,4 +1,4 @@
-#!/bin/bash
+	#!/bin/bash
 
 TARGET_FILE=$0
 ORIG=`pwd -P`
@@ -19,5 +19,8 @@ done
 # for the directory we're in and appending the target file.
 PHYS_DIR=`pwd -P`
 cd "$ORIG"
-java -jar $PHYS_DIR/alk.jar "${@:1}"
+export PATH="$PATH:$PHYS_DIR:$PHYS_DIR/lib"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PHYS_DIR:$PHYS_DIR/lib"
+export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$PHYS_DIR:$PHYS_DIR/lib"
+java -Djava.library.path="$PHYS_DIR:$PHYS_DIR/lib" -cp "$PHYS_DIR/alk.jar:$PHYS_DIR/lib/com.microsoft.z3.jar" main.ExecutionDriver "${@:1}"
 exit 0

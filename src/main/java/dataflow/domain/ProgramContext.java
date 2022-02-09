@@ -230,13 +230,13 @@ class ExecutionPath
         {
             if (data.getCondition())
             {
-                this.pc.add(SymbolicValue.toSymbolic(value));
+                this.pc.add(SymbolicValue.toSymbolic(value), false);
             }
             else
             {
                 SymbolicValue symVal = SymbolicValue.toSymbolic(value);
                 AST negatedAst = UnaryAST.createUnary(Operator.NOT, symVal.toAST());
-                this.pc.add(new SymbolicValue(negatedAst));
+                this.pc.add(new SymbolicValue(negatedAst), false);
             }
         }
     }

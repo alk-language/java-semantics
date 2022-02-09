@@ -621,6 +621,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStructureValue(alkParser.StructureValueContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code MappingValue}
+	 * labeled alternative in {@link alkParser#data_structure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMappingValue(alkParser.MappingValueContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code IntervalDefinition}
 	 * labeled alternative in {@link alkParser#interval}.
 	 * @param ctx the parse tree
@@ -739,6 +746,27 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSetWithInterval(alkParser.SetWithIntervalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EmptyMapping}
+	 * labeled alternative in {@link alkParser#mapping}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmptyMapping(alkParser.EmptyMappingContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MappingWithComponents}
+	 * labeled alternative in {@link alkParser#mapping}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMappingWithComponents(alkParser.MappingWithComponentsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MappingComponentDefinition}
+	 * labeled alternative in {@link alkParser#mapping_component}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMappingComponentDefinition(alkParser.MappingComponentDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ToBuiltinFunction}
 	 * labeled alternative in {@link alkParser#function_call}.

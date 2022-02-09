@@ -317,6 +317,12 @@ implements ExpressionVisitorIface<T>
         throw new InternalException("To be implemented!");
     }
 
+    @Override
+    public T visit(MapAST ctx)
+    {
+        throw new InternalException("To be implemented!");
+    }
+
     static class DataStructureVisitor<T>
     {
         SmallStepExpressionVisitor<T> exprVisitor;

@@ -18,3 +18,4 @@ result == $f
 
 assume b - 1 > 0 ==> $f == a * fast_exp(a, b - 1 - 1)
 assume b - 1 == 0 ==> $f == 1
+

@@ -1,5 +1,6 @@
 package smt;
 
+import ast.VirtualAST;
 import ast.attr.*;
 import ast.enums.BuiltInMethod;
 import ast.enums.CompoundValueRepresentation;
@@ -23,6 +24,7 @@ import util.exception.SMTUnexpectedException;
 import util.exception.SMTUnimplementedException;
 import util.types.ASTRepresentable;
 import visitor.ifaces.ExpressionVisitorIface;
+import visitor.ifaces.expr.VirtualVisitorIface;
 import visitor.ifaces.symbolic.SelectVisitorIface;
 import visitor.ifaces.symbolic.StoreVisitorIface;
 import visitor.ifaces.symbolic.ValidSelectVisitorIface;
@@ -33,7 +35,8 @@ implements ExpressionVisitorIface<Expr>,
            StoreVisitorIface<Expr>,
            SelectVisitorIface<Expr>,
            ValidStoreVisitorIface<Expr>,
-           ValidSelectVisitorIface<Expr>
+           ValidSelectVisitorIface<Expr>,
+           VirtualVisitorIface<Expr>
 {
     private final AlkSMTContext alkCtx;
 
@@ -462,5 +465,17 @@ implements ExpressionVisitorIface<Expr>,
     public Expr visit(ResultAST ctx)
     {
         throw new SMTUnimplementedException(ResultAST.class);
+    }
+
+    @Override
+    public Expr visit(MapAST ctx)
+    {
+        throw new SMTUnimplementedException(ResultAST.class);
+    }
+
+    @Override
+    public Expr visit(VirtualAST ctx)
+    {
+        throw new SMTUnimplementedException(VirtualAST.class);
     }
 }
