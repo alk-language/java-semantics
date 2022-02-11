@@ -37,6 +37,13 @@ public class Methods {
     }
     */
 
+    @BuiltInMethodAnno(paramNumber = 0)
+    public static Location keys(Location loc, List<AlkValue> params, LocationGenerator generator)
+    {
+        AlkValue result = ((AlkValue) loc.toRValue()).keys(generator);
+        return generator.generate(result);
+    }
+
     @BuiltInMethodAnno(paramNumber = {1, 2})
     public static Location insert(Location loc, List<AlkValue> params, LocationGenerator generator)
     {

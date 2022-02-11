@@ -1,15 +1,12 @@
-symbolic $a : array<int>;
-
-@Trusted
-findMin(a : array<int>, out b : int) modifies x : int uses y : int
-requires true
+findMin(a : array<int>) : int
 ensures forall j : int :: 0 <= j && j < a.size() ==> result <= a[j]
-ensures exists j : int :: 0 <= j && j < a.size() ==> a[j] == result
+ensures exists j : int :: 0 <= j && j < a.size() ==> result == a[j]
 {
     i = 0;
     minim = a[0];
 
     while (i < a.size())
+    invariant i <= a.size()
     invariant forall j : int :: 0 <= j && j < i ==> minim <= a[j]
     modifies i, minim
     {
@@ -17,63 +14,16 @@ ensures exists j : int :: 0 <= j && j < a.size() ==> a[j] == result
         {
             minim = a[i];
         }
-        i++; (2) (3)
-        ...
-    }
-    if (...)
-    {
-        ...
-        return x; (4)
+        i++;
     }
 
-    return minim; // result = minim; goto finish; (1)
+    return minim;
 }
 
-swap(out a, out b)
-{
-    ...
-}
-
-a = 2; // <==> -i a |-> 2
-assume ...; // <==> -pc ...
-
-// main:
+symbolic $a : array<int>;
 a = $a;
-x = findMin(a);
-assert ...;
-
-
-// interpretori
-// concret (fara optiune)
-// simbolic (-s)
-
-
-Executie: (env, store, interpreter, stack, pool  ...)
-
-ExecutionPool
-
-executie ->
-
-
-execution pool:
-executia1 -> true
-executia2 -> false
-executia3 -> true
+findMin(a);
 
 
 
-// 0) imbogatit gramatica cu requires, ensures, tipuri de date pentru parametrii
 
-// 1) extragere a functiilor -> List<AST>
-
-// 2) analiza funtiilor ->
-    // 1) havoc input, output, modifies, uses
-    // 2) assume r
-    // 3) execute s -> mai multe executii simbolice pe mai multe threaduri
-    // 4) assert e
-
-// * 3) folosirea functiilor la interpretare ->
-    // 1) evaluare argumente si initializare parametrii de intrare
-    // 2) assert r
-    // 3) havoc output, modifies
-    // 4) assume e

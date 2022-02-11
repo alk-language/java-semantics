@@ -14,6 +14,7 @@ extends ExecutionState
     private AlkMap mapping = new AlkMap();
     private int step = 0;
     private Location key;
+    private boolean checkKey = true;
 
     public BaseMapWithCompsState(AST tree, ExecutionPayload executionPayload) {
         super(tree, executionPayload);
@@ -28,19 +29,29 @@ extends ExecutionState
             return null;
         }
 
-        return request(tree.getChild(step++));
+        if (checkKey)
+        {
+            return request(tree.getChild(step).getChild(0));
+        }
+        else
+        {
+            return request(tree.getChild(step).getChild(1));
+        }
     }
 
     @Override
     public void assign(ExecutionResult result)
     {
-        if (step % 2 == 1)
+        if (checkKey)
         {
             key = generator.generate(result.getValue().toRValue());
+            checkKey = false;
         }
         else
         {
             mapping.put(key, generator.generate(result.getValue().toRValue()));
+            checkKey = true;
+            step++;
         }
     }
 
@@ -50,6 +61,7 @@ extends ExecutionState
         copy.mapping = (AlkMap) this.mapping.weakClone(sm.getLocationMapper());
         copy.step = this.step;
         copy.key = key != null ? sm.getLocationMapper().get(key) : null;
+        copy.checkKey = checkKey;
         return super.decorate(copy, sm);
     }
 }

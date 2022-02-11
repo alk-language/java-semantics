@@ -12,7 +12,7 @@ ensures exists j : int :: 0 <= j && j < a.size() ==> result == a[j]
     {
         if (a[i] < minim)
         {
-            minim = a[i];
+            @count(minim = a[i]);
         }
         i++;
     }

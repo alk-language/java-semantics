@@ -1,18 +1,17 @@
-a = [1, 2, 3, 4];
-i = 0;
-minim = a[0];
+a = { "a" |-> 5 };
 
-while (i < a.size())
-{
-    if (a[i] < minim)
-    {
-        minim = a[i];
-    }
-    i++;
-}
+{} x = a.keys()
 
-print(minim);
+// map-uri (keys)
+// invariantii trebuie procesati intr-o singura executie (nu o executie pentru fiecare invariant)
 
+// apel conditional la Z3 (-pr)
+// dataflow -> cautare secventiala si minim in tablou
+// conversia structurilor si a map-urilor in Z3
 
-
-
+// redenumit keyword-urile assert, assume, requires, ensures, symbolic, modifies -> @
+// operatorul : pentru apartenenta la un tip de date:
+    // @requires a : array<int> && x : int;  -> din gramatica
+    // @ensures  result : int;               -> din gramatica
+    // type assertions
+// @Trusted

@@ -95,6 +95,7 @@ END : 'end';
 FIRST : 'first';
 FLOAT : 'float';
 INSERT : 'insert';
+KEYS : 'keys';
 INTEGER : 'int';
 BOOLEAN : 'boolean';
 PRINT : 'print';
