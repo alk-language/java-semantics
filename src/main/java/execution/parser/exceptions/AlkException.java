@@ -229,6 +229,8 @@ public class AlkException extends InternalException
 
     public final static String ERR_FIRST = "This type of value is not valid for the first function.";
 
+    public final static String ERR_KEYS = "This type of value is not valid for the keys method.";
+
     public final static String ERR_INSERT = "This type of value is not valid for the insert function.";
     public final static String ERR_INSERT_TOOBIG = "The insert function does not permit such large numbers as a position.";
 

@@ -38,7 +38,15 @@ extends ExpressionAST
                 if (target instanceof IterableDataTypeAST)
                     return ((IterableDataTypeAST) target).getTypeAst();
                 else
-                    throw new AlkException("Invalid use of at method on " + target);
+                    throw new AlkException("Invalid use of " + attr.getMethod() + " method on " + target);
+            }
+            case KEYS:
+            {
+                DataTypeAST target = ((ExpressionAST) getChild(0)).getDataType(dtp);
+                if (target instanceof MapDataTypeAST)
+                    return new SetDataTypeAST(null);
+                else
+                    throw new AlkException("Invalid use of keys method on " + target);
             }
             default: throw new InternalException("Unidentified builtin method in order to detect data type.");
         }

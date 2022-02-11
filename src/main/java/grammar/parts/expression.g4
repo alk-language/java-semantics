@@ -263,6 +263,7 @@ method_name :
     | END
     | FIRST
     | INSERT
+    | KEYS
     | POPBACK
     | POPFRONT
     | PUSHBACK

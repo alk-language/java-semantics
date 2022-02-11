@@ -281,7 +281,6 @@ implements Comparable<AlkValue>,
         throw new AlkException(ERR_SET_SUBTRACT);
     }
 
-
     /**
      * Handles the bitwise or operation (|) over a value.
      * By default, the operation is not supported, thus an error is thrown.
@@ -661,6 +660,12 @@ implements Comparable<AlkValue>,
     }
 
 
+    @RequiresGenerator
+    public AlkValue keys(LocationGenerator generator)
+    {
+        throw new AlkException(ERR_KEYS);
+    }
+
     /**
      * Handles the len built in method (len) over a value.
      * By default, the operation is not supported, thus an error is thrown.
@@ -847,6 +852,6 @@ implements Comparable<AlkValue>,
 
     @Override
     public Location toLValue() {
-        throw new InternalException("Can't obtain a reference out of this value.");
+        throw new AlkException("Can't obtain a reference out of this value.");
     }
 }

@@ -119,11 +119,14 @@ function_decl
 req_expression
 :
     expression                                                                                                          #ReqExpression
+    //| type_assertion
+    // (ID : data_type) (&& (ID : data_type))*
 ;
 
 ens_expression
 :
     expression                                                                                                          #EnsExpression
+    //| type_assertion
 ;
 
 param

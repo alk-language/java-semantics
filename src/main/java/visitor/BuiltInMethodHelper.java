@@ -14,6 +14,7 @@ public class BuiltInMethodHelper
             case "END": return BuiltInMethod.END;
             case "FIRST": return BuiltInMethod.FIRST;
             case "INSERT": return BuiltInMethod.INSERT;
+            case "KEYS": return BuiltInMethod.KEYS;
             case "POPBACK": return BuiltInMethod.POPBACK;
             case "POPFRONT": return BuiltInMethod.POPFRONT;
             case "PUSHBACK": return BuiltInMethod.PUSHBACK;

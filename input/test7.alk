@@ -1,4 +1,4 @@
-findMin(a : array<int>) : int
+dfs(a : array<int>) : int
 ensures forall j : int :: 0 <= j && j < a.size() ==> result <= a[j]
 ensures exists j : int :: 0 <= j && j < a.size() ==> result == a[j]
 {

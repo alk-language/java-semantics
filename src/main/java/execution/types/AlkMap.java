@@ -7,6 +7,7 @@ import execution.parser.exceptions.AlkException;
 import execution.parser.exceptions.NotImplementedException;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
+import execution.types.alkSet.AlkSet;
 import util.lambda.LocationGenerator;
 
 import java.util.HashMap;
@@ -124,6 +125,17 @@ extends AlkValue
         }
 
         return new AlkBool(true);
+    }
+
+    @Override
+    public AlkValue keys(LocationGenerator generator)
+    {
+        AlkSet set = new AlkSet();
+        for (Location loc : mapping.keySet())
+        {
+            set.insert(generator.generate(loc.toRValue().clone(generator)));
+        }
+        return set;
     }
 
     @Override

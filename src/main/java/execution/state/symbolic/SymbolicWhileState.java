@@ -95,42 +95,23 @@ extends WhileState
 
         if (!spawned)
         {
-            ExecutionPool pool = new ExecutionPool((e) -> {
-                if (e.getAnnoHelper().custom != null && !getExec().getOutput().hasError)
-                {
-                    getExec().getConfig().getIOManager().write("Invariant verified at line: " + ((AST) e.getAnnoHelper().custom).getLine());
-                    getExec().getConfig().getIOManager().flush();
-                }
-                else if (e.getAnnoHelper().custom != null)
-                {
-                    getExec().getConfig().getIOManager().write("Invariant at line can't be verified: " + ((AST) e.getAnnoHelper().custom).getLine());
-                    getExec().getConfig().getIOManager().flush();
-                }
-            });
             spawned = true;
 
-            for (int i = 0; i < invariantValues.size(); i++)
+            for (Storable value : invariantValues)
             {
                 // assume invariant
-                Storable value = invariantValues.get(i);
                 getExec().getPathCondition().add((SymbolicValue) value);
-                this.stepInv = i;
                 if (!getExec().getPathCondition().isSatisfiable())
                 {
                     super.handle(new AlkException("Can't assume invariant: " + value.toString()));
                 }
-                ExecutionCloneContext ctx = getExec().clone(pool);
-                ctx.exec.getAnnoHelper().custom = invariants.get(i);
             }
 
-            List<ExecutionOutput> outputs = pool.runAll();
-            for (ExecutionOutput output : outputs)
-            {
-                if (output.hasError)
-                {
-                    super.handle(new AlkException("Can't validate the while statement!"));
-                }
-            }
+            Storable cond = conditionValue.clone(generator);
+            ExecutionPool pool = new ExecutionPool();
+            ExecutionCloneContext ctx = getExec().clone(pool);
+            ctx.exec.getPathCondition().add((SymbolicValue) cond.weakClone(ctx.locMapping));
+            ctx.exec.start();
 
             getExec().getPathCondition().add(new SymbolicValue(
                     UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) conditionValue).toAST())));
