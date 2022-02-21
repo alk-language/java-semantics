@@ -1,11 +1,11 @@
-symbolic $a : array<int>, $i : int, $x : int;
+@symbolic $a : array<int>, $i : int, $x : int;
 a = $a;
 b = $a;
 
-assume a.size() == 8;
-assume 0 <= $i && $i < a.size();
+@assume a.size() == 8;
+@assume 0 <= $i && $i < a.size();
 x = a[$i];
 a.removeAt($i);
-assert a.size() + 1 == $a.size();
+@assert a.size() + 1 == $a.size();
 a.insert($i, x);
-assert a.size() == b.size();
+@assert a.size() == b.size();

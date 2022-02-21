@@ -24,10 +24,13 @@ extends ExecutionState
     private Storable expr;
     private List<String> quantify = new ArrayList<>();
     private int step = 1;
+    private EnvironmentProxy proxy;
 
     public SymbolicExistsState(AST tree, ExecutionPayload payload)
     {
         super(tree, payload);
+        proxy = new EnvironmentProxy(getEnv());
+        getExec().registerEnv(proxy);
     }
 
     @Override
@@ -41,8 +44,8 @@ extends ExecutionState
                 String id = tree.getChild(i).getAttribute(IdASTAttr.class).getId();
                 SymIDAST ast = SymIDAST.generate(id);
                 SymbolicValue symVal = new SymbolicValue(ast);
-                getExec().getPathCondition().setType(ast.getId(), (DataTypeAST) tree.getChild(i).getChild(0), true);
-                proxy.define(id).setValue(symVal);
+                getExec().getPathCondition().setType(ast.getId(), (DataTypeAST) tree.getChild(i).getChild(0), true, true);
+                proxy.addTempEntry(id, symVal);
                 quantify.add("$" + ast.getId());
             }
             return request(tree.getChild(0), proxy);
@@ -59,6 +62,7 @@ extends ExecutionState
             ast.addChild(declAST);
         }
         setResult(new ExecutionResult(new SymbolicValue(ast)));
+        getExec().deregisterEnv(proxy);
         return null;
     }
 
@@ -75,6 +79,7 @@ extends ExecutionState
         copy.expr = expr == null ? null : this.expr.weakClone(sm.getLocationMapper());
         copy.quantify = expr == null ? null : new ArrayList<>(quantify);
         copy.step = this.step;
+        copy.proxy = (EnvironmentProxy) sm.getEnvironmentMapper().get(proxy);
         return super.decorate(copy, sm);
     }
 }

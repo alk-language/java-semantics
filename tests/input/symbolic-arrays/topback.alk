@@ -1,7 +1,7 @@
-symbolic $a : array<int>, $i : int;
+@symbolic $a : array<int>, $i : int;
 a = $a;
-assume a.size() == 8;
+@assume a.size() == 8;
 a.pushBack($i);
-assert a.topBack() == $i;
+@assert a.topBack() == $i;
 b = $a;
-assert b.topBack() == b[b.size() - 1];
+@assert b.topBack() == b[b.size() - 1];

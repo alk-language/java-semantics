@@ -12,7 +12,8 @@ public class ASTHelper
         List<FunctionDeclAST> lst = new ArrayList<>();
         ASTVisitor<List<FunctionDeclAST>> visitor = new ASTVisitor<>(lst);
         visitor.register((tree) -> tree instanceof FunctionDeclAST, (tree, payload) -> {
-            payload.add((FunctionDeclAST) tree);
+            if (!((FunctionDeclAST) tree).getEnsures().isEmpty())
+                payload.add((FunctionDeclAST) tree);
         });
         visitor.visit(root);
         return lst;

@@ -1,13 +1,13 @@
-symbolic $a : array<int>, $i : int;
+@symbolic $a : array<int>, $i : int;
 a = $a;
-assume a.size() == 8;
+@assume a.size() == 8;
 a.pushFront($i);
-assert $a.size() + 1 == a.size();
+@assert $a.size() + 1 == a.size();
 n = 3;
 while (n > 0)
 {
     a.pushFront(n);
     n--;
 }
-assert $a.size() + 4 == a.size();
-assert a[0] == 1;
+@assert $a.size() + 4 == a.size();
+@assert a[0] == 1;

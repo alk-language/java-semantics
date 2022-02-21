@@ -85,7 +85,7 @@ implements IOManager,
         exhaustive.setRequired(false);
         options.addOption(exhaustive);
 
-        Option prover = new Option("pr", "prover", false, "define the prover to be used");
+        Option prover = new Option("smt", "smt", true, "define the SMT prover to be used");
         prover.setRequired(false);
         options.addOption(prover);
 
@@ -217,13 +217,13 @@ implements IOManager,
     @Override
     public boolean hasProver()
     {
-        return cmd.hasOption("prover");
+        return cmd.hasOption("smt");
     }
 
     @Override
     public String getProver()
     {
-        return cmd.getOptionValue("prover");
+        return cmd.getOptionValue("smt");
     }
 
     public IOManager getEndpoint()

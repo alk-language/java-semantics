@@ -7,6 +7,7 @@ import ast.attr.ParamASTAttr;
 import ast.enums.ParamType;
 import ast.expr.SymIDAST;
 import ast.stmt.FunctionDeclAST;
+import ast.type.DataTypeAST;
 import execution.exhaustive.EnvironmentMapper;
 import execution.helpers.AnnoHelper;
 import execution.parser.env.*;
@@ -204,7 +205,25 @@ extends Thread
             if (config.hasStaticVerif())
             {
                 config.getIOManager().write("Note that the execution was symbolic.");
-                config.getIOManager().write("Path condition: " + conditionPath.toString());
+                if (conditionPath.verifies())
+                {
+                    config.getIOManager().write("Note that the " + config.getProver() + " engine was used for verification.");
+                }
+                config.getIOManager().write("Path condition: \n" + conditionPath.toString(3));
+                config.getIOManager().write("Type constraints: ");
+                Map<String, DataTypeAST> typesConstraints = conditionPath.getIdTypes(false);
+                StringBuilder sb = new StringBuilder();
+                for (int j=0; j < 3; j++)
+                {
+                    sb.append(" ");
+                }
+                List<String> types = new ArrayList<>();
+                for (Map.Entry<String, DataTypeAST> entry : typesConstraints.entrySet())
+                {
+                    types.add(entry.getKey() + " : " + entry.getValue());
+                }
+                sb.append(String.join("\n   ", types));
+                config.getIOManager().write(sb.toString());
                 config.getIOManager().write("");
             }
         }

@@ -1,17 +1,7 @@
-a = { "a" |-> 5 };
-
-{} x = a.keys()
-
-// map-uri (keys)
-// invariantii trebuie procesati intr-o singura executie (nu o executie pentru fiecare invariant)
-
-// apel conditional la Z3 (-pr)
-// dataflow -> cautare secventiala si minim in tablou
-// conversia structurilor si a map-urilor in Z3
-
-// redenumit keyword-urile assert, assume, requires, ensures, symbolic, modifies -> @
-// operatorul : pentru apartenenta la un tip de date:
-    // @requires a : array<int> && x : int;  -> din gramatica
-    // @ensures  result : int;               -> din gramatica
-    // type assertions
-// @Trusted
+@symbolic $a : array<int>, $i : int;
+a = $a;
+@assume a.size() == 8;
+a.pushFront($i);
+@assert a.topFront() == $i;
+b = $a;
+@assert b.topFront() == b[0];

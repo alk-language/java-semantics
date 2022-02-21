@@ -15,6 +15,7 @@ import execution.parser.exceptions.StopException;
 import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import execution.state.statement.WhileState;
+import execution.types.ConcreteValue;
 import symbolic.SymbolicValue;
 import util.exception.InternalException;
 import util.pc.PathCondition;
@@ -97,13 +98,22 @@ extends WhileState
         {
             spawned = true;
 
-            for (Storable value : invariantValues)
+            for (int i = 0; i < invariants.size(); i++)
             {
+                Storable value = invariantValues.get(i);
+
                 // assume invariant
-                getExec().getPathCondition().add((SymbolicValue) value);
-                if (!getExec().getPathCondition().isSatisfiable())
+                if (value instanceof ConcreteValue)
                 {
-                    super.handle(new AlkException("Can't assume invariant: " + value.toString()));
+                    super.processInvariant(value, invariants.get(i));
+                }
+                else
+                {
+                    getExec().getPathCondition().add((SymbolicValue) value);
+                    if (!getExec().getPathCondition().isSatisfiable())
+                    {
+                        super.handle(new AlkException("Can't assume invariant: " + value.toString()));
+                    }
                 }
             }
 
@@ -154,10 +164,10 @@ extends WhileState
     private void doHavoc()
     {
         HavocAST havoc = new HavocAST(null);
-        ParamASTAttr attr = tree.getAttribute(ParamASTAttr.class);
         Set<String> vars = new HashSet<>();
-        if (attr != null)
+        if (tree.hasAttribute(ParamASTAttr.class))
         {
+            ParamASTAttr attr = tree.getAttribute(ParamASTAttr.class);
             for (int i = 0; i < attr.getParamCount(); i++)
             {
                 vars.add(attr.getParameter(i).getName());

@@ -88,7 +88,15 @@ public class ASTStack<T extends State>
             if (!stack.empty())
             {
                 top = stack.peek();
-                top.assign(result);
+                try
+                {
+                    top.assign(result);
+                }
+                catch (InternalException e)
+                {
+                    top.handle(e);
+                    return null;
+                }
             }
         }
         else

@@ -1,18 +1,16 @@
-a = [1, 2, 3, 4, 5];
-i = 0;
-minim = a[0];
-
-while (i < a.size())
-// invariant i <= a.size()
-// invariant forall j : int :: 0 <= j && j < i ==> minim <= a[j]
-// modifies i, minim
-{
-    if (a[i] < minim)
-    {
-        minim = a[i];
-    }
-    i++;
-}
+// map-urile au fost rezolvate
 
 
+// putem pune in orice ordine modifies, invariant !!!!!!!! nu se poate o lista
+// am formatat path condition -> de adaugat Type Constraints
 
+// functiile ce nu au ensures, nu sunt verificate
+// rezolvat problema cu bracket cand ambele valori sunt concrete dar array-ul are valori simbolice
+// rezolvat cazul cu UNKNOWN -> unkown Z3 check
+// tratat cazul in care nu se defineste tipul de return
+// tratat cazul in care avem result dar nu avem return
+// invariant poate fi valoare concreta booleana
+// invariantii sunt verificati intr-un singur thread
+// am adaugat optiunea -prover pentru a specifica proverul
+
+// executia simbolica a functiilor "predicat"

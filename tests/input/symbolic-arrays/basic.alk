@@ -1,29 +1,29 @@
-symbolic $a : array<int>, $i : int;
+@symbolic $a : array<int>, $i : int;
 a = $a;
 a[0] = 5;
 a[2] = 25;
 a[100] = 625;
-assert a[0] * a[0] == a[2] && a[2] * a[2] == a[100];
+@assert a[0] * a[0] == a[2] && a[2] * a[2] == a[100];
 
 x = a[100];
-assume a[101] == 626;
-assert x + 1 == a[101];
+@assume a[101] == 626;
+@assert x + 1 == a[101];
 
 y = a[$i + 2];
-assume $i < 1 && $i > -1;
-assert y == 25;
+@assume $i < 1 && $i > -1;
+@assert y == 25;
 
-symbolic $b : array<int>;
+@symbolic $b : array<int>;
 b = $b;
 b[$i] = 2;
 b[$i + 2] = 4;
 b[$i + 8] = 16;
-assert b[$i] * b[$i] == b[$i + 2];
+@assert b[$i] * b[$i] == b[$i + 2];
 
 x = b[$i + 2];
-assert x * x == b[$i + 8];
+@assert x * x == b[$i + 8];
 
 x = b[2];
-assume x * x == b[$i + 8];
-assert b[2] == 4;
+@assume x * x == b[$i + 8];
+@assert b[2] == 4;
 

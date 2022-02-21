@@ -15,13 +15,14 @@ fragment NONDIGIT: [a-zA-Z_];
 fragment DIGIT: [0-9];
 fragment NONZERODIGIT: [1-9];
 
-ASSERT: 'assert';
-ASSUME: 'assume';
-SYMBOLIC: 'symbolic';
-INVARIANT : 'invariant';
-REQURIES : 'requires';
-ENSURES : 'ensures';
-RESULT : 'result';
+ASSERT: '@assert';
+ASSUME: '@assume';
+SYMBOLIC: '@symbolic';
+INVARIANT : '@invariant';
+REQURIES : '@requires';
+ENSURES : '@ensures';
+WHILEMODIFIES : '@modifies';
+RESULT : '\result';
 
 IMPLIES: '==>';
 EQUIV: '<==>';
