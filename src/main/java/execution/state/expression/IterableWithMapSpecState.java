@@ -64,6 +64,7 @@ extends ExecutionState
         if (step == source.size())
         {
             setResult(new ExecutionResult(iterableValue));
+            getExec().deregisterEnv(env);
             return null;
         }
 

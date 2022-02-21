@@ -1,13 +1,13 @@
-symbolic $a : array<int>, $i : int, $j : int;
+@symbolic $a : array<int>, $i : int, $j : int;
 a = $a;
-assume a.size() == 5;
+@assume a.size() == 5;
 a[4] = 8;
-assert a.size() == 5;
+@assert a.size() == 5;
 a[5] = 9;
-assert a.size() == 6;
+@assert a.size() == 6;
 a[100] = 10;
-assert a.size() == 101;
+@assert a.size() == 101;
 
-symbolic $b : array<int>;
+@symbolic $b : array<int>;
 b = a;
-assert b.size() == 101;
+@assert b.size() == 101;

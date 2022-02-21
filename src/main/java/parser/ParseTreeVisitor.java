@@ -171,21 +171,7 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitWhileStructure(alkParser.WhileStructureContext ctx)
     {
-        AST ast = new WhileAST(ctx);
-        for (alkParser.ExpressionContext expr : ctx.expression())
-            ast.addChild(exprVisitor.visit(expr));
-
-        ParamASTAttr paramAttr = new ParamASTAttr();
-        for (int i = 0; i < ctx.ID().size(); i++)
-        {
-            String mid = ctx.ID(i).getText();
-            paramAttr.addParameter(new Parameter(mid, ParamType.GLOBAL, null));
-        }
-
-        ast.addAttribute(ParamASTAttr.class, paramAttr);
-
-        ast.addChild(visit(ctx.statement()));
-        return ast;
+        return new WhileVisitor(this).visit(ctx);
     }
 
     @Override
@@ -353,6 +339,57 @@ extends alkBaseVisitor<AST>
             paramAttr.addParameter(new Parameter(id, isOut ? ParamType.OUTPUT : ParamType.INPUT,
                     ctx.dataType() != null ? (DataTypeAST) exprVisitor.visit(ctx.dataType()) : null));
             return ast;
+        }
+    }
+
+    class WhileVisitor
+    extends alkBaseVisitor<AST>
+    {
+        ParamASTAttr paramAttr = new ParamASTAttr();
+        AST whileAst;
+        alkBaseVisitor<AST> stmtVisitor;
+
+        WhileVisitor(alkBaseVisitor<AST> stmtVisitor)
+        {
+            this.stmtVisitor = stmtVisitor;
+        }
+
+        @Override
+        public AST visitWhileStructure(alkParser.WhileStructureContext ctx)
+        {
+            whileAst = new WhileAST(ctx);
+            whileAst.addChild(exprVisitor.visit(ctx.expression()));
+
+            for (int i = 0; i < ctx.while_anno().size(); i++)
+            {
+                visit(ctx.while_anno(i));
+            }
+
+            if (paramAttr.getParamCount() != 0)
+            {
+                whileAst.addAttribute(ParamASTAttr.class, paramAttr);
+            }
+            whileAst.addChild(stmtVisitor.visit(ctx.statement()));
+
+            return whileAst;
+        }
+
+        @Override
+        public AST visitInvariantAnno(alkParser.InvariantAnnoContext ctx)
+        {
+            whileAst.addChild(exprVisitor.visit(ctx.expression()));
+            return null;
+        }
+
+        @Override
+        public AST visitModifiesAnno(alkParser.ModifiesAnnoContext ctx)
+        {
+            for (int i = 0; i < ctx.ID().size(); i++)
+            {
+                String mid = ctx.ID(i).getText();
+                paramAttr.addParameter(new Parameter(mid, ParamType.GLOBAL, null));
+            }
+            return null;
         }
     }
 }

@@ -1,6 +1,7 @@
 package execution.interpreter;
 
 import ast.AST;
+import ast.stmt.FunctionDeclAST;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
 import execution.exhaustive.SplitMapper;
@@ -84,6 +85,11 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretFunctionDecl(AST ast, ExecutionPayload payload)
     {
+        if (ast instanceof FunctionDeclAST && ((FunctionDeclAST) ast).getEnsures().isEmpty())
+        {
+            return baseDelegate.interpretFunctionDecl(ast, payload);
+        }
+
         return new ExecutionState(ast, payload)
         {
             @Override

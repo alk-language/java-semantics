@@ -89,6 +89,7 @@ extends ExecutionState
             return request(function.getBody(), env);
         }
 
+        getExec().deregisterEnv(env);
         return null;
     }
 

@@ -27,6 +27,7 @@ implements DataTypeProvider
 
     List<SymbolicValue> conditions = new ArrayList<>();
     Map<String, DataTypeAST> idTypes = new HashMap<>();
+    private Set<String> implicitTypes = new HashSet<>();
     private AlkSMTContext alkCtx;
 
     public static PathCondition parse(String conditionPath, boolean verify)
@@ -58,8 +59,9 @@ implements DataTypeProvider
         this(copy.verify);
         for (Map.Entry<String, DataTypeAST> entry : copy.idTypes.entrySet())
         {
-            this.copyId(entry.getKey(), entry.getValue(), false);
+            this.setType(entry.getKey(), entry.getValue(), false);
         }
+        this.implicitTypes = new HashSet<>(copy.implicitTypes);
         for (SymbolicValue value : copy.conditions)
         {
             this.add((SymbolicValue) value.weakClone(mapper));
@@ -76,18 +78,18 @@ implements DataTypeProvider
         return alkCtx.process(symbolicValue);
     }
 
-    public void copyId(String symId, DataTypeAST type, boolean prefix)
-    {
-        idTypes.put(prefix ? "$" + symId : symId, type);
-        if (verify)
-        {
-            alkCtx.process(prefix ? "$" + symId : symId, type);
-        }
-    }
-
     public void setType(String symId, DataTypeAST type, boolean prefix)
     {
+        setType(symId, type, prefix, false);
+    }
+
+    public void setType(String symId, DataTypeAST type, boolean prefix, boolean implicit)
+    {
         idTypes.put(prefix ? "$" + symId : symId, type);
+        if (implicit)
+        {
+            implicitTypes.add(prefix ? "$" + symId : symId);
+        }
         if (verify)
         {
             alkCtx.process(prefix ? "$" + symId : symId, type);
@@ -112,27 +114,37 @@ implements DataTypeProvider
     {
         simplify();
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i < padding; i++)
+        if (conditions.isEmpty())
+        {
+            for (int j=0; j < padding; j++)
+            {
+                sb.append(" ");
+            }
+            return sb.toString() + "true";
+        }
+
+        for (int i=0; i<conditions.size() - 1; i++)
+        {
+            for (int j=0; j < padding; j++)
+            {
+                sb.append(" ");
+            }
+            sb.append(conditions.get(i).toString()).append(" &&").append('\n');
+        }
+
+        for (int j=0; j < padding; j++)
         {
             sb.append(" ");
         }
-        if (conditions.isEmpty())
-        {
-            return sb.toString() + "true";
-        }
-        for (int i=0; i<conditions.size() - 1; i++)
-        {
-            sb.append(conditions.get(i).toString()).append(" && ");
-        }
         sb.append(conditions.get(conditions.size()-1));
-        sb.append(" (");
-        List<String> types = new ArrayList<>();
-        for (Map.Entry<String, DataTypeAST> entry : idTypes.entrySet())
-        {
-            types.add(entry.getKey() + " : " + entry.getValue());
-        }
-        sb.append(String.join(", ", types)).append(")");
         return sb.toString();
+    }
+
+    public Map<String, DataTypeAST> getIdTypes(boolean includeImplicit)
+    {
+        Map<String, DataTypeAST> types = new HashMap<>(idTypes);
+        types.keySet().removeAll(implicitTypes);
+        return types;
     }
 
     private void simplify()
@@ -193,5 +205,10 @@ implements DataTypeProvider
     {
         if (!s.startsWith("$")) s = "$" + s;
         return idTypes.get(s);
+    }
+
+    public boolean verifies()
+    {
+        return verify;
     }
 }

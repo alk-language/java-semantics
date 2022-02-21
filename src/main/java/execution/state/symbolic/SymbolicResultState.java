@@ -23,7 +23,8 @@ extends PrimitiveState
     {
         if (!getEnv().has(resultName))
         {
-            super.handle(new AlkException("Invalid use of result context variable!"));
+            super.handle(new AlkException("Invalid use of result context variable: " +
+                    "result is not used in a post-condition or the function doesn't return!"));
         }
         return getEnv().getLocation(resultName);
     }
@@ -31,6 +32,7 @@ extends PrimitiveState
     @Override
     public ExecutionState clone(SplitMapper sm)
     {
-        return null;
+        SymbolicResultState copy = new SymbolicResultState(tree, payload.clone(sm));
+        return super.decorate(copy, sm);
     }
 }

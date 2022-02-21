@@ -78,6 +78,9 @@ extends BaseBinaryOperatorState
             {
                 return solveBracket(crv, nrv, current);
             }
+
+            // crv |-> [$a], nrv |-> 1 ==>
+            return super.interpretResult(op, current, next);
         }
 
         if (crv == null || nrv == null)

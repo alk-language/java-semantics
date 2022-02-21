@@ -4,6 +4,7 @@ import ast.AST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.env.LocationMapperIface;
+import execution.parser.exceptions.AlkException;
 import util.exception.InternalException;
 import util.lambda.LocationGenerator;
 import util.types.ASTRepresentable;
@@ -68,7 +69,7 @@ implements ExclusiveSymbolicValue
 
     @Override
     public Location toLValue() {
-        throw new InternalException("Can't obtain a reference out of this symbolic value.");
+        throw new AlkException("Can't obtain a reference out of this symbolic value.");
     }
 
     @Override

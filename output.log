@@ -1,26 +1,16 @@
-Can't use return outside function scope.
-a |-> $a_0
-[result] |-> $minim_0
-minim |-> $minim_0
-i |-> $i_0
-j |-> $j_1
-
-Note that the execution was symbolic.
-Path condition: ($i_0<=$a_0.size()) && forall $j_1 : int :: ((0<=$j_1)&&($j_1<$i_0)) ==> ($minim_0<=$a_0[$j_1]) && !($i_0<$a_0.size()) ($j_0 : int, $i_0 : int, $j_1 : int, $minim_0 : int, $a_0 : array<int>)
-
-Can't use return outside function scope.
-a |-> $a_0
-[result] |-> $minim_0
-minim |-> $minim_0
-i |-> $i_0
-j |-> $j_1
-
-Note that the execution was symbolic.
-Path condition: ($i_0<=$a_0.size()) && forall $j_1 : int :: ((0<=$j_1)&&($j_1<$i_0)) ==> ($minim_0<=$a_0[$j_1]) && !($i_0<$a_0.size()) ($j_0 : int, $i_0 : int, $j_1 : int, $minim_0 : int, $a_0 : array<int>)
-
-Successfully verified: findMin
 a |-> $a
+slp |-> $slp_0
+i |-> $i_1
 
 Note that the execution was symbolic.
-Path condition: forall $j_4 : int :: ((0<=$j_4)&&($j_4<$a.size())) ==> ($[result]_0<=$a[$j_4]) && exists $j_5 : int :: ((0<=$j_5)&&($j_5<$a.size())) ==> ($[result]_0==$a[$j_5]) ($[result]_0 : int, $j_4 : int, $a : array<int>, $j_5 : int)
+Note that the Z3 engine was used for verification!
+Path condition: 
+   forall $i_0 : int :: ((0<=$i_0)&&($i_0<($a.size()-1))) ==> ($a[$i_0]<=$a[($i_0+1)]) &&
+   ($slp_0<=$i_1) &&
+   forall $k_1 : int :: forall $l_1 : int :: ((((0<=$k_1)&&($k_1<=$l_1))&&($l_1<$i_1))&&($a[$k_1]==$a[$l_1])) ==> (($l_1-$k_1)<=$slp_0) &&
+   !($i_1<$a.size())
+Type constraints: 
+   $slp_0 : int
+   $i_1 : int
+   $a : array<int>
 

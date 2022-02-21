@@ -1,9 +1,9 @@
-symbolic $a : array<int>, $i : int;
+@symbolic $a : array<int>, $i : int;
 a = $a;
-assume a.size() == 5;
+@assume a.size() == 5;
 o = a;
 a.pushFront($i);
-assert a.topFront() == $i;
-assert a.size() == o.size() + 1;
+@assert a.topFront() == $i;
+@assert a.size() == o.size() + 1;
 a.popFront();
-assert a.size() == o.size();
+@assert a.size() == o.size();

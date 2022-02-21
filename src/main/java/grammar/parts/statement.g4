@@ -85,7 +85,13 @@ choose:
 
 while_struct
 :
-    WHILE LPAR expression RPAR (INVARIANT expression)* ((MODIFIES | USES) ID (COMMA ID)*)? statement                    #WhileStructure
+    WHILE LPAR expression RPAR while_anno* statement                                                                    #WhileStructure
+;
+
+while_anno
+:
+    INVARIANT expression                                                                                                #InvariantAnno
+    | WHILEMODIFIES ID (COMMA ID)*                                                                                      #ModifiesAnno
 ;
 
 do_while_struct

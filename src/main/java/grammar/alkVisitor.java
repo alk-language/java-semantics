@@ -244,6 +244,20 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhileStructure(alkParser.WhileStructureContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code InvariantAnno}
+	 * labeled alternative in {@link alkParser#while_anno}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInvariantAnno(alkParser.InvariantAnnoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ModifiesAnno}
+	 * labeled alternative in {@link alkParser#while_anno}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitModifiesAnno(alkParser.ModifiesAnnoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code DoWhileStructure}
 	 * labeled alternative in {@link alkParser#do_while_struct}.
 	 * @param ctx the parse tree

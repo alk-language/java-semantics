@@ -14,6 +14,7 @@ import ast.type.DataTypeProvider;
 import ast.type.SetDataTypeAST;
 import com.microsoft.z3.*;
 import execution.parser.env.LocationMapperIface;
+import execution.parser.exceptions.AlkException;
 import symbolic.ASTSimplifier;
 import symbolic.SymbolicValue;
 import util.exception.IncompleteASTException;
@@ -182,7 +183,7 @@ implements DataTypeProvider
             Status sts = s.check();
             if (sts == Status.UNKNOWN)
             {
-                throw new InternalException("Unknown check on Z3!");
+                throw new AlkException("Unknown check on Z3!");
             }
             return sts == Status.UNSATISFIABLE;
         }
