@@ -22,4 +22,7 @@ public interface OptionProvider
     boolean hasHelp();
     boolean hasStaticVerif();
     String getConditionPath();
+
+    boolean hasProver();
+    String getProver();
 }

@@ -41,6 +41,8 @@ implements OptionProvider,
 
     private String conditionPath;
 
+    private String prover;
+
     /** The debugMode flag, used to print the stach trace in case of one exception*/
     private boolean debugMode;
 
@@ -120,6 +122,18 @@ implements OptionProvider,
         return conditionPath;
     }
 
+    @Override
+    public boolean hasProver()
+    {
+        return prover != null;
+    }
+
+    @Override
+    public String getProver()
+    {
+        return prover;
+    }
+
     /**
      * Used for identifying the metadata flag based on the internal members
      *
@@ -179,6 +193,7 @@ implements OptionProvider,
         this.help = op.hasHelp();
         this.staticVerif = op.hasStaticVerif();
         this.conditionPath = op.getConditionPath();
+        this.prover = op.hasProver() ? op.getProver() : null;
     }
 
     /**

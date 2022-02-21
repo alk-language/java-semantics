@@ -27,7 +27,7 @@ public class Symbolic
 
         StoreImpl store = new StoreImpl();
         Environment env = new EnvironmentImpl(store);
-        PathCondition pc = new PathCondition();
+        PathCondition pc = new PathCondition(exec.getConfig().hasProver());
 
         for (int i = 0; i < function.getParams().size(); i++)
         {

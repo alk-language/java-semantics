@@ -30,7 +30,7 @@ public class Stepper
         exec.setStore(store);
         exec.setGlobal(env);
         exec.setFuncManager(funcManager);
-        exec.setPathCondition(pathCondition == null ? new PathCondition() : pathCondition);
+        exec.setPathCondition(pathCondition == null ? new PathCondition(config.hasProver()) : pathCondition);
 
         SymbolicExecutionPayload payload = new SymbolicExecutionPayload(exec, exec.getGlobal());
         ExecutionState state = exec.getInterpreterManager().interpret(root, payload);
@@ -53,7 +53,7 @@ public class Stepper
         exec.setStore(store);
         exec.setGlobal(env);
         exec.setFuncManager(funcManager);
-        exec.setPathCondition(pathCondition == null ? new PathCondition() : pathCondition);
+        exec.setPathCondition(pathCondition == null ? new PathCondition(config.hasProver()) : pathCondition);
 
         SymbolicExecutionPayload payload = new SymbolicExecutionPayload(exec, exec.getGlobal());
         ExecutionState state = exec.getInterpreterManager().interpret(root, payload);
