@@ -82,8 +82,12 @@ implements IOManager,
         options.addOption(trace);
 
         Option exhaustive = new Option("e", "exhaustive", false, "trigger exhaustive mode");
-        trace.setRequired(false);
+        exhaustive.setRequired(false);
         options.addOption(exhaustive);
+
+        Option prover = new Option("pr", "prover", false, "define the prover to be used");
+        prover.setRequired(false);
+        options.addOption(prover);
 
         CommandLineParser cmdparser = new DefaultParser();
 
@@ -208,6 +212,18 @@ implements IOManager,
     public String getConditionPath()
     {
         return cmd.getOptionValue("pathcondition");
+    }
+
+    @Override
+    public boolean hasProver()
+    {
+        return cmd.hasOption("prover");
+    }
+
+    @Override
+    public String getProver()
+    {
+        return cmd.getOptionValue("prover");
     }
 
     public IOManager getEndpoint()

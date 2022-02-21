@@ -106,6 +106,18 @@ implements OptionProvider
     {
         return null;
     }
+
+    @Override
+    public boolean hasProver()
+    {
+        return false;
+    }
+
+    @Override
+    public String getProver()
+    {
+        return null;
+    }
 }
 
 class TestingIO implements IOManager {

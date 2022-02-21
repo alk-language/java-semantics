@@ -45,7 +45,7 @@ implements Domain
     {
         ProgramContext ctx = new ProgramContext();
         StoreImpl store = new StoreImpl();
-        ctx.addExecutionPath(new ExecutionPath(store, new EnvironmentImpl(store), new PathCondition()));
+        ctx.addExecutionPath(new ExecutionPath(store, new EnvironmentImpl(store), new PathCondition(false)));
         return ctx;
     }
 
@@ -230,13 +230,13 @@ class ExecutionPath
         {
             if (data.getCondition())
             {
-                this.pc.add(SymbolicValue.toSymbolic(value), false);
+                this.pc.add(SymbolicValue.toSymbolic(value));
             }
             else
             {
                 SymbolicValue symVal = SymbolicValue.toSymbolic(value);
                 AST negatedAst = UnaryAST.createUnary(Operator.NOT, symVal.toAST());
-                this.pc.add(new SymbolicValue(negatedAst), false);
+                this.pc.add(new SymbolicValue(negatedAst));
             }
         }
     }

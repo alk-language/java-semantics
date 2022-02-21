@@ -22,13 +22,14 @@ import java.util.*;
 public class PathCondition
 implements DataTypeProvider
 {
+    private final boolean verify;
     public PathConditionListenerHelper pclh;
 
     List<SymbolicValue> conditions = new ArrayList<>();
     Map<String, DataTypeAST> idTypes = new HashMap<>();
-    private final AlkSMTContext alkCtx = new AlkSMTContext();
+    private AlkSMTContext alkCtx;
 
-    public static PathCondition parse(String conditionPath)
+    public static PathCondition parse(String conditionPath, boolean verify)
     {
         alkParser.ExpressionContext tree = (alkParser.ExpressionContext) AlkParser.executeConditionPath(conditionPath);
         if (tree == null)
@@ -37,19 +38,24 @@ implements DataTypeProvider
         }
 
         AST ast = ParseTreeGlobals.getParseExprVisitor().visit(tree);
-        PathCondition cp = new PathCondition();
+        PathCondition cp = new PathCondition(verify);
         cp.add(new SymbolicValue(ast));
         return cp;
     }
 
-    public PathCondition()
+    public PathCondition(boolean verify)
     {
         pclh = new PathConditionListenerHelper(this);
+        this.verify = verify;
+        if (verify)
+        {
+            alkCtx = new AlkSMTContext();
+        }
     }
 
     public PathCondition(PathCondition copy, LocationMapper mapper)
     {
-        this();
+        this(copy.verify);
         for (Map.Entry<String, DataTypeAST> entry : copy.idTypes.entrySet())
         {
             this.copyId(entry.getKey(), entry.getValue(), false);
@@ -60,13 +66,7 @@ implements DataTypeProvider
         }
     }
 
-
     public boolean add(SymbolicValue symbolicValue)
-    {
-        return add(symbolicValue, true);
-    }
-
-    public boolean add(SymbolicValue symbolicValue, boolean verify)
     {
         conditions.add(symbolicValue);
         if (!verify)
@@ -79,13 +79,19 @@ implements DataTypeProvider
     public void copyId(String symId, DataTypeAST type, boolean prefix)
     {
         idTypes.put(prefix ? "$" + symId : symId, type);
-        alkCtx.process(prefix ? "$" + symId : symId, type);
+        if (verify)
+        {
+            alkCtx.process(prefix ? "$" + symId : symId, type);
+        }
     }
 
     public void setType(String symId, DataTypeAST type, boolean prefix)
     {
         idTypes.put(prefix ? "$" + symId : symId, type);
-        alkCtx.process(prefix ? "$" + symId : symId, type);
+        if (verify)
+        {
+            alkCtx.process(prefix ? "$" + symId : symId, type);
+        }
     }
 
     @Override
@@ -158,12 +164,20 @@ implements DataTypeProvider
     public boolean isSatisfiable()
     {
         simplify();
+        if (!verify)
+        {
+            return true;
+        }
         return alkCtx.isSatisfiable();
     }
 
     public boolean asserts(SymbolicValue symbolicValue)
     {
         simplify();
+        if (!verify)
+        {
+            return true;
+        }
         try
         {
             return alkCtx.asserts(symbolicValue);

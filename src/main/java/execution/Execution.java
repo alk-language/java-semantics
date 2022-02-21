@@ -92,7 +92,7 @@ extends Thread
         this.registerEnv(global);
         funcManager = new FuncManager();
         interpreterManager = manager;
-        conditionPath = new PathCondition();
+        conditionPath = new PathCondition(config.hasProver());
         annoHelper = new AnnoHelper();
     }
 
@@ -123,7 +123,7 @@ extends Thread
 
         if (config.getConditionPath() != null)
         {
-            conditionPath = PathCondition.parse(config.getConditionPath());
+            conditionPath = PathCondition.parse(config.getConditionPath(), config.hasProver());
         }
 
         return true;
@@ -193,6 +193,7 @@ extends Thread
             }
         }
 
+        // EXECUTIA ALGORITMULUI ALK
         stack.run();
 
         // if the metadata flag is set, print the global environment
@@ -257,6 +258,10 @@ extends Thread
             }
             output.hasError = true;
             config.getErrorManager().handleError(e);
+        }
+        catch (Throwable e)
+        {
+            output.hasError = true;
         }
         finally
         {
