@@ -174,6 +174,15 @@ implements DataTypeProvider
     {
         flush();
         AST root = UnaryAST.createUnary(Operator.NOT, symbolicValue.toAST());
+        try
+        {
+            LocationMapperIface lm = loc -> loc;
+            ASTSimplifier simply = new ASTSimplifier(lm, true);
+            root = root.accept(simply);
+        }
+        catch (IncompleteASTException ignore)
+        {
+        }
         SMTVisitor visitor = new SMTVisitor(this);
         Expr expr = root.accept(visitor);
         this.s.push();

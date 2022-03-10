@@ -22,7 +22,7 @@ INVARIANT : '@invariant';
 REQURIES : '@requires';
 ENSURES : '@ensures';
 WHILEMODIFIES : '@modifies';
-RESULT : '\result';
+RESULT : '\\result';
 
 IMPLIES: '==>';
 EQUIV: '<==>';
@@ -44,7 +44,7 @@ FOREACH : 'foreach';
 IN : 'in';
 FROM : 'from';
 OUT : 'out';
-HAVOC : 'havoc';
+HAVOC : '@havoc';
 CHOOSE : 'choose';
 UNIFORM : 'uniform';
 REPEAT : 'repeat';

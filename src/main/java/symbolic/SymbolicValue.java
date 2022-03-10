@@ -81,6 +81,7 @@ implements ExclusiveSymbolicValue
     @Override
     public String toString()
     {
-        return ast.toString();
+        LocationMapperIface lm = loc -> loc;
+        return ast.accept(new ASTSimplifier(lm, true)).toString();
     }
 }

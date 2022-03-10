@@ -281,6 +281,11 @@ extends Thread
         catch (Throwable e)
         {
             output.hasError = true;
+            if (((OptionProvider) config).hasDebugMode())
+            {
+                // TODO: make use of em
+                e.printStackTrace();
+            }
         }
         finally
         {
