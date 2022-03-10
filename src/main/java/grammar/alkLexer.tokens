@@ -143,7 +143,7 @@ STRING=138
 '@requires'=8
 '@ensures'=9
 '@modifies'=10
-'\result'=11
+'\\result'=11
 '==>'=12
 '<==>'=13
 'forall'=14
@@ -159,7 +159,7 @@ STRING=138
 'in'=24
 'from'=25
 'out'=26
-'havoc'=27
+'@havoc'=27
 'choose'=28
 'uniform'=29
 'repeat'=30

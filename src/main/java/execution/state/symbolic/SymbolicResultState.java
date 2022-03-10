@@ -11,7 +11,7 @@ import util.types.Storable;
 public class SymbolicResultState
 extends PrimitiveState
 {
-    public static final String resultName = "[result]";
+    public static final String resultName = "\\result";
 
     public SymbolicResultState(AST tree, ExecutionPayload executionPayload)
     {

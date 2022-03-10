@@ -17,7 +17,7 @@ extends ExecutionState
 
     public ReturnState(AST tree, ExecutionPayload executionPayload)
     {
-        super(tree, executionPayload);;
+        super(tree, executionPayload);
     }
 
     @Override

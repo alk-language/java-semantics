@@ -25,6 +25,7 @@ extends DefinedFunctionCallState
     private int stepReq = 0;
     private int stepEns = 0;
     private boolean doneHavoc = false;
+    private boolean envUpdate = false;
 
     public SymbolicFunctionCallState(AST tree, ExecutionPayload executionPayload)
     {
@@ -58,17 +59,21 @@ extends DefinedFunctionCallState
             return request(tree.getChild(step));
         }
 
-        for (int i = 0; i < function.countParams(); i++)
+        if (!envUpdate)
         {
-            Parameter param = function.getParam(i);
-            if (param.getType() == ParamType.OUTPUT)
+            for (int i = 0; i < function.countParams(); i++)
             {
-                env.setLocation(param.getName(), params.get(i).toLValue());
+                Parameter param = function.getParam(i);
+                if (param.getType() == ParamType.OUTPUT)
+                {
+                    env.setLocation(param.getName(), params.get(i).toLValue());
+                }
+                else
+                {
+                    env.update(param.getName(), params.get(i).toRValue().clone(generator));
+                }
             }
-            else
-            {
-                env.update(param.getName(), params.get(i).toRValue().clone(generator));
-            }
+            envUpdate = true;
         }
 
         // TODO: consider modifies
@@ -93,6 +98,10 @@ extends DefinedFunctionCallState
             }
 
             DataTypeAST dataType = function.getDataType();
+            if (dataType == null)
+            {
+                throw new AlkException("Can't detect the return data type of the function: " + function.getName());
+            }
             AST symAST = SymIDAST.generate(SymbolicResultState.resultName);
             env.define(SymbolicResultState.resultName).setValue(new SymbolicValue(symAST));
             getExec().getPathCondition().setType(symAST.getText(), dataType, true);
@@ -180,6 +189,7 @@ extends DefinedFunctionCallState
         copy.stepReq = stepReq;
         copy.stepEns = stepEns;
         copy.doneHavoc = doneHavoc;
+        copy.envUpdate = envUpdate;
         return super.decorate(copy, sm);
     }
 }

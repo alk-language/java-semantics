@@ -90,8 +90,8 @@ while_struct
 
 while_anno
 :
-    INVARIANT expression                                                                                                #InvariantAnno
-    | WHILEMODIFIES ID (COMMA ID)*                                                                                      #ModifiesAnno
+    INVARIANT expression SEMICOLON                                                                                      #InvariantAnno
+    | WHILEMODIFIES ID (COMMA ID)* SEMICOLON                                                                            #ModifiesAnno
 ;
 
 do_while_struct

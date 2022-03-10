@@ -31,6 +31,7 @@ implements IOManager
                 manager.write(text);
             }
             manager.flush();
+            buffer.clear();
         }
     }
 

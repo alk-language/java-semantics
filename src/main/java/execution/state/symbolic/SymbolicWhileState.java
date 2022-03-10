@@ -35,15 +35,13 @@ extends WhileState
     private boolean doneFinalInvariant = false;
     private boolean checkedFinalInvariant = false;
     private boolean doneFinalHavoc = false;
-    private boolean checkedExternCondition = false;
     private boolean checkedExternInvariant = false;
     private boolean doneExternal = false;
     private boolean spawned = false;
 
     private int firstStepInv = 0;
     private int middleStepInv = 0;
-
-    private Storable checkingInvariant;
+    private int finalStepInv = 0;
 
     public SymbolicWhileState(AST tree, ExecutionPayload payload)
     {
@@ -117,6 +115,8 @@ extends WhileState
                 }
             }
 
+            invariantValues.clear();
+
             Storable cond = conditionValue.clone(generator);
             ExecutionPool pool = new ExecutionPool();
             ExecutionCloneContext ctx = getExec().clone(pool);
@@ -146,15 +146,18 @@ extends WhileState
             return request(body);
         }
 
-        if (!doneFinalInvariant)
+        if (!checkedFinalInvariant && finalStepInv < invariants.size())
         {
-            return request(invariants.get(stepInv));
+            return request(invariants.get(finalStepInv));
         }
 
-        if (!checkedFinalInvariant)
+        for (int i = 0; i < invariants.size(); i++)
         {
-            processInvariant(checkingInvariant, invariants.get(stepInv));
-            checkedFinalInvariant = true;
+            Storable value = invariantValues.get(i);
+            this.processInvariant(value, invariants.get(i));
+            getConfig().getIOManager().write("[" + invariants.get(i).getLine() + ":" +
+                    invariants.get(i).getColumn() + "] Loop invariant was verified!");
+            getConfig().getIOManager().flush();
         }
 
         getExec().halt();
@@ -221,15 +224,14 @@ extends WhileState
         {
             doneBody = true;
         }
-        else if (!doneFinalInvariant)
+        else if (!checkedFinalInvariant)
         {
-            doneFinalInvariant = true;
-            checkingInvariant = executionResult.getValue().toRValue();
-        }
-        else if (!checkedExternCondition)
-        {
-            checkedExternCondition = true;
-            conditionValue = executionResult.getValue().toRValue();
+            invariantValues.add(executionResult.getValue().toRValue());
+            finalStepInv++;
+            if (finalStepInv == invariants.size())
+            {
+                checkedFinalInvariant = true;
+            }
         }
         else
         {
@@ -313,16 +315,14 @@ extends WhileState
         copy.doneFinalInvariant = doneFinalInvariant;
         copy.checkedFinalInvariant = checkedFinalInvariant;
         copy.doneFinalHavoc = doneFinalHavoc;
-        copy.checkedExternCondition = checkedExternCondition;
         copy.checkedExternInvariant = checkedExternInvariant;
         copy.doneExternal = doneExternal;
 
         copy.firstStepInv = firstStepInv;
         copy.middleStepInv = middleStepInv;
-        copy.spawned = spawned;
+        copy.finalStepInv = finalStepInv;
 
-        copy.checkingInvariant = this.checkingInvariant == null ? null :
-                this.checkingInvariant.weakClone(sm.getLocationMapper());
+        copy.spawned = spawned;
 
         return super.decorate(copy, sm);
     }
