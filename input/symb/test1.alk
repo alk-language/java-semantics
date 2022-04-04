@@ -1,24 +1,31 @@
-plateau(a: array<int>) : int
+plateau(a)
+@requires a : array<int>
 @requires forall i:int :: 0 <= i && i < a.size() - 1 ==> a[i] <= a[i+1]
-@ensures (forall k:int :: forall l:int :: 0 <= k && k <= l && l < a.size() && a[k] == a[l] ==> (l-k) <= \result)
+@requires a.size() > 0
+@ensures (exists k:int :: \result - 1 <= k && k < i && a[k] == a[k - \result + 1])
+@ensures \result : int
 {
     lg = 1;
     i = 1;
     while (i < a.size())
-    @invariant (forall k:int :: forall l:int ::
-        0 <= k && k <= l && l < i && a[k] == a[l]
-        ==>
-        (l-k) <= lg)
-    @modifies lg
+    @invariant 1 <= lg && i <= a.size();
+    @invariant (exists k:int :: lg - 1 <= k && k < i && a[k] == a[k - lg + 1]);
+    // @invariant (forall k:int :: lg <= k && k < i ==> a[k] != a[k - lg]);
+    // Z3 TIMEOUT, Dafny TIMEOUT; Why3 with Alt-Ergo WORKS FINE
+    @modifies lg;
+    @modifies i;
     {
-        if (a[i] == a[i - lg]) lg = lg+1;
+        if (a[i] == a[i - lg])
+        {
+            lg = lg + 1;
+        }
         i = i + 1;
     }
     return lg;
 }
-
+/*
 @symbolic $a: array<int>;
 a = $a;
-@assume a.size() < 4;
+@assume a.size() > 4;
 @assume forall i:int :: 0 <= i && i < a.size()-1 ==> a[i] <= a[i+1];
-x = plateau(a);
+x = plateau(a);*/

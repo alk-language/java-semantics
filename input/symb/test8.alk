@@ -1,0 +1,35 @@
+DNFS(out arr: array<int>)
+@requires arr.size() > 0
+@requires forall k: int :: 0 <= k && k < arr.size() 
+          ==> (arr[k] == 0 || arr[k] == 1)
+@ensures  (forall j:int :: 1 <= j && j < arr.size() ==> arr[j - 1] <= arr[j])
+{  
+    low = 0;
+    high = arr.size() - 1;
+
+    while (low < high)
+    @invariant 0 <= low && low <= high && high < arr.size();
+    @invariant forall k: int :: 0 <= k && k < arr.size() ==> (arr[k] == 0 || arr[k] == 1);
+    @invariant forall k: int :: 0 <= k && k < low ==> arr[k] == 0;
+    @invariant forall k: int :: high < k && k < arr.size() ==> arr[k] == 1;
+    @modifies arr;
+    @modifies low;
+    @modifies high;
+    {
+        if (arr[low] == 0)
+        {
+            low++;
+        }
+        else
+        {
+            temp = arr[low];
+            arr[low] = arr[high];
+            arr[high] = temp;
+            high--;
+        }  
+    }
+    @assert low == high;
+    @assert arr[low] == 0 || arr[low] == 1;
+    @assert forall k: int :: 0 <= k && k < low ==> arr[k] == 0;
+    @assert forall k: int :: high < k && k < arr.size() ==> arr[k] == 1;
+} 

@@ -1,28 +1,6 @@
-findMin(a : array<int>) : int
-@ensures forall j : int :: 0 <= j && j < a.size() ==> \result <= a[j]
-@ensures exists j : int :: 0 <= j && j < a.size() ==> \result == a[j]
-{
-    i = 0;
-    minim = a[0];
-
-    while (i < a.size())
-    @invariant i <= a.size();
-    @invariant forall j : int :: 0 <= j && j < i ==> minim <= a[j];
-    @modifies i, minim;
-    {
-        if (a[i] < minim)
-        {
-            minim = a[i];
-        }
-        i++;
+a(i) {
+    b(j){
+        j++;
     }
-
-    return minim;
+    i++;
 }
-
-@symbolic $a : array<int>;
-a = $a;
-x = findMin(a);
-
-
-

@@ -139,6 +139,8 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
         {
             case RESULT:
                 return new SymbolicResultState(ast, payload);
+            case OLD:
+                return new SymbolicOldState(ast, payload);
             default:
                 throw new InternalException("Can't recognize this type of context variable: " + var);
         }

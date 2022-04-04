@@ -1,0 +1,23 @@
+/*
+    alki -a askith_verify.alk -s -smt="Z3"
+
+    Successfully verified: askIth
+*/
+
+askIth(out a, i)
+@requires a : array<int>
+@requires i : int
+@requires a.size() > 0 && 0 <= i && i < a.size() - 1
+@ensures a[i] <= a[i + 1]
+@ensures \result > 0 ==> \result == i
+@ensures \result : int
+{
+    if (a[i] > a[i + 1])
+    {
+        tmp = a[i];
+        a[i] = a[i + 1];
+        a[i + 1] = tmp;
+        return i;
+    }
+    return 0;
+}

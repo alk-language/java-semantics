@@ -15,9 +15,9 @@ extends LoopingState
     public WhileState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload,
-              tree.getChild(0),
-              tree.getChildCount() > 2 ? ((WhileAST) tree).getInvariants() : null,
-              tree.getChild(tree.getChildCount() - 1));
+              ((WhileAST) tree).getCondition(),
+              !((WhileAST) tree).getInvariants().isEmpty() ? ((WhileAST) tree).getInvariants() : null,
+              ((WhileAST) tree).getStatement());
     }
 
     @Override

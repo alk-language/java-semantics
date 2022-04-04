@@ -1,0 +1,35 @@
+/*
+    alki -a fstalg_assert.alk -m -s -smt="Z3"
+
+    a |-> $a_0
+    slp |-> $slp_0
+    i |-> ($i_1+1)
+    Path condition:
+       ($a_0.size()>0) &&
+       forall $i_0 : int :: ((0<=$i_0)&&($i_0<($a_0.size()-1))) ==> ($a_0[$i_0]<=$a_0[($i_0+1)]) &&
+       exists $k_0 : int :: (((($slp_0-1)<=$k_0)&&($k_0<$i_1))&&($a_0[$k_0]==$a_0[(($k_0-$slp_0)+1)])) &&
+       !($a_0[$i_1]==$a_0[($i_1-$slp_0)])
+
+    a |-> $a_0
+    slp |-> ($slp_0+1)
+    i |-> ($i_1+1)
+    Path condition:
+       ($a_0.size()>0) &&
+       forall $i_0 : int :: ((0<=$i_0)&&($i_0<($a_0.size()-1))) ==> ($a_0[$i_0]<=$a_0[($i_0+1)]) &&
+       exists $k_0 : int :: (((($slp_0-1)<=$k_0)&&($k_0<$i_1))&&($a_0[$k_0]==$a_0[(($k_0-$slp_0)+1)])) &&
+       ($a_0[$i_1]==$a_0[($i_1-$slp_0)])
+*/
+
+@havoc a : array<int>;
+slp = 1;
+i = 1;
+@assume a.size() > 0;
+@assume forall i : int :: 0 <= i && i < a.size() - 1 ==> a[i] <= a[i + 1];
+
+@havoc i : int;
+@havoc slp : int;
+@assume exists k:int :: slp - 1 <= k && k < i && a[k] == a[k - slp + 1];
+if (a[i] == a[i - slp])
+    slp = slp + 1;
+i = i + 1;
+@assert exists k:int :: slp - 1 <= k && k < i && a[k] == a[k - slp + 1];

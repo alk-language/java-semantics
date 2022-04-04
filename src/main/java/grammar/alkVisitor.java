@@ -188,6 +188,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHavoc(alkParser.HavocContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Decl}
+	 * labeled alternative in {@link alkParser#declarator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDecl(alkParser.DeclContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SymbolicDecls}
 	 * labeled alternative in {@link alkParser#symbolicStmt}.
 	 * @param ctx the parse tree
@@ -258,6 +265,27 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitModifiesAnno(alkParser.ModifiesAnnoContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code IdModif}
+	 * labeled alternative in {@link alkParser#modif_factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdModif(alkParser.IdModifContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SizeModif}
+	 * labeled alternative in {@link alkParser#modif_factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSizeModif(alkParser.SizeModifContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LoopAssertAnno}
+	 * labeled alternative in {@link alkParser#loop_assert}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopAssertAnno(alkParser.LoopAssertAnnoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code DoWhileStructure}
 	 * labeled alternative in {@link alkParser#do_while_struct}.
 	 * @param ctx the parse tree
@@ -300,12 +328,26 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReqExpression(alkParser.ReqExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code TypeAssertReq}
+	 * labeled alternative in {@link alkParser#req_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeAssertReq(alkParser.TypeAssertReqContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code EnsExpression}
 	 * labeled alternative in {@link alkParser#ens_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEnsExpression(alkParser.EnsExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TypeAssertEns}
+	 * labeled alternative in {@link alkParser#ens_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeAssertEns(alkParser.TypeAssertEnsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ParamDefinition}
 	 * labeled alternative in {@link alkParser#param}.
@@ -509,6 +551,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitResultFactor(alkParser.ResultFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OldFactor}
+	 * labeled alternative in {@link alkParser#base_factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOldFactor(alkParser.OldFactorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code RefNameFactor}
 	 * labeled alternative in {@link alkParser#base_factor}.

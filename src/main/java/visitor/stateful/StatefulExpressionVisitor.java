@@ -267,4 +267,10 @@ implements ExpressionVisitorIface<S>
     {
         return expressionInterpreter.interpretComposite(Primitive.MAP, tree, payload);
     }
+
+    @Override
+    public S visit(OldAST tree)
+    {
+        return expressionInterpreter.interpretContextVar(ContextVar.OLD, tree, payload);
+    }
 }

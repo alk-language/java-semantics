@@ -1,1 +1,37 @@
-a = flip();
+choose x from A;
+// x |-> $x, exists i : int :: lft(A) <= i && i < rgh(A) ==> A[i] == $x
+
+foreach x in A
+{
+    A.pushBack(10);
+}
+
+======================= A : array
+
+i = 0;
+B = A;
+while (i < B.size())
+{
+    x = B[i];
+
+    i++;
+}
+
+
+foreach x in A
+@invariant A.size() > 10
+{
+    A = A U { 1 };
+}
+
+======================= A : set
+
+S = A;
+while (S.size() > 0)
+@invariant S.size() > 10
+{
+    choose x from S;
+
+
+    S.remove(x);
+}

@@ -97,11 +97,24 @@ extends alkBaseVisitor<AST>
     public AST visitHavoc(alkParser.HavocContext ctx)
     {
         AST havocAST = new HavocAST(ctx);
-        for (TerminalNode nod : ctx.ID())
+        for (int i = 0; i < ctx.declarator().size(); i++)
         {
-            havocAST.addChild(new RefIDAST(nod.getText()));
+            havocAST.addChild(ctx.declarator(i).accept(this));
         }
         return havocAST;
+    }
+
+    @Override
+    public AST visitDecl(alkParser.DeclContext ctx)
+    {
+        AST ast = new DeclAST(ctx);
+        IdASTAttr attr = new IdASTAttr(ctx.ID().getText());
+        ast.addAttribute(IdASTAttr.class, attr);
+        if (ctx.dataType() != null)
+        {
+            ast.addChild(ctx.dataType().accept(exprVisitor));
+        }
+        return ast;
     }
 
     @Override
@@ -297,10 +310,6 @@ extends alkBaseVisitor<AST>
             ast = new FunctionDeclAST(ctx);
             String id = ctx.ID(0).getText();
             ast.addAttribute(IdASTAttr.class, new IdASTAttr(id));
-            if (ctx.dataType() != null)
-            {
-                ast.setDataType(exprVisitor.visit(ctx.dataType()));
-            }
 
             for (int i = 0; i < ctx.param().size(); i++)
             {
@@ -317,14 +326,12 @@ extends alkBaseVisitor<AST>
 
             for (int i = 0; i < ctx.req_expression().size(); i++)
             {
-                AST expr = exprVisitor.visit(ctx.req_expression(i));
-                ast.addRequires(expr);
+                this.visit(ctx.req_expression(i));
             }
 
             for (int i = 0; i < ctx.ens_expression().size(); i++)
             {
-                AST expr = exprVisitor.visit(ctx.ens_expression(i));
-                ast.addEnsures(expr);
+                this.visit(ctx.ens_expression(i));
             }
 
             ast.addChild(ParseTreeVisitor.this.visit(ctx.statement_block()));
@@ -336,9 +343,51 @@ extends alkBaseVisitor<AST>
         {
             boolean isOut = ctx.OUT() != null;
             String id = ctx.ID().getText();
-            paramAttr.addParameter(new Parameter(id, isOut ? ParamType.OUTPUT : ParamType.INPUT,
-                    ctx.dataType() != null ? (DataTypeAST) exprVisitor.visit(ctx.dataType()) : null));
+            paramAttr.addParameter(new Parameter(id, isOut ? ParamType.OUTPUT : ParamType.INPUT, null));
             return ast;
+        }
+
+        @Override
+        public AST visitReqExpression(alkParser.ReqExpressionContext ctx)
+        {
+            AST req = exprVisitor.visit(ctx.expression());
+            ast.addRequires(req);
+            return null;
+        }
+
+        @Override
+        public AST visitTypeAssertReq(alkParser.TypeAssertReqContext ctx)
+        {
+            for (int i = 0; i < ctx.ID().size(); i++)
+            {
+                String id = ctx.ID(i).getText();
+                DataTypeAST dataType = (DataTypeAST) exprVisitor.visit(ctx.dataType(i));
+                for (int j = 0; j < paramAttr.getParamCount(); j++)
+                {
+                    Parameter param = paramAttr.getParameter(j);
+                    if (param.getName().equals(id))
+                    {
+                        param.setDataType(dataType);
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public AST visitEnsExpression(alkParser.EnsExpressionContext ctx)
+        {
+            AST ens = exprVisitor.visit(ctx.expression());
+            ast.addEnsures(ens);
+            return null;
+        }
+
+        @Override
+        public AST visitTypeAssertEns(alkParser.TypeAssertEnsContext ctx)
+        {
+            DataTypeAST dataTypeAST = (DataTypeAST) exprVisitor.visit(ctx.dataType());
+            ast.setDataType(dataTypeAST);
+            return null;
         }
     }
 
@@ -357,7 +406,7 @@ extends alkBaseVisitor<AST>
         @Override
         public AST visitWhileStructure(alkParser.WhileStructureContext ctx)
         {
-            whileAst = new WhileAST(ctx);
+            whileAst = new WhileAST(ctx, ctx.loop_assert() != null);
             whileAst.addChild(exprVisitor.visit(ctx.expression()));
 
             for (int i = 0; i < ctx.while_anno().size(); i++)
@@ -371,7 +420,21 @@ extends alkBaseVisitor<AST>
             }
             whileAst.addChild(stmtVisitor.visit(ctx.statement()));
 
+            if (ctx.loop_assert() != null)
+            {
+                visit(ctx.loop_assert());
+            }
+
             return whileAst;
+        }
+
+        @Override
+        public AST visitLoopAssertAnno(alkParser.LoopAssertAnnoContext ctx)
+        {
+            AST ast = new LoopAssertAST(ctx);
+            ast.addChild(exprVisitor.visit(ctx.expression()));
+            whileAst.addChild(ast);
+            return null;
         }
 
         @Override
@@ -384,11 +447,28 @@ extends alkBaseVisitor<AST>
         @Override
         public AST visitModifiesAnno(alkParser.ModifiesAnnoContext ctx)
         {
-            for (int i = 0; i < ctx.ID().size(); i++)
+            for (int i = 0; i < ctx.modif_factor().size(); i++)
             {
-                String mid = ctx.ID(i).getText();
-                paramAttr.addParameter(new Parameter(mid, ParamType.GLOBAL, null));
+                visit(ctx.modif_factor(i));
             }
+            return null;
+        }
+
+        @Override
+        public AST visitIdModif(alkParser.IdModifContext ctx)
+        {
+            String mid = ctx.ID().getText();
+            paramAttr.addParameter(new Parameter(mid, ParamType.GLOBAL, null));
+            return null;
+        }
+
+        @Override
+        public AST visitSizeModif(alkParser.SizeModifContext ctx)
+        {
+            String mid = ctx.ID().getText();
+            Parameter param = new Parameter(mid, ParamType.GLOBAL, null);
+            param.setSizeFlag(true);
+            paramAttr.addParameter(param);
             return null;
         }
     }

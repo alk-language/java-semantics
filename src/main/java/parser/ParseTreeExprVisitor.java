@@ -417,6 +417,15 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
+    public AST visitOldFactor(alkParser.OldFactorContext ctx)
+    {
+        AST tree = new OldAST(ctx);
+        IdASTAttr attr = new IdASTAttr(ctx.ID().getText());
+        tree.addAttribute(IdASTAttr.class, attr);
+        return tree;
+    }
+
+    @Override
     public AST visitToBaseFactor(alkParser.ToBaseFactorContext ctx)
     {
         return visit(ctx.base_factor());
