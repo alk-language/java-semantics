@@ -1,6 +1,25 @@
-@symbolic $a : array<int>, $i : int;
-a = $a;
 
-@assume a.size() == 8;
-a.pushBack($i);
-@assume $a.size() + 1 == a.size();
+
+4) requires si ensures ca intructiuni la algorimul "main"
+9) de adaugat list<> si array<string>
+10) restul structurilor repetitive verificate: invariant, modifies
+// forAST/repeatUntilAST/doWhileAST, foreach -> whileAST
+X 11) fara functii imbricate la executia simbolica
+X 12) set-ul nu are elemente unice?
+X 13) scris teste pentru TASE
+
+
+
+
+
+X 1) de adaugat ;
+     optional la @requires, @ensures, @invariant, @modifies
+     obligatoriu la @assert, @assume, @havoc
+X 2) tipuri de date in requires si ensures (@requires a : int && x : int) (@ensures \result : int)
+X 3) havoc cu tip de date: (havoc : int)
+X 5) loopassert -> ignorat / verificat simbolic
+X 6) de adaugat la modifies a.size() (se modifica si dimensiunea)
+X 7) \old(parametrii)
+X 8) int in set -> incompatibil bool cu int
+X 11) loopassert -> warning
+X 12) modifies size pentru set si list

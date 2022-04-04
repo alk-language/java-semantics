@@ -101,6 +101,7 @@ factor
 base_factor
 :
     RESULT                                                                                                              #ResultFactor
+    | OLD LPAR ID RPAR                                                                                                  #OldFactor
     | ref_name                                                                                                          #RefNameFactor
     | value                                                                                                             #ValueFactor
     | LPAR expression RPAR                                                                                              #ParanthesesFactor

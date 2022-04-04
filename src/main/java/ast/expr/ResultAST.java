@@ -24,7 +24,7 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return "result";
+        return "\\result";
     }
 
     @Override

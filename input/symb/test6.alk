@@ -2,12 +2,31 @@
 a = $a;
 @assume forall i:int :: 0 <= i && i < a.size()-1 ==> a[i] <= a[i+1];
 @assume a.size() > 0;
+@assert a.size() > 0;
 slp = 1;
+
 i = 1;
+
+do
+@invariant 1 <= slp && i <= a.size();
+{
+
+} while(a.size() < 0);
+
+
+foreach i from A
+@invariant 1 <= slp && i <= a.size()
+{
+
+}
+
+(;)?
+
+
 while (i < a.size())
 @invariant 1 <= slp && i <= a.size();
-//@invariant (exists k:int :: slp - 1 <= k && k < i && a[k] == a[k - slp + 1]);
-@invariant (forall k:int :: slp <= k && k < i ==> a[k] != a[k - slp]);
+@invariant (exists k:int :: slp - 1 <= k && k < i && a[k] == a[k - slp + 1]);
+// @invariant (forall k:int :: slp <= k && k < i ==> a[k] != a[k - slp]);
 @modifies slp;
 @modifies i;
 {
@@ -17,3 +36,8 @@ while (i < a.size())
     }
     i = i + 1;
 }
+
+
+choose x from [1..5];
+
+

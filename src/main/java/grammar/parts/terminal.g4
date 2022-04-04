@@ -21,8 +21,10 @@ SYMBOLIC: '@symbolic';
 INVARIANT : '@invariant';
 REQURIES : '@requires';
 ENSURES : '@ensures';
+LOOPASSESRT : '@loopassert';
 WHILEMODIFIES : '@modifies';
 RESULT : '\\result';
+OLD : '\\old';
 
 IMPLIES: '==>';
 EQUIV: '<==>';

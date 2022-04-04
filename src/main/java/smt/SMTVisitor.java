@@ -188,14 +188,27 @@ implements ExpressionVisitorIface<Expr>,
     public Expr<?> visit(InExprAST ctx)
     {
         Expr lft = ctx.getChild(0).accept(this);
-        ArrayExpr<?, ?> rgh = (ArrayExpr<?, ?>) ctx.getChild(1).accept(this);
+        DataTypeAST dataType = ((ExpressionAST) ctx.getChild(1)).getDataType(alkCtx);
+        if (dataType instanceof ArrayDataTypeAST)
+        {
+            ArrayExpr<?, ?> rgh = (ArrayExpr<?, ?>) ctx.getChild(1).accept(this);
 
-        Expr[] bound = new Expr[] { alkCtx.ctx.mkConst(alkCtx.getFresh(), alkCtx.ctx.getIntSort()) };
-        ArraySMTSupport support = alkCtx.getArraySupport(rgh.getSort());
-        Expr body = alkCtx.ctx.mkLe(support.getLeft().apply(rgh), bound[0]);
-        Expr body2 = alkCtx.ctx.mkLt(bound[0], support.getRight().apply(rgh));
-        Expr body3 = alkCtx.ctx.mkEq(alkCtx.ctx.mkSelect(rgh, bound[0]), lft);
-        return alkCtx.ctx.mkExists(bound, alkCtx.ctx.mkAnd(body, body2, body3), 1, null, null, null, null);
+            Expr[] bound = new Expr[] { alkCtx.ctx.mkConst(alkCtx.getFresh(), alkCtx.ctx.getIntSort()) };
+            ArraySMTSupport support = alkCtx.getArraySupport(rgh.getSort());
+            Expr body = alkCtx.ctx.mkLe(support.getLeft().apply(rgh), bound[0]);
+            Expr body2 = alkCtx.ctx.mkLt(bound[0], support.getRight().apply(rgh));
+            Expr body3 = alkCtx.ctx.mkEq(alkCtx.ctx.mkSelect(rgh, bound[0]), lft);
+            return alkCtx.ctx.mkExists(bound, alkCtx.ctx.mkAnd(body, body2, body3), 1, null, null, null, null);
+        }
+        else if (dataType instanceof SetDataTypeAST)
+        {
+            ArrayExpr<?, ?> rgh = (ArrayExpr<?, ?>) ctx.getChild(1).accept(this);
+            return alkCtx.ctx.mkSelect(rgh, lft);
+        }
+        else
+        {
+            throw new AlkException("Invalid data type for in operator!");
+        }
     }
 
     @Override
@@ -477,5 +490,11 @@ implements ExpressionVisitorIface<Expr>,
     public Expr visit(VirtualAST ctx)
     {
         throw new SMTUnimplementedException(VirtualAST.class);
+    }
+
+    @Override
+    public Expr visit(OldAST ctx)
+    {
+        throw new SMTUnimplementedException(OldAST.class);
     }
 }

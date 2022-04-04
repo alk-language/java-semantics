@@ -13,10 +13,22 @@ import java.util.List;
 public class WhileAST
 extends StmtAST
 {
+    private boolean loopAssert = false;
 
-    public WhileAST(ParserRuleContext ctx)
+    public WhileAST(ParserRuleContext ctx, boolean loopAssert)
     {
         super(ctx);
+        this.loopAssert = loopAssert;
+    }
+
+    public boolean hasLoopAssert()
+    {
+        return loopAssert;
+    }
+
+    public AST getLoopAssert()
+    {
+        return getChild(getChildCount() - 1).getChild(0);
     }
 
     public AST getCondition()
@@ -26,7 +38,7 @@ extends StmtAST
 
     public AST getStatement()
     {
-        return super.getChild(getChildCount() - 1);
+        return loopAssert ? super.getChild(getChildCount() - 2) : super.getChild(getChildCount() - 1) ;
     }
 
     @Override
@@ -47,7 +59,7 @@ extends StmtAST
     public List<AST> getInvariants()
     {
         List<AST> invs = new ArrayList<>();
-        for (int i = 1; i < getChildCount() - 1; i++)
+        for (int i = 1; i < (loopAssert ? getChildCount() - 2 : getChildCount() - 1); i++)
         {
             invs.add(getChild(i));
         }

@@ -16,11 +16,9 @@ import execution.types.alkBool.AlkBool;
 import execution.types.alkInt.AlkInt;
 import util.lambda.LocationGenerator;
 import util.types.ASTRepresentable;
+import util.types.Storable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static execution.parser.constants.Constants.MAX_ARRAY;
 import static execution.parser.exceptions.AlkException.*;
@@ -220,7 +218,8 @@ extends AlkIterableValue
         return new AlkInt(array.size());
     }
 
-    public boolean has(AlkValue operator)
+    @Override
+    public boolean has(Storable operator)
     {
         for (Location loc : array)
         {

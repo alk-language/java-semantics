@@ -23,6 +23,7 @@ extends ExecutionState
 
     protected Storable conditionValue;
     protected List<Storable> invariantValues = new ArrayList<>();
+    protected Storable loopAssertValue;
     protected int stepInv = 0;
 
     protected boolean checkedCondition = false;
@@ -172,6 +173,7 @@ extends ExecutionState
                 copy.invariantValues.add(storable.weakClone(sm.getLocationMapper()));
             }
         }
+        copy.loopAssertValue = loopAssertValue == null ? null : loopAssertValue.weakClone(sm.getLocationMapper());
 
         return (LoopingState) super.decorate(copy, sm);
     }
