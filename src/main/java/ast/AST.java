@@ -169,4 +169,9 @@ implements Visitable
         if (!(o instanceof AST)) return false;
         return this.toString().equals(o.toString());
     }
+
+   public void deleteChild(int i)
+   {
+       this.children.remove(i);
+   }
 }

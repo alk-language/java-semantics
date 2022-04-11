@@ -1,4 +1,4 @@
-// Generated from ./../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /Users/alexandrulungu/Work/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -33,6 +33,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitToFunctionDecl(alkParser.ToFunctionDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ToSpecification}
+	 * labeled alternative in {@link alkParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitToSpecification(alkParser.ToSpecificationContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ReturnStmt}
 	 * labeled alternative in {@link alkParser#statement}.
@@ -166,6 +173,20 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitToAssertStmt(alkParser.ToAssertStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MainReqSpec}
+	 * labeled alternative in {@link alkParser#specification}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainReqSpec(alkParser.MainReqSpecContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MainEnsSpec}
+	 * labeled alternative in {@link alkParser#specification}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainEnsSpec(alkParser.MainEnsSpecContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Assume}
 	 * labeled alternative in {@link alkParser#assumeStmt}.

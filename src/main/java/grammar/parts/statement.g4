@@ -10,7 +10,7 @@ statement_sequence
 statement
 :
     function_decl                                                                                                       #ToFunctionDecl
-    | specification                                                                                                     #Specification
+    | specification SEMICOLON                                                                                           #ToSpecification
     | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
 
     | choose SEMICOLON                                                                                                  #ToChooseStmt
@@ -36,6 +36,12 @@ statement
 
     | assumeStmt SEMICOLON                                                                                              #ToAssumeStmt
     | assertStmt SEMICOLON                                                                                              #ToAssertStmt
+;
+
+specification
+:
+    REQURIES req_expression                   #MainReqSpec
+    | ENSURES ens_expression                  #MainEnsSpec
 ;
 
 assumeStmt

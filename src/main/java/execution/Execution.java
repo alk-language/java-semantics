@@ -173,9 +173,11 @@ extends Thread
                 throw new AlkException("Syntax error!");
             }
             AST root = ParseTreeGlobals.PARSE_TREE_VISITOR.visit(tree);
+            root = Optimizer.gatherMain(root, true);
+            Optimizer.processSpecification(root);
             if (config.hasStaticVerif())
             {
-                List<FunctionDeclAST> fncs = ASTHelper.getFunctions(root);
+                List<FunctionDeclAST> fncs = ASTHelper.getFunctions(root, true);
                 for (FunctionDeclAST fnc : fncs)
                 {
                     registerFunction(fnc);
@@ -185,13 +187,10 @@ extends Thread
                     Symbolic.verifyFunction(fnc, this);
                 }
             }
-            if (root != null)
-            {
-                ExecutionPayload payload = new ExecutionPayload(this, global);
-                ExecutionState state = interpreterManager.interpret(root, payload);
-                stack = new ExecutionStack(this);
-                stack.push(state);
-            }
+            ExecutionPayload payload = new ExecutionPayload(this, global);
+            ExecutionState state = interpreterManager.interpret(root, payload);
+            stack = new ExecutionStack(this);
+            stack.push(state);
         }
 
         // EXECUTIA ALGORITMULUI ALK
