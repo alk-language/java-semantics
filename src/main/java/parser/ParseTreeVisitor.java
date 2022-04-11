@@ -70,6 +70,41 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
+    public AST visitToSpecification(alkParser.ToSpecificationContext ctx)
+    {
+        return visit(ctx.specification());
+    }
+
+    @Override
+    public AST visitMainReqSpec(alkParser.MainReqSpecContext ctx)
+    {
+        return visit(ctx.req_expression());
+    }
+
+    @Override
+    public AST visitReqExpression(alkParser.ReqExpressionContext ctx)
+    {
+        RequireAST tree = new RequireAST(ctx);
+        tree.addChild(exprVisitor.visit(ctx.expression()));
+        return tree;
+    }
+
+
+    @Override
+    public AST visitMainEnsSpec(alkParser.MainEnsSpecContext ctx)
+    {
+        return visit(ctx.ens_expression());
+    }
+
+    @Override
+    public AST visitEnsExpression(alkParser.EnsExpressionContext ctx)
+    {
+        EnsureAST tree = new EnsureAST(ctx);
+        tree.addChild(exprVisitor.visit(ctx.expression()));
+        return tree;
+    }
+
+    @Override
     public AST visitToHavocStmt(alkParser.ToHavocStmtContext ctx)
     {
         return visit(ctx.havocStmt());

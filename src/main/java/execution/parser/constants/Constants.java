@@ -6,4 +6,5 @@ public class Constants
     public static int MAX_DECIMALS = 10;
     public static int MAX_ARRAY = 1000000000;
     public final static boolean DEBUG = false;
+    public static final String MAIN_FNC = "\\main";
 }

@@ -8,22 +8,22 @@ import java.util.List;
 
 public class ASTHelper
 {
-    public static List<FunctionDeclAST> getFunctions(AST root)
+    public static List<FunctionDeclAST> getFunctions(AST root, boolean toVerify)
     {
         List<FunctionDeclAST> lst = new ArrayList<>();
         ASTVisitor<List<FunctionDeclAST>> visitor = new ASTVisitor<>(lst);
         boolean[] inside = new boolean[1];
         visitor.registerPre((tree) -> tree instanceof FunctionDeclAST, (tree, payload) -> {
-            if (!((FunctionDeclAST) tree).getEnsures().isEmpty())
+            if (!toVerify || !((FunctionDeclAST) tree).getEnsures().isEmpty())
                 payload.add((FunctionDeclAST) tree);
-            if (inside[0])
+            if (toVerify && inside[0])
             {
-                throw new AlkException("Can't define a function inside another function!");
+                throw new AlkException("Can't verify a function declared inside another function!");
             }
             inside[0] = true;
         });
         visitor.registerPost((tree) -> tree instanceof FunctionDeclAST, (tree, payload) -> {
-            if (!((FunctionDeclAST) tree).getEnsures().isEmpty())
+            if (!toVerify || !((FunctionDeclAST) tree).getEnsures().isEmpty())
                 payload.add((FunctionDeclAST) tree);
             inside[0] = false;
         });

@@ -1,5 +1,6 @@
 package ast.expr;
 
+import ast.attr.*;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -33,6 +34,6 @@ extends ExpressionAST
     @Override
     public String toString()
     {
-        return "function call";
+        return getAttribute(IdASTAttr.class).getId() + "(...)";
     }
 }

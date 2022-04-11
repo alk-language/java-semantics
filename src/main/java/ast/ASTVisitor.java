@@ -14,7 +14,7 @@ public class ASTVisitor<T>
         this.payload = payload;
     }
 
-    void visit(AST root)
+    public void visit(AST root)
     {
         if (root == null)
         {
@@ -40,7 +40,7 @@ public class ASTVisitor<T>
         }
     }
 
-    void registerPre(Identifier identifier, VisitorListener<T> code)
+    public void registerPre(Identifier identifier, VisitorListener<T> code)
     {
         pre.add(new VisitorListenerKey<>(identifier, code));
     }
