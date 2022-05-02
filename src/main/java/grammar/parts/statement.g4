@@ -10,6 +10,7 @@ statement_sequence
 statement
 :
     function_decl                                                                                                       #ToFunctionDecl
+    | specification SEMICOLON                                                                                           #ToSpecification
     | RETURN (expression)? SEMICOLON                                                                                    #ReturnStmt
 
     | choose SEMICOLON                                                                                                  #ToChooseStmt
@@ -37,6 +38,12 @@ statement
     | assertStmt SEMICOLON                                                                                              #ToAssertStmt
 ;
 
+specification
+:
+    REQURIES req_expression                   #MainReqSpec
+    | ENSURES ens_expression                  #MainEnsSpec
+;
+
 assumeStmt
 :
     ASSUME expression                                                                                                   #Assume
@@ -49,7 +56,11 @@ assertStmt
 
 havocStmt
 :
-    HAVOC ID (COMMA ID)*                                                                                                #Havoc
+    HAVOC declarator (COMMA declarator)*                                                                                #Havoc
+;
+
+declarator:
+    ID (DPOINT dataType)?                                                                                               #Decl
 ;
 
 symbolicStmt
@@ -85,13 +96,24 @@ choose:
 
 while_struct
 :
-    WHILE LPAR expression RPAR while_anno* statement                                                                    #WhileStructure
+    WHILE LPAR expression RPAR while_anno* statement loop_assert?                                                       #WhileStructure
 ;
 
 while_anno
 :
-    INVARIANT expression                                                                                                #InvariantAnno
-    | WHILEMODIFIES ID (COMMA ID)*                                                                                      #ModifiesAnno
+    INVARIANT expression SEMICOLON?                                                                                     #InvariantAnno
+    | WHILEMODIFIES modif_factor (COMMA modif_factor)* SEMICOLON?                                                       #ModifiesAnno
+;
+
+modif_factor
+:
+    ID                                                                                                                  #IdModif
+    | ID POINT SIZE                                                                                                     #SizeModif
+;
+
+loop_assert
+:
+    LOOPASSESRT expression SEMICOLON?                                                                                   #LoopAssertAnno
 ;
 
 do_while_struct
@@ -116,26 +138,25 @@ foreach_struct
 
 function_decl
 :
-    ID LPAR (param (COMMA param)*)? RPAR (DPOINT dataType)? ((MODIFIES | USES) ID (COMMA ID)*)?
-    (REQURIES req_expression)*
-    (ENSURES ens_expression)*
+    ID LPAR (param (COMMA param)*)? RPAR ((MODIFIES | USES) ID (COMMA ID)*)?
+    (REQURIES req_expression SEMICOLON?)*
+    (ENSURES ens_expression SEMICOLON?)*
     statement_block                                                                                                     #FunctionDecl
 ;
 
 req_expression
 :
     expression                                                                                                          #ReqExpression
-    //| type_assertion
-    // (ID : data_type) (&& (ID : data_type))*
+    | ID DPOINT dataType (AND (ID DPOINT dataType))*                                                                    #TypeAssertReq
 ;
 
 ens_expression
 :
     expression                                                                                                          #EnsExpression
-    //| type_assertion
+    | RESULT DPOINT dataType                                                                                            #TypeAssertEns
 ;
 
 param
 :
-    (OUT)? ID (DPOINT dataType)?                                                                                        #ParamDefinition
+    (OUT)? ID                                                                                                           #ParamDefinition
 ;

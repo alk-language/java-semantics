@@ -8,6 +8,7 @@ import ast.expr.SymIDAST;
 import ast.stmt.FunctionDeclAST;
 import execution.parser.env.*;
 import execution.parser.exceptions.AlkException;
+import execution.state.symbolic.SymbolicOldState;
 import execution.types.alkBool.AlkBool;
 import execution.utils.Stepper;
 import symbolic.SymbolicValue;
@@ -33,7 +34,9 @@ public class Symbolic
         {
             Parameter param = function.getParam(i);
             AST symAST = SymIDAST.generate(param.getName());
-            env.define(param.getName()).setValue(new SymbolicValue(symAST));
+            SymbolicValue value = new SymbolicValue(symAST);
+            env.define(param.getName()).setValue(value);
+            env.define(SymbolicOldState.oldName + "(" + param.getName() + ")").setValue(value);
             if (param.getDataType() == null)
             {
                 throw new AlkException("Can't verify " + id + " because the type of " + param.getName() + " can't be identified!");
@@ -78,6 +81,7 @@ public class Symbolic
                 exec.getFuncManager(),
                 exec.getInterpreterManager()
         );
+
         for (ExecutionOutput output : results)
         {
             if (output.hasError)

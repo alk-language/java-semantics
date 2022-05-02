@@ -1,16 +1,6 @@
-symbolic $a:array<int>;
-a = $a;
-assume a.size() < 2;
-min = a[0];
-i = 1;
-while (i < a.size())
-invariant a
-invariant b
-invariant c
-modifies i
-{
-    if (a[i] < min) min = a[i];
-    i = i+1;
-
-    assert d;
+a(i) {
+    b(j){
+        j++;
+    }
+    i++;
 }

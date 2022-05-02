@@ -1,16 +1,9 @@
-a |-> $a
-slp |-> $slp_0
-i |-> $i_1
-
-Note that the execution was symbolic.
-Note that the Z3 engine was used for verification!
-Path condition: 
-   forall $i_0 : int :: ((0<=$i_0)&&($i_0<($a.size()-1))) ==> ($a[$i_0]<=$a[($i_0+1)]) &&
-   ($slp_0<=$i_1) &&
-   forall $k_1 : int :: forall $l_1 : int :: ((((0<=$k_1)&&($k_1<=$l_1))&&($l_1<$i_1))&&($a[$k_1]==$a[$l_1])) ==> (($l_1-$k_1)<=$slp_0) &&
-   !($i_1<$a.size())
-Type constraints: 
-   $slp_0 : int
-   $i_1 : int
-   $a : array<int>
-
+execution.parser.exceptions.AlkException: Assumption makes the path condition invalid!
+	at execution.state.symbolic.SymbolicAssumeState.interpretResult(SymbolicAssumeState.java:30)
+	at execution.state.SingleState.assign(SingleState.java:44)
+	at execution.state.SingleState.assign(SingleState.java:10)
+	at ast.ASTStack.makeStep(ASTStack.java:93)
+	at ast.ASTStack.run(ASTStack.java:42)
+	at execution.Execution.execute(Execution.java:198)
+	at execution.Execution.run(Execution.java:255)
+Error at [7:0]: Assumption makes the path condition invalid!

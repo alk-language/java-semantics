@@ -5,7 +5,8 @@ import java.util.List;
 
 public class ASTVisitor<T>
 {
-    private final List<VisitorListenerKey<T>> listeners = new ArrayList<>();
+    private final List<VisitorListenerKey<T>> pre = new ArrayList<>();
+    private final List<VisitorListenerKey<T>> post = new ArrayList<>();
     private final T payload;
 
     public ASTVisitor(T payload)
@@ -13,13 +14,13 @@ public class ASTVisitor<T>
         this.payload = payload;
     }
 
-    void visit(AST root)
+    public void visit(AST root)
     {
         if (root == null)
         {
             return;
         }
-        for (VisitorListenerKey<T> key : listeners)
+        for (VisitorListenerKey<T> key : pre)
         {
             if (key.identifier.accept(root))
             {
@@ -30,11 +31,23 @@ public class ASTVisitor<T>
         {
             visit(root.getChild(i));
         }
+        for (VisitorListenerKey<T> key : post)
+        {
+            if (key.identifier.accept(root))
+            {
+                key.code.run(root, payload);
+            }
+        }
     }
 
-    void register(Identifier identifier, VisitorListener<T> code)
+    public void registerPre(Identifier identifier, VisitorListener<T> code)
     {
-        listeners.add(new VisitorListenerKey<>(identifier, code));
+        pre.add(new VisitorListenerKey<>(identifier, code));
+    }
+
+    void registerPost(Identifier identifier, VisitorListener<T> code)
+    {
+        post.add(new VisitorListenerKey<>(identifier, code));
     }
 
     static class VisitorListenerKey<T>
