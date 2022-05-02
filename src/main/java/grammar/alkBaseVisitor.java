@@ -1,4 +1,4 @@
-// Generated from ./../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from /Users/alexandrulungu/Work/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -34,6 +34,13 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitToFunctionDecl(alkParser.ToFunctionDeclContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitToSpecification(alkParser.ToSpecificationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -173,6 +180,20 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitMainReqSpec(alkParser.MainReqSpecContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitMainEnsSpec(alkParser.MainEnsSpecContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitAssume(alkParser.AssumeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -188,6 +209,13 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitHavoc(alkParser.HavocContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDecl(alkParser.DeclContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -264,6 +292,27 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitIdModif(alkParser.IdModifContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSizeModif(alkParser.SizeModifContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitLoopAssertAnno(alkParser.LoopAssertAnnoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitDoWhileStructure(alkParser.DoWhileStructureContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -306,7 +355,21 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitTypeAssertReq(alkParser.TypeAssertReqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitEnsExpression(alkParser.EnsExpressionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTypeAssertEns(alkParser.TypeAssertEnsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -510,6 +573,13 @@ public class alkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements al
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitResultFactor(alkParser.ResultFactorContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitOldFactor(alkParser.OldFactorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -26,7 +26,7 @@ public class AlkSet
 extends AlkIterableValue
 {
 
-    private Set<Location> set = new HashSet<>();
+    private final Set<Location> set = new HashSet<>();
 
     @Deprecated
     public String contains; //tipuri de date, seturile sunt omogene
@@ -39,7 +39,8 @@ extends AlkIterableValue
     @Override
     public AlkValue insert(Location value)
     {
-        set.add(value);
+        if (!this.has(value.toRValue()))
+            set.add(value);
         return this;
     }
 
@@ -86,7 +87,7 @@ extends AlkIterableValue
         AlkSet subtract = new AlkSet();
         for (Location loc : this)
         {
-            if (!((AlkSet) operand).has((AlkValue) loc.toRValue()))
+            if (!((AlkSet) operand).has(loc.toRValue()))
             {
                 subtract.insert(generator.generate(loc.toRValue().clone(generator)));
             }
@@ -218,7 +219,7 @@ extends AlkIterableValue
     }
 
     @Override
-    public boolean has(AlkValue operand)
+    public boolean has(Storable operand)
     {
         for (Location loc : set)
         {

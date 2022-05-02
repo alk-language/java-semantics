@@ -1,7 +1,9 @@
 package execution.state.symbolic;
 
 import ast.AST;
+import ast.attr.IdASTAttr;
 import ast.expr.SymIDAST;
+import ast.stmt.DeclAST;
 import ast.type.DataTypeAST;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
@@ -26,17 +28,29 @@ extends ExecutionState
     {
         for (AST ast : tree.getChildren())
         {
-            String id = ast.getText();
-            if (!getEnv().has(id))
+            DeclAST declAST = (DeclAST) ast;
+            String id = declAST.getAttribute(IdASTAttr.class).getId();
+            DataTypeAST dataType;
+            Location loc;
+            if (declAST.getChildCount() == 1)
             {
-                super.handle(new AlkException("Can't find " + id + " in the current environment!"));
+                loc = getEnv().define(id);
+                dataType = (DataTypeAST) declAST.getChild(0);
             }
-            Location loc = getEnv().getLocation(id);
-            Storable value = loc.toRValue();
-            DataTypeAST dataType = TypeHelper.getDataType(value, getPayload().getExecution().getPathCondition());
+            else
+            {
+                if (!getEnv().has(id))
+                {
+                    super.handle(new AlkException("Can't find " + id + " in the current environment!"));
+                }
+                loc = getEnv().getLocation(id);
+                Storable value = loc.toRValue();
+                dataType = TypeHelper.getDataType(value, getPayload().getExecution().getPathCondition());
+            }
 
             AST symAST = SymIDAST.generate(id);
             loc.setValue(new SymbolicValue(symAST));
+
             getExec().getPathCondition().setType(symAST.getText(), dataType, true);
         }
         return null;

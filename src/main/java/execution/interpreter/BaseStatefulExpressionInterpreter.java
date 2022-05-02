@@ -11,9 +11,9 @@ import execution.parser.exceptions.AlkException;
 import execution.state.ExecutionState;
 import execution.state.expression.*;
 import execution.state.expression.FactorPointMethodState;
-import execution.state.function.BuiltInFunctionState;
-import execution.state.function.DefinedFunctionCallState;
+import execution.state.function.*;
 import execution.state.statement.AssignmentState;
+import execution.state.symbolic.*;
 import util.exception.InternalException;
 import visitor.stateful.StatefulExpressionInterpreter;
 
@@ -141,7 +141,15 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretContextVar(ContextVar var, AST ast, ExecutionPayload payload)
     {
-        throw new AlkException("Can't use context variables in concrete execution: " + var);
+        switch (var)
+        {
+            case RESULT:
+                return new ResultState(ast, payload);
+            case OLD:
+                return new OldState(ast, payload);
+            default:
+                throw new InternalException("Can't recognize this type of context variable: " + var);
+        }
     }
 
     @Override

@@ -1,11 +1,17 @@
 package execution.state.symbolic;
 
 import ast.AST;
+import ast.attr.BuiltInMethodASTAttr;
+import ast.attr.IdASTAttr;
 import ast.attr.ParamASTAttr;
+import ast.enums.BuiltInMethod;
 import ast.enums.Operator;
-import ast.expr.RefIDAST;
-import ast.expr.UnaryAST;
+import ast.expr.*;
+import ast.stmt.DeclAST;
 import ast.stmt.HavocAST;
+import ast.stmt.WhileAST;
+import ast.type.ArrayDataTypeAST;
+import ast.type.SetDataTypeAST;
 import execution.*;
 import execution.exhaustive.SplitMapper;
 import execution.parser.env.Location;
@@ -15,15 +21,15 @@ import execution.parser.exceptions.StopException;
 import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import execution.state.statement.WhileState;
+import execution.types.AlkIterableValue;
 import execution.types.ConcreteValue;
+import execution.types.alkBool.AlkBool;
 import symbolic.SymbolicValue;
 import util.exception.InternalException;
 import util.pc.PathCondition;
 import util.types.Storable;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SymbolicWhileState
 extends WhileState
@@ -31,19 +37,18 @@ extends WhileState
     private boolean doneInternalHavoc = false;
     private boolean doneInternalAssume = false;
     private boolean checkedInternalInvariant = false;
+    private boolean checkedLoopAssert = false;
     private boolean doneBody = false;
     private boolean doneFinalInvariant = false;
     private boolean checkedFinalInvariant = false;
     private boolean doneFinalHavoc = false;
-    private boolean checkedExternCondition = false;
     private boolean checkedExternInvariant = false;
     private boolean doneExternal = false;
     private boolean spawned = false;
 
     private int firstStepInv = 0;
     private int middleStepInv = 0;
-
-    private Storable checkingInvariant;
+    private int finalStepInv = 0;
 
     public SymbolicWhileState(AST tree, ExecutionPayload payload)
     {
@@ -94,6 +99,11 @@ extends WhileState
             return request(invariants.get(middleStepInv));
         }
 
+        if (!checkedLoopAssert && ((WhileAST) tree).hasLoopAssert())
+        {
+            return request(((WhileAST) tree).getLoopAssert());
+        }
+
         if (!spawned)
         {
             spawned = true;
@@ -117,6 +127,8 @@ extends WhileState
                 }
             }
 
+            invariantValues.clear();
+
             Storable cond = conditionValue.clone(generator);
             ExecutionPool pool = new ExecutionPool();
             ExecutionCloneContext ctx = getExec().clone(pool);
@@ -125,6 +137,41 @@ extends WhileState
 
             getExec().getPathCondition().add(new SymbolicValue(
                     UnaryAST.createUnary(Operator.NOT, ((SymbolicValue) conditionValue).toAST())));
+
+            if (loopAssertValue != null)
+            {
+                getExec().getConfig().getIOManager().write("[WARNING] Loop assert is not properly supported yet!");
+                if (loopAssertValue instanceof SymbolicValue)
+                {
+                    try
+                    {
+                        if (!getExec().getPathCondition().asserts((SymbolicValue) loopAssertValue))
+                        {
+                            throw new AlkException("Loop assert violation!");
+                        }
+                    }
+                    catch (InternalException e)
+                    {
+                        e.sign(((WhileAST) tree).getLoopAssert().getLine(), ((WhileAST) tree).getLoopAssert().getColumn());
+                        throw e;
+                    }
+                }
+                else
+                {
+                    if (loopAssertValue instanceof AlkBool)
+                    {
+                        AlkBool bool = (AlkBool) loopAssertValue;
+                        if (!bool.isTrue())
+                        {
+                            super.handle(new AlkException("Loop assert is not valid."));
+                        }
+                    }
+                    else
+                    {
+                        super.handle(new AlkException("Loop assert must be boolean."));
+                    }
+                }
+            }
 
             return null;
         }
@@ -146,15 +193,18 @@ extends WhileState
             return request(body);
         }
 
-        if (!doneFinalInvariant)
+        if (!checkedFinalInvariant && finalStepInv < invariants.size())
         {
-            return request(invariants.get(stepInv));
+            return request(invariants.get(finalStepInv));
         }
 
-        if (!checkedFinalInvariant)
+        for (int i = 0; i < invariants.size(); i++)
         {
-            processInvariant(checkingInvariant, invariants.get(stepInv));
-            checkedFinalInvariant = true;
+            Storable value = invariantValues.get(i);
+            this.processInvariant(value, invariants.get(i));
+            getConfig().getIOManager().write("[" + invariants.get(i).getLine() + ":" +
+                    invariants.get(i).getColumn() + "] Loop invariant was verified!");
+            getConfig().getIOManager().flush();
         }
 
         getExec().halt();
@@ -165,24 +215,77 @@ extends WhileState
     {
         HavocAST havoc = new HavocAST(null);
         Set<String> vars = new HashSet<>();
+
+        Set<String> hasSize = new HashSet<>();
         if (tree.hasAttribute(ParamASTAttr.class))
         {
             ParamASTAttr attr = tree.getAttribute(ParamASTAttr.class);
             for (int i = 0; i < attr.getParamCount(); i++)
             {
-                vars.add(attr.getParameter(i).getName());
+                if (attr.getParameter(i).hasSizeFlag())
+                {
+                    hasSize.add(attr.getParameter(i).getName());
+                }
+                else
+                {
+                    vars.add(attr.getParameter(i).getName());
+                }
             }
         }
         else
         {
             vars = getEnv().getVariables();
         }
+
+        Map<String, SymbolicValue> sizes = new HashMap<>();
         for (String nod : vars)
         {
-            havoc.addChild(new RefIDAST(nod));
+            Storable currentValue = getEnv().getLocation(nod).toRValue();
+            if (currentValue instanceof AlkIterableValue)
+            {
+                sizes.put(nod, SymbolicValue.toSymbolic(((AlkIterableValue) currentValue).size()));
+            }
+            if (currentValue instanceof SymbolicValue)
+            {
+                AST dataType = ((ExpressionAST) ((SymbolicValue) currentValue).toAST()).getDataType(getExec().getPathCondition());
+                if (dataType instanceof ArrayDataTypeAST || dataType instanceof SetDataTypeAST)
+                {
+                    FactorPointMethodAST fpm = new FactorPointMethodAST(null);
+                    BuiltInMethodASTAttr attr = new BuiltInMethodASTAttr(BuiltInMethod.SIZE);
+                    fpm.addAttribute(BuiltInMethodASTAttr.class, attr);
+                    fpm.addChild(((SymbolicValue) currentValue).toAST());
+                    sizes.put(nod, new SymbolicValue(fpm));
+                }
+            }
+            AST ast = new DeclAST(null);
+            IdASTAttr attr = new IdASTAttr(nod);
+            ast.addAttribute(IdASTAttr.class, attr);
+            havoc.addChild(ast);
         }
+
         SymHavocState state = new SymHavocState(havoc, payload);
         state.makeStep();
+
+        for (String nod : vars)
+        {
+            if (hasSize.contains(nod) || !sizes.containsKey(nod))
+            {
+                continue;
+            }
+
+            Storable currentValue = getEnv().getLocation(nod).toRValue();
+            FactorPointMethodAST fpm = new FactorPointMethodAST(null);
+            BuiltInMethodASTAttr attr = new BuiltInMethodASTAttr(BuiltInMethod.SIZE);
+            fpm.addAttribute(BuiltInMethodASTAttr.class, attr);
+            fpm.addChild(((SymbolicValue) currentValue).toAST());
+
+            List<AST> children = new ArrayList<>();
+            children.add(fpm);
+            children.add(sizes.get(nod).toAST());
+            EqualityAST eqAST = EqualityAST.createBinary(Operator.EQUAL, children);
+
+            getExec().getPathCondition().add(new SymbolicValue(eqAST));
+        }
     }
 
     @Override
@@ -217,19 +320,23 @@ extends WhileState
                 checkedInternalInvariant = true;
             }
         }
+        else if (!checkedLoopAssert && ((WhileAST) tree).hasLoopAssert())
+        {
+            loopAssertValue = executionResult.getValue().toRValue();
+            checkedLoopAssert = true;
+        }
         else if (!doneBody)
         {
             doneBody = true;
         }
-        else if (!doneFinalInvariant)
+        else if (!checkedFinalInvariant)
         {
-            doneFinalInvariant = true;
-            checkingInvariant = executionResult.getValue().toRValue();
-        }
-        else if (!checkedExternCondition)
-        {
-            checkedExternCondition = true;
-            conditionValue = executionResult.getValue().toRValue();
+            invariantValues.add(executionResult.getValue().toRValue());
+            finalStepInv++;
+            if (finalStepInv == invariants.size())
+            {
+                checkedFinalInvariant = true;
+            }
         }
         else
         {
@@ -309,20 +416,19 @@ extends WhileState
         copy.doneInternalHavoc = doneInternalHavoc;
         copy.doneInternalAssume = doneInternalAssume;
         copy.checkedInternalInvariant = checkedInternalInvariant;
+        copy.checkedLoopAssert = checkedLoopAssert;
         copy.doneBody = doneBody;
         copy.doneFinalInvariant = doneFinalInvariant;
         copy.checkedFinalInvariant = checkedFinalInvariant;
         copy.doneFinalHavoc = doneFinalHavoc;
-        copy.checkedExternCondition = checkedExternCondition;
         copy.checkedExternInvariant = checkedExternInvariant;
         copy.doneExternal = doneExternal;
 
         copy.firstStepInv = firstStepInv;
         copy.middleStepInv = middleStepInv;
-        copy.spawned = spawned;
+        copy.finalStepInv = finalStepInv;
 
-        copy.checkingInvariant = this.checkingInvariant == null ? null :
-                this.checkingInvariant.weakClone(sm.getLocationMapper());
+        copy.spawned = spawned;
 
         return super.decorate(copy, sm);
     }

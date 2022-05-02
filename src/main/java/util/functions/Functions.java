@@ -145,6 +145,8 @@ implements Funcs
     @BuiltInFunctionImpl(paramNumber = 0)
     public AlkValue flip(List<AlkValue> params)
     {
+        config.interpretProbability(BigDecimal.ONE.divide(BigDecimal.valueOf(2)));
+        config.setProbabilistic(true);
         return NonDeterministic.getRandom(new AlkInt(2));
     }
 
@@ -158,6 +160,15 @@ implements Funcs
         }
         AlkIterableValue iterableValue = (AlkIterableValue) value.clone(generator);
         iterableValue.shuffle();
+
+        BigDecimal total = new BigDecimal(1);
+        for (int i = 1; i < ((AlkInt) iterableValue.size()).value.intValue(); i++)
+        {
+            total = total.multiply(BigDecimal.valueOf(i));
+        }
+        config.interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));
+        config.setProbabilistic(true);
+
         return iterableValue;
     }
 

@@ -341,4 +341,10 @@ implements ExpressionVisitorIface<AST>,
     {
         return tree;
     }
+
+    @Override
+    public AST visit(OldAST tree)
+    {
+        return process(new OldAST(tree.getCtx()), tree);
+    }
 }

@@ -4,8 +4,10 @@ import ast.AST;
 import ast.attr.IdASTAttr;
 import ast.enums.ParamType;
 import execution.ExecutionResult;
+import execution.parser.constants.*;
 import execution.parser.exceptions.NoSuchFunctionException;
 import execution.state.ExecutionState;
+import execution.types.alkBool.*;
 import execution.types.alkNotAValue.AlkNotAValue;
 import execution.parser.env.*;
 import execution.parser.exceptions.AlkException;
@@ -28,7 +30,10 @@ extends ExecutionState
     protected int step = 0;
     protected Environment env;
 
+    private boolean madeEnv = false;
     private boolean executed = false;
+    private int reqStep = 0;
+    private int ensStep = 0;
     private String stringRepr = "function call";
 
     public DefinedFunctionCallState(AST tree, ExecutionPayload executionPayload)
@@ -45,8 +50,15 @@ extends ExecutionState
             super.handle(e);
         }
 
-        env = new EnvironmentImpl(getStore());
-        getExec().registerEnv(env);
+        if (tree.getAttribute(IdASTAttr.class).getId().equals(Constants.MAIN_FNC))
+        {
+            env = getEnv();
+        }
+        else
+        {
+            env = new EnvironmentImpl(getStore());
+            getExec().registerEnv(env);
+        }
 
         if (tree.getChildCount() != function.countParams())
         {
@@ -66,25 +78,34 @@ extends ExecutionState
 
         if (!executed)
         {
-            executed = true;
-
-            for (int i = 0; i < function.countParams(); i++)
+            if (!madeEnv)
             {
-                Parameter param = function.getParam(i);
-                if (param.getType() == ParamType.OUTPUT)
+                madeEnv = true;
+                for (int i = 0; i < function.countParams(); i++)
                 {
-                    env.setLocation(param.getName(), params.get(i).toLValue());
+                    Parameter param = function.getParam(i);
+                    if (param.getType() == ParamType.OUTPUT)
+                    {
+                        env.setLocation(param.getName(), params.get(i).toLValue());
+                    }
+                    else
+                    {
+                        env.update(param.getName(), params.get(i).toRValue().clone(generator));
+                    }
+
+                    env.define(OldState.oldName + "(" + param.getName() + ")").setValue(params.get(i).toRValue().clone(generator));
                 }
-                else
+
+                for (int i = 0; i < function.countModifies(); i++)
                 {
-                    env.update(param.getName(), params.get(i).toRValue().clone(generator));
+                    String modify = function.getModify(i);
+                    env.setLocation(modify, getGlobal().getLocation(modify));
                 }
             }
 
-            for (int i = 0; i < function.countModifies(); i++)
+            if (reqStep < function.getRequires().size())
             {
-                String modify = function.getModify(i);
-                env.setLocation(modify, getGlobal().getLocation(modify));
+                return request(function.getRequires().get(reqStep), env);
             }
 
             List<String> paramValues = new ArrayList<>();
@@ -98,6 +119,11 @@ extends ExecutionState
             return request(function.getBody(), env);
         }
 
+        if (ensStep < function.getEnsures().size())
+        {
+            return request(function.getEnsures().get(ensStep), env);
+        }
+
         getExec().getCallStack().pop();
         getExec().deregisterEnv(env);
         return null;
@@ -106,11 +132,45 @@ extends ExecutionState
     @Override
     public void assign(ExecutionResult executionResult)
     {
-        if (!executed)
+        if (!madeEnv)
         {
             checkNotNull(executionResult.getValue(), true);
             params.add(executionResult.getValue());
             step++;
+        }
+        else if (reqStep < function.getRequires().size())
+        {
+            reqStep++;
+            if (executionResult.getValue().toRValue() instanceof AlkBool)
+            {
+                if (!((AlkBool) executionResult.getValue().toRValue()).isTrue())
+                {
+                    throw new AlkException("Precondition doesn't hold!");
+                }
+            }
+            else
+            {
+                throw new AlkException("The precondition value must be boolean!");
+            }
+        }
+        else if (!executed)
+        {
+            executed = true;
+        }
+        else if (ensStep < function.getEnsures().size())
+        {
+            ensStep++;
+            if (executionResult.getValue().toRValue() instanceof AlkBool)
+            {
+                if (!((AlkBool) executionResult.getValue().toRValue()).isTrue())
+                {
+                    throw new AlkException("Postcondition doesn't hold!");
+                }
+            }
+            else
+            {
+                throw new AlkException("The postcondition value must be boolean!");
+            }
         }
     }
 
@@ -119,6 +179,7 @@ extends ExecutionState
     {
         if (e instanceof ReturnException)
         {
+            executed = true;
             setResult(new ExecutionResult(((ReturnException) e).getValue()));
             return true;
         }
@@ -137,6 +198,8 @@ extends ExecutionState
         copy.step = step;
         copy.executed = executed;
         copy.env = sm.getEnvironmentMapper().get(this.env);
+        copy.madeEnv = madeEnv;
+        copy.reqStep = reqStep;
         return super.decorate(copy, sm);
     }
 

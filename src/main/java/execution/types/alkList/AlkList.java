@@ -12,6 +12,7 @@ import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkIterator.AlkIterator;
 import util.lambda.LocationGenerator;
+import util.types.Storable;
 
 import java.util.*;
 
@@ -222,7 +223,7 @@ extends AlkIterableValue
 
 
     @Override
-    public boolean has(AlkValue operand)
+    public boolean has(Storable operand)
     {
         for (Location loc : list)
         {

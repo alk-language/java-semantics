@@ -1,6 +1,7 @@
 package ast.stmt;
 
 import ast.AST;
+import ast.attr.*;
 import ast.type.DataTypeAST;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.ifaces.VisitorIface;
@@ -33,7 +34,7 @@ extends StmtAST
     @Override
     public String toString()
     {
-        return "function declaration";
+        return getAttribute(IdASTAttr.class).getId() + "(...) {\n" + getChild(0) + "}";
     }
 
     public List<AST> getRequires()
@@ -43,13 +44,19 @@ extends StmtAST
 
     public void addRequires(AST expr)
     {
+        AST body = getBody();
+        this.children.remove(body);
         addChild(expr);
+        this.children.add(body);
         requires.add(expr);
     }
 
     public void addEnsures(AST expr)
     {
+        AST body = getBody();
+        this.children.remove(body);
         addChild(expr);
+        this.children.add(body);
         ensures.add(expr);
     }
 
