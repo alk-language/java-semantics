@@ -6,6 +6,7 @@ import visitor.ifaces.stmt.ExprStmtVisitorIface;
 
 public class ExprStmtAST
 extends StmtAST
+implements BreakableStmtAST
 {
 
     public ExprStmtAST(ParserRuleContext ctx)

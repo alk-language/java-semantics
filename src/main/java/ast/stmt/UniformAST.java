@@ -10,6 +10,7 @@ import visitor.ifaces.stmt.UniformVisitorIface;
 
 public class UniformAST
 extends StmtAST
+implements BreakableStmtAST
 {
 
     public UniformAST(ParserRuleContext ctx)

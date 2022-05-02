@@ -13,6 +13,8 @@ import execution.helpers.AnnoHelper;
 import execution.parser.env.*;
 import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
+import execution.state.function.DefinedFunctionCallState;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.HelpFormatter;
 import execution.parser.AlkParser;
@@ -21,6 +23,7 @@ import execution.parser.exceptions.AlkException;
 import parser.ParseTreeGlobals;
 import symbolic.SymbolicValue;
 import util.*;
+import util.exception.AlkDebugTerminateException;
 import util.exception.InternalException;
 import util.exception.SymbolicallyImposibleException;
 import util.functions.Parameter;
@@ -30,10 +33,7 @@ import visitor.stateful.StatefulInterpreterManager;
 import visitor.stateful.StatefulStmtInterpreter;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The main class responsible for one alk file execution. It is implemented
@@ -57,6 +57,8 @@ extends Thread
 
     /** A manager responsible for internal functions / procedures. */
     private FuncManager funcManager;
+
+    private CallStack callStack = new CallStack(this);
 
     private final Map<Environment, Boolean> envs = new IdentityHashMap<>();
 
@@ -195,7 +197,14 @@ extends Thread
         }
 
         // EXECUTIA ALGORITMULUI ALK
-        stack.run();
+        if (this.config.isDebugger())
+        {
+            stack.debug();
+        }
+        else
+        {
+            stack.run();
+        }
 
         // if the metadata flag is set, print the global environment
         if (config.hasMetadata())
@@ -278,6 +287,9 @@ extends Thread
             output.hasError = true;
             config.getErrorManager().handleError(e);
         }
+        catch (AlkDebugTerminateException ignored)
+        {
+        }
         catch (Throwable e)
         {
             output.hasError = true;
@@ -332,6 +344,11 @@ extends Thread
     public StoreImpl getStore()
     {
         return store;
+    }
+
+    public CallStack getCallStack()
+    {
+        return callStack;
     }
 
     public void setStore(StoreImpl store)

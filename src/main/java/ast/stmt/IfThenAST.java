@@ -10,6 +10,7 @@ import visitor.ifaces.stmt.IfThenVisitorIface;
 
 public class IfThenAST
 extends StmtAST
+implements BreakableStmtAST, ConditionalStmtAST
 {
 
     public IfThenAST(ParserRuleContext ctx)
@@ -59,5 +60,11 @@ extends StmtAST
             s += "else\n" + this.getElseBranch();
         }
         return s;
+    }
+
+    @Override
+    public String getConditionalStmt()
+    {
+        return "if (" + this.getCondition().toString() + ")";
     }
 }

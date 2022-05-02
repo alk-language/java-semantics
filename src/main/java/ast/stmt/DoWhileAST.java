@@ -9,6 +9,7 @@ import visitor.ifaces.stmt.DoWhileVisitorIface;
 
 public class DoWhileAST
 extends StmtAST
+implements BreakableStmtAST, FinalTestConditionalStmtAST
 {
 
     public DoWhileAST(ParserRuleContext ctx)
@@ -40,4 +41,16 @@ extends StmtAST
     {
         return "do\n" + this.getStatement().toString() + "while (" + this.getCondition().toString() + ");\n";
     }
+
+    @Override
+    public String getDoRepeatStmt() {
+        return "do";
+    }
+
+    @Override
+    public String getConditionalStmt()
+    {
+        return "while " + getCondition().toString() + ";";
+    }
+
 }

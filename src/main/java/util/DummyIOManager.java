@@ -2,6 +2,8 @@ package util;
 
 import io.IOManager;
 
+import java.io.IOException;
+
 public class DummyIOManager
 implements IOManager
 {
@@ -21,5 +23,11 @@ implements IOManager
     public void flush()
     {
         // no-op
+    }
+
+    @Override
+    public String readLine() throws IOException
+    {
+        return null;
     }
 }

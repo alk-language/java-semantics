@@ -132,6 +132,26 @@ public class AlkParser
         }
     }
 
+    /**
+     * Main entry point of the parsing process.
+     * @param alkExpression
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the expression.
+     */
+    public static ParseTree execute(String alkExpression)
+    {
+        CharStream expression = CharStreams.fromString(alkExpression);
+        alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(expression)));
+        ParseTree tree = parser.expression();
+
+        if (parser.getNumberOfSyntaxErrors() != 0)
+        {
+            return null;
+        }
+        return tree;
+    }
+
     public static Object executeConditionPath(String conditionPath)
     {
         try

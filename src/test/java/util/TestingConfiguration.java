@@ -118,6 +118,12 @@ implements OptionProvider
     {
         return null;
     }
+
+    @Override
+    public boolean isDebugger()
+    {
+        return false;
+    }
 }
 
 class TestingIO implements IOManager {
@@ -136,6 +142,12 @@ class TestingIO implements IOManager {
     @Override
     public void flush() {
         // no-op
+    }
+
+    @Override
+    public String readLine()
+    {
+        return null;
     }
 
     @Override

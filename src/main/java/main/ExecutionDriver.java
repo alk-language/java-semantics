@@ -47,6 +47,11 @@ public class ExecutionDriver
 
         if (config.hasStaticVerif())
             exec = new Execution(config, new SymbolicStatefulExpressionInterpreter(), new SymbolicStatefulStmtInterpreter());
+        else if (config.isDebugger())
+        {
+            exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
+            // nu stiu
+        }
         else
             exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
         exec.start();
