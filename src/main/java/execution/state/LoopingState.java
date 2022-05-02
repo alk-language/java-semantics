@@ -175,4 +175,12 @@ extends ExecutionState
 
         return (LoopingState) super.decorate(copy, sm);
     }
+
+    public boolean getCheckedCondition() {
+        return checkedCondition;
+    }
+
+    public Storable getConditionValue() {
+        return conditionValue;
+    }
 }

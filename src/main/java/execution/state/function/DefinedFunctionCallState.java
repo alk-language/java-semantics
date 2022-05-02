@@ -29,6 +29,7 @@ extends ExecutionState
     protected Environment env;
 
     private boolean executed = false;
+    private String stringRepr = "function call";
 
     public DefinedFunctionCallState(AST tree, ExecutionPayload executionPayload)
     {
@@ -86,9 +87,18 @@ extends ExecutionState
                 env.setLocation(modify, getGlobal().getLocation(modify));
             }
 
+            List<String> paramValues = new ArrayList<>();
+            for (Parameter p : function.getParams())
+            {
+                paramValues.add(p.getName() + " = " + env.getLocation(p.getName()).getValue());
+            }
+            stringRepr = function.getName() + "(" + String.join(", ", paramValues) + ")";
+            getExec().getCallStack().push(this);
+
             return request(function.getBody(), env);
         }
 
+        getExec().getCallStack().pop();
         getExec().deregisterEnv(env);
         return null;
     }
@@ -128,5 +138,11 @@ extends ExecutionState
         copy.executed = executed;
         copy.env = sm.getEnvironmentMapper().get(this.env);
         return super.decorate(copy, sm);
+    }
+
+    @Override
+    public String toString()
+    {
+        return stringRepr;
     }
 }

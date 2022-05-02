@@ -49,7 +49,7 @@ public class ASTStack<T extends State>
         return result;
     }
 
-    private void propagate(UnwindException u)
+    protected void propagate(UnwindException u)
     {
         while (!stack.empty()) {
             T top = stack.peek();
@@ -66,7 +66,7 @@ public class ASTStack<T extends State>
         }
     }
 
-    private Result<?> makeStep()
+    protected Result<?> makeStep()
     {
         Result<?> result = null;
         T top = stack.peek();

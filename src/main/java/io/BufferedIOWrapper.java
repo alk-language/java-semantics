@@ -1,5 +1,6 @@
 package io;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +23,12 @@ implements IOManager
     }
 
     @Override
+    public String readLine() throws IOException
+    {
+        return manager.readLine();
+    }
+
+    @Override
     public void flush()
     {
         synchronized (manager)
@@ -31,6 +38,7 @@ implements IOManager
                 manager.write(text);
             }
             manager.flush();
+            buffer.clear();
         }
     }
 

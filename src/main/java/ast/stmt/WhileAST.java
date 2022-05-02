@@ -12,6 +12,7 @@ import java.util.List;
 
 public class WhileAST
 extends StmtAST
+implements BreakableStmtAST, ConditionalStmtAST
 {
 
     public WhileAST(ParserRuleContext ctx)
@@ -52,5 +53,11 @@ extends StmtAST
             invs.add(getChild(i));
         }
         return invs;
+    }
+
+    @Override
+    public String getConditionalStmt()
+    {
+        return "while " + this.getCondition().toString() + "";
     }
 }

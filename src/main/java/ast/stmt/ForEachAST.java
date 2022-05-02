@@ -10,6 +10,7 @@ import visitor.ifaces.stmt.ForEachVisitorIface;
 
 public class ForEachAST
 extends StmtAST
+implements BreakableStmtAST, ConditionalStmtAST
 {
 
     public ForEachAST(ParserRuleContext ctx)
@@ -41,5 +42,12 @@ extends StmtAST
     {
         IdASTAttr attr = super.getAttribute(IdASTAttr.class);
         return "for each " + attr.getId() + " from " + getSource().toString() + "\n" + getStatement().toString();
+    }
+
+    @Override
+    public String getConditionalStmt()
+    {
+        IdASTAttr attr = super.getAttribute(IdASTAttr.class);
+        return "for each " + attr.getId() + " from " + getSource().toString();
     }
 }

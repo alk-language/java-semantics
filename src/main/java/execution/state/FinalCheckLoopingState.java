@@ -33,4 +33,8 @@ extends LoopingState
         copy.firstTime = firstTime;
         return (FinalCheckLoopingState) super.decorate(copy, sm);
     }
+
+    public boolean getFirstTime() {
+        return firstTime;
+    }
 }

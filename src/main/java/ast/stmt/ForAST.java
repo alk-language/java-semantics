@@ -6,6 +6,7 @@ import visitor.ifaces.stmt.ForVisitorIface;
 
 public class ForAST
 extends StmtAST
+implements BreakableStmtAST, ConditionalStmtAST
 {
 
     public ForAST(ParserRuleContext ctx)
@@ -30,6 +31,15 @@ extends StmtAST
         String inc = super.getChild(2) != null ? super.getChild(2).toString() : "";
         String stmt = super.getChild(3) != null ? super.getChild(3).toString() : "";
         return "for (" + init  + "; " + cond + "; " + inc + ")\n" + stmt;
+    }
+
+    @Override
+    public String getConditionalStmt()
+    {
+        String init = super.getChild(0) != null ? super.getChild(0).toString() : "";
+        String cond = super.getChild(1) != null ? super.getChild(1).toString() : "";
+        String inc = super.getChild(2) != null ? super.getChild(2).toString() : "";
+        return "for (" + init.trim()  + " " + cond + "; " + inc + ")";
     }
 }
 

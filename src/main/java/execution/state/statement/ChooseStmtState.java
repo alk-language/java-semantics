@@ -13,6 +13,9 @@ import execution.helpers.NonDeterministic;
 import execution.ExecutionPayload;
 import execution.exhaustive.SplitMapper;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import static execution.parser.exceptions.AlkException.ERR_CHOOSE_NOT_ITERABLE;
 import static execution.parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 
 public class ChooseStmtState
-extends ExecutionState
+        extends ExecutionState
 {
     private final boolean uniform;
 
@@ -49,6 +52,33 @@ extends ExecutionState
         this.uniform = uniform;
     }
 
+    private int printElements(int start)
+    {
+        int chooseTo = Math.min(source.size(), start + 10);
+        if (start == chooseTo)
+        {
+            return -1;
+        }
+        else
+        {
+            for (int i = start; i < chooseTo; ++i)
+            {
+                BigDecimal prob = BigDecimal.ONE.divide(new BigDecimal(source.size()), MAX_DECIMALS, RoundingMode.HALF_EVEN);
+                String message = i + ". " + source.get(i).toRValue().toString();
+                if (uniform)
+                    message += " (with probability " + prob + ")";
+                getConfig().getIOManager().write(message);
+
+            }
+            if (chooseTo < source.size())
+            {
+                getConfig().getIOManager().write("There are " + (source.size() - chooseTo) + " other values to choose from. Use \"more\" to see the next " + Math.min(source.size() - chooseTo, 10) + ".");
+            }
+            getConfig().getIOManager().flush();
+            return chooseTo == source.size() ? -1 : chooseTo;
+        }
+    }
+
     @Override
     public ExecutionState makeStep()
     {
@@ -60,6 +90,70 @@ extends ExecutionState
         {
             return super.request(tree.getChild(1));
         }
+
+        // DEBUGGER PART
+        if (!selected && getConfig().isDebugger())
+        {
+            if (getExec().getStack().isInContinue())
+                getExec().getStack().printCurrentLine();
+            getConfig().getIOManager().write("Select the index of the value you want for \"" + tree.getChild(0) + "\"");
+            getConfig().getIOManager().flush();
+            int chosenElements = printElements(0);
+
+            String line = "";
+            while (!selected)
+            {
+                try
+                {
+                    line = getConfig().getIOManager().readLine();
+                }
+                catch (IOException e)
+                {
+                    getConfig().getIOManager().write(e.getMessage());
+                    getConfig().getIOManager().flush();
+                }
+                if (line.equals("more"))
+                {
+                    if (chosenElements == -1)
+                    {
+                        getConfig().getIOManager().write("No more elements to show");
+                        getConfig().getIOManager().flush();
+                    }
+                    else
+                    {
+                        chosenElements = printElements(chosenElements);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        int index = Integer.parseInt(line);
+                        if (index >= 0 && index < source.size())
+                        {
+                            getExec().getStack().makeCheckpoint();
+                            target.setValue(source.get(index).toRValue().clone(generator));
+                            selected = true;
+                            if (tree.getChildCount() > 2 && !checked)
+                            {
+                                return super.request(tree.getChild(2));
+                            }
+                        }
+                        else
+                        {
+                            getConfig().getIOManager().write("Index out of bounds");
+                            getConfig().getIOManager().flush();
+                        }
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        getConfig().getIOManager().write("Not a valid index or command");
+                        getConfig().getIOManager().flush();
+                    }
+                }
+            }
+        }
+
 
         if (!selected && !getConfig().hasExhaustive())
         {
@@ -87,6 +181,10 @@ extends ExecutionState
         {
             BigDecimal total = new BigDecimal(source.size());
             getConfig().interpretProbability(BigDecimal.ONE.divide(total, MAX_DECIMALS, RoundingMode.HALF_EVEN));
+            if (getConfig().isDebugger())
+            {
+                getConfig().getIOManager().write("Probability of current execution is " + getConfig().getProbability());
+            }
         }
 
         return null;
@@ -110,7 +208,7 @@ extends ExecutionState
                 super.handle(new AlkException(ERR_CHOOSE_NOT_ITERABLE));
             }
         }
-        else
+        else // such that
         {
             if (executionResult.getValue().toRValue() instanceof AlkBool)
             {
