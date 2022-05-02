@@ -227,7 +227,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
     {
         CallStack callStack = (stack.peek().getPayload()).getExecution().getCallStack();
         callStack.printMessages();
-        if (lineStack.size() > callStack.size() + 1 && didStep)
+        if (lineStack.size() > callStack.size() && didStep)
             lineStack.pop();
         if (!(stack.peek().getTree() instanceof BreakableStmtAST))
         {
@@ -235,7 +235,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
             conf.getIOManager().flush();
             return;
         }
-        if (lineStack.size() >= callStack.size() + 1 && didStep)
+        if (lineStack.size() >= callStack.size() && didStep)
             lineStack.pop();
         String currentLine = stack.peek().getTree().getText();
         if (stack.peek().getTree() instanceof ConditionalStmtAST)
@@ -257,8 +257,8 @@ public class ExecutionStack extends ASTStack<ExecutionState>
         conf.getIOManager().write("Current line -> " + stack.peek().getTree().getLine() + ". " + prettyLine(currentLine));
         conf.getIOManager().flush();
 
-        if (lineStack.size() < callStack.size() + 1 && didStep)
-            lineStack.push(currentLine);
+        if (lineStack.size() < callStack.size() && didStep)
+            lineStack.push(stack.peek().getTree().getLine() + ". " + currentLine);
     }
 
     void printCommand(String key)
@@ -295,6 +295,9 @@ public class ExecutionStack extends ASTStack<ExecutionState>
         }
         while (!stack.empty())
         {
+            CallStack callStack = (stack.peek().getPayload()).getExecution().getCallStack();
+            if (callStack.empty())
+                break;
             printCurrentLine();
             String line;
             try
@@ -323,7 +326,6 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 case "next":
                 {
                     didStep = true;
-                    CallStack callStack = (stack.peek().getPayload()).getExecution().getCallStack();
                     int currentStackDepth = callStack.size();
                     result = debugStep();
                     while (!stack.empty() &&
@@ -336,7 +338,6 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 }
                 case "backtrace":
                 {
-                    CallStack callStack = (stack.peek().getPayload()).getExecution().getCallStack();
                     if (callStack.empty())
                     {
                         conf.getIOManager().write("Empty call stack.");
