@@ -377,6 +377,11 @@ extends Thread
         this.funcManager = funcManager;
     }
 
+    public void setCallStack(CallStack stack)
+    {
+        this.callStack = stack;
+    }
+
     public StatefulInterpreterManager<ExecutionPayload, ExecutionResult, ExecutionState> getInterpreterManager()
     {
         return this.interpreterManager;

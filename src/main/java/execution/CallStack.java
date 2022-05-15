@@ -1,5 +1,6 @@
 package execution;
 
+import execution.exhaustive.ExecutionStateMapper;
 import execution.state.function.DefinedFunctionCallState;
 
 import java.util.Stack;
@@ -51,5 +52,13 @@ public class CallStack
     public boolean empty()
     {
         return stack.empty();
+    }
+
+    public CallStack makeClone(Execution master, ExecutionStateMapper stateMapper)
+    {
+        CallStack clone = new CallStack(master);
+        for (DefinedFunctionCallState f : stack)
+            clone.stack.push((DefinedFunctionCallState) stateMapper.get(f));
+        return clone;
     }
 }
