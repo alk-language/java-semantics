@@ -39,7 +39,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
     private final HashMap<String, ArrayList<String>> helpMessages = new HashMap<String, ArrayList<String>>() {{
         put("help", new ArrayList<String>(){{
             add("help [<command>]");
-            add("prints information about a command.");
+            add("prints the usage and description of the command given as argument, or of all the commands if no argument is given.");
         }});
         put("run", new ArrayList<String>(){{
             add("run");
@@ -70,8 +70,12 @@ public class ExecutionStack extends ASTStack<ExecutionState>
             add("creates a breakpoint at the specified line.");
         }});
         put("clear", new ArrayList<String>(){{
-            add("clear <line_number>");
-            add("deletes the breakpoint at the specified line.");
+            add("clear [<line_number>]");
+            add("deletes the breakpoint at the specified line, or all of them if no argument is given.");
+        }});
+        put("back", new ArrayList<String>(){{
+            add("back");
+            add("goes back in the execution to a previous checkpoint.");
         }});
     }};
 
@@ -442,8 +446,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 {
                     if (tokens.length < 2)
                     {
-                        conf.getIOManager().write("No line number given.");
-                        break;
+                        breakpoints.clear();
                     }
                     try
                     {
