@@ -16,7 +16,6 @@ import execution.state.ExecutionState;
 import execution.parser.env.LocationMapper;
 import execution.state.FinalCheckLoopingState;
 import execution.state.LoopingState;
-import execution.state.function.DefinedFunctionCallState;
 import execution.state.statement.DoWhileState;
 import execution.state.statement.IfStmtState;
 import execution.state.statement.RepeatUntilState;
@@ -39,7 +38,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
     private final HashMap<String, ArrayList<String>> helpMessages = new HashMap<String, ArrayList<String>>() {{
         put("help", new ArrayList<String>(){{
             add("help [<command>]");
-            add("prints information about a command.");
+            add("prints the usage and description of the command given as argument, or of all the commands if no argument is given.");
         }});
         put("run", new ArrayList<String>(){{
             add("run");
@@ -69,9 +68,21 @@ public class ExecutionStack extends ASTStack<ExecutionState>
             add("break <line_number>");
             add("creates a breakpoint at the specified line.");
         }});
+        put("breakpoints", new ArrayList<String>(){{
+            add("breakpoints");
+            add("prints all the breakpoints that currently exist.");
+        }});
         put("clear", new ArrayList<String>(){{
-            add("clear <line_number>");
-            add("deletes the breakpoint at the specified line.");
+            add("clear [<line_number>]");
+            add("deletes the breakpoint at the specified line, or all of them if no argument is given.");
+        }});
+        put("back", new ArrayList<String>(){{
+            add("back");
+            add("goes back in the execution to a previous checkpoint.");
+        }});
+        put("checkpoints", new ArrayList<String>(){{
+            add("checkpoints");
+            add("prints all the checkpoints that currently exist.");
         }});
     }};
 
@@ -427,6 +438,24 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                     }
                     break;
                 }
+                case "breakpoints":
+                {
+                    if (breakpoints.size() == 0)
+                    {
+                        conf.getIOManager().write("No breakpoints are active.");
+                        conf.getIOManager().flush();
+                        break;
+                    }
+                    conf.getIOManager().write("Currently active breakpoints:");
+                    conf.getIOManager().flush();
+                    int pos = 0;
+                    for (int bp : breakpoints)
+                    {
+                        conf.getIOManager().write("Breakpoint " + ++pos + " at line " + bp);
+                        conf.getIOManager().flush();
+                    }
+                    break;
+                }
                 case "continue":
                 {
                     result = debugStep();
@@ -442,8 +471,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 {
                     if (tokens.length < 2)
                     {
-                        conf.getIOManager().write("No line number given.");
-                        break;
+                        breakpoints.clear();
                     }
                     try
                     {
@@ -501,6 +529,24 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                             conf.getIOManager().flush();
                         }
                     }
+                }
+                case "checkpoints":
+                {
+                    if (clones.size() == 0)
+                    {
+                        conf.getIOManager().write("No checkpoints are active.");
+                        conf.getIOManager().flush();
+                        break;
+                    }
+                    conf.getIOManager().write("Currently active checkpoints:");
+                    conf.getIOManager().flush();
+                    for (int i=0; i < clones.size(); i++)
+                    {
+                        conf.getIOManager().write("Checkpoint " + i + ":");
+                        conf.getIOManager().flush();
+                        clones.get(i).getStack().printCurrentLine();
+                    }
+                    break;
                 }
                 case "help":
                 {
