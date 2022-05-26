@@ -8,6 +8,7 @@ import util.Configuration;
 import util.exception.InternalException;
 
 import java.util.Stack;
+import java.util.function.Consumer;
 
 public class ASTStack<T extends State>
 {
@@ -15,9 +16,20 @@ public class ASTStack<T extends State>
 
     protected Configuration conf;
 
+    protected Consumer<UnwindException> handler;
+
+    private boolean failure = false;
+
     public ASTStack(Configuration conf)
     {
         this.conf = conf;
+        this.handler = null;
+    }
+
+    public ASTStack(Configuration conf, Consumer<UnwindException> handler)
+    {
+        this.conf = conf;
+        this.handler = handler;
     }
 
     public void push(T state)
@@ -62,7 +74,10 @@ public class ASTStack<T extends State>
             if (u.isError())
                 throw new AlkException(u);
             else
-                conf.getIOManager().write(u.getMessage());
+            {
+                if (handler != null)
+                    handler.accept(u);
+            }
         }
     }
 

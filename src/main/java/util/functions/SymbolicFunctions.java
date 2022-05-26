@@ -4,7 +4,10 @@ import ast.AST;
 import ast.attr.BuiltInFunctionASTAttr;
 import ast.enums.BuiltInFunction;
 import ast.expr.BuiltinFunctionAST;
+import execution.parser.env.Location;
+import execution.types.AlkValue;
 import execution.types.alkNotAValue.AlkNotAValue;
+import execution.types.alkSet.AlkSet;
 import io.IOManager;
 import symbolic.SymbolicValue;
 import util.Configuration;
@@ -93,6 +96,13 @@ implements Funcs
     public static Storable abs(List<Storable> params)
     {
         return apply(params, BuiltInFunction.ABS);
+    }
+
+    @BuiltInFunctionImpl(paramNumber = 1)
+    public AlkValue singletonset(List<Storable> params)
+    {
+        Location loc = generator.generate(params.get(0));
+        return new AlkSet().insert(loc);
     }
 
     Configuration config;

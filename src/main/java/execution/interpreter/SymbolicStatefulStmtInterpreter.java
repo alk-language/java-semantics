@@ -43,7 +43,7 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretChoose(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretChoose(ast, payload);
+        return new SymbolicChooseState(ast, payload, false);
     }
 
     @Override
@@ -79,7 +79,7 @@ implements StatefulStmtInterpreter<ExecutionPayload, ExecutionState>
     @Override
     public ExecutionState interpretForEach(AST ast, ExecutionPayload payload)
     {
-        return baseDelegate.interpretForEach(ast, payload); // TODO: do symbolic
+        return new SymbolicForEachState(ast, payload);
     }
 
     @Override

@@ -84,6 +84,10 @@ public class Symbolic
 
         for (ExecutionOutput output : results)
         {
+            if (output.failure)
+            {
+                continue;
+            }
             if (output.hasError)
             {
                 throw new AlkException("Function " + id + " can't be verified!");

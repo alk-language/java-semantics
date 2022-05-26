@@ -140,6 +140,8 @@ implements ExpressionVisitorIface<Expr>,
         {
             throw new AlkException("Can't process relation expressions with more than one operator: " + alkCtx.ctx.toString());
         }
+        int x = 100;
+        x = x >>> 2;
         switch (attr.getOp(0))
         {
             case EQUAL:
@@ -312,7 +314,7 @@ implements ExpressionVisitorIface<Expr>,
             {
                 case UNION: expr = alkCtx.ctx.mkSetUnion(expr, nxt); break;
                 case INTERSECT: expr = alkCtx.ctx.mkSetIntersection(expr, nxt); break;
-                case SETSUBTRACT: expr = alkCtx.ctx.mkSetSubset(expr, nxt); break;
+                case SETSUBTRACT: expr = alkCtx.ctx.mkSetDifference(expr, nxt); break;
                 default: throw new InternalException("Can't process unidentified relational operator: " + attr.getOp(i - 1));
             }
         }
