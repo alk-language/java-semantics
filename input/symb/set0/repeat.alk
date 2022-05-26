@@ -1,0 +1,15 @@
+@havoc n : int;
+@assume n > 1;
+
+sum = 0;
+i = 1;
+
+repeat
+{
+    sum += i;
+    i++;
+} until (i > n)
+@invariant sum == i * (i - 1) / 2;
+@invariant i <= n + 1;
+
+@assert sum == n * (n + 1) / 2;

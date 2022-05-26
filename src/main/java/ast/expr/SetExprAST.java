@@ -30,7 +30,7 @@ extends ExpressionAST
 
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
-        return new SetDataTypeAST(null);
+        return ((ExpressionAST) getChild(0)).getDataType(dtp);
     }
 
     @Override

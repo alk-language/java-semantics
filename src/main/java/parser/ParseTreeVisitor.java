@@ -3,12 +3,16 @@ package parser;
 import ast.AST;
 import ast.attr.IdASTAttr;
 import ast.attr.ParamASTAttr;
+import ast.enums.Operator;
 import ast.enums.ParamType;
 import ast.expr.RefIDAST;
+import ast.expr.UnaryAST;
 import ast.stmt.*;
 import ast.symbolic.SymbolicDeclsAST;
 import ast.symbolic.IdDeclAST;
 import ast.type.DataTypeAST;
+import com.sun.javafx.fxml.expression.BinaryExpression;
+import com.sun.javafx.fxml.expression.UnaryExpression;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -201,19 +205,13 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitRepeatStructure(alkParser.RepeatStructureContext ctx)
     {
-        AST repeatAST = new RepeatUntilAST(ctx);
-        repeatAST.addChild(visit(ctx.statement()));
-        repeatAST.addChild(exprVisitor.visit(ctx.expression()));
-        return repeatAST;
+        return new WhileVisitor(this).visit(ctx);
     }
 
     @Override
     public AST visitDoWhileStructure(alkParser.DoWhileStructureContext ctx)
     {
-        AST ast = new DoWhileAST(ctx);
-        ast.addChild(visit(ctx.statement()));
-        ast.addChild(exprVisitor.visit(ctx.expression()));
-        return ast;
+        return new WhileVisitor(this).visit(ctx);
     }
 
     @Override
@@ -238,12 +236,7 @@ extends alkBaseVisitor<AST>
     @Override
     public AST visitForStructure(alkParser.ForStructureContext ctx)
     {
-        AST ast = new ForAST(ctx);
-        ast.addChild(exprVisitor.visit(ctx.expression(0)));
-        ast.addChild(exprVisitor.visit(ctx.expression(1)));
-        ast.addChild(exprVisitor.visit(ctx.expression(2)));
-        ast.addChild(visit(ctx.statement()));
-        return ast;
+        return new WhileVisitor(this).visit(ctx);
     }
 
     @Override
@@ -267,9 +260,23 @@ extends alkBaseVisitor<AST>
         ast.addChild(exprVisitor.visit(ctx.expression(1)));
         if (ctx.expression().size() > 2)
         {
-            ast.addChild(exprVisitor.visit(ctx.expression(2)));
+            AST blockAST = new BlockAST(ctx);
+            AST stmtSeq = new StmtSeqAST(ctx);
+            blockAST.addChild(stmtSeq);
+            stmtSeq.addChild(ast);
+            AST ifAST = new IfThenAST(ctx);
+            stmtSeq.addChild(ifAST);
+
+            AST negateAST = UnaryAST.createUnary(Operator.NOT, exprVisitor.visit(ctx.expression(2)));
+            ifAST.addChild(negateAST);
+            ifAST.addChild(new FailureAST(ctx));
+
+            return blockAST;
         }
-        return ast;
+        else
+        {
+            return ast;
+        }
     }
 
     @Override
@@ -461,6 +468,105 @@ extends alkBaseVisitor<AST>
             }
 
             return whileAst;
+        }
+
+        @Override
+        public AST visitForStructure(alkParser.ForStructureContext ctx)
+        {
+            whileAst = new WhileAST(ctx, ctx.loop_assert() != null);
+            whileAst.addChild(exprVisitor.visit(ctx.expression(1)));
+
+            for (int i = 0; i < ctx.while_anno().size(); i++)
+            {
+                visit(ctx.while_anno(i));
+            }
+
+            if (paramAttr.getParamCount() != 0)
+            {
+                whileAst.addAttribute(ParamASTAttr.class, paramAttr);
+            }
+
+            AST innerAST = new StmtSeqAST(ctx);
+            AST incAST = new ExprStmtAST(ctx);
+            incAST.addChild(exprVisitor.visit(ctx.expression(2)));
+            innerAST.addChild(stmtVisitor.visit(ctx.statement()));
+            innerAST.addChild(incAST);
+            whileAst.addChild(innerAST);
+
+            if (ctx.loop_assert() != null)
+            {
+                visit(ctx.loop_assert());
+            }
+
+            AST fullAST = new StmtSeqAST(ctx);
+            AST initAST = new ExprStmtAST(ctx);
+            initAST.addChild(exprVisitor.visit(ctx.expression(0)));
+            fullAST.addChild(initAST);
+            fullAST.addChild(whileAst);
+
+            return fullAST;
+        }
+
+        @Override
+        public AST visitDoWhileStructure(alkParser.DoWhileStructureContext ctx)
+        {
+            whileAst = new WhileAST(ctx, ctx.loop_assert() != null);
+            whileAst.addChild(exprVisitor.visit(ctx.expression()));
+
+            for (int i = 0; i < ctx.while_anno().size(); i++)
+            {
+                visit(ctx.while_anno(i));
+            }
+
+            if (paramAttr.getParamCount() != 0)
+            {
+                whileAst.addAttribute(ParamASTAttr.class, paramAttr);
+            }
+            whileAst.addChild(stmtVisitor.visit(ctx.statement()));
+
+            if (ctx.loop_assert() != null)
+            {
+                visit(ctx.loop_assert());
+            }
+
+
+
+            AST fullAST = new StmtSeqAST(ctx);
+            fullAST.addChild(stmtVisitor.visit(ctx.statement()));
+            fullAST.addChild(whileAst);
+
+            return fullAST;
+        }
+
+        @Override
+        public AST visitRepeatStructure(alkParser.RepeatStructureContext ctx)
+        {
+            whileAst = new WhileAST(ctx, ctx.loop_assert() != null);
+            whileAst.addChild(UnaryAST.createUnary(Operator.NOT, exprVisitor.visit(ctx.expression())));
+
+            for (int i = 0; i < ctx.while_anno().size(); i++)
+            {
+                visit(ctx.while_anno(i));
+            }
+
+            if (paramAttr.getParamCount() != 0)
+            {
+                whileAst.addAttribute(ParamASTAttr.class, paramAttr);
+            }
+            whileAst.addChild(stmtVisitor.visit(ctx.statement()));
+
+            if (ctx.loop_assert() != null)
+            {
+                visit(ctx.loop_assert());
+            }
+
+
+
+            AST fullAST = new StmtSeqAST(ctx);
+            fullAST.addChild(stmtVisitor.visit(ctx.statement()));
+            fullAST.addChild(whileAst);
+
+            return fullAST;
         }
 
         @Override

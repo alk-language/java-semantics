@@ -80,7 +80,7 @@ directive
 
 repeat_struct
 :
-    REPEAT statement UNTIL LPAR expression RPAR                                                                         #RepeatStructure
+    REPEAT statement UNTIL LPAR expression RPAR while_anno* loop_assert?                                                #RepeatStructure
 ;
 
 statement_block
@@ -118,7 +118,7 @@ loop_assert
 
 do_while_struct
 :
-    DO statement WHILE LPAR expression RPAR                                                                             #DoWhileStructure
+    DO statement WHILE LPAR expression RPAR while_anno* loop_assert?                                                    #DoWhileStructure
 ;
 
 if_struct
@@ -128,12 +128,12 @@ if_struct
 
 for_struct
 :
-    FOR LPAR expression SEMICOLON expression SEMICOLON expression RPAR statement                                        #ForStructure
+    FOR LPAR expression SEMICOLON expression SEMICOLON expression RPAR while_anno* statement loop_assert?               #ForStructure
 ;
 
 foreach_struct
 :
-    FOREACH ID FROM expression statement                                                                                #ForEachStructure
+    FOREACH ID FROM expression while_anno* statement loop_assert?                                                       #ForEachStructure
 ;
 
 function_decl

@@ -386,6 +386,8 @@ extends WhileState
             {
                 if (!getExec().getPathCondition().asserts((SymbolicValue) invariantValue))
                 {
+                    System.out.println("Path condition: " + getExec().getPathCondition());
+                    System.out.println("Invariant: " + invariantValue);
                     throw new AlkException("Loop invariant violation!");
                 }
             }

@@ -7,7 +7,6 @@ import ast.attr.RepresentationASTAttr;
 import ast.enums.*;
 import execution.ExecutionPayload;
 import execution.state.ExecutionState;
-import execution.state.expression.*;
 import execution.state.symbolic.*;
 import util.exception.InternalException;
 import visitor.stateful.StatefulExpressionInterpreter;
@@ -106,7 +105,11 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
             case INTERVAL:
                 if (primitive == Primitive.ARRAY)
                 {
-                    return new SymbolicIntervalState(primitive, ast, payload);
+                    return new ArraySymbolicIntervalState(primitive, ast, payload);
+                }
+                else if (primitive == Primitive.SET)
+                {
+                    return new SetSymbolicIntervalState(primitive, ast, payload);
                 }
                 return baseDelegate.interpretComposite(primitive, ast, payload);
             default:

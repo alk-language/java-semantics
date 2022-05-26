@@ -180,6 +180,11 @@ extends ExecutionState
     public ExecutionState clone(SplitMapper sm)
     {
         DefinedFunctionCallState copy = new DefinedFunctionCallState(tree, payload.clone(sm));
+        return this.decorate(copy, sm);
+    }
+
+    public ExecutionState decorate(DefinedFunctionCallState copy, SplitMapper sm)
+    {
         for (Storable param : params)
         {
             copy.params.add(param.weakClone(sm.getLocationMapper()));

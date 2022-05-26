@@ -13,6 +13,7 @@ implements SMTFunctionSolver
 {
     private final Map<Sort, FuncDecl<?>> funcs = new HashMap<>();
     private final AlkSMTContext alkCtx;
+    private final boolean USE_LOCAL_DEF = false;
 
     public AlkSMTAbsFunction(AlkSMTContext alkCtx)
     {
@@ -23,7 +24,7 @@ implements SMTFunctionSolver
     {
         Sort paramType = params[0].getSort();
         Expr ans = getFunc(paramType).apply(params[0]);
-        if (!USE_GLOBAL_DEF)
+        if (!USE_LOCAL_DEF)
         {
             alkCtx.add(doConstraints(paramType, ans, params));
         }
@@ -33,8 +34,8 @@ implements SMTFunctionSolver
     private Expr doConstraints(Sort paramType, Expr application, Expr[] params)
     {
         Context ctx = alkCtx.ctx;
-        Expr body0 = alkCtx.ctx.mkImplies(ctx.mkLt(params[0], ctx.mkInt(0)), ctx.mkEq(ctx.mkMul(params[0], ctx.mkInt(-1)), application));
-        Expr body1 = alkCtx.ctx.mkImplies(ctx.mkLe(ctx.mkInt(0), params[0]), ctx.mkEq(application, params[0]));
+        Expr body0 = alkCtx.ctx.mkIff(ctx.mkLt(params[0], ctx.mkInt(0)), ctx.mkEq(ctx.mkUnaryMinus(params[0]), application));
+        Expr body1 = alkCtx.ctx.mkIff(ctx.mkLe(ctx.mkInt(0), params[0]), ctx.mkEq(application, params[0]));
         return ctx.mkAnd(body0, body1);
     }
 
@@ -42,13 +43,12 @@ implements SMTFunctionSolver
     {
         if (!funcs.containsKey(paramType))
         {
-            FuncDecl fd = alkCtx.ctx.mkFuncDecl("sqrt", new Sort[]{ paramType }, alkCtx.ctx.getRealSort());
+            FuncDecl fd = alkCtx.ctx.mkFuncDecl("abs", new Sort[]{ paramType }, paramType);
             funcs.put(paramType, fd);
 
-            if (USE_GLOBAL_DEF)
+            if (USE_LOCAL_DEF)
             {
                 Context ctx = alkCtx.ctx;
-
                 Expr fresh = ctx.mkConst(alkCtx.getFresh(), paramType);
 
                 Expr[] bound = new Expr[] { fresh };

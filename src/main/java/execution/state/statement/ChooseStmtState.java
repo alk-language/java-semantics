@@ -25,12 +25,12 @@ import static execution.parser.exceptions.AlkException.ERR_CHOSE_ST_BOOL;
 public class ChooseStmtState
 extends ExecutionState
 {
-    private final boolean uniform;
+    protected final boolean uniform;
 
-    private List<Location> source;
+    protected List<Location> source;
     private boolean checked = false;
     private boolean selected = false;
-    private Location target;
+    protected Location target;
     private boolean firedExhaustive = false;
 
 
@@ -131,7 +131,11 @@ extends ExecutionState
     public ExecutionState clone(SplitMapper sm)
     {
         ChooseStmtState copy = new ChooseStmtState(tree, getPayload().clone(sm), uniform);
+        return this.decorate(copy, sm);
+    }
 
+    public ExecutionState clone(ChooseStmtState copy, SplitMapper sm)
+    {
         if (this.source != null)
         {
             copy.source = new ArrayList<>();
