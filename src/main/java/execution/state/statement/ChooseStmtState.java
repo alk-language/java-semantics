@@ -61,6 +61,10 @@ public class ChooseStmtState
         }
         else
         {
+            if (getConfig().hasDebugMarkers())
+            {
+                getConfig().getIOManager().write("--- begin <choose> ---");
+            }
             for (int i = start; i < chooseTo; ++i)
             {
                 BigDecimal prob = BigDecimal.ONE.divide(new BigDecimal(source.size()), MAX_DECIMALS, RoundingMode.HALF_EVEN);
@@ -73,6 +77,10 @@ public class ChooseStmtState
             if (chooseTo < source.size())
             {
                 getConfig().getIOManager().write("There are " + (source.size() - chooseTo) + " other values to choose from. Use \"more\" to see the next " + Math.min(source.size() - chooseTo, 10) + ".");
+            }
+            if (getConfig().hasDebugMarkers())
+            {
+                getConfig().getIOManager().write("--- end <choose> ---");
             }
             getConfig().getIOManager().flush();
             return chooseTo == source.size() ? -1 : chooseTo;
@@ -96,7 +104,7 @@ public class ChooseStmtState
         {
             if (getExec().getStack().isInContinue())
                 getExec().getStack().printCurrentLine();
-            getConfig().getIOManager().write("Select the index of the value you want for \"" + tree.getChild(0) + "\"");
+            getConfig().getIOManager().write("Select the index of the value you want for \"" + tree.getChild(0) + "\"" + " on line " + tree.getLine());
             getConfig().getIOManager().flush();
             int chosenElements = printElements(0);
 

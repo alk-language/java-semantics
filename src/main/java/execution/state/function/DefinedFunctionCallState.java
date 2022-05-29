@@ -200,6 +200,7 @@ extends ExecutionState
         copy.env = sm.getEnvironmentMapper().get(this.env);
         copy.madeEnv = madeEnv;
         copy.reqStep = reqStep;
+        copy.stringRepr = stringRepr;
         return super.decorate(copy, sm);
     }
 

@@ -242,8 +242,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
             lineStack.pop();
         if (!(stack.peek().getTree() instanceof BreakableStmtAST))
         {
-            conf.getIOManager().write("Current line -> " + prettyLine(lineStack.peek()));
-            conf.getIOManager().flush();
+            printDebugMessage("Current line -> " + prettyLine(lineStack.peek()));
             return;
         }
         if (lineStack.size() >= callStack.size() && didStep)
@@ -264,9 +263,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 currentLine = ((FinalTestConditionalStmtAST)stack.peek().getTree()).getConditionalStmt();
             }
         }
-
-        conf.getIOManager().write("Current line -> " + stack.peek().getTree().getLine() + ". " + prettyLine(currentLine));
-        conf.getIOManager().flush();
+        printDebugMessage("Current line -> " + stack.peek().getTree().getLine() + ". " + prettyLine(currentLine));
 
         if (lineStack.size() < callStack.size() && didStep)
             lineStack.push(stack.peek().getTree().getLine() + ". " + currentLine);
@@ -276,8 +273,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
     {
         if (!helpMessages.containsKey(key))
         {
-            conf.getIOManager().write("\"" + key + "\" is not a valid command, use \"help\" to see all the available commands.");
-            conf.getIOManager().flush();
+            printDebugMessage("\"" + key + "\" is not a valid command, use \"help\" to see all the available commands.");
             return;
         }
         StringBuilder spaces = new StringBuilder();
@@ -285,15 +281,20 @@ public class ExecutionStack extends ASTStack<ExecutionState>
         {
             spaces.append(" ");
         }
-        conf.getIOManager().write(key + spaces + "->\t" + helpMessages.get(key).get(0));
-        conf.getIOManager().write("            \t" + helpMessages.get(key).get(1));
-        conf.getIOManager().flush();
+        printDebugMessage(key + spaces + "->\t" + helpMessages.get(key).get(0));
+        printDebugMessage("            \t" + helpMessages.get(key).get(1));
     }
 
     private Result<?> debugStep()
     {
         //smallStep();
         return gotoBreakableStmt();
+    }
+
+    private void printDebugMessage(String message)
+    {
+        conf.getIOManager().write(message);
+        conf.getIOManager().flush();
     }
 
     public Result<?> debug()
@@ -317,8 +318,12 @@ public class ExecutionStack extends ASTStack<ExecutionState>
             }
             catch (IOException e)
             {
-                conf.getIOManager().write(e.getMessage());
+                printDebugMessage(e.getMessage());
                 continue;
+            }
+            if (conf.hasDebugMarkers())
+            {
+                printDebugMessage("--- begin <" + line + "> ---");
             }
             String[] tokens = line.split(" ", 2);
             String command = tokens[0];
@@ -351,36 +356,38 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 {
                     if (callStack.empty())
                     {
-                        conf.getIOManager().write("Empty call stack.");
+                        printDebugMessage("Empty call stack.");
                     }
                     else
                     {
                         for (int i=callStack.size()-1;i>=0;i--)
                         {
-                            conf.getIOManager().write(callStack.get(i).toString());
+                            int l = stack.peek().getTree().getLine();
+                            if (i < callStack.size() - 1)
+                                l = callStack.get(i + 1).getTree().getLine();
+                            printDebugMessage(callStack.get(i).toString() + " at line " + l);
                         }
                     }
-                    conf.getIOManager().flush();
+                    
                     break;
                 }
                 case "print":
                 {
                     if (tokens.length < 2)
                     {
-                        conf.getIOManager().write("No expression given.");
+                        printDebugMessage("No expression given.");
                         break;
                     }
                     ParseTree tree = AlkParser.execute(tokens[1]);
                     if (tree == null)
                     {
-                        conf.getIOManager().write("Syntax error!");
+                        printDebugMessage("Syntax error!");
                         break;
                     }
                     AST root = ParseTreeGlobals.PARSE_TREE_EXPR_VISITOR.visit(tree);
                     if (root instanceof AssignmentAST) // de investigat alte statementuri cu side-effect
                     {
-                        conf.getIOManager().write("This statement has side-effects. Are you sure you want to run it? (yes / no)");
-                        conf.getIOManager().flush();
+                        printDebugMessage("This statement has side-effects. Are you sure you want to run it? (yes / no)");
                         try
                         {
                             line = conf.getIOManager().readLine();
@@ -389,10 +396,9 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                         }
                         catch (IOException e)
                         {
-                            conf.getIOManager().write(e.getMessage());
+                            printDebugMessage(e.getMessage());
                             break;
                         }
-
                     }
                     ExecutionPayload payload = stack.peek().getPayload();
                     Execution execution = payload.getExecution();
@@ -406,25 +412,24 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                                 execution.getInterpreterManager());
                         if (value == null)
                         {
-                            conf.getIOManager().write("No value.");
+                            printDebugMessage("No value.");
                         }
                         else
                         {
-                            conf.getIOManager().write(value.toRValue().toString());
+                            printDebugMessage(value.toRValue().toString());
                         }
                     }
                     catch (Exception e)
                     {
-                        conf.getIOManager().write("Error. " + e.getMessage());
+                        printDebugMessage("Error. " + e.getMessage());
                     }
-                    conf.getIOManager().flush();
                     break;
                 }
                 case "break":
                 {
                     if (tokens.length < 2)
                     {
-                        conf.getIOManager().write("No line number given.");
+                        printDebugMessage("No line number given.");
                         break;
                     }
                     try
@@ -433,8 +438,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                     }
                     catch (Exception e)
                     {
-                        conf.getIOManager().write(e.getMessage());
-                        conf.getIOManager().flush();
+                        printDebugMessage(e.getMessage());
                     }
                     break;
                 }
@@ -442,17 +446,17 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 {
                     if (breakpoints.size() == 0)
                     {
-                        conf.getIOManager().write("No breakpoints are active.");
-                        conf.getIOManager().flush();
+                        printDebugMessage("No breakpoints are active.");
+                        
                         break;
                     }
-                    conf.getIOManager().write("Currently active breakpoints:");
-                    conf.getIOManager().flush();
+                    printDebugMessage("Currently active breakpoints:");
+                    
                     int pos = 0;
                     for (int bp : breakpoints)
                     {
-                        conf.getIOManager().write("Breakpoint " + ++pos + " at line " + bp);
-                        conf.getIOManager().flush();
+                        printDebugMessage("Breakpoint " + ++pos + " at line " + bp);
+                        
                     }
                     break;
                 }
@@ -478,16 +482,14 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                         int lineNum = Integer.parseInt(tokens[1]);
                         if (!breakpoints.contains(lineNum))
                         {
-                            conf.getIOManager().write("No breakpoint at line " + lineNum);
-                            conf.getIOManager().flush();
+                            printDebugMessage("No breakpoint at line " + lineNum);
                             break;
                         }
                         breakpoints.remove(lineNum);
                     }
                     catch (Exception e)
                     {
-                        conf.getIOManager().write(e.getMessage());
-                        conf.getIOManager().flush();
+                        printDebugMessage(e.getMessage());
                     }
                     break;
                 }
@@ -495,18 +497,18 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 {
                     if (clones.size() == 0)
                     {
-                        conf.getIOManager().write("No checkpoints");
-                        conf.getIOManager().flush();
+                        printDebugMessage("No checkpoints");
+                        printDebugMessage("--- end <back> ---");
                         break;
                     }
-                    conf.getIOManager().write("Choose the index of the checkpoint you want to return to.");
-                    conf.getIOManager().flush();
+                    printDebugMessage("Choose the index of the checkpoint you want to return to.");
+                    
                     for (int i=0; i < clones.size(); i++)
                     {
-                        conf.getIOManager().write("Checkpoint " + i + ":");
-                        conf.getIOManager().flush();
+                        printDebugMessage("Checkpoint " + i + ":");
                         clones.get(i).getStack().printCurrentLine();
                     }
+                    printDebugMessage("--- end <back> ---");
                     while (true)
                     {
                         try
@@ -520,13 +522,11 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                         }
                         catch (IOException e)
                         {
-                            conf.getIOManager().write(e.getMessage());
-                            conf.getIOManager().flush();
+                            printDebugMessage(e.getMessage());
                         }
                         catch (NumberFormatException e)
                         {
-                            conf.getIOManager().write("Invalid number");
-                            conf.getIOManager().flush();
+                            printDebugMessage("Invalid number");
                         }
                     }
                 }
@@ -534,16 +534,14 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 {
                     if (clones.size() == 0)
                     {
-                        conf.getIOManager().write("No checkpoints are active.");
-                        conf.getIOManager().flush();
+                        printDebugMessage("No checkpoints are active.");
                         break;
                     }
-                    conf.getIOManager().write("Currently active checkpoints:");
-                    conf.getIOManager().flush();
+                    printDebugMessage("Currently active checkpoints:");
+                    
                     for (int i=0; i < clones.size(); i++)
                     {
-                        conf.getIOManager().write("Checkpoint " + i + ":");
-                        conf.getIOManager().flush();
+                        printDebugMessage("Checkpoint " + i + ":");
                         clones.get(i).getStack().printCurrentLine();
                     }
                     break;
@@ -562,14 +560,16 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                         }
                         catch (Exception e)
                         {
-                            conf.getIOManager().write(e.getMessage());
-                            conf.getIOManager().flush();
+                            printDebugMessage(e.getMessage());
                         }
                     }
                     break;
                 }
             }
-
+            if (conf.hasDebugMarkers() && !line.equals("back"))
+            {
+                printDebugMessage("--- end <" + line + "> ---");
+            }
         }
         return result;
     }

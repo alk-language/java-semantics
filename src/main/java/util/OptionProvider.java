@@ -27,4 +27,6 @@ public interface OptionProvider
     String getProver();
 
     boolean isDebugger();
+
+    boolean hasDebugMarkers();
 }

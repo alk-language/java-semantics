@@ -124,6 +124,12 @@ implements OptionProvider
     {
         return false;
     }
+
+    @Override
+    public boolean hasDebugMarkers()
+    {
+        return false;
+    }
 }
 
 class TestingIO implements IOManager {
