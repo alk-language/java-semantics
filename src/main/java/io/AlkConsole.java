@@ -98,6 +98,10 @@ implements IOManager,
         debugger.setRequired(false);
         options.addOption(debugger);
 
+        Option debugMarkers = new Option("dm", "debugMarkers", false, "print command markers while debugging");
+        debugMarkers.setRequired(false);
+        options.addOption(debugMarkers);
+
         CommandLineParser cmdparser = new DefaultParser();
 
         try
@@ -245,6 +249,12 @@ implements IOManager,
     public boolean isDebugger()
     {
         return cmd.hasOption("debugger");
+    }
+
+    @Override
+    public boolean hasDebugMarkers()
+    {
+        return cmd.hasOption("debugMarkers");
     }
 
     public IOManager getEndpoint()

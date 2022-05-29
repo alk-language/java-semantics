@@ -81,7 +81,7 @@ public class AlkParser
      */
     public static ParseTree execute(File alkFile, PreProcessing.PreProcessingContext context)
     {
-        return execute(alkFile, false, PreProcessing.newContext(alkFile.getAbsolutePath()));
+        return execute(alkFile, false, false, PreProcessing.newContext(alkFile.getAbsolutePath()));
     }
 
     /**
@@ -93,8 +93,22 @@ public class AlkParser
      */
     public static ParseTree execute(File alkFile, boolean forExpression)
     {
-        return execute(alkFile, forExpression, PreProcessing.newContext(alkFile.getAbsolutePath()));
+        return execute(alkFile, forExpression, false, PreProcessing.newContext(alkFile.getAbsolutePath()));
     }
+
+    /**
+     * Main entry point of the parsing process.
+     * @param alkFile
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the file.
+     */
+    public static ParseTree execute(File alkFile, boolean forExpression, boolean errorTolerant)
+    {
+        return execute(alkFile, forExpression, errorTolerant, PreProcessing.newContext(alkFile.getAbsolutePath()));
+    }
+
+
 
     /**
      * Main entry point of the parsing process.
@@ -106,7 +120,7 @@ public class AlkParser
      * @return
      *        The parse tree resulted from parsing the file.
      */
-    public static ParseTree execute(File alkFile, boolean forExpression, PreProcessing.PreProcessingContext context)
+    public static ParseTree execute(File alkFile, boolean forExpression, boolean errorTolerant, PreProcessing.PreProcessingContext context)
     {
         try
         {
@@ -119,7 +133,7 @@ public class AlkParser
             else
                 tree = parser.main();
 
-            if (parser.getNumberOfSyntaxErrors() != 0)
+            if (parser.getNumberOfSyntaxErrors() != 0 && !errorTolerant)
             {
                 return null;
             }

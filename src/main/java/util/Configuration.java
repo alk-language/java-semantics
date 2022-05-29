@@ -45,6 +45,8 @@ implements OptionProvider,
 
     private boolean debugger;
 
+    private boolean debugMarkers;
+
     /** The debugMode flag, used to print the stach trace in case of one exception*/
     private boolean debugMode;
 
@@ -142,6 +144,12 @@ implements OptionProvider,
         return this.debugger;
     }
 
+    @Override
+    public boolean hasDebugMarkers()
+    {
+        return this.debugMarkers;
+    }
+
     public void setDebugger(boolean debugger)
     {
         this.debugger = debugger;
@@ -208,6 +216,7 @@ implements OptionProvider,
         this.conditionPath = op.getConditionPath();
         this.prover = op.hasProver() ? op.getProver() : null;
         this.debugger = op.isDebugger();
+        this.debugMarkers = op.hasDebugMarkers();
     }
 
     /**
