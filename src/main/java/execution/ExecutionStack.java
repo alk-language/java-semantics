@@ -28,9 +28,7 @@ import util.Configuration;
 import util.exception.AlkDebugTerminateException;
 import util.types.Storable;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 public class ExecutionStack extends ASTStack<ExecutionState>
@@ -159,6 +157,11 @@ public class ExecutionStack extends ASTStack<ExecutionState>
 
     private Result<?> exitConditionals()
     {
+        if (stack.empty())
+        {
+            return null;
+        }
+
         Result<?> result = null;
         if (stack.peek() instanceof DoWhileState || stack.peek() instanceof RepeatUntilState)
         {
@@ -181,7 +184,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
         {
             result = smallStep();
         }
-        while (stack.peek() == initialStackTop)
+        while (!stack.empty() && stack.peek() == initialStackTop)
         {
             result = smallStep();
             while (!stack.empty() && !(stack.peek().getTree() instanceof BreakableStmtAST) && callStack.size() >= initialCallStackSize)
@@ -189,7 +192,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                 result = smallStep();
             }
         }
-        if (breakOnNonBreakable && callStack.size() == initialCallStackSize)
+        if (!stack.empty() && breakOnNonBreakable && callStack.size() == initialCallStackSize)
         {
             result = smallStep();
             while (!stack.empty() && !(stack.peek().getTree() instanceof BreakableStmtAST) && callStack.size() >= initialCallStackSize)
@@ -202,7 +205,8 @@ public class ExecutionStack extends ASTStack<ExecutionState>
             exitedConditional = false;
             result = exitConditionals();
         } while (exitedConditional);
-        breakOnNonBreakable = !(stack.peek().getTree() instanceof BreakableStmtAST);
+        if (!stack.empty())
+            breakOnNonBreakable = !(stack.peek().getTree() instanceof BreakableStmtAST);
         return result;
     }
 
@@ -352,6 +356,17 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                     }
                     break;
                 }
+                case "finish":
+                {
+                    didStep = true;
+                    int currentStackDepth = callStack.size();
+                    result = debugStep();
+                    while (!stack.empty() && callStack.size() >= currentStackDepth)
+                    {
+                        result = debugStep();
+                    }
+                    break;
+                }
                 case "backtrace":
                 {
                     if (callStack.empty())
@@ -378,7 +393,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
                         printDebugMessage("No expression given.");
                         break;
                     }
-                    ParseTree tree = AlkParser.execute(tokens[1]);
+                    ParseTree tree = AlkParser.executeExpression(tokens[1]);
                     if (tree == null)
                     {
                         printDebugMessage("Syntax error!");
@@ -612,6 +627,10 @@ public class ExecutionStack extends ASTStack<ExecutionState>
         clone.lineStack = new Stack<>();
         for (String s : this.lineStack)
             clone.lineStack.push(s);
+
+        clone.clones = new Stack<>();
+        for (Execution e : this.clones)
+            clone.clones.push(e);
 
         clone.breakOnNonBreakable = this.breakOnNonBreakable;
         clone.didStep = this.didStep;

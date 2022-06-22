@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.parser.exceptions.AlkException;
+import util.LanguageServerErrorListener;
 
 import java.io.*;
 
@@ -108,6 +109,34 @@ public class AlkParser
         return execute(alkFile, forExpression, errorTolerant, PreProcessing.newContext(alkFile.getAbsolutePath()));
     }
 
+    public static ParseTree executeFromString(String input, File alkFile, boolean forExpression, boolean errorTolerant)
+    {
+        return executeFromString(input, forExpression, errorTolerant, PreProcessing.newContext(alkFile.getAbsolutePath()));
+    }
+
+    public static ParseTree executeFromString(String input, boolean forExpression, boolean errorTolerant, PreProcessing.PreProcessingContext context)
+    {
+        CharStream expression = CharStreams.fromString(input);
+        alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(expression)));
+        LanguageServerErrorListener listener = new LanguageServerErrorListener();
+        if (errorTolerant)
+        {
+            parser.addErrorListener(listener);
+        }
+        ParseTree tree;
+        if (forExpression)
+            tree = parser.expression();
+        else
+            tree = parser.main();
+        if (parser.getNumberOfSyntaxErrors() != 0 && !errorTolerant)
+        {
+            return null;
+        }
+        PreProcessing.expandIncludes(context, tree);
+        System.out.println(listener);
+        return tree;
+    }
+
 
 
     /**
@@ -153,7 +182,7 @@ public class AlkParser
      * @return
      *        The parse tree resulted from parsing the expression.
      */
-    public static ParseTree execute(String alkExpression)
+    public static ParseTree executeExpression(String alkExpression)
     {
         CharStream expression = CharStreams.fromString(alkExpression);
         alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(expression)));
