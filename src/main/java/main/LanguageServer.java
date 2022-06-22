@@ -34,6 +34,50 @@ class FunctionInfo
     }
 }
 
+class Position
+{
+    int line;
+    int col;
+
+    public Position()
+    {
+        this.line = -1;
+        this.col = -1;
+    }
+
+    public Position(int line, int col)
+    {
+        this.line = line;
+        this.col = col;
+    }
+
+    public boolean isEmpty()
+    {
+        return line == -1 && col == -1;
+    }
+
+    @Override
+    public String toString()
+    {
+        return line + " " + col;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return line == position.line && col == position.col;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(line, col);
+    }
+}
+
 public class LanguageServer
 {
     static AST root;
@@ -65,9 +109,9 @@ public class LanguageServer
         functions.put(id, new FunctionInfo(f, tree));
     }
 
-    public static int searchVariableInFunction(FunctionDeclAST ast, String variable)
+    public static Position searchVariableInFunction(FunctionDeclAST ast, String variable)
     {
-        final Integer[] where = {-1};
+        final Integer[] where = {-1, -1};
 
         ASTVisitor<Integer> visitor = new ASTVisitor<>(where[0]);
         visitor.registerPre((tree) -> tree instanceof RefIDAST, (tree, payload) ->
@@ -75,14 +119,47 @@ public class LanguageServer
             if (tree.getText().equals(variable))
             {
                 if (where[0] == -1)
+                {
                     where[0] = tree.getLine();
+                    where[1] = tree.getColumn();
+                }
                 else
-                    where[0] = Math.min(where[0], tree.getLine());
+                {
+                    if (tree.getLine() < where[0])
+                    {
+                        where[0] = tree.getLine();
+                        where[1] = tree.getColumn();
+                    }
+                    else if (tree.getLine() == where[0])
+                    {
+                        where[1] = Math.min(where[1], tree.getColumn());
+                    }
+                }
             }
         });
         visitor.visit(ast);
 
-        return where[0];
+        return new Position(where[0], where[1]);
+    }
+
+    public static FunctionInfo findFunctionFromLine(int line)
+    {
+        for (FunctionInfo info : functions.values())
+        {
+            final Boolean[] found = {false};
+            ASTVisitor<Boolean> visitor = new ASTVisitor<>(found[0]);
+            visitor.registerPre((tree) -> true, (tree, payload) ->
+            {
+                if (tree.getLine() == line)
+                {
+                    found[0] = true;
+                }
+            });
+            visitor.visit(info.ast);
+            if (found[0])
+                return info;
+        }
+        return null;
     }
 
     public static void main(String[] args) throws IOException
@@ -91,186 +168,209 @@ public class LanguageServer
         while (true)
         {
             String line = reader.readLine();
-            String[] tokens = line.split(" ", 2);
+            String[] tokens = line.split(" ");
             String command = tokens[0];
             System.out.println("--- begin <" + line + "> ---");
-            switch (command)
+            try
             {
-                case "load":
+                switch (command)
                 {
-                    ParseTree tree = AlkParser.execute(new File(tokens[1]), false, true);
-                    root = ParseTreeGlobals.PARSE_TREE_VISITOR.visit(tree);
-                    root = Optimizer.gatherMain(root, false);
-                    List<FunctionDeclAST> functionList = ASTHelper.getFunctions(root, false);
-                    functions.clear();
-                    for (FunctionDeclAST f : functionList)
+                    case "load":
                     {
-                        addFunction(f);
-                    }
-                    System.out.println("Loaded");
-                    break;
-                }
-                case "function":
-                {
-                    FunctionInfo f = functions.get(tokens[1]);
-                    if (f == null)
-                    {
-                        System.out.println("No function with that name");
-                    } else
-                    {
-                        System.out.println(f.func);
-                    }
-                    break;
-                }
-                case "where-f":
-                {
-                    FunctionInfo f = functions.get(tokens[1]);
-                    if (f == null)
-                    {
-                        System.out.println("No function with that name");
-                    } else
-                    {
-                        System.out.println(f.ast.getLine());
-                    }
-                    break;
-                }
-                case "where-v":
-                {
-                    FunctionInfo f = functions.get(tokens[1]);
-                    if (f == null)
-                    {
-                        System.out.println("No function with that name");
+
+                        try
+                        {
+                            tokens = line.split(" ", 2);
+                            int lines = Integer.parseInt(reader.readLine());
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < lines; i++)
+                            {
+                                sb.append(reader.readLine()).append('\n');
+                            }
+                            ParseTree tree = AlkParser.executeFromString(sb.toString(), new File(tokens[1]), false, true);
+                            root = ParseTreeGlobals.PARSE_TREE_VISITOR.visit(tree);
+                            root = Optimizer.gatherMain(root, false);
+                            List<FunctionDeclAST> functionList = ASTHelper.getFunctions(root, false);
+                            functions.clear();
+                            for (FunctionDeclAST f : functionList)
+                            {
+                                addFunction(f);
+                            }
+                            System.out.println("Loaded");
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println(e);
+                        }
                         break;
                     }
-
-                    int where = -1;
-
-                    // Search in global variables
-                    for (int i = 0; i < f.func.countModifies(); i++)
+                    case "function":
                     {
-                        if (f.func.getModify(i).equals(tokens[2]))
+                        FunctionInfo f = functions.get(tokens[1]);
+                        if (f == null)
                         {
-                            where = searchVariableInFunction(functions.get("\\main").ast, tokens[2]);
+                            System.out.println("No function with that name");
+                        } else
+                        {
+                            System.out.println(f.func);
+                        }
+                        break;
+                    }
+                    case "where-f":
+                    {
+                        FunctionInfo f = functions.get(tokens[1]);
+                        if (f == null)
+                        {
+                            System.out.println("No function with that name");
+                        } else
+                        {
+                            System.out.println(f.ast.getLine() + " " + f.ast.getColumn());
+                        }
+                        break;
+                    }
+                    case "where-v":
+                    {
+                        FunctionInfo f = findFunctionFromLine(Integer.parseInt(tokens[1]));
+                        if (f == null)
+                        {
+                            System.out.println("No function with that name");
                             break;
                         }
-                    }
 
-                    // Search in parameters
-                    if (where == -1)
-                    {
-                        for (Parameter param : f.func.getParams())
+                        Position where = new Position();
+
+                        // Search in global variables
+                        for (int i = 0; i < f.func.countModifies(); i++)
                         {
-                            if (param.getName().equals(tokens[2]))
+                            if (f.func.getModify(i).equals(tokens[2]))
                             {
-                                where = f.ast.getLine();
+                                where = searchVariableInFunction(functions.get("\\main").ast, tokens[2]);
                                 break;
                             }
                         }
-                    }
 
-                    // Search in local variables
-                    if (where == -1)
-                    {
-                        where = searchVariableInFunction(f.ast, tokens[2]);
-                    }
+                        // Search in parameters
+                        if (where.isEmpty())
+                        {
+                            for (Parameter param : f.func.getParams())
+                            {
+                                if (param.getName().equals(tokens[2]))
+                                {
+                                    where.line = f.ast.getLine();
+                                    where.col = f.ast.getColumn();
+                                    break;
+                                }
+                            }
+                        }
 
-                    if (where == -1)
-                    {
-                        System.out.println("No variable with that name");
-                    } else
-                    {
-                        System.out.println(where);
-                    }
-                    break;
-                }
-                case "all-symbols":
-                {
-                    FunctionInfo f = functions.get(tokens[1]);
-                    Set<String> symbols = new HashSet<>();
-                    if (f == null)
-                    {
-                        System.out.println("No function with that name");
+                        // Search in local variables
+                        if (where.isEmpty())
+                        {
+                            where = searchVariableInFunction(f.ast, tokens[2]);
+                        }
+
+                        if (where.isEmpty())
+                        {
+                            System.out.println("No variable with that name");
+                        } else
+                        {
+                            System.out.println(where);
+                        }
                         break;
                     }
-
-                    // global variables
-                    for (int i = 0; i < f.func.countModifies(); i++)
+                    case "all-symbols":
                     {
-                        symbols.add(f.func.getModify(i));
-                    }
+                        FunctionInfo f = findFunctionFromLine(Integer.parseInt(tokens[1]));
+                        Set<String> symbols = new HashSet<>();
+                        if (f == null)
+                        {
+                            System.out.println("No function with that name");
+                            break;
+                        }
 
-                    // parameters
-                    for (Parameter param : f.func.getParams())
-                    {
-                        symbols.add(param.getName());
-                    }
+                        // global variables
+                        for (int i = 0; i < f.func.countModifies(); i++)
+                        {
+                            symbols.add(f.func.getModify(i));
+                        }
 
-                    // local variables
-                    ASTVisitor<Set<String>> visitor = new ASTVisitor<>(symbols);
-                    visitor.registerPre((tree) -> tree instanceof RefIDAST, (tree, payload) ->
-                    {
-                        payload.add(tree.getText());
-                    });
-                    visitor.visit(f.ast);
+                        // parameters
+                        for (Parameter param : f.func.getParams())
+                        {
+                            symbols.add(param.getName());
+                        }
 
-                    // functions
-                    symbols.addAll(functions.keySet());
-
-                    symbols.remove("\\main");
-
-                    System.out.println(symbols.size());
-                    for (String s : symbols)
-                        System.out.println(s);
-                    break;
-                }
-                case "all-references":
-                {
-                    FunctionInfo f = functions.get(tokens[1]);
-                    String symbol = tokens[2];
-                    int isFunction = 0;
-                    if (tokens.length > 3)
-                        isFunction = Integer.parseInt(tokens[3]);
-                    Set<Integer> lines = new HashSet<>();
-
-                    ASTVisitor<Set<Integer>> visitor = new ASTVisitor<>(lines);
-                    if (isFunction == 0)
-                    {
+                        // local variables
+                        ASTVisitor<Set<String>> visitor = new ASTVisitor<>(symbols);
                         visitor.registerPre((tree) -> tree instanceof RefIDAST, (tree, payload) ->
                         {
-                            if (tree.getText().equals(symbol))
-                                lines.add(tree.getLine());
+                            payload.add(tree.getText());
                         });
                         visitor.visit(f.ast);
 
-                        if (f.func.getName().equals("\\main"))
-                        {
-                            for (FunctionInfo fct : functions.values())
-                            {
-                                for (int i = 0; i < fct.func.countModifies(); i++)
-                                    if (fct.func.getModify(i).equals(symbol))
-                                    {
-                                        lines.add(fct.ast.getLine());
-                                        break;
-                                    }
-                            }
-                        }
-                    } else
-                    {
-                        visitor.registerPre((tree) -> tree instanceof FunctionCallAST, (tree, payload) ->
-                        {
-                            String name = tree.getAttribute(IdASTAttr.class).getId();
-                            if (name.equals(symbol))
-                                lines.add(tree.getLine());
-                        });
-                        visitor.visit(root);
-                    }
+                        // functions
+                        symbols.addAll(functions.keySet());
 
-                    System.out.println(lines.size());
-                    for (Integer l : lines)
-                        System.out.println(l);
-                    break;
+                        symbols.remove("\\main");
+
+                        System.out.println(symbols.size());
+                        for (String s : symbols)
+                            System.out.println(s);
+                        break;
+                    }
+                    case "all-references":
+                    {
+                        FunctionInfo f = findFunctionFromLine(Integer.parseInt(tokens[1]));
+                        String symbol = tokens[2];
+                        int isFunction = 0;
+                        if (tokens.length > 3)
+                            isFunction = Integer.parseInt(tokens[3]);
+                        Set<Position> positions = new HashSet<>();
+
+                        ASTVisitor<Set<Position>> visitor = new ASTVisitor<>(positions);
+                        if (isFunction == 0)
+                        {
+                            visitor.registerPre((tree) -> tree instanceof RefIDAST, (tree, payload) ->
+                            {
+                                if (tree.getText().equals(symbol))
+                                    positions.add(new Position(tree.getLine(), tree.getColumn()));
+                            });
+                            visitor.visit(f.ast);
+
+                            if (f.func.getName().equals("\\main"))
+                            {
+                                for (FunctionInfo fct : functions.values())
+                                {
+                                    for (int i = 0; i < fct.func.countModifies(); i++)
+                                    {
+                                        if (fct.func.getModify(i).equals(symbol))
+                                        {
+                                            visitor.visit(fct.ast);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        } else
+                        {
+                            visitor.registerPre((tree) -> tree instanceof FunctionCallAST, (tree, payload) ->
+                            {
+                                String name = tree.getAttribute(IdASTAttr.class).getId();
+                                if (name.equals(symbol))
+                                    positions.add(new Position(tree.getLine(), tree.getColumn()));
+                            });
+                            visitor.visit(root);
+                        }
+
+                        System.out.println(positions.size());
+                        for (Position p : positions)
+                            System.out.println(p);
+                        break;
+                    }
                 }
             }
+            catch (Exception e)
+            {}
             System.out.println("--- end <" + line + "> ---");
         }
     }
