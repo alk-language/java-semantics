@@ -34,6 +34,11 @@ extends ExpressionAST
             ArrayDataTypeAST arrayDT = (ArrayDataTypeAST) subData;
             return arrayDT.getTypeAst();
         }
+        else if (subData instanceof ListDataTypeAST)
+        {
+            ListDataTypeAST arrayDT = (ListDataTypeAST) subData;
+            return arrayDT.getTypeAst();
+        }
         else if (subData instanceof SetDataTypeAST)
         {
             return new BoolDataTypeAST(null);

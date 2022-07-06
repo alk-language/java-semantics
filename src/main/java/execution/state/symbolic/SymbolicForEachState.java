@@ -12,6 +12,7 @@ import ast.stmt.StmtSeqAST;
 import ast.stmt.WhileAST;
 import ast.type.ArrayDataTypeAST;
 import ast.type.DataTypeAST;
+import ast.type.ListDataTypeAST;
 import ast.type.SetDataTypeAST;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
@@ -62,7 +63,7 @@ extends ForEachState
         }
 
         DataTypeAST dataTypeAST = ((ExpressionAST) symSource.toAST()).getDataType(getExec().getPathCondition());
-        if (dataTypeAST instanceof ArrayDataTypeAST)
+        if (dataTypeAST instanceof ArrayDataTypeAST || dataTypeAST instanceof ListDataTypeAST)
         {
             simulate = true;
 

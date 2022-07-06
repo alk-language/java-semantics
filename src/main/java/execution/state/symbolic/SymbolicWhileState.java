@@ -11,6 +11,7 @@ import ast.stmt.DeclAST;
 import ast.stmt.HavocAST;
 import ast.stmt.WhileAST;
 import ast.type.ArrayDataTypeAST;
+import ast.type.ListDataTypeAST;
 import ast.type.SetDataTypeAST;
 import execution.*;
 import execution.exhaustive.SplitMapper;
@@ -182,7 +183,7 @@ extends WhileState
             getExec().getPathCondition().add((SymbolicValue) conditionValue.clone(generator));
             if (!getExec().getPathCondition().isSatisfiable())
             {
-                super.handle(new AlkException("Can't assume condition!"));
+                super.handle(new AlkException("Can't assume condition: " + conditionValue));
             }
 
             doneInternalAssume = true;
@@ -248,7 +249,7 @@ extends WhileState
             if (currentValue instanceof SymbolicValue)
             {
                 AST dataType = ((ExpressionAST) ((SymbolicValue) currentValue).toAST()).getDataType(getExec().getPathCondition());
-                if (dataType instanceof ArrayDataTypeAST || dataType instanceof SetDataTypeAST)
+                if (dataType instanceof ArrayDataTypeAST || dataType instanceof ListDataTypeAST || dataType instanceof SetDataTypeAST)
                 {
                     FactorPointMethodAST fpm = new FactorPointMethodAST(null);
                     BuiltInMethodASTAttr attr = new BuiltInMethodASTAttr(BuiltInMethod.SIZE);

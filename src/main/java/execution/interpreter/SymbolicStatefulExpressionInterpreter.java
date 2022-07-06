@@ -97,6 +97,10 @@ implements StatefulExpressionInterpreter<ExecutionPayload, ExecutionState>
         CompoundValueRepresentation repr = attr.getRepresentation();
         switch (repr) {
             case EMPTY:
+                if (primitive == Primitive.SET)
+                {
+                    return new SymbolicEmptyState(ast, payload);
+                }
             case FILTER_SPEC:
             case EXPRESSIONS:
             case COMPONENTS:

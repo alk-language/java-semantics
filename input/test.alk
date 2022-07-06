@@ -1,11 +1,40 @@
-x(out a)
+vertex_cover(e)
+@requires e : array< array<int> >
+@ensures \result : array<boolean>
+@ensures forall i : int :: 0 <= i && i < e.size() && !\result[i] ==> (forall j : int :: 0 <= j && j < e[i].size() ==> \result[e[i][j]])
 {
-    @requires a < 10;
-    a++;
-    @ensures \old(a) + 1 == a;
-    @ensures \result == 2;
-    return 2;
-}
+    @havoc S : array<boolean>;
+    @assume S.size() == e.size();
 
-a = 2;
-x(a);
+    for (i = 0; i < e.size(); i++)
+    @invariant 0 <= i && i <= e.size()
+    @modifies i, S
+    {
+        choose b from {true, false};
+        S[i] = b;
+    }
+
+    @assert S.size() == e.size();
+
+    for (i = 0; i < e.size(); i++)
+    @invariant 0 <= i && i <= e.size()
+    @invariant forall k : int :: 0 <= k && k < i && !S[k] ==> (forall l : int :: 0 <= l && l < e[k].size() ==> S[e[k][l]])
+    @modifies i
+    {
+        if (!S[i])
+        {
+            for (j = 0; j < e[i].size(); j++)
+            @invariant 0 <= j && j <= e[i].size()
+            @invariant forall l : int :: 0 <= l && l < j ==> S[e[i][l]]
+            @modifies j
+            {
+                if (!S[e[i][j]])
+                {
+                    failure;
+                }
+            }
+        }
+    }
+
+    return S;
+}

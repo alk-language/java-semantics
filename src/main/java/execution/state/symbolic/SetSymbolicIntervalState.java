@@ -3,6 +3,8 @@ package execution.state.symbolic;
 import ast.AST;
 import ast.attr.BuiltInMethodASTAttr;
 import ast.attr.IdASTAttr;
+import ast.attr.RepresentationASTAttr;
+import ast.enums.CompoundValueRepresentation;
 import ast.enums.Operator;
 import ast.enums.Primitive;
 import ast.expr.*;
@@ -61,6 +63,16 @@ extends IterableWithIntervalState
             super.handle(new AlkException(ERR_LIMIT));
         }
 
+        AST target = new SetAST(null);
+        RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.INTERVAL);
+        target.addAttribute(RepresentationASTAttr.class, attr);
+
+        target.addChild(left.toAST());
+        target.addChild(right.toAST());
+
+        return new SymbolicValue(target);
+
+        /*
         // TODO: check both are ints
 
         // generate symbolic value
@@ -132,7 +144,7 @@ extends IterableWithIntervalState
         getExec().getPathCondition().setType(bound.getText(), new IntDataTypeAST(null), true);
         getExec().getPathCondition().add(new SymbolicValue(mapping));
 
-        return generator.generate(value);
+        return generator.generate(value);*/
     }
 
     @Override

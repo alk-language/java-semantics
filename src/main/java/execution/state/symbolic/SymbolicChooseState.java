@@ -3,15 +3,14 @@ package execution.state.symbolic;
 import ast.AST;
 import ast.attr.BuiltInMethodASTAttr;
 import ast.attr.OpsASTAttr;
+import ast.attr.RepresentationASTAttr;
 import ast.enums.BuiltInMethod;
+import ast.enums.CompoundValueRepresentation;
 import ast.enums.Operator;
 import ast.expr.*;
 import ast.symbolic.SelectAST;
 import ast.symbolic.StoreAST;
-import ast.type.ArrayDataTypeAST;
-import ast.type.DataTypeAST;
-import ast.type.IntDataTypeAST;
-import ast.type.SetDataTypeAST;
+import ast.type.*;
 import execution.ExecutionPayload;
 import execution.ExecutionResult;
 import execution.exhaustive.SplitMapper;
@@ -58,7 +57,32 @@ extends ChooseStmtState
         }
 
         DataTypeAST dataTypeAST = ((ExpressionAST) symSource.toAST()).getDataType(getExec().getPathCondition());
-        if (dataTypeAST instanceof ArrayDataTypeAST)
+
+        // if interval, make things easier
+        if (symSource.toAST().hasAttribute(RepresentationASTAttr.class) &&
+                symSource.toAST().getAttribute(RepresentationASTAttr.class).getRepresentation() == CompoundValueRepresentation.INTERVAL)
+        {
+            AST lft = symSource.toAST().getChild(0);
+            AST rgh = symSource.toAST().getChild(1);
+
+            AST symAST = SymIDAST.generate(chosenValue);
+            getExec().getPathCondition().setType(symAST.getText(), new IntDataTypeAST(tree.getCtx()), true);
+
+            List<AST> children = new ArrayList<>();
+            children.add(lft);
+            children.add(symAST);
+            getExec().getPathCondition().add(new SymbolicValue(RelationalAST.createBinary(Operator.LOWEREQ, children)));
+
+            children.clear();
+            children.add(symAST);
+            children.add(rgh);
+            getExec().getPathCondition().add(new SymbolicValue(RelationalAST.createBinary(Operator.LOWEREQ, children)));
+
+            target.setValue(new SymbolicValue(symAST));
+            return null;
+        }
+
+        if (dataTypeAST instanceof ArrayDataTypeAST || dataTypeAST instanceof ListDataTypeAST)
         {
             AST symAST = SymIDAST.generate(chosenIdx);
             getExec().getPathCondition().setType(symAST.getText(), new IntDataTypeAST(tree.getCtx()), true);

@@ -908,6 +908,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayType(alkParser.ArrayTypeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ListType}
+	 * labeled alternative in {@link alkParser#dataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListType(alkParser.ListTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SetType}
 	 * labeled alternative in {@link alkParser#dataType}.
 	 * @param ctx the parse tree

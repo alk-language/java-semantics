@@ -27,7 +27,7 @@ extends AssumeState
             getExec().getPathCondition().add((SymbolicValue) value.clone(generator));
             if (!getExec().getPathCondition().isSatisfiable())
             {
-                super.handle(new AlkException("Assumption makes the path condition invalid!"));
+                super.handle(new AlkException("Assumption makes the path condition invalid: " + value));
             }
             return new AlkBool(true);
         }

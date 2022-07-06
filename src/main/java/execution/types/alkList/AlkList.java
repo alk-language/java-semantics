@@ -1,6 +1,10 @@
 package execution.types.alkList;
 
 import ast.AST;
+import ast.attr.RepresentationASTAttr;
+import ast.enums.CompoundValueRepresentation;
+import ast.expr.ArrayAST;
+import ast.expr.ListAST;
 import execution.parser.env.Location;
 import execution.parser.env.LocationMapper;
 import execution.parser.exceptions.AlkException;
@@ -12,6 +16,7 @@ import execution.types.alkArray.AlkArray;
 import execution.types.alkBool.AlkBool;
 import execution.types.alkIterator.AlkIterator;
 import util.lambda.LocationGenerator;
+import util.types.ASTRepresentable;
 import util.types.Storable;
 
 import java.util.*;
@@ -252,7 +257,16 @@ extends AlkIterableValue
     @Override
     public AST toAST()
     {
-        throw new NotImplementedException("Can't convert to AST an AlkList");
+        ListAST ast = new ListAST(null);
+        RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.EXPRESSIONS);
+        ast.addAttribute(RepresentationASTAttr.class, attr);
+        for (Location loc : list)
+        {
+            if (!(loc.toRValue() instanceof ASTRepresentable))
+                throw new NotImplementedException("Can't convert to AST an AlkList");
+            ast.addChild(((ASTRepresentable) loc.toRValue()).toAST());
+        }
+        return ast;
     }
 
     @Override
