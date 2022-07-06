@@ -27,12 +27,12 @@ nqueens (n, out b)
 @requires 0 < n
 @requires b.size() == n
 @ensures forall i : int :: (forall j : int :: 0 <= i && i < j && j < n ==> !(b[i] == b[j]))
-//@ensures forall i : int :: (forall j : int :: 0 <= i && i < j && j < n ==> !(abs(b[j] - b[i]) == j - i))
+@ensures forall i : int :: (forall j : int :: 0 <= i && i < j && j < n ==> !(abs(b[j] - b[i]) == j - i))
 {
    for (k = 0; k < n; k++)
    @invariant 0 <= k && k <= n
    @invariant forall i : int :: (forall j : int :: 0 <= i && i < j && j < k ==> !(b[i] == b[j]))
-   //@invariant forall i : int :: (forall j : int :: 0 <= i && i < j && j < k ==> !(abs(b[j] - b[i]) == j - i))
+   @invariant forall i : int :: (forall j : int :: 0 <= i && i < j && j < k ==> !(abs(b[j] - b[i]) == j - i))
    @modifies k, b
    {
      choose j from {0 .. n-1} s.t. !attacked(k, j, b);

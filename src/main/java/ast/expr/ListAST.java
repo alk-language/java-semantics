@@ -1,8 +1,11 @@
 package ast.expr;
 
 import ast.AST;
+import ast.type.ArrayDataTypeAST;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
+import ast.type.ListDataTypeAST;
+import execution.parser.exceptions.AlkException;
 import org.antlr.v4.runtime.ParserRuleContext;
 import util.exception.InternalException;
 import visitor.ifaces.VisitorIface;
@@ -17,9 +20,32 @@ extends ExpressionAST
     }
 
     @Override
-    public DataTypeAST getDataType(DataTypeProvider dtp)
+    public ListDataTypeAST getDataType(DataTypeProvider dtp)
     {
-        throw new InternalException("Can't detect data type for lists!");
+        ListDataTypeAST dataTypeAST = new ListDataTypeAST(null);
+        DataTypeAST root = null;
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            if (getChild(i) instanceof UnknownAST) continue;
+            DataTypeAST ast = ((ExpressionAST) getChild(i)).getDataType(dtp);
+
+            if (root == null)
+            {
+                root = ast;
+                continue;
+            }
+
+            if (!root.equals(ast))
+            {
+                throw new AlkException("Can't classify this as a homogeneous list: " + this);
+            }
+        }
+        if (root == null)
+        {
+            throw new AlkException("Can't identify the data type of the following list: " + this);
+        }
+        dataTypeAST.addChild(root);
+        return dataTypeAST;
     }
 
     @Override

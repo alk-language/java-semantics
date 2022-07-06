@@ -5,20 +5,20 @@ attacked(i, j, b)
 @requires 0 <= i && i < b.size()
 @requires 0 <= j && j < b.size()
 @ensures \result : boolean
-@ensures \result <==> (exists k : int :: 0 <= k && k < i && ((b[k] == j) || (abs(b[k] - j) == i - k)))
+@ensures \result <==> (exists k : int :: 0 <= k && k < i && ((b[k] == j) || ((b[k] - j) == (k - i)) || ((b[k] - j) == (i - k))))
 {
   attack = false;
   for (k = 0; k < i; k++)
   @invariant 0 <= k && k <= i
-  @invariant attack <==> (exists k1 : int :: 0 <= k1 && k1 < k && ((b[k1] == j) || (abs(b[k1] - j) == i - k1)))
+  @invariant attack <==> (exists k1 : int :: 0 <= k1 && k1 < k && ((b[k1] == j) || ((b[k1] - j) == (k1 - i)) || ((b[k1] - j) == (i - k1))))
   @modifies k, attack
   {
-     if ((b[k] == j) || (abs(b[k] - j) == abs(k - i)))
+     if ((b[k] == j) || ((b[k] - j) == (k - i)) || ((b[k] - j) == (i - k)))
        attack = true;
   }
   return attack;
 }
-   
+
 nqueens (n, out b)
 @requires n : int
 @requires b : array<int>
@@ -27,19 +27,13 @@ nqueens (n, out b)
 @ensures forall i : int :: (forall j : int :: 0 <= i && i < j && j < n ==> !(b[i] == b[j]))
 @ensures forall i : int :: (forall j : int :: 0 <= i && i < j && j < n ==> !(abs(b[j] - b[i]) == j - i))
 {
-   k = 0;
-
-   while (k < n)
+   for (k = 0; k < n; k++)
    @invariant 0 <= k && k <= n
    @invariant forall i : int :: (forall j : int :: 0 <= i && i < j && j < k ==> !(b[i] == b[j]))
    @invariant forall i : int :: (forall j : int :: 0 <= i && i < j && j < k ==> !(abs(b[j] - b[i]) == j - i))
    @modifies k, b
    {
-     choose j from {0 .. n-1} s.t. !attacked(k, j, b); // abs
+     choose j from {0 .. n-1} s.t. !attacked(k, j, b);
      b[k] = j;
-     k++;
    }
 }
-
-// b = [-1 | i from [0..n-1]];
-// nqueens(n);

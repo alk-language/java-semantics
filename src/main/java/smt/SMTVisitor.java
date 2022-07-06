@@ -16,13 +16,13 @@ import ast.symbolic.ValidSelectAST;
 import ast.symbolic.ValidStoreAST;
 import ast.type.ArrayDataTypeAST;
 import ast.type.DataTypeAST;
+import ast.type.ListDataTypeAST;
 import ast.type.SetDataTypeAST;
 import com.microsoft.z3.*;
 import execution.parser.exceptions.AlkException;
 import util.exception.InternalException;
 import util.exception.SMTUnexpectedException;
 import util.exception.SMTUnimplementedException;
-import util.types.ASTRepresentable;
 import visitor.ifaces.ExpressionVisitorIface;
 import visitor.ifaces.expr.VirtualVisitorIface;
 import visitor.ifaces.symbolic.SelectVisitorIface;
@@ -83,7 +83,7 @@ implements ExpressionVisitorIface<Expr>,
             array = alkCtx.ctx.mkStore(array, alkCtx.ctx.mkInt(i), sub);
         }
 
-        AlkSMTSizeMethod solver = (AlkSMTSizeMethod) alkCtx.getBuiltInMethodSolver(BuiltInMethod.SIZE);
+        AlkSMTArraySizeMethod solver = (AlkSMTArraySizeMethod) alkCtx.getBuiltInMethodSolver(BuiltInMethod.SIZE);
         solver.assumeEquality(array, tree.getChildCount());
 
         return array;
@@ -191,7 +191,7 @@ implements ExpressionVisitorIface<Expr>,
     {
         Expr lft = ctx.getChild(0).accept(this);
         DataTypeAST dataType = ((ExpressionAST) ctx.getChild(1)).getDataType(alkCtx);
-        if (dataType instanceof ArrayDataTypeAST)
+        if (dataType instanceof ArrayDataTypeAST || dataType instanceof ListDataTypeAST)
         {
             ArrayExpr<?, ?> rgh = (ArrayExpr<?, ?>) ctx.getChild(1).accept(this);
 
@@ -220,9 +220,29 @@ implements ExpressionVisitorIface<Expr>,
     }
 
     @Override
-    public Expr<?> visit(ListAST ctx)
+    public Expr<?> visit(ListAST tree)
     {
-        throw new SMTUnimplementedException(ListAST.class);
+        RepresentationASTAttr attr = tree.getAttribute(RepresentationASTAttr.class);
+
+        if (attr.getRepresentation() != CompoundValueRepresentation.EXPRESSIONS)
+        {
+            throw new SMTUnexpectedException("Can't process list with non-expression compound representation!");
+        }
+
+        ListDataTypeAST dataType = tree.getDataType(alkCtx);
+
+        Expr array = alkCtx.getEmptyList(dataType);
+        for (int i = 0; i < tree.getChildCount(); i++)
+        {
+            if (tree.getChild(i) instanceof UnknownAST) continue;
+            Expr sub = tree.getChild(i).accept(this);
+            array = alkCtx.ctx.mkStore(array, alkCtx.ctx.mkInt(i), sub);
+        }
+
+        AlkSMTArraySizeMethod solver = (AlkSMTArraySizeMethod) alkCtx.getBuiltInMethodSolver(BuiltInMethod.SIZE);
+        solver.assumeEquality(array, tree.getChildCount());
+
+        return array;
     }
 
     @Override
@@ -325,6 +345,34 @@ implements ExpressionVisitorIface<Expr>,
     public Expr<?> visit(SetAST tree)
     {
         RepresentationASTAttr attr = tree.getAttribute(RepresentationASTAttr.class);
+
+        if (attr.getRepresentation() == CompoundValueRepresentation.EMPTY)
+        {
+            if (tree.getChildCount() == 0)
+            {
+                throw new AlkException("Can't detect data type of empty set!");
+            }
+            SetDataTypeAST dataType = new SetDataTypeAST(null);
+            dataType.addChild(tree.getChild(0));
+            return alkCtx.getEmptySet(dataType);
+        }
+
+        if (attr.getRepresentation() == CompoundValueRepresentation.INTERVAL)
+        {
+            Expr lft = tree.getChild(0).accept(this);
+            Expr rgh = tree.getChild(1).accept(this);
+            Expr target = alkCtx.ctx.mkArrayConst("ival_" + alkCtx.getFresh(), alkCtx.ctx.getIntSort(), alkCtx.ctx.getBoolSort());
+            AlkSMTSetSizeMethod solver = alkCtx.getSetSizeSolver();
+            alkCtx.add(alkCtx.ctx.mkEq(solver.apply(target, null), alkCtx.ctx.mkAdd(alkCtx.ctx.mkSub(rgh, lft), alkCtx.ctx.mkIntConst("1"))));
+
+            Context ctx = alkCtx.ctx;
+            Expr freshA = ctx.mkConst(alkCtx.getFresh(), ctx.getIntSort());
+            Expr[] bound = new Expr[] { freshA };
+            Expr body = ctx.mkEq(ctx.mkAnd(ctx.mkLe(lft, bound[0]), ctx.mkLe(bound[0], rgh)), ctx.mkSelect(target, bound[0]));
+
+            alkCtx.add(ctx.mkForall(bound, body, 1, null, null, null, null));
+            return target;
+        }
 
         if (attr.getRepresentation() != CompoundValueRepresentation.EXPRESSIONS)
         {

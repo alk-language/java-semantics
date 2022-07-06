@@ -518,6 +518,14 @@ extends alkBaseVisitor<AST>
     }
 
     @Override
+    public AST visitListType(alkParser.ListTypeContext ctx)
+    {
+        AST tree = new ListDataTypeAST(ctx);
+        tree.addChild(visit(ctx.dataType()));
+        return tree;
+    }
+
+    @Override
     public AST visitSetType(alkParser.SetTypeContext ctx)
     {
         AST tree = new SetDataTypeAST(ctx);
@@ -687,6 +695,10 @@ extends alkBaseVisitor<AST>
             AST ast = new SetAST(ctx);
             RepresentationASTAttr attr = new RepresentationASTAttr(CompoundValueRepresentation.EMPTY);
             ast.addAttribute(RepresentationASTAttr.class, attr);
+            if (ctx.dataType() != null)
+            {
+                ast.addChild(parseTreeExprVisitor.visit(ctx.dataType()));
+            }
             return ast;
         }
 

@@ -53,7 +53,7 @@ extends ExpressionAST
 
     private boolean isArray(ExpressionAST ast, DataTypeProvider dtp)
     {
-        return ast.getDataType(dtp) instanceof ArrayDataTypeAST;
+        return ast.getDataType(dtp) instanceof ArrayDataTypeAST || ast.getDataType(dtp) instanceof ListDataTypeAST;
     }
 
 }

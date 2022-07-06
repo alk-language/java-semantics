@@ -1,6 +1,8 @@
 package ast.expr;
 
 import ast.AST;
+import ast.attr.RepresentationASTAttr;
+import ast.enums.CompoundValueRepresentation;
 import ast.type.ArrayDataTypeAST;
 import ast.type.DataTypeAST;
 import ast.type.DataTypeProvider;
@@ -13,6 +15,7 @@ import visitor.ifaces.expr.SetVisitorIface;
 public class SetAST
 extends ExpressionAST
 {
+
     public SetAST(ParserRuleContext ctx)
     {
         super(ctx);
@@ -22,6 +25,13 @@ extends ExpressionAST
     public SetDataTypeAST getDataType(DataTypeProvider dtp)
     {
         SetDataTypeAST dataTypeAST = new SetDataTypeAST(null);
+        if (this.getChildCount() > 0 &&
+            this.getAttribute(RepresentationASTAttr.class).getRepresentation() == CompoundValueRepresentation.EMPTY)
+        {
+            dataTypeAST.addChild(this.getChild(0));
+            return dataTypeAST;
+        }
+
         DataTypeAST root = null;
         for (int i = 0; i < getChildCount(); i++)
         {

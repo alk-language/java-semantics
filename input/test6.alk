@@ -1,115 +1,28 @@
-swap(out a, out b) {
-    tmp = a;
-    a = b;
-    b = tmp;
-}
-
-sorted(a)
+queens(n)
+@requires n : int
+@requires 1 <= n
+@ensures \result : array<int>
+@ensures \result.size() == n
+@ensures forall i : int :: 0 <= i && i < n ==> a[i] <= 1
 {
-    return sorted2(a, a.size());
-}
+    @havoc a : array<int>, b : array<int>, c : array<int>, cb : array<int>;
 
-sorted2(a, i)
-{
-    return forall k : int :: 0 < k && k < i ==> a[k - 1] <= a[k];
-}
+    @assume a.size() == n;
+    @assume forall i : int :: 0 <= i && i < n ==> a[i] == 0;
+    @assume cb.size() == 0;
 
-findMin(a, i)
-{
-    assume 0 <= i && i < a.size(); // requires 0 <= i < a.Length
-    j = i;
-    m = i;
-
-    while(j < a.size())
-        invariant i <= j && j <= a.size()
-        invariant i <= m && m < a.size()
-        invariant (forall k : int :: i <= k && k < j ==> a[k] >= a[m])
-        modifies m, j
+    for (col = 0; col < n; col++)
+    @invariant 0 <= col && col <= n
+    @invariant cb.size() == col;
+    @invariant forall i : int :: 0 <= i && i < n ==> a[i] <= 1
+    @modifies col, a, cb, cb.size
     {
-        if(a[j] < a[m]) m = j;
-        j++;
+        choose row from {0 .. n-1} s.t. a[row] == 0 && b[row + col] == 0 && c[n + (row-col)] == 0;
+        a[row]++;
+        b[row + col]++;
+        c[n + (row-col)]++;
+        cb[col] = row;
     }
 
-    assert i <= m && m < a.size(); // ensures i <= m < a.Length
-    assert forall k : int :: i <= k && k < a.size() ==> a[k] >= a[m]; // ensures forall k :: i <= k < a.Length ==> a[k] >= a[m]
-    return m;
+    return cb;
 }
-
-insertionSort(out a)
-{
-    c = 0;
-    while(c < a.size())
-        invariant 0 <= c && c <= a.size()
-        invariant (forall k : int, l : int :: 0 <= k && k < c && c <= l && l < a.size() ==> a[k] <= a[l])
-        invariant sorted2(a, c)
-        modifies a, c
-    {
-        m = findMin(a, c);
-        swap(a[m], a[c]);
-        //assert forall k : int :: c <= k && k < a.size() ==> a[k] >= a[c];
-        c++;
-    }
-
-    assert sorted(a); // ensures sorted(a)
-}
-
-symbolic $a : array<int>;
-a = $a;
-insertionSort(a);
-
-
-// forall exists, ==>, <==>
-// (forall k : int :: expr && expr)
-
-// 1) mai multi invarianti la bucla repetitiva
-
-
-/*while (c1)
-invariant i1
-    s1;
-while (c2)
-invariant i2
-invariant i3
-    s2;
-
-
-1)
-PC0
-assert i1;
-// generez 2
-havoc vars(s1);
-assume !c1 && i1; => PC1
-assert i2;
-assert i3;
-// generez 3 si 4
-havoc vars(s2);
-assume !c2 && i2 && i3; => PC2
-...
-
-2)
-PC0
-assume c1 && i1;
-havoc vars(s1);
-exec s1;
-assert i1;
-
-3)
-PC1
-assume c2 && i2;
-havoc vars(s2);
-exec s2;
-assert i2;
-
-4)
-PC1
-assume c2 && i2 && i3;
-havoc vars(s2);
-exec s2;
-assume i2;
-assert i3;
-
-===========================================
-1)
-
-
-*/

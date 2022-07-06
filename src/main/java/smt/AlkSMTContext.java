@@ -8,10 +8,7 @@ import ast.expr.BoolAST;
 import ast.expr.BuiltinFunctionAST;
 import ast.expr.FactorPointMethodAST;
 import ast.expr.UnaryAST;
-import ast.type.ArrayDataTypeAST;
-import ast.type.DataTypeAST;
-import ast.type.DataTypeProvider;
-import ast.type.SetDataTypeAST;
+import ast.type.*;
 import com.microsoft.z3.*;
 import execution.parser.env.LocationMapperIface;
 import execution.parser.exceptions.AlkException;
@@ -33,6 +30,7 @@ implements DataTypeProvider
     private final Map<Operator, SMTOperatorSolver> operators = new HashMap<>();
     private final Map<Sort, ArraySMTSupport> supportedArray = new HashMap<>();
     private final Map<Sort, SetSMTSupport> supportedSet = new HashMap<>();
+    private AlkSMTSetSizeMethod setSizeSolver;
 
     private final List<SymbolicValue> delayValues = new ArrayList<>();
 
@@ -75,7 +73,7 @@ implements DataTypeProvider
             SMTMethodSolver solver;
             switch (method)
             {
-                case SIZE: solver = new AlkSMTSizeMethod(this); break;
+                case SIZE: solver = new AlkSMTArraySizeMethod(this); break;
                 case INSERT: solver = new AlkSMTInsertMethod(this); break;
                 case POPBACK: solver = new AlkSMTPopBackMethod(this); break;
                 case POPFRONT: solver = new AlkSMTPopFrontMethod(this); break;
@@ -90,6 +88,16 @@ implements DataTypeProvider
         }
         return bMethods.get(method);
     }
+
+    public AlkSMTSetSizeMethod getSetSizeSolver()
+    {
+        if (setSizeSolver == null)
+        {
+            setSizeSolver = new AlkSMTSetSizeMethod(this);
+        }
+        return setSizeSolver;
+    }
+
 
     public SMTFunctionSolver getBuiltInFunctionSolver(BuiltInFunction fnc)
     {
@@ -136,6 +144,12 @@ implements DataTypeProvider
         return support.getEmptyArray();
     }
 
+    public ArrayExpr getEmptyList(ListDataTypeAST dataType)
+    {
+        ArraySMTSupport support = getArraySupport((ArraySort) dataType.getSort(ctx));
+        return support.getEmptyArray();
+    }
+
     public Expr getEmptySet(SetDataTypeAST dataType)
     {
         SetSMTSupport support = getSetSupport((ArraySort) dataType.getSort(ctx));
@@ -167,7 +181,19 @@ implements DataTypeProvider
     public boolean isSatisfiable()
     {
         flush();
-        return s.check() == Status.SATISFIABLE;
+        Status status = s.check();
+        if (status == Status.SATISFIABLE)
+        {
+            return true;
+        }
+        else if (status == Status.UNSATISFIABLE)
+        {
+            return false;
+        }
+        else
+        {
+            throw new AlkException("Unknown Z3 check!");
+        }
     }
 
     public boolean asserts(SymbolicValue symbolicValue)

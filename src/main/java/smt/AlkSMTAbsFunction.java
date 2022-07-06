@@ -13,30 +13,26 @@ implements SMTFunctionSolver
 {
     private final Map<Sort, FuncDecl<?>> funcs = new HashMap<>();
     private final AlkSMTContext alkCtx;
-    private final boolean USE_LOCAL_DEF = false;
 
     public AlkSMTAbsFunction(AlkSMTContext alkCtx)
     {
         this.alkCtx = alkCtx;
     }
 
-    public Expr<?> apply(Expr<?>[] params)
+    public Expr<?> apply(Expr[] params)
     {
-        Sort paramType = params[0].getSort();
-        Expr ans = getFunc(paramType).apply(params[0]);
-        if (!USE_LOCAL_DEF)
-        {
-            alkCtx.add(doConstraints(paramType, ans, params));
-        }
-        return ans;
+        Context ctx = alkCtx.ctx;
+        return alkCtx.ctx.mkITE(ctx.mkGt(params[0], ctx.mkInt(0)), params[0], ctx.mkUnaryMinus(params[0])); // (ITE Bool T T)
     }
 
+    /*
     private Expr doConstraints(Sort paramType, Expr application, Expr[] params)
     {
         Context ctx = alkCtx.ctx;
-        Expr body0 = alkCtx.ctx.mkIff(ctx.mkLt(params[0], ctx.mkInt(0)), ctx.mkEq(ctx.mkUnaryMinus(params[0]), application));
-        Expr body1 = alkCtx.ctx.mkIff(ctx.mkLe(ctx.mkInt(0), params[0]), ctx.mkEq(application, params[0]));
-        return ctx.mkAnd(body0, body1);
+//        Expr body0 = alkCtx.ctx.mkIff(ctx.mkLt(params[0], ctx.mkInt(0)), ctx.mkEq(ctx.mkUnaryMinus(params[0]), application));
+//        Expr body1 = alkCtx.ctx.mkIff(ctx.mkLe(ctx.mkInt(0), params[0]), ctx.mkEq(application, params[0]));
+//        return ctx.mkAnd(body0, body1);
+        return alkCtx.ctx.mkITE(ctx.mkGt(params[0], ctx.mkInt(0)), params[0], ctx.mkUnaryMinus(params[0]));
     }
 
     private FuncDecl<?> getFunc(Sort paramType)
@@ -58,7 +54,7 @@ implements SMTFunctionSolver
         }
 
         return funcs.get(paramType);
-    }
+    }*/
 }
 
 

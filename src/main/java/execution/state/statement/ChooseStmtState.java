@@ -134,7 +134,7 @@ extends ExecutionState
         return this.decorate(copy, sm);
     }
 
-    public ExecutionState clone(ChooseStmtState copy, SplitMapper sm)
+    public ExecutionState decorate(ChooseStmtState copy, SplitMapper sm)
     {
         if (this.source != null)
         {
