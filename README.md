@@ -1,3 +1,10 @@
+# Introduction
+This repository includes Alk, an educational platform designed to help in learning algorithms and acquiring algorithmic thinking.
+Some references:
+1. Lungu, A., Lucanu, D.: _A matching logic foundation for Alk_. In: Seidl, H., Liu, Z., Pasareanu, C.S. (eds.) Theoretical Aspects of Computing -
+ICTAC 2022 - 19th International Colloquium, Tbilisi, Georgia, September 27-29, 2022, Proceedings. Lecture Notes in Computer Science, vol. 13572, pp. 290–304. Springer (2022). https://doi.org/10.1007/978-3-031-17715-6“ ̇19
+2. Lungu, A., Lucanu, D.: _Supporting algorithm analysis with symbolic execution in Alk_. In: Ameur, Y.A., Craciun, F. (eds.) Theoretical Aspects of Software Engineering - 16th International Symposium, TASE 2022, Proceedings. Lecture Notes in Computer Science, vol. 13299, pp. 406–423. Springer (2022), https://doi.org/10.1007/978-3-031-10363-6 27
+
 # Using the Alk VS Code Extension
 1. Install VS Code from the official [page](https://code.visualstudio.com/download).
 2. In the Extensions tag in the left side, check for the "Alk Visual Studio Code Extension" and install.
