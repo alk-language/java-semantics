@@ -43,6 +43,10 @@ implements OptionProvider,
 
     private String prover;
 
+    private boolean debugger;
+
+    private boolean debugMarkers;
+
     /** The debugMode flag, used to print the stach trace in case of one exception*/
     private boolean debugMode;
 
@@ -134,6 +138,23 @@ implements OptionProvider,
         return prover;
     }
 
+    @Override
+    public boolean isDebugger()
+    {
+        return this.debugger;
+    }
+
+    @Override
+    public boolean hasDebugMarkers()
+    {
+        return this.debugMarkers;
+    }
+
+    public void setDebugger(boolean debugger)
+    {
+        this.debugger = debugger;
+    }
+
     /**
      * Used for identifying the metadata flag based on the internal members
      *
@@ -194,6 +215,8 @@ implements OptionProvider,
         this.staticVerif = op.hasStaticVerif();
         this.conditionPath = op.getConditionPath();
         this.prover = op.hasProver() ? op.getProver() : null;
+        this.debugger = op.isDebugger();
+        this.debugMarkers = op.hasDebugMarkers();
     }
 
     /**

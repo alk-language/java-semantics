@@ -1,5 +1,6 @@
 package io;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +20,12 @@ implements IOManager
     public void write(String text)
     {
         buffer.add(text);
+    }
+
+    @Override
+    public String readLine() throws IOException
+    {
+        return manager.readLine();
     }
 
     @Override

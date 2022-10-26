@@ -10,6 +10,7 @@ import visitor.ifaces.stmt.ChooseVisitorIface;
 
 public class ChooseAST
 extends StmtAST
+implements BreakableStmtAST
 {
 
     public ChooseAST(ParserRuleContext ctx)

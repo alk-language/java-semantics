@@ -9,6 +9,7 @@ import visitor.ifaces.stmt.BreakVisitorIface;
 
 public class BreakAST
 extends StmtAST
+implements BreakableStmtAST
 {
 
     public BreakAST(ParserRuleContext ctx)

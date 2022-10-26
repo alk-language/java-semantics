@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.parser.exceptions.AlkException;
+import util.LanguageServerErrorListener;
 
 import java.io.*;
 
@@ -81,7 +82,7 @@ public class AlkParser
      */
     public static ParseTree execute(File alkFile, PreProcessing.PreProcessingContext context)
     {
-        return execute(alkFile, false, PreProcessing.newContext(alkFile.getAbsolutePath()));
+        return execute(alkFile, false, false, PreProcessing.newContext(alkFile.getAbsolutePath()));
     }
 
     /**
@@ -93,8 +94,50 @@ public class AlkParser
      */
     public static ParseTree execute(File alkFile, boolean forExpression)
     {
-        return execute(alkFile, forExpression, PreProcessing.newContext(alkFile.getAbsolutePath()));
+        return execute(alkFile, forExpression, false, PreProcessing.newContext(alkFile.getAbsolutePath()));
     }
+
+    /**
+     * Main entry point of the parsing process.
+     * @param alkFile
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the file.
+     */
+    public static ParseTree execute(File alkFile, boolean forExpression, boolean errorTolerant)
+    {
+        return execute(alkFile, forExpression, errorTolerant, PreProcessing.newContext(alkFile.getAbsolutePath()));
+    }
+
+    public static ParseTree executeFromString(String input, File alkFile, boolean forExpression, boolean errorTolerant)
+    {
+        return executeFromString(input, forExpression, errorTolerant, PreProcessing.newContext(alkFile.getAbsolutePath()));
+    }
+
+    public static ParseTree executeFromString(String input, boolean forExpression, boolean errorTolerant, PreProcessing.PreProcessingContext context)
+    {
+        CharStream expression = CharStreams.fromString(input);
+        alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(expression)));
+        LanguageServerErrorListener listener = new LanguageServerErrorListener();
+        if (errorTolerant)
+        {
+            parser.addErrorListener(listener);
+        }
+        ParseTree tree;
+        if (forExpression)
+            tree = parser.expression();
+        else
+            tree = parser.main();
+        if (parser.getNumberOfSyntaxErrors() != 0 && !errorTolerant)
+        {
+            return null;
+        }
+        PreProcessing.expandIncludes(context, tree);
+        System.out.println(listener);
+        return tree;
+    }
+
+
 
     /**
      * Main entry point of the parsing process.
@@ -106,7 +149,7 @@ public class AlkParser
      * @return
      *        The parse tree resulted from parsing the file.
      */
-    public static ParseTree execute(File alkFile, boolean forExpression, PreProcessing.PreProcessingContext context)
+    public static ParseTree execute(File alkFile, boolean forExpression, boolean errorTolerant, PreProcessing.PreProcessingContext context)
     {
         try
         {
@@ -119,7 +162,7 @@ public class AlkParser
             else
                 tree = parser.main();
 
-            if (parser.getNumberOfSyntaxErrors() != 0)
+            if (parser.getNumberOfSyntaxErrors() != 0 && !errorTolerant)
             {
                 return null;
             }
@@ -130,6 +173,26 @@ public class AlkParser
         {
             throw new AlkException("Can't find file to parse!");
         }
+    }
+
+    /**
+     * Main entry point of the parsing process.
+     * @param alkExpression
+     *        The input code to be taken in consideration when generating the parse tree.
+     * @return
+     *        The parse tree resulted from parsing the expression.
+     */
+    public static ParseTree executeExpression(String alkExpression)
+    {
+        CharStream expression = CharStreams.fromString(alkExpression);
+        alkParser parser = new alkParser(new CommonTokenStream(new alkLexer(expression)));
+        ParseTree tree = parser.expression();
+
+        if (parser.getNumberOfSyntaxErrors() != 0)
+        {
+            return null;
+        }
+        return tree;
     }
 
     public static Object executeConditionPath(String conditionPath)

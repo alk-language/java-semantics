@@ -9,6 +9,7 @@ import visitor.ifaces.stmt.RepeatUntilVisitorIface;
 
 public class RepeatUntilAST
 extends StmtAST
+implements BreakableStmtAST, FinalTestConditionalStmtAST
 {
 
     public RepeatUntilAST(ParserRuleContext ctx)
@@ -39,5 +40,16 @@ extends StmtAST
     public String toString()
     {
         return "repeat\n" + this.getStatement().toString() + "until (" + this.getCondition().toString() + ");\n";
+    }
+
+    @Override
+    public String getDoRepeatStmt() {
+        return "repeat";
+    }
+
+    @Override
+    public String getConditionalStmt()
+    {
+        return "until " + this.getCondition().toString() + ";";
     }
 }

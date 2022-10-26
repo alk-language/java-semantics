@@ -6,6 +6,7 @@ import visitor.ifaces.stmt.ReturnStmtVisitorIface;
 
 public class ReturnAST
 extends StmtAST
+implements BreakableStmtAST
 {
 
     public ReturnAST(ParserRuleContext ctx)

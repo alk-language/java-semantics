@@ -34,6 +34,7 @@ extends ExecutionState
     private boolean executed = false;
     private int reqStep = 0;
     private int ensStep = 0;
+    private String stringRepr = "function call";
 
     public DefinedFunctionCallState(AST tree, ExecutionPayload executionPayload)
     {
@@ -107,6 +108,14 @@ extends ExecutionState
                 return request(function.getRequires().get(reqStep), env);
             }
 
+            List<String> paramValues = new ArrayList<>();
+            for (Parameter p : function.getParams())
+            {
+                paramValues.add(p.getName() + " = " + env.getLocation(p.getName()).getValue());
+            }
+            stringRepr = function.getName() + "(" + String.join(", ", paramValues) + ")";
+            getExec().getCallStack().push(this);
+
             return request(function.getBody(), env);
         }
 
@@ -115,6 +124,7 @@ extends ExecutionState
             return request(function.getEnsures().get(ensStep), env);
         }
 
+        getExec().getCallStack().pop();
         getExec().deregisterEnv(env);
         return null;
     }
@@ -195,6 +205,13 @@ extends ExecutionState
         copy.env = sm.getEnvironmentMapper().get(this.env);
         copy.madeEnv = madeEnv;
         copy.reqStep = reqStep;
+        copy.stringRepr = stringRepr;
         return super.decorate(copy, sm);
+    }
+
+    @Override
+    public String toString()
+    {
+        return stringRepr;
     }
 }

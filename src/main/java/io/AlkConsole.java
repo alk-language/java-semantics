@@ -4,7 +4,10 @@ import org.apache.commons.cli.*;
 import util.OptionProvider;
 import util.exception.AlkParseException;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Basic class for IO interaction with console
@@ -19,6 +22,8 @@ implements IOManager,
     private final CommandLine cmd;
 
     private final Options options = new Options();
+
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     /**
      * Constructor based on in line arguments usually provided by a main method
@@ -89,6 +94,14 @@ implements IOManager,
         prover.setRequired(false);
         options.addOption(prover);
 
+        Option debugger = new Option("d", "debugger", false, "debugger mode");
+        debugger.setRequired(false);
+        options.addOption(debugger);
+
+        Option debugMarkers = new Option("dm", "debugMarkers", false, "print command markers while debugging");
+        debugMarkers.setRequired(false);
+        options.addOption(debugMarkers);
+
         CommandLineParser cmdparser = new DefaultParser();
 
         try
@@ -124,6 +137,12 @@ implements IOManager,
     public void flush()
     {
         // no-op
+    }
+
+    @Override
+    public String readLine() throws IOException
+    {
+        return reader.readLine();
     }
 
     /**
@@ -224,6 +243,18 @@ implements IOManager,
     public String getProver()
     {
         return cmd.getOptionValue("smt");
+    }
+
+    @Override
+    public boolean isDebugger()
+    {
+        return cmd.hasOption("debugger");
+    }
+
+    @Override
+    public boolean hasDebugMarkers()
+    {
+        return cmd.hasOption("debugMarkers");
     }
 
     public IOManager getEndpoint()

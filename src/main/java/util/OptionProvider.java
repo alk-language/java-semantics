@@ -25,4 +25,8 @@ public interface OptionProvider
 
     boolean hasProver();
     String getProver();
+
+    boolean isDebugger();
+
+    boolean hasDebugMarkers();
 }

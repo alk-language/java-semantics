@@ -58,6 +58,9 @@ class ExecutionCloner
         ExecutionStack stack = source.getStack().makeClone(copy, stateMapping);
         copy.setStack(stack);
 
+        CallStack callStack = source.getCallStack().makeClone(copy, stateMapping);
+        copy.setCallStack(callStack);
+
         return new ExecutionCloneContext(copy, locMapping);
     }
 }
