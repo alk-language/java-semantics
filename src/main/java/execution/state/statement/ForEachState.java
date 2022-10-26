@@ -18,7 +18,6 @@ import java.util.List;
 
 import static execution.parser.exceptions.AlkException.ERR_FORALL_ITERABLE_REQUIRED;
 
-@CtxState(ctxClass = alkParser.ForEachStructureContext.class)
 public class ForEachState
 extends LoopingState
 {
@@ -78,10 +77,18 @@ extends LoopingState
     public ExecutionState clone(SplitMapper sm)
     {
         ForEachState copy = new ForEachState(tree, payload.clone(sm));
+        return this.decorate(copy, sm);
+    }
+
+    public ExecutionState decorate(ForEachState copy, SplitMapper sm)
+    {
         copy.step = this.step;
-        for (Location loc : source)
+        if (this.source != null)
         {
-            copy.source.add(sm.getLocationMapper().get(loc));
+            for (Location loc : source)
+            {
+                copy.source.add(sm.getLocationMapper().get(loc));
+            }
         }
         return super.decorate(copy, sm);
     }

@@ -39,7 +39,7 @@ extends ExpressionAST
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
         DataTypeAST chld = ((ExpressionAST) getChild(0)).getDataType(dtp);
-        if (chld instanceof IntDataTypeAST || chld instanceof FloatDataTypeAST)
+        if (chld instanceof IntDataTypeAST || chld instanceof FloatDataTypeAST || chld instanceof BoolDataTypeAST)
         {
             return chld;
         }

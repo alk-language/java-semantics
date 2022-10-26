@@ -1,0 +1,17 @@
+n = 4;
+a=[false |i from {1..n}];
+b=[false |i from {1..2*n}];
+c=[false |i from {1..2*n}];
+for (i = 0; i < n; i++){
+choose r from {0..n-1};
+if (a[r] || b[r+i] ||
+c[n+(r-i)])
+failure;
+a[r] = true;
+b[r+i] = true;
+c[n+(r-i)] = true;
+cb[r][i] = 1;
+}
+for(i = 0; i < n; ++i)
+print(cb[i]);
+success;

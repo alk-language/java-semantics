@@ -45,18 +45,30 @@ extends StmtAST
     public void addRequires(AST expr)
     {
         AST body = getBody();
-        this.children.remove(body);
+        if (body != null)
+        {
+            this.children.remove(body);
+        }
         addChild(expr);
-        this.children.add(body);
+        if (body != null)
+        {
+            this.children.add(body);
+        }
         requires.add(expr);
     }
 
     public void addEnsures(AST expr)
     {
         AST body = getBody();
-        this.children.remove(body);
+        if (body != null)
+        {
+            this.children.remove(body);
+        }
         addChild(expr);
-        this.children.add(body);
+        if (body != null)
+        {
+            this.children.add(body);
+        }
         ensures.add(expr);
     }
 
@@ -68,7 +80,7 @@ extends StmtAST
 
     public AST  getBody()
     {
-        return getChild(getChildCount() - 1);
+        return getChildCount() == 0 ? null : getChild(getChildCount() - 1);
     }
 
     public List<AST> getEnsures()

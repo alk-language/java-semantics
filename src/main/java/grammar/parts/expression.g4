@@ -191,7 +191,7 @@ component:
 
 //Sets
 set:
-    EMPTYSET                                                                                                            #EmptySet
+    EMPTYSET (LOWER dataType GREATER)?                                                                                  #EmptySet
     | LCB spec RCB                                                                                                      #SetWithSpec
     | LCB (expression (COMMA expression)*)? RCB                                                                         #SetWithExpressions
     | LCB interval RCB                                                                                                  #SetWithInterval
@@ -230,6 +230,7 @@ dataType
     | BOOLEAN                                                                                                           #BoolType
     | FLOAT                                                                                                             #FloatType
     | ARRAY LOWER dataType GREATER                                                                                      #ArrayType
+    | LIST LOWER dataType GREATER                                                                                       #ListType
     | SET LOWER dataType GREATER                                                                                        #SetType
 ;
 

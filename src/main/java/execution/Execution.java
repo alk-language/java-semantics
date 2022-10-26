@@ -11,6 +11,8 @@ import ast.type.DataTypeAST;
 import execution.exhaustive.EnvironmentMapper;
 import execution.helpers.AnnoHelper;
 import execution.parser.env.*;
+import execution.parser.exceptions.FailureException;
+import execution.parser.exceptions.UnwindException;
 import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
 import execution.state.function.DefinedFunctionCallState;
@@ -442,5 +444,14 @@ extends Thread
     public ExecutionOutput getOutput()
     {
         return output;
+    }
+
+    public void handleUnwind(UnwindException ue)
+    {
+        config.getIOManager().write(ue.getMessage());
+        if (ue instanceof FailureException)
+        {
+            this.output.failure = true;
+        }
     }
 }

@@ -1,4 +1,4 @@
-// Generated from /Users/alexandrulungu/Work/java-semantics/script/../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
+// Generated from ./../src/main/java/grammar/parts/alk.g4 by ANTLR 4.7.1
 
     package grammar;
 
@@ -907,6 +907,13 @@ public interface alkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArrayType(alkParser.ArrayTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListType}
+	 * labeled alternative in {@link alkParser#dataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListType(alkParser.ListTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SetType}
 	 * labeled alternative in {@link alkParser#dataType}.

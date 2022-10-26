@@ -26,29 +26,11 @@ extends DefinedFunctionCallState
     private int stepEns = 0;
     private boolean doneHavoc = false;
     private boolean envUpdate = false;
+    private boolean executed = false;
 
     public SymbolicFunctionCallState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload);
-        String id = tree.getAttribute(IdASTAttr.class).getId();
-
-        try
-        {
-            function = getFuncManager().getFunction(id);
-        }
-        catch (NoSuchFunctionException e)
-        {
-            super.handle(e);
-        }
-
-        if (tree.getChildCount() != function.countParams())
-        {
-            super.handle(new AlkException( "Invalid number of arguments passed to the function."));
-        }
-
-        env = new EnvironmentImpl(getStore());
-
-        setResult(new ExecutionResult(new AlkNotAValue()));
     }
 
     @Override
@@ -96,15 +78,25 @@ extends DefinedFunctionCallState
                     getExec().getPathCondition().setType(symAST.getText(), dataType, true);
                 }
             }
+        }
 
-            DataTypeAST dataType = function.getDataType();
-            if (dataType == null)
+        DataTypeAST dataType = function.getDataType();
+
+        if (!executed)
+        {
+            if (function.getEnsures().size() > 0)
             {
-                throw new AlkException("Can't detect the return data type of the function: " + function.getName());
+                if (dataType != null)
+                {
+                    AST symAST = SymIDAST.generate(SymbolicResultState.resultName);
+                    env.define(SymbolicResultState.resultName).setValue(new SymbolicValue(symAST));
+                    getExec().getPathCondition().setType(symAST.getText(), dataType, true);
+                    setResult(new ExecutionResult(env.getLocation(SymbolicResultState.resultName).toRValue()));
+                }
+                executed = true;
             }
-            AST symAST = SymIDAST.generate(SymbolicResultState.resultName);
-            env.define(SymbolicResultState.resultName).setValue(new SymbolicValue(symAST));
-            getExec().getPathCondition().setType(symAST.getText(), dataType, true);
+            else
+                return request(function.getBody(), env);
         }
 
         if (stepEns < function.getEnsures().size())
@@ -112,7 +104,6 @@ extends DefinedFunctionCallState
             return request(function.getEnsures().get(stepEns), env);
         }
 
-        setResult(new ExecutionResult(env.getLocation(SymbolicResultState.resultName).toRValue()));
         return null;
     }
 
@@ -143,6 +134,8 @@ extends DefinedFunctionCallState
         if (value instanceof SymbolicValue)
         {
             getExec().getPathCondition().add((SymbolicValue) value);
+            System.out.println("PC: " + getExec().getPathCondition());
+            System.out.println("Value: " + value);
             if (!getExec().getPathCondition().isSatisfiable())
             {
                 super.handle(new AlkException("The path condition is not satisfiable after calling: " + function.getName()));
@@ -175,6 +168,10 @@ extends DefinedFunctionCallState
             stepReq++;
             processRequires(executionResult.getValue().toRValue());
         }
+        else if (!executed)
+        {
+            executed = true;
+        }
         else if (stepEns < function.getEnsures().size())
         {
             stepEns++;
@@ -190,6 +187,7 @@ extends DefinedFunctionCallState
         copy.stepEns = stepEns;
         copy.doneHavoc = doneHavoc;
         copy.envUpdate = envUpdate;
+        copy.executed = executed;
         return super.decorate(copy, sm);
     }
 }

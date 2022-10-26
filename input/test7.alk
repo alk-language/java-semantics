@@ -1,16 +1,41 @@
-// map-urile au fost rezolvate
+queens(n)
+@requires n : int
+@requires 2 <= n
+@ensures \result : array< array<int> >
+@ensures true
+{
+    // a = [ false | i from {1..n} ];
+    @havoc a : array<int>, b : array<int>, c : array<int>, cb : array<int>;
 
+    @assume a.size() == n;
+    //@assume b.size() == 2 * n;
+    //@assume c.size() == 2 * n;
+    //@assume cb.size() == n;
 
-// putem pune in orice ordine modifies, invariant !!!!!!!! nu se poate o lista
-// am formatat path condition -> de adaugat Type Constraints
+    @assume forall i : int :: 0 <= i && i < n ==> a[i] == 0;
+    //@assume forall i : int :: 0 <= i && i < 2 * n ==> b[i] == 0;
+    //@assume forall i : int :: 0 <= i && i < 2 * n ==> c[i] == 0;
 
-// functiile ce nu au ensures, nu sunt verificate
-// rezolvat problema cu bracket cand ambele valori sunt concrete dar array-ul are valori simbolice
-// rezolvat cazul cu UNKNOWN -> unkown Z3 check
-// tratat cazul in care nu se defineste tipul de return
-// tratat cazul in care avem result dar nu avem return
-// invariant poate fi valoare concreta booleana
-// invariantii sunt verificati intr-un singur thread
-// am adaugat optiunea -prover pentru a specifica proverul
+    col = 0;
 
-// executia simbolica a functiilor "predicat"
+    while (col < n)
+    @invariant 0 <= col && col <= n
+    @modifies col, a, b, c, cb
+    {
+        //choose row from {0 .. n-1} s.t. a[row] || b[row + col] || c[n + (row-col)];
+        /*@havoc row : int;
+        @assert 0 <= row && row < n;
+        if (a[row] || b[row + col] || c[n + (row-col)])
+        {
+            failure;
+        }
+
+        a[row] = 1;
+        b[row + col] = 1;
+        c[n + (row-col)] = 1;
+        cb[col] = row;*/
+        col++;
+    }
+
+    return cb;
+}

@@ -1,0 +1,12 @@
+@havoc A : array<int>;
+@assume A.size() == 10;
+@assume forall x : int :: 0 <= x && x < 10 ==> A[x] == 2;
+
+
+sum = 0;
+foreach x from A
+{
+    sum += x;
+}
+@assert A.size() * 2 == sum;
+
