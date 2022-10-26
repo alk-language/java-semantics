@@ -28,7 +28,7 @@ implements DataTypeProvider
     List<SymbolicValue> conditions = new ArrayList<>();
     Map<String, DataTypeAST> idTypes = new HashMap<>();
     private Set<String> implicitTypes = new HashSet<>();
-    private AlkSMTContext alkCtx;
+    public AlkSMTContext alkCtx;
 
     public static PathCondition parse(String conditionPath, boolean verify)
     {

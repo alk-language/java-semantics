@@ -93,7 +93,7 @@ extends IfStmtState
     public ExecutionState clone(SplitMapper sm)
     {
         SymIfStmtState copy = new SymIfStmtState(tree, payload.clone(sm));
-        copy.condition = condition.weakClone(sm.getLocationMapper());
+        copy.condition = condition == null ? null : condition.weakClone(sm.getLocationMapper());
         copy.executed = executed;
         copy.shouldExecuteElse = shouldExecuteElse;
         return super.decorate(copy, sm);

@@ -1,0 +1,6 @@
+@havoc A : set<int>;
+@assume forall x : int :: x in A ==> x == 2;
+
+choose x from A;
+
+@assert x == 2;

@@ -1,37 +1,62 @@
-choose x from A;
-// x |-> $x, exists i : int :: lft(A) <= i && i < rgh(A) ==> A[i] == $x
-
-foreach x in A
+queens(n)
+@requires n : int
+@requires 1 <= n
+@ensures \result : array< array<int> >
+@ensures true
 {
-    A.pushBack(10);
-}
+    // a = [ false | i from {1..n} ];
+    @havoc a : array<boolean>, b : array<boolean>, c : array<boolean>;
+    @assume a.size() == 0;
+    @assume b.size() == 0;
+    @assume c.size() == 0;
 
-======================= A : array
+    for (i = 0; i < n; i++)
+    @invariant 0 <= i && i <= n
+    @invariant a.size() == i
+    @invariant forall j : int :: 0 <= j && j < i ==> !a[j]
+    @modifies i, a, a.size
+    {
+        a[i] = false;
+    }
 
-i = 0;
-B = A;
-while (i < B.size())
-{
-    x = B[i];
+    @assert a.size() == n;
+    @assert forall k : int :: 0 <= k && k < a.size() ==> !a[k];
 
-    i++;
-}
+    @assert 2 * n >= 2;
 
+    // b = [ false | i from {1..2*n} ];
+    // c = [ false | i from {1..2*n} ];
+    for (i = 0; i < 2 * n; i++)
+    @invariant 0 <= i && i <= 2 * n
+    @invariant b.size() == i;
+    @invariant c.size() == i;
+    @invariant forall j : int :: 0 <= j && j < i ==> !b[j]
+    @invariant forall j : int :: 0 <= j && j < i ==> !c[j]
+    @modifies i, b, b.size, c, c.size
+    {
+        b[i] = false;
+        c[i] = false;
+    }
 
-foreach x in A
-@invariant A.size() > 10
-{
-    A = A U { 1 };
-}
+    @assert b.size() == 2 * n;
+    @assert c.size() == 2 * n;
 
-======================= A : set
+    @havoc cb : array< array<int> >;
+    @assume cb.size() == n;
+    //@assume forall i : int :: 0 <= i && i < n ==> cb[i].size() == n;
 
-S = A;
-while (S.size() > 0)
-@invariant S.size() > 10
-{
-    choose x from S;
+    for (col = 0; col < n; ++col)
+    @invariant 0 <= col && col <= n
+    @invariant forall j : int :: 0 <= j && j < col ==> (exists i : int :: 0 <= i && i < n && cb[i][j] == 1)
+    @modifies col, a, b, c, cb
+    {
+        choose row from {0..n - 1} s.t. !(a[row] || b[row + col] || c[n + (row-col)]);
 
+        a[row] = true;
+        b[row + col] = true;
+        c[n + (row-col)] = true;
+        cb[row][col] = 1;
+    }
 
-    S.remove(x);
+    return cb;
 }

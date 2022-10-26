@@ -95,7 +95,7 @@ public class ExecutionStack extends ASTStack<ExecutionState>
 
     public ExecutionStack(Execution master)
     {
-        super(master.config);
+        super(master.config, master::handleUnwind);
         this.master = master;
     }
 

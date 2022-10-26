@@ -1,0 +1,44 @@
+@havoc A : array<int>;
+@assume A.size() == 3;
+@assume forall x : int :: 0 <= x && x < A.size() ==> A[x] == x;
+
+sum = 0;
+foreach x from A
+{
+    sum += x;
+}
+
+// A |-> $a
+while (A.size() > 0)
+// (size (set-difference $a (store emptySet x true))) > 0
+{
+    choose x from A;
+    A.remove(x); // A = A \ { x }
+    // A |-> (set-difference $a (store emptySet x true))
+    ...
+}
+
+A = A \ { x } ---> (set-difference $a (store emptySet x true))
+A.remove(x)   ---> (store $a x false)
+
+(size (store $a x false)) == (size $a) - 1 daca   (store $a x true)
+                             (size $a)     altfel
+
+A = A \ {x, y, z}
+==================
+
+A.remove(x).remove(y).remove(z)
+
+A = A ^ {x, y, z}
+
+(store $a x true)  ==> (size (store $a x false)) == (size $a) - 1
+(store $a x false) ==> (size (store $a x false)) == (size $a)
+
+
+// x in A
+// $a.size() > (size (set-difference $a (store emptySet x true))) >= 0
+
+
+(size (set-difference $a (store emptySet x true))) :=
+    forall x, y, a :: (size (set-difference x (store y a true)) ==
+                      (size (set-difference x y)) daca (store x a) == false sau (size (set-difference x y)) - 1 altfel

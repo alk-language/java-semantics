@@ -1,6 +1,19 @@
-a(i) {
-    b(j){
-        j++;
-    }
-    i++;
+isEven(x)
+@requires x : int
+@ensures \result : boolean
+@ensures (\result ==> x % 2 == 0) && (!\result ==> x % 2 == 1)
+{
+    return x % 2 == 0;
+}
+
+
+test(a)
+@requires a : array<int>
+@ensures \result % 2 != 0
+{
+    choose x from a;
+    if (!isEven(x))
+        return x; // success
+    else
+        failure;
 }

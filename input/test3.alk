@@ -1,101 +1,45 @@
-swap(out a, out b)
-requires true
-ensures old(a) == b && old(b) == a
+attacked(i, j, b)
+@requires i : int
+@requires j : int
+@requires b : array<int>
+@requires 0 <= i && i < b.size()
+@requires 0 <= j && j < b.size()
+@ensures \result : boolean
+@ensures \result <==> (exists k : int :: 0 <= k && k < i && ((b[k] == j) || (abs(b[k] - j) == i - k)))
 {
-    tmp = a;
-    a = b;
-    b = tmp;
+  attack = false;
+  for (k = 0; k < i; k++)
+  @invariant 0 <= k && k <= i
+  @invariant attack <==> (exists k1 : int :: 0 <= k1 && k1 < k && ((b[k1] == j) || (abs(b[k1] - j) == i - k1)))
+  @modifies k, attack
+  {
+     if ((b[k] == j) || (abs(b[k] - j) == abs(k - i)))
+       attack = true;
+  }
+  return attack;
 }
 
-sorted(a)
+nqueens (n, out b)
+@requires n : int
+@requires b : array<int>
+@requires 0 < n
+@requires b.size() == n
+@ensures forall i : int :: (forall j : int :: 0 <= i && i < j && j < n ==> !(b[i] == b[j]))
+@ensures forall i : int :: (forall j : int :: 0 <= i && i < j && j < n ==> !(abs(b[j] - b[i]) == j - i))
 {
-    return sorted2(a, a.size());
+   k = 0;
+
+   while (k < n)
+   @invariant 0 <= k && k <= n
+   @invariant forall i : int :: (forall j : int :: 0 <= i && i < j && j < k ==> !(b[i] == b[j]))
+   @invariant forall i : int :: (forall j : int :: 0 <= i && i < j && j < k ==> !(abs(b[j] - b[i]) == j - i))
+   @modifies k, b
+   {
+     choose j from {0 .. n-1} s.t. !attacked(k, j, b); // abs
+     b[k] = j;
+     k++;
+   }
 }
 
-sorted2(a, i)
-{
-    return forall k : int :: 0 < k && k < i ==> a[k - 1] <= a[k];
-}
-
-findMin(a, i)
-requires ...
-requires ...
-ensures ...
-ensures ...
-{
-    assume 0 <= i && i < a.size();
-    // requires 0 <= i < a.Length
-    j = i;
-    m = i;
-
-    while(j < a.size())
-        invariant i <= j && j <= a.size()
-               && i <= m && m < a.size()
-               && (forall k : int :: i <= k && k < j ==> a[k] >= a[m])
-        modifies m, j
-    {
-        if(a[j] < a[m]) m = j;
-        j++;
-    }
-
-    assert i <= m && m < a.size(); // ensures i <= m < a.Length
-    assert forall k : int :: i <= k && k < a.size() ==> a[k] >= a[m];
-    // ensures forall k :: i <= k < a.Length ==> a[k] >= a[m]
-    return m;
-}
-
-insertionSort(out a) uses a
-{
-    c = 0;
-    while(c < a.size())
-        invariant 0 <= c && c <= a.size()
-               && (forall k : int, l : int :: 0 <= k && k < c && c <= l && l < a.size() ==> a[k] <= a[l])
-               && sorted2(a, c)
-        modifies a, c
-    {
-        m = findMin(a, c);
-        swap(a[m], a[c]);
-        assert forall k : int :: c <= k && k < a.size() ==> a[k] >= a[c];
-        c++;
-    }
-
-    assert sorted(a);
-}
-
-symbolic $a : array<int>;
-a = $a;
-insertionSort(a);
-
-
-
-// findMin(input, output) modifies ... uses ...
-// requires r
-// ensures e
-//    s
-
-// 1) havoc input, output, modifies, uses
-// 2) assume r
-// 3) execute s
-// 4) assert e
-
-
-
-// findMin(input, output)
-
-// 1) evaluare argumente si initializare parametrii de intrare
-// 2) assert r
-// 3) havoc output, modifies
-// 4) assume e
-
-abs(x) ...
-
-b |-> $b
-c |-> $c
-abs(b + c)
-
-
-a |-> (store a m loc)
-loc |-> (select a m)
-======================
-a |-> (store a m loc)
-loc |-> fresh
+// b = [-1 | i from [0..n-1]];
+// nqueens(n);

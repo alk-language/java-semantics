@@ -1,0 +1,7 @@
+@havoc A : array<int>;
+@assume A.size() == 10;
+@assume forall x : int :: 0 <= x && x < 10 ==> A[x] == 2;
+
+choose x from A;
+
+@assert x == 2;
