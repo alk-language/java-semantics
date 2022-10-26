@@ -78,7 +78,7 @@ extends StmtAST
         this.dataType = dataType;
     }
 
-    public AST getBody()
+    public AST  getBody()
     {
         return getChildCount() == 0 ? null : getChild(getChildCount() - 1);
     }

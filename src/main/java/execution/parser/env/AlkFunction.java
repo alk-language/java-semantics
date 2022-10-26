@@ -98,4 +98,20 @@ public class AlkFunction
     {
         return dataType;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name);
+        sb.append("(");
+        for (int i = 0; i < params.size(); i++)
+        {
+            sb.append(params.get(i).getName());
+            if (i < params.size() - 1)
+                sb.append(", ");
+        }
+        sb.append(")");
+        return sb.toString();
+    }
 }

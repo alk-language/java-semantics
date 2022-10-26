@@ -74,4 +74,9 @@ extends ExecutionState
         copy.executed = executed;
         return super.decorate(copy, sm);
     }
+
+    public boolean hasExecuted()
+    {
+        return executed;
+    }
 }

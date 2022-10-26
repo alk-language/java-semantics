@@ -9,6 +9,7 @@ import visitor.ifaces.stmt.ContinueVisitorIface;
 
 public class ContinueAST
 extends StmtAST
+implements BreakableStmtAST
 {
 
     public ContinueAST(ParserRuleContext ctx)
