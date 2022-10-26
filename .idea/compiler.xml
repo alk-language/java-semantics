@@ -15,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Alk (1)" target="1.8" />
+      <module name="untitled" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
