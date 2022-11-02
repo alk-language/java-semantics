@@ -1,0 +1,36 @@
+/*
+    alki -a askith_call.alk -m -s -smt="Z3"
+
+    Successfully verified: askIth
+
+    a |-> $a_1
+    last |-> $\result_0
+    Path condition:
+       ($a.size()>3) &&
+       ($a_1[2]<=$a_1[3]) &&
+       ($\result_0>0) ==> ($\result_0==2)
+
+*/
+
+askIth(out a, i)
+@requires a : array<int>
+@requires i : int
+@requires a.size() > 0 && 0 <= i && i < a.size() - 1
+@ensures a[i] <= a[i + 1]
+@ensures \result > 0 ==> \result == i
+@ensures \result : int
+{
+    if (a[i] > a[i + 1])
+    {
+        tmp = a[i];
+        a[i] = a[i + 1];
+        a[i + 1] = tmp;
+        return i;
+    }
+    return 0;
+}
+
+@symbolic $a : array<int>;
+a = $a;
+@assume a.size() > 3;
+last = askIth(a, 2);

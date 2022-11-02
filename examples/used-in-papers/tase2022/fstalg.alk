@@ -1,0 +1,16 @@
+/*
+    alki -a fstalg.alk -m -i "a |-> [1, 2, 2, 3, 3, 3]"
+    
+    a |-> [1, 2, 2, 3, 3, 3]
+    slp |-> 3
+    i |-> 6
+*/
+
+slp = 1;
+i = 1;
+while (i < a.size())
+{
+    if (a[i] == a[i - slp])
+        slp = slp + 1;
+    i = i + 1;
+}

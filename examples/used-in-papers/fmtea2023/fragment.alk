@@ -1,0 +1,6 @@
+uniform j from [1..n];
+if (L.at(i).key < L.at(j).key && L.at(j).key < k) {
+    i = j;
+    if (L.at(i).key == k) return i;
+}
+i = i+1;

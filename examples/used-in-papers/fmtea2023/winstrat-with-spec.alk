@@ -1,0 +1,37 @@
+/*
+    A box contains N matches. Two players take turns taking one or two matches from the box.
+    The player, whose turn it is and has no legal move to make, loses. 
+    Who has the winning strategy?
+*/
+winingStrategy(n) 
+@requires n: int;
+@requires n > 0;
+@ensures \result: int;
+@ensures (\old(n) % 3 == 0 ==> \result == 2) && (\old(n) % 3 != 0 ==> \result == 1); 
+{
+    turn = 1;
+    if (n % 3 != 0) {
+        take = n % 3;
+        n = n - take;
+        if (n > 0) turn = 2;
+    }
+    while (n > 0) 
+    @modifies n, turn
+    @invariant n % 3 == 0 && n >= 0 
+    @invariant n > 0 ==> (\old(n) % 3 == 0 ==> turn == 1) && (\old(n) % 3 != 0 ==> turn == 2);
+    @invariant n == 0 ==> ((\old(n) % 3 == 0 ==> turn == 2) && (\old(n) % 3 != 0 ==> turn == 1));
+    {
+        // the current turn
+        choose take from {1,2};
+        n = n - take;
+        // the next turn
+        turn = 3 - turn;
+        take = n % 3;
+        n = n - take;
+        // prepare the next current turn (if any)
+        if (n > 0) turn = 3 - turn;
+    }
+    return turn;
+}
+
+

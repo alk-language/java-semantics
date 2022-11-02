@@ -1,0 +1,20 @@
+winingStrategy(n)
+{
+    turn = 1;
+    while (n > 0) 
+    {
+        // the current turn
+        choose take from {1,2};
+        n = n - take;
+        // the next turn
+        turn = 3 - turn;
+        take = n % 3;
+        n = n - take;
+        // prepare the next current turn (if any)
+        if (n > 0) turn = 3 - turn;
+    }
+    return turn;
+}
+
+for (i = 1; i < 6; ++i) 
+    w[i-1] = winingStrategy(3*i);
