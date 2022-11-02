@@ -1,0 +1,6 @@
+// the first turn
+choose take from {1,2};
+n = n - take;
+// the next turn
+take = n;
+n = n - take;

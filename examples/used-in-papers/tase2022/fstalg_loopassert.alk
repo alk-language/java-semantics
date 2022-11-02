@@ -1,0 +1,33 @@
+/*
+    alki -a fstalg_loopassert.alk -m -s -smt="Z3"
+
+    a |-> $a_0
+    slp |-> 1
+    i |-> 3
+
+    a |-> $a_0
+    slp |-> 2
+    i |-> 3
+
+    a |-> $a_0
+    slp |-> 3
+    i |-> 3
+
+    a |-> $a_0
+    slp |-> 2
+    i |-> 3
+*/
+
+@havoc a : array<int>;
+slp = 1;
+i = 1;
+@assume a.size() == 3;
+@assume forall i : int :: 0 <= i && i < a.size() - 1 ==> a[i] <= a[i + 1];
+while (i < a.size())
+@modifies slp, i;
+{
+    if (a[i] == a[i - slp])
+        slp = slp + 1;
+    i = i + 1;
+}
+@loopassert 1 <= slp && i <= a.size() && (exists k:int :: slp - 1 <= k && k < i && a[k] == a[k - slp + 1]);

@@ -1,0 +1,44 @@
+/*
+    alki -a bubblesort.alk -m -i "b |-> [2, 3, 1]"
+    b |-> [1, 2, 3]
+    alki -a bubblesort.alk -m -i "b |-> [1.2, 1.5, 1.4]"
+    b |-> [1.2, 1.4, 1.5]
+    alki -a bubblesort.alk -m -i "b |-> [\"ab\", \"ac\", \"aa\"]"
+    b |-> ["aa", "ab", "ac"]
+*/
+
+swap(out a, i, j)
+@requires 0 <= i && i < a.size()
+@requires 0 <= j && j < a.size()
+{
+    temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+}
+
+askIth(out a, i)
+@requires a.size() > 1
+@requires 0 <= i && i < a.size() - 1
+{
+    if (a[i] > a[i + 1]) {
+        swap(a, i, i + 1);
+        return i;
+    }
+    return 0;
+}
+
+bubbleSort(out a)
+@requires a.size() > 0
+{
+    last = a.size() - 1;
+    while (last > 0)
+    {
+        n1 = last;
+        for (i = 0; i < n1; ++i)
+        {
+            last = askIth(a, i);
+        }
+    }
+}
+
+bubbleSort(b);
