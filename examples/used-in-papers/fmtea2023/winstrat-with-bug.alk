@@ -1,14 +1,3 @@
-/*
-    A box contains N matches. Two players take turns taking one or two matches from the box.
-    The player, whose turn it is and has no legal move to make, loses. 
-    Who has the winning strategy?
-*/
-
-/*
-    We show first that 
-    - if N is a multiple of 3 then the second player has a strategy to win;
-    - otherwise, the first player has one.
-*/
 winingStrategy(n) 
 {
     turn = 1;
@@ -32,7 +21,10 @@ winingStrategy(n)
     return turn;
 }
 
+/*
 for (i = 1; i < 10; ++i) {
-    print([i, winingStrategy(i)]);
+    w[i-1] = winingStrategy(i);
 }
+*/
+w = winingStrategy(2);
 
