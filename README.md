@@ -5,6 +5,8 @@ Some references:
 ICTAC 2022 - 19th International Colloquium, Tbilisi, Georgia, September 27-29, 2022, Proceedings. Lecture Notes in Computer Science, vol. 13572, pp. 290–304. Springer (2022). https://doi.org/10.1007/978-3-031-17715-6“ ̇19
 2. Lungu, A., Lucanu, D.: _Supporting algorithm analysis with symbolic execution in Alk_. In: Ameur, Y.A., Craciun, F. (eds.) Theoretical Aspects of Software Engineering - 16th International Symposium, TASE 2022, Proceedings. Lecture Notes in Computer Science, vol. 13299, pp. 406–423. Springer (2022), https://doi.org/10.1007/978-3-031-10363-6 27
 
+The examples used in the papers can be found [here](https://github.com/alk-language/java-semantics/tree/master/examples/used-in-papers). 
+
 Read the [reference manual](../../wiki/Reference-Manual) to review the Alk syntax.
 Also consider the [Alk-by example](../../wiki/Alk-by-examples) wiki to understand how Alk behaves in real-scenarios.
 
