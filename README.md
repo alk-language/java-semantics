@@ -15,6 +15,8 @@ Also consider the [Alk-by example](../../wiki/Alk-by-examples) wiki to understan
 2. In the Extensions tag in the left side, check for the "Alk Visual Studio Code Extension" and install.
 3. Enter the [Alk VS Code Extension](https://github.com/Andreizabo/alk-vscode-extension) repository and check the usage manual.
 
+   ***Note***. The symbolic exection engine might not work on Mac M1 becauses of incompatibilty between Java machine and Z3 library. We are working to fix that.
+   
 # Downloading and Running the Interpreter
 
 1. Be sure you have installed the latest version of Java. Alk interpreter works now on Java 1.8.
@@ -122,4 +124,3 @@ Optionally (and remmended) is to create a symbolic link named `alki`:
    alki.bat -a example.alk -i input.in
    ```
    
-   ***Note***. The symbolic exection engine might not work on Mac M1 becauses of incompatibilty between Java machine and Z3 library. We are working to fix that.
