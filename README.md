@@ -122,4 +122,4 @@ Optionally (and remmended) is to create a symbolic link named `alki`:
    alki.bat -a example.alk -i input.in
    ```
    
-   
+   ***Note***. The symbolic exection engine might not work on Mac M1 becauses of incompatibilty between Java machine and Z3 library. We are working to fix that.
