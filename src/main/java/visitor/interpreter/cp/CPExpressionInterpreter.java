@@ -18,12 +18,12 @@ import visitor.interpreter.SmallStepExpressionInterpreter;
 import visitor.interpreter.InterpreterHelper;
 import visitor.interpreter.base.BaseExpressionInterpreter;
 
-import javax.xml.ws.Provider;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public class CPExpressionInterpreter
 implements SmallStepExpressionInterpreter<CPValue>
@@ -139,7 +139,7 @@ implements SmallStepExpressionInterpreter<CPValue>
     }
 
     @Override
-    public CPValue interpretCompositeFilterSpec(Primitive primitive, String id, CPValue fromExpr, Provider<CPValue> suchThat)
+    public CPValue interpretCompositeFilterSpec(Primitive primitive, String id, CPValue fromExpr, Function<CPValue, Object> suchThat)
     {
         Storable fromValue = fromExpr.toRValue();
 
@@ -152,11 +152,11 @@ implements SmallStepExpressionInterpreter<CPValue>
         // TODO: provider may return CPValue
 
         return basicInterpreter.interpretCompositeFilterSpec(primitive, id, (ConcreteValue) fromValue, (request) ->
-                (ConcreteValue) suchThat.invoke(request));
+                (ConcreteValue) suchThat.apply(request));
     }
 
     @Override
-    public CPValue interpretCompositeSelectSpec(Primitive primitive, String id, CPValue fromExpr, Provider<CPValue> suchThat)
+    public CPValue interpretCompositeSelectSpec(Primitive primitive, String id, CPValue fromExpr, Function<CPValue, Object> suchThat)
     {
         Storable fromValue = fromExpr.toRValue();
 
@@ -169,7 +169,7 @@ implements SmallStepExpressionInterpreter<CPValue>
         // TODO: provider may return CPValue
 
         return basicInterpreter.interpretCompositeSelectSpec(primitive, id, (ConcreteValue) fromValue, (request) ->
-                (ConcreteValue) suchThat.invoke(request));
+                (ConcreteValue) suchThat.apply(request));
     }
 
     @Override

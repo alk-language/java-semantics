@@ -21,13 +21,13 @@ import visitor.interpreter.SmallStepExpressionInterpreter;
 import visitor.interpreter.InterpreterHelper;
 import visitor.interpreter.RequiresGenerator;
 
-import javax.xml.ws.Provider;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public class BaseExpressionInterpreter
 implements SmallStepExpressionInterpreter<ConcreteValue>
@@ -175,7 +175,7 @@ implements SmallStepExpressionInterpreter<ConcreteValue>
     public ConcreteValue interpretCompositeFilterSpec(Primitive primitive,
                                                       String id,
                                                       ConcreteValue x,
-                                                      Provider<ConcreteValue> suchThat)
+                                                      Function<ConcreteValue, Object> suchThat)
     {
         AlkIterableValue struct = InterpreterHelper.getIterableInstance(primitive);
         Storable fromExpr = x.toRValue();
@@ -197,7 +197,7 @@ implements SmallStepExpressionInterpreter<ConcreteValue>
             for (Location loc : locs)
             {
                 proxy.addTempEntry(id, loc.toRValue().clone(locationGenerator));
-                Storable eval = suchThat.invoke(null).toRValue();
+                Storable eval = ((Storable) suchThat.apply(null)).toRValue();
 
                 if (!(eval instanceof AlkBool))
                     throw new AlkException("Second expression in filter specification must be a boolean");
@@ -217,7 +217,7 @@ implements SmallStepExpressionInterpreter<ConcreteValue>
     }
 
     @Override
-    public ConcreteValue interpretCompositeSelectSpec(Primitive primitive, String id, ConcreteValue x, Provider<ConcreteValue> suchThat)
+    public ConcreteValue interpretCompositeSelectSpec(Primitive primitive, String id, ConcreteValue x, Function<ConcreteValue, Object> suchThat)
     {
         AlkIterableValue struct = InterpreterHelper.getIterableInstance(primitive);
         Storable fromExpr = x.toRValue();
@@ -237,7 +237,7 @@ implements SmallStepExpressionInterpreter<ConcreteValue>
         for (Location loc : locs)
         {
             proxy.addTempEntry(id, loc.toRValue().clone(locationGenerator));
-            Storable eval = suchThat.invoke(null).toRValue();
+            Storable eval = ((Storable) suchThat.apply(null)).toRValue();
 
             if (!(eval instanceof AlkValue))
                 throw new InternalException("Can't use non-alkvalue in composite select spec");

@@ -20,9 +20,9 @@ import visitor.interpreter.base.BaseExpressionInterpreter;
 import visitor.interpreter.SmallStepExpressionInterpreter;
 import visitor.interpreter.InterpreterHelper;
 
-import javax.xml.ws.Provider;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class SymbolicExpressionInterpreter
 implements SmallStepExpressionInterpreter<SymbolicValueIface>
@@ -94,12 +94,15 @@ implements SmallStepExpressionInterpreter<SymbolicValueIface>
     }
 
     @Override
-    public SymbolicValueIface interpretCompositeFilterSpec(Primitive primitive, String id, SymbolicValueIface fromExpr, Provider<SymbolicValueIface> suchThat) {
+    public SymbolicValueIface interpretCompositeFilterSpec(Primitive primitive, String id, SymbolicValueIface fromExpr, Function<SymbolicValueIface, Object> suchThat) {
         return null;
     }
 
     @Override
-    public SymbolicValueIface interpretCompositeSelectSpec(Primitive primitive, String id, SymbolicValueIface fromExpr, Provider<SymbolicValueIface> suchThat) {
+    public SymbolicValueIface interpretCompositeSelectSpec(Primitive primitive,
+                                                           String id,
+                                                           SymbolicValueIface fromExpr,
+                                                           Function<SymbolicValueIface, Object> suchThat) {
         return null;
     }
 

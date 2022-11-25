@@ -2,7 +2,6 @@ package execution;
 
 import execution.parser.exceptions.AlkSyntaxException;
 import grammar.alkParser;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import execution.parser.AlkParser;
 import execution.parser.exceptions.AlkException;
