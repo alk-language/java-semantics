@@ -5,17 +5,13 @@ import ast.attr.IdASTAttr;
 import ast.attr.ParamASTAttr;
 import ast.enums.Operator;
 import ast.enums.ParamType;
-import ast.expr.RefIDAST;
 import ast.expr.UnaryAST;
 import ast.stmt.*;
 import ast.symbolic.SymbolicDeclsAST;
 import ast.symbolic.IdDeclAST;
 import ast.type.DataTypeAST;
-import com.sun.javafx.fxml.expression.BinaryExpression;
-import com.sun.javafx.fxml.expression.UnaryExpression;
 import grammar.alkBaseVisitor;
 import grammar.alkParser;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import util.functions.Parameter;
 
 public class ParseTreeVisitor
