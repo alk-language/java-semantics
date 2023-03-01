@@ -1,5 +1,7 @@
 package execution.parser.env;
 
+import symbolic.ASTSimplifier;
+import symbolic.SymbolicValue;
 import util.types.Storable;
 
 import java.util.HashMap;
@@ -75,7 +77,18 @@ implements Environment
     @Override
     public String toString()
     {
-        return target.toString();
+        StringBuilder sb = new StringBuilder(target.toString());
+        for (Map.Entry<String, Location> i : variables.entrySet())
+        {
+            Storable val = store.get(i.getValue());
+            if (val instanceof SymbolicValue)
+            {
+                LocationMapperIface lm = loc -> loc;
+                val = new SymbolicValue(((SymbolicValue) val).toAST().accept(new ASTSimplifier(lm, true)));
+            }
+            sb.append(i.getKey()).append(" |-> ").append(val).append('\n');
+        }
+        return sb.toString();
     }
 
     @Override

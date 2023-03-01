@@ -27,10 +27,12 @@ extends DefinedFunctionCallState
     private boolean doneHavoc = false;
     private boolean envUpdate = false;
     private boolean executed = false;
+    private EnvironmentProxy oldEnv;
 
     public SymbolicFunctionCallState(AST tree, ExecutionPayload executionPayload)
     {
         super(tree, executionPayload);
+        oldEnv = new EnvironmentProxy(env);
     }
 
     @Override
@@ -67,6 +69,14 @@ extends DefinedFunctionCallState
         if (!doneHavoc)
         {
             doneHavoc = true;
+
+            for (int i = 0; i < function.countParams(); i++)
+            {
+                Parameter param = function.getParam(i);
+                oldEnv.addTempEntry(SymbolicOldState.oldName + "(" + param.getName() + ")",
+                                   params.get(i).toRValue());
+            }
+
             // havoc output
             for (Parameter param : function.getParams())
             {
@@ -101,7 +111,7 @@ extends DefinedFunctionCallState
 
         if (stepEns < function.getEnsures().size())
         {
-            return request(function.getEnsures().get(stepEns), env);
+            return request(function.getEnsures().get(stepEns), oldEnv);
         }
 
         return null;
@@ -134,8 +144,6 @@ extends DefinedFunctionCallState
         if (value instanceof SymbolicValue)
         {
             getExec().getPathCondition().add((SymbolicValue) value);
-            System.out.println("PC: " + getExec().getPathCondition());
-            System.out.println("Value: " + value);
             if (!getExec().getPathCondition().isSatisfiable())
             {
                 super.handle(new AlkException("The path condition is not satisfiable after calling: " + function.getName()));

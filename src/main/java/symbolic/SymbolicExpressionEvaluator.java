@@ -67,7 +67,6 @@ implements Master
         stack.push(state);
         Result<?> result = stack.run();
         Storable value = (Storable) result.getValue();
-        System.out.println(value.toRValue().toString());
 
         if (config.hasMetadata())
         {

@@ -11,6 +11,7 @@ import execution.exhaustive.EnvironmentMapper;
 import execution.helpers.AnnoHelper;
 import execution.parser.env.*;
 import execution.parser.exceptions.FailureException;
+import execution.parser.exceptions.ReturnException;
 import execution.parser.exceptions.UnwindException;
 import execution.state.ExecutionCloneContext;
 import execution.state.ExecutionState;
@@ -444,7 +445,10 @@ extends Thread
 
     public void handleUnwind(UnwindException ue)
     {
-        config.getIOManager().write(ue.getMessage());
+        // quick fix; needs better handling
+        // analysis engine usually has return outside functions
+        if (!(ue instanceof ReturnException))
+            config.getIOManager().write(ue.getMessage());
         if (ue instanceof FailureException)
         {
             this.output.failure = true;

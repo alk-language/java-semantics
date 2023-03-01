@@ -1,27 +1,19 @@
-@havoc n : int;
-@havoc a : array<int>, b : array<int>, c : array<int>, cb : array<int>;
-@assume 1 <= n;
-
-@assume a.size() == n;
-@assume forall i : int :: 0 <= i && i < n ==> a[i] == 0;
-@assume b.size() == 2 * n;
-@assume forall i : int :: 0 <= i && i < 2 * n ==> b[i] == 0;
-@assume c.size() == 2 * n;
-@assume forall i : int :: 0 <= i && i < 2 * n ==> c[i] == 0;
-@assume cb.size() == 0;
-
-for (col = 0; col < n; col++)
-@invariant 0 <= col && col <= n
-@invariant cb.size() == col;
-@invariant forall i : int :: 0 <= i && i < n ==> a[i] <= 1
-@invariant forall i : int :: 0 <= i && i < 2 * n ==> b[i] <= 1
-@invariant forall i : int :: 0 <= i && i < 2 * n ==> c[i] <= 1
-@invariant forall i : int, j : int :: 0 <= i && i < j && j < col ==> cb[i] != cb[j]
-@modifies col, a, b, c, cb
+swap(out a, i, j)
+@requires a: array<int>
+@requires i: int
+@requires j: int
+@requires 0 <= i && i < a.size()
+@requires 0 <= j && j < a.size()
+@ensures a[i] == \old(a)[j]  
+@ensures a[j] == \old(a)[i]
 {
-    choose row from {0 .. n-1} s.t. a[row] == 0 && b[row + col] == 0 && c[n + (row-col)] == 0;
-    a[row]++;
-    b[row + col]++;
-    c[n + (row-col)]++;
-    cb[col] = row;
+  temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
 }
+
+@havoc a : array<int>;
+@assume a.size() == 2;
+b = a;
+swap(a, 0, 1);
+@assert a[1] == b[0] && a[0] == b[1];

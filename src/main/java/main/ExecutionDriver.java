@@ -13,6 +13,8 @@ import util.ErrorManager;
 import util.OptionProvider;
 import util.exception.AlkParseException;
 
+import static main.DriverHelper.initManagers;
+
 /**
  * An entry point for a basic execution of one single alk file.
  * The configuration is provided by the command line.
@@ -20,10 +22,6 @@ import util.exception.AlkParseException;
  */
 public class ExecutionDriver
 {
-
-    /** A generated configuration based on other managers */
-    private static Configuration config;
-
     /**
      * Main entry point into the ExecutionDriver
      *
@@ -32,9 +30,10 @@ public class ExecutionDriver
      */
     public static void main(String[] args)
     {
+        Configuration config;
         try
         {
-            initManagers(args);
+            config = initManagers(args, true);
         }
         catch (AlkParseException e)
         {
@@ -50,35 +49,12 @@ public class ExecutionDriver
         else if (config.isDebugger())
         {
             exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
-            // nu stiu
         }
         else
+        {
             exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
+        }
         exec.start();
-    }
-
-    /**
-     * Method used for initializing and linking the managers
-     *
-     * @param args
-     * The command line arguments. Useful when constructing the OptionProvider.
-     */
-    private static void initManagers(String[] args)
-    {
-        // setup the managers
-        AlkConsole io = new AlkConsole(args);
-        ErrorManager em = new ErrorManager();
-        config = new Configuration();
-
-        // setup buffered input
-        IOManager bufferedIO = new BufferedIOWrapper(io);
-
-        // attach interfaces to the managers
-        em.attach(bufferedIO);
-        em.attach((OptionProvider) io);
-        config.attach(em);
-        config.attach(bufferedIO);
-        config.importOptions(io);
     }
 
 }

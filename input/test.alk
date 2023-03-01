@@ -1,40 +1,43 @@
-vertex_cover(e)
-@requires e : array< array<int> >
-@ensures \result : array<boolean>
-@ensures forall i : int :: 0 <= i && i < e.size() && !\result[i] ==> (forall j : int :: 0 <= j && j < e[i].size() ==> \result[e[i][j]])
+partition(out a, l, r)
+@requires a: array<int>
+@requires l: int
+@requires r: int
+@requires 0 <= l && l+2 <= r && r <= a.size()
+@ensures \result: int
+@ensures l <= \result && \result < r
 {
-    @havoc S : array<boolean>;
-    @assume S.size() == e.size();
-
-    for (i = 0; i < e.size(); i++)
-    @invariant 0 <= i && i <= e.size()
-    @modifies i, S
+    pv = a[l];
+    i = l;
+    j = r-1;
+    tmp = a[l];
+    a[l] = a[j];
+    a[j] = tmp;
+    print(a);
+    while (i < j)
+    @invariant l <= i && i <= j && j < r 
     {
-        choose b from {true, false};
-        S[i] = b;
-    }
-
-    @assert S.size() == e.size();
-
-    for (i = 0; i < e.size(); i++)
-    @invariant 0 <= i && i <= e.size()
-    @invariant forall k : int :: 0 <= k && k < i && !S[k] ==> (forall l : int :: 0 <= l && l < e[k].size() ==> S[e[k][l]])
-    @modifies i
-    {
-        if (!S[i])
-        {
-            for (j = 0; j < e[i].size(); j++)
-            @invariant 0 <= j && j <= e[i].size()
-            @invariant forall l : int :: 0 <= l && l < j ==> S[e[i][l]]
-            @modifies j
-            {
-                if (!S[e[i][j]])
-                {
-                    failure;
-                }
-            }
+        if (a[i] <= pv) {
+            i = i+1;
+        } 
+        else if (pv <= a[j-1]) {
+            j = j-1;
         }
-    }
-
-    return S;
+        else {
+            tmp = a[i];
+            a[i] = a[j-1];
+            a[j-1] = tmp;
+            i = i+1;
+            j = j-1;
+        }
+        print(a);
+    }  
+    tmp = a[i];
+    a[i] = a[r-1];
+    a[r-1] = tmp;
+    return i;
 }
+
+/*
+a = [5,3,7,2,6,4];
+k = partition(a, 1, 6);
+*/

@@ -4,7 +4,7 @@ import util.types.Storable;
 
 public class ReturnException extends UnwindException
 {
-    Storable value;
+    private final Storable value;
 
     public ReturnException(String text, Storable value)
     {

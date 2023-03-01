@@ -133,7 +133,6 @@ public class AlkParser
             return null;
         }
         PreProcessing.expandIncludes(context, tree);
-        System.out.println(listener);
         return tree;
     }
 

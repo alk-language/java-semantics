@@ -23,9 +23,14 @@ extends AST
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof DataTypeAST))
-            return false;
+        if (!(o instanceof DataTypeAST)) return false;
         return this.toString().equals(o.toString());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return this.toString().hashCode();
     }
 
     @Override

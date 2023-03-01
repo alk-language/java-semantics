@@ -53,6 +53,7 @@ extends ExpressionAST
     @Override
     public DataTypeAST getDataType(DataTypeProvider dtp)
     {
-        throw new InternalException("Can't detect data type for id: " + getId());
+        return dtp.getDataType(text != null ? text : getAttribute(IdASTAttr.class).getId());
+//        throw new InternalException("Can't detect data type for id: " + getId());
     }
 }

@@ -1,28 +1,15 @@
-queens(n)
-@requires n : int
-@requires 1 <= n
-@ensures \result : array<int>
-@ensures \result.size() == n
-@ensures forall i : int :: 0 <= i && i < n ==> a[i] <= 1
+f(a)
 {
-    @havoc a : array<int>, b : array<int>, c : array<int>, cb : array<int>;
+    return f(a);
+}
 
-    @assume a.size() == n;
-    @assume forall i : int :: 0 <= i && i < n ==> a[i] == 0;
-    @assume cb.size() == 0;
-
-    for (col = 0; col < n; col++)
-    @invariant 0 <= col && col <= n
-    @invariant cb.size() == col;
-    @invariant forall i : int :: 0 <= i && i < n ==> a[i] <= 1
-    @modifies col, a, cb, cb.size
+g(a)
+{
+    if (a == 0)
     {
-        choose row from {0 .. n-1} s.t. a[row] == 0 && b[row + col] == 0 && c[n + (row-col)] == 0;
-        a[row]++;
-        b[row + col]++;
-        c[n + (row-col)]++;
-        cb[col] = row;
+        \result = 1;
+        return;
     }
-
-    return cb;
+    \result = f(a - 1);
+    return;
 }
