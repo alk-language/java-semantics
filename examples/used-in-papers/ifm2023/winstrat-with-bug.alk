@@ -21,10 +21,10 @@ winingStrategy(n)
     return turn;
 }
 
-/*
+
 for (i = 1; i < 10; ++i) {
     w[i-1] = winingStrategy(i);
 }
-*/
-w = winingStrategy(2);
+
+//w = winingStrategy(2);
 

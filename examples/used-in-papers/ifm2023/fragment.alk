@@ -4,3 +4,12 @@ if (L.at(i).key < L.at(j).key && L.at(j).key < k) {
     if (L.at(i).key == k) return i;
 }
 i = i+1;
+
+/*
+The initial state in the command line or Settings:
+L |-> < {key -> 5}, {key -> 8}, {key -> 12}, {key -> 15}, {key -> 24} > 
+n |-> 3 
+k |-> 12
+i |-> 2
+j |-> 1
+*/

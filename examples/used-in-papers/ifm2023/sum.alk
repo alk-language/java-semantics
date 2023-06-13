@@ -28,6 +28,7 @@ print(result)  // Output: 66
 */
 
 // First attempt
+/*
 computeSum(n, m) {
     lst = [2..n];  // Initialize the lst with numbers 2 to n
     for (round = 1; round <= m; ++round) {
@@ -43,9 +44,10 @@ computeSum(n, m) {
         sum = sum + lst[i];  // Compute the sum of all numbers in the lst
     return sum;
 }
+*/
 
 // Fixed version
-/*
+
 computeSum(n, m){
     lst = [2..n];  // Initialize the lst with numbers 2 to n
     for (round = 1; round <= m; ++round) {
@@ -62,7 +64,7 @@ computeSum(n, m){
     }
     return sum;
 }
-*/
+
 // Example usage
 n = 5;
 m = 3;
