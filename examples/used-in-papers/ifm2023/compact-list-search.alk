@@ -4,7 +4,7 @@ COMPACT_LIST_SEARCH(L, n, k)
     while (i < L.size() && L.at(i).key < k) 
     {
         uniform j from [1..n];
-        if (L.at(i).key < L.at(j).key && L.at(j).key < k) {
+        if (L.at(i).key < L.at(j).key && L.at(j).key <= k) {
             i = j;
             if (L.at(i).key == k) return i;
         }
@@ -16,8 +16,11 @@ COMPACT_LIST_SEARCH(L, n, k)
 }
 
 // Uncomment the below lines
-//L = < {key -> 5}, {key -> 8}, {key -> 12}, {key -> 15}, {key -> 24} >;
-//x = COMPACT_LIST_SEARCH(L, 3, 12);
+/*
+n = 3;
+k = 12;
+L = < {key -> 5}, {key -> 8}, {key -> 12}, {key -> 15}, {key -> 24} >;
+*/
 
 x = COMPACT_LIST_SEARCH(L, n, k);
 
