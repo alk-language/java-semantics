@@ -1,7 +1,6 @@
-import execution.Execution;
-import execution.interpreter.BaseStatefulExpressionInterpreter;
-import execution.interpreter.BaseStatefulStmtInterpreter;
-import org.antlr.v4.runtime.CharStream;
+import ro.uaic.info.alk.execution.AlkExecution;
+import ro.uaic.info.alk.execution.interpreter.BaseStatefulExpressionInterpreter;
+import ro.uaic.info.alk.execution.interpreter.BaseStatefulStmtInterpreter;
 import org.antlr.v4.runtime.CharStreams;
 import util.TestingConfiguration;
 
@@ -21,7 +20,7 @@ public class Testing {
     String run(String chapter, String input, int precision)
     {
         TestingConfiguration config = new TestingConfiguration("tests/input/" + chapter + "/" + input + ".alk", precision);
-        Execution exec = new Execution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
+        AlkExecution exec = new AlkExecution(config, new BaseStatefulExpressionInterpreter(), new BaseStatefulStmtInterpreter());
         exec.start();
         try {
             exec.join();

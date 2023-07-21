@@ -1,5 +1,5 @@
 import util.TestingConfiguration;
-import symbolic.SymbolicExpressionEvaluator;
+import ro.uaic.info.alk.symbolic.SymbolicExpressionEvaluator;
 
 public class SymbolicTesting extends Testing
 {

@@ -1,0 +1,23 @@
+last_digit_sum(a, b)
+@requires a : int && b : int
+@ensures \result : int
+@ensures 0 <= \result && \result < 10
+@ensures \result == (\old(a) + \old(b)) % 10
+{
+    return (a + b) % 10;
+}
+
+// === SIMPLE CASES ====
+@assert last_digit_sum(0, 0) == 0;
+@assert last_digit_sum(19, 91) == 0;
+@assert last_digit_sum(0, 1) == 1;
+@assert last_digit_sum(545, 3135417) == 2;
+@assert last_digit_sum(123, 0) == 3;
+@assert last_digit_sum(4454378123456173412, 4454378123456173412) == 4;
+@assert last_digit_sum(123, 612) == 5;
+@assert last_digit_sum(123, 513) == 6;
+@assert last_digit_sum(124, 513) == 7;
+@assert last_digit_sum(4, 4) == 8;
+@assert last_digit_sum(6, 3) == 9;
+
+print("Ok");

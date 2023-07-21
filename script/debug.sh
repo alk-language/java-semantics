@@ -1,4 +1,3 @@
-#!/bin/bash
 
 export CLASSPATH=".:$PWD/../include/antlr-4.7.1-complete.jar:$CLASSPATH"
 alias antlr4="java -jar $PWD/../include/antlr-4.7.1-complete.jar"

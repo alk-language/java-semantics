@@ -1,0 +1,54 @@
+package ro.uaic.info.alk.execution.state.symbolic;
+
+import ro.uaic.info.alk.ast.AST;
+import ro.uaic.info.alk.ast.expr.ExpressionAST;
+import ro.uaic.info.alk.ast.expr.ImpliesAST;
+import ro.uaic.info.alk.ast.type.BoolDataTypeAST;
+import ro.uaic.info.alk.execution.ExecutionPayload;
+import ro.uaic.info.alk.execution.exhaustive.SplitMapper;
+import ro.uaic.info.alk.execution.state.ExecutionState;
+import ro.uaic.info.alk.execution.state.expression.BaseImpliesState;
+import ro.uaic.info.alk.symbolic.SymbolicValue;
+import ro.uaic.info.alk.util.types.Storable;
+
+public class SymbolicImpliesState
+   extends BaseImpliesState
+{
+    public SymbolicImpliesState(AST tree, ExecutionPayload executionPayload)
+    {
+        super(tree, executionPayload);
+    }
+
+    protected boolean checkValue(Storable value)
+    {
+        if (value instanceof SymbolicValue)
+        {
+            ExpressionAST expressionAST = ((ExpressionAST) ((SymbolicValue) value).toAST());
+            return expressionAST.getDataType(getExec().getPathCondition()) instanceof BoolDataTypeAST;
+        }
+        return super.checkValue(value);
+    }
+
+    protected Storable getImplication()
+    {
+        if (lft instanceof SymbolicValue || rgh instanceof SymbolicValue)
+        {
+            SymbolicValue lftsym = SymbolicValue.toSymbolic(lft);
+            SymbolicValue rghsym = SymbolicValue.toSymbolic(rgh);
+
+            AST ast = new ImpliesAST(null);
+            ast.addChild(lftsym.toAST());
+            ast.addChild(rghsym.toAST());
+
+            return new SymbolicValue(ast);
+        }
+        return super.getImplication();
+    }
+
+    @Override
+    public ExecutionState clone(SplitMapper sm)
+    {
+        SymbolicImpliesState copy = new SymbolicImpliesState(tree, payload.clone(sm));
+        return super.decorate(copy, sm);
+    }
+}

@@ -1,9 +1,0 @@
-execution.parser.exceptions.AlkException: Assumption makes the path condition invalid!
-	at execution.state.symbolic.SymbolicAssumeState.interpretResult(SymbolicAssumeState.java:30)
-	at execution.state.SingleState.assign(SingleState.java:44)
-	at execution.state.SingleState.assign(SingleState.java:10)
-	at ast.ASTStack.makeStep(ASTStack.java:93)
-	at ast.ASTStack.run(ASTStack.java:42)
-	at execution.Execution.execute(Execution.java:198)
-	at execution.Execution.run(Execution.java:255)
-Error at [7:0]: Assumption makes the path condition invalid!

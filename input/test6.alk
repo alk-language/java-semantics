@@ -1,15 +1,104 @@
-f(a)
+min(a,  b)
+@requires a : int && b : int
+@requires a >= 0 && b >= 0
+@ensures \result : int
+@ensures \result >= 0
+@ensures \result <= \old(a) && \result <= \old(b)
 {
-    return f(a);
+    if (a < b) {
+        return a;
+    } else {
+        return b;
+    }
 }
 
-g(a)
+sum(a, b)
+@requires a : int && b : int
+@requires a >= 0 && b >= 0
+@ensures \result : int
+@ensures \result >= 0
+@ensures \result == \old(a) + \old(b)
 {
-    if (a == 0)
-    {
-        \result = 1;
-        return;
-    }
-    \result = f(a - 1);
-    return;
+    return a + b;
 }
+
+not(a)
+@requires a : boolean
+@ensures \result : boolean
+@ensures !\old(a) ==> \result
+@ensures \old(a) ==> !\result
+{
+    return !a;
+}
+
+swap(out a, out b)
+@requires a : int
+@requires b : int
+@ensures \old(a) == b && \old(b) == a
+{
+    @var tmp : int;
+
+    tmp = a;
+    a = b;
+    b = tmp;
+}
+
+sum1(n)
+@requires n : int
+@requires n >= 0
+@ensures \result : int
+@ensures \result == \old(n) * (\old(n) + 1) / 2;
+{
+    @var s : int, i : int;
+    s = 0;
+
+    i = 0;
+    while (i <= n)
+    {
+        s = s + i;
+        i = i + 1;
+    }
+
+    return s;
+}
+
+test()
+@ensures \result : int;
+@ensures \result == 4;
+{
+    @var a : array<int>; // Boggie: [int, int]
+    for (i = 0; i <= n; ++i)
+    {
+
+    }
+
+    // ASSIGN_STMT : <left> = <right> ;
+    // INCREMENT: <expr> ++;
+    // ========
+    // ASSING_EXPR : <left> = <RIGHT>
+    // INCREMENT: <left> = <left> + 1;
+
+    a = 2, b = 5;
+
+    for (i = 1; i < 10; i++)
+    {
+
+    }
+
+    while (i <= n)
+    @invariant \forall
+    {
+        ++i; // expression statement => i = i + 1;
+        i = i + 1;
+
+        a = ++i;
+        a = (i = i + 1);
+
+        ++1; // 2
+        1 = 1 + 1;
+    }
+
+    return a + b;
+}
+
+// while -> invariant

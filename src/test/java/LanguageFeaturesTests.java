@@ -1,4 +1,3 @@
-import org.antlr.v4.runtime.CharStream;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

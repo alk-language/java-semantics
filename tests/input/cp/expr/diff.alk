@@ -1,0 +1,57 @@
+/* Difference of two int numbers */
+diff(a, b)
+@requires a : int && b : int
+@ensures \result : int
+@ensures \result == \old(a) - \old(b)
+{
+    return a - b;
+}
+
+/* Difference of two float numbers */
+diff2(a, b)
+@requires a : float && b : float
+@ensures \result : float
+@ensures \result == \old(a) - \old(b)
+{
+    return a - b;
+}
+
+// === SIMPLE CASES - int ====
+@assert diff(52, 138) == -86;
+@assert diff(-52, -138) == 86;
+@assert diff(-52, 138) == -190;
+@assert diff(52, -138) == 190;
+
+// === ZERO CASES - int ====
+@assert diff(0, 0) == 0;
+@assert diff(0, -138) == 138;
+@assert diff(-172, 0) == -172;
+@assert diff(0, 138) == -138;
+@assert diff(172, 0) == 172;
+
+// === BIG INT CASES - int ===
+@assert diff(12764561254675341234, 345761782364721986472891) == -345749017803467311131657;
+@assert diff(-12764561254675341234, -345761782364721986472891) == 345749017803467311131657;
+@assert diff(-12764561254675341234, 345761782364721986472891) == -345774546925976661814125;
+@assert diff(12764561254675341234, -345761782364721986472891) == 345774546925976661814125;
+
+// === SIMPLE CASES - float ====
+@assert diff2(52.2, 138.8) == -86.6;
+@assert diff2(-52.2, -138.8) == 86.6;
+@assert diff2(-52.5, 138.5) == -191.0;
+@assert diff2(52.5, -138.5) == 191.0;
+
+// === ZERO CASES - float ====
+@assert diff2(0.0, 0.0) == 0.0;
+@assert diff2(0, -138.8) == 138.8;
+@assert diff2(-172.3, 0) == -172.3;
+@assert diff2(0, 138.8) == -138.8;
+@assert diff2(172.3, 0) == 172.3;
+
+// === BIG FLOAT CASES - float ===
+@assert diff2(51232.67534, 41321.42093) == 9911.25441;
+@assert diff2(-51232.67534, -41321.42093) == -9911.25441;
+@assert diff2(-51232.67534, 41321.42093) == -92554.09627;
+@assert diff2(51232.67534, -41321.42093) == 92554.09627;
+
+print("Ok");

@@ -1,43 +1,13 @@
-partition(out a, l, r)
-@requires a: array<int>
-@requires l: int
-@requires r: int
-@requires 0 <= l && l+2 <= r && r <= a.size()
-@ensures \result: int
-@ensures l <= \result && \result < r
+min(a,  b)
+@requires a : int && b : int
+@requires a >= 0 && b >= 0
+@ensures \result : int
+@ensures \result >= 0
+@ensures \result <= \old(a) && \result <= \old(b)
 {
-    pv = a[l];
-    i = l;
-    j = r-1;
-    tmp = a[l];
-    a[l] = a[j];
-    a[j] = tmp;
-    print(a);
-    while (i < j)
-    @invariant l <= i && i <= j && j < r 
-    {
-        if (a[i] <= pv) {
-            i = i+1;
-        } 
-        else if (pv <= a[j-1]) {
-            j = j-1;
-        }
-        else {
-            tmp = a[i];
-            a[i] = a[j-1];
-            a[j-1] = tmp;
-            i = i+1;
-            j = j-1;
-        }
-        print(a);
-    }  
-    tmp = a[i];
-    a[i] = a[r-1];
-    a[r-1] = tmp;
-    return i;
+    if (a < b) {
+        return a;
+    } else {
+        return b;
+    }
 }
-
-/*
-a = [5,3,7,2,6,4];
-k = partition(a, 1, 6);
-*/

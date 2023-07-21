@@ -1,11 +1,15 @@
 package util;
 
-import io.IOManager;
+import ro.uaic.info.alk.io.IOManager;
 import org.apache.commons.cli.Options;
+import ro.uaic.info.alk.util.AlkConfiguration;
+import ro.uaic.info.alk.util.ErrorManager;
+import ro.uaic.info.alk.util.OptionProvider;
 
 import java.io.File;
 
-public class TestingConfiguration extends Configuration {
+public class TestingConfiguration extends AlkConfiguration
+{
 
     StringBuilder sb = new StringBuilder();
 
@@ -52,7 +56,7 @@ implements OptionProvider
 
     @Override
     public File getAlkFile() {
-        return new File(alkFile);
+        return alkFile == null ? null : new File(alkFile);
     }
 
     @Override
