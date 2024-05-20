@@ -18,7 +18,7 @@ winingStrategy(n)
     @invariant n == 0 ==> ((\old(n) % 3 == 0 ==> turn == 2) && 
                            (\old(n) % 3 != 0 ==> turn == 1));
     {
-        // the current turn
+        // the current turn 
         choose take from {1,2};
         n = n - take;
         // the next turn

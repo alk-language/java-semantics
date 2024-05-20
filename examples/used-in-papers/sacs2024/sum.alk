@@ -1,10 +1,10 @@
 /*
-User
+User:
 A list initially contains the numbers 2, 3, ..., n.
 At each round, the smallest number in the list is replaced by its square. If there is more than one such number, then only one of them is replaced.
 Write an algorithm, in pseudo-code, that computes the sum of all numbers in the list after m rounds.
 
-ChatGPT
+ChatGPT:
 Here's a pseudo-code algorithm that computes the sum of all numbers in the list after m rounds:
 
 function computeSum(n, m):

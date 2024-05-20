@@ -1,13 +1,13 @@
 /*
     A box contains N matches. Two players take turns taking one or two matches from the box.
     The player, whose turn it is and has no legal move to make, loses. 
-    Who has the winning strategy?
+    Who has the winning strategy? 
 */
 
 /*
     We show first that 
     - if N is a multiple of 3 then the second player has a strategy to win;
-    - otherwise, the first player has one.
+    - otherwise, the first player has one. 
 */
 winingStrategy(n)
 @requires n: int

@@ -12,7 +12,7 @@ winingStrategy(n)
         // the current turn
         choose take from {1,2};
         n = n - take;
-        // the next turn
+        // the next turn 
         turn = 3 - turn;
         take = n % 3;
         n = n - take;

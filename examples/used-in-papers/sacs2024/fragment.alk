@@ -6,7 +6,7 @@ if (L.at(i).key < L.at(j).key && L.at(j).key < k) {
 i = i+1;
 
 /*
-The initial state in the command line or Settings:
+The initial state in the command line or Settings: 
 L |-> < {key -> 5}, {key -> 8}, {key -> 12}, {key -> 15}, {key -> 24} > 
 n |-> 3 
 k |-> 12

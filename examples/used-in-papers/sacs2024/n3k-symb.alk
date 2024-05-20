@@ -1,6 +1,6 @@
 @havoc n: int;
 @assume n % 3 == 0; 
-// the first turn
+// the first turn 
 // choose take from {1,2};
 //  ... symbolically
 @havoc take: int;

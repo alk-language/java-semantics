@@ -15,7 +15,7 @@ COMPACT_LIST_SEARCH(L, n, k)
     else return i; 
 }
 
-// Uncomment the below lines
+// Uncomment the below lines 
 /*
 n = 3;
 k = 12;

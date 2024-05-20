@@ -1,4 +1,5 @@
-/*base(out n)
+/*
+base(out n)
 @requires n: int
 @requires n == 3
 @ensures n == 0
