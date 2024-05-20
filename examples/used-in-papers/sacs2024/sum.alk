@@ -29,6 +29,7 @@ print(result)  // Output: 66
 
 // First attempt
 
+/*
 computeSum(n, m) {
     lst = <2..n>;  // Initialize the lst with numbers 2 to n
     for (round = 1; round <= m; ++round) {
@@ -44,9 +45,16 @@ computeSum(n, m) {
         sum = sum + lst.at(i);  // Compute the sum of all numbers in the lst
     return sum;
 }
+// Example usage
+n = 5;
+m = 3;
+result = computeSum(n, m);
+print(result);  // Expected output: 66
+//Error at [37:16]: The position in the list is out of bounds.
+*/
 
 // Fixed version
-/*
+
 computeSum(n, m){
     lst = <2..n>;  // Initialize the lst with numbers 2 to n
     for (round = 1; round <= m; ++round) {
@@ -62,9 +70,15 @@ computeSum(n, m){
         sum = sum + lst.at(i-1);  // Compute the sum of all numbers in the lst
     return sum;
 }
-*/
+
 // Example usage
 n = 5;
 m = 3;
 result = computeSum(n, m);
-print(result);  // Output: 66
+print(result);  // Expected output: 66
+/*
+26
+result |-> 26
+m |-> 3
+n |-> 5
+*/
