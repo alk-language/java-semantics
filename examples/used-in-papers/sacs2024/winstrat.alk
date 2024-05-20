@@ -9,6 +9,7 @@
     - if N is a multiple of 3 then the second player has a strategy to win;
     - otherwise, the first player has one.
 */
+
 winingStrategy(n) 
 {
     turn = 1;
